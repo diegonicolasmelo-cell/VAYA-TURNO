@@ -1,0 +1,13 @@
+id,nombre,tipo,copias,texto,frase
+A01,Vacaciones,ATAQUE,2,"Elige un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y descártalo.","Quince días hábiles. Aprobados por RR.HH. justo hoy."
+A02,Cumpleaños del Residente,ATAQUE,2,"Cada rival elige uno de sus recursos en juego y te lo entrega. Colócalos sobre tus pacientes.","Trajo torta para todos. Ahora todos le deben algo."
+A03,Reunión Clínica,APOYO,2,"Redistribuye libremente todos los recursos entre TUS pacientes.","Dos horas para decidir lo que ya sabías al minuto cuatro."
+A04,Interconsulta,APOYO,2,"Busca en la pila de descartes 1 carta de Recurso y colócala sobre un paciente tuyo.","Respondió al cuarto día: 'sugiero evaluar'."
+A05,Doblo Turno,APOYO,2,"Roba 3 cartas adicionales. En tu próximo turno robas solo 2.","Me quedo. Total, ya estoy acá."
+A06,Se Cayó el Sistema,CAOS,2,"Durante la próxima ronda completa, ningún jugador puede jugar cartas de Acción.","Estamos trabajando en ello. Lleva tres años el cartel."
+A07,Licencia Médica,ATAQUE,2,"Un rival pierde la Pasiva de su personaje hasta el final de su próximo turno.","Estrés laboral. Nadie se atreve a discutirlo."
+A08,Presión de Camas,ATAQUE,2,"Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Deterioro.","Urgencias tiene doce esperando. Doce."
+A09,Auditoría,ATAQUE,2,"Mira la mano de un rival y descarta 1 carta de ella.","Vengo a acompañar el proceso, no a fiscalizar. (Miente.)"
+A10,Rotación de Internos,CAOS,2,"Intercambia tu mano completa con la de un rival a tu elección.","Nadie sabe quién rota a dónde. Ellos tampoco."
+A11,Café de Enfermería,RESPUESTA,2,"🛡️ RESPUESTA — Juega fuera de turno. Anula una carta de Acción o un Evento Adverso que se acabe de resolver.","Nadie sabe quién lo hizo ni cuándo. Está listo y está caliente."
+A12,Protocolo Institucional,APOYO,2,"Copia el efecto de la última carta de Acción jugada en la partida, como si la jugaras tú.","Está en la intranet. En un PDF. En una carpeta. En algún lado."
