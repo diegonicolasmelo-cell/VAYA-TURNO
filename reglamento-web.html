@@ -1,0 +1,459 @@
+<title>¡Vaya Turno!</title>
+<style>
+/* ─── Tokens: paleta clínica fría, acento cian de monitor ─────────────── */
+:root{
+  --papel:#eef2f4; --ficha:#ffffff; --tinta:#0f1c24; --tenue:#5a6f7c;
+  --linea:#cdd8de; --linea-fuerte:#a8b8c1;
+  --acento:#00757f; --acento-suave:#e0eff0;
+  --verde:#3c8760; --ambar:#b8801a; --rojo:#b03d29; --negro:#16232b;
+  --tag-tinta:#ffffff;
+  --sombra:0 1px 0 rgba(15,28,36,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --papel:#0a1116; --ficha:#111c23; --tinta:#dde7ec; --tenue:#8ba3af;
+    --linea:#243440; --linea-fuerte:#38505e;
+    --acento:#3fbcc4; --acento-suave:#102a2e;
+    --verde:#5cb583; --ambar:#dda43c; --rojo:#e0705a; --negro:#c4d4dd;
+    --tag-tinta:#0a1116;
+    --sombra:0 1px 0 rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#0a1116; --ficha:#111c23; --tinta:#dde7ec; --tenue:#8ba3af;
+  --linea:#243440; --linea-fuerte:#38505e;
+  --acento:#3fbcc4; --acento-suave:#102a2e;
+  --verde:#5cb583; --ambar:#dda43c; --rojo:#e0705a; --negro:#c4d4dd;
+  --tag-tinta:#0a1116;
+  --sombra:0 1px 0 rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font:400 17px/1.62 Georgia,"Iowan Old Style","Times New Roman",serif;
+  -webkit-font-smoothing:antialiased;
+}
+.env{max-width:50rem;margin:0 auto;padding:0 1.5rem 6rem}
+
+/* ─── Tipografía: sans para titulares, mono para datos ────────────────── */
+h1,h2,h3,.mono,.tag,.eyebrow,th,.num,.vit b{
+  font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+}
+.mono,.num,.stat,.tag{
+  font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  font-variant-numeric:tabular-nums;
+}
+h2{
+  font-size:1.06rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  margin:0;padding-bottom:.55rem;border-bottom:2px solid var(--tinta);
+  text-wrap:balance;
+}
+h3{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--acento)}
+section{display:flex;flex-direction:column;gap:1.15rem;margin-top:3.6rem}
+.eyebrow{
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--tenue);
+}
+
+/* ─── Cabecera con trazo de monitor ───────────────────────────────────── */
+header{padding:3.5rem 0 0}
+.marca{
+  font-size:clamp(2.6rem,9vw,4.4rem);font-weight:800;letter-spacing:-.035em;
+  line-height:.92;margin:0;text-wrap:balance;
+}
+.marca em{font-style:normal;color:var(--acento)}
+.bajada{
+  margin-top:1.1rem;font-size:1.16rem;line-height:1.5;color:var(--tenue);
+  max-width:34rem;
+}
+.ecg{display:block;width:100%;height:44px;margin:1.6rem 0 0;overflow:visible}
+.ecg path{
+  fill:none;stroke:var(--acento);stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1400;stroke-dashoffset:1400;
+  animation:trazo 2.4s cubic-bezier(.4,0,.25,1) .15s forwards;
+}
+@keyframes trazo{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  .ecg path{animation:none;stroke-dashoffset:0}
+}
+
+/* ─── Franja de constantes ────────────────────────────────────────────── */
+.vitales{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));
+  gap:1px;background:var(--linea);border:1px solid var(--linea);
+  margin-top:.2rem;
+}
+.vit{background:var(--ficha);padding:.7rem .85rem}
+.vit span{
+  display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tenue);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight:700;margin-bottom:.2rem;
+}
+.vit b{font-size:1.12rem;font-weight:700;letter-spacing:-.02em}
+
+/* ─── Bloques ─────────────────────────────────────────────────────────── */
+.caja{background:var(--ficha);border:1px solid var(--linea);padding:1.15rem 1.3rem;box-shadow:var(--sombra)}
+.nota{
+  border-left:3px solid var(--acento);background:var(--acento-suave);
+  padding:.9rem 1.1rem;font-size:.95rem;line-height:1.55;
+}
+.nota b{font-weight:700}
+
+/* ─── Secuencia del turno: el orden es la información ─────────────────── */
+.fases{display:flex;flex-direction:column;border:1px solid var(--linea);background:var(--ficha)}
+.fase{display:grid;grid-template-columns:3.1rem 1fr;gap:1rem;padding:1rem 1.2rem;align-items:start}
+.fase+.fase{border-top:1px solid var(--linea)}
+.num{
+  font-size:1.5rem;font-weight:700;line-height:1;color:var(--acento);
+  padding-top:.05rem;
+}
+.fase h3{margin-bottom:.35rem}
+.fase p{font-size:.96rem;line-height:1.55}
+.fase p+p{margin-top:.5rem}
+
+/* ─── Etiquetas de triage: colores reales de clasificación ────────────── */
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+.scroll{overflow-x:auto;border:1px solid var(--linea);background:var(--ficha)}
+th{
+  text-align:left;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--tenue);font-weight:700;padding:.7rem .85rem;
+  border-bottom:1px solid var(--linea-fuerte);white-space:nowrap;
+}
+td{padding:.72rem .85rem;border-bottom:1px solid var(--linea);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
+     font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{
+  display:inline-block;min-width:2.4rem;text-align:center;
+  padding:.2rem .45rem;font-size:.74rem;font-weight:700;letter-spacing:.06em;
+  color:var(--tag-tinta);
+}
+.t1{background:var(--verde)} .t2{background:var(--ambar)}
+.t3{background:var(--rojo)}  .t4{background:var(--negro)}
+
+/* ─── Recursos ────────────────────────────────────────────────────────── */
+.recursos{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:1px;
+          background:var(--linea);border:1px solid var(--linea)}
+.rec{background:var(--ficha);padding:.95rem 1rem;display:flex;flex-direction:column;gap:.2rem}
+.rec .g{font-size:1.5rem;line-height:1.1}
+.rec b{font-size:.95rem;font-weight:700;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.rec span{font-size:.82rem;color:var(--tenue);line-height:1.4}
+
+/* ─── Personajes ──────────────────────────────────────────────────────── */
+.gente{display:flex;flex-direction:column;gap:1px;background:var(--linea);border:1px solid var(--linea)}
+.pj{background:var(--ficha);padding:1.05rem 1.2rem;display:flex;flex-direction:column;gap:.45rem}
+.pj .cita{font-size:.9rem;font-style:italic;color:var(--tenue);line-height:1.45}
+.pj dl{margin:0;display:flex;flex-direction:column;gap:.4rem;font-size:.93rem;line-height:1.5}
+.pj dt{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:.63rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tenue);
+}
+.pj dd{margin:0}
+
+/* ─── Chuleta ─────────────────────────────────────────────────────────── */
+.chuleta{background:var(--tinta);color:var(--papel);padding:1.5rem 1.6rem}
+.chuleta h2{color:var(--papel);border-bottom-color:var(--papel)}
+.chuleta ol{margin:1.2rem 0 0;padding:0;list-style:none;
+            display:flex;flex-direction:column;gap:.6rem;
+            font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9rem;line-height:1.45}
+.chuleta li{display:grid;grid-template-columns:1.4rem 6.5rem 1fr;gap:.7rem}
+.chuleta li i{font-style:normal;opacity:.55}
+.chuleta li b{font-weight:700;letter-spacing:.04em}
+.chuleta li span{opacity:.85}
+
+.pie{margin-top:4rem;padding-top:1.4rem;border-top:1px solid var(--linea);
+     font-size:.85rem;color:var(--tenue);line-height:1.6}
+@media (max-width:34rem){
+  body{font-size:16px}
+  .chuleta li{grid-template-columns:1.3rem 1fr;}
+  .chuleta li span{grid-column:2}
+}
+</style>
+
+<div class="env">
+
+<header>
+  <p class="eyebrow">Reglamento · versión 0.9 · listo para playtest</p>
+  <h1 class="marca">¡Vaya <em>turno</em>!</h1>
+  <p class="bajada">Un juego de cartas sobre salvar pacientes, no salvarlos a
+  todos, y arruinarle el turno al colega de al lado.</p>
+  <svg class="ecg" viewBox="0 0 1200 44" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 22 H180 l14 0 6 -3 8 6 10 -20 12 38 10 -21 8 0 H420 l14 0 6 -3 8 6
+             10 -20 12 38 10 -21 8 0 H660 l14 0 6 -3 8 6 10 -20 12 38 10 -21 8 0
+             H900 l14 0 6 -3 8 6 10 -20 12 38 10 -21 8 0 H1200"/>
+  </svg>
+  <div class="vitales">
+    <div class="vit"><span>Jugadores</span><b>2–4</b></div>
+    <div class="vit"><span>Duración</span><b>30–45 min</b></div>
+    <div class="vit"><span>Cartas</span><b>134</b></div>
+    <div class="vit"><span>Camas por UCI</span><b>3</b></div>
+  </div>
+</header>
+
+<section>
+  <h2>La idea en 30 segundos</h2>
+  <p>Eres médico a cargo de una UCI de tres camas. Los pacientes llegan solos,
+  se deterioran solos y no esperan. Para salvarlos necesitas cuatro cosas que
+  nunca hay al mismo tiempo: <b>imágenes, fármacos, personal y monitoreo</b>.</p>
+  <p>No vas a poder salvarlos a todos. Eso no es un defecto del juego:
+  <b>eso es triage</b>. Elige a quién salvas, deja ir al resto con dignidad y —
+  mientras tanto — manda a la enfermera del rival de vacaciones justo antes de
+  que dé un alta.</p>
+  <p>Gana quien tenga más puntos al terminar la guardia.</p>
+</section>
+
+<section>
+  <h2>Preparación</h2>
+  <ol style="margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:.55rem">
+    <li>Cada jugador elige un <b>Personaje</b> y deja sitio para sus <b>3 camas</b>.</li>
+    <li>Baraja el <b>Mazo de Pacientes</b>. Cada jugador admite 3 pacientes y les
+        pone las fichas de vida que indique la carta.</li>
+    <li>Baraja el <b>Mazo de Guardia</b> (recursos y acciones, todo junto).</li>
+    <li>Deja el <b>Mazo de Eventos Adversos</b> aparte. Nunca se roba por voluntad propia.</li>
+    <li>Cada jugador roba <b>4 cartas</b> de mano inicial.</li>
+    <li>Empieza quien haya hecho el turno de noche más reciente.</li>
+  </ol>
+  <div class="scroll"><table>
+    <thead><tr><th>Jugadores</th><th class="n">Camas</th><th class="n">Robo/turno</th><th class="n">Rondas</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>2</td><td class="n">3</td><td class="n">5</td><td class="n">8</td><td>Los ataques duelen el doble. Es a propósito.</td></tr>
+      <tr><td><b>3</b></td><td class="n">3</td><td class="n">5</td><td class="n">8</td><td><b>Configuración recomendada</b></td></tr>
+      <tr><td>4</td><td class="n">2</td><td class="n">4</td><td class="n">10</td><td>Menos camas y menos robo: los turnos vuelan.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Los pacientes</h2>
+  <p>Cada paciente llega con un contador de vida que baja <b>1 por cada turno
+  tuyo</b>. Si llega a cero, fallece. Antes de eso tienes que reunir encima de
+  su carta todos los recursos que exige.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Gravedad</th><th class="n">Vida</th><th class="n">Recursos</th><th class="n">Alta</th><th class="n">Fallece</th><th class="n">Cartas</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag t1">I</span> Observación</td><td class="n">7</td><td class="n">3</td><td class="n">+2</td><td class="n">−1</td><td class="n">8</td></tr>
+      <tr><td><span class="tag t2">II</span> Grave</td><td class="n">6</td><td class="n">5</td><td class="n">+3</td><td class="n">−2</td><td class="n">10</td></tr>
+      <tr><td><span class="tag t3">III</span> Crítico</td><td class="n">5</td><td class="n">7</td><td class="n">+5</td><td class="n">−2</td><td class="n">6</td></tr>
+      <tr><td><span class="tag t4">★</span> Código Rojo</td><td class="n">4</td><td class="n">8</td><td class="n">+8</td><td class="n">−3</td><td class="n">2</td></tr>
+    </tbody>
+  </table></div>
+  <div class="nota"><b>Estabilizado.</b> En cuanto un paciente tiene todos los
+  recursos que pide, se detiene su contador — pero <b>no se va todavía</b>.
+  Tiene que sobrevivir una ronda completa de consolidación antes de que puedas
+  darle de alta. Esa ronda, quieto y a la vista de todos, es donde se rompen
+  las amistades.</div>
+  <p>Si un paciente estabilizado pierde un recurso por cualquier motivo y deja
+  de cumplir sus requisitos, <b>pierde el estado al instante</b> y vuelve a
+  deteriorarse. Los recursos que le sobren hacen de colchón.</p>
+</section>
+
+<section>
+  <h2>El turno</h2>
+  <p>Seis fases, siempre en este orden. Una ronda son los turnos de todos.</p>
+  <div class="fases">
+    <div class="fase"><div class="num">1</div><div>
+      <h3>Deterioro</h3>
+      <p>Cada paciente tuyo que no esté estabilizado pierde 1 de vida. A cero
+      fallece: descarta la carta y sus recursos, y anota la penalización.</p>
+    </div></div>
+    <div class="fase"><div class="num">2</div><div>
+      <h3>Alta</h3>
+      <p>Los pacientes que llevaban estabilizados desde antes de tu turno
+      anterior se van de alta. Anota sus puntos; la cama queda libre.</p>
+    </div></div>
+    <div class="fase"><div class="num">3</div><div>
+      <h3>Admisión</h3>
+      <p>Por cada cama vacía, revela 2 pacientes del mazo, admite 1 y devuelve
+      el otro al fondo. Los recién llegados no se deterioran este turno.</p>
+      <p>No puedes dejar camas vacías. Nunca ha habido una cama vacía en una
+      UCI y no la va a haber acá.</p>
+    </div></div>
+    <div class="fase"><div class="num">4</div><div>
+      <h3>Guardia</h3>
+      <p>Roba 5 cartas del Mazo de Guardia (4 si juegan cuatro personas).</p>
+      <p>Si robas una carta con el símbolo <b>⚠️ Complicación</b>, quédatela —
+      es un recurso normal — pero roba de inmediato 1 Evento Adverso y
+      resuélvelo. Sí: la carta que te salva te trae el problema.</p>
+    </div></div>
+    <div class="fase"><div class="num">5</div><div>
+      <h3>Acción</h3>
+      <p>Juega <b>todos los recursos que quieras</b> sobre tus pacientes, pero
+      <b>como máximo 1 carta de Acción</b>. El límite es de veneno, no de
+      trabajo clínico.</p>
+    </div></div>
+    <div class="fase"><div class="num">6</div><div>
+      <h3>Cierre</h3>
+      <p>Descarta hasta quedarte con 5 cartas en mano y pasa el turno.</p>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Los cuatro recursos</h2>
+  <p>Sesenta cartas en el Mazo de Guardia. Doce de ellas llevan el símbolo
+  ⚠️ que dispara un Evento Adverso al robarlas.</p>
+  <div class="recursos">
+    <div class="rec"><div class="g">🩻</div><b>Imagen</b><span>Radiografía, TAC, ecografía a pie de cama, la resonancia con cupo.</span></div>
+    <div class="rec"><div class="g">💊</div><b>Fármacos</b><span>Antibióticos, vasoactivos, sedoanalgesia, hemoderivados.</span></div>
+    <div class="rec"><div class="g">🧑‍⚕️</div><b>Personal</b><span>Enfermería, técnicos, kinesiología y algún interno entusiasta.</span></div>
+    <div class="rec"><div class="g">📈</div><b>Monitoreo</b><span>Línea arterial, catéter central, capnografía, ecocardio.</span></div>
+  </div>
+  <p><b>Personal</b> es el más escaso en relación a lo que se pide, y no es
+  casualidad: es el único tipo que las cartas de ataque pueden destruir.</p>
+</section>
+
+<section>
+  <h2>Acciones y eventos adversos</h2>
+  <p>El Mazo de Guardia trae <b>24 cartas de Acción</b> mezcladas entre los
+  recursos. Una por turno, y ahí está el juego social:</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Carta</th><th>Qué hace</th></tr></thead>
+    <tbody>
+      <tr><td><b>Vacaciones</b></td><td>Descarta un recurso Personal de un paciente rival.</td></tr>
+      <tr><td><b>Cumpleaños del Residente</b></td><td>Cada rival te regala un recurso suyo, el que él elija.</td></tr>
+      <tr><td><b>Reunión Clínica</b></td><td>Redistribuye libremente los recursos entre tus pacientes.</td></tr>
+      <tr><td><b>Interconsulta</b></td><td>Rescata un recurso del descarte y ponlo sobre un paciente tuyo.</td></tr>
+      <tr><td><b>Auditoría</b></td><td>Mira la mano de un rival y descarta una carta de ella.</td></tr>
+      <tr><td><b>Se Cayó el Sistema</b></td><td>Nadie puede jugar Acciones durante la próxima ronda.</td></tr>
+      <tr><td><b>Rotación de Internos</b></td><td>Intercambia tu mano completa con la de un rival.</td></tr>
+      <tr><td><b>Café de Enfermería</b></td><td>Anula una Acción o un Evento. Se juega fuera de turno.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Los <b>18 Eventos Adversos</b> viven en un mazo aparte y solo se roban
+  cuando algo te obliga. Van desde perder dos de vida por una neumonía
+  asociada a ventilación mecánica hasta descartar todos los fármacos de un
+  paciente por una alergia que estaba consignada en la ficha antigua, en papel.</p>
+  <div class="nota">Si un evento no se puede aplicar — te pide descartar un
+  fármaco y el paciente no tiene ninguno — <b>no pasa nada</b>. No se
+  sustituye por otro efecto.</div>
+</section>
+
+<section>
+  <h2>Los seis personajes</h2>
+  <p>Cada uno tiene una pasiva permanente y un Turno Extra que se usa
+  <b>una sola vez por partida</b>.</p>
+  <div class="gente">
+
+    <div class="pj">
+      <h3>La Intensivista</h3>
+      <p class="cita">«Dormí veinte minutos y estoy perfecta. No me mires así.»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>En tu fase de Deterioro, elige un paciente: no pierde vida este turno.</dd>
+        <dt>Turno extra · Código Azul</dt><dd>Devuelve a 1 de vida un paciente tuyo que haya fallecido en esta ronda. Recupera su carta y sus recursos del descarte.</dd>
+      </dl>
+    </div>
+
+    <div class="pj">
+      <h3>El Infectólogo</h3>
+      <p class="cita">«¿Tomaron los cultivos ANTES del antibiótico? ¿Antes?»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>Inmune a eventos infecciosos. Una vez por turno, revela cartas del mazo hasta encontrar un antibiótico: quédatelo y descarta el resto.</dd>
+        <dt>Turno extra · Terapia Dirigida</dt><dd>Un paciente tuyo cuenta como si ya tuviera todos los fármacos que pide.</dd>
+      </dl>
+    </div>
+
+    <div class="pj">
+      <h3>La Terapeuta Respiratoria</h3>
+      <p class="cita">«Eso no es un pulmón. Eso es una esponja mojada.»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>Inmune a eventos respiratorios.</dd>
+        <dt>Turno extra · Weaning Exitoso</dt><dd>Durante este turno tus recursos de monitoreo cuentan como imagen y viceversa.</dd>
+      </dl>
+    </div>
+
+    <div class="pj">
+      <h3>El Residente de Turno</h3>
+      <p class="cita">«Llevo treinta horas acá. ¿Qué día es? No, en serio.»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>Robas una carta adicional cada turno, pero tu mano máxima es 4 en vez de 5.</dd>
+        <dt>Turno extra · Guardia de 36 Horas</dt><dd>Toma un turno completo extra ahora. Después sáltate tu siguiente turno entero — y tus pacientes sí se deterioran en él.</dd>
+      </dl>
+    </div>
+
+    <div class="pj">
+      <h3>La Enfermera Coordinadora</h3>
+      <p class="cita">«Sin mí esta unidad se cae en cuatro minutos. Y ustedes lo saben.»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>Tus recursos de Personal no pueden ser robados, descartados ni movidos por cartas de rivales.</dd>
+        <dt>Turno extra · Reasignación</dt><dd>Mueve libremente todos los recursos entre tus pacientes.</dd>
+      </dl>
+    </div>
+
+    <div class="pj">
+      <h3>El Jefe de Servicio</h3>
+      <p class="cita">«Hay presupuesto. Para el cóctel de fin de año hay.»</p>
+      <dl>
+        <dt>Pasiva</dt><dd>Una vez por turno, descarta una carta y roba dos.</dd>
+        <dt>Turno extra · No Está en el Protocolo</dt><dd>Anula cualquier Acción o Evento Adverso, la juegue quien la juegue. Puede usarse fuera de tu turno.</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Puntuación y fin de la guardia</h2>
+  <p>La partida termina al final de la ronda 8 — la 10 si juegan cuatro — o
+  antes si se agota el Mazo de Pacientes. Los pacientes que quedan en cama no
+  puntúan: ni bien ni mal. Quedan para la próxima guardia.</p>
+  <div class="caja">
+    <p class="mono" style="font-size:.95rem;line-height:1.9">
+      + puntos de cada paciente dado de <b>alta</b><br>
+      −&nbsp;penalización de cada <b>fallecido</b><br>
+      +&nbsp;<b>3</b> si terminas sin ningún fallecido &nbsp;<i>(Guardia Limpia)</i><br>
+      <span style="display:inline-block;border-top:1px solid var(--linea-fuerte);margin-top:.5rem;padding-top:.5rem">= tu puntaje</span>
+    </p>
+  </div>
+  <p>Terminar una guardia sin perder a nadie ocurre alrededor del <b>10%</b> de
+  las veces. Por eso vale tres puntos y por eso se cuenta después.</p>
+  <p><b>Desempates</b>, en orden: menos fallecidos; más altas de gravedad III o
+  Código Rojo; más pacientes vivos aún en cama.</p>
+  <div class="nota"><b>Regla de oro de las discusiones.</b> Si la mesa no se
+  pone de acuerdo en cómo se resuelve algo, vale la interpretación que más
+  perjudique al jugador que va ganando. Ha funcionado en comités clínicos
+  durante décadas.</div>
+</section>
+
+<section>
+  <h2>Variantes</h2>
+  <div class="gente">
+    <div class="pj"><h3>Guardia Corta · 25 min</h3>
+      <p style="font-size:.95rem">Seis rondas en vez de ocho. No se aplica el bonus de Guardia Limpia: con tan pocas rondas terminar sin fallecidos deja de ser una hazaña.</p></div>
+    <div class="pj"><h3>Turno de Noche</h3>
+      <p style="font-size:.95rem">Fuera las cartas de ataque. Baja el caos y sube el peso de la gestión clínica. Para grupos que van a compartir turno de verdad mañana.</p></div>
+    <div class="pj"><h3>Modo Brote · cooperativo</h3>
+      <p style="font-size:.95rem">Una sola UCI de seis camas entre todos, dos Eventos Adversos por ronda. Ganan si llegan a 25 puntos sin superar cinco fallecidos.</p></div>
+    <div class="pj"><h3>Modo Cruel</h3>
+      <p style="font-size:.95rem">Los recursos sobrantes ya no hacen de colchón: quitarle cualquier recurso a un paciente estabilizado le hace perder el estado igual.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="chuleta">
+    <h2>Chuleta</h2>
+    <ol>
+      <li><i>1</i><b>DETERIORO</b><span>Cada paciente no estabilizado pierde 1 de vida. A cero, fallece.</span></li>
+      <li><i>2</i><b>ALTA</b><span>Los estabilizados que sobrevivieron una ronda completa se van.</span></li>
+      <li><i>3</i><b>ADMISIÓN</b><span>Por cada cama vacía, revela 2 pacientes y elige 1.</span></li>
+      <li><i>4</i><b>GUARDIA</b><span>Roba 5 cartas. Cada ⚠️ dispara un Evento Adverso al instante.</span></li>
+      <li><i>5</i><b>ACCIÓN</b><span>Recursos, los que quieras. Acciones, máximo una.</span></li>
+      <li><i>6</i><b>CIERRE</b><span>Descarta hasta 5 cartas en mano.</span></li>
+    </ol>
+  </div>
+</section>
+
+<p class="pie">
+  <b>¡Vaya Turno!</b> v0.9 · 134 cartas · 26 pacientes, 60 recursos, 24 acciones,
+  18 eventos adversos, 6 personajes.<br>
+  Los números están calibrados sobre 2.000 partidas simuladas por configuración:
+  un jugador competente salva cerca del 60% de sus pacientes, con unas 2,4 altas
+  y 1,5 fallecidos por guardia. Las cartas, el simulador de balance y el
+  print-and-play viven en el repositorio del proyecto.
+</p>
+
+</div>
