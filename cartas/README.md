@@ -7,10 +7,11 @@ cómo se juegan; acá están los números exactos. Todo en UTF-8, con encabezado
 |---|---:|---:|
 | `pacientes.csv` | 26 | 26 |
 | `recursos.csv` | 34 | 60 |
-| `acciones.csv` | 12 | 24 |
+| `acciones.csv` | 13 | 25 |
 | `eventos.csv` | 18 | 18 |
 | `personajes.csv` | 6 | 6 |
-| | | **134** |
+| `sumarios.csv` | 1 | 6 |
+| | | **141** |
 
 La columna **`copias`** dice cuántas veces se imprime cada fila.
 
@@ -33,7 +34,7 @@ La columna **`copias`** dice cuántas veces se imprime cada fila.
 | Columna | Qué es |
 |---|---|
 | `tipo` | `IMAGEN`, `FARMACOS`, `PERSONAL`, `MONITOREO` |
-| `etiqueta` | Subtipo al que apuntan algunas cartas (`ANTIBIOTICO` lo busca el Infectólogo). Vacío = sin subtipo. |
+| `etiqueta` | Subtipo al que pueden apuntar cartas o habilidades (ej. `ANTIBIOTICO`, `ENFERMERIA`). Vacío = sin subtipo. |
 | `complicacion` | `si` = lleva el símbolo ⚠️. Al robarla, robas un Evento Adverso. **12 de las 60.** |
 
 Algunas cartas aparecen en dos filas con el mismo nombre: es la misma carta,
@@ -41,14 +42,14 @@ pero una tirada lleva ⚠️ y la otra no.
 
 ### `acciones.csv`
 
-`tipo` es `ATAQUE`, `APOYO`, `CAOS` o `RESPUESTA`. Solo importa para dos
+`tipo` es `ATAQUE`, `APOYO`, `CAOS`, `RESPUESTA` o `EXTREMA` (la Pelada, única). Solo importa para dos
 reglas: la variante *Turno de Noche* prohíbe los `ATAQUE`, y las `RESPUESTA`
 se pueden jugar fuera de turno.
 
 ### `eventos.csv`
 
-`categoria` es `RESPIRATORIO`, `INFECCIOSO` o `GENERAL`. Los personajes con
-inmunidad la comparan contra este campo.
+`categoria` es `RESPIRATORIO`, `INFECCIOSO` o `GENERAL`. Hoy es informativa;
+queda reservada para inmunidades de futuros avatares o expansiones.
 
 ---
 
@@ -60,7 +61,7 @@ python3 tools/generar_pnp.py --solo pacientes   # un mazo suelto
 ```
 
 Salen cartas de **63×88 mm** (tamaño estándar, entra en fundas de Magic),
-9 por hoja A4, 16 hojas. Cada carta reserva un marco punteado para la
+9 por hoja A4. Cada carta reserva un marco punteado para la
 ilustración.
 
 Al imprimir: **A4, márgenes mínimos, y activa "gráficos de fondo"** o las

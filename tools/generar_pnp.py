@@ -130,15 +130,25 @@ def carta_evento(e):
 
 
 def carta_personaje(c):
-    inm = (f'<div class="et">INMUNE · {E(c["inmunidad"])}</div>'
-           if c["inmunidad"] else "")
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(c['nombre'])}</div>
-    <div class="tipo">Personaje</div>{inm}</div></div>
+    <div class="tipo">Personaje</div>
+    <div class="et">{E(c['frecuencia'])}</div></div></div>
   <div class="banda" style="background:#14202b"></div>
-  <div class="hab"><b>Pasiva</b>{E(c['pasiva'])}</div>
-  <div class="hab"><b>Turno Extra · 1×partida</b>{E(c['turno_extra'])}</div>
+  <div class="hab">{E(c['habilidad'])}</div>
+  <div class="arte">ilustración</div>
   <div class="pie"><div class="frase">{E(c['frase'])}</div></div>
+</div>"""
+
+
+def carta_sumario(x):
+    return f"""<div class="carta">
+  <div class="cab"><div><div class="nombre">{E(x['nombre'])}</div>
+    <div class="tipo">Maldición</div></div></div>
+  <div class="banda" style="background:#7a5c12"></div>
+  <div class="cuerpo">{E(x['texto'])}</div>
+  <div class="arte">ilustración</div>
+  <div class="pie"><div class="frase">{E(x['frase'])}</div></div>
 </div>"""
 
 
@@ -148,6 +158,7 @@ MAZOS = {
     "acciones":   ("Acciones",        "acciones.csv",   carta_accion),
     "eventos":    ("Eventos Adversos", "eventos.csv",   carta_evento),
     "personajes": ("Personajes",      "personajes.csv", carta_personaje),
+    "sumarios":   ("Sumarios",        "sumarios.csv",   carta_sumario),
 }
 
 

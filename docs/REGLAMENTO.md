@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.9 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.10 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -26,12 +26,14 @@ Gana quien tenga **más puntos** al terminar la guardia.
 |---|---:|---|
 | Cartas de **Personaje** | 6 | Un médico por jugador |
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
-| Cartas de **Recurso** | 60 | 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Monitoreo |
-| Cartas de **Acción** | 24 | 12 diseños × 2 copias |
+| Cartas de **Recurso** | 60 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Monitoreo |
+| Cartas de **Protocolo** (Acciones) | 25 | Mazo aparte. Se compran con el **Canje** |
 | Cartas de **Evento Adverso** | 18 | Mazo aparte. Solo se roba cuando algo lo obliga |
+| Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
 | Fichas de **Estabilizado** (✅) | 12 | 3 por jugador |
-| Fichas de **Cruz** (✝️) | 20 | Marcan fallecidos |
+| Fichas de **Cruz** (✝️) | 20 | Marcan las Altas Celestiales |
+| **Moneda** | 1 | Para la Pelada. Cualquier moneda sirve |
 | **Marcador de Ronda** | 1 | Pista de 10 rondas |
 
 > Con los CSV de `cartas/` y `tools/generar_pnp.py` tienes un print-and-play
@@ -45,7 +47,8 @@ Gana quien tenga **más puntos** al terminar la guardia.
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.3, *Admisión*) y les pone las fichas ❤️ que indique la carta.
-3. Baraja el **Mazo de Guardia** (Recursos + Acciones, todo junto).
+3. Baraja el **Mazo de Guardia** (los 60 Recursos, con sus ⚠️ adentro).
+   Baraja aparte el **Mazo de Protocolos** (las 25 Acciones).
 4. Deja el **Mazo de Eventos Adversos** aparte, boca abajo. **Nunca se roba
    por voluntad propia.**
 5. Cada jugador roba **4 cartas** de mano inicial.
@@ -56,12 +59,12 @@ Gana quien tenga **más puntos** al terminar la guardia.
 
 | Jugadores | Camas c/u | Robo por turno | Rondas | Nota |
 |---|---:|---:|---:|---|
-| 2 | 3 | 5 | 8 | Los ataques duelen el doble. Es a propósito. |
-| 3 | 3 | 5 | 8 | **Configuración recomendada** |
-| 4 | 2 | **4** | 10 | Menos camas y menos robo: los turnos vuelan |
+| 2 | 3 | 4 | 8 | Los ataques duelen el doble. Es a propósito. |
+| 3 | 3 | 4 | 8 | **Configuración recomendada** |
+| 4 | 2 | **3** | 10 | Menos camas y menos robo: los turnos vuelan |
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
-> competente salva ~60% de sus pacientes: unas **2,4 altas y 1,5
+> competente salva ~65% de sus pacientes: unas **2,5 altas y 1,4
 > fallecidos** por guardia. Si tu mesa se aleja mucho de eso, revisa
 > `docs/DISENO.md` §4 antes de cambiar nada.
 
@@ -107,8 +110,16 @@ todos los jugadores.
 
 Cada paciente en tu UCI que **no** esté ✅ Estabilizado pierde **1 ❤️**.
 
-Si un paciente llega a **0 ❤️** → **fallece**. Descarta la carta y todos sus
+Si un paciente llega a **0 ❤️** → recibe el **Alta Celestial**. Se le cursó
+el alta hacia el piso que está sobre las nubes: descarta la carta y todos sus
 recursos, pon una ✝️ frente a ti y anota su penalización. La cama queda vacía.
+
+**Y llega el papeleo:** toma una carta de **Sumario Administrativo**. Queda en
+tu mano, no se puede jugar ni descartar, y **reduce tu límite de mano en 1**.
+Para cerrar el caso: en tu fase de Acción, descarta 2 recursos de tu mano —
+o consigue que el Director del Hospital haga desaparecer el expediente.
+
+> Lo peor de perder un paciente no es perder los puntos. Es el formulario.
 
 ### 5.2 Alta
 
@@ -136,7 +147,7 @@ Coloca las fichas ❤️ que indique la carta. Los pacientes recién admitidos
 
 ### 5.4 Guardia (robo)
 
-Roba **5 cartas** del Mazo de Guardia (**4** en partidas de 4 jugadores).
+Roba **4 cartas** del Mazo de Guardia (**3** en partidas de 4 jugadores).
 
 **Si robas una carta con el símbolo ⚠️ Complicación:** quédate la carta
 (es un recurso normal), pero **inmediatamente** roba 1 carta del Mazo de
@@ -150,11 +161,15 @@ Si el Mazo de Guardia se agota, baraja el descarte y forma uno nuevo.
 
 - **Recursos:** juega **todos los que quieras**. Colócalos sobre **tus**
   pacientes.
-- **Acciones:** juega **como máximo 1 por turno**. Resuelve su texto y
-  descártala.
+- **El Canje** (máx. 1 por turno): descarta **2 recursos** de tu mano y roba
+  **1 carta del Mazo de Protocolos**. Así se consiguen las Acciones: cambiando
+  lo que te sobra por un favor.
+- **Acciones:** juega **como máximo 1 por turno**. Cuestan 0 — ya pagaste al
+  conseguirla. Resuelve su texto y descártala.
+- **Cerrar Sumarios:** descarta 2 recursos por cada Sumario que quieras cerrar.
 
-> El límite es de veneno, no de trabajo clínico. Puedes tratar a tus
-> pacientes todo lo que te dé la mano; arruinarle el turno al colega,
+> El límite de Acciones es de veneno, no de trabajo clínico. Puedes tratar a
+> tus pacientes todo lo que te dé la mano; arruinarle el turno al colega,
 > una vez.
 
 En cuanto un paciente tiene **todos** los recursos que pide (da igual si le
@@ -168,7 +183,8 @@ vida de inmediato, incluso a mitad de turno.
 
 ### 5.6 Cierre
 
-Descarta hasta quedarte con un máximo de **5 cartas** en mano. Pasa el turno.
+Descarta hasta quedarte con un máximo de **5 cartas** en mano (**menos 1 por
+cada Sumario abierto** que tengas). Pasa el turno.
 
 ---
 
@@ -200,25 +216,30 @@ sin especificar cuál y no dice quién elige, **elige el jugador afectado**.
 Si un evento no puede aplicarse (ej.: pide descartar un Fármaco y el paciente
 no tiene ninguno), **no pasa nada**. No se sustituye por otro efecto.
 
-Algunos personajes son **inmunes** a categorías de eventos (marcadas en la
-carta como `RESPIRATORIO` o `INFECCIOSO`). Si eres inmune, el evento se
-descarta sin efecto.
+Los eventos llevan categoría (`RESPIRATORIO`, `INFECCIOSO`, `GENERAL`). Hoy
+es solo sabor; queda reservada para inmunidades de futuros avatares.
 
 ---
 
 ## 8. Los personajes
 
-Cada personaje tiene una **Pasiva** (siempre activa) y un **Turno Extra**
-(una sola vez por partida — gira la carta 90° al usarlo).
+Los seis avatares de la fauna hospitalaria. Cada uno tiene **una** habilidad,
+con su propia frecuencia de uso. Los de "1×PARTIDA" giran la carta 90° al
+usarla.
 
-| Personaje | Pasiva | Turno Extra (1×/partida) |
+| Personaje | Frecuencia | Habilidad |
 |---|---|---|
-| **La Intensivista** | En tu fase de Deterioro, elige 1 paciente: no pierde vida este turno. | **Código Azul:** devuelve a 1 ❤️ un paciente tuyo que haya fallecido en esta ronda. Recupera su carta y sus recursos del descarte. Cancela la ✝️. |
-| **El Infectólogo** | Inmune a eventos `INFECCIOSO`. Una vez por turno, revela cartas del Mazo de Guardia hasta encontrar un 💊 **Antibiótico**: quédatelo y descarta el resto. | **Terapia Dirigida:** un paciente tuyo cuenta como si tuviera **todos** los 💊 que pide. |
-| **La Terapeuta Respiratoria** | Inmune a eventos `RESPIRATORIO`. | **Weaning Exitoso:** durante este turno, tus 📈 cuentan como 🩻 y viceversa. |
-| **El Residente de Turno** | Robas **1 carta adicional** cada turno. Tu mano máxima es **4** en vez de 5. | **Guardia de 36 Horas:** toma un turno completo extra ahora. Después, sáltate tu siguiente turno entero (tus pacientes **sí** se deterioran en él). |
-| **La Enfermera Coordinadora** | Tus recursos 🧑‍⚕️ no pueden ser robados, descartados ni movidos por cartas de rivales. | **Reasignación:** mueve libremente **todos** los recursos entre tus pacientes, como quieras. |
-| **El Jefe de Servicio** | Una vez por turno, descarta 1 carta y roba 2. | **No Está en el Protocolo:** anula cualquier carta de Acción o Evento Adverso, juegue quien la juegue. Se puede usar fuera de turno. |
+| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle el Evento Adverso al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
+| **El Médico Fantasma** | Pasiva | En las rondas 1–3 robas 1 carta **menos**. Desde la ronda 4, robas 1 carta **adicional** cada turno por el resto de la guardia. |
+| **Doctor Amor** | 1× por partida | **Seducción de Pasillo:** roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo. |
+| **El Director del Hospital** | 1× por partida | **Perdonazo Administrativo:** anula y descarta un Sumario, tuyo o de cualquier otro jugador. Puedes cobrar el favor. |
+| **La Gestora de Camas** | 1× por turno | **Derivación:** devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido ni deja Sumario. |
+| **El Médico Esotérico** | 1× por turno | **Confía en el Universo:** revela la primera carta del Mazo de Guardia. Recurso sin ⚠️ → colócalo **gratis** sobre un paciente tuyo. Con ⚠️ → resuelve el Evento y descarta 1 carta de tu mano como penitencia kármica. |
+
+> **Notas de balance sin validar** (se resuelven en la mesa): el Fantasma y el
+> Esotérico juegan cada turno mientras Amor y el Director juegan una vez — si
+> en el playtest los segundos se sienten planos, darles una pasiva menor es el
+> ajuste natural. Está anotado en `docs/DISENO.md` §5.
 
 ---
 
@@ -251,12 +272,12 @@ la próxima guardia. Ese es su problema.
 ## 10. Resumen del turno (para la mesa)
 
 ```
-1. DETERIORO   Cada paciente no-✅ pierde 1 ❤️. A 0 ❤️ → fallece.
+1. DETERIORO   No-✅ pierde 1 ❤️. A 0 → Alta Celestial: ✝️ + Sumario.
 2. ALTA        Los ✅ que sobrevivieron una ronda completa → alta + puntos.
 3. ADMISIÓN    Por cada cama vacía: revela 2 pacientes, elige 1.
-4. GUARDIA     Roba 5 cartas (4 si son 4 jug.). Cada ⚠️ → 1 Evento ya.
-5. ACCIÓN      Recursos: los que quieras. Acciones: máx. 1.  Completo → ✅.
-6. CIERRE      Descarta hasta 5 cartas en mano.
+4. GUARDIA     Roba 4 cartas (3 si son 4 jug.). Cada ⚠️ → 1 Evento ya.
+5. ACCIÓN      Recursos libres · Canje 2→1 (máx 1) · Acción máx 1 · ✅
+6. CIERRE      Descarta hasta 5 en mano (−1 por Sumario abierto).
 ```
 
 ---
@@ -270,6 +291,11 @@ fallecidos deja de ser una hazaña y se vuelve lo normal.
 **Modo Cooperativo (Brote).** Todos comparten una UCI de 6 camas y turnan las
 fases. Se roban **2** Eventos Adversos por ronda. Ganan si logran 25 puntos
 sin superar 5 ✝️. Las cartas de ataque se descartan del mazo.
+
+**Modo Pelada Letal.** Tal como la parió su autor: si la *Pelada* saca dos
+caras, no mata un paciente — **ganas la partida al instante**. Conviértela en
+el final más dramático o más injusto de la noche. Recomendado solo para mesas
+que ya se odian un poco.
 
 **Modo Cruel.** Los recursos sobrantes no hacen de colchón: si a un paciente
 ✅ le quitan cualquier recurso, pierde el ✅ igual. Recomendado solo entre

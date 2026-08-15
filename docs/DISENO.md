@@ -82,6 +82,15 @@ ese colchón, un solo ataque se volvía letal.
 
 ## 4. Cómo se calibró el robo (y por qué no toques esto a ojo)
 
+> **Actualización v0.10:** tras integrar el material histórico (ver
+> `SINTESIS.md`), las Acciones salieron del Mazo de Guardia hacia un mazo
+> propio (Protocolos, accesible por Canje) y las muertes dejan Sumario.
+> Con el mazo purificado a 60 recursos, **el robo bajó de 5 a 4** (de 4 a 3
+> con cuatro jugadores): 65% de salvamento, 2,5 altas, 14% de guardias
+> limpias, y el Sumario cuesta ~1 punto por partida sin espiral de muerte.
+> Las tablas siguientes documentan la calibración v0.9 original (mazo único);
+> el método es el mismo.
+
 La primera versión (robar 3) producía una masacre: **31% de salvamento y
 puntaje medio de −1,3**. Todos los jugadores terminaban en negativo. Es un
 juego temáticamente correcto y emocionalmente insoportable.
@@ -151,15 +160,18 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
-1. **Las seis habilidades de personaje están sin balancear.** Sospechas
-   concretas:
-   - *El Jefe de Servicio* ("anula cualquier carta") puede ser el mejor por
-     mucho: anular un Evento Adverso en el momento justo vale más que
-     cualquier otro Turno Extra.
-   - *El Residente* (robar +1 permanente) puede ser demasiado fuerte para una
-     pasiva; el límite de mano de 4 quizá no compense.
-   - *La Terapeuta Respiratoria* puede ser demasiado débil: su pasiva depende
-     de que salgan eventos respiratorios (3 de 18 cartas).
+1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del
+   autor: Diostor, Fantasma, Amor, Director, Gestora, Esotérico.) Sospechas:
+   - *Doctor Amor* y *el Director* juegan una sola vez por partida, contra
+     avatares que actúan cada turno. Si se sienten planos, pasivas menores
+     sugeridas: Amor — "cuando un rival te quite o descarte un recurso,
+     roba 1 carta"; Director — "una vez por turno, descarta 1 carta y roba 1".
+   - *El Esotérico* tiene 80% de éxito en su revelación (48/60 cartas sin ⚠️).
+     Si resulta demasiado seguro, la penitencia puede subir a 2 cartas.
+   - *La Gestora* puede ciclar pacientes buscando Gravedad I fáciles; si se
+     abusa, limitarla a 1 derivación cada 2 rondas.
+   - *El Diostor* con 2 jugadores golpea siempre al mismo rival: revisar en
+     duelos.
 2. **¿Es divertido perder pacientes?** El riesgo real del juego. Si en el
    playtest la gente se siente castigada en vez de desafiada, la solución no
    es subir el robo — es hacer que las muertes tengan un premio de consuelo

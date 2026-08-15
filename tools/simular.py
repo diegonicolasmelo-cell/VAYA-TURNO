@@ -13,7 +13,7 @@ Ese número es el suelo del balance. Si el suelo está bien, las habilidades y
 los ataques mueven el juego alrededor de un centro sano.
 
 Uso:  python3 tools/simular.py [--partidas 2000] [--rondas 8] [--jugadores 3]
-      python3 tools/simular.py --jugadores 4 --camas 2 --robo 4 --rondas 10
+      python3 tools/simular.py --jugadores 4 --camas 2 --robo 3 --rondas 10
 """
 
 import argparse
@@ -45,14 +45,14 @@ def cargar():
             }
         )
 
+    # v0.10: el Mazo de Guardia son SOLO recursos. Las Acciones viven en el
+    # mazo de Protocolos (se compran con el Canje) y la IA no las usa: este
+    # simulador mide el suelo del balance.
     guardia = []
     for r in leer("recursos.csv"):
         for _ in range(int(r["copias"])):
             guardia.append({"clase": "recurso", "tipo": r["tipo"],
                             "warn": r["complicacion"] == "si"})
-    for a in leer("acciones.csv"):
-        for _ in range(int(a["copias"])):
-            guardia.append({"clase": "accion", "tipo": None, "warn": False})
 
     return pacientes, guardia
 
@@ -137,7 +137,8 @@ def aplicar_evento(j, rng):
         c.pide[rng.choice(TIPOS)] += 1
 
 
-def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=5, mano_max=5, jugadas_max=99):
+def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
+          jugadas_max=99, sumario=True):
     mazo_p = pacientes[:]
     rng.shuffle(mazo_p)
     mazo_g = guardia[:]
@@ -152,6 +153,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=5, mano_max=5, j
         return mazo_g.pop() if mazo_g else None
 
     jugadores = [Jugador(camas_c) for _ in range(n_jug)]
+    for j in jugadores:
+        j.sumarios = 0
 
     # Admisión inicial
     for j in jugadores:
@@ -173,6 +176,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=5, mano_max=5, j
                     if c.vida <= 0:
                         j.muertos.append(c.f)
                         j.camas[i] = None
+                        if sumario:
+                            j.sumarios += 1
 
             # 2. ALTA (estabilizado desde una ronda anterior)
             for i, c in enumerate(j.camas):
@@ -201,8 +206,20 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=5, mano_max=5, j
                         if c and c.vida <= 0:
                             j.muertos.append(c.f)
                             j.camas[i] = None
+                            if sumario:
+                                j.sumarios += 1
                         elif c:
                             c.revisar(ronda)
+
+            # 4b. SUMARIOS: cerrar cada uno cuesta 2 cartas. La IA paga
+            # apenas puede, botando los tipos que más le sobran.
+            while j.sumarios > 0 and len(j.mano) >= 2:
+                j.mano.sort(key=lambda c: sum(1 for x in j.mano
+                                              if x["tipo"] == c["tipo"]),
+                            reverse=True)
+                descarte.append(j.mano.pop(0))
+                descarte.append(j.mano.pop(0))
+                j.sumarios -= 1
 
             # 5. ACCIÓN (recursos ilimitados; la IA no juega Acciones)
             jugadas = 0
@@ -225,8 +242,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=5, mano_max=5, j
                 if not colocada:
                     break
 
-            # 6. CIERRE
-            while len(j.mano) > mano_max:
+            # 6. CIERRE (cada Sumario abierto resta 1 al límite de mano)
+            while len(j.mano) > max(1, mano_max - j.sumarios):
                 # bota primero las Acciones (esta IA no las usa)
                 bota = next((c for c in j.mano if c["clase"] == "accion"), j.mano[0])
                 j.mano.remove(bota)
@@ -241,8 +258,10 @@ def main():
     ap.add_argument("--rondas", type=int, default=8)
     ap.add_argument("--jugadores", type=int, default=3)
     ap.add_argument("--camas", type=int, default=3)
-    ap.add_argument("--robo", type=int, default=5,
-                    help="cartas robadas por turno (4 en partidas de 4 jugadores)")
+    ap.add_argument("--robo", type=int, default=4,
+                    help="cartas robadas por turno (3 en partidas de 4 jugadores)")
+    ap.add_argument("--sin-sumario", action="store_true",
+                    help="desactiva la maldición del Sumario Administrativo")
     ap.add_argument("--mano", type=int, default=5, help="límite de mano")
     ap.add_argument("--semilla", type=int, default=7)
     args = ap.parse_args()
@@ -257,7 +276,8 @@ def main():
 
     for _ in range(args.partidas):
         for j in jugar(pacientes, guardia, args.jugadores, args.camas, args.rondas,
-                       rng, robo=args.robo, mano_max=args.mano, jugadas_max=99):
+                       rng, robo=args.robo, mano_max=args.mano, jugadas_max=99,
+                       sumario=not args.sin_sumario):
             altas.append(len(j.altas))
             muertos.append(len(j.muertos))
             puntos.append(j.puntos())

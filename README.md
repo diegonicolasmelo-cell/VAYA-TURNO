@@ -19,13 +19,14 @@ la enfermera del rival de vacaciones justo antes de que dé un alta.
 
 ## Estado del proyecto
 
-**v0.9 — listo para playtest.** Reglas cerradas, 134 cartas escritas, economía
-simulada y calibrada. Falta jugarlo con gente y meterle las ilustraciones.
+**v0.10 — listo para playtest.** Reglas cerradas, 141 cartas escritas, economía
+simulada y calibrada, y el material histórico del autor integrado (avatares,
+Sumario, Canje, la Pelada — ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 
 | | |
 |---|---|
 | Reglamento | ✅ completo |
-| Cartas (texto y números) | ✅ 134 |
+| Cartas (texto y números) | ✅ 141 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
 | Ilustraciones | ⬜ existen, falta maquetarlas |
@@ -36,7 +37,7 @@ simulada y calibrada. Falta jugarlo con gente y meterle las ilustraciones.
 ## Empieza acá
 
 ```bash
-# 1. Genera el print-and-play (16 hojas A4, 134 cartas)
+# 1. Genera el print-and-play (141 cartas en A4)
 python3 tools/generar_pnp.py
 
 # 2. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
@@ -55,6 +56,7 @@ qué medir en las tres primeras sesiones.
 | **[docs/REGLAMENTO.md](docs/REGLAMENTO.md)** | Las reglas completas. Es lo que se lleva a la mesa. |
 | **[docs/DISENO.md](docs/DISENO.md)** | Por qué cada número es el que es. Léelo antes de cambiar nada. |
 | **[docs/PLAYTEST.md](docs/PLAYTEST.md)** | Plan de 3 sesiones, qué medir y hoja de registro imprimible. |
+| **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
 | **[cartas/](cartas/)** | Las 134 cartas en CSV. Es la fuente de la verdad. |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
@@ -73,9 +75,9 @@ Configuración final, validada sobre 2.000 partidas por caso:
 
 | Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos |
 |---|---:|---:|---:|---:|---:|---:|
-| 2 | 3 | 5 | 8 | 61% | 2,4 | 1,5 |
-| 3 | 3 | 5 | 8 | 61% | 2,4 | 1,5 |
-| 4 | 2 | 4 | 10 | 65% | 2,3 | 1,3 |
+| 2 | 3 | 4 | 8 | 65% | 2,6 | 1,4 |
+| 3 | 3 | 4 | 8 | 65% | 2,5 | 1,4 |
+| 4 | 2 | 3 | 10 | 62% | 2,1 | 1,3 |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
 fallecido pasa el ~10% de las veces, y por eso vale 3 puntos.

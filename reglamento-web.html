@@ -178,7 +178,7 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
 <div class="env">
 
 <header>
-  <p class="eyebrow">Reglamento · versión 0.9 · listo para playtest</p>
+  <p class="eyebrow">Reglamento · versión 0.10 · listo para playtest</p>
   <h1 class="marca">¡Vaya <em>turno</em>!</h1>
   <p class="bajada">Un juego de cartas sobre salvar pacientes, no salvarlos a
   todos, y arruinarle el turno al colega de al lado.</p>
@@ -190,7 +190,7 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
   <div class="vitales">
     <div class="vit"><span>Jugadores</span><b>2–4</b></div>
     <div class="vit"><span>Duración</span><b>30–45 min</b></div>
-    <div class="vit"><span>Cartas</span><b>134</b></div>
+    <div class="vit"><span>Cartas</span><b>141</b></div>
     <div class="vit"><span>Camas por UCI</span><b>3</b></div>
   </div>
 </header>
@@ -213,7 +213,7 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
     <li>Cada jugador elige un <b>Personaje</b> y deja sitio para sus <b>3 camas</b>.</li>
     <li>Baraja el <b>Mazo de Pacientes</b>. Cada jugador admite 3 pacientes y les
         pone las fichas de vida que indique la carta.</li>
-    <li>Baraja el <b>Mazo de Guardia</b> (recursos y acciones, todo junto).</li>
+    <li>Baraja el <b>Mazo de Guardia</b> (los 60 recursos, con sus ⚠️ adentro) y aparte el <b>Mazo de Protocolos</b> (las 25 acciones).</li>
     <li>Deja el <b>Mazo de Eventos Adversos</b> aparte. Nunca se roba por voluntad propia.</li>
     <li>Cada jugador roba <b>4 cartas</b> de mano inicial.</li>
     <li>Empieza quien haya hecho el turno de noche más reciente.</li>
@@ -221,9 +221,9 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
   <div class="scroll"><table>
     <thead><tr><th>Jugadores</th><th class="n">Camas</th><th class="n">Robo/turno</th><th class="n">Rondas</th><th>Nota</th></tr></thead>
     <tbody>
-      <tr><td>2</td><td class="n">3</td><td class="n">5</td><td class="n">8</td><td>Los ataques duelen el doble. Es a propósito.</td></tr>
-      <tr><td><b>3</b></td><td class="n">3</td><td class="n">5</td><td class="n">8</td><td><b>Configuración recomendada</b></td></tr>
-      <tr><td>4</td><td class="n">2</td><td class="n">4</td><td class="n">10</td><td>Menos camas y menos robo: los turnos vuelan.</td></tr>
+      <tr><td>2</td><td class="n">3</td><td class="n">4</td><td class="n">8</td><td>Los ataques duelen el doble. Es a propósito.</td></tr>
+      <tr><td><b>3</b></td><td class="n">3</td><td class="n">4</td><td class="n">8</td><td><b>Configuración recomendada</b></td></tr>
+      <tr><td>4</td><td class="n">2</td><td class="n">3</td><td class="n">10</td><td>Menos camas y menos robo: los turnos vuelan.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -259,7 +259,11 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
     <div class="fase"><div class="num">1</div><div>
       <h3>Deterioro</h3>
       <p>Cada paciente tuyo que no esté estabilizado pierde 1 de vida. A cero
-      fallece: descarta la carta y sus recursos, y anota la penalización.</p>
+      recibe el <b>Alta Celestial</b>: descarta la carta y sus recursos, y
+      anota la penalización.</p>
+      <p>Y llega el papeleo: toma un <b>Sumario Administrativo</b>. Queda en tu
+      mano, reduce tu límite de mano en 1 y solo se cierra descartando 2
+      recursos — o convenciendo al Director del Hospital.</p>
     </div></div>
     <div class="fase"><div class="num">2</div><div>
       <h3>Alta</h3>
@@ -275,20 +279,23 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
     </div></div>
     <div class="fase"><div class="num">4</div><div>
       <h3>Guardia</h3>
-      <p>Roba 5 cartas del Mazo de Guardia (4 si juegan cuatro personas).</p>
+      <p>Roba 4 cartas del Mazo de Guardia (3 si juegan cuatro personas).</p>
       <p>Si robas una carta con el símbolo <b>⚠️ Complicación</b>, quédatela —
       es un recurso normal — pero roba de inmediato 1 Evento Adverso y
       resuélvelo. Sí: la carta que te salva te trae el problema.</p>
     </div></div>
     <div class="fase"><div class="num">5</div><div>
       <h3>Acción</h3>
-      <p>Juega <b>todos los recursos que quieras</b> sobre tus pacientes, pero
-      <b>como máximo 1 carta de Acción</b>. El límite es de veneno, no de
-      trabajo clínico.</p>
+      <p>Juega <b>todos los recursos que quieras</b> sobre tus pacientes.</p>
+      <p><b>El Canje</b> (máximo 1 por turno): descarta 2 recursos de tu mano y
+      roba 1 carta del Mazo de Protocolos. Así se consiguen las Acciones:
+      cambiando lo que te sobra por un favor.</p>
+      <p>Juega <b>como máximo 1 Acción</b> por turno; cuestan 0, ya pagaste al
+      conseguirla. El límite es de veneno, no de trabajo clínico.</p>
     </div></div>
     <div class="fase"><div class="num">6</div><div>
       <h3>Cierre</h3>
-      <p>Descarta hasta quedarte con 5 cartas en mano y pasa el turno.</p>
+      <p>Descarta hasta quedarte con 5 cartas en mano (menos 1 por cada Sumario abierto) y pasa el turno.</p>
     </div></div>
   </div>
 </section>
@@ -309,8 +316,8 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
 
 <section>
   <h2>Acciones y eventos adversos</h2>
-  <p>El Mazo de Guardia trae <b>24 cartas de Acción</b> mezcladas entre los
-  recursos. Una por turno, y ahí está el juego social:</p>
+  <p>Las <b>25 cartas de Acción</b> viven en el Mazo de Protocolos y se
+  consiguen con el Canje. Una por turno, y ahí está el juego social:</p>
   <div class="scroll"><table>
     <thead><tr><th>Carta</th><th>Qué hace</th></tr></thead>
     <tbody>
@@ -322,6 +329,7 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
       <tr><td><b>Se Cayó el Sistema</b></td><td>Nadie puede jugar Acciones durante la próxima ronda.</td></tr>
       <tr><td><b>Rotación de Internos</b></td><td>Intercambia tu mano completa con la de un rival.</td></tr>
       <tr><td><b>Café de Enfermería</b></td><td>Anula una Acción o un Evento. Se juega fuera de turno.</td></tr>
+      <tr><td><b>Anda Rondando la Pelada</b></td><td>Única. Solo si un rival tiene 2+ ✝️: lanza 2 monedas. Dos caras → uno de sus pacientes recibe el Alta Celestial. Si no → descartas toda tu mano.</td></tr>
     </tbody>
   </table></div>
   <p>Los <b>18 Eventos Adversos</b> viven en un mazo aparte y solo se roban
@@ -334,63 +342,51 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
 </section>
 
 <section>
-  <h2>Los seis personajes</h2>
-  <p>Cada uno tiene una pasiva permanente y un Turno Extra que se usa
-  <b>una sola vez por partida</b>.</p>
+  <h2>Los seis avatares</h2>
+  <p>La fauna hospitalaria. Cada uno tiene una habilidad con su propia
+  frecuencia de uso; las de una vez por partida se marcan girando la carta.</p>
   <div class="gente">
 
     <div class="pj">
-      <h3>La Intensivista</h3>
-      <p class="cita">«Dormí veinte minutos y estoy perfecta. No me mires así.»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>En tu fase de Deterioro, elige un paciente: no pierde vida este turno.</dd>
-        <dt>Turno extra · Código Azul</dt><dd>Devuelve a 1 de vida un paciente tuyo que haya fallecido en esta ronda. Recupera su carta y sus recursos del descarte.</dd>
-      </dl>
+      <h3>El Diostor</h3>
+      <p class="cita">«¿Yo, equivocarme? Imposible. Debe ser un error del laboratorio.»</p>
+      <dl><dt>Una vez por ronda</dt>
+      <dd>Cuando robas una carta con ⚠️, puedes pasarle el Evento Adverso al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo.</dd></dl>
     </div>
 
     <div class="pj">
-      <h3>El Infectólogo</h3>
-      <p class="cita">«¿Tomaron los cultivos ANTES del antibiótico? ¿Antes?»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>Inmune a eventos infecciosos. Una vez por turno, revela cartas del mazo hasta encontrar un antibiótico: quédatelo y descarta el resto.</dd>
-        <dt>Turno extra · Terapia Dirigida</dt><dd>Un paciente tuyo cuenta como si ya tuviera todos los fármacos que pide.</dd>
-      </dl>
+      <h3>El Médico Fantasma</h3>
+      <p class="cita">«Aló... sí, voy bajando. (Se da media vuelta en la residencia.)»</p>
+      <dl><dt>Pasiva</dt>
+      <dd>En las rondas 1 a 3 robas 1 carta menos. Desde la ronda 4, robas 1 carta adicional cada turno por el resto de la guardia.</dd></dl>
     </div>
 
     <div class="pj">
-      <h3>La Terapeuta Respiratoria</h3>
-      <p class="cita">«Eso no es un pulmón. Eso es una esponja mojada.»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>Inmune a eventos respiratorios.</dd>
-        <dt>Turno extra · Weaning Exitoso</dt><dd>Durante este turno tus recursos de monitoreo cuentan como imagen y viceversa.</dd>
-      </dl>
+      <h3>Doctor Amor</h3>
+      <p class="cita">«Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?»</p>
+      <dl><dt>Una vez por partida · Seducción de Pasillo</dt>
+      <dd>Roba un recurso de Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo.</dd></dl>
     </div>
 
     <div class="pj">
-      <h3>El Residente de Turno</h3>
-      <p class="cita">«Llevo treinta horas acá. ¿Qué día es? No, en serio.»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>Robas una carta adicional cada turno, pero tu mano máxima es 4 en vez de 5.</dd>
-        <dt>Turno extra · Guardia de 36 Horas</dt><dd>Toma un turno completo extra ahora. Después sáltate tu siguiente turno entero — y tus pacientes sí se deterioran en él.</dd>
-      </dl>
+      <h3>El Director del Hospital</h3>
+      <p class="cita">«Haré unas llamadas para que esto no aparezca en los indicadores de calidad.»</p>
+      <dl><dt>Una vez por partida · Perdonazo Administrativo</dt>
+      <dd>Anula y descarta un Sumario Administrativo, tuyo o de cualquier otro jugador. Puedes cobrar el favor.</dd></dl>
     </div>
 
     <div class="pj">
-      <h3>La Enfermera Coordinadora</h3>
-      <p class="cita">«Sin mí esta unidad se cae en cuatro minutos. Y ustedes lo saben.»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>Tus recursos de Personal no pueden ser robados, descartados ni movidos por cartas de rivales.</dd>
-        <dt>Turno extra · Reasignación</dt><dd>Mueve libremente todos los recursos entre tus pacientes.</dd>
-      </dl>
+      <h3>La Gestora de Camas</h3>
+      <p class="cita">«No hay cama en UCI. Se va a Intermedio... o a pasillo.»</p>
+      <dl><dt>Una vez por turno · Derivación</dt>
+      <dd>Devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido ni deja Sumario.</dd></dl>
     </div>
 
     <div class="pj">
-      <h3>El Jefe de Servicio</h3>
-      <p class="cita">«Hay presupuesto. Para el cóctel de fin de año hay.»</p>
-      <dl>
-        <dt>Pasiva</dt><dd>Una vez por turno, descarta una carta y roba dos.</dd>
-        <dt>Turno extra · No Está en el Protocolo</dt><dd>Anula cualquier Acción o Evento Adverso, la juegue quien la juegue. Puede usarse fuera de tu turno.</dd>
-      </dl>
+      <h3>El Médico Esotérico</h3>
+      <p class="cita">«Tus chakras están bloqueando la vía venosa. Cuarzo rosa y sahumerio, stat.»</p>
+      <dl><dt>Una vez por turno · Confía en el Universo</dt>
+      <dd>Revela la primera carta del Mazo de Guardia. Si es un recurso sin ⚠️, colócalo gratis sobre un paciente tuyo. Si trae ⚠️, resuelve el Evento Adverso y además descarta 1 carta de tu mano como penitencia kármica.</dd></dl>
     </div>
 
   </div>
@@ -428,6 +424,8 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
       <p style="font-size:.95rem">Fuera las cartas de ataque. Baja el caos y sube el peso de la gestión clínica. Para grupos que van a compartir turno de verdad mañana.</p></div>
     <div class="pj"><h3>Modo Brote · cooperativo</h3>
       <p style="font-size:.95rem">Una sola UCI de seis camas entre todos, dos Eventos Adversos por ronda. Ganan si llegan a 25 puntos sin superar cinco fallecidos.</p></div>
+    <div class="pj"><h3>Modo Pelada Letal</h3>
+      <p style="font-size:.95rem">La Pelada tal como la parió su autor: dos caras no matan un paciente — ganas la partida al instante. Para mesas que ya se odian un poco.</p></div>
     <div class="pj"><h3>Modo Cruel</h3>
       <p style="font-size:.95rem">Los recursos sobrantes ya no hacen de colchón: quitarle cualquier recurso a un paciente estabilizado le hace perder el estado igual.</p></div>
   </div>
@@ -437,22 +435,22 @@ td.n{text-align:right;font-family:ui-monospace,"SF Mono",Menlo,monospace;
   <div class="chuleta">
     <h2>Chuleta</h2>
     <ol>
-      <li><i>1</i><b>DETERIORO</b><span>Cada paciente no estabilizado pierde 1 de vida. A cero, fallece.</span></li>
+      <li><i>1</i><b>DETERIORO</b><span>No estabilizado pierde 1 de vida. A cero: Alta Celestial + Sumario.</span></li>
       <li><i>2</i><b>ALTA</b><span>Los estabilizados que sobrevivieron una ronda completa se van.</span></li>
       <li><i>3</i><b>ADMISIÓN</b><span>Por cada cama vacía, revela 2 pacientes y elige 1.</span></li>
-      <li><i>4</i><b>GUARDIA</b><span>Roba 5 cartas. Cada ⚠️ dispara un Evento Adverso al instante.</span></li>
-      <li><i>5</i><b>ACCIÓN</b><span>Recursos, los que quieras. Acciones, máximo una.</span></li>
-      <li><i>6</i><b>CIERRE</b><span>Descarta hasta 5 cartas en mano.</span></li>
+      <li><i>4</i><b>GUARDIA</b><span>Roba 4 cartas. Cada ⚠️ dispara un Evento Adverso al instante.</span></li>
+      <li><i>5</i><b>ACCIÓN</b><span>Recursos libres · Canje 2→1 (máx 1) · Acción máx 1.</span></li>
+      <li><i>6</i><b>CIERRE</b><span>Descarta hasta 5 en mano (−1 por Sumario abierto).</span></li>
     </ol>
   </div>
 </section>
 
 <p class="pie">
-  <b>¡Vaya Turno!</b> v0.9 · 134 cartas · 26 pacientes, 60 recursos, 24 acciones,
-  18 eventos adversos, 6 personajes.<br>
+  <b>¡Vaya Turno!</b> v0.10 · 141 cartas · 26 pacientes, 60 recursos, 25 acciones,
+  18 eventos adversos, 6 sumarios, 6 avatares.<br>
   Los números están calibrados sobre 2.000 partidas simuladas por configuración:
-  un jugador competente salva cerca del 60% de sus pacientes, con unas 2,4 altas
-  y 1,5 fallecidos por guardia. Las cartas, el simulador de balance y el
+  un jugador competente salva cerca del 65% de sus pacientes, con unas 2,5 altas
+  y 1,4 fallecidos por guardia. Las cartas, el simulador de balance y el
   print-and-play viven en el repositorio del proyecto.
 </p>
 
