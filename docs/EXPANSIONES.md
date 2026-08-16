@@ -18,7 +18,7 @@ específicos, eventos por eventos.
 **Por qué así y no acumulando:**
 
 - El balance está calibrado sobre proporciones (63 recursos, 26 pacientes,
-  17 ⚠️, 24 específicos). Si el mazo engorda, hay que recalibrar el robo en
+  17 ⚠️, 21 específicos). Si el mazo engorda, hay que recalibrar el robo en
   cada expansión y las partidas se alargan.
 - Temáticamente es lo que pasa de verdad: cuando abren la unidad de
   neurocríticos, no te llegan *más* pacientes — te llegan **otros**.
@@ -32,7 +32,7 @@ sistema:
 | Paso | Qué haces | Resultado |
 |---|---|---|
 | 1 | Retira **12 pacientes no-🧠** del mazo base y mete los 12 🧠 de la expansión | 26 pacientes · 12 neuro (46%) |
-| 2 | Retira **6 recursos específicos de otros sistemas** y mete los 6 🧠 | 63 recursos · 24 específicos · neuro pasa de 3 a 9 |
+| 2 | Retira **6 recursos específicos de otros sistemas** y mete los 6 🧠 | 63 recursos · 21 específicos · neuro pasa de 3 a 9 |
 | 3 | Retira **6 Eventos Centinela `GENERAL`** y mete los 6 🧠 | 28 eventos · 9 neuro |
 | 4 | Añade el avatar y las 2 acciones | Estos sí suman: son pocos y no mueven la economía |
 
@@ -81,15 +81,19 @@ Estado actual (recursos específicos / pacientes por sistema):
 
 | Sistema | Rec. | Pac. | Lectura |
 |---|---:|---:|---|
-| 🫁 RESP | 7 | 4 | **Demasiado servido.** Bajar a 4–5: es el que menos margen deja a su módulo |
+| 🫁 RESP | 4 | 4 | Ajustado en v0.12: la Ventilación Mecánica pasó a genérica (sirve al politrauma y al séptico igual) |
 | 🫀 CARD | 5 | 5 | Bien |
 | 🔪 QUIR | 5 | 7 | Bien |
 | 🧪 METAB | 4 | 5 | Bien |
 | 🧠 NEURO | 3 | 5 | Justo, pero deja buen margen al módulo |
 
-Solo respiratorio necesita ajuste, y por una razón distinta a la que creíamos:
-no porque desbalancee la partida, sino porque **se come el contenido de su
-propia expansión**.
+Respiratorio era el único desajustado, y por una razón distinta a la que
+creíamos: no porque desbalanceara la partida, sino porque **se comía el
+contenido de su propia expansión**. Corregido en v0.12 sin borrar ninguna
+carta: la **Ventilación Mecánica** (3 copias) perdió su chip 🫁 y quedó
+genérica — clínicamente es lo correcto, el ventilador también es del
+politrauma, del neurocrítico y del séptico. Con eso el módulo respiratorio
+conserva para sí la VMNI, el weaning, la traqueostomía y el prono.
 
 ---
 

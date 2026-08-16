@@ -35,7 +35,7 @@ La columna **`copias`** dice cuántas veces se imprime cada fila.
 | Columna | Qué es |
 |---|---|
 | `tipo` | `IMAGEN`, `FARMACOS`, `PERSONAL`, `MONITOREO` o `COMODIN` |
-| `sistema` | Vacío, o `RESP`/`CARD`/`NEURO`/`METAB`/`QUIR`. Si coincide con el sistema del paciente, **cuenta doble**. 24 de 63 |
+| `sistema` | Vacío, o `RESP`/`CARD`/`NEURO`/`METAB`/`QUIR`. Si coincide con el sistema del paciente, **cuenta doble**. 21 de 63 |
 | `comodin` | `si` = cuenta como 1 recurso del tipo que elijas. 3 de 63 |
 | `restriccion` | `PERSONAL` (exige un 🧑‍⚕️ ya puesto) o `TURNO` (consume tu turno de recursos) |
 | `complicacion` | `si` = lleva el símbolo ⚠️. Al robarla, robas un Evento Centinela. **17 de 63** |
