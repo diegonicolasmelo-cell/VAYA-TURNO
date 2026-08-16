@@ -2,9 +2,9 @@
 
 Enviaste: el PDF original (*"Juego de Mesa UCI: Salvando Vidas"*), el DOCX con
 el barrido de 40 cartas, y seis conversaciones con distintos asistentes. Este
-documento ordena ese material, dice **qué entendí**, **qué quedó integrado en
-v0.10**, **qué quedó estacionado y por qué**, y **qué decisiones siguen
-abiertas**.
+documento ordena ese material, dice **qué entendí**, **qué quedó integrado**,
+**qué quedó estacionado y por qué**, y **qué decisiones siguen abiertas**.
+El §4-bis cubre el Excel `CARTAS.xlsx`, integrado en v0.11.
 
 > El Notion (`app.notion.com/p/CARTAS-...`) está bloqueado desde este entorno.
 > Expórtalo como CSV (⋯ → Export → Markdown & CSV) y lo integro directo a
@@ -53,7 +53,7 @@ de consolidación** antes del alta.
 simulada. Reemplaza la suma de valores por *matching* de categorías: cero
 aritmética, la decisión sigue siendo clínica ("¿a quién le doy el único
 monitoreo?"), y compatible con tu decisión de aplanar los medicamentos a
-"fármacos". **El motor v0.9/v0.10 es la Era 3. No se retrocede.**
+"fármacos". **El motor actual es la Era 3. No se retrocede.**
 
 ---
 
@@ -67,7 +67,7 @@ Tus personajes con tus mecánicas, adaptados solo en vocabulario al motor v0.10:
 
 | Avatar | Frecuencia | Habilidad (esencia tuya) |
 |---|---|---|
-| **El Diostor** | 1×ronda | Desvía el Evento Adverso de un ⚠️ al jugador de tu derecha |
+| **El Diostor** | 1×ronda | Desvía el Evento Centinela de un ⚠️ al jugador de tu derecha |
 | **El Médico Fantasma** | pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 extra siempre |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ Personal de un paciente rival |
 | **El Director del Hospital** | 1×partida | Anula un Sumario, de quien sea (favor cobrable) |
@@ -90,9 +90,9 @@ punto por partida y no genera espiral de muerte. Ver §4.)*
 
 ### c) Mazos separados + el Canje
 Tu decisión de los "split decks", literal:
-- **Mazo de Guardia** (60 recursos, con los ⚠️ mezclados — el miedo a robar
+- **Mazo de Guardia** (63 recursos, con los ⚠️ mezclados — el miedo a robar
   que querías conservar).
-- **Mazo de Protocolos** (25 acciones). Se accede solo por **Canje**: descarta
+- **Mazo de Protocolos** (45 acciones). Se accede solo por **Canje**: descarta
   2 recursos → roba 1 acción, máximo 1 canje por turno, acciones cuestan 0.
 
 Esto convierte las cartas repetidas en oportunidad (tu argumento) y de paso
@@ -165,12 +165,50 @@ suelo está validado; el techo se mide en la mesa (plan en `PLAYTEST.md`).
 
 ---
 
+## 4-bis. El Excel `CARTAS.xlsx` (integrado en v0.11)
+
+126 filas, de las cuales **74 sin efecto escrito** — un inventario de nombres
+más que un set de cartas. Pero los ~52 con efecto traían cuatro cosas que el
+juego no tenía:
+
+| Rescatado | Qué era en el Excel | Cómo quedó en v0.11 |
+|---|---|---|
+| **Sistemas + sinergia** | Pacientes con subtipo (Respiratorio, Cardíaco…) y recursos con *"+1 si se aplica en ASMA/EPOC"* | Los 26 pacientes tienen sistema; 24 recursos son específicos y **cuentan doble** en su sistema. Sin aritmética: se cuentan íconos, algunos valen por dos |
+| **Restricciones como costo** | RNM *"en este turno solo puedes jugar esta carta"*; TAC *"solo con 3 personal en juego"* | Resonancia consume tu turno de recursos; TAC exige 1 🧑‍⚕️ sobre el paciente. Lo mejor diseñado del archivo |
+| **Comodines** | *Médico General* y *Dios-tor* como recurso comodín | 3 comodines (*Médico General de Turno*, *Stock de Sala*). Anti-brick validado |
+| **Vocabulario** | "Evento Centinela", "¿Y si vamos por un cafecito?", Liceeeencia!, Estás Despedido | Adoptados: el mazo se llama ahora **Eventos Centinela** |
+
+También se escribieron efectos para **13 eventos centinela** que en el Excel
+eran solo títulos (VILI, Neumotórax a tensión, Bacteriemia, Resistencia
+antibiótica, Sobresedación, Bradicardia extrema, TV, Falla renal…) y para
+**9 acciones nuevas** (Ojo Clínico, Receta en Blanco, Quiebre de Stock,
+Recorte Presupuestario, Paro de Funcionarios, Convivencia de Servicio,
+Muestra Hemolizada, Capacitación, Simulación Clínica).
+
+**Lo que quedó fuera del Excel:** el sistema de valores 1–5 (es la Era 2);
+ocho antibióticos mecánicamente idénticos; cinco kinesiólogos casi iguales
+(sobreviven como nombres y arte, no como cartas distintas); once "Médico"
+genéricos; y el *reloj de eventos* (*"reduce en 1 los turnos para que ocurra
+un evento"*), que duplicaría la contabilidad que el ⚠️ ya resuelve.
+
+**Los ~20 efectos de personal** del Excel asumen que el personal son cartas
+con identidad en mesa, y en v0.11 siguen siendo recursos anónimos. Los mejores
+se convirtieron en cartas de **Protocolo** (Ojo Clínico ← Kine Geek; Receta en
+Blanco ← Enfermera Especialista). El resto espera la expansión *"Personal con
+Nombre"*.
+
+---
+
 ## 5. Decisiones que siguen siendo tuyas
 
 1. **¿Pelada letal o Pelada suave en el modo base?** Hoy: suave en base,
    letal como variante. Un minuto de cambio si lo quieres al revés.
 2. **El Notion.** Sin el CSV no sé qué cartas de esa tabla no están cubiertas
-   por las 141 actuales. Expórtalo y hago el diff.
+   por las 174 actuales. Expórtalo y hago el diff.
+5. **El reparto de sistemas.** Los 26 pacientes se asignaron por criterio
+   clínico (Shock Séptico → cardíaco, Pancreatitis → quirúrgico, Delirium →
+   neuro). Revísalo: es tu juego y tu criterio manda. Está en la columna
+   `sistema` de `cartas/pacientes.csv`.
 3. **Avatares asimétricos.** Amor y el Director juegan 1 vez por partida;
    Fantasma y Esotérico, todos los turnos. Puede estar bien (Exploding
    Kittens vive de eso) o puede sentirse plano. Si el playtest lo confirma,

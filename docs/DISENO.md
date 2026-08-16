@@ -82,6 +82,28 @@ ese colchón, un solo ataque se volvía letal.
 
 ## 4. Cómo se calibró el robo (y por qué no toques esto a ojo)
 
+> **Actualización v0.11 — la sinergia.** Del Excel histórico se rescató la
+> mejor mecánica que faltaba: los pacientes tienen **sistema clínico** y 24 de
+> los 63 recursos son **específicos** de un sistema. El recurso correcto en el
+> paciente correcto **cuenta doble**. Esto arregla un defecto real de v0.10
+> que no se había señalado: dentro de cada tipo, todas las cartas eran
+> mecánicamente idénticas — un TAC y una ecografía eran la misma carta con
+> otro chiste.
+>
+> La sinergia sube el salvamento ~3 puntos y se paga subiendo los ⚠️ de 12 a
+> 17. Se añadieron además **3 comodines**: bajan de 4,3% a ~2% la proporción
+> de jugadores que terminan sin ninguna alta — el anti-brick pedido por el
+> autor. Resultado v0.11 con robo 4: **65% de salvamento, 2,7 altas, 1,5
+> fallecidos, 11,7% de guardias limpias.** Gravedad III sube a 48% (era 41%):
+> los críticos ahora son apuestas más razonables porque su recurso específico
+> los rescata más rápido.
+>
+> **Importante:** los recursos específicos deben estar repartidos entre los
+> cinco sistemas en proporción a cuántos pacientes hay de cada uno. Hoy:
+> CARD 5/5, RESP 7/4, NEURO 3/5, METAB 4/5, QUIR 5/7 (recursos/pacientes).
+> RESP está sobre-servido y NEURO/QUIR algo cortos — es la primera cosa a
+> ajustar si el playtest muestra que unos sistemas se sienten mejores.
+
 > **Actualización v0.10:** tras integrar el material histórico (ver
 > `SINTESIS.md`), las Acciones salieron del Mazo de Guardia hacia un mazo
 > propio (Protocolos, accesible por Canje) y las muertes dejan Sumario.
@@ -130,7 +152,7 @@ Objetivos de diseño que había que cumplir simultáneamente:
 - Salvamento **55–70%** → salvas la mayoría, pierdes a alguien siempre.
 - **2–3 altas** por jugador → la partida se siente productiva.
 - Guardia Limpia **5–15%** → es una hazaña, no un plan.
-- Gravedad III salvable **~40%** → vale la pena intentarlo, no siempre sale.
+- Gravedad III salvable **40–50%** → vale la pena intentarlo, no siempre sale.
 
 La configuración de 4 jugadores queda con un **16% de guardias limpias**, un
 punto por encima del objetivo. Se deja así: bajar el robo a 3 la devolvería al
@@ -191,8 +213,12 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
 - **Puntos por recursos sobrantes al final.** Incentiva acaparar en vez de
   tratar. Va contra el tema.
-- **Cartas de recurso "comodín" que valen cualquier tipo.** Borran la
-  decisión de a quién asignar. El juego entero vive de esa decisión.
+- ~~**Cartas de recurso "comodín" que valen cualquier tipo.**~~
+  **Revertido en v0.11.** Se descartaron por "borrar la decisión", pero con
+  datos el argumento no se sostiene a baja densidad: 3 comodines en 63 cartas
+  bajan a la mitad los jugadores que terminan sin ninguna alta, sin mover el
+  salvamento medio. Escasos no borran la decisión — evitan la mano muerta.
+  Lo que sí sigue prohibido es hacerlos abundantes.
 - **Poder mover recursos entre pacientes libremente.** Elimina el coste de
   equivocarse. Se conservó solo como efecto puntual y caro (*Reunión Clínica*
   y el Turno Extra de la Enfermera Coordinadora), que es donde brilla.

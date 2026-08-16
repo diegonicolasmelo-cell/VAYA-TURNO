@@ -20,9 +20,22 @@ import os
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARTAS = os.path.join(RAIZ, "cartas")
 
-SIM = {"IMAGEN": "🩻", "FARMACOS": "💊", "PERSONAL": "🧑‍⚕️", "MONITOREO": "📈"}
-NOM = {"IMAGEN": "Imagen", "FARMACOS": "Fármacos",
-       "PERSONAL": "Personal", "MONITOREO": "Monitoreo"}
+SIM = {"IMAGEN": "🩻", "FARMACOS": "💊", "PERSONAL": "🧑‍⚕️",
+       "MONITOREO": "📈", "COMODIN": "🃏"}
+NOM = {"IMAGEN": "Imagen", "FARMACOS": "Fármacos", "PERSONAL": "Personal",
+       "MONITOREO": "Soporte Vital", "COMODIN": "Comodín"}
+# Sistemas clínicos: la sinergia paciente ↔ recurso
+SISTEMA = {
+    "RESP":  ("Respiratorio", "🫁", "#3d7ea6"),
+    "CARD":  ("Cardíaco",     "🫀", "#b03d29"),
+    "NEURO": ("Neurológico",  "🧠", "#7a5ba6"),
+    "METAB": ("Metabólico",   "🧪", "#2f8f6b"),
+    "QUIR":  ("Quirúrgico",   "🔪", "#8a6a2f"),
+}
+RESTRIC = {
+    "PERSONAL": "Solo sobre un paciente que ya tenga 🧑‍⚕️",
+    "TURNO":    "Al jugarla, no puedes jugar más recursos este turno",
+}
 GRAV = {
     "I":    ("Gravedad I · Observación", "g1"),
     "II":   ("Gravedad II · Grave", "g2"),
@@ -62,6 +75,10 @@ body{margin:0;background:#e9eef2;font-family:"Helvetica Neue",Arial,sans-serif;c
 .hab b{display:block;font-size:2.35mm;text-transform:uppercase;letter-spacing:.08em;color:var(--suave)}
 .sep{grid-column:1/-1;font-size:3.4mm;font-weight:800;text-transform:uppercase;
      letter-spacing:.12em;padding:0 0 1.5mm;border-bottom:.4mm solid var(--tinta);margin-bottom:1.5mm}
+.sis{display:inline-block;font-size:2.2mm;font-weight:700;letter-spacing:.06em;
+     color:#fff;border-radius:1mm;padding:.4mm 1.2mm;margin-top:1mm}
+.restr{font-size:2.4mm;font-weight:700;line-height:1.25;color:#8a6a2f;margin-top:1mm}
+.sinergia{font-size:2.4mm;line-height:1.25;margin-top:1mm}
 .arte{flex:1;min-height:0;margin:1.5mm 0;border:.25mm dashed #dde4ea;border-radius:1mm;
       display:flex;align-items:center;justify-content:center;
       font-size:2.3mm;color:#c3ccd4;letter-spacing:.08em;text-transform:uppercase}
@@ -79,6 +96,9 @@ def leer(nombre):
 
 def carta_paciente(p):
     etiqueta, cls = GRAV[p["gravedad"]]
+    nom_s, ico_s, col_s = SISTEMA[p["sistema"]]
+    sis = (f'<div class="sis" style="background:{col_s}">{ico_s} '
+           f'{nom_s.upper()}</div>')
     req = "".join(
         f'<div class="{"" if int(p[c]) else "off"}">{SIM[t]} ×{p[c]}</div>'
         for t, c in (("IMAGEN", "img"), ("FARMACOS", "far"),
@@ -86,7 +106,8 @@ def carta_paciente(p):
     )
     return f"""<div class="carta {cls}">
   <div class="cab"><div><div class="nombre">{E(p['nombre'])}</div>
-    <div class="tipo">{E(etiqueta)}</div></div><div class="vida">❤️{p['vida']}</div></div>
+    <div class="tipo">{E(etiqueta)}</div>{sis}</div>
+    <div class="vida">❤️{p['vida']}</div></div>
   <div class="banda"></div>
   <div class="tipo">Requiere</div><div class="req">{req}</div>
   <div class="arte">ilustración</div>
@@ -97,12 +118,25 @@ def carta_paciente(p):
 
 
 def carta_recurso(r):
-    et = f'<div class="et">{E(r["etiqueta"])}</div>' if r["etiqueta"] else ""
+    sis, sinergia = "", ""
+    if r["sistema"]:
+        nom_s, ico_s, col_s = SISTEMA[r["sistema"]]
+        sis = (f'<div class="sis" style="background:{col_s}">{ico_s} '
+               f'{nom_s.upper()}</div>')
+        sinergia = (f'<div class="sinergia"><b>Cuenta doble</b> sobre un '
+                    f'paciente {nom_s}.</div>')
+    if r["comodin"] == "si":
+        sinergia = ('<div class="sinergia"><b>Comodín.</b> Cuenta como '
+                    '1 recurso del tipo que elijas.</div>')
+    restr = (f'<div class="restr">⚑ {RESTRIC[r["restriccion"]]}</div>'
+             if r["restriccion"] else "")
     wa = '<div class="warn">⚠️ COMPLICACIÓN</div>' if r["complicacion"] == "si" else ""
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(r['nombre'])}</div>
-    <div class="tipo">{NOM[r['tipo']]}</div>{et}</div></div>
-  <div class="glifo">{SIM[r['tipo']]}</div>
+    <div class="tipo">{NOM[r['tipo']]}</div>{sis}</div>
+    <div class="vida">{SIM[r['tipo']]}</div></div>
+  {sinergia}{restr}
+  <div class="arte">ilustración</div>
   <div class="pie">{wa}<div class="frase">{E(r['frase'])}</div></div>
 </div>"""
 
@@ -121,7 +155,7 @@ def carta_accion(a):
 def carta_evento(e):
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(e['nombre'])}</div>
-    <div class="tipo">Evento Adverso · {E(e['categoria'])}</div></div></div>
+    <div class="tipo">Evento Centinela · {E(e['categoria'])}</div></div></div>
   <div class="banda" style="background:#c0492f"></div>
   <div class="cuerpo">{E(e['texto'])}</div>
   <div class="arte">ilustración</div>
@@ -156,7 +190,7 @@ MAZOS = {
     "pacientes":  ("Pacientes",       "pacientes.csv",  carta_paciente),
     "recursos":   ("Recursos",        "recursos.csv",   carta_recurso),
     "acciones":   ("Acciones",        "acciones.csv",   carta_accion),
-    "eventos":    ("Eventos Adversos", "eventos.csv",   carta_evento),
+    "eventos":    ("Eventos Centinela", "eventos.csv",  carta_evento),
     "personajes": ("Personajes",      "personajes.csv", carta_personaje),
     "sumarios":   ("Sumarios",        "sumarios.csv",   carta_sumario),
 }

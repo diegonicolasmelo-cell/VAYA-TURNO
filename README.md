@@ -15,18 +15,24 @@ No vas a poder salvarlos a todos. Eso no es un defecto del juego: **eso es
 triage.** Elige a quién salvas, deja ir al resto, y — mientras tanto — manda a
 la enfermera del rival de vacaciones justo antes de que dé un alta.
 
+Cada paciente pertenece a un **sistema** (🫁 🫀 🧠 🧪 🔪), y el recurso correcto
+en el paciente correcto **cuenta doble**. Ahí está la decisión que duele:
+¿quemas el broncodilatador en el cardíaco que se te está yendo ahora, o lo
+guardas por si llega un respiratorio?
+
 ---
 
 ## Estado del proyecto
 
-**v0.10 — listo para playtest.** Reglas cerradas, 141 cartas escritas, economía
-simulada y calibrada, y el material histórico del autor integrado (avatares,
-Sumario, Canje, la Pelada — ver `docs/SINTESIS.md`). Falta jugarlo con gente.
+**v0.11 — listo para playtest.** Reglas cerradas, 174 cartas escritas, economía
+simulada y calibrada, y todo el material histórico del autor integrado:
+avatares, Sumario, Canje, la Pelada, y la **sinergia por sistema clínico**
+rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 
 | | |
 |---|---|
 | Reglamento | ✅ completo |
-| Cartas (texto y números) | ✅ 141 |
+| Cartas (texto y números) | ✅ 174 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
 | Ilustraciones | ⬜ existen, falta maquetarlas |
@@ -37,7 +43,7 @@ Sumario, Canje, la Pelada — ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 ## Empieza acá
 
 ```bash
-# 1. Genera el print-and-play (141 cartas en A4)
+# 1. Genera el print-and-play (174 cartas en A4)
 python3 tools/generar_pnp.py
 
 # 2. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
@@ -57,7 +63,7 @@ qué medir en las tres primeras sesiones.
 | **[docs/DISENO.md](docs/DISENO.md)** | Por qué cada número es el que es. Léelo antes de cambiar nada. |
 | **[docs/PLAYTEST.md](docs/PLAYTEST.md)** | Plan de 3 sesiones, qué medir y hoja de registro imprimible. |
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
-| **[cartas/](cartas/)** | Las 134 cartas en CSV. Es la fuente de la verdad. |
+| **[cartas/](cartas/)** | Las 174 cartas en CSV. Es la fuente de la verdad. |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
 
@@ -75,9 +81,9 @@ Configuración final, validada sobre 2.000 partidas por caso:
 
 | Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos |
 |---|---:|---:|---:|---:|---:|---:|
-| 2 | 3 | 4 | 8 | 65% | 2,6 | 1,4 |
-| 3 | 3 | 4 | 8 | 65% | 2,5 | 1,4 |
-| 4 | 2 | 3 | 10 | 62% | 2,1 | 1,3 |
+| 2 | 3 | 4 | 8 | 65% | 2,7 | 1,5 |
+| 3 | 3 | 4 | 8 | 65% | 2,7 | 1,5 |
+| 4 | 2 | 3 | 10 | 63% | 2,3 | 1,3 |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
 fallecido pasa el ~10% de las veces, y por eso vale 3 puntos.

@@ -39,6 +39,7 @@ def cargar():
                 "nombre": p["nombre"],
                 "gravedad": p["gravedad"],
                 "vida": int(p["vida"]),
+                "sistema": p["sistema"],
                 "pide": {t: int(p[COL[t]]) for t in TIPOS},
                 "alta": int(p["puntos_alta"]),
                 "fallece": int(p["puntos_fallece"]),
@@ -52,6 +53,9 @@ def cargar():
     for r in leer("recursos.csv"):
         for _ in range(int(r["copias"])):
             guardia.append({"clase": "recurso", "tipo": r["tipo"],
+                            "sistema": r["sistema"],
+                            "comodin": r["comodin"] == "si",
+                            "restriccion": r["restriccion"],
                             "warn": r["complicacion"] == "si"})
 
     return pacientes, guardia
@@ -116,6 +120,42 @@ def elegir_objetivos(camas, mano_tipos):
         puntuados.append((alcanzable, valor, c))
     puntuados.sort(key=lambda x: (not x[0], -x[1]))
     return [c for _, _, c in puntuados]
+
+
+def elegir_carta(mano, cama):
+    """
+    Devuelve (carta, aporte, tipo) para la mejor jugada sobre esta cama.
+    Prioriza sinergia (el recurso de su sistema cuenta doble), luego recurso
+    normal, y deja el comodín como último recurso.
+    Respeta las restricciones: TAC exige 🧑‍⚕️ ya puesto sobre el paciente.
+    """
+    falta = cama.falta()
+    if sum(falta.values()) == 0:
+        return None, 0, None
+
+    def jugable(c):
+        if c["clase"] != "recurso":
+            return False
+        if c.get("restriccion") == "PERSONAL" and cama.tiene["PERSONAL"] == 0:
+            return False
+        return True
+
+    # 1) sinérgica y necesaria → cuenta doble
+    for c in mano:
+        if (jugable(c) and c.get("sistema") and c["sistema"] == cama.f["sistema"]
+                and falta.get(c["tipo"], 0) > 0):
+            return c, 2, c["tipo"]
+    # 2) recurso normal necesario
+    for c in mano:
+        if jugable(c) and not c.get("comodin") and falta.get(c["tipo"], 0) > 0:
+            return c, 1, c["tipo"]
+    # 3) comodín, al hueco más grande
+    for c in mano:
+        if c.get("comodin"):
+            t = max(falta, key=lambda k: falta[k])
+            if falta[t] > 0:
+                return c, 1, t
+    return None, 0, None
 
 
 def aplicar_evento(j, rng):
@@ -214,31 +254,35 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
             # 4b. SUMARIOS: cerrar cada uno cuesta 2 cartas. La IA paga
             # apenas puede, botando los tipos que más le sobran.
             while j.sumarios > 0 and len(j.mano) >= 2:
-                j.mano.sort(key=lambda c: sum(1 for x in j.mano
-                                              if x["tipo"] == c["tipo"]),
-                            reverse=True)
+                sistemas = {c.f["sistema"] for c in j.camas if c}
+                j.mano.sort(key=lambda c: (
+                    -sum(1 for x in j.mano if x["tipo"] == c["tipo"]),
+                    c.get("comodin", False),
+                    c.get("sistema") in sistemas,
+                ))
                 descarte.append(j.mano.pop(0))
                 descarte.append(j.mano.pop(0))
                 j.sumarios -= 1
 
             # 5. ACCIÓN (recursos ilimitados; la IA no juega Acciones)
             jugadas = 0
-            while jugadas < jugadas_max:
-                orden = elegir_objetivos(j.camas, [c["tipo"] for c in j.mano])
+            turno_bloqueado = False       # lo activa la Resonancia
+            while jugadas < jugadas_max and not turno_bloqueado:
+                orden = elegir_objetivos(j.camas, None)
                 colocada = False
                 for cama in orden:
-                    falta = cama.falta()
-                    for carta in j.mano:
-                        if carta["clase"] == "recurso" and falta.get(carta["tipo"], 0) > 0:
-                            j.mano.remove(carta)
-                            descarte.append(carta)
-                            cama.tiene[carta["tipo"]] += 1
-                            cama.revisar(ronda)
-                            jugadas += 1
-                            colocada = True
-                            break
-                    if colocada:
-                        break
+                    carta, aporte, tipo = elegir_carta(j.mano, cama)
+                    if carta is None:
+                        continue
+                    j.mano.remove(carta)
+                    descarte.append(carta)
+                    cama.tiene[tipo] += aporte
+                    cama.revisar(ronda)
+                    jugadas += 1
+                    colocada = True
+                    if carta.get("restriccion") == "TURNO":
+                        turno_bloqueado = True
+                    break
                 if not colocada:
                     break
 

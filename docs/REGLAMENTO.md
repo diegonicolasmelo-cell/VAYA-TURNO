@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.10 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.11 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -26,9 +26,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
 |---|---:|---|
 | Cartas de **Personaje** | 6 | Un médico por jugador |
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
-| Cartas de **Recurso** | 60 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Monitoreo |
-| Cartas de **Protocolo** (Acciones) | 25 | Mazo aparte. Se compran con el **Canje** |
-| Cartas de **Evento Adverso** | 18 | Mazo aparte. Solo se roba cuando algo lo obliga |
+| Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Soporte Vital · 🃏 Comodín |
+| Cartas de **Protocolo** (Acciones) | 45 | Mazo aparte. Se compran con el **Canje** |
+| Cartas de **Evento Centinela** | 28 | Mazo aparte. Solo se roba cuando algo lo obliga |
 | Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
 | Fichas de **Estabilizado** (✅) | 12 | 3 por jugador |
@@ -47,9 +47,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.3, *Admisión*) y les pone las fichas ❤️ que indique la carta.
-3. Baraja el **Mazo de Guardia** (los 60 Recursos, con sus ⚠️ adentro).
-   Baraja aparte el **Mazo de Protocolos** (las 25 Acciones).
-4. Deja el **Mazo de Eventos Adversos** aparte, boca abajo. **Nunca se roba
+3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus ⚠️ adentro).
+   Baraja aparte el **Mazo de Protocolos** (las 45 Acciones).
+4. Deja el **Mazo de Eventos Centinela** aparte, boca abajo. **Nunca se roba
    por voluntad propia.**
 5. Cada jugador roba **4 cartas** de mano inicial.
 6. Empieza quien haya hecho el turno de noche más reciente. Si nadie lo
@@ -64,7 +64,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | 4 | 2 | **3** | 10 | Menos camas y menos robo: los turnos vuelan |
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
-> competente salva ~65% de sus pacientes: unas **2,5 altas y 1,4
+> competente salva ~65% de sus pacientes: unas **2,7 altas y 1,5
 > fallecidos** por guardia. Si tu mesa se aleja mucho de eso, revisa
 > `docs/DISENO.md` §4 antes de cambiar nada.
 
@@ -77,7 +77,7 @@ Cada carta de paciente tiene:
 ```
 ┌─────────────────────────────┐
 │  SHOCK SÉPTICO       ❤️ 5   │   ← Vida inicial
-│  Gravedad III               │
+│  Gravedad III   🫀 CARDÍACO │   ← Sistema (ver §4.1)
 │  ─────────────────────────  │
 │  Requiere:                  │
 │   🩻 ×1   💊 ×3             │   ← Lo que necesita para estabilizarse
@@ -98,6 +98,46 @@ Cada carta de paciente tiene:
 
 Los recursos se colocan **encima de la carta del paciente**, en abanico, y
 se quedan ahí. No son gastables: **son su tratamiento**.
+
+### El sistema del paciente
+
+Cada paciente pertenece a un **sistema clínico**, marcado con un chip de color:
+
+🫁 **Respiratorio** · 🫀 **Cardíaco** · 🧠 **Neurológico** · 🧪 **Metabólico** · 🔪 **Quirúrgico**
+
+Eso importa por una sola regla, la de §4.1.
+
+### 4.1 Recursos específicos: la sinergia
+
+24 de las 63 cartas del Mazo de Guardia llevan también un chip de sistema.
+
+> **Un recurso específico jugado sobre un paciente de su mismo sistema
+> cuenta como DOS recursos de su tipo, en vez de uno.**
+
+Un *Broncodilatador* 🫁 sobre una Neumonía cuenta como 💊×2. Sobre un Shock
+Séptico cuenta como 💊×1, y sirve igual — solo que sin el premio.
+
+No hay sumas ni valores: sigues contando íconos, algunos valen por dos.
+
+> La decisión que esto abre es la buena: **¿quemo el broncodilatador en el
+> cardíaco que se me está yendo ahora, o lo guardo por si llega un
+> respiratorio?**
+
+### 4.2 Comodines
+
+Tres cartas del mazo son 🃏 **Comodín** (*Médico General de Turno*, *Stock de
+Sala*). Cuentan como **1 recurso del tipo que tú elijas** al colocarlas.
+Nunca cuentan doble. Son escasas a propósito: existen para que nadie se quede
+con la mano muerta, no para resolverte la partida.
+
+### 4.3 Recursos con restricción
+
+Dos cartas cuestan algo más que una jugada:
+
+| Carta | Restricción |
+|---|---|
+| **TAC de Urgencia** | Solo puedes jugarlo sobre un paciente que ya tenga al menos 1 🧑‍⚕️. Alguien tiene que bajarlo. |
+| **Resonancia con Cupo** | Al jugarla, **no puedes jugar más recursos este turno**. Cuesta tiempo, no recursos. |
 
 ---
 
@@ -151,7 +191,7 @@ Roba **4 cartas** del Mazo de Guardia (**3** en partidas de 4 jugadores).
 
 **Si robas una carta con el símbolo ⚠️ Complicación:** quédate la carta
 (es un recurso normal), pero **inmediatamente** roba 1 carta del Mazo de
-Eventos Adversos y resuélvela. Sigue robando hasta completar tu robo.
+Eventos Centinela y resuélvela. Sigue robando hasta completar tu robo.
 
 > Sí. La carta que te salva te trae el problema. Bienvenido.
 
@@ -205,9 +245,9 @@ ganando** es la correcta. Ha funcionado en comités clínicos durante décadas.
 
 ---
 
-## 7. Eventos Adversos
+## 7. Eventos Centinela
 
-El Mazo de Eventos Adversos se roba **únicamente** cuando algo te obliga:
+El Mazo de Eventos Centinela se roba **únicamente** cuando algo te obliga:
 un ⚠️ al robar, o una carta de Acción que te lo imponga.
 
 Se resuelve de inmediato y se descarta. Si el evento afecta a "un paciente"
@@ -229,7 +269,7 @@ usarla.
 
 | Personaje | Frecuencia | Habilidad |
 |---|---|---|
-| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle el Evento Adverso al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
+| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle el Evento Centinela al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
 | **El Médico Fantasma** | Pasiva | En las rondas 1–3 robas 1 carta **menos**. Desde la ronda 4, robas 1 carta **adicional** cada turno por el resto de la guardia. |
 | **Doctor Amor** | 1× por partida | **Seducción de Pasillo:** roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo. |
 | **El Director del Hospital** | 1× por partida | **Perdonazo Administrativo:** anula y descarta un Sumario, tuyo o de cualquier otro jugador. Puedes cobrar el favor. |
@@ -275,8 +315,9 @@ la próxima guardia. Ese es su problema.
 1. DETERIORO   No-✅ pierde 1 ❤️. A 0 → Alta Celestial: ✝️ + Sumario.
 2. ALTA        Los ✅ que sobrevivieron una ronda completa → alta + puntos.
 3. ADMISIÓN    Por cada cama vacía: revela 2 pacientes, elige 1.
-4. GUARDIA     Roba 4 cartas (3 si son 4 jug.). Cada ⚠️ → 1 Evento ya.
-5. ACCIÓN      Recursos libres · Canje 2→1 (máx 1) · Acción máx 1 · ✅
+4. GUARDIA     Roba 4 cartas (3 si son 4 jug.). Cada ⚠️ → 1 Centinela ya.
+5. ACCIÓN      Recursos libres (🫁🫀🧠🧪🔪 en su sistema = ×2) · Canje 2→1
+               · Acción máx 1 · Completo → ✅
 6. CIERRE      Descarta hasta 5 en mano (−1 por Sumario abierto).
 ```
 
@@ -289,7 +330,7 @@ la próxima guardia. Ese es su problema.
 fallecidos deja de ser una hazaña y se vuelve lo normal.
 
 **Modo Cooperativo (Brote).** Todos comparten una UCI de 6 camas y turnan las
-fases. Se roban **2** Eventos Adversos por ronda. Ganan si logran 25 puntos
+fases. Se roban **2** Eventos Centinela por ronda. Ganan si logran 25 puntos
 sin superar 5 ✝️. Las cartas de ataque se descartan del mazo.
 
 **Modo Pelada Letal.** Tal como la parió su autor: si la *Pelada* saca dos
