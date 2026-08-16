@@ -56,6 +56,20 @@ sabor; queda reservada para inmunidades de futuros avatares.
 
 ---
 
+## Verlas y editarlas: el Taller
+
+```bash
+python3 tools/generar_taller.py     # → taller.html
+```
+
+Abre `taller.html` y tienes las 159 cartas renderizadas, el tablero de
+constantes del mazo con semáforos, y un editor: tocas una carta, cambias un
+valor y el balance se recalcula al instante. Tus cambios se guardan en el
+navegador (no tocan los CSV). Cuando termines, copia el **parte de cambios**
+desde la caja del final.
+
+---
+
 ## Print & play
 
 ```bash

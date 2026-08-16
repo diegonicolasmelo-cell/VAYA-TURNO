@@ -43,11 +43,14 @@ rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 ## Empieza acá
 
 ```bash
-# 1. Genera el print-and-play (159 cartas en A4)
+# 1. Abre el Taller de Guardia: ver las cartas, sus constantes y editarlas
+python3 tools/generar_taller.py && open taller.html
+
+# 2. Genera el print-and-play (159 cartas en A4)
 python3 tools/generar_pnp.py
 
-# 2. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
-# 3. Recorta, consigue unos cubitos para las vidas, y juega
+# 3. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
+# 4. Recorta, consigue unos cubitos para las vidas, y juega
 ```
 
 Después lee **[`docs/PLAYTEST.md`](docs/PLAYTEST.md)**, que te dice exactamente
@@ -64,6 +67,7 @@ qué medir en las tres primeras sesiones.
 | **[docs/PLAYTEST.md](docs/PLAYTEST.md)** | Plan de 3 sesiones, qué medir y hoja de registro imprimible. |
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
 | **[cartas/](cartas/)** | Las 159 cartas en CSV. Es la fuente de la verdad. |
+| **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 159 cartas, tablero de constantes del mazo y editor en vivo. |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
 
