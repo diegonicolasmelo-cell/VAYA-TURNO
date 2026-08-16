@@ -42,8 +42,9 @@ es consecuencia de tu turno.
 | Cartas (texto y números) | ✅ 159 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
-| Ilustraciones | ⬜ existen, falta maquetarlas |
-| Playtest con humanos | ⬜ **el siguiente paso** |
+| Motor de ilustraciones | ✅ paleta, prompts, normalización (docs/ARTE.md + herramientas) |
+| 124 ilustraciones | ⬜ pendiente generación manual (8–10 horas con IA) |
+| Playtest con humanos | ⬜ **el siguiente paso** (versión v0.12 lista para mesa) |
 
 ---
 
@@ -75,10 +76,14 @@ qué medir en las tres primeras sesiones.
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
 | **[docs/EXPANSIONES.md](docs/EXPANSIONES.md)** | Los cinco módulos por sistema, el modelo de reemplazo y lo que la caja base debe reservarse. |
 | **[docs/MOTOR.md](docs/MOTOR.md)** | El motor TURNO sin el tema: las cinco piezas reutilizables y su mapeo a otras profesiones. |
+| **[docs/ARTE.md](docs/ARTE.md)** | Motor de ilustraciones: paleta heredada del Taller, planos fijos por tipo, orden de trabajo (8–10 horas), integración con herramientas (Flow, ChatGPT, Stable Diffusion). |
 | **[cartas/](cartas/)** | Las 159 cartas en CSV. Es la fuente de la verdad. |
 | **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 159 cartas, tablero de constantes, editor en vivo y **Banco de pruebas** (el simulador corriendo en el navegador). |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
+| **[tools/prompts.py](tools/prompts.py)** | CSV → 124 prompts de imagen listos para ChatGPT/DALL-E/Whisk/Stable Diffusion. Agrupa por tipo y batch. |
+| **[tools/normalizar_arte.py](tools/normalizar_arte.py)** | Batch-normaliza 124 ilustraciones: redimensiona, reduce paleta, limpia fondo, ajusta contraste. |
+| **[tools/prompts-todos.txt](tools/prompts-todos.txt)** | Todos los prompts generados, organizados por categoría y listo para copiar-pegar. |
 
 ---
 
@@ -128,3 +133,38 @@ python3 tools/generar_pnp.py               # regenera el imprimible
 Si tocas `pacientes.csv` o `recursos.csv`, **corre el simulador**. La demanda
 de recursos de los pacientes y la composición del mazo están acopladas: cambiar
 una sin la otra desbalancea el juego en silencio.
+
+---
+
+## Ilustraciones
+
+124 ilustraciones (26 pacientes + 43 recursos + 28 eventos + 20 acciones + 6 avatares + 1 sumario) 
+con **coherencia visual**: paleta clínica muted, estilo pen-and-ink moderno, planos fijos por tipo.
+
+### Flujo de generación
+
+```bash
+# 1. Genera 124 prompts listos para ChatGPT/DALL-E/Whisk/Stable Diffusion
+python3 tools/prompts.py --salida prompts-todos.txt
+
+# 2. Lee docs/ARTE.md para entender el motor visual:
+#    - Paleta heredada del Taller
+#    - Bloque de estilo literal (copia-pega en cada prompt)
+#    - Planos fijos: busto (pacientes), objeto (recursos), escena (acciones/eventos), cuerpo (avatares)
+#    - Orden: 32 imágenes difíciles (avatares+pacientes) primero, luego 92 fáciles
+
+# 3. Genera 124 ilustraciones manualmente:
+#    - Copias prompts desde prompts-todos.txt
+#    - Usa ChatGPT/DALL-E, Google Whisk, o Stable Diffusion
+#    - Coloca PNG en arte/raw/
+mkdir -p arte/raw arte/final
+
+# 4. Normaliza el lote (redimensiona, reduce paleta, limpia fondo)
+python3 tools/normalizar_arte.py --entrada arte/raw --salida arte/final --resize 512
+
+# 5. Regenera PnP con ilustraciones integradas
+python3 tools/generar_pnp.py --arte arte/final
+```
+
+Ver **[docs/ARTE.md](docs/ARTE.md)** para detalles: paleta en hex, arquitectura de prompts, 
+referencias artísticas y timeline de 6 semanas.

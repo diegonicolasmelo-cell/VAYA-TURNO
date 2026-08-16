@@ -1,0 +1,1021 @@
+
+================================================================================
+CATEGORÍA: ACCIONES-APOYO
+================================================================================
+
+BATCH: accion-APOYO-1
+IDS: A03-A04-A05-A12-A14
+OUTPUT: contactsheet-accion-APOYO-1.png
+
+Generate a contact sheet with 5 action cards, all APOYO.
+Actions: Reunión Clínica, Interconsulta, Doblo Turno, Protocolo Institucional, Ojo Clínico
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: cooperation, support, team helping team
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: accion-APOYO-2
+IDS: A15-A19
+OUTPUT: contactsheet-accion-APOYO-2.png
+
+Generate a contact sheet with 2 action cards, all APOYO.
+Actions: Receta en Blanco, Capacitación
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: cooperation, support, team helping team
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: ACCIONES-ATAQUE
+================================================================================
+
+BATCH: accion-ATAQUE-1
+IDS: A01-A02-A07-A08-A09
+OUTPUT: contactsheet-accion-ATAQUE-1.png
+
+Generate a contact sheet with 5 action cards, all ATAQUE.
+Actions: Vacaciones, Cumpleaños del Residente, ¡Liceeeencia!, Presión de Camas, Auditoría
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: conflict, rivalry, competitive tension
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: accion-ATAQUE-2
+IDS: A17-A18-A20
+OUTPUT: contactsheet-accion-ATAQUE-2.png
+
+Generate a contact sheet with 3 action cards, all ATAQUE.
+Actions: Quiebre de Stock, Recorte Presupuestario, Muestra Hemolizada
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: conflict, rivalry, competitive tension
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: ACCIONES-CAOS
+================================================================================
+
+BATCH: accion-CAOS-1
+IDS: A06-A10
+OUTPUT: contactsheet-accion-CAOS-1.png
+
+Generate a contact sheet with 2 action cards, all CAOS.
+Actions: Se Cayó el Sistema, Rotación de Internos
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: disorder, confusion, chaos, disruption
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: ACCIONES-EXTREMA
+================================================================================
+
+ID: A13
+NOMBRE: Anda Rondando la Pelada
+BATCH: accion-EXTREMA-1
+OUTPUT: accion-A13.png
+
+Card effect: Anda Rondando la Pelada
+Action type: EXTREMA
+Narrative: Pasó preguntando por la cama 4. Dijo que volvía al rato.
+
+Visual: Minimal scene with 1–2 figures or dynamic element.
+Emotion: Reflects effect: sacrifice, determination, extreme stakes
+Lighting: Dramatic but legible (high contrast).
+
+Examples by type:
+- ATAQUE: Two hands competing for a resource, rivalry expressions
+- APOYO: Hands cooperating, gesture of handing over or helping
+- CAOS: Objects in motion, abstract confusion cloud, energy lines
+- RESPUESTA: Shield or barrier, defensive reaction
+- EXTREMA: Figure with sacrifice or extreme determination gesture
+
+Color: Wider chromatic range (orange, neon green, purple) to differentiate from patients/resources.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: ACCIONES-RESPUESTA
+================================================================================
+
+BATCH: accion-RESPUESTA-1
+IDS: A11-A16
+OUTPUT: contactsheet-accion-RESPUESTA-1.png
+
+Generate a contact sheet with 2 action cards, all RESPUESTA.
+Actions: ¿Y Si Vamos por un Cafecito?, Simulación Clínica
+
+Visual: Minimal scenes, 1–2 figures or dynamic elements per card.
+Emotion: defense, shield, reactive protection
+Dramatic lighting, high contrast. 1:1 grid.
+
+Wider color range (orange, green, purple) than patient/resource cards.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-CARD
+================================================================================
+
+BATCH: evento-CARD-1
+IDS: E09-E18-E19-E22
+OUTPUT: contactsheet-evento-CARD-1.png
+
+Generate a contact sheet with 4 medical events/adverse effects, all CARD.
+Events: Paro Cardiorrespiratorio, Bradicardia Extrema, Taquicardia Ventricular, Sobrecarga de Volumen
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-GENERAL
+================================================================================
+
+BATCH: evento-GENERAL-1
+IDS: E05-E06-E07-E08-E11
+OUTPUT: contactsheet-evento-GENERAL-1.png
+
+Generate a contact sheet with 5 medical events/adverse effects, all GENERAL.
+Events: Lesión por Presión, Corte de Suministro, Muestra Perdida en Tránsito, Reacción Adversa a Fármaco, Reingreso Precoz
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: evento-GENERAL-2
+IDS: E12-E13-E14-E16-E20
+OUTPUT: contactsheet-evento-GENERAL-2.png
+
+Generate a contact sheet with 5 medical events/adverse effects, all GENERAL.
+Events: Colapso de Urgencias, Error de Medicación, Caída de Cama, Cambio de Turno Caótico, Hemorragia Masiva
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-INFEC
+================================================================================
+
+BATCH: evento-INFEC-1
+IDS: E03-E10-E24-E26
+OUTPUT: contactsheet-evento-INFEC-1.png
+
+Generate a contact sheet with 4 medical events/adverse effects, all INFEC.
+Events: Descarga Séptica, Brote de Multirresistente, Resistencia Antibiótica, Bacteriemia
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-METAB
+================================================================================
+
+ID: E21
+NOMBRE: Falla Renal Aguda
+BATCH: evento-METAB-1
+OUTPUT: evento-E21.png
+
+Medical event/complication: Falla Renal Aguda
+Clinical category: METAB
+Narrative: La creatinina se duplicó. Nadie sabe desde cuándo.
+
+Visual: Bust or semi-body with adverse gesture (panic, exhaustion, extreme focus).
+Context: Hand with papers, wall clock, drip, machine beeping.
+Emotion: Negative or tense (not neutral).
+
+Clinical details for METAB:
+- RESP: Dyspnea, mild cyanosis (slightly blue skin), disconnected tube
+- CARD: Arrhythmic rhythm on monitor, sweat, hand on chest
+- NEURO: Confusion, stylized seizure, eyes rolling back
+- METAB: Hypoglycemia (tremor), dark urine (cup), glucometer
+- INFEC: Fever (thermometer), chills (motion lines), sweating
+- GENERAL: Team fatigue, overwhelming paperwork, clock in red
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-NEURO
+================================================================================
+
+BATCH: evento-NEURO-1
+IDS: E04-E23-E27-E28
+OUTPUT: contactsheet-evento-NEURO-1.png
+
+Generate a contact sheet with 4 medical events/adverse effects, all NEURO.
+Events: Delirium en UCI, Sobresedación, Compromiso de Conciencia, Debilidad Adquirida en UCI
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: EVENTOS-RESP
+================================================================================
+
+BATCH: evento-RESP-1
+IDS: E01-E02-E15-E17-E25
+OUTPUT: contactsheet-evento-RESP-1.png
+
+Generate a contact sheet with 5 medical events/adverse effects, all RESP.
+Events: Neumonía Asociada a Ventilación Mecánica, Extubación Accidental, Tromboembolismo Pulmonar, Neumotórax a Tensión, VILI
+
+Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
+Minimal context (monitor, clock, drip). White background.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-I
+================================================================================
+
+BATCH: pacientes-I-1
+IDS: P01-P02-P03
+OUTPUT: contactsheet-I-1.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad I patients (leve).
+
+Patients: Dolor Torácico Atípico, El del Frasco Completo, Abandono de Tratamiento
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-I-2
+IDS: P04-P05-P06
+OUTPUT: contactsheet-I-2.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad I patients (leve).
+
+Patients: La Caída del Baño, Crisis de Pánico en Box 4, Deshidratado de Verano
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-I-3
+IDS: P07-P08
+OUTPUT: contactsheet-I-3.png
+
+Generate a contact sheet with 2 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad I patients (leve).
+
+Patients: El Que Googleó Sus Síntomas, Postoperado Que No Debería Estar Aquí
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-II
+================================================================================
+
+BATCH: pacientes-II-1
+IDS: P09-P10-P11
+OUTPUT: contactsheet-II-1.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad II patients (moderate).
+
+Patients: Neumonía Adquirida en la Comunidad, Cetoacidosis Diabética, ACV en Ventana
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-II-2
+IDS: P12-P13-P14
+OUTPUT: contactsheet-II-2.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad II patients (moderate).
+
+Patients: Hemorragia Digestiva Alta, Insuficiencia Cardíaca Descompensada, Pielonefritis Complicada
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-II-3
+IDS: P15-P16-P17
+OUTPUT: contactsheet-II-3.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad II patients (moderate).
+
+Patients: Abdomen Agudo Sin Diagnóstico, EPOC Exacerbado, Intoxicación Mixta
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-II-4
+IDS: P18
+OUTPUT: contactsheet-II-4.png
+
+Generate a contact sheet with 1 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad II patients (moderate).
+
+Patients: Delirium del Adulto Mayor
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-III
+================================================================================
+
+BATCH: pacientes-III-1
+IDS: P19-P20-P21
+OUTPUT: contactsheet-III-1.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad III patients (grave).
+
+Patients: Shock Séptico, Politraumatizado, Síndrome de Distrés Respiratorio
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: pacientes-III-2
+IDS: P22-P23-P24
+OUTPUT: contactsheet-III-2.png
+
+Generate a contact sheet with 3 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad III patients (grave).
+
+Patients: Status Epiléptico, Pancreatitis Grave, Tromboembolismo Pulmonar Masivo
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-ROJO
+================================================================================
+
+BATCH: pacientes-ROJO-1
+IDS: P25-P26
+OUTPUT: contactsheet-ROJO-1.png
+
+Generate a contact sheet with 2 medical patient portraits in different poses,
+ages, and ethnicities. All are Gravedad ROJO patients (critical).
+
+Patients: Falla Multiorgánica, Trasplante en Lista Cero
+
+Visual guidelines:
+- Busts from chest to head, no full body
+- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
+- Gravedad II: Sedated, Venturi mask or intubated, monitor background
+- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
+- Gravedad ROJO: Ventilated, active infusion, extreme expression
+
+Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Label each with patient name below.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: PERSONAJES
+================================================================================
+
+ID: C01
+NOMBRE: El Diostor
+OUTPUT: personaje-C01.png
+
+Character avatar: El Diostor
+Archetype: Age ~50, absolute confidence, hand raised as teaching. Badge, stethoscope.
+Special ability: Cuando robas una carta ⚠️, puedes pasarle el Evento Centinela al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo.
+Quote: ¿Yo, equivocarme? Imposible. Debe ser un error del laboratorio.
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+ID: C02
+NOMBRE: El Médico Fantasma
+OUTPUT: personaje-C02.png
+
+Character avatar: El Médico Fantasma
+Archetype: Ethereal, stylized transparency, vintage uniform. Slightly faded.
+Special ability: En las rondas 1 a 3 robas 1 carta menos. Desde la ronda 4 en adelante, robas 1 carta adicional cada turno por el resto de la guardia.
+Quote: Aló... sí, voy bajando. (Se da media vuelta en la residencia.)
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+ID: C03
+NOMBRE: Doctor Amor
+OUTPUT: personaje-C03.png
+
+Character avatar: Doctor Amor
+Archetype: Accessible, genuine smile, welcoming gesture. Modern scrubs, charm.
+Special ability: SEDUCCIÓN DE PASILLO — Roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo.
+Quote: Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+ID: C04
+NOMBRE: El Director del Hospital
+OUTPUT: personaje-C04.png
+
+Character avatar: El Director del Hospital
+Archetype: Medical professional
+Special ability: PERDONAZO ADMINISTRATIVO — Anula y descarta un Sumario Administrativo, tuyo o de cualquier otro jugador. Puedes cobrar el favor.
+Quote: Haré unas llamadas para que esto no aparezca en los indicadores de calidad.
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+ID: C05
+NOMBRE: La Gestora de Camas
+OUTPUT: personaje-C05.png
+
+Character avatar: La Gestora de Camas
+Archetype: Medical professional
+Special ability: DERIVACIÓN — Devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido ni deja Sumario.
+Quote: No hay cama en UCI. Se va a Intermedio... o a pasillo.
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+ID: C06
+NOMBRE: El Médico Esotérico
+OUTPUT: personaje-C06.png
+
+Character avatar: El Médico Esotérico
+Archetype: Medical professional
+Special ability: CONFÍA EN EL UNIVERSO — Revela la primera carta del Mazo de Guardia. Si es un recurso sin ⚠️: colócalo gratis sobre un paciente tuyo. Si trae ⚠️: resuelve el Evento Centinela y además descarta 1 carta de tu mano como penitencia kármica.
+Quote: Tus chakras están bloqueando la vía venosa. Cuarzo rosa y sahumerio, stat.
+
+Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
+Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Humanizing detail: Coffee mug, gesture, expression showing personality.
+
+Scale: Body occupies ~70% of canvas.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: RECURSOS-COMODIN
+================================================================================
+
+BATCH: recurso-COMODIN-1
+IDS: R42-R43
+OUTPUT: contactsheet-recurso-COMODIN-1.png
+
+Generate a contact sheet with 2 medical resources/equipment, all COMODIN.
+Items: Médico General de Turno, Stock de Sala
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: RECURSOS-FARMACOS
+================================================================================
+
+BATCH: recurso-FARMACOS-1
+IDS: R01-R02-R03-R04-R05
+OUTPUT: contactsheet-recurso-FARMACOS-1.png
+
+Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
+Items: Antibiótico de Amplio Espectro, Antibiótico de Amplio Espectro, Sedoanalgesia, Sedoanalgesia, Anticoagulación
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: recurso-FARMACOS-2
+IDS: R06-R07-R08-R09-R10
+OUTPUT: contactsheet-recurso-FARMACOS-2.png
+
+Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
+Items: Anticoagulación, Hemoderivados, Noradrenalina, Noradrenalina, Broncodilatador en Nebulización
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: recurso-FARMACOS-3
+IDS: R11-R12-R13-R14-R15
+OUTPUT: contactsheet-recurso-FARMACOS-3.png
+
+Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
+Items: Anticonvulsivante, Anticonvulsivante, Insulina en Bomba, Analgesia Postoperatoria, Analgesia Postoperatoria
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: RECURSOS-IMAGEN
+================================================================================
+
+BATCH: recurso-IMAGEN-1
+IDS: R16-R17-R18-R19-R20
+OUTPUT: contactsheet-recurso-IMAGEN-1.png
+
+Generate a contact sheet with 5 medical resources/equipment, all IMAGEN.
+Items: Radiografía de Tórax, Radiografía de Tórax, Ecografía a Pie de Cama, Ecografía a Pie de Cama, TAC de Urgencia
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: recurso-IMAGEN-2
+IDS: R21-R22-R23
+OUTPUT: contactsheet-recurso-IMAGEN-2.png
+
+Generate a contact sheet with 3 medical resources/equipment, all IMAGEN.
+Items: TAC de Urgencia, Angio-TAC, Resonancia con Cupo
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: RECURSOS-MONITOREO
+================================================================================
+
+BATCH: recurso-MONITOREO-1
+IDS: R24-R25-R26-R27-R28
+OUTPUT: contactsheet-recurso-MONITOREO-1.png
+
+Generate a contact sheet with 5 medical resources/equipment, all MONITOREO.
+Items: Línea Arterial, Línea Arterial, Catéter Venoso Central, Catéter Venoso Central, Monitor Multiparámetro
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: recurso-MONITOREO-2
+IDS: R29-R30-R31-R32-R33
+OUTPUT: contactsheet-recurso-MONITOREO-2.png
+
+Generate a contact sheet with 5 medical resources/equipment, all MONITOREO.
+Items: Carro de Paro, Ventilación Mecánica, Ventilación Mecánica, Gases Arteriales, Gases Arteriales
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: RECURSOS-PERSONAL
+================================================================================
+
+BATCH: recurso-PERSONAL-1
+IDS: R34-R35-R36-R37-R38
+OUTPUT: contactsheet-recurso-PERSONAL-1.png
+
+Generate a contact sheet with 5 medical resources/equipment, all PERSONAL.
+Items: Enfermera de UCI, Técnico en Enfermería, Técnico en Enfermería, Interno Entusiasta, Gestor de Camas
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+BATCH: recurso-PERSONAL-2
+IDS: R39-R40-R41
+OUTPUT: contactsheet-recurso-PERSONAL-2.png
+
+Generate a contact sheet with 3 medical resources/equipment, all PERSONAL.
+Items: Kinesiólogo Respiratorio, Pabellón Disponible, Pabellón Disponible
+
+Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
+Medical realism, recognizable materials. Minimal shadow for levitation.
+Grid layout, 1:1 ratio each item.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+
+================================================================================
+CATEGORÍA: SUMARIOS
+================================================================================
+
+ID: S01
+NOMBRE: Sumario Administrativo
+OUTPUT: sumario-S01.png
+
+Game mechanic: Sumario Administrativo
+Narrative: Todo lo que diga podrá ser usado en su contra en la auditoría de calidad.
+
+Visual: Wavy document, stamps, signature, perhaps hand signing.
+Emotion: Overwhelming bureaucracy, silent threat.
+Scale: Document occupies 50%, shadow beneath it to enlarge it.
+
+Bureaucratic symbols: Handwritten notes, official stamps, "CONFIDENCIAL", checklist marks.
+
+
+Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
+anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
+white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
+Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
+never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
+Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
