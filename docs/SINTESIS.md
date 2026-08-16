@@ -92,7 +92,7 @@ punto por partida y no genera espiral de muerte. Ver §4.)*
 Tu decisión de los "split decks", literal:
 - **Mazo de Guardia** (63 recursos, con los ⚠️ mezclados — el miedo a robar
   que querías conservar).
-- **Mazo de Protocolos** (45 acciones). Se accede solo por **Canje**: descarta
+- **Mazo de Protocolos** (30 acciones). Se accede solo por **Canje**: descarta
   2 recursos → roba 1 acción, máximo 1 canje por turno, acciones cuestan 0.
 
 Esto convierte las cartas repetidas en oportunidad (tu argumento) y de paso
@@ -181,9 +181,11 @@ juego no tenía:
 También se escribieron efectos para **13 eventos centinela** que en el Excel
 eran solo títulos (VILI, Neumotórax a tensión, Bacteriemia, Resistencia
 antibiótica, Sobresedación, Bradicardia extrema, TV, Falla renal…) y para
-**9 acciones nuevas** (Ojo Clínico, Receta en Blanco, Quiebre de Stock,
-Recorte Presupuestario, Paro de Funcionarios, Convivencia de Servicio,
-Muestra Hemolizada, Capacitación, Simulación Clínica).
+**6 acciones nuevas** (Ojo Clínico, Receta en Blanco, Quiebre de Stock,
+Recorte Presupuestario, Muestra Hemolizada, Capacitación, Simulación Clínica).
+El mazo de Protocolos se recortó luego a 30 copias / 20 diseños: 45 era
+demasiado para un mazo al que solo se llega por Canje, y casi la mitad de
+los diseños eran ataques que se solapaban entre sí.
 
 **Lo que quedó fuera del Excel:** el sistema de valores 1–5 (es la Era 2);
 ocho antibióticos mecánicamente idénticos; cinco kinesiólogos casi iguales
@@ -204,7 +206,7 @@ Nombre"*.
 1. **¿Pelada letal o Pelada suave en el modo base?** Hoy: suave en base,
    letal como variante. Un minuto de cambio si lo quieres al revés.
 2. **El Notion.** Sin el CSV no sé qué cartas de esa tabla no están cubiertas
-   por las 174 actuales. Expórtalo y hago el diff.
+   por las 159 actuales. Expórtalo y hago el diff.
 5. **El reparto de sistemas.** Los 26 pacientes se asignaron por criterio
    clínico (Shock Séptico → cardíaco, Pancreatitis → quirúrgico, Delirium →
    neuro). Revísalo: es tu juego y tu criterio manda. Está en la columna

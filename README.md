@@ -24,7 +24,7 @@ guardas por si llega un respiratorio?
 
 ## Estado del proyecto
 
-**v0.11 — listo para playtest.** Reglas cerradas, 174 cartas escritas, economía
+**v0.11 — listo para playtest.** Reglas cerradas, 159 cartas escritas, economía
 simulada y calibrada, y todo el material histórico del autor integrado:
 avatares, Sumario, Canje, la Pelada, y la **sinergia por sistema clínico**
 rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
@@ -32,7 +32,7 @@ rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 | | |
 |---|---|
 | Reglamento | ✅ completo |
-| Cartas (texto y números) | ✅ 174 |
+| Cartas (texto y números) | ✅ 159 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
 | Ilustraciones | ⬜ existen, falta maquetarlas |
@@ -43,7 +43,7 @@ rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
 ## Empieza acá
 
 ```bash
-# 1. Genera el print-and-play (174 cartas en A4)
+# 1. Genera el print-and-play (159 cartas en A4)
 python3 tools/generar_pnp.py
 
 # 2. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
@@ -63,7 +63,7 @@ qué medir en las tres primeras sesiones.
 | **[docs/DISENO.md](docs/DISENO.md)** | Por qué cada número es el que es. Léelo antes de cambiar nada. |
 | **[docs/PLAYTEST.md](docs/PLAYTEST.md)** | Plan de 3 sesiones, qué medir y hoja de registro imprimible. |
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
-| **[cartas/](cartas/)** | Las 174 cartas en CSV. Es la fuente de la verdad. |
+| **[cartas/](cartas/)** | Las 159 cartas en CSV. Es la fuente de la verdad. |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
 

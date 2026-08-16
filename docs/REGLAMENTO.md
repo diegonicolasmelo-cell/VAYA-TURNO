@@ -27,7 +27,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | Cartas de **Personaje** | 6 | Un médico por jugador |
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
 | Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Soporte Vital · 🃏 Comodín |
-| Cartas de **Protocolo** (Acciones) | 45 | Mazo aparte. Se compran con el **Canje** |
+| Cartas de **Protocolo** (Acciones) | 30 | Mazo aparte. Se compran con el **Canje** |
 | Cartas de **Evento Centinela** | 28 | Mazo aparte. Solo se roba cuando algo lo obliga |
 | Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
@@ -48,7 +48,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.3, *Admisión*) y les pone las fichas ❤️ que indique la carta.
 3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus ⚠️ adentro).
-   Baraja aparte el **Mazo de Protocolos** (las 45 Acciones).
+   Baraja aparte el **Mazo de Protocolos** (las 30 Acciones).
 4. Deja el **Mazo de Eventos Centinela** aparte, boca abajo. **Nunca se roba
    por voluntad propia.**
 5. Cada jugador roba **4 cartas** de mano inicial.

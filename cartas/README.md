@@ -7,11 +7,11 @@ cómo se juegan; acá están los números exactos. Todo en UTF-8, con encabezado
 |---|---:|---:|
 | `pacientes.csv` | 26 | 26 |
 | `recursos.csv` | 43 | 63 |
-| `acciones.csv` | 23 | 45 |
+| `acciones.csv` | 20 | 30 |
 | `eventos.csv` | 28 | 28 |
 | `personajes.csv` | 6 | 6 |
 | `sumarios.csv` | 1 | 6 |
-| | | **174** |
+| | | **159** |
 
 La columna **`copias`** dice cuántas veces se imprime cada fila.
 
