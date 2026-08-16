@@ -98,11 +98,14 @@ ese colchón, un solo ataque se volvía letal.
 > los críticos ahora son apuestas más razonables porque su recurso específico
 > los rescata más rápido.
 >
-> **Importante:** los recursos específicos deben estar repartidos entre los
-> cinco sistemas en proporción a cuántos pacientes hay de cada uno. Hoy:
-> CARD 5/5, RESP 7/4, NEURO 3/5, METAB 4/5, QUIR 5/7 (recursos/pacientes).
-> RESP está sobre-servido y NEURO/QUIR algo cortos — es la primera cosa a
-> ajustar si el playtest muestra que unos sistemas se sienten mejores.
+> **Sobre el reparto por sistema — corregido.** Aquí se anotó que los
+> recursos específicos debían emparejarse con los pacientes de cada sistema
+> (hoy: CARD 5/5, RESP 7/4, NEURO 3/5, METAB 4/5, QUIR 5/7). Con el plan de
+> expansiones por sistema (ver `EXPANSIONES.md`), **emparejarlos sería un
+> error**: la caja base debe cubrir los cinco de forma pareja pero *fina*,
+> para que ningún sistema quede agotado antes de su propio módulo. El único
+> ajuste que sigue en pie es bajar RESP de 7 a 4–5, y por esa razón: se está
+> comiendo el contenido de su expansión.
 
 > **Actualización v0.10:** tras integrar el material histórico (ver
 > `SINTESIS.md`), las Acciones salieron del Mazo de Guardia hacia un mazo
