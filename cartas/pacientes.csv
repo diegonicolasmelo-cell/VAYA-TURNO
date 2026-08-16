@@ -23,5 +23,5 @@ P21,Síndrome de Distrés Respiratorio,III,RESP,5,2,2,1,2,7,5,-2,"Los pulmones p
 P22,Status Epiléptico,III,NEURO,5,1,3,1,2,7,5,-2,"Cuarta dosis. Sigue convulsionando.",1
 P23,Pancreatitis Grave,III,QUIR,5,2,2,2,1,7,5,-2,"Fue un asado. Uno solo, insiste.",1
 P24,Tromboembolismo Pulmonar Masivo,III,RESP,5,2,2,0,3,7,5,-2,"Volvió de un vuelo de catorce horas y del baño no salió caminando.",1
-P25,Falla Multiorgánica,ROJO,CARD,4,2,3,1,2,8,8,-3,"Todo mal. Y en orden alfabético.",1
-P26,Trasplante en Lista Cero,ROJO,QUIR,4,2,2,2,2,8,8,-3,"Hay órgano. Hay avión. No hay pabellón.",1
+P25,Falla Multiorgánica,ROJO,CARD,5,2,3,1,2,8,8,-3,"Todo mal. Y en orden alfabético.",1
+P26,Trasplante en Lista Cero,ROJO,QUIR,5,2,2,2,2,8,8,-3,"Hay órgano. Hay avión. No hay pabellón.",1

@@ -335,11 +335,12 @@ function renderMonitor(){
     </div>`;
   }).join("");
 
-  // Sinergia por sistema: recursos específicos vs pacientes
+  // Sinergia por sistema. El objetivo NO es emparejar con los pacientes: la
+  // caja base cubre los cinco sistemas de forma pareja pero fina, para que
+  // ninguno quede agotado antes de su propio módulo (ver EXPANSIONES.md §4).
   const filas = SISTEMAS.map(s => {
     const {rec,pac} = b.sis[s];
-    const ratio = pac ? rec/pac : (rec ? 9 : 0);
-    const lv = pac===0 ? 2 : nivel(Math.abs(Math.log(ratio||0.01)), 0.36, 0.7);
+    const lv = (rec>=3 && rec<=6) ? 0 : ((rec===2 || rec===7) ? 1 : 2);
     return `<div class="metrica">
       <span><span class="chip ${s}">${NOMS[s]}</span></span>
       <span><b>${rec}</b><span class="obj"> rec / ${pac} pac</span>
@@ -365,7 +366,7 @@ function renderMonitor(){
       </div>
       <div class="bloque">
         <h3>Sinergia por sistema</h3>${filas}
-        <div class="barra-txt">Objetivo: tantos recursos específicos como pacientes de ese sistema.</div>
+        <div class="barra-txt">Objetivo: <b>3–6 recursos específicos por sistema</b>. Pareja pero fina: la expansión de cada sistema necesita margen para traer los suyos.</div>
       </div>
       <div class="bloque">
         <h3>Densidades</h3>

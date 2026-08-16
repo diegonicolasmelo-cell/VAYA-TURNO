@@ -32,7 +32,7 @@ cartas de ataque serían ruido; con ella, son el clímax de cada ronda.
 | Hueco | Decisión | Por qué |
 |---|---|---|
 | ¿Cuándo termina la partida? | 8 rondas fijas (10 con 4 jug.) | Un final fijo permite planificar el triage. Un final variable ("cuando se acabe el mazo") vuelve el último tercio impredecible y castiga al que va invirtiendo a largo plazo. |
-| ¿Se rellenan las camas? | Sí, siempre, al inicio de tu turno | Camas vacías = descanso. En este juego no hay descanso. Además evita la estrategia degenerada de "dejo morir a todos y no admito a nadie para no perder puntos". |
+| ¿Se rellenan las camas? | Sí, siempre, en la Entrega de Turno | Camas vacías = descanso. En este juego no hay descanso. Además evita la estrategia degenerada de "dejo morir a todos y no admito a nadie para no perder puntos". |
 | ¿Qué pasa con el paciente estabilizado? | Se detiene el reloj, alta una ronda después | Idea original tuya, y es la mejor del juego. Se conserva intacta. |
 | ¿Se puede perder el ✅? | Sí, al instante, si deja de cumplir requisitos | Es lo que da filo a todos los ataques. Los recursos sobrantes hacen de colchón — eso premia sobre-tratar a un paciente valioso. |
 | ¿Cuántas cartas se juegan por turno? | Recursos ilimitados, **1 sola Acción** | La simulación mostró que limitar recursos no cambia el balance (el cuello de botella es el robo), solo añade una regla. En cambio limitar Acciones sí importa: sin ese tope, una mano con 3 ataques borra a un jugador de la partida. |
@@ -49,13 +49,13 @@ cartas de ataque serían ruido; con ella, son el clímax de cada ronda.
 | I — Observación | 7 | 3 | +2 | −1 | 3 | 8 |
 | II — Grave | 6 | 5 | +3 | −2 | 5 | 10 |
 | III — Crítico | 5 | 7 | +5 | −2 | 7 | 6 |
-| ★ Código Rojo | 4 | 8 | +8 | −3 | 11 | 2 |
+| ★ Código Rojo | 5 | 8 | +8 | −3 | 11 | 2 |
 
 **La penalización por muerte crece más lento que el premio por alta.** Es
 deliberado: si un Crítico costara −5 al morir, nadie lo admitiría nunca y las
 cartas más interesantes del mazo serían basura. Tal como está, admitir un
 Crítico es una **apuesta con valor esperado positivo si crees que puedes
-salvarlo ~40% de las veces** — y la simulación dice que se salvan el 41%.
+salvarlo ~40% de las veces** — y la simulación dice que se salvan el 40%.
 Justo en el filo. Ese es el punto.
 
 El **Código Rojo** (2 cartas) no está balanceado para ser eficiente: está para
@@ -82,6 +82,44 @@ ese colchón, un solo ataque se volvía letal.
 
 ## 4. Cómo se calibró el robo (y por qué no toques esto a ojo)
 
+> **Actualización v0.12 — el reloj se movió al final del turno.** Las fases
+> pasaron de seis a cuatro y recuperaron los nombres del hospital: **Entrega de
+> Turno · El Pasillo · Pase de Visita · Fin de Guardia**. El cambio de fondo no
+> es el nombre sino *dónde cae el deterioro*: antes abría el turno, ahora lo
+> cierra, porque **cada Fin de Guardia es un día que pasa**. Consecuencia
+> mecánica: un paciente en 1 ❤️ ya no muere antes de que puedas tocarlo — te da
+> tiempo de intentarlo, y si falla, la muerte es resultado de tu turno.
+>
+> Eso regala medio turno de gracia a todo el mundo. Sin compensar, el
+> salvamento subía a **70%** y las guardias limpias a **18,5%** (fuera de
+> objetivo por arriba). Se pagó con dos ajustes chicos, elegidos por barrido:
+>
+> | Variante (3 jug., 3.000 partidas) | Salv. | Altas | Muertes | Limpias | GIII | ROJO |
+> |---|---:|---:|---:|---:|---:|---:|
+> | v0.11 · deterioro al inicio | 65% | 2,68 | 1,47 | 12,0% | 47% | 54% |
+> | deterioro al final, sin tocar nada | 70% | 2,90 | 1,24 | 18,5% | 58% | 61% |
+> | + sin día de gracia, ROJO ❤️4 | 59% | 2,64 | 1,82 | 6,7% | 41% | **38%** |
+> | **v0.12 · sin gracia + ROJO ❤️5** | **61%** | **2,66** | **1,68** | **8,2%** | **40%** | **64%** |
+>
+> - **Se quitó el día de gracia del recién ingresado.** Con el deterioro al
+>   final, esa gracia ya venía incluida por construcción; mantenerla la
+>   duplicaba. Y temáticamente es más honesto: si ingresó hoy, hoy pasó un día.
+> - **El Código Rojo subió de ❤️4 a ❤️5.** Es el único número de la tabla de
+>   gravedades que cambió, y era obligatorio: sin él, ROJO se desploma al 38%.
+>   Pide 8 recursos; con 4 días no alcanza aunque juegues perfecto.
+>
+> Se descartaron por el camino: bajar el robo a 3 (sobrecorrige a 54%), acortar
+> a 7 rondas (limpias al 27,7%), y bajar 1 ❤️ a las gravedades I–III (aplana el
+> gradiente: III y ROJO quedaban tan salvables como II).
+>
+> **Efecto secundario, honesto:** con 4 jugadores (2 camas, robo 3) la Gravedad
+> III cae al 33%, dos puntos bajo el objetivo. Es el costo de una mesa con
+> menos camas y menos robo, y **no se maquilló**: en esa configuración un
+> Crítico es una apuesta que casi nunca conviene. Si en el playtest molesta, la
+> perilla es pasar a 3 camas — pero entonces el Mazo de Pacientes se agota y el
+> 29% de las camas termina vacío. Ese es el trade-off real y hay que verlo en
+> mesa.
+
 > **Actualización v0.11 — la sinergia.** Del Excel histórico se rescató la
 > mejor mecánica que faltaba: los pacientes tienen **sistema clínico** y 24 de
 > los 63 recursos son **específicos** de un sistema. El recurso correcto en el
@@ -94,18 +132,19 @@ ese colchón, un solo ataque se volvía letal.
 > 17. Se añadieron además **3 comodines**: bajan de 4,3% a ~2% la proporción
 > de jugadores que terminan sin ninguna alta — el anti-brick pedido por el
 > autor. Resultado v0.11 con robo 4: **65% de salvamento, 2,7 altas, 1,5
-> fallecidos, 11,7% de guardias limpias.** Gravedad III sube a 48% (era 41%):
+> fallecidos, 11,7% de guardias limpias.** Gravedad III sube a 47% (era 41%):
 > los críticos ahora son apuestas más razonables porque su recurso específico
 > los rescata más rápido.
 >
 > **Sobre el reparto por sistema — corregido.** Aquí se anotó que los
 > recursos específicos debían emparejarse con los pacientes de cada sistema
-> (hoy: CARD 5/5, RESP 7/4, NEURO 3/5, METAB 4/5, QUIR 5/7). Con el plan de
+> (hoy: CARD 5/5, RESP 4/4, NEURO 3/5, METAB 4/5, QUIR 5/7). Con el plan de
 > expansiones por sistema (ver `EXPANSIONES.md`), **emparejarlos sería un
 > error**: la caja base debe cubrir los cinco de forma pareja pero *fina*,
 > para que ningún sistema quede agotado antes de su propio módulo. El único
-> ajuste que sigue en pie es bajar RESP de 7 a 4–5, y por esa razón: se está
-> comiendo el contenido de su expansión.
+> ajuste que quedaba era bajar RESP de 7 a 4, hecho en v0.12: la Ventilación
+> Mecánica pasó a genérica, porque el ventilador también es del politrauma y
+> del séptico. Sinergia total: 21 de 63.
 
 > **Actualización v0.10:** tras integrar el material histórico (ver
 > `SINTESIS.md`), las Acciones salieron del Mazo de Guardia hacia un mazo
@@ -142,13 +181,17 @@ Barrido de parámetros con `tools/simular.py` (3 jugadores, 3 camas):
   carta. El reloj sigue siendo igual de despiadado; simplemente tienes más
   con qué pelear.
 
-**Configuración final validada** (8 rondas, 2000 partidas por config):
+**Configuración final validada — v0.12** (3.000 partidas por config):
 
-| Jugadores | Camas | Robo | Rondas | Salv. | Altas | Muertes | Limpias |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 3 | 5 | 8 | 61% | 2,38 | 1,50 | 10% |
-| 3 | 3 | 5 | 8 | 61% | 2,41 | 1,52 | 9,5% |
-| 4 | 2 | 4 | 10 | 65% | 2,32 | 1,27 | 16% |
+| Jugadores | Camas | Robo | Rondas | Salv. | Altas | Muertes | Limpias | GIII |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 3 | 4 | 8 | 62% | 2,71 | 1,64 | 8,2% | 42% |
+| 3 | 3 | 4 | 8 | 61% | 2,66 | 1,68 | 8,2% | 40% |
+| 4 | 2 | 3 | 10 | 57% | 2,22 | 1,69 | 9,2% | 33% |
+
+*(La tabla de arriba, con robo 5, documenta la calibración v0.9 sobre el mazo
+único. Se conserva porque el método es el mismo y el barrido sigue siendo
+válido como razonamiento.)*
 
 Objetivos de diseño que había que cumplir simultáneamente:
 

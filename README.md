@@ -24,10 +24,17 @@ guardas por si llega un respiratorio?
 
 ## Estado del proyecto
 
-**v0.11 — listo para playtest.** Reglas cerradas, 159 cartas escritas, economía
+**v0.12 — listo para playtest.** Reglas cerradas, 159 cartas escritas, economía
 simulada y calibrada, y todo el material histórico del autor integrado:
 avatares, Sumario, Canje, la Pelada, y la **sinergia por sistema clínico**
 rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
+
+En v0.12 el turno pasó de seis fases a cuatro y recuperó los nombres del
+hospital — **Entrega de Turno · El Pasillo · Pase de Visita · Fin de Guardia** —
+y con ellos el cambio que importa: **el deterioro ocurre al cerrar el turno, no
+al abrirlo.** Cada Fin de Guardia es un día que pasa. Un paciente en 1 ❤️ ya no
+muere antes de que puedas tocarlo: alcanzas a intentarlo, y si falla, la muerte
+es consecuencia de tu turno.
 
 | | |
 |---|---|
@@ -83,16 +90,21 @@ correcta era el **robo por turno**, no la vida ni los requisitos (subir la vida
 arreglaba la tasa pero mataba la tensión: el 37% de las partidas terminaban sin
 un solo fallecido).
 
-Configuración final, validada sobre 2.000 partidas por caso:
+Configuración final, validada sobre 3.000 partidas por caso (v0.12):
 
-| Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos |
-|---|---:|---:|---:|---:|---:|---:|
-| 2 | 3 | 4 | 8 | 65% | 2,7 | 1,5 |
-| 3 | 3 | 4 | 8 | 65% | 2,7 | 1,5 |
-| 4 | 2 | 3 | 10 | 63% | 2,3 | 1,3 |
+| Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos | Limpias |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 3 | 4 | 8 | 62% | 2,7 | 1,6 | 8% |
+| 3 | 3 | 4 | 8 | 61% | 2,7 | 1,7 | 8% |
+| 4 | 2 | 3 | 10 | 57% | 2,2 | 1,7 | 9% |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
-fallecido pasa el ~10% de las veces, y por eso vale 3 puntos.
+fallecido pasa el ~8% de las veces, y por eso vale 3 puntos.
+
+Mover el deterioro al final del turno regalaba medio turno de gracia a todo el
+mundo (el salvamento se iba al 70%). Se pagó con dos ajustes: **el recién
+ingresado ya no tiene día de cortesía**, y el **Código Rojo subió de ❤️4 a ❤️5**
+— sin eso se desplomaba al 38%, porque pide 8 recursos y con 4 días no alcanza.
 
 ```bash
 python3 tools/simular.py --partidas 3000

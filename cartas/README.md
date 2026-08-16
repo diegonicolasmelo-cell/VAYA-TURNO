@@ -24,7 +24,7 @@ La columna **`copias`** dice cuántas veces se imprime cada fila.
 | Columna | Qué es |
 |---|---|
 | `gravedad` | `I`, `II`, `III` o `ROJO` |
-| `vida` | Fichas ❤️ iniciales. Baja 1 por turno propio. |
+| `vida` | Fichas ❤️ iniciales. Baja 1 en cada **Fin de Guardia** propio, incluido el día que ingresa. |
 | `img` `far` `per` `mon` | Recursos que exige de cada tipo |
 | `sistema` | `RESP`, `CARD`, `NEURO`, `METAB` o `QUIR`. Habilita la sinergia |
 | `total_recursos` | Suma de los cuatro anteriores (**redundante a propósito**: el simulador la verifica y falla si no cuadra) |
@@ -112,7 +112,7 @@ Objetivos que hay que mantener (detalle en `docs/DISENO.md` §4):
 - Salvamento **55–70%**
 - **2–3 altas** por jugador
 - Guardias limpias **5–15%**
-- Gravedad III salvable **40–50%**
+- Gravedad III salvable **40–50%** (a 4 jugadores baja a ~33%: ver `docs/DISENO.md` §4)
 
 Además: mantén los **recursos específicos repartidos entre los cinco
 sistemas** en proporción a cuántos pacientes hay de cada uno. Si un sistema

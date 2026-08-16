@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.11 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.12 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -46,7 +46,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 1. Cada jugador elige un **Personaje** y lo pone frente a sí. Deja espacio
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
-   (ver §5.3, *Admisión*) y les pone las fichas ❤️ que indique la carta.
+   (ver §5.1, *Entrega de Turno*) y les pone las fichas ❤️ que indique la carta.
 3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus ⚠️ adentro).
    Baraja aparte el **Mazo de Protocolos** (las 30 Acciones).
 4. Deja el **Mazo de Eventos Centinela** aparte, boca abajo. **Nunca se roba
@@ -64,7 +64,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | 4 | 2 | **3** | 10 | Menos camas y menos robo: los turnos vuelan |
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
-> competente salva ~65% de sus pacientes: unas **2,7 altas y 1,5
+> competente salva ~61% de sus pacientes: unas **2,7 altas y 1,7
 > fallecidos** por guardia. Si tu mesa se aleja mucho de eso, revisa
 > `docs/DISENO.md` §4 antes de cambiar nada.
 
@@ -94,7 +94,7 @@ Cada carta de paciente tiene:
 | **I — Observación** | 7 | 3 | **+2** | −1 |
 | **II — Grave** | 6 | 5 | **+3** | −2 |
 | **III — Crítico** | 5 | 7 | **+5** | −2 |
-| **★ Código Rojo** | 4 | 8 | **+8** | −3 |
+| **★ Código Rojo** | 5 | 8 | **+8** | −3 |
 
 Los recursos se colocan **encima de la carta del paciente**, en abanico, y
 se quedan ahí. No son gastables: **son su tratamiento**.
@@ -109,7 +109,7 @@ Eso importa por una sola regla, la de §4.1.
 
 ### 4.1 Recursos específicos: la sinergia
 
-24 de las 63 cartas del Mazo de Guardia llevan también un chip de sistema.
+21 de las 63 cartas del Mazo de Guardia llevan también un chip de sistema.
 
 > **Un recurso específico jugado sobre un paciente de su mismo sistema
 > cuenta como DOS recursos de su tipo, en vez de uno.**
@@ -137,94 +137,155 @@ Dos cartas cuestan algo más que una jugada:
 | Carta | Restricción |
 |---|---|
 | **TAC de Urgencia** | Solo puedes jugarlo sobre un paciente que ya tenga al menos 1 🧑‍⚕️. Alguien tiene que bajarlo. |
-| **Resonancia con Cupo** | Al jugarla, **no puedes jugar más recursos este turno**. Cuesta tiempo, no recursos. |
+| **Resonancia con Cupo** | Al jugarla, **termina tu Pase de Visita**: no colocas más recursos ni cierras Sumarios este turno. Cuesta tiempo, no recursos. |
 
 ---
 
 ## 5. El turno
 
-Un turno tiene seis fases, en este orden. Una **ronda** son los turnos de
-todos los jugadores.
+Un turno son **cuatro fases**, en este orden. Una **ronda** son los turnos de
+todos los jugadores, y **cada Fin de Guardia es un día que pasa**.
 
-### 5.1 Deterioro
+```
+ ENTREGA DE TURNO  →  EL PASILLO  →  PASE DE VISITA  →  FIN DE GUARDIA
+   recibes             negocias         tratas            pasa el día
+```
 
-Cada paciente en tu UCI que **no** esté ✅ Estabilizado pierde **1 ❤️**.
+### 5.1 Entrega de Turno
 
-Si un paciente llega a **0 ❤️** → recibe el **Alta Celestial**. Se le cursó
-el alta hacia el piso que está sobre las nubes: descarta la carta y todos sus
-recursos, pon una ✝️ frente a ti y anota su penalización. La cama queda vacía.
+Llegas, te cuentan cómo está la unidad y agarras el carro.
 
-**Y llega el papeleo:** toma una carta de **Sumario Administrativo**. Queda en
-tu mano, no se puede jugar ni descartar, y **reduce tu límite de mano en 1**.
-Para cerrar el caso: en tu fase de Acción, descarta 2 recursos de tu mano —
-o consigue que el Director del Hospital haga desaparecer el expediente.
+**a) Altas.** Da de alta a **todo paciente que ya llevara la ficha ✅ antes de
+que empezara este turno**. Sobrevivió la ronda de consolidación: ponlo en tu
+**pila de altas** y anota sus puntos. Sus recursos van al descarte y la cama
+queda vacía.
 
-> Lo peor de perder un paciente no es perder los puntos. Es el formulario.
-
-### 5.2 Alta
-
-¿Tienes un paciente que ya estaba ✅ Estabilizado **desde antes de tu turno
-anterior**? Ha sobrevivido la ronda de consolidación: **dale de alta**.
-
-Toma la carta, ponla en tu **pila de altas** y anota sus puntos. Sus
-recursos van al descarte. La cama queda vacía.
+En corto: **estabilizas en un turno, das de alta en el siguiente.** Entre medio
+pasan los turnos de todos los demás, y ahí es donde te lo pueden arruinar.
 
 > **Por qué existe esta espera:** completar los recursos no es ganar todavía.
 > Hay una ronda entera en la que tu paciente estabilizado está a la vista de
-> todos, sin vida perdiendo pero perfectamente sabotéable. Ahí es donde se
-> rompen las amistades.
+> todos, sin perder vida pero perfectamente saboteable. Ahí es donde se rompen
+> las amistades.
 
-### 5.3 Admisión
+**b) Admisión.** Por cada **cama vacía**, revela las **2 primeras cartas** del
+Mazo de Pacientes, **elige 1** y pon la otra **al fondo del mazo**. Coloca las
+fichas ❤️ que indique la carta.
 
-Por cada **cama vacía**, revela las **2 primeras cartas** del Mazo de
-Pacientes, **elige 1** para admitir y pon la otra **al fondo del mazo**.
+> No puedes dejar camas vacías. Nunca ha habido una cama vacía en una UCI y no
+> la va a haber en este juego.
 
-Coloca las fichas ❤️ que indique la carta. Los pacientes recién admitidos
-**no pierden vida este turno** (su primer deterioro es en tu próximo turno).
+**c) Robo.** Roba **4 cartas** del Mazo de Guardia (**3** en partidas de 4
+jugadores).
 
-> No puedes dejar camas vacías. Nunca ha habido una cama vacía en una UCI y
-> no la va a haber en este juego.
-
-### 5.4 Guardia (robo)
-
-Roba **4 cartas** del Mazo de Guardia (**3** en partidas de 4 jugadores).
-
-**Si robas una carta con el símbolo ⚠️ Complicación:** quédate la carta
-(es un recurso normal), pero **inmediatamente** roba 1 carta del Mazo de
-Eventos Centinela y resuélvela. Sigue robando hasta completar tu robo.
+Si robas una carta con el símbolo **⚠️ Complicación**: quédate la carta (es un
+recurso normal), pero **inmediatamente** roba 1 carta del Mazo de Eventos
+Centinela y resuélvela. Después sigue robando hasta completar tu robo.
 
 > Sí. La carta que te salva te trae el problema. Bienvenido.
 
+El ⚠️ dispara **cada vez que la carta llega a tu mano desde el Mazo de
+Guardia**, sea en esta fase o por una Acción (*Doblo Turno*, *Receta en
+Blanco*). No dispara si la carta viene del descarte o de la mano de otro.
+
 Si el Mazo de Guardia se agota, baraja el descarte y forma uno nuevo.
 
-### 5.5 Acción
+### 5.2 El Pasillo
 
-- **Recursos:** juega **todos los que quieras**. Colócalos sobre **tus**
-  pacientes.
+Antes de la visita, en el pasillo, se arregla lo que no se puede decir en la
+reunión. Aquí pasan las dos cosas turbias del juego:
+
 - **El Canje** (máx. 1 por turno): descarta **2 recursos** de tu mano y roba
   **1 carta del Mazo de Protocolos**. Así se consiguen las Acciones: cambiando
-  lo que te sobra por un favor.
-- **Acciones:** juega **como máximo 1 por turno**. Cuestan 0 — ya pagaste al
-  conseguirla. Resuelve su texto y descártala.
+  lo que te sobra por un favor. **El Canje no es una Acción**: puedes canjear
+  aunque no puedas jugar Acciones (*Se Cayó el Sistema*), y canjear no gasta tu
+  Acción del turno.
+- **Acciones:** juega **como máximo 1 por turno** — puede ser la que acabas de
+  canjear. Cuestan 0: ya pagaste al conseguirla. Resuelve su texto y descártala.
+
+> El límite de 1 es de veneno, no de trabajo clínico. Podrás tratar a tus
+> pacientes todo lo que te dé la mano en la fase siguiente; arruinarle el turno
+> al colega, una vez.
+
+**Por qué el pasillo va antes de la visita:** porque lo que consigas acá —una
+*Receta en Blanco*, un recurso que le quitaste a un rival, tres cartas de
+*Doblo Turno*— lo puedes usar **este mismo turno** en el Pase de Visita. Y
+porque el Canje te obliga a decidir qué te sobra **antes** de haber tratado a
+nadie, que es la decisión difícil.
+
+### 5.3 Pase de Visita
+
+La reunión. Cama por cama, se indica el tratamiento.
+
+- **Recursos:** juega **todos los que quieras**. Colócalos **encima de tus**
+  pacientes, en abanico. No son gastables: son su tratamiento.
 - **Cerrar Sumarios:** descarta 2 recursos por cada Sumario que quieras cerrar.
 
-> El límite de Acciones es de veneno, no de trabajo clínico. Puedes tratar a
-> tus pacientes todo lo que te dé la mano; arruinarle el turno al colega,
-> una vez.
-
 En cuanto un paciente tiene **todos** los recursos que pide (da igual si le
-sobran de un tipo), colócale una ficha **✅ Estabilizado**. Deja de perder
-vida de inmediato, incluso a mitad de turno.
+sobran de un tipo), colócale una ficha **✅ Estabilizado**. Deja de perder vida
+de inmediato, incluso a mitad de fase.
 
 > **Importante:** si un paciente ✅ pierde un recurso por cualquier motivo y
-> deja de cumplir sus requisitos, **pierde la ficha ✅ al instante** y vuelve
-> a deteriorarse en tu siguiente fase de Deterioro. Los recursos sobrantes
-> sirven de colchón.
+> deja de cumplir sus requisitos, **pierde la ficha ✅ al instante** y vuelve a
+> deteriorarse en el siguiente Fin de Guardia. Los recursos sobrantes sirven de
+> colchón.
 
-### 5.6 Cierre
+### 5.4 Fin de Guardia
 
-Descarta hasta quedarte con un máximo de **5 cartas** en mano (**menos 1 por
-cada Sumario abierto** que tengas). Pasa el turno.
+**Pasa un día.** Esta es la fase que hace que el juego sea un juego.
+
+**a) Deterioro.** Cada paciente en tu UCI que **no** esté ✅ Estabilizado pierde
+**1 ❤️**. Sin excepciones: el que ingresó hoy también vio pasar el día.
+
+**b) Alta Celestial.** Si un paciente llega a **0 ❤️**, se le cursó el alta
+hacia el piso que está sobre las nubes. Descarta la carta y todos sus recursos,
+pon una ✝️ frente a ti y anota su penalización.
+
+**La cama queda vacía hasta tu próxima Entrega de Turno.** Pasa una ronda
+entera con un hueco en tu unidad: perder un paciente no solo cuesta puntos,
+cuesta también el turno de trabajo que esa cama no te va a dar.
+
+Esto vale para **cualquier** Alta Celestial, la cause el reloj, un Evento
+Centinela o la Pelada: siempre ✝️, siempre Sumario.
+
+**Y llega el papeleo:** toma una carta de **Sumario Administrativo**. Queda en
+tu mano, no se puede jugar ni descartar, y **reduce tu límite de mano en 1**.
+Para cerrarlo: en tu Pase de Visita, descarta 2 recursos — o consigue que el
+Director del Hospital haga desaparecer el expediente.
+
+> Lo peor de perder un paciente no es perder los puntos. Es el formulario.
+
+**c) Descarte.** Quédate con un máximo de **5 cartas** en mano (**menos 1 por
+cada Sumario abierto**). Pasa el turno.
+
+> **La última ronda.** Lo último que pasa en la partida es un Fin de Guardia:
+> tus pacientes no-✅ pierden su ❤️ igual, y los que estén en 1 ❤️ se mueren
+> con el juego ya terminado. Por eso **estabilizar en la ronda final sigue
+> valiendo la pena aunque no alcances a dar el alta**: no ganas los puntos,
+> pero te ahorras la ✝️ y el Sumario no llega a tiempo de estorbarte. Es la
+> decisión más contraintuitiva del juego y la que separa a las mesas.
+
+> **Por qué el deterioro va al final y no al principio.** Porque el reloj es el
+> día, no tu llegada: si el paciente se te va, se te va **después** de que
+> hiciste todo lo que podías hacer hoy. Un paciente en 1 ❤️ es un paciente al
+> que **alcanzas a intentar salvar** — y si no lo logras, la muerte es
+> consecuencia de tu turno, no algo que pasó mientras dormías. Cuesta caro: es
+> medio turno de gracia para todo el mundo, y por eso el Código Rojo tiene
+> ❤️5 y el recién ingresado ya no tiene día de cortesía.
+
+### 5.5 Lo que se pregunta en la mesa
+
+| Situación | Respuesta |
+|---|---|
+| ¿Se agotó el **Mazo de Pacientes**? | No se admite a nadie más. Las camas vacías quedan vacías y la guardia termina **al final de la ronda en curso**. |
+| ¿Se agotaron los **Sumarios** (son 6)? | No tomas ninguno. Tuviste suerte: la impresora estaba mala. |
+| ¿Se agotó el **Mazo de Eventos Centinela**? | Baraja su descarte y forma uno nuevo. |
+| ¿Puedo dejar una cama vacía a propósito? | No en la Entrega de Turno: si hay cama y hay mazo, admites. Sí durante el resto de la ronda, cuando el hueco lo dejó una muerte. |
+| ¿Puedo cerrar un Sumario el mismo turno que lo recibo? | No. Llega en tu Fin de Guardia; lo pagas en tu próximo Pase de Visita. |
+| ¿Un paciente ✅ puede recibir más recursos? | Sí, y conviene: los sobrantes son el colchón que aguanta un ataque. |
+| ¿Puedo mover un recurso de un paciente a otro? | Solo si una carta lo dice (*Reunión Clínica*). Por defecto, lo puesto queda puesto. |
+| ¿Los pacientes que quedan en cama al final puntúan? | No. Ni bien ni mal. Quedan para la próxima guardia. |
+| ¿Y si un efecto sube los requisitos de un paciente ya ✅? | Pierde el ✅ al instante si deja de cumplirlos, y vuelve a deteriorarse en tu siguiente Fin de Guardia. |
 
 ---
 
@@ -232,7 +293,7 @@ cada Sumario abierto** que tengas). Pasa el turno.
 
 Solo dos cosas se pueden hacer cuando no es tu turno:
 
-1. **Jugar una carta marcada 🛡️ RESPUESTA** (ej.: *Café de Enfermería*).
+1. **Jugar una carta marcada 🛡️ RESPUESTA** (ej.: *¿Y Si Vamos por un Cafecito?*).
    No cuenta como tu Acción del turno.
 2. **Usar una habilidad de Personaje que diga explícitamente que se puede.**
 
@@ -256,7 +317,7 @@ sin especificar cuál y no dice quién elige, **elige el jugador afectado**.
 Si un evento no puede aplicarse (ej.: pide descartar un Fármaco y el paciente
 no tiene ninguno), **no pasa nada**. No se sustituye por otro efecto.
 
-Los eventos llevan categoría (`RESPIRATORIO`, `INFECCIOSO`, `GENERAL`). Hoy
+Los eventos llevan categoría (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`, `GENERAL`). Hoy
 es solo sabor; queda reservada para inmunidades de futuros avatares.
 
 ---
@@ -285,8 +346,10 @@ usarla.
 
 ## 9. Fin de la partida y puntuación
 
-La guardia termina al **final de la ronda 8** (2 y 3 jugadores) o de la
-**ronda 10** (4 jugadores) — o antes, si el Mazo de Pacientes se agota.
+La guardia termina cuando el **último jugador de la ronda 8** (2 y 3 jugadores)
+o de la **ronda 10** (4 jugadores) termina su **Fin de Guardia** — sí, con su
+deterioro incluido. También termina así la ronda en la que se agote el Mazo de
+Pacientes.
 
 Los pacientes que quedan en cama **no puntúan**: ni bien ni mal. Quedan para
 la próxima guardia. Ese es su problema.
@@ -312,16 +375,21 @@ la próxima guardia. Ese es su problema.
 ## 10. Resumen del turno (para la mesa)
 
 ```
-1. DETERIORO   No-✅ pierde 1 ❤️. A 0 → Alta Celestial: ✝️ + Sumario.
-2. ALTA        Los ✅ que sobrevivieron una ronda completa → alta + puntos.
-3. ADMISIÓN    Por cada cama vacía: revela 2 pacientes, elige 1.
-4. GUARDIA     Roba 4 cartas (3 si son 4 jug.). Cada ⚠️ → 1 Centinela ya.
-5. ACCIÓN      Recursos libres (🫁🫀🧠🧪🔪 en su sistema = ×2) · Canje 2→1
-               · Acción máx 1 · Completo → ✅
-6. CIERRE      Descarta hasta 5 en mano (−1 por Sumario abierto).
-```
+1. ENTREGA DE TURNO   a) ✅ de hace una ronda → ALTA + puntos
+                      b) Cama vacía → revela 2 pacientes, elige 1
+                      c) Roba 4 (3 si son 4 jug.) · cada ⚠️ → 1 Centinela ya
 
----
+2. EL PASILLO         Canje: bota 2 recursos → roba 1 Protocolo (máx. 1)
+                      Juega máx. 1 Acción
+
+3. PASE DE VISITA     Recursos sin límite (🫁🫀🧠🧪🔪 en su sistema = ×2)
+                      Cerrar Sumario: bota 2 recursos c/u
+                      Completo → ✅ Estabilizado
+
+4. FIN DE GUARDIA     Pasa un día: todo no-✅ pierde 1 ❤️
+                      A 0 ❤️ → Alta Celestial: ✝️ + Sumario
+                      Descarta hasta 5 en mano (−1 por Sumario abierto)
+```
 
 ## 11. Variantes
 

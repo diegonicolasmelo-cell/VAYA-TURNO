@@ -178,7 +178,7 @@ def aplicar_evento(j, rng):
 
 
 def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
-          jugadas_max=99, sumario=True, deterioro="inicio", gracia=True):
+          jugadas_max=99, sumario=True, deterioro="final", gracia=False):
     mazo_p = pacientes[:]
     rng.shuffle(mazo_p)
     mazo_g = guardia[:]
@@ -317,10 +317,12 @@ def main():
                     help="desactiva la maldición del Sumario Administrativo")
     ap.add_argument("--mano", type=int, default=5, help="límite de mano")
     ap.add_argument("--semilla", type=int, default=7)
-    ap.add_argument("--deterioro", choices=["inicio", "final"], default="inicio",
-                    help="cuándo baja el contador: al abrir el turno o al cerrarlo")
-    ap.add_argument("--sin-gracia", action="store_true",
-                    help="el paciente recién admitido también se deteriora")
+    ap.add_argument("--deterioro", choices=["inicio", "final"], default="final",
+                    help="cuándo baja el contador: al abrir el turno (v0.11) "
+                         "o en el Fin de Guardia (v0.12, por defecto)")
+    ap.add_argument("--con-gracia", action="store_true",
+                    help="el paciente recién admitido NO se deteriora su primer día "
+                         "(regla de v0.11)")
     args = ap.parse_args()
 
     pacientes, guardia = cargar()
@@ -335,7 +337,7 @@ def main():
         for j in jugar(pacientes, guardia, args.jugadores, args.camas, args.rondas,
                        rng, robo=args.robo, mano_max=args.mano, jugadas_max=99,
                        sumario=not args.sin_sumario, deterioro=args.deterioro,
-                       gracia=not args.sin_gracia):
+                       gracia=args.con_gracia):
             altas.append(len(j.altas))
             muertos.append(len(j.muertos))
             puntos.append(j.puntos())
