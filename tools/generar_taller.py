@@ -160,6 +160,31 @@ h1 em{font-style:normal;color:var(--acento)}
 .metrica b{font-weight:700}
 .metrica .obj{font-size:.72rem;color:var(--tenue)}
 
+/* ── Banco de pruebas ───────────────────────────────────────── */
+.banco{background:var(--panel);border:1px solid var(--linea);
+  padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.9rem;margin-top:1rem}
+.banco-intro{margin:0;font-size:.82rem;color:var(--tenue);max-width:52rem}
+.mandos{display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end}
+.mando{display:flex;flex-direction:column;gap:.2rem}
+.mando label{font-size:.6rem;font-weight:800;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--tenue)}
+.mando select{background:var(--ficha);border:1px solid var(--linea-fuerte);
+  padding:.35rem .5rem;font-size:.85rem;border-radius:2px;color:var(--tinta)}
+.mandos .btn{margin-left:auto}
+.estado-sim{font-size:.78rem;color:var(--tenue);min-height:1.2em}
+.tabla-sim{width:100%;border-collapse:collapse;font-size:.85rem}
+.tabla-sim th{text-align:left;font-size:.6rem;font-weight:800;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--tenue);padding:.3rem .5rem;
+  border-bottom:1px solid var(--linea-fuerte);white-space:nowrap}
+.tabla-sim th.n,.tabla-sim td.n{text-align:right}
+.tabla-sim td{padding:.38rem .5rem;border-bottom:1px solid var(--linea)}
+.tabla-sim tr:last-child td{border-bottom:0}
+.tabla-sim .obj{font-size:.72rem;color:var(--tenue)}
+.delta{font-size:.75rem;font-weight:700;white-space:nowrap}
+.d-sube{color:var(--ok)} .d-baja{color:var(--mal)} .d-igual{color:var(--tenue)}
+.sim-envuelve{overflow-x:auto}
+.sim-pie{font-size:.72rem;color:var(--tenue);margin:0}
+
 /* barras comparativas demanda vs mazo */
 .par{display:flex;flex-direction:column;gap:.22rem}
 .par-cab{display:flex;justify-content:space-between;font-size:.8rem;align-items:baseline}
@@ -535,6 +560,405 @@ function renderSalida(){
   document.getElementById("volcado").value = modo === "diff" ? diff() : aCSV(modo);
 }
 
+/* ── Banco de pruebas ─────────────────────────────────────────────
+   Port en JavaScript de tools/simular.py. Corre sobre las cartas que
+   tienes en pantalla, no sobre los CSV: simula tu idea antes de
+   guardarla. El Python sigue siendo la verdad — este mide lo mismo
+   con menos partidas, para que puedas iterar sin salir de la página.
+   Si tocas el motor, hay que tocarlo en los dos lados.            */
+const SIM_TIPOS = ["IMAGEN","FARMACOS","PERSONAL","MONITOREO"];
+const SIM_COL = {IMAGEN:"img",FARMACOS:"far",PERSONAL:"per",MONITOREO:"mon"};
+const GRAVEDADES = ["I","II","III","ROJO"];
+
+function rng32(semilla){                       // mulberry32
+  let a = semilla >>> 0;
+  return () => {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const azar = (r,k) => Math.floor(r()*k);
+const elige = (r,a) => a[azar(r,a.length)];
+function barajar(a,r){
+  for (let i=a.length-1;i>0;i--){ const j=azar(r,i+1); const x=a[i]; a[i]=a[j]; a[j]=x; }
+  return a;
+}
+
+function simCargar(fuente){
+  const pacientes = [];
+  fuente.pacientes.forEach(p => {
+    const pide = {};
+    SIM_TIPOS.forEach(t => pide[t] = n(p[SIM_COL[t]]));
+    const ficha = {gravedad:p.gravedad, vida:n(p.vida), sistema:p.sistema, pide,
+                   alta:n(p.puntos_alta), fallece:n(p.puntos_fallece),
+                   pideTotal: SIM_TIPOS.reduce((a,t)=>a+pide[t],0)};
+    for (let i=0;i<copias(p);i++) pacientes.push(ficha);
+  });
+  const guardia = [];
+  fuente.recursos.forEach(r => {
+    for (let i=0;i<copias(r);i++) guardia.push({
+      tipo:r.tipo, sistema:r.sistema, comodin:r.comodin==="si",
+      restriccion:r.restriccion, warn:r.complicacion==="si"});
+  });
+  return {pacientes, guardia};
+}
+
+function camaNueva(f){
+  return {f, vida:f.vida, pide:Object.assign({},f.pide),
+          tiene:{IMAGEN:0,FARMACOS:0,PERSONAL:0,MONITOREO:0},
+          estable:false, estableDesde:null, nuevo:true};
+}
+const faltaDe = c => {
+  const o = {}; SIM_TIPOS.forEach(t => o[t] = Math.max(0, c.pide[t]-c.tiene[t])); return o;
+};
+const faltanTotal = c =>
+  SIM_TIPOS.reduce((a,t)=>a+Math.max(0,c.pide[t]-c.tiene[t]),0);
+function revisar(c, ronda){
+  const completo = faltanTotal(c) === 0;
+  if (completo && !c.estable){ c.estable = true; c.estableDesde = ronda; }
+  else if (!completo && c.estable){ c.estable = false; c.estableDesde = null; }
+}
+
+/* Triage codicioso: mejor (puntos que se juegan) / (recursos que faltan),
+   dejando al final a los que ya no alcanzan con el ingreso esperado. */
+function elegirObjetivos(camas){
+  const p = [];
+  camas.forEach(c => {
+    if (!c || c.estable) return;
+    const faltan = faltanTotal(c);
+    if (!faltan) return;
+    p.push({c, alcanzable: faltan <= c.vida*2.1,
+            valor: (c.f.alta - c.f.fallece)/faltan});
+  });
+  p.sort((x,y) => (x.alcanzable===y.alcanzable) ? y.valor-x.valor
+                                                : (x.alcanzable ? -1 : 1));
+  return p.map(x => x.c);
+}
+
+/* Devuelve [carta, aporte, tipo]. Sinergia primero (cuenta doble), luego
+   recurso normal, y el comodín como último recurso. */
+function elegirCarta(mano, cama){
+  const falta = faltaDe(cama);
+  if (SIM_TIPOS.reduce((a,t)=>a+falta[t],0) === 0) return null;
+  const jugable = c =>
+    !(c.restriccion === "PERSONAL" && cama.tiene.PERSONAL === 0);
+
+  for (const c of mano)
+    if (jugable(c) && c.sistema && c.sistema === cama.f.sistema && falta[c.tipo] > 0)
+      return [c, 2, c.tipo];
+  for (const c of mano)
+    if (jugable(c) && !c.comodin && falta[c.tipo] > 0)
+      return [c, 1, c.tipo];
+  for (const c of mano)
+    if (c.comodin){
+      let t = SIM_TIPOS[0];
+      SIM_TIPOS.forEach(x => { if (falta[x] > falta[t]) t = x; });
+      if (falta[t] > 0) return [c, 1, t];
+    }
+  return null;
+}
+
+/* Modelo agregado del Mazo de Eventos Centinela. */
+function aplicarEvento(j, r){
+  const ocupadas = j.camas.filter(Boolean);
+  if (!ocupadas.length) return;
+  const x = r();
+  if (x < 0.33){
+    let c = ocupadas[0];
+    ocupadas.forEach(o => { if (faltanTotal(o) < faltanTotal(c)) c = o; });
+    c.vida -= elige(r,[1,1,2]);
+  } else if (x < 0.66){
+    const c = elige(r, ocupadas);
+    const con = SIM_TIPOS.filter(t => c.tiene[t] > 0);
+    if (con.length) c.tiene[elige(r,con)] -= 1;
+  } else {
+    const c = elige(r, ocupadas);
+    c.pide[elige(r,SIM_TIPOS)] += 1;
+  }
+}
+
+function jugarPartida(pacientes, guardia, cfg, r){
+  const {nJug, camasC, rondas, robo, manoMax, sumario, deterioro, gracia} = cfg;
+  const mazoP = barajar(pacientes.slice(), r);
+  const mazoG = barajar(guardia.slice(), r);
+  const descarte = [];
+  const robar = () => {
+    if (!mazoG.length){
+      while (descarte.length) mazoG.push(descarte.pop());
+      barajar(mazoG, r);
+    }
+    return mazoG.length ? mazoG.pop() : null;
+  };
+
+  const jugadores = [];
+  for (let i=0;i<nJug;i++)
+    jugadores.push({camas:new Array(camasC).fill(null), mano:[],
+                    altas:[], muertos:[], sumarios:0});
+  jugadores.forEach(j => {
+    for (let i=0;i<camasC;i++) if (mazoP.length){
+      j.camas[i] = camaNueva(mazoP.pop()); revisar(j.camas[i], 0);
+    }
+  });
+
+  const deteriorar = j => {
+    j.camas.forEach((c,i) => {
+      if (!c) return;
+      if (c.nuevo){ c.nuevo = false; if (gracia) return; }
+      if (c.estable) return;
+      c.vida -= 1;
+      if (c.vida <= 0){
+        j.muertos.push(c.f); j.camas[i] = null;
+        if (sumario) j.sumarios += 1;
+      }
+    });
+  };
+
+  for (let ronda=1; ronda<=rondas; ronda++){
+    for (const j of jugadores){
+      if (deterioro === "inicio") deteriorar(j);
+
+      // 1. ENTREGA DE TURNO — altas
+      j.camas.forEach((c,i) => {
+        if (c && c.estable && c.estableDesde !== null && c.estableDesde < ronda){
+          j.altas.push(c.f); j.camas[i] = null;
+        }
+      });
+      // admisión: revela 2, elige 1
+      j.camas.forEach((c,i) => {
+        if (c !== null || !mazoP.length) return;
+        const op = [];
+        for (let k=0;k<Math.min(2,mazoP.length);k++) op.push(mazoP.pop());
+        let mejor = op[0];
+        op.forEach(f => {
+          if ((f.alta-f.fallece)/Math.max(1,f.pideTotal) >
+              (mejor.alta-mejor.fallece)/Math.max(1,mejor.pideTotal)) mejor = f;
+        });
+        op.splice(op.indexOf(mejor),1);
+        mazoP.unshift(...op);                       // el otro, al fondo
+        j.camas[i] = camaNueva(mejor); revisar(j.camas[i], ronda);
+      });
+      // robo
+      for (let k=0;k<robo;k++){
+        const carta = robar();
+        if (!carta) break;
+        j.mano.push(carta);
+        if (carta.warn){
+          aplicarEvento(j, r);
+          j.camas.forEach((c,i) => {
+            if (!c) return;
+            if (c.vida <= 0){
+              j.muertos.push(c.f); j.camas[i] = null;
+              if (sumario) j.sumarios += 1;
+            } else revisar(c, ronda);
+          });
+        }
+      }
+
+      // cerrar Sumarios: 2 cartas cada uno, botando lo que más sobra
+      while (j.sumarios > 0 && j.mano.length >= 2){
+        const sistemas = new Set(j.camas.filter(Boolean).map(c=>c.f.sistema));
+        const cuenta = {};
+        j.mano.forEach(c => cuenta[c.tipo] = (cuenta[c.tipo]||0)+1);
+        const clave = c => [-(cuenta[c.tipo]||0), c.comodin?1:0,
+                            (c.sistema && sistemas.has(c.sistema))?1:0];
+        j.mano.sort((a,b) => { const x=clave(a), y=clave(b);
+          return x[0]-y[0] || x[1]-y[1] || x[2]-y[2]; });
+        descarte.push(j.mano.shift(), j.mano.shift());
+        j.sumarios -= 1;
+      }
+
+      // 3. PASE DE VISITA — recursos ilimitados (la IA no juega Acciones)
+      let bloqueado = false;
+      while (!bloqueado){
+        let colocada = false;
+        for (const cama of elegirObjetivos(j.camas)){
+          const jugada = elegirCarta(j.mano, cama);
+          if (!jugada) continue;
+          const [carta, aporte, tipo] = jugada;
+          j.mano.splice(j.mano.indexOf(carta),1);
+          descarte.push(carta);
+          cama.tiene[tipo] += aporte;
+          revisar(cama, ronda);
+          colocada = true;
+          if (carta.restriccion === "TURNO") bloqueado = true;
+          break;
+        }
+        if (!colocada) break;
+      }
+
+      // descarte
+      const tope = Math.max(1, manoMax - j.sumarios);
+      while (j.mano.length > tope) descarte.push(j.mano.shift());
+
+      // 4. FIN DE GUARDIA
+      if (deterioro === "final") deteriorar(j);
+    }
+  }
+  return jugadores;
+}
+
+function simVacio(){
+  const g = {}; GRAVEDADES.forEach(x => g[x] = [0,0]);
+  return {n:0, altas:0, muertos:0, puntos:0, limpias:0, grav:g};
+}
+function simAcumula(acc, jugadores){
+  jugadores.forEach(j => {
+    acc.n += 1;
+    acc.altas += j.altas.length;
+    acc.muertos += j.muertos.length;
+    let p = 0;
+    j.altas.forEach(f => p += f.alta);
+    j.muertos.forEach(f => p += f.fallece);
+    if (!j.muertos.length){ p += 3; acc.limpias += 1; }
+    acc.puntos += p;
+    j.altas.forEach(f => { if (acc.grav[f.gravedad]) acc.grav[f.gravedad][0] += 1; });
+    j.muertos.forEach(f => { if (acc.grav[f.gravedad]) acc.grav[f.gravedad][1] += 1; });
+  });
+}
+function simResumen(acc){
+  const salv = (acc.altas+acc.muertos) ? 100*acc.altas/(acc.altas+acc.muertos) : 0;
+  const pct = g => { const [a,m] = acc.grav[g]; return (a+m) ? 100*a/(a+m) : null; };
+  return {salv, altas:acc.altas/acc.n, muertos:acc.muertos/acc.n,
+          puntos:acc.puntos/acc.n, limpias:100*acc.limpias/acc.n,
+          gI:pct("I"), gII:pct("II"), gIII:pct("III"), gROJO:pct("ROJO")};
+}
+
+/* Corre en tandas para no congelar la página. */
+async function simular(fuente, cfg, avisa){
+  const {pacientes, guardia} = simCargar(fuente);
+  if (!pacientes.length || !guardia.length)
+    throw new Error("Necesitas al menos un paciente y un recurso con copias.");
+  const r = rng32(cfg.semilla);
+  const acc = simVacio();
+  const TANDA = 200;
+  for (let hechas=0; hechas<cfg.partidas; hechas+=TANDA){
+    const hasta = Math.min(TANDA, cfg.partidas-hechas);
+    for (let k=0;k<hasta;k++) simAcumula(acc, jugarPartida(pacientes, guardia, cfg, r));
+    if (avisa) avisa(hechas+hasta);
+    await new Promise(res => setTimeout(res, 0));
+  }
+  return simResumen(acc);
+}
+
+/* ── Banco de pruebas: la interfaz ───────────────────────────── */
+const OBJETIVOS = {
+  salv:   {nom:"Tasa de salvamento", uni:"%", obj:"55–70%",  ok:[55,70],  al:[50,75],  mejor:+1},
+  altas:  {nom:"Altas por jugador",  uni:"",  obj:"2–3",     ok:[2,3],    al:[1.7,3.5],mejor:+1},
+  muertos:{nom:"Fallecidos por jugador",uni:"",obj:"1–2",    ok:[1,2],    al:[0.7,2.5],mejor:-1},
+  limpias:{nom:"Guardias limpias",   uni:"%", obj:"5–15%",   ok:[5,15],   al:[3,20],   mejor:0},
+  gIII:   {nom:"Gravedad III salvada",uni:"%",obj:"40–50%",  ok:[40,50],  al:[33,57],  mejor:+1},
+};
+const ORDEN_SIM = ["salv","altas","muertos","limpias","gIII"];
+let simCorriendo = false;
+
+const nivelObj = (k,v) => {
+  const o = OBJETIVOS[k];
+  if (v === null || v === undefined || !isFinite(v)) return 2;
+  if (v >= o.ok[0] && v <= o.ok[1]) return 0;
+  if (v >= o.al[0] && v <= o.al[1]) return 1;
+  return 2;
+};
+const cifra = (k,v) => (v === null || !isFinite(v)) ? "—"
+  : (OBJETIVOS[k].uni === "%" ? v.toFixed(0) + "%" : v.toFixed(2));
+
+function hayCambios(){
+  return ["pacientes","recursos"].some(k =>
+    JSON.stringify(DATOS[k]) !== JSON.stringify(ORIG[k]));
+}
+function leerMandos(){
+  const v = id => document.getElementById(id).value;
+  return {nJug:+v("s-jug"), camasC:+v("s-camas"), rondas:+v("s-rondas"),
+          robo:+v("s-robo"), manoMax:+v("s-mano"), deterioro:v("s-reloj"),
+          gracia:v("s-reloj")==="inicio", sumario:true, semilla:7,
+          partidas:+v("s-partidas")};
+}
+
+function pintarSim(cfg, tuyo, base){
+  let peor = 0;
+  const filas = ORDEN_SIM.map(k => {
+    const o = OBJETIVOS[k], v = tuyo[k];
+    const lv = nivelObj(k,v); peor = Math.max(peor,lv);
+    let comp = "";
+    if (base){
+      const d = v - base[k];
+      const chico = Math.abs(d) < (o.uni === "%" ? 0.8 : 0.05);
+      const clase = chico ? "d-igual" : (d*o.mejor > 0 ? "d-sube" : (o.mejor === 0 ? "d-igual" : "d-baja"));
+      const signo = d > 0 ? "+" : (d < 0 ? "−" : "±");
+      comp = `<td class="n"><span class="delta ${clase}">${chico ? "sin cambio"
+        : signo + Math.abs(d).toFixed(o.uni === "%" ? 1 : 2) + o.uni}</span></td>
+        <td class="n mono obj">${cifra(k, base[k])}</td>`;
+    }
+    return `<tr>
+      <td>${o.nom}</td>
+      <td class="n mono"><b>${cifra(k,v)}</b>
+        <span class="puntos p-${CLASE[lv]}"></span></td>
+      <td class="obj">${o.obj}</td>${comp}</tr>`;
+  }).join("");
+
+  const cab = `<tr><th>Métrica</th><th class="n">Tus cartas</th><th>Objetivo</th>` +
+    (base ? `<th class="n">Cambio</th><th class="n">Originales</th>` : ``) + `</tr>`;
+  const t = document.getElementById("s-tabla");
+  t.innerHTML = `<thead>${cab}</thead><tbody>${filas}</tbody>`;
+  t.hidden = false;
+
+  const ver = document.getElementById("s-veredicto");
+  ver.textContent = ["Balance en rango","Revisar lo ámbar","Fuera de rango"][peor];
+  ver.className = "veredicto v-" + CLASE[peor];
+  ver.hidden = false;
+
+  const extra = [`I ${cifra("salv",tuyo.gI)}`, `II ${cifra("salv",tuyo.gII)}`,
+                 `III ${cifra("salv",tuyo.gIII)}`, `ROJO ${cifra("salv",tuyo.gROJO)}`].join(" · ");
+  document.getElementById("s-estado").innerHTML =
+    `${cfg.partidas.toLocaleString("es")} partidas · ${cfg.nJug} jugadores · ` +
+    `${cfg.camasC} camas · robo ${cfg.robo} · ${cfg.rondas} rondas. ` +
+    `Puntaje medio <b class="mono">${tuyo.puntos.toFixed(1)}</b>. ` +
+    `Salvamento por gravedad: <span class="mono">${extra}</span>.` +
+    (base ? "" : " Sin ediciones todavía: no hay con qué comparar.");
+}
+
+async function correrSim(){
+  if (simCorriendo) return;
+  simCorriendo = true;
+  const boton = document.getElementById("s-correr");
+  const estado = document.getElementById("s-estado");
+  boton.disabled = true; boton.textContent = "Simulando…";
+  const cfg = leerMandos();
+  const comparar = hayCambios();
+  const total = cfg.partidas * (comparar ? 2 : 1);
+  let hechas = 0;
+  const avanza = k => {
+    estado.textContent = `Simulando… ${Math.round(100*(hechas+k)/total)}%`;
+  };
+  try {
+    const tuyo = await simular(DATOS, cfg, avanza);
+    let base = null;
+    if (comparar){
+      hechas = cfg.partidas;
+      base = await simular(ORIG, cfg, avanza);
+    }
+    pintarSim(cfg, tuyo, base);
+  } catch (e){
+    estado.textContent = "No se pudo simular: " + e.message;
+    document.getElementById("s-tabla").hidden = true;
+    document.getElementById("s-veredicto").hidden = true;
+  } finally {
+    simCorriendo = false;
+    boton.disabled = false; boton.textContent = "Simular";
+  }
+}
+
+document.getElementById("s-correr").onclick = correrSim;
+document.getElementById("s-jug").onchange = e => {
+  // los presets del reglamento: 4 jugadores juegan con 2 camas y robo 3
+  const cuatro = e.target.value === "4";
+  document.getElementById("s-camas").value = cuatro ? "2" : "3";
+  document.getElementById("s-robo").value = cuatro ? "3" : "4";
+  document.getElementById("s-rondas").value = cuatro ? "10" : "8";
+};
+
 /* ── Persistencia y arranque ─────────────────────────────────── */
 function guardar(){
   try { localStorage.setItem(LLAVE, JSON.stringify(DATOS)); } catch(e){}
@@ -604,6 +1028,43 @@ def main():
   </header>
 
   <div class="monitor" id="monitor"></div>
+
+  <section class="banco">
+    <div class="mon-cab">
+      <div><span class="eyebrow">Banco de pruebas</span></div>
+      <span class="veredicto v-ok" id="s-veredicto" hidden></span>
+    </div>
+    <p class="banco-intro">Juega miles de partidas con <strong>las cartas que
+    tienes en pantalla</strong>, incluidas tus ediciones sin guardar. Modela la
+    economía base: reloj, robo, sinergia, ⚠️ y Sumario. No modela avatares ni
+    cartas de Acción — mide el suelo del balance, no el techo.</p>
+    <div class="mandos">
+      <div class="mando"><label for="s-jug">Jugadores</label>
+        <select id="s-jug"><option>2</option><option selected>3</option><option>4</option></select></div>
+      <div class="mando"><label for="s-camas">Camas</label>
+        <select id="s-camas"><option>2</option><option selected>3</option><option>4</option></select></div>
+      <div class="mando"><label for="s-robo">Robo</label>
+        <select id="s-robo"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></div>
+      <div class="mando"><label for="s-rondas">Rondas</label>
+        <select id="s-rondas"><option>6</option><option selected>8</option><option>10</option><option>12</option></select></div>
+      <div class="mando"><label for="s-mano">Mano</label>
+        <select id="s-mano"><option>4</option><option selected>5</option><option>6</option><option>7</option></select></div>
+      <div class="mando"><label for="s-reloj">Deterioro</label>
+        <select id="s-reloj">
+          <option value="final" selected>Fin de Guardia (v0.12)</option>
+          <option value="inicio">Al abrir el turno (v0.11)</option>
+        </select></div>
+      <div class="mando"><label for="s-partidas">Partidas</label>
+        <select id="s-partidas"><option>300</option><option selected>1000</option><option>3000</option></select></div>
+      <button class="btn primario" id="s-correr">Simular</button>
+    </div>
+    <p class="estado-sim" id="s-estado">Aún no has simulado nada. Con 1.000
+    partidas basta para decidir; el ruido es de ±1–2 puntos.</p>
+    <div class="sim-envuelve"><table class="tabla-sim" id="s-tabla" hidden></table></div>
+    <p class="sim-pie">El número que va al reglamento sale de
+    <span class="mono">tools/simular.py</span>: mismo motor, más partidas.
+    Este corre en tu navegador para que puedas iterar sin salir de la página.</p>
+  </section>
 
   <div class="filtros">
     <div class="pestanas" id="pestanas" role="tablist"></div>

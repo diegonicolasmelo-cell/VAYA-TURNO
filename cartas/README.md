@@ -68,6 +68,32 @@ valor y el balance se recalcula al instante. Tus cambios se guardan en el
 navegador (no tocan los CSV). Cuando termines, copia el **parte de cambios**
 desde la caja del final.
 
+### El Banco de pruebas
+
+Debajo del tablero de constantes hay un **simulador que corre en el navegador**,
+sobre las cartas que tienes en pantalla — incluidas las ediciones que aún no
+has guardado. Eliges jugadores, camas, robo, rondas y cuántas partidas, aprietas
+**Simular**, y te devuelve las cinco métricas con semáforo:
+
+| | |
+|---|---|
+| Tasa de salvamento | objetivo 55–70% |
+| Altas por jugador | 2–3 |
+| Fallecidos por jugador | 1–2 |
+| Guardias limpias | 5–15% |
+| Gravedad III salvada | 40–50% |
+
+Si tocaste algo, corre **dos veces** —tus cartas y las originales— y muestra el
+delta: *"tu cambio bajó el salvamento de 61% a 54%"*. Con 1.000 partidas el
+ruido es de ±1–2 puntos, suficiente para decidir.
+
+> **Es una segunda copia del mismo motor.** La verdad sigue siendo
+> `tools/simular.py`; el Banco es su port a JavaScript, verificado contra él en
+> cinco configuraciones. **Si alguna vez se toca el motor, hay que tocarlo en
+> los dos lados** — están en `tools/simular.py` y en el bloque *Banco de
+> pruebas* de `tools/generar_taller.py`. El número que va al reglamento sale
+> siempre del Python.
+
 ---
 
 ## Print & play

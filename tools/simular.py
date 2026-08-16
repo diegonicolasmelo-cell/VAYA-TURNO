@@ -34,17 +34,20 @@ def cargar():
 
     pacientes = []
     for p in leer("pacientes.csv"):
-        pacientes.append(
-            {
-                "nombre": p["nombre"],
-                "gravedad": p["gravedad"],
-                "vida": int(p["vida"]),
-                "sistema": p["sistema"],
-                "pide": {t: int(p[COL[t]]) for t in TIPOS},
-                "alta": int(p["puntos_alta"]),
-                "fallece": int(p["puntos_fallece"]),
-            }
-        )
+        ficha = {
+            "nombre": p["nombre"],
+            "gravedad": p["gravedad"],
+            "vida": int(p["vida"]),
+            "sistema": p["sistema"],
+            "pide": {t: int(p[COL[t]]) for t in TIPOS},
+            "alta": int(p["puntos_alta"]),
+            "fallece": int(p["puntos_fallece"]),
+        }
+        # la columna `copias` manda igual que en los recursos: hoy todos los
+        # pacientes son únicos, pero el Taller deja subirla y el mazo tiene
+        # que crecer de verdad si alguien lo hace.
+        for _ in range(int(p.get("copias") or 1)):
+            pacientes.append(ficha)
 
     # v0.10: el Mazo de Guardia son SOLO recursos. Las Acciones viven en el
     # mazo de Protocolos (se compran con el Canje) y la IA no las usa: este
@@ -234,10 +237,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
             for i, c in enumerate(j.camas):
                 if c is None and mazo_p:
                     opciones = [mazo_p.pop() for _ in range(min(2, len(mazo_p)))]
-                    mejor = max(opciones, key=lambda f: (f["alta"] - f["fallece"]) / f["pide_total"])
+                    mejor = max(opciones,
+                                key=lambda f: (f["alta"] - f["fallece"]) / max(1, f["pide_total"]))
                     opciones.remove(mejor)
                     mazo_p[:0] = opciones          # el otro al fondo
                     j.camas[i] = Cama(mejor)
+                    j.camas[i].revisar(ronda)
 
             # 4. GUARDIA
             for _ in range(robo):

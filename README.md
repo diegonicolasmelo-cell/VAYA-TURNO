@@ -50,7 +50,7 @@ es consecuencia de tu turno.
 ## Empieza acá
 
 ```bash
-# 1. Abre el Taller de Guardia: ver las cartas, sus constantes y editarlas
+# 1. Abre el Taller de Guardia: ver las cartas, editarlas y simular el balance
 python3 tools/generar_taller.py && open taller.html
 
 # 2. Genera el print-and-play (159 cartas en A4)
@@ -76,7 +76,7 @@ qué medir en las tres primeras sesiones.
 | **[docs/EXPANSIONES.md](docs/EXPANSIONES.md)** | Los cinco módulos por sistema, el modelo de reemplazo y lo que la caja base debe reservarse. |
 | **[docs/MOTOR.md](docs/MOTOR.md)** | El motor TURNO sin el tema: las cinco piezas reutilizables y su mapeo a otras profesiones. |
 | **[cartas/](cartas/)** | Las 159 cartas en CSV. Es la fuente de la verdad. |
-| **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 159 cartas, tablero de constantes del mazo y editor en vivo. |
+| **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 159 cartas, tablero de constantes, editor en vivo y **Banco de pruebas** (el simulador corriendo en el navegador). |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
 
