@@ -111,7 +111,44 @@ Son cambios de herramienta, no de cartas: ninguna carta cambia al hacerlo.
 
 ---
 
-## 6. Más allá de la UCI
+## 6. Idea rescatada: Novatos y Veteranos (Módulo Experiencia)
+
+Rescatada del Excel histórico (`CARTAAAS.xlsx`), **estacionada a propósito**
+para después del playtest de la base.
+
+**La idea original:** el personal existía en dos versiones — *De Turno*
+(novato: más copias, sin gracia) y *Vieja Escuela* (veterano: menos copias,
+con protección). El ejemplo canónico: **el Kinesiólogo senior era inmune a
+Vacaciones y Licencias**. La seniority definía el número de copias y daba
+características compartidas por todos los veteranos.
+
+**Por qué no entra en la caja base:**
+
+- Duplica el inventario de 🧑‍⚕️ Personal (cada carta × 2 versiones) y el mazo
+  no puede crecer (§1).
+- Una inmunidad pasiva apaga cartas de ataque completas (*Vacaciones*,
+  *¡Liceeeencia!*) en un mazo donde los ataques ya son escasos: 2 copias de
+  cada una en 30 Protocolos.
+- Añade una capa de rareza que el balance actual no usa ni necesita.
+
+**Cómo entraría sin romper nada (cuando toque):**
+
+| Regla del módulo | Detalle |
+|---|---|
+| Reemplazo 1:1 | 4–6 cartas de Personal de la base salen; entran sus pares novato/veterano. El mazo sigue en 63. |
+| Veterano | 1 copia, chip ⭐. **Inmune a Acciones que remuevan Personal** (Vacaciones, ¡Liceeeencia!, Seducción de Pasillo). |
+| Novato | 2–3 copias, sin protección — y candidato natural a ⚠️ (el interno entusiasta *genera* eventos). |
+| Verificación | `tools/simular.py` con la columna `set` (§5) confirma que el reemplazo no mueve el salvamento del rango 55–70%. |
+
+La versión mínima que conserva el alma de la idea: **un solo par por
+profesión** (Kine de Turno / Kine Vieja Escuela), no un sistema de rareza
+transversal. Si el playtest pide más textura en el Personal, este es el
+primer módulo transversal a producir — funciona con cualquier expansión de
+sistema porque no toca pacientes ni eventos.
+
+---
+
+## 7. Más allá de la UCI
 
 La idea de llevar el motor a otras profesiones (odontología, rehabilitación,
 nutrición, fonoaudiología) **no son expansiones**: son títulos distintos que

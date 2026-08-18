@@ -70,7 +70,9 @@ qué medir en las tres primeras sesiones.
 
 | Archivo | Qué es |
 |---|---|
+| **[docs/MANUAL.md](docs/MANUAL.md)** | El barrido completo en un documento: idea, componentes, reglas resumidas, personajes, estado. Empieza por acá. |
 | **[docs/REGLAMENTO.md](docs/REGLAMENTO.md)** | Las reglas completas. Es lo que se lleva a la mesa. |
+| **[docs/PENDIENTES.md](docs/PENDIENTES.md)** | La lista de desarrollo viva: efectos sin validar, mecánicas reservadas, ambigüedades e ideas estacionadas. |
 | **[docs/DISENO.md](docs/DISENO.md)** | Por qué cada número es el que es. Léelo antes de cambiar nada. |
 | **[docs/PLAYTEST.md](docs/PLAYTEST.md)** | Plan de 3 sesiones, qué medir y hoja de registro imprimible. |
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
