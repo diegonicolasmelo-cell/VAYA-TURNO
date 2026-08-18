@@ -42,8 +42,8 @@ es consecuencia de tu turno.
 | Cartas (texto y números) | ✅ 159 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
-| Motor de ilustraciones | ✅ paleta, prompts, normalización (docs/ARTE.md + herramientas) |
-| 124 ilustraciones | ⬜ pendiente generación manual (8–10 horas con IA) |
+| Motor de ilustraciones | ✅ estilo canónico "Retro de Guardia" + prompts + normalización (docs/ARTE.md) |
+| 124 ilustraciones | 🔶 18 colocadas en `arte/raw/` (del Drive del autor) + 24 extra para expansiones; faltan ~106 |
 | Playtest con humanos | ⬜ **el siguiente paso** (versión v0.12 lista para mesa) |
 
 ---

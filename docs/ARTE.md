@@ -1,4 +1,10 @@
-# Motor de Ilustraciones · ¡VAYA TURNO! v0.12
+# Motor de Ilustraciones · ¡VAYA TURNO! v2
+
+> **v2 (2026-08-18):** el estilo canónico ya no es una propuesta — **existe**.
+> Se recuperaron del Drive del autor 39 ilustraciones finales + ~180 escenas
+> en un estilo consistente (ver §2). Las utilizables ya viven en `arte/raw/`
+> mapeadas a IDs de carta. Este documento quedó actualizado a ese estilo;
+> la propuesta anterior (pen-and-ink + acuarela) queda descartada.
 
 ## Visión General
 
@@ -38,29 +44,65 @@ Heredada del Taller de Guardia (CSS `--color-sistema`):
 
 ---
 
-## 2. Bloque de Estilo Literal
+## 2. El Estilo Canónico ("Retro de Guardia") y su Bloque Literal
 
-Copia-pega este bloque en cada prompt de generación de imagen. Garantiza coherencia en textura, acabado, paleta local y composición.
+Definido por las 39 ilustraciones finales del autor (en `arte/raw/` y
+`arte/raw/extra/`). Sus rasgos, en orden de importancia:
+
+1. **Línea:** contorno negro/marrón oscuro **grueso y de ancho uniforme**
+   (ligne claire de cartoon moderno). Nada de boceto ni línea temblorosa.
+2. **Color:** planos con **cel shading mínimo** (1–2 tonos de sombra). Sin
+   degradados, sin acuarela.
+3. **La firma: cada imagen vive en UNA familia de color.** Fondo monocromo
+   ambiental y personaje compartiendo la misma temperatura (el DIOSTOR es
+   teal con aureola dorada; la Oxigenoterapia es toda verde). Es lo que hace
+   que 220 imágenes se vean "de la misma caja".
+4. **Proporciones:** cabezones (3–4 cabezas), expresiones exageradas: ceños,
+   ojeras dibujadas, sonrisas de ansiedad. La comedia está en la cara.
+5. **Ambiente:** UCI reconocible — monitores con curvas, portasueros,
+   letreros ambientales ("ICU", "OXÍGENO", "NURSE STATION"). Sin texto de
+   juego dentro del dibujo.
+6. **Acabado:** grano sutil de impresión retro, bordes limpios, full-bleed
+   (el fondo llena la carta — **nunca blanco**). Formato 2:3 vertical.
+
+### Bloque literal (copia-pega en cada prompt)
 
 ```
-[ESTILO VISUAL COPIABLE]
+[VAYA TURNO HOUSE STYLE — copiar tal cual]
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: 
-clean lines, anatomically informed but cartoon-friendly proportions, warm muted lighting. 
-Composition: centered subject, white/cream background, no drop shadow, 1:1 aspect ratio. 
-Color harmony: ochre, muted teals, warm grays. Line weight: medium-thin for clarity, 
-thicker on silhouettes. Texture: light crosshatch for depth, never photorealistic. 
-Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda). 
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family — background and
+subject share the same color temperature (use the ambient color specified below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+AMBIENT COLOR FAMILY: {color según el sistema clínico — ver tabla}
 ```
 
-**Por qué funciona:**
-- **"pen-and-ink + watercolor"**: Establece técnica (no photorealism, no CGI)
-- **"Modern hospital + clean lines"**: Contexto temático sin cliché
-- **"Centered subject, white background, 1:1"**: Layout consistente, sin variaciones espaciales
-- **"Ochre, muted teals, warm grays"**: Paleta local que contrasta con brillantes sistemas (rojo card, azul resp)
-- **"Vector-clean edges"**: Evita emborronamiento en batch resize
-- **"Reference: Lucas Elliott / Sam Kalda"**: Ancla artística (ambos hacen editorial científico limpio)
+### Familia de color ambiental por sistema
+
+La paleta del Taller, aplicada como monocromo ambiental:
+
+| Sistema / uso | Familia ambiental | Ancla hex |
+|---|---|---|
+| 🫁 RESP | Teal / azul hospital | `#5b9dc4` |
+| 🫀 CARD | Naranja quemado / rojo ladrillo | `#e0705a` |
+| 🧠 NEURO | Púrpura / lavanda oscura | `#a184c9` |
+| 🧪 METAB | Verde oliva | `#5cb583` |
+| 🔪 QUIR | Ámbar / mostaza | `#c19a4e` |
+| Genéricos y avatares | Teal hospital neutro | `#4a8a96` |
+| Eventos Centinela | La familia de su categoría, **más oscura** (drama) | — |
+| Acciones | Libre según la emoción (ataque=rojizo, apoyo=cálido, caos=nocturno) | — |
+
+### Anclas de imagen (para Gemini / Whisk / image-to-image)
+
+Antes de generar nada nuevo, carga 2–3 de estas como referencia:
+- `arte/raw/C01-diostor.jpg` (personaje + teal + aureola)
+- `arte/raw/R29-carro-de-paro.jpg` (escena dinámica + objeto)
+- `arte/raw/extra/oxigenoterapia-soporte-vital.jpg` (objeto solo, monocromo)
 
 ---
 

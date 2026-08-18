@@ -118,19 +118,19 @@ Decisiones que la mesa va a preguntar y el reglamento aún no responde:
 
 ---
 
-## 5. Arte — 124 ilustraciones ⬜
+## 5. Arte — 18 de 124 colocadas, estilo canónico definido 🔶
 
-Motor completo (`ARTE.md` + `tools/prompts.py` + `tools/normalizar_arte.py`).
-Falta la generación en sí:
+Las imágenes aparecieron: estaban en el **Drive del autor** (carpeta "cartas
+vaya turno", 452 archivos). Las 39 finales + mejores escenas ya viven en
+`arte/` mapeadas a IDs (ver `arte/README.md`), y el estilo canónico "Retro de
+Guardia" quedó documentado en `ARTE.md` §2 con su bloque de prompt.
 
-- ⬜ 6 avatares (los primeros: fijan el estilo)
-- ⬜ 26 pacientes (hojas de contacto por gravedad)
-- ⬜ 43 recursos · ⬜ 28 eventos · ⬜ 20 acciones · ⬜ 1 sumario
-- ⬜ Normalizar lote y enganchar a `generar_pnp.py`
-
-> Nota 2026-08-18: las imágenes de cartas que el autor menciona haber subido
-> a GitHub **no están en el repositorio** (revisadas ramas, `arte/` e issues).
-> Recuperarlas y subirlas a `arte/raw/`.
+- ✅ Estilo canónico definido + anclas de imagen elegidas
+- ✅ 18 cartas con ilustración en `arte/raw/` (4 avatares, 11 recursos, 1 evento, 2 acciones)
+- ⬜ C02 Médico Fantasma y C04 Director (generar con anclas)
+- ⬜ 26 pacientes · ⬜ 32 recursos restantes · ⬜ 27 eventos · ⬜ 18 acciones · ⬜ 1 sumario
+- ⬜ Curar las ~180 escenas del Drive (candidatas a eventos/acciones ya dibujadas)
+- ⬜ Normalizar lote y enganchar `generar_pnp.py --arte`
 
 ---
 

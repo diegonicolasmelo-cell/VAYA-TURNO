@@ -19,15 +19,37 @@ from collections import defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Bloque de estilo global (embebido en cada prompt)
+# Bloque de estilo global (embebido en cada prompt).
+# Es el estilo canónico "Retro de Guardia", definido por las 39 ilustraciones
+# finales del autor (arte/raw/). Ver docs/ARTE.md §2.
 ESTILO = """
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 """
+
+# Familia de color ambiental por sistema clínico (docs/ARTE.md §2)
+AMBIENTE = {
+    "RESP": "hospital teal / blue family (anchor #5b9dc4)",
+    "CARD": "burnt orange / brick red family (anchor #e0705a)",
+    "NEURO": "purple / dark lavender family (anchor #a184c9)",
+    "METAB": "olive green family (anchor #5cb583)",
+    "QUIR": "amber / mustard family (anchor #c19a4e)",
+    "": "neutral hospital teal family (anchor #4a8a96)",
+    None: "neutral hospital teal family (anchor #4a8a96)",
+    "INFEC": "sickly olive-yellow family, darker (drama)",
+    "GENERAL": "neutral hospital teal family, darker (drama)",
+}
+
+def ambiente(sistema):
+    return "AMBIENT COLOR FAMILY: " + AMBIENTE.get(sistema, AMBIENTE[""])
 
 def cargar_csv(nombre):
     """Carga CSV desde carpeta cartas/."""
@@ -68,7 +90,10 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, {len(tandas)} in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 {ESTILO}
@@ -119,8 +144,10 @@ Medical resource: {r["nombre"]} {sistema}
 Description: {r.get("frase", "Medical equipment")}
 Type: {tipo_etiqueta.get(tipo, tipo)}
 
-Visual: 3/4 view or frontal (best angle). Object isolated, 60% of canvas. Minimal shadow below for levitation.
-Medical realism (not cartoon). Recognizable materials: polished metal, translucent plastic, rubber.
+Visual: 3/4 view or frontal (best angle). Object is the protagonist, ~60% of canvas,
+drawn with the same thick outlines and flat colors as the characters (like a retro
+equipment poster — see arte/raw/extra/oxigenoterapia). Full-bleed monochrome ICU wall behind.
+{ambiente(r.get("sistema"))}
 
 {ESTILO}
 """
@@ -134,9 +161,10 @@ OUTPUT: contactsheet-recurso-{tipo}-{batch}.png
 Generate a contact sheet with {len(tandas)} medical resources/equipment, all {tipo}.
 Items: {nombres}
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 {ESTILO}
 """
@@ -185,6 +213,8 @@ Clinical details for {cat}:
 - INFEC: Fever (thermometer), chills (motion lines), sweating
 - GENERAL: Team fatigue, overwhelming paperwork, clock in red
 
+{ambiente(cat)} — darker and more dramatic than resource cards.
+
 {ESTILO}
 """
             else:
@@ -196,8 +226,9 @@ OUTPUT: contactsheet-evento-{cat}-{batch}.png
 Generate a contact sheet with {len(tandas)} medical events/adverse effects, all {cat}.
 Events: {nombres}
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+{ambiente(cat)} — darker and more dramatic than resource cards.
 
 {ESTILO}
 """
@@ -309,9 +340,12 @@ Archetype: {arquetipo}
 Special ability: {habilidad}
 Quote: {frase}
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 

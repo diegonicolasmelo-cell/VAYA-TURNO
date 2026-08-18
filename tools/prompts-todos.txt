@@ -17,12 +17,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: accion-APOYO-2
 IDS: A15-A19
@@ -38,12 +42,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -64,12 +72,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: accion-ATAQUE-2
 IDS: A17-A18-A20
@@ -85,12 +97,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -111,12 +127,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -146,12 +166,16 @@ Examples by type:
 Color: Wider chromatic range (orange, neon green, purple) to differentiate from patients/resources.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -172,12 +196,16 @@ Dramatic lighting, high contrast. 1:1 grid.
 Wider color range (orange, green, purple) than patient/resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -191,16 +219,21 @@ OUTPUT: contactsheet-evento-CARD-1.png
 Generate a contact sheet with 4 medical events/adverse effects, all CARD.
 Events: Paro Cardiorrespiratorio, Bradicardia Extrema, Taquicardia Ventricular, Sobrecarga de Volumen
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -214,16 +247,21 @@ OUTPUT: contactsheet-evento-GENERAL-1.png
 Generate a contact sheet with 5 medical events/adverse effects, all GENERAL.
 Events: Lesión por Presión, Corte de Suministro, Muestra Perdida en Tránsito, Reacción Adversa a Fármaco, Reingreso Precoz
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: neutral hospital teal family, darker (drama) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: evento-GENERAL-2
 IDS: E12-E13-E14-E16-E20
@@ -232,16 +270,21 @@ OUTPUT: contactsheet-evento-GENERAL-2.png
 Generate a contact sheet with 5 medical events/adverse effects, all GENERAL.
 Events: Colapso de Urgencias, Error de Medicación, Caída de Cama, Cambio de Turno Caótico, Hemorragia Masiva
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: neutral hospital teal family, darker (drama) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -255,16 +298,21 @@ OUTPUT: contactsheet-evento-INFEC-1.png
 Generate a contact sheet with 4 medical events/adverse effects, all INFEC.
 Events: Descarga Séptica, Brote de Multirresistente, Resistencia Antibiótica, Bacteriemia
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: sickly olive-yellow family, darker (drama) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -292,13 +340,19 @@ Clinical details for METAB:
 - INFEC: Fever (thermometer), chills (motion lines), sweating
 - GENERAL: Team fatigue, overwhelming paperwork, clock in red
 
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583) — darker and more dramatic than resource cards.
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -312,16 +366,21 @@ OUTPUT: contactsheet-evento-NEURO-1.png
 Generate a contact sheet with 4 medical events/adverse effects, all NEURO.
 Events: Delirium en UCI, Sobresedación, Compromiso de Conciencia, Debilidad Adquirida en UCI
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -335,16 +394,21 @@ OUTPUT: contactsheet-evento-RESP-1.png
 Generate a contact sheet with 5 medical events/adverse effects, all RESP.
 Events: Neumonía Asociada a Ventilación Mecánica, Extubación Accidental, Tromboembolismo Pulmonar, Neumotórax a Tensión, VILI
 
-Visual: Each bust or semi-body with adverse gesture. 1:1 grid. Negative/tense emotion.
-Minimal context (monitor, clock, drip). White background.
+Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
+Minimal context (monitor, clock, drip). Full-bleed ICU background.
+AMBIENT COLOR FAMILY: hospital teal / blue family (anchor #5b9dc4) — darker and more dramatic than resource cards.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -367,16 +431,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-I-2
 IDS: P04-P05-P06
@@ -394,16 +465,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-I-3
 IDS: P07-P08
@@ -421,16 +499,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 2 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -453,16 +538,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-II-2
 IDS: P12-P13-P14
@@ -480,16 +572,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-II-3
 IDS: P15-P16-P17
@@ -507,16 +606,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-II-4
 IDS: P18
@@ -534,16 +640,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 1 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -566,16 +679,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: pacientes-III-2
 IDS: P22-P23-P24
@@ -593,16 +713,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 3 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -625,16 +752,23 @@ Visual guidelines:
 - Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
 - Gravedad ROJO: Ventilated, active infusion, extreme expression
 
-Composition: Each portrait centered in 1:1 square. 3 portraits in grid. White background.
+Composition: Each portrait centered, 2:3 portrait each, 2 in a row.
+Each portrait uses the ambient color family of ITS clinical system:
+RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
+METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
 Label each with patient name below.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -650,19 +784,26 @@ Archetype: Age ~50, absolute confidence, hand raised as teaching. Badge, stethos
 Special ability: Cuando robas una carta ⚠️, puedes pasarle el Evento Centinela al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo.
 Quote: ¿Yo, equivocarme? Imposible. Debe ser un error del laboratorio.
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 ID: C02
 NOMBRE: El Médico Fantasma
@@ -673,19 +814,26 @@ Archetype: Ethereal, stylized transparency, vintage uniform. Slightly faded.
 Special ability: En las rondas 1 a 3 robas 1 carta menos. Desde la ronda 4 en adelante, robas 1 carta adicional cada turno por el resto de la guardia.
 Quote: Aló... sí, voy bajando. (Se da media vuelta en la residencia.)
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 ID: C03
 NOMBRE: Doctor Amor
@@ -696,19 +844,26 @@ Archetype: Accessible, genuine smile, welcoming gesture. Modern scrubs, charm.
 Special ability: SEDUCCIÓN DE PASILLO — Roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo.
 Quote: Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 ID: C04
 NOMBRE: El Director del Hospital
@@ -719,19 +874,26 @@ Archetype: Medical professional
 Special ability: PERDONAZO ADMINISTRATIVO — Anula y descarta un Sumario Administrativo, tuyo o de cualquier otro jugador. Puedes cobrar el favor.
 Quote: Haré unas llamadas para que esto no aparezca en los indicadores de calidad.
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 ID: C05
 NOMBRE: La Gestora de Camas
@@ -742,19 +904,26 @@ Archetype: Medical professional
 Special ability: DERIVACIÓN — Devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido ni deja Sumario.
 Quote: No hay cama en UCI. Se va a Intermedio... o a pasillo.
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 ID: C06
 NOMBRE: El Médico Esotérico
@@ -765,19 +934,26 @@ Archetype: Medical professional
 Special ability: CONFÍA EN EL UNIVERSO — Revela la primera carta del Mazo de Guardia. Si es un recurso sin ⚠️: colócalo gratis sobre un paciente tuyo. Si trae ⚠️: resuelve el Evento Centinela y además descarta 1 carta de tu mano como penitencia kármica.
 Quote: Tus chakras están bloqueando la vía venosa. Cuarzo rosa y sahumerio, stat.
 
-Visual: Full body (feet to head), characteristic pose. White/cream background, 1:1 aspect.
-Clothing: Medical coat, civilian clothes with small indicators (badge, stethoscope, watch, pen in pocket).
+Visual: Full body or 3/4 body, characteristic pose. Full-bleed ICU corridor or ward
+background, 2:3 portrait. Reference anchors: arte/raw/C01-diostor.jpg, C03, C05, C06.
+Clothing: Medical coat or scrubs with small indicators (badge, stethoscope, watch, pen).
 Humanizing detail: Coffee mug, gesture, expression showing personality.
+AMBIENT COLOR FAMILY: neutral hospital teal (anchor #4a8a96), with ONE accent detail
+allowed (like DIOSTOR's golden halo).
 
 Scale: Body occupies ~70% of canvas.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -791,17 +967,22 @@ OUTPUT: contactsheet-recurso-COMODIN-1.png
 Generate a contact sheet with 2 medical resources/equipment, all COMODIN.
 Items: Médico General de Turno, Stock de Sala
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -815,17 +996,22 @@ OUTPUT: contactsheet-recurso-FARMACOS-1.png
 Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
 Items: Antibiótico de Amplio Espectro, Antibiótico de Amplio Espectro, Sedoanalgesia, Sedoanalgesia, Anticoagulación
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: recurso-FARMACOS-2
 IDS: R06-R07-R08-R09-R10
@@ -834,17 +1020,22 @@ OUTPUT: contactsheet-recurso-FARMACOS-2.png
 Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
 Items: Anticoagulación, Hemoderivados, Noradrenalina, Noradrenalina, Broncodilatador en Nebulización
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: recurso-FARMACOS-3
 IDS: R11-R12-R13-R14-R15
@@ -853,17 +1044,22 @@ OUTPUT: contactsheet-recurso-FARMACOS-3.png
 Generate a contact sheet with 5 medical resources/equipment, all FARMACOS.
 Items: Anticonvulsivante, Anticonvulsivante, Insulina en Bomba, Analgesia Postoperatoria, Analgesia Postoperatoria
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -877,17 +1073,22 @@ OUTPUT: contactsheet-recurso-IMAGEN-1.png
 Generate a contact sheet with 5 medical resources/equipment, all IMAGEN.
 Items: Radiografía de Tórax, Radiografía de Tórax, Ecografía a Pie de Cama, Ecografía a Pie de Cama, TAC de Urgencia
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: recurso-IMAGEN-2
 IDS: R21-R22-R23
@@ -896,17 +1097,22 @@ OUTPUT: contactsheet-recurso-IMAGEN-2.png
 Generate a contact sheet with 3 medical resources/equipment, all IMAGEN.
 Items: TAC de Urgencia, Angio-TAC, Resonancia con Cupo
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -920,17 +1126,22 @@ OUTPUT: contactsheet-recurso-MONITOREO-1.png
 Generate a contact sheet with 5 medical resources/equipment, all MONITOREO.
 Items: Línea Arterial, Línea Arterial, Catéter Venoso Central, Catéter Venoso Central, Monitor Multiparámetro
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: recurso-MONITOREO-2
 IDS: R29-R30-R31-R32-R33
@@ -939,17 +1150,22 @@ OUTPUT: contactsheet-recurso-MONITOREO-2.png
 Generate a contact sheet with 5 medical resources/equipment, all MONITOREO.
 Items: Carro de Paro, Ventilación Mecánica, Ventilación Mecánica, Gases Arteriales, Gases Arteriales
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -963,17 +1179,22 @@ OUTPUT: contactsheet-recurso-PERSONAL-1.png
 Generate a contact sheet with 5 medical resources/equipment, all PERSONAL.
 Items: Enfermera de UCI, Técnico en Enfermería, Técnico en Enfermería, Interno Entusiasta, Gestor de Camas
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 BATCH: recurso-PERSONAL-2
 IDS: R39-R40-R41
@@ -982,17 +1203,22 @@ OUTPUT: contactsheet-recurso-PERSONAL-2.png
 Generate a contact sheet with 3 medical resources/equipment, all PERSONAL.
 Items: Kinesiólogo Respiratorio, Pabellón Disponible, Pabellón Disponible
 
-Visual: Each object isolated, 3/4 or frontal view. 60% of canvas, white background.
-Medical realism, recognizable materials. Minimal shadow for levitation.
-Grid layout, 1:1 ratio each item.
+Visual: Each object is the protagonist of its own panel (2:3 each), thick outlines,
+flat colors, retro equipment-poster look. Full-bleed monochrome ICU wall behind each.
+Each item uses the ambient family of ITS clinical system (RESP=teal, CARD=burnt orange,
+NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
 
 
 ================================================================================
@@ -1013,9 +1239,13 @@ Scale: Document occupies 50%, shadow beneath it to enlarge it.
 Bureaucratic symbols: Handwritten notes, official stamps, "CONFIDENCIAL", checklist marks.
 
 
-Illustrated in crisp pen-and-ink with soft watercolor wash. Modern hospital aesthetic: clean lines,
-anatomically informed but cartoon-friendly proportions, warm muted lighting. Composition: centered subject,
-white/cream background, no drop shadow, 1:1 aspect ratio. Color harmony: ochre, muted teals, warm grays.
-Line weight: medium-thin for clarity, thicker on silhouettes. Texture: light crosshatch for depth,
-never photorealistic. Reference: medical illustration meets editorial cartoon (style of Lucas Elliott or Sam Kalda).
-Final output: vector-clean edges, no blur, flat design with hand-drawn warmth.
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
