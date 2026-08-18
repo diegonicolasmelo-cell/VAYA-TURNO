@@ -195,17 +195,31 @@ Si el Mazo de Guardia se agota, baraja el descarte y forma uno nuevo.
 Antes de la visita, en el pasillo, se arregla lo que no se puede decir en la
 reunión. Aquí pasan las dos cosas turbias del juego:
 
-- **El Canje** (máx. 1 por turno): descarta **2 recursos** de tu mano y roba
-  **1 carta del Mazo de Protocolos**. Así se consiguen las Acciones: cambiando
-  lo que te sobra por un favor. **El Canje no es una Acción**: puedes canjear
-  aunque no puedas jugar Acciones (*Se Cayó el Sistema*), y canjear no gasta tu
-  Acción del turno.
+- **El Negocio** (máx. 1 por turno). La ventanilla del pasillo tiene un solo
+  cupo, y eliges con quién tratas:
+  - **Canje** (con el mazo): descarta **2 recursos** de tu mano y roba
+    **1 carta del Mazo de Protocolos**. Así se consiguen las Acciones:
+    cambiando lo que te sobra por un favor. Pagas con azar: no sabes qué
+    Protocolo te va a tocar.
+  - **Trueque** (con un colega): ofrece **2 recursos de tu mano** a un rival y
+    pide **un tipo** de recurso (🩻, 💊, 🧑‍⚕️ o 📈). Si acepta, te entrega
+    **1 carta de ese tipo de su mano** — él elige cuál, tú no ves su mano — y
+    se queda tus 2. Puede negarse, y si nadie acepta no pierdes nada: aún
+    puedes hacer el Canje. Pagas con política: le acabas de regalar ventaja
+    a un rival, y toda la mesa lo vio.
+  - **El Negocio no es una Acción**: puedes negociar aunque no puedas jugar
+    Acciones (*Se Cayó el Sistema*), y negociar no gasta tu Acción del turno.
 - **Acciones:** juega **como máximo 1 por turno** — puede ser la que acabas de
   canjear. Cuestan 0: ya pagaste al conseguirla. Resuelve su texto y descártala.
 
 > El límite de 1 es de veneno, no de trabajo clínico. Podrás tratar a tus
 > pacientes todo lo que te dé la mano en la fase siguiente; arruinarle el turno
 > al colega, una vez.
+
+> *En el pasillo nadie regala nada. Pero todo tiene precio.* El Trueque es a
+> propósito un mal negocio en cartas (das 2, recibes 1) y un buen negocio en
+> precisión: recibes exactamente el tipo que te falta, hoy. La pregunta de la
+> mesa no es "¿me conviene?" — es "**¿a quién estoy engordando?**".
 
 **Por qué el pasillo va antes de la visita:** porque lo que consigas acá —una
 *Receta en Blanco*, un recurso que le quitaste a un rival, tres cartas de
@@ -379,7 +393,8 @@ la próxima guardia. Ese es su problema.
                       b) Cama vacía → revela 2 pacientes, elige 1
                       c) Roba 4 (3 si son 4 jug.) · cada ⚠️ → 1 Centinela ya
 
-2. EL PASILLO         Canje: bota 2 recursos → roba 1 Protocolo (máx. 1)
+2. EL PASILLO         1 Negocio: Canje (bota 2 → roba 1 Protocolo)
+                        o Trueque (da 2 a un rival → te da 1 del tipo que pidas)
                       Juega máx. 1 Acción
 
 3. PASE DE VISITA     Recursos sin límite (🫁🫀🧠🧪🔪 en su sistema = ×2)

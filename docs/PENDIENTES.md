@@ -33,6 +33,20 @@ Prioridad de observación en mesa, de más a menos peligrosa:
 | 🟢 9 | A11 ¿Y Si Vamos por un Cafecito?, A16 Simulación Clínica | Respuestas 🛡️. Vigilar si 4 copias entre 30 son suficientes para que la defensa exista. |
 | 🟢 10 | A06 Se Cayó el Sistema, A12 Protocolo Institucional | Caos y copia. Ver ambigüedades en §3. |
 
+### 1.1b El Trueque de Pasillo (regla nueva, v0.13) — 🔶
+
+Incorporado como alternativa al Canje dentro del Negocio único del Pasillo
+(`REGLAMENTO.md` §5.2): das 2 recursos de tu mano a un rival → te entrega 1
+del tipo que pidas (él elige cuál; puede negarse).
+
+**Qué vigilar en mesa:**
+- ¿Dos jugadores se alimentan mutuamente contra el tercero? (2+1 cartas por
+  ronda fluyendo entre los mismos dos). Nerf preparado: *"no puedes trocar
+  con el mismo jugador dos rondas seguidas"*.
+- ¿Canibaliza al Canje o conviven? Lo sano es ~1 Trueque por cada 2–3 Canjes.
+- En 2 jugadores debería casi no usarse (darle 2 cartas a tu único rival
+  rara vez conviene) — confirmar que efectivamente se autorregula.
+
 ### 1.2 Las 6 habilidades de Personaje — todas 🔶
 
 Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
@@ -100,6 +114,7 @@ Decisiones que la mesa va a preguntar y el reglamento aún no responde:
 | ⬜ 4 | **Rareza en 4 niveles** para todo el mazo | Material Gemini / Excel | Descartada para la base (el balance usa copias exactas, no rareza). Podría volver solo como lenguaje de expansiones. |
 | ⬜ 5 | **Eliminación de jugador** por acumular decesos | Material Gemini | Descartada en v0.12 (nadie queda fuera mirando 40 min). Rescatable como variante dura tipo "Modo Cruel". |
 | ⬜ 6 | **Tablero doble capa con hendiduras** para dados/fichas | Material Gemini | Decisión de producción, no de reglas. Para la versión deluxe, si algún día existe. |
+| ❌ 7 | **Rescatar del descarte como regla libre** | Propuesta del autor (2026-08-18) | **Evaluada por simulación y descartada como regla base.** 2.000 partidas por variante (3 jug., config estándar): rescate 1:1 sube el salvamento de 61%→65% y **duplica las Guardias Limpias (8%→14%)** — mata la hazaña; rescate 2:1 resulta una trampa (la IA que lo usa siempre cae a 46% de salvamento: pagar 2 por 1 desangra la mano). El acceso al descarte queda como **efecto de carta** (*A04 Interconsulta* ya lo hace) y candidato a 1–2 cartas más en expansiones. La variante 1:1 podría rescatarse como "modo suave" para mesas nuevas. |
 
 ---
 

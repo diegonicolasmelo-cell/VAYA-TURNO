@@ -140,11 +140,15 @@ Lo peor de perder un paciente no son los puntos: es el formulario.
 
 ### 3.2 El Pasillo — *negocias*
 
-- **Canje** (máx. 1): bota 2 recursos → roba 1 Protocolo.
+- **1 Negocio por turno**, a elección:
+  - **Canje** (con el mazo): bota 2 recursos → roba 1 Protocolo al azar.
+  - **Trueque** (con un colega): da 2 recursos de tu mano a un rival → él te
+    da 1 del tipo que pidas (elige cuál, puede negarse). Certeza en vez de
+    azar — pero engordas a un rival, y la mesa lo ve.
 - **Acción** (máx. 1): juega una Acción, incluso la que acabas de canjear.
 
 El pasillo va **antes** de la visita a propósito: lo que consigas acá lo
-usas este mismo turno, y el Canje te obliga a decidir qué te sobra *antes*
+usas este mismo turno, y el Negocio te obliga a decidir qué te sobra *antes*
 de haber tratado a nadie.
 
 ### 3.3 Pase de Visita — *tratas*
