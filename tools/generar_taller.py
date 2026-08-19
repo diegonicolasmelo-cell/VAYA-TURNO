@@ -317,6 +317,8 @@ input[type="search"]{flex:1;min-width:9rem;max-width:20rem}
 .campo.cambiado input,.campo.cambiado select,.campo.cambiado textarea{
   border-color:var(--editado);background:var(--alerta-fondo)}
 .fila-campos{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.campo.gemelas{background:var(--alerta-fondo);border:1px solid var(--alerta);
+  padding:.5rem .6rem;border-radius:2px}
 
 /* ── Salida ─────────────────────────────────────────────────── */
 .salida{margin-top:2.5rem;display:flex;flex-direction:column;gap:.75rem}
@@ -555,6 +557,22 @@ function abrir(i){
   };
   const cortos = campos.filter(c => c[1]==="num" || c[1]==="sel");
   const largos = campos.filter(c => c[1]!=="num" && c[1]!=="sel");
+  // Cartas gemelas: mismo nombre en varias filas (la limpia y la del ⚠️).
+  // Son la misma carta impresa distinto, así que el texto debe ir en todas.
+  const gemelas = DATOS[mazo]
+    .map((g,k) => ({g,k}))
+    .filter(({g,k}) => k !== i && g.nombre === f.nombre);
+  const avisoGemelas = gemelas.length ? `
+    <div class="campo gemelas">
+      <label style="display:flex;gap:.4rem;align-items:flex-start;text-transform:none;
+                    letter-spacing:0;font-weight:400;font-size:.78rem;cursor:pointer">
+        <input type="checkbox" id="sync-gemelas" checked
+               style="width:auto;margin-top:.15rem;flex:none">
+        <span>Esta carta tiene <b>${gemelas.length} gemela${gemelas.length>1?"s":""}</b>
+        (${gemelas.map(({g})=>esc(g.id)).join(", ")}): la misma carta con ⚠️ o sin él.
+        Copiar <b>texto</b> y <b>frase</b> a ${gemelas.length>1?"ellas":"ella"} al guardar.</span>
+      </label>
+    </div>` : "";
   document.getElementById("cajon").innerHTML = `
     <div class="cajon-cab">
       <div><div class="eyebrow">${ESQUEMA[mazo].icono} ${ESQUEMA[mazo].titulo} · ${esc(f.id)}</div>
@@ -566,6 +584,7 @@ function abrir(i){
       ${largos.filter(c=>c[0]==="nombre").map(ctrl).join("")}
       <div class="fila-campos">${cortos.map(ctrl).join("")}</div>
       ${largos.filter(c=>c[0]!=="nombre").map(ctrl).join("")}
+      ${avisoGemelas}
     </div>
     <div class="cajon-pie">
       <button class="btn primario" id="aplicar" style="flex:1">Guardar cambios</button>
@@ -586,6 +605,13 @@ function abrir(i){
       const p = DATOS[mazo][i];
       p.total_recursos = String(n(p.img)+n(p.far)+n(p.per)+n(p.mon));
     }
+    const sync = document.getElementById("sync-gemelas");
+    if (sync && sync.checked)
+      gemelas.forEach(({k}) => {
+        ["texto","frase"].forEach(col => {
+          if (col in DATOS[mazo][k]) DATOS[mazo][k][col] = DATOS[mazo][i][col];
+        });
+      });
     guardar(); cerrar(); refrescar();
   };
 }
