@@ -114,6 +114,13 @@ Resistencia Antibiótica, Caída de Cama…). Llevan categoría (RESP, CARD,
 NEURO, METAB, INFEC, GENERAL) que hoy es solo sabor — reservada para
 inmunidades de avatares futuros.
 
+**Cada evento trae un 🎯 Objetivo: la carta elige a la víctima, no tú.**
+*EL MÁS GRAVE* (menos ❤️) · *EL QUE MEJOR VA* (más ❤️) · *EL MÁS TRATADO*
+(más recursos encima) · *EL ✅ ESTABILIZADO* · *TÚ ELIGES* (solo 4) ·
+*TODOS* (las 4 que dan miedo de verdad). En empate eliges tú. Sin esta
+regla mandarías siempre el daño al paciente que ya diste por perdido y
+ningún evento dolería.
+
 El **Sumario Administrativo** es la maldición: llega cada vez que se te
 muere un paciente. Ocupa la mano, no se puede jugar ni descartar, **reduce tu
 límite de mano en 1**, y cerrarlo cuesta 2 recursos en tu Pase de Visita.

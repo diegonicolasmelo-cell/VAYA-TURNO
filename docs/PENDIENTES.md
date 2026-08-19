@@ -67,6 +67,19 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 
 ### 1.3 Los 17 ⚠️ y los 28 Eventos Centinela — 🔶
 
+> **Cambio v0.13:** cada evento lleva ahora un **🎯 Objetivo** que decide a
+> qué paciente le toca (`REGLAMENTO.md` §7.1). Antes elegía el jugador, y eso
+> permitía mandar todo el daño al paciente ya perdido: los eventos de un solo
+> objetivo casi no dolían. Reparto: 7 *EL MÁS GRAVE* · 7 *EL MÁS TRATADO* ·
+> 4 *EL QUE MEJOR VA* · 4 *TÚ ELIGES* · 4 *TODOS* · 2 *EL ✅ ESTABILIZADO*.
+> **Sin validar en mesa:** si resulta demasiado duro, la palanca es mover
+> cartas de `MAS_GRAVE` a `ELIGES` — es editar una columna del CSV.
+>
+> También se separó el par LPP / Caída de Cama, que eran gemelas mecánicas
+> (ambas −1 ❤️ + 1 requisito). Ahora **E05 Lesión por Presión** es el escalón
+> leve puro (solo +1 🧑‍⚕️, va al más grave: el más postrado) y **E14 Caída de
+> Cama** es grave (−2 ❤️ +1 🩻, va al que mejor va: el que se paró solo).
+
 El simulador los modela **en agregado** (33% vida / 33% recurso / 34%
 exigencia), no carta a carta. Los eventos gordos reales pegan más que el
 promedio:
@@ -87,7 +100,7 @@ Espacio dejado a propósito en las cartas, hoy sin regla que lo use:
 
 | # | Qué | Dónde vive | Para qué está reservado |
 |---|---|---|---|
-| ⬜ 1 | **Categoría de los Eventos** (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`, `GENERAL`) | `eventos.csv`, impresa en carta | Inmunidades de avatares futuros (el Broncopulmonar ignora eventos RESP…). Hoy es solo sabor. `REGLAMENTO.md` §7. |
+| ⬜ 1 | **Categoría de los Eventos** (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`, `GENERAL`) | `eventos.csv`, impresa en carta | Inmunidades de avatares futuros (el Broncopulmonar ignora eventos RESP…). Hoy es solo sabor. `REGLAMENTO.md` §7. **Descartado:** acoplar la categoría al recurso que dispara el ⚠️ (obligaría a 6 mini-mazos en la mesa; mucha manipulación para poco premio). |
 | ⬜ 2 | **Chip de sistema en pacientes** más allá de la sinergia | `pacientes.csv` | Las expansiones por sistema (`EXPANSIONES.md` §1). |
 | ⬜ 3 | **Columna `set`** en los CSV | No existe todavía | Filtrar base vs. expansión en Taller, PnP y simulador. `EXPANSIONES.md` §5. |
 | ⬜ 4 | **Frecuencias de avatar** como sistema (1×turno / 1×ronda / 1×partida / pasiva) | `personajes.csv` | Hoy cada avatar la usa; falta decidir si las expansiones respetan el mismo menú de frecuencias. |

@@ -89,6 +89,8 @@ ESQUEMA = {
         "campos": [
             ("nombre", "txt", None),
             ("categoria", "sel", ["RESP", "CARD", "NEURO", "METAB", "INFEC", "GENERAL"]),
+            ("objetivo", "sel", ["MAS_GRAVE", "MEJOR", "MAS_TRATADO",
+                                 "ESTABLE", "ELIGES", "TODOS"]),
             ("copias", "num", None), ("texto", "area", None), ("frase", "area", None),
         ],
     },
@@ -278,6 +280,8 @@ input[type="search"]{flex:1;min-width:9rem;max-width:20rem}
 .c-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:.3rem}
 .c-glifo{font-size:1.6rem;text-align:center;margin:auto 0;line-height:1}
 .c-warn{font-size:.56rem;font-weight:800;color:var(--mal);letter-spacing:.04em}
+.c-obj{font-size:.56rem;font-weight:800;letter-spacing:.05em;color:var(--acento);
+  border:1px solid var(--acento);padding:.06rem .25rem;align-self:flex-start;border-radius:2px}
 .chip{display:inline-block;padding:.08rem .3rem;font-size:.55rem;font-weight:800;
   letter-spacing:.05em;color:var(--chip-tinta);align-self:flex-start;
   font-family:ui-monospace,Menlo,monospace}
@@ -338,6 +342,9 @@ const NOMT = {IMAGEN:"Imagen",FARMACOS:"Fármacos",PERSONAL:"Personal",
               MONITOREO:"Soporte Vital",COMODIN:"Comodín"};
 const GLIFO = {IMAGEN:"🩻",FARMACOS:"💊",PERSONAL:"🧑‍⚕️",MONITOREO:"📈",COMODIN:"🃏"};
 const SISTEMAS = ["RESP","CARD","NEURO","METAB","QUIR"];
+const OBJETIVO = {MAS_GRAVE:"EL MÁS GRAVE", MEJOR:"EL QUE MEJOR VA",
+                  MAS_TRATADO:"EL MÁS TRATADO", ESTABLE:"EL ✅ ESTABILIZADO",
+                  ELIGES:"TÚ ELIGES", TODOS:"TODOS TUS PACIENTES"};
 const NOMS = {RESP:"Respiratorio",CARD:"Cardíaco",NEURO:"Neurológico",
               METAB:"Metabólico",QUIR:"Quirúrgico"};
 const LLAVE = "vayaturno-taller-v1";
@@ -497,8 +504,11 @@ function pintarCarta(k,f,i){
       <div class="c-cuerpo">${esc(f.habilidad)}</div>${t(f.frase)}`;
   } else {
     const cat = f.categoria ? `<span class="chip ${esc(f.categoria)}">${esc(f.categoria)}</span>` : "";
+    const obj = f.objetivo
+      ? `<div class="c-obj">🎯 ${esc(OBJETIVO[f.objetivo] || f.objetivo)}</div>` : "";
+    const meta = f.tipo || (f.categoria ? "Evento Centinela" : "Maldición");
     dentro = `<div class="c-nom">${esc(f.nombre)}</div>
-      <div class="c-meta">${esc(f.tipo || f.categoria || "Maldición")}</div>${cat}
+      <div class="c-meta">${esc(meta)}</div>${cat}${obj}
       <div class="c-cuerpo">${esc(f.texto)}</div>${t(f.frase)}`;
   }
   return `<button class="carta ${tocada(k,i)?"tocada":""}" data-i="${i}"

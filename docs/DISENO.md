@@ -224,6 +224,15 @@ Lee esto antes de confiar demasiado en los números de arriba:
 **En resumen: el suelo del balance está validado. El techo, no.** Por eso el
 plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
+> **Nota v0.13 — el 🎯 Objetivo acercó el juego a su simulación.** El simulador
+> nunca dejó que el jugador eligiera víctima: los eventos de daño siempre
+> pegaban al paciente **más avanzado** (`aplicar_evento`, línea 171). O sea que
+> el 61% de salvamento se midió asumiendo objetivo adversario. Con la regla
+> vieja ("elige el jugador afectado") la mesa real habría sido **más fácil que
+> la simulación**, porque cualquiera mandaba el golpe al paciente ya perdido.
+> El 🎯 Objetivo no endurece el juego respecto a los números publicados: lo
+> pone de acuerdo con ellos.
+
 ---
 
 ## 4b. La Gestora de Camas: la primera habilidad medida (v0.13)

@@ -152,10 +152,23 @@ def carta_accion(a):
 </div>"""
 
 
+OBJETIVO = {
+    "MAS_GRAVE": "EL MÁS GRAVE · menos ❤️",
+    "MEJOR": "EL QUE MEJOR VA · más ❤️",
+    "MAS_TRATADO": "EL MÁS TRATADO · más recursos",
+    "ESTABLE": "EL ✅ ESTABILIZADO",
+    "ELIGES": "TÚ ELIGES",
+    "TODOS": "TODOS TUS PACIENTES",
+}
+
+
 def carta_evento(e):
+    obj = e.get("objetivo", "")
+    diana = (f'<div class="et" style="border-color:#c0492f;color:#c0492f">'
+             f'🎯 {E(OBJETIVO.get(obj, obj))}</div>') if obj else ""
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(e['nombre'])}</div>
-    <div class="tipo">Evento Centinela · {E(e['categoria'])}</div></div></div>
+    <div class="tipo">Evento Centinela · {E(e['categoria'])}</div>{diana}</div></div>
   <div class="banda" style="background:#c0492f"></div>
   <div class="cuerpo">{E(e['texto'])}</div>
   <div class="arte">ilustración</div>

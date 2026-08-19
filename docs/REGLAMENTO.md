@@ -300,6 +300,8 @@ cada Sumario abierto**). Pasa el turno.
 | ¿Puedo mover un recurso de un paciente a otro? | Solo si una carta lo dice (*Reunión Clínica*). Por defecto, lo puesto queda puesto. |
 | ¿Los pacientes que quedan en cama al final puntúan? | No. Ni bien ni mal. Quedan para la próxima guardia. |
 | ¿Y si un efecto sube los requisitos de un paciente ya ✅? | Pierde el ✅ al instante si deja de cumplirlos, y vuelve a deteriorarse en tu siguiente Fin de Guardia. |
+| ¿El 🎯 Objetivo de un Centinela puede señalar a un paciente ✅? | Sí, y suele ser lo peor que te pasa: si el golpe le quita vida o recursos, puede perder la ficha. Solo *EL ESTABILIZADO* lo busca a propósito. |
+| ¿Cómo cuento "el más tratado"? | **Cartas de recurso encima**, no íconos. Un recurso específico que cuenta doble sigue siendo **una** carta. |
 
 ---
 
@@ -322,17 +324,42 @@ ganando** es la correcta. Ha funcionado en comités clínicos durante décadas.
 
 ## 7. Eventos Centinela
 
-El Mazo de Eventos Centinela se roba **únicamente** cuando algo te obliga:
-un ⚠️ al robar, o una carta de Acción que te lo imponga.
+El Mazo de Eventos Centinela se roba **únicamente** cuando un ⚠️ te obliga al
+robar. Nadie lo roba por voluntad propia y ninguna carta te manda a él: es el
+mazo de las cosas que pasan solas.
 
-Se resuelve de inmediato y se descarta. Si el evento afecta a "un paciente"
-sin especificar cuál y no dice quién elige, **elige el jugador afectado**.
+Se resuelve de inmediato y se descarta.
 
-Si un evento no puede aplicarse (ej.: pide descartar un Fármaco y el paciente
-no tiene ninguno), **no pasa nada**. No se sustituye por otro efecto.
+### 7.1 A quién le pasa: el 🎯 Objetivo
 
-Los eventos llevan categoría (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`, `GENERAL`). Hoy
-es solo sabor; queda reservada para inmunidades de futuros avatares.
+**La carta elige a la víctima, no tú.** Cada Evento Centinela lleva un
+🎯 Objetivo que dice a cuál de tus pacientes le toca:
+
+| 🎯 Objetivo | A quién señala |
+|---|---|
+| **EL MÁS GRAVE** | El que tenga **menos ❤️** en este momento |
+| **EL QUE MEJOR VA** | El que tenga **más ❤️** en este momento |
+| **EL MÁS TRATADO** | El que tenga **más recursos encima** (cuenta cartas, no íconos) |
+| **EL ESTABILIZADO ✅** | Tu paciente con ficha ✅. Si no tienes ninguno, va **al que mejor va** |
+| **TÚ ELIGES** | Eliges tú. Son pocas: la alergia y el extravío no discriminan |
+| **TODOS** | Todos tus pacientes a la vez. Son las cuatro que de verdad dan miedo |
+
+**En caso de empate, eliges tú entre los empatados.** Es la única decisión que
+te queda, y a veces es la que importa.
+
+> **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
+> daño al paciente que ya diste por perdido y ningún evento dolería. Con el
+> Objetivo, el reloj te alcanza donde no querías: el *Paro Cardiorrespiratorio*
+> busca al que peor está, la *Caída de Cama* al que ya se sentía bien para
+> pararse solo, y el *Reingreso Precoz* justo al que ibas a dar de alta mañana.
+
+Si el evento no puede aplicarse (pide descartar un Fármaco y ese paciente no
+tiene ninguno; o no tienes pacientes en cama), **no pasa nada**. No se
+sustituye por otro efecto ni se busca otro objetivo.
+
+Los eventos llevan además categoría (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`,
+`GENERAL`). Hoy es solo sabor; queda reservada para inmunidades de futuros
+avatares.
 
 ---
 
