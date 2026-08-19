@@ -9,12 +9,46 @@ Los CSV de cartas/ son la fuente de la verdad; esto los empaqueta en HTML.
 Cuando cambien los CSV, vuelve a correrlo.
 """
 
+import base64
 import csv
+import glob
+import io
 import json
 import os
+import re
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARTAS = os.path.join(RAIZ, "cartas")
+ARTE_DIR = os.path.join(RAIZ, "arte", "raw")
+
+
+def cargar_arte():
+    """Ilustraciones de arte/raw/<ID>-*.jpg como data-URIs en miniatura.
+
+    Si Pillow está instalado, reduce a 340px de ancho (≈20 KB por carta);
+    si no, embebe el archivo tal cual. El Taller funciona igual sin arte.
+    """
+    arte = {}
+    try:
+        from PIL import Image
+        pil = True
+    except ImportError:
+        pil = False
+    for ruta in sorted(glob.glob(os.path.join(ARTE_DIR, "*.jpg"))):
+        m = re.match(r"([A-Z]\d{2})-", os.path.basename(ruta))
+        if not m:
+            continue
+        if pil:
+            im = Image.open(ruta).convert("RGB")
+            im.thumbnail((340, 510))
+            buf = io.BytesIO()
+            im.save(buf, "JPEG", quality=68)
+            crudo = buf.getvalue()
+        else:
+            with open(ruta, "rb") as f:
+                crudo = f.read()
+        arte[m.group(1)] = "data:image/jpeg;base64," + base64.b64encode(crudo).decode()
+    return arte
 
 # Esquema de edición: por mazo, qué columnas y con qué control se editan.
 # num = campo numérico · sel = desplegable · txt = línea · area = párrafo
@@ -232,6 +266,10 @@ input[type="search"]{flex:1;min-width:9rem;max-width:20rem}
 .c-arte{flex:1;min-height:1.6rem;margin:.15rem 0;border:1px dashed var(--linea);
   border-radius:2px;display:flex;align-items:center;justify-content:center;
   font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--linea-fuerte)}
+.c-arte.con{border:1px solid var(--linea);padding:0;overflow:hidden}
+.c-arte.con img{width:100%;height:100%;object-fit:cover;display:block}
+.cajon-arte{width:100%;aspect-ratio:3/2;object-fit:cover;border:1px solid var(--linea);
+  border-radius:2px;display:block}
 .c-req{display:grid;grid-template-columns:1fr 1fr;gap:.1rem .3rem;font-size:.72rem;
   font-weight:700;font-family:ui-monospace,Menlo,monospace}
 .c-req .off{color:var(--linea-fuerte);font-weight:400}
@@ -292,7 +330,8 @@ textarea.volcado{width:100%;min-height:14rem;background:var(--ficha);
 """
 
 JS = r"""
-const DATOS = window.__DATOS__, ESQUEMA = window.__ESQUEMA__;
+const DATOS = window.__DATOS__, ESQUEMA = window.__ESQUEMA__,
+      ARTE = window.__ARTE__ || {};
 const ORIG = JSON.parse(JSON.stringify(DATOS));
 const TIPOS = ["FARMACOS","IMAGEN","MONITOREO","PERSONAL"];
 const NOMT = {IMAGEN:"Imagen",FARMACOS:"Fármacos",PERSONAL:"Personal",
@@ -415,6 +454,8 @@ function renderMonitor(){
         </div>`).join("")}
         <div class="metrica" style="border-top:1px solid var(--linea);padding-top:.4rem">
           <span><b>Total</b></span><span><b>${b.total}</b></span></div>
+        <div class="metrica"><span>🖼️ Con ilustración</span>
+          <span><b>${Object.keys(ESQUEMA).reduce((a,k)=>a+DATOS[k].filter(f=>ARTE[f.id]).length,0)}</b><span class="obj"> / ${Object.keys(ESQUEMA).reduce((a,k)=>a+DATOS[k].length,0)} dis.</span></span></div>
       </div>
     </div>`;
 }
@@ -423,7 +464,9 @@ function renderMonitor(){
 function tocada(k,i){ return JSON.stringify(DATOS[k][i]) !== JSON.stringify(ORIG[k][i]); }
 
 function pintarCarta(k,f,i){
-  const arte = `<div class="c-arte">arte</div>`;
+  const arte = ARTE[f.id]
+    ? `<div class="c-arte con"><img src="${ARTE[f.id]}" alt="" loading="lazy"></div>`
+    : `<div class="c-arte">arte</div>`;
   const t = s => arte + `<div class="c-frase">${esc(s)}</div>`;
   let dentro = "";
   if (k === "pacientes"){
@@ -505,6 +548,7 @@ function abrir(i){
       <button class="btn" id="cerrar" aria-label="Cerrar">✕</button>
     </div>
     <div class="cajon-cuerpo">
+      ${ARTE[f.id] ? `<img class="cajon-arte" src="${ARTE[f.id]}" alt="Ilustración de ${esc(f.nombre)}">` : ""}
       ${largos.filter(c=>c[0]==="nombre").map(ctrl).join("")}
       <div class="fila-campos">${cortos.map(ctrl).join("")}</div>
       ${largos.filter(c=>c[0]!=="nombre").map(ctrl).join("")}
@@ -1006,6 +1050,7 @@ refrescar();
 
 def main():
     datos = cargar()
+    arte = cargar_arte()
     esquema_js = {k: {"titulo": v["titulo"], "icono": v["icono"],
                       "campos": v["campos"]} for k, v in ESQUEMA.items()}
 
@@ -1019,8 +1064,9 @@ def main():
   <header>
     <div>
       <h1>Taller de <em>Guardia</em></h1>
-      <p class="sub">Las 159 cartas de ¡Vaya Turno!, sus constantes y un editor
-      en vivo. Tus cambios quedan guardados en este navegador.</p>
+      <p class="sub">Las 159 cartas de ¡Vaya Turno! (v0.13), sus constantes, el
+      arte ya colocado y un editor en vivo. Tus cambios quedan guardados en
+      este navegador.</p>
     </div>
     <div class="acciones-cab">
       <button class="btn" id="reset">Descartar mis cambios</button>
@@ -1036,8 +1082,9 @@ def main():
     </div>
     <p class="banco-intro">Juega miles de partidas con <strong>las cartas que
     tienes en pantalla</strong>, incluidas tus ediciones sin guardar. Modela la
-    economía base: reloj, robo, sinergia, ⚠️ y Sumario. No modela avatares ni
-    cartas de Acción — mide el suelo del balance, no el techo.</p>
+    economía base: reloj, robo, sinergia, ⚠️ y Sumario. No modela avatares,
+    cartas de Acción ni el Trueque de Pasillo (v0.13) — mide el suelo del
+    balance, no el techo.</p>
     <div class="mandos">
       <div class="mando"><label for="s-jug">Jugadores</label>
         <select id="s-jug"><option>2</option><option selected>3</option><option>4</option></select></div>
@@ -1108,6 +1155,7 @@ def main():
 <script>
 window.__DATOS__ = {emb(datos)};
 window.__ESQUEMA__ = {emb(esquema_js)};
+window.__ARTE__ = {emb(arte)};
 </script>
 <script>{JS}</script>
 """
@@ -1115,7 +1163,7 @@ window.__ESQUEMA__ = {emb(esquema_js)};
     with open(salida, "w", encoding="utf-8") as f:
         f.write(html)
     total = sum(sum(int(r.get("copias", 1) or 1) for r in v) for v in datos.values())
-    print(f"✔ Taller con {total} cartas → {salida}")
+    print(f"✔ Taller con {total} cartas y {len(arte)} ilustraciones → {salida}")
 
 
 if __name__ == "__main__":

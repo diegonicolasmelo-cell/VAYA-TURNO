@@ -57,50 +57,51 @@ def cargar_csv(nombre):
     with open(ruta, encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
+def _slug(s):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+    return "".join(c if c.isalnum() else "-" for c in s.lower()).strip("-").replace("--", "-")
+
+
+# Cómo se ve cada gravedad en la carta (docs/ARTE.md §3.1)
+GRAVEDAD_VISUAL = {
+    "I": ("Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at "
+          "most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or "
+          "over-worried — the comedy lives in the face."),
+    "II": ("Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV "
+           "line, a monitor behind showing vitals. Expression: worried, exhausted, deflated."),
+    "III": ("Critical ICU patient: intubated and sedated (or struggling on non-invasive "
+            "ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but "
+            "dignified — never gore."),
+    "ROJO": ("Code-red patient: full life support — ventilator, several infusion pumps "
+             "running, extra staff hands entering the frame. Maximum drama, darker and more "
+             "saturated ambient than the rest."),
+}
+
+
 def gen_prompts_pacientes(datos):
-    """Genera prompts para 26 pacientes en hojas de contacto por gravedad."""
+    """Un prompt individual por paciente, pensado para Gemini/Whisk con las
+    anclas de arte/raw/ cargadas como referencia de estilo."""
     prompts = defaultdict(list)
-
-    grupos = {"I": [], "II": [], "III": [], "ROJO": []}
     for p in datos:
-        grupos[p["gravedad"]].append(p)
+        sistema = p.get("sistema", "")
+        prompt = f"""
+ID: {p["id"]}
+CARTA: {p["nombre"]} · Gravedad {p["gravedad"]} · {sistema}
+OUTPUT: guardar como arte/raw/{p["id"]}-{_slug(p["nombre"])}.png
 
-    for gravedad, pacientes in grupos.items():
-        n = len(pacientes)
-        batch = 1
-        for i in range(0, n, 3):  # Grupos de 3 para hojas de contacto
-            tandas = pacientes[i:i+3]
-            nombres = ", ".join([f['nombre'] for f in tandas])
-            ids = "-".join([f['id'] for f in tandas])
+ICU patient card illustration for a card game. The patient IS the card:
+"{p["nombre"]}".
+Mood/attitude cue (do NOT render any text): {p.get("frase", "")}
 
-            prompt = f"""
-BATCH: pacientes-{gravedad}-{batch}
-IDS: {ids}
-OUTPUT: contactsheet-{gravedad}-{batch}.png
-
-Generate a contact sheet with {len(tandas)} medical patient portraits in different poses,
-ages, and ethnicities. All are Gravedad {gravedad} patients ({"leve" if gravedad == "I" else "moderate" if gravedad == "II" else "grave" if gravedad == "III" else "critical"}).
-
-Patients: {nombres}
-
-Visual guidelines:
-- Busts from chest to head, no full body
-- Gravedad I: Awake, fatigued, simple oxygen mask or no accessories
-- Gravedad II: Sedated, Venturi mask or intubated, monitor background
-- Gravedad III: Intubated, sedated, arterial line visible, monitor prominent
-- Gravedad ROJO: Ventilated, active infusion, extreme expression
-
-Composition: Each portrait centered, 2:3 portrait each, {len(tandas)} in a row.
-Each portrait uses the ambient color family of ITS clinical system:
-RESP=teal #5b9dc4, CARD=burnt orange #e0705a, NEURO=purple #a184c9,
-METAB=olive #5cb583, QUIR=amber #c19a4e. Full-bleed ICU room background.
-Label each with patient name below.
-
+{GRAVEDAD_VISUAL.get(p["gravedad"], "")}
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+{ambiente(sistema)}
 {ESTILO}
 """
-            prompts["pacientes-" + gravedad].append(prompt.strip())
-            batch += 1
-
+        prompts[f"pacientes-{p['gravedad']}"].append(prompt.strip())
     return prompts
 
 def gen_prompts_recursos(datos):

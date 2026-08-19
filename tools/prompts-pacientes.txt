@@ -1,0 +1,696 @@
+════════════════════════════════════════════════════════════════════════════
+  LOS 26 PACIENTES · PROMPTS PARA GEMINI (uno por carta)
+════════════════════════════════════════════════════════════════════════════
+
+CÓMO USARLOS:
+
+1. Abre Gemini (o Whisk) y ANTES de pedir nada, sube 2–3 anclas de estilo:
+     arte/raw/C01-diostor.jpg
+     arte/raw/R35-tecnico-en-enfermeria.jpg   (el Reemplazo: persona en UCI)
+     arte/raw/E09-paro-cardiorrespiratorio.jpg (escena con paciente en cama)
+   Y dile: "Genera las siguientes imágenes EN ESTE MISMO ESTILO."
+
+2. Copia UN prompt completo (desde "ICU patient card..." hasta el final del
+   bloque de estilo) y pégalo. Genera. Si el resultado no respeta el estilo,
+   responde: "Match the reference images more closely: thicker uniform
+   outlines, flat colors, ONE monochrome color family."
+
+3. Guarda la imagen aprobada con el nombre que indica OUTPUT.
+
+4. Ritmo sano: 4–6 pacientes por sesión, revisando coherencia contra los
+   anteriores antes de seguir. Los 26 salen en 2–3 sesiones.
+
+REGLA DE ORO: si dudas entre dos resultados, elige el que tenga la cara más
+expresiva. La comedia de estas cartas vive en la cara del paciente.
+
+════════════════════════════════════════════════════════════════════════════
+
+
+================================================================================
+CATEGORÍA: PACIENTES-I
+================================================================================
+
+ID: P01
+CARTA: Dolor Torácico Atípico · Gravedad I · CARD
+OUTPUT: guardar como arte/raw/P01-dolor-toracico-atipico.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Dolor Torácico Atípico".
+Mood/attitude cue (do NOT render any text): Le duele cuando respira, cuando camina y cuando le hablan de la cuenta.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P02
+CARTA: El del Frasco Completo · Gravedad I · METAB
+OUTPUT: guardar como arte/raw/P02-el-del-frasco-completo.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"El del Frasco Completo".
+Mood/attitude cue (do NOT render any text): Se lo tomó todo. Incluido el algodón.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P03
+CARTA: Abandono de Tratamiento · Gravedad I · CARD
+OUTPUT: guardar como arte/raw/P03-abandono-de-tratamiento.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Abandono de Tratamiento".
+Mood/attitude cue (do NOT render any text): Se sentía bien, así que dejó las pastillas. Hace ocho meses.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P04
+CARTA: La Caída del Baño · Gravedad I · QUIR
+OUTPUT: guardar como arte/raw/P04-la-caida-del-bano.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"La Caída del Baño".
+Mood/attitude cue (do NOT render any text): 'Me resbalé', dice. Nadie en la sala le cree.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P05
+CARTA: Crisis de Pánico en Box 4 · Gravedad I · NEURO
+OUTPUT: guardar como arte/raw/P05-crisis-de-panico-en-box-4.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Crisis de Pánico en Box 4".
+Mood/attitude cue (do NOT render any text): Se está muriendo. Todos los martes.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P06
+CARTA: Deshidratado de Verano · Gravedad I · METAB
+OUTPUT: guardar como arte/raw/P06-deshidratado-de-verano.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Deshidratado de Verano".
+Mood/attitude cue (do NOT render any text): Insiste en que cuatro cervezas cuentan como líquido.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P07
+CARTA: El Que Googleó Sus Síntomas · Gravedad I · NEURO
+OUTPUT: guardar como arte/raw/P07-el-que-googleo-sus-sintomas.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"El Que Googleó Sus Síntomas".
+Mood/attitude cue (do NOT render any text): Trae impreso el diagnóstico. Y el tratamiento. Y el pronóstico.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P08
+CARTA: Postoperado Que No Debería Estar Aquí · Gravedad I · QUIR
+OUTPUT: guardar como arte/raw/P08-postoperado-que-no-deberia-estar-aqui.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Postoperado Que No Debería Estar Aquí".
+Mood/attitude cue (do NOT render any text): El cirujano dijo 'obsérvenlo un rato'. Van tres días.
+
+Mild ward patient: awake, sitting up in bed, hospital gown, no devices or at most a simple nasal cannula. Expression: annoyed, dramatic, oblivious or over-worried — the comedy lives in the face.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-II
+================================================================================
+
+ID: P09
+CARTA: Neumonía Adquirida en la Comunidad · Gravedad II · RESP
+OUTPUT: guardar como arte/raw/P09-neumonia-adquirida-en-la-comunidad.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Neumonía Adquirida en la Comunidad".
+Mood/attitude cue (do NOT render any text): Lleva un mes tosiendo. Vino hoy porque no lo dejaba dormir.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: hospital teal / blue family (anchor #5b9dc4)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P10
+CARTA: Cetoacidosis Diabética · Gravedad II · METAB
+OUTPUT: guardar como arte/raw/P10-cetoacidosis-diabetica.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Cetoacidosis Diabética".
+Mood/attitude cue (do NOT render any text): Se le acabó la insulina el jueves. Hoy es domingo.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P11
+CARTA: ACV en Ventana · Gravedad II · NEURO
+OUTPUT: guardar como arte/raw/P11-acv-en-ventana.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"ACV en Ventana".
+Mood/attitude cue (do NOT render any text): Nadie sabe a qué hora empezó. Nadie.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P12
+CARTA: Hemorragia Digestiva Alta · Gravedad II · QUIR
+OUTPUT: guardar como arte/raw/P12-hemorragia-digestiva-alta.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Hemorragia Digestiva Alta".
+Mood/attitude cue (do NOT render any text): Dice que es la primera vez. Es la sexta.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P13
+CARTA: Insuficiencia Cardíaca Descompensada · Gravedad II · CARD
+OUTPUT: guardar como arte/raw/P13-insuficiencia-cardiaca-descompensada.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Insuficiencia Cardíaca Descompensada".
+Mood/attitude cue (do NOT render any text): Comió cazuela. Y sopa. Y jugo. Y postre.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P14
+CARTA: Pielonefritis Complicada · Gravedad II · METAB
+OUTPUT: guardar como arte/raw/P14-pielonefritis-complicada.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Pielonefritis Complicada".
+Mood/attitude cue (do NOT render any text): Aguantó dos semanas por no faltar al trabajo.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P15
+CARTA: Abdomen Agudo Sin Diagnóstico · Gravedad II · QUIR
+OUTPUT: guardar como arte/raw/P15-abdomen-agudo-sin-diagnostico.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Abdomen Agudo Sin Diagnóstico".
+Mood/attitude cue (do NOT render any text): Cirugía dice que es de medicina. Medicina dice que es de cirugía.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P16
+CARTA: EPOC Exacerbado · Gravedad II · RESP
+OUTPUT: guardar como arte/raw/P16-epoc-exacerbado.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"EPOC Exacerbado".
+Mood/attitude cue (do NOT render any text): Trae su balón de oxígeno. Y su cajetilla.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: hospital teal / blue family (anchor #5b9dc4)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P17
+CARTA: Intoxicación Mixta · Gravedad II · METAB
+OUTPUT: guardar como arte/raw/P17-intoxicacion-mixta.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Intoxicación Mixta".
+Mood/attitude cue (do NOT render any text): Nadie sabe qué tomó. Él tampoco.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: olive green family (anchor #5cb583)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P18
+CARTA: Delirium del Adulto Mayor · Gravedad II · NEURO
+OUTPUT: guardar como arte/raw/P18-delirium-del-adulto-mayor.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Delirium del Adulto Mayor".
+Mood/attitude cue (do NOT render any text): De día duerme. De noche dirige una orquesta.
+
+Serious patient: lying in bed, Venturi mask or high-flow nasal cannula, one IV line, a monitor behind showing vitals. Expression: worried, exhausted, deflated.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-III
+================================================================================
+
+ID: P19
+CARTA: Shock Séptico · Gravedad III · CARD
+OUTPUT: guardar como arte/raw/P19-shock-septico.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Shock Séptico".
+Mood/attitude cue (do NOT render any text): La hora dorada empezó hace cuatro horas.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P20
+CARTA: Politraumatizado · Gravedad III · QUIR
+OUTPUT: guardar como arte/raw/P20-politraumatizado.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Politraumatizado".
+Mood/attitude cue (do NOT render any text): Iba a 120. Sin cinturón. 'Por acá nunca hay control'.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P21
+CARTA: Síndrome de Distrés Respiratorio · Gravedad III · RESP
+OUTPUT: guardar como arte/raw/P21-sindrome-de-distres-respiratorio.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Síndrome de Distrés Respiratorio".
+Mood/attitude cue (do NOT render any text): Los pulmones parecen vidrio esmerilado. Él parece tranquilo.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: hospital teal / blue family (anchor #5b9dc4)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P22
+CARTA: Status Epiléptico · Gravedad III · NEURO
+OUTPUT: guardar como arte/raw/P22-status-epileptico.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Status Epiléptico".
+Mood/attitude cue (do NOT render any text): Cuarta dosis. Sigue convulsionando.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: purple / dark lavender family (anchor #a184c9)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P23
+CARTA: Pancreatitis Grave · Gravedad III · QUIR
+OUTPUT: guardar como arte/raw/P23-pancreatitis-grave.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Pancreatitis Grave".
+Mood/attitude cue (do NOT render any text): Fue un asado. Uno solo, insiste.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P24
+CARTA: Tromboembolismo Pulmonar Masivo · Gravedad III · RESP
+OUTPUT: guardar como arte/raw/P24-tromboembolismo-pulmonar-masivo.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Tromboembolismo Pulmonar Masivo".
+Mood/attitude cue (do NOT render any text): Volvió de un vuelo de catorce horas y del baño no salió caminando.
+
+Critical ICU patient: intubated and sedated (or struggling on non-invasive ventilation), arterial line, prominent monitor, infusion pumps. Dramatic but dignified — never gore.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: hospital teal / blue family (anchor #5b9dc4)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+
+================================================================================
+CATEGORÍA: PACIENTES-ROJO
+================================================================================
+
+ID: P25
+CARTA: Falla Multiorgánica · Gravedad ROJO · CARD
+OUTPUT: guardar como arte/raw/P25-falla-multiorganica.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Falla Multiorgánica".
+Mood/attitude cue (do NOT render any text): Todo mal. Y en orden alfabético.
+
+Code-red patient: full life support — ventilator, several infusion pumps running, extra staff hands entering the frame. Maximum drama, darker and more saturated ambient than the rest.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: burnt orange / brick red family (anchor #e0705a)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+
+ID: P26
+CARTA: Trasplante en Lista Cero · Gravedad ROJO · QUIR
+OUTPUT: guardar como arte/raw/P26-trasplante-en-lista-cero.png
+
+ICU patient card illustration for a card game. The patient IS the card:
+"Trasplante en Lista Cero".
+Mood/attitude cue (do NOT render any text): Hay órgano. Hay avión. No hay pabellón.
+
+Code-red patient: full life support — ventilator, several infusion pumps running, extra staff hands entering the frame. Maximum drama, darker and more saturated ambient than the rest.
+Framing: bust or half-body, patient is the protagonist, hospital bed and one
+hint of the ICU room behind. Choose age, gender and body type that fit the
+patient's name and mood cue; vary them across the set.
+AMBIENT COLOR FAMILY: amber / mustard family (anchor #c19a4e)
+
+[VAYA TURNO HOUSE STYLE]
+Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire),
+flat colors with minimal 1-2 tone cel shading, subtle vintage print grain.
+Exaggerated comic characters: big heads (3-4 heads tall), expressive tired faces,
+drawn under-eye circles, anxious hospital humor. Setting: recognizable ICU interior
+with patient monitors, IV poles and ambient signage ("ICU", "OXIGENO").
+CRITICAL: the whole image lives in ONE monochromatic color family - background and
+subject share the same color temperature (see AMBIENT COLOR FAMILY below).
+Full-bleed background, never white. No game text, no labels except small ambient signs.
+No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
