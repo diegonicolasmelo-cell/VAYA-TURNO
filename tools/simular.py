@@ -113,9 +113,9 @@ class Jugador:
     def puntos(self):
         p = sum(c["alta"] for c in self.altas) + sum(c["fallece"] for c in self.muertos)
         if not self.muertos:
-            p += 3          # Guardia Limpia
+            p += 3          # "No se me fue nadie"
         elif self.defendible():
-            p += 1          # Guardia Defendible: "se hizo todo"
+            p += 1          # "Se hizo todo"
         return p
 
 
@@ -406,10 +406,10 @@ def main():
           f"(objetivo de diseño: 55-70%)")
     print(f"Puntaje medio          {prom(puntos):.1f}   "
           f"(rango {min(puntos)} a {max(puntos)})")
-    print(f"Guardias limpias       {100 * limpias / n:.1f}%   "
-          f"(objetivo: 5-15%, debe ser una hazaña)")
-    print(f"Guardias defendibles   {100 * defendibles / n:.1f}%   "
-          f"(+1: solo se te fueron los Gravedad III y ROJO)\n")
+    print(f'"No se me fue nadie"  {100 * limpias / n:>5.1f}%   '
+          f"(+3 · objetivo 5-15%: debe ser una hazaña)")
+    print(f'"Se hizo todo"       {100 * defendibles / n:>5.1f}%   '
+          f"(+1 · tus únicos ✝️ fueron Gravedad III o ROJO)\n")
     print(f"{'gravedad':<10}{'altas':>7}{'muertes':>9}{'% salvado':>11}")
     for g, (a, m) in por_gravedad.items():
         pct = 100 * a / (a + m) if a + m else 0

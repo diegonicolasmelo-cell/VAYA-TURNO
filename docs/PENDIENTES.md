@@ -33,7 +33,7 @@ Prioridad de observación en mesa, de más a menos peligrosa:
 | 🟢 9 | A11 ¿Y Si Vamos por un Cafecito?, A16 Simulación Clínica | Respuestas 🛡️. Vigilar si 4 copias entre 30 son suficientes para que la defensa exista. |
 | 🟢 10 | A06 Se Cayó el Sistema, A12 Protocolo Institucional | Caos y copia. Ver ambigüedades en §3. |
 
-### 1.1a La Guardia Defendible (regla nueva, v0.15) — 🔶
+### 1.1a La "Se hizo todo" (regla nueva, v0.15) — 🔶
 
 +1 punto si tus únicos ✝️ fueron Gravedad III o Código Rojo (`REGLAMENTO.md`
 §9). Medida: sube el disuasivo contra aparcar a los leves un 52% y salta en el

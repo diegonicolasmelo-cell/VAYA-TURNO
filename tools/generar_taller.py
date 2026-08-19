@@ -918,7 +918,7 @@ function simAcumula(acc, jugadores){
     j.muertos.forEach(f => p += f.fallece);
     if (!j.muertos.length){ p += 3; acc.limpias += 1; }
     else if (j.muertos.every(f => f.gravedad === "III" || f.gravedad === "ROJO")){
-      p += 1; acc.defendibles += 1;      // Guardia Defendible: "se hizo todo"
+      p += 1; acc.defendibles += 1;      // +1 "Se hizo todo"
     }
     acc.puntos += p;
     j.altas.forEach(f => { if (acc.grav[f.gravedad]) acc.grav[f.gravedad][0] += 1; });
@@ -956,7 +956,7 @@ const OBJETIVOS = {
   salv:   {nom:"Tasa de salvamento", uni:"%", obj:"55–70%",  ok:[55,70],  al:[50,75],  mejor:+1},
   altas:  {nom:"Altas por jugador",  uni:"",  obj:"2–3",     ok:[2,3],    al:[1.7,3.5],mejor:+1},
   muertos:{nom:"Fallecidos por jugador",uni:"",obj:"1–2",    ok:[1,2],    al:[0.7,2.5],mejor:-1},
-  limpias:{nom:"Guardias limpias",   uni:"%", obj:"5–15%",   ok:[5,15],   al:[3,20],   mejor:0},
+  limpias:{nom:"«No se me fue nadie»", uni:"%", obj:"5–15%",   ok:[5,15],   al:[3,20],   mejor:0},
   gIII:   {nom:"Gravedad III salvada",uni:"%",obj:"40–50%",  ok:[40,50],  al:[33,57],  mejor:+1},
 };
 const ORDEN_SIM = ["salv","altas","muertos","limpias","gIII"];
@@ -1023,7 +1023,7 @@ function pintarSim(cfg, tuyo, base){
     `${cfg.partidas.toLocaleString("es")} partidas · ${cfg.nJug} jugadores · ` +
     `${cfg.camasC} camas · robo ${cfg.robo} · ${cfg.rondas} rondas. ` +
     `Puntaje medio <b class="mono">${tuyo.puntos.toFixed(1)}</b> · ` +
-    `guardias defendibles <b class="mono">${tuyo.defendibles.toFixed(0)}%</b>. ` +
+    `guardias con solo graves <b class="mono">${tuyo.defendibles.toFixed(0)}%</b>. ` +
     `Salvamento por gravedad: <span class="mono">${extra}</span>.` +
     (base ? "" : " Sin ediciones todavía: no hay con qué comparar.");
 }

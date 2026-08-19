@@ -63,7 +63,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 > Estos números están simulados, no improvisados. Con ellos un jugador
 > competente salva ~66% de sus pacientes: unas **2,8 altas y 1,4
 > fallecidos** por guardia, salva al **43% de los Gravedad III** y cierra
-> Guardia Defendible una de cada cuatro veces. Si tu mesa se aleja mucho de
+> "Se hizo todo" una de cada cuatro veces. Si tu mesa se aleja mucho de
 > eso, revisa `docs/DISENO.md` §4 antes de cambiar nada.
 
 ---
@@ -409,7 +409,7 @@ usarla.
 > ajuste natural. Está anotado en `docs/DISENO.md` §5.
 >
 > **La Gestora sí está medida** (v0.13): con la Derivación gratis y cada turno
-> ganaba +2,7 puntos sobre sus rivales y cerraba Guardia Limpia el 31% de las
+> ganaba +2,7 puntos sobre sus rivales y cerraba "No se me fue nadie" el 31% de las
 > veces contra el 8% de los demás. Con el Sumario, la pérdida de la Limpia y el
 > límite de 1 por partida queda en **+0,7**, que es lo que debe valer una
 > habilidad. Los números están en `docs/DISENO.md` §4.
@@ -431,16 +431,16 @@ la próxima guardia. Ese es su problema.
 ```
   + Puntos de cada paciente en tu pila de ALTAS
   − Penalización de cada ✝️ frente a ti
-  + 3   si terminas SIN NINGÚN ✝️              ("Guardia Limpia")
+  + 3   si terminas SIN NINGÚN ✝️              "No se me fue nadie"
   + 1   si tus únicos ✝️ fueron Gravedad III
-        o Código Rojo                          ("Guardia Defendible")
+        o Código Rojo                          "Se hizo todo"
   ─────────────────────────────────────────────────
   = Tu puntaje
 ```
 
-Los dos bonus **no se suman**: o cerraste sin muertos, o cerraste defendible.
+Los dos bonus **no se suman**: o lo uno, o lo otro.
 
-> **Guardia Defendible** es el consuelo del que se arriesgó. Si se te fue un
+> **"Se hizo todo"** es el consuelo del que se arriesgó. Si se te fue un
 > Crítico o un Código Rojo, nadie te va a preguntar nada: entraron muriéndose y
 > **se hizo todo**. Pero basta con que se te vaya **un solo Gravedad I** para
 > perderlo — de eso no se muere nadie, y en el comité te lo van a decir.
@@ -484,7 +484,7 @@ Los dos bonus **no se suman**: o cerraste sin muertos, o cerraste defendible.
 ## 11. Variantes
 
 **Guardia Corta (25 min).** 6 rondas, todo lo demás igual. En esta variante
-**no se aplican los bonus de Guardia Limpia ni Defendible**: con tan pocas
+**no se aplican los bonus de Guardia "No se me fue nadie" ni "Se hizo todo"**: con tan pocas
 rondas terminar sin fallecidos deja de ser una hazaña y se vuelve lo normal.
 
 **Modo Cooperativo (Brote).** Todos comparten una UCI de 6 camas y turnan las

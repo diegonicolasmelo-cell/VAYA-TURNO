@@ -71,7 +71,7 @@ has guardado. Eliges jugadores, camas, robo, rondas y cuántas partidas, aprieta
 | Tasa de salvamento | objetivo 55–70% |
 | Altas por jugador | 2–3 |
 | Fallecidos por jugador | 1–2 |
-| Guardias limpias | 5–15% |
+| Sin fallecidos | 5–15% |
 | Gravedad III salvada | 40–50% |
 
 Si tocaste algo, corre **dos veces** —tus cartas y las originales— y muestra el
@@ -128,7 +128,7 @@ Objetivos que hay que mantener (detalle en `docs/DISENO.md` §4):
 
 - Salvamento **55–70%**
 - **2–3 altas** por jugador
-- Guardias limpias **5–15%**
+- Sin fallecidos **5–15%**
 - Gravedad III salvable **40–50%** (a 4 jugadores baja a ~33%: ver `docs/DISENO.md` §4)
 
 Además: mantén los **recursos específicos repartidos entre los cinco

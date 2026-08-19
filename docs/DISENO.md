@@ -38,7 +38,7 @@ cartas de ataque serían ruido; con ella, son el clímax de cada ronda.
 | ¿Cuántas cartas se juegan por turno? | Recursos ilimitados, **1 sola Acción** | La simulación mostró que limitar recursos no cambia el balance (el cuello de botella es el robo), solo añade una regla. En cambio limitar Acciones sí importa: sin ese tope, una mano con 3 ataques borra a un jugador de la partida. |
 | ¿Cómo entran los eventos adversos? | Símbolo ⚠️ en 17 de las 63 cartas de Recurso, **con su complicación impresa** (v0.14) | Tu idea de "robar un evento al robar recursos". Ata el castigo al motor del juego: mientras más juegas, más te expones — y desde v0.14 el problema es el que ese recurso causa de verdad. |
 | ¿Mazo único o mazos separados? | Guardia y Protocolos separados. **El mazo de Eventos se eliminó en v0.14** | La complicación vive impresa en la carta ⚠️ que la causa: menos componentes, un paso menos por turno, y coherencia clínica. Ver §4c. |
-| Puntuación | Altas − Fallecidos + **Guardia Limpia (+3)** o **Guardia Defendible (+1)** | El +3 evita que la estrategia dominante sea "sacrificar sin culpa". El +1 (v0.15) hace visible lo que ya medía la simulación: puedes perder a los difíciles, no a los fáciles. |
+| Puntuación | Altas − Fallecidos + **"No se me fue nadie" (+3)** o **"Se hizo todo" (+1)** | El +3 evita que la estrategia dominante sea "sacrificar sin culpa". El +1 (v0.15) hace visible lo que ya medía la simulación: puedes perder a los difíciles, no a los fáciles. |
 
 ---
 
@@ -91,7 +91,7 @@ ese colchón, un solo ataque se volvía letal.
 > tiempo de intentarlo, y si falla, la muerte es resultado de tu turno.
 >
 > Eso regala medio turno de gracia a todo el mundo. Sin compensar, el
-> salvamento subía a **70%** y las guardias limpias a **18,5%** (fuera de
+> salvamento subía a **70%** y las guardias sin fallecidos a **18,5%** (fuera de
 > objetivo por arriba). Se pagó con dos ajustes chicos, elegidos por barrido:
 >
 > | Variante (3 jug., 3.000 partidas) | Salv. | Altas | Muertes | Limpias | GIII | ROJO |
@@ -132,7 +132,7 @@ ese colchón, un solo ataque se volvía letal.
 > 17. Se añadieron además **3 comodines**: bajan de 4,3% a ~2% la proporción
 > de jugadores que terminan sin ninguna alta — el anti-brick pedido por el
 > autor. Resultado v0.11 con robo 4: **65% de salvamento, 2,7 altas, 1,5
-> fallecidos, 11,7% de guardias limpias.** Gravedad III sube a 47% (era 41%):
+> fallecidos, 11,7% de guardias sin fallecidos.** Gravedad III sube a 47% (era 41%):
 > los críticos ahora son apuestas más razonables porque su recurso específico
 > los rescata más rápido.
 >
@@ -174,7 +174,7 @@ Barrido de parámetros con `tools/simular.py` (3 jugadores, 3 camas):
 
 - **Subir la vida** arregla la tasa de salvamento pero destruye la tensión:
   con vida +1, el 37% de las guardias terminan sin ningún fallecido. El bonus
-  de Guardia Limpia deja de ser una hazaña y pasa a ser el default.
+  sin fallecidos deja de ser una hazaña y pasa a ser el default.
 - **Bajar los requisitos** aplana las gravedades: los Graves y los Críticos
   empiezan a parecerse entre sí y la decisión de triage pierde textura.
 - **Subir el robo** arregla el problema sin tocar la identidad de ninguna
@@ -197,10 +197,10 @@ Objetivos de diseño que había que cumplir simultáneamente:
 
 - Salvamento **55–70%** → salvas la mayoría, pierdes a alguien siempre.
 - **2–3 altas** por jugador → la partida se siente productiva.
-- Guardia Limpia **5–15%** → es una hazaña, no un plan.
+- Cierres con "No se me fue nadie" **5–15%** → es una hazaña, no un plan.
 - Gravedad III salvable **40–50%** → vale la pena intentarlo, no siempre sale.
 
-La configuración de 4 jugadores queda con un **16% de guardias limpias**, un
+La configuración de 4 jugadores queda con un **16% de guardias sin fallecidos**, un
 punto por encima del objetivo. Se deja así: bajar el robo a 3 la devolvería al
 rango pero hundiría el salvamento al 45%. Es la config menos afinada de las
 tres, y la que más conviene revisar tras el playtest.
@@ -240,7 +240,7 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
 ---
 
-## 4d. La Guardia Defendible: por qué el "Fallece −1" engañaba (v0.15)
+## 4d. El bonus "Se hizo todo": por qué el "Fallece −1" engañaba (v0.15)
 
 El autor preguntó lo obvio: si un Gravedad I solo resta 1 punto al morir,
 **¿cuál es el incentivo para salvarlo?** Se midió poniendo en la mesa a un
@@ -254,7 +254,7 @@ jugador negligente contra dos normales (3.000 partidas):
 
 **El incentivo ya existía** (−1,20) pero era invisible: la carta dice −1 y el
 costo real ronda los 4 puntos entre el Sumario, la cama muerta media ronda y —
-sobre todo— el bonus quemado (las Guardias Limpias del negligente caen del
+sobre todo— el bonus quemado (los cierres sin fallecidos del negligente caen del
 10,8% al 1,6%). Eso no es un problema de balance: **es un problema de
 legibilidad.** Un juego debe enseñar sus incentivos en la carta, no en la
 derrota.
@@ -264,9 +264,9 @@ Se probaron dos arreglos:
 | Arreglo | Ventaja negligente | Ventaja aparcar | Veredicto |
 |---|---:|---:|---|
 | Escala de Sumarios (2 al leve, 0 al ROJO) | −1,20 | — | **Descartado**: efecto cero. El +2 del leve y el 0 del ROJO se cancelan, y el Sumario es una palanca más débil de lo que sugería el caso de la Gestora (§4b). Una regla más a cambio de nada. |
-| **Guardia Defendible (+1)** | **−1,37** | **−0,47** | **Adoptado.** |
+| **"Se hizo todo" (+1)** | **−1,37** | **−0,47** | **Adoptado.** |
 
-La Defendible sube el disuasivo contra *aparcar* un **52%** — que era el punto
+El nuevo bonus sube el disuasivo contra *aparcar* un **52%** — que era el punto
 débil real, casi empatado —, salta en el **27,8%** de las guardias (suficiente
 para perseguirla, no tanto para ser automática) y solo infla el puntaje medio
 de 7,28 a 7,56.
@@ -276,8 +276,9 @@ de 7,28 a 7,56.
 > alta, y vuelves a revelar dos pacientes. Sus 7 ❤️ no son permiso para
 > ignorarlo: son el margen para elegir *cuándo* lo cierras.
 
-**Efecto sobre la Gestora:** su Derivación quema los dos bonus, no solo la
-Limpia. Verificado: su ventaja pasa de +0,66 a **+0,63** — sigue en banda.
+**Efecto sobre la Gestora:** su Derivación quema **los dos bonus de cierre**,
+no solo el de +3. Verificado: su ventaja pasa de +0,66 a **+0,63** — sigue en
+banda.
 
 ---
 
@@ -347,7 +348,7 @@ jugadores, configuración estándar.
    es rara por naturaleza: incluso sin límite, una IA razonable solo encuentra
    a quién derivar **0,9 veces por partida**. Si una habilidad se dispara poco,
    limitar cuántas veces puedes usarla no la arregla — hay que tocar el efecto.
-2. **El daño real no estaba en los puntos, estaba en la Guardia Limpia.** La
+2. **El daño real no estaba en los puntos, estaba en el bonus de cierre.** La
    Derivación gratis convertía una hazaña del 8% en un trámite del 31%. Toda
    habilidad que esquive fallecidos tiene que pagar ese bonus, o desfigura la
    estadística que le da sentido.

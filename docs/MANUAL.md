@@ -196,7 +196,7 @@ interpretación que más perjudique al que va ganando es la correcta.
 | **El Médico Fantasma** | Pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 más cada turno. |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ colocado sobre un paciente rival y se lo lleva a uno suyo. |
 | **El Director del Hospital** | 1×partida | Hace desaparecer un Sumario — tuyo o ajeno. Puede cobrar el favor. |
-| **La Gestora de Camas** | 1×partida | Devuelve un paciente suyo al fondo del mazo y admite otro. Sin ✝️ ni puntos negativos — pero toma Sumario y pierde los bonus de Limpia y Defendible. |
+| **La Gestora de Camas** | 1×partida | Devuelve un paciente suyo al fondo del mazo y admite otro. Sin ✝️ ni puntos negativos — pero toma Sumario y pierde los dos bonus de cierre. |
 | **El Médico Esotérico** | 1×turno | Revela la 1ª carta del mazo: sin ⚠️ la coloca gratis; con ⚠️, evento + penitencia. |
 
 ---
@@ -212,14 +212,14 @@ ahorras la ✝️.
 ```
   + puntos de tus ALTAS
   − penalización de cada ✝️
-  + 3 si terminaste SIN ningún ✝️            ("Guardia Limpia", ~11%)
-  + 1 si tus únicos ✝️ fueron III o ROJO     ("Guardia Defendible", ~28%)
+  + 3 si terminaste SIN ningún ✝️            "No se me fue nadie"  (~11%)
+  + 1 si tus únicos ✝️ fueron III o ROJO     "Se hizo todo"        (~28%)
   ─────────────────────────────
   = tu puntaje
 ```
 
-No se suman: o limpia, o defendible. **La Defendible es el consuelo del que se
-arriesgó** — *"se hizo todo"* —, y basta un Gravedad I muerto para perderla.
+No se suman: o lo uno, o lo otro. **"Se hizo todo" es el consuelo del que se
+arriesgó**, y basta un Gravedad I muerto para perderlo.
 Por eso el *Fallece −1* del leve engaña: dejarlo morir cuesta unas cuatro veces
 más entre el Sumario, la cama vacía y los bonus quemados. El Gravedad I no vale
 por sus 2 puntos, vale por **lo rápido que libera la cama**.
@@ -243,7 +243,7 @@ Salvas a la mayoría. Siempre pierdes a alguien.
 
 | Variante | Cambio | Para quién |
 |---|---|---|
-| **Guardia Corta** | 6 rondas, sin bonus de Limpia ni Defendible | 25 minutos |
+| **Guardia Corta** | 6 rondas, sin ninguno de los dos bonus | 25 minutos |
 | **Modo Cooperativo (Brote)** | UCI compartida de 6 camas, 25 puntos entre todos, máx. 5 ✝️ | Mesas que no quieren pelear |
 | **Modo Pelada Letal** | Dos caras en la Pelada = ganas la partida al instante | Mesas que ya se odian |
 | **Modo Cruel** | Los recursos sobrantes no hacen colchón | Gente que no comparte turno mañana |

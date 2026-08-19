@@ -44,7 +44,7 @@ es consecuencia de tu turno.
 | Print & play | ✅ generador incluido |
 | Motor de ilustraciones | ✅ estilo canónico "Retro de Guardia" + prompts + normalización (docs/ARTE.md) |
 | 96 ilustraciones | 🔶 18 colocadas en `arte/raw/` (del Drive del autor) + 24 extra para expansiones; faltan ~106 |
-| Playtest con humanos | ⬜ **el siguiente paso** (versión v0.14 lista para mesa) |
+| Playtest con humanos | ⬜ **el siguiente paso** (versión v0.15 lista para mesa) |
 
 ---
 
@@ -97,19 +97,19 @@ correcta era el **robo por turno**, no la vida ni los requisitos (subir la vida
 arreglaba la tasa pero mataba la tensión: el 37% de las partidas terminaban sin
 un solo fallecido).
 
-Configuración final, validada sobre 3.000 partidas por caso (v0.14):
+Configuración final, validada sobre 3.000 partidas por caso (v0.15):
 
-| Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos | Limpias |
+| Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos | Sin ✝️ |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | 2 | 3 | 4 | 8 | 67% | 2,9 | 1,4 | 10% |
 | 3 | 3 | 4 | 8 | 66% | 2,8 | 1,4 | 11% |
 | 4 | 2 | 3 | 10 | 62% | 2,4 | 1,4 | 13% |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
-fallecido pasa el ~11% de las veces, y por eso vale 3 puntos. Y si se te
-fueron **solo** los Gravedad III y los Código Rojo, te llevas la **Guardia
-Defendible (+1)**: se hizo todo, nadie te va a preguntar nada. Pasa el 28% de
-las veces, y basta un leve muerto para perderla — ese es el incentivo que el
+fallecido pasa el ~11% de las veces, y por eso **"No se me fue nadie"** vale 3
+puntos. Y si se te fueron **solo** los Gravedad III y los Código Rojo, te
+llevas **"Se hizo todo" (+1)**: nadie te va a preguntar nada. Pasa el 28% de
+las veces, y basta un leve muerto para perderlo — ese es el incentivo que el
 *Fallece −1* no dice (ver `docs/DISENO.md` §4d).
 
 En **v0.14 desapareció el mazo de Eventos Centinela**: cada una de las 17
