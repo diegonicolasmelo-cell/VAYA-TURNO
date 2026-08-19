@@ -3,7 +3,7 @@
 **Un juego de cartas sobre salvar pacientes, no salvarlos a todos, y
 arruinarle el turno al colega de al lado.**
 
-2–4 jugadores · 30–45 min · 134 cartas
+2–4 jugadores · 30–45 min · 131 cartas
 
 ---
 
@@ -24,7 +24,7 @@ guardas por si llega un respiratorio?
 
 ## Estado del proyecto
 
-**v0.12 — listo para playtest.** Reglas cerradas, 159 cartas escritas, economía
+**v0.14 — listo para playtest.** Reglas cerradas, 131 cartas escritas, economía
 simulada y calibrada, y todo el material histórico del autor integrado:
 avatares, Sumario, Canje, la Pelada, y la **sinergia por sistema clínico**
 rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
@@ -39,12 +39,12 @@ es consecuencia de tu turno.
 | | |
 |---|---|
 | Reglamento | ✅ completo |
-| Cartas (texto y números) | ✅ 159 |
+| Cartas (texto y números) | ✅ 131 |
 | Balance | ✅ simulado sobre 2.000 partidas por configuración |
 | Print & play | ✅ generador incluido |
 | Motor de ilustraciones | ✅ estilo canónico "Retro de Guardia" + prompts + normalización (docs/ARTE.md) |
-| 124 ilustraciones | 🔶 18 colocadas en `arte/raw/` (del Drive del autor) + 24 extra para expansiones; faltan ~106 |
-| Playtest con humanos | ⬜ **el siguiente paso** (versión v0.12 lista para mesa) |
+| 96 ilustraciones | 🔶 18 colocadas en `arte/raw/` (del Drive del autor) + 24 extra para expansiones; faltan ~106 |
+| Playtest con humanos | ⬜ **el siguiente paso** (versión v0.14 lista para mesa) |
 
 ---
 
@@ -54,7 +54,7 @@ es consecuencia de tu turno.
 # 1. Abre el Taller de Guardia: ver las cartas, editarlas y simular el balance
 python3 tools/generar_taller.py && open taller.html
 
-# 2. Genera el print-and-play (159 cartas en A4)
+# 2. Genera el print-and-play (131 cartas en A4)
 python3 tools/generar_pnp.py
 
 # 3. Abre pnp.html e imprime: A4, márgenes mínimos, con gráficos de fondo
@@ -78,13 +78,13 @@ qué medir en las tres primeras sesiones.
 | **[docs/SINTESIS.md](docs/SINTESIS.md)** | Qué se hizo con todo el material histórico: integrado, estacionado y por qué. |
 | **[docs/EXPANSIONES.md](docs/EXPANSIONES.md)** | Los cinco módulos por sistema, el modelo de reemplazo y lo que la caja base debe reservarse. |
 | **[docs/MOTOR.md](docs/MOTOR.md)** | El motor TURNO sin el tema: las cinco piezas reutilizables y su mapeo a otras profesiones. |
-| **[docs/ARTE.md](docs/ARTE.md)** | Motor de ilustraciones: paleta heredada del Taller, planos fijos por tipo, orden de trabajo (8–10 horas), integración con herramientas (Flow, ChatGPT, Stable Diffusion). |
-| **[cartas/](cartas/)** | Las 159 cartas en CSV. Es la fuente de la verdad. |
-| **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 159 cartas, tablero de constantes, editor en vivo y **Banco de pruebas** (el simulador corriendo en el navegador). |
+| **[docs/ARTE.md](docs/ARTE.md)** | Motor de ilustraciones: paleta heredada del Taller, estilo canónico, familia de color por sistema, anclas de imagen e integración con Gemini/Whisk. |
+| **[cartas/](cartas/)** | Las 131 cartas en CSV. Es la fuente de la verdad. |
+| **[tools/generar_taller.py](tools/generar_taller.py)** | CSV → **Taller de Guardia**: galería de las 131 cartas, tablero de constantes, editor en vivo y **Banco de pruebas** (el simulador corriendo en el navegador). |
 | **[tools/generar_pnp.py](tools/generar_pnp.py)** | CSV → HTML imprimible. |
 | **[tools/simular.py](tools/simular.py)** | Simulador de balance. Córrelo tras cualquier cambio de números. |
-| **[tools/prompts.py](tools/prompts.py)** | CSV → 124 prompts de imagen listos para ChatGPT/DALL-E/Whisk/Stable Diffusion. Agrupa por tipo y batch. |
-| **[tools/normalizar_arte.py](tools/normalizar_arte.py)** | Batch-normaliza 124 ilustraciones: redimensiona, reduce paleta, limpia fondo, ajusta contraste. |
+| **[tools/prompts.py](tools/prompts.py)** | CSV → 96 prompts de imagen listos para ChatGPT/DALL-E/Whisk/Stable Diffusion. Agrupa por tipo y batch. |
+| **[tools/normalizar_arte.py](tools/normalizar_arte.py)** | Batch-normaliza las ilustraciones: redimensiona, reduce paleta, limpia fondo, ajusta contraste. |
 | **[tools/prompts-todos.txt](tools/prompts-todos.txt)** | Todos los prompts generados, organizados por categoría y listo para copiar-pegar. |
 
 ---
@@ -97,29 +97,33 @@ correcta era el **robo por turno**, no la vida ni los requisitos (subir la vida
 arreglaba la tasa pero mataba la tensión: el 37% de las partidas terminaban sin
 un solo fallecido).
 
-Configuración final, validada sobre 3.000 partidas por caso (v0.12):
+Configuración final, validada sobre 3.000 partidas por caso (v0.14):
 
 | Jugadores | Camas | Robo | Rondas | Salvamento | Altas | Fallecidos | Limpias |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 3 | 4 | 8 | 62% | 2,7 | 1,6 | 8% |
-| 3 | 3 | 4 | 8 | 61% | 2,7 | 1,7 | 8% |
-| 4 | 2 | 3 | 10 | 57% | 2,2 | 1,7 | 9% |
+| 2 | 3 | 4 | 8 | 67% | 2,9 | 1,4 | 10% |
+| 3 | 3 | 4 | 8 | 66% | 2,8 | 1,4 | 11% |
+| 4 | 2 | 3 | 10 | 62% | 2,4 | 1,4 | 13% |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
-fallecido pasa el ~8% de las veces, y por eso vale 3 puntos.
+fallecido pasa el ~11% de las veces, y por eso vale 3 puntos.
 
-Mover el deterioro al final del turno regalaba medio turno de gracia a todo el
-mundo (el salvamento se iba al 70%). Se pagó con dos ajustes: **el recién
-ingresado ya no tiene día de cortesía**, y el **Código Rojo subió de ❤️4 a ❤️5**
-— sin eso se desplomaba al 38%, porque pide 8 recursos y con 4 días no alcanza.
+En **v0.14 desapareció el mazo de Eventos Centinela**: cada una de las 17
+cartas ⚠️ trae impresa la complicación que ese recurso causa de verdad (la
+Ventilación Mecánica trae la neumonía asociada a ventilación mecánica). Eso
+permitió al simulador dejar de estimar los eventos con un promedio y **aplicar
+las 17 exactas** — el balance de arriba ya los incluye de verdad. La
+calibración, con los cuatro intentos fallidos incluidos, está en
+`docs/DISENO.md` §4c.
 
 ```bash
 python3 tools/simular.py --partidas 3000
 ```
 
-> El simulador modela la economía base: **no** modela las cartas de Acción ni
-> las habilidades de personaje. Valida el suelo del balance, no el techo. Las
-> limitaciones están detalladas y sin maquillar en `docs/DISENO.md` §4.
+> El simulador modela la economía base **y las 17 complicaciones ⚠️ exactas**;
+> **no** modela las cartas de Acción ni las habilidades de personaje. Valida el
+> suelo del balance, no el techo. Las limitaciones están detalladas y sin
+> maquillar en `docs/DISENO.md` §4.
 
 ---
 
@@ -140,13 +144,14 @@ una sin la otra desbalancea el juego en silencio.
 
 ## Ilustraciones
 
-124 ilustraciones (26 pacientes + 43 recursos + 28 eventos + 20 acciones + 6 avatares + 1 sumario) 
-con **coherencia visual**: paleta clínica muted, estilo pen-and-ink moderno, planos fijos por tipo.
+96 ilustraciones (26 pacientes + 43 recursos + 20 acciones + 6 avatares + 1 sumario)
+en el estilo canónico **"Retro de Guardia"**: ligne claire de trazo grueso,
+color plano y una familia de color monocroma por carta.
 
 ### Flujo de generación
 
 ```bash
-# 1. Genera 124 prompts listos para ChatGPT/DALL-E/Whisk/Stable Diffusion
+# 1. Genera 96 prompts listos para ChatGPT/DALL-E/Whisk/Stable Diffusion
 python3 tools/prompts.py --salida prompts-todos.txt
 
 # 2. Lee docs/ARTE.md para entender el motor visual:
@@ -155,7 +160,7 @@ python3 tools/prompts.py --salida prompts-todos.txt
 #    - Planos fijos: busto (pacientes), objeto (recursos), escena (acciones/eventos), cuerpo (avatares)
 #    - Orden: 32 imágenes difíciles (avatares+pacientes) primero, luego 92 fáciles
 
-# 3. Genera 124 ilustraciones manualmente:
+# 3. Genera 96 ilustraciones manualmente:
 #    - Copias prompts desde prompts-todos.txt
 #    - Usa ChatGPT/DALL-E, Google Whisk, o Stable Diffusion
 #    - Coloca PNG en arte/raw/

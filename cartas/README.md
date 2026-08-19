@@ -8,10 +8,9 @@ cómo se juegan; acá están los números exactos. Todo en UTF-8, con encabezado
 | `pacientes.csv` | 26 | 26 |
 | `recursos.csv` | 43 | 63 |
 | `acciones.csv` | 20 | 30 |
-| `eventos.csv` | 28 | 28 |
 | `personajes.csv` | 6 | 6 |
 | `sumarios.csv` | 1 | 6 |
-| | | **159** |
+| | | **131** |
 
 La columna **`copias`** dice cuántas veces se imprime cada fila.
 
@@ -38,7 +37,18 @@ La columna **`copias`** dice cuántas veces se imprime cada fila.
 | `sistema` | Vacío, o `RESP`/`CARD`/`NEURO`/`METAB`/`QUIR`. Si coincide con el sistema del paciente, **cuenta doble**. 21 de 63 |
 | `comodin` | `si` = cuenta como 1 recurso del tipo que elijas. 3 de 63 |
 | `restriccion` | `PERSONAL` (exige un 🧑‍⚕️ ya puesto) o `TURNO` (consume tu turno de recursos) |
-| `complicacion` | `si` = lleva el símbolo ⚠️. Al robarla, robas un Evento Centinela. **17 de 63** |
+| `complicacion` | `si` = lleva el símbolo ⚠️. Al robarla, resuelves la complicación impresa en la propia carta. **17 de 63** |
+| `comp_nombre` | Nombre clínico de la complicación (*Neumonía Asociada a VM*) |
+| `comp_objetivo` | 🎯 a quién le toca: `MAS_GRAVE` · `MEJOR` · `MAS_TRATADO` · `ESTABLE` · `ELIGES` · `MANO` |
+| `comp_vida` | ❤️ que pierde el objetivo (0 o negativo) |
+| `comp_pide` | Tipo de recurso cuyo requisito sube en 1 |
+| `comp_descarta` | Tipo de recurso que el objetivo pierde |
+| `comp_texto` | El texto que se imprime en la carta |
+| `texto` | Efecto propio del recurso (opcional, hoy vacío en las 43) |
+
+> Las cuatro columnas `comp_objetivo`/`comp_vida`/`comp_pide`/`comp_descarta`
+> **las lee el simulador**: cambiarlas cambia el balance medido. `comp_nombre`
+> y `comp_texto` son solo para la carta.
 
 Algunas cartas aparecen en dos filas con el mismo nombre: es la misma carta,
 pero una tirada lleva ⚠️ y la otra no.
@@ -48,25 +58,6 @@ pero una tirada lleva ⚠️ y la otra no.
 `tipo` es `ATAQUE`, `APOYO`, `CAOS`, `RESPUESTA` o `EXTREMA` (la Pelada, única). Solo importa para dos
 reglas: la variante *Turno de Noche* prohíbe los `ATAQUE`, y las `RESPUESTA`
 se pueden jugar fuera de turno.
-
-### `eventos.csv`
-
-`categoria` es `RESP`, `CARD`, `NEURO`, `METAB`, `INFEC` o `GENERAL`. Hoy es
-sabor; queda reservada para inmunidades de futuros avatares.
-
----
-
-## Verlas y editarlas: el Taller
-
-```bash
-python3 tools/generar_taller.py     # → taller.html
-```
-
-Abre `taller.html` y tienes las 159 cartas renderizadas, el tablero de
-constantes del mazo con semáforos, y un editor: tocas una carta, cambias un
-valor y el balance se recalcula al instante. Tus cambios se guardan en el
-navegador (no tocan los CSV). Cuando termines, copia el **parte de cambios**
-desde la caja del final.
 
 ### El Banco de pruebas
 

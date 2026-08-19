@@ -36,8 +36,8 @@ cartas de ataque serían ruido; con ella, son el clímax de cada ronda.
 | ¿Qué pasa con el paciente estabilizado? | Se detiene el reloj, alta una ronda después | Idea original tuya, y es la mejor del juego. Se conserva intacta. |
 | ¿Se puede perder el ✅? | Sí, al instante, si deja de cumplir requisitos | Es lo que da filo a todos los ataques. Los recursos sobrantes hacen de colchón — eso premia sobre-tratar a un paciente valioso. |
 | ¿Cuántas cartas se juegan por turno? | Recursos ilimitados, **1 sola Acción** | La simulación mostró que limitar recursos no cambia el balance (el cuello de botella es el robo), solo añade una regla. En cambio limitar Acciones sí importa: sin ese tope, una mano con 3 ataques borra a un jugador de la partida. |
-| ¿Cómo entran los eventos adversos? | Símbolo ⚠️ en 12 de las 60 cartas de Recurso | Tu idea de "robar un evento al robar recursos". Ata el castigo al motor del juego: mientras más juegas, más te expones. |
-| ¿Mazo único o mazos separados? | Guardia (recursos+acciones) unido; Eventos aparte | Los eventos deben poder ser brutales sin diluir el mazo principal. Aparte, se roban solo cuando algo obliga. |
+| ¿Cómo entran los eventos adversos? | Símbolo ⚠️ en 17 de las 63 cartas de Recurso, **con su complicación impresa** (v0.14) | Tu idea de "robar un evento al robar recursos". Ata el castigo al motor del juego: mientras más juegas, más te expones — y desde v0.14 el problema es el que ese recurso causa de verdad. |
+| ¿Mazo único o mazos separados? | Guardia y Protocolos separados. **El mazo de Eventos se eliminó en v0.14** | La complicación vive impresa en la carta ⚠️ que la causa: menos componentes, un paso menos por turno, y coherencia clínica. Ver §4c. |
 | Puntuación | Altas − Fallecidos + bonus Guardia Limpia | El bonus de +3 evita que la estrategia dominante sea siempre "sacrificar sin culpa". Con él, hay dos rutas viables: maximizar altas o proteger el expediente. |
 
 ---
@@ -224,6 +224,11 @@ Lee esto antes de confiar demasiado en los números de arriba:
 **En resumen: el suelo del balance está validado. El techo, no.** Por eso el
 plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
+> **Nota v0.14 — las complicaciones ya no se estiman: se miden.** Al pasar
+> del mazo Centinela (evento aleatorio) a la complicación impresa en cada ⚠️,
+> el simulador dejó de necesitar la abstracción 33/33/34 y aplica **las 17
+> complicaciones exactas** con su 🎯 objetivo. Ver §4c.
+>
 > **Nota v0.13 — el 🎯 Objetivo acercó el juego a su simulación.** El simulador
 > nunca dejó que el jugador eligiera víctima: los eventos de daño siempre
 > pegaban al paciente **más avanzado** (`aplicar_evento`, línea 171). O sea que
@@ -232,6 +237,46 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 > la simulación**, porque cualquiera mandaba el golpe al paciente ya perdido.
 > El 🎯 Objetivo no endurece el juego respecto a los números publicados: lo
 > pone de acuerdo con ellos.
+
+---
+
+## 4c. Las 17 complicaciones: cómo se calibraron (v0.14)
+
+Al mover la complicación del mazo Centinela a la propia carta ⚠️, el balance
+hubo que rehacerlo — y el primer intento salió mal de una forma instructiva.
+
+| Intento | Salvamento | Limpias | Gravedad III |
+|---|---:|---:|---:|
+| v0.13 de referencia (mazo Centinela) | 61% | 8,2% | **40%** |
+| 1º · 13 de 17 subían un requisito | 59% | 3,9% | **28%** |
+| 2º · se cambiaron 5 a "descarta 1 recurso" | 63% | 5,9% | 31% |
+| 3º · se abrió la puntería fuera del grave | 64% | 7,0% | 33% |
+| **Final · 10 de 17 apuntan al que va bien** | **66%** | **10,5%** | **43%** |
+
+**Tres lecciones que valen para cualquier complicación futura:**
+
+1. **"+1 requisito" es el efecto más duro que existe, y lo es de forma
+   desigual.** Al Gravedad I le sube la meta de 3 a 4; al III, de 7 a 8. Pero
+   el III además tiene 5 ❤️ y no 7, así que no le alcanza el reloj para
+   reponerlo. Trece cartas subiendo requisitos hundieron al III al 28%.
+   La mezcla sana resultó **5 quitan ❤️ · 8 suben requisito · 6 descartan un
+   recurso** — descartar es el efecto suave: repones la carta, no cambias la meta.
+2. **`MAS_TRATADO` y `TÚ ELIGES` convergen los dos sobre el paciente grave.**
+   El primero golpea donde invertiste; con el segundo, un jugador razonable
+   descarga el daño en el que ya dio por perdido. Juntos hacían que el III
+   absorbiera todo. Hoy solo **una** carta usa `MAS_TRATADO` (la Ventilación
+   Mecánica, donde es clínicamente ineludible) y **dos** usan `ELIGES`.
+3. **El criterio de balance no es el salvamento medio: es el valor esperado
+   comparado.** Con el III al 33%, ir por un grave rendía +0,30 puntos contra
+   +1,56 de un leve — cinco veces peor, y la decisión central del juego se
+   volvía obvia. Con el reparto final: **III +1,04 vs I +1,33.** Sigue siendo
+   más seguro el leve, pero el grave paga.
+
+> **Consecuencia de diseño, no solo de números:** diez de las diecisiete
+> complicaciones terminaron apuntando a *EL QUE MEJOR VA* o a *EL ✅
+> ESTABILIZADO*. No fue una decisión estética — fue lo único que mantenía
+> vivo al Gravedad III. Pero al llegar ahí, resultó ser también la frase que
+> mejor describe el juego: lo que se complica no es lo que ya estaba perdido.
 
 ---
 

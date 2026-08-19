@@ -1,4 +1,4 @@
-# Pendientes de desarrollo — ¡VAYA TURNO! v0.12
+# Pendientes de desarrollo — ¡VAYA TURNO! v0.14
 
 La lista viva de lo que falta, carta por carta y mecánica por mecánica.
 Se trabaja de arriba hacia abajo: lo de arriba bloquea el playtest, lo de
@@ -25,7 +25,7 @@ Prioridad de observación en mesa, de más a menos peligrosa:
 | 🔴 1 | **A02 Cumpleaños del Residente** (×2) | Roba 1 recurso EN JUEGO a *cada* rival. En mesa de 4 son 3 recursos gratis: puede romper un ✅ ajeno por lado. Candidata a nerf (→ "a UN rival"). |
 | 🔴 2 | **A10 Rotación de Internos** (×1) | Intercambio de mano completo. El swing más grande del juego. ¿Se siente injusto o glorioso? |
 | 🔴 3 | **A13 Anda Rondando la Pelada** (×1) | Única. Mata un paciente ✅ con 2 caras de moneda. Es EL momento del juego — pero ¿aparece lo suficiente estando en un mazo de 30 al que se llega por Canje? |
-| 🟡 4 | **A05 Doblo Turno** (×1) | +3 cartas ahora, −2 después. Con ⚠️ adentro puede encadenar 2–3 Eventos Centinela de golpe. |
+| 🟡 4 | **A05 Doblo Turno** (×1) | +3 cartas ahora, −2 después. Con ⚠️ adentro puede encadenar 2–3 complicaciones de golpe. |
 | 🟡 5 | **A17 Quiebre de Stock** (×1) | Bloquea un tipo de recurso un turno. Contra un jugador que necesita justo eso para estabilizar, es un ❤️ de daño indirecto. |
 | 🟡 6 | **A18 Recorte Presupuestario** (×1) | −2 robo un turno. En 4 jugadores (robo 3) deja al rival con 1 carta: ¿demasiado duro? |
 | 🟢 7 | A01 Vacaciones, A07 ¡Liceeeencia!, A08 Presión de Camas, A09 Auditoría, A20 Muestra Hemolizada | Ataques de intensidad media. Vigilar solo la frecuencia. |
@@ -65,34 +65,24 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 | **El Director del Hospital** | Ídem: 1×partida y defensivo. |
 | **El Diostor** | Depende de cuántos ⚠️ robe. Frecuencia 1×ronda puede ser mucho o nada. |
 
-### 1.3 Los 17 ⚠️ y los 28 Eventos Centinela — 🔶
+### 1.3 Las 17 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
 
-> **Cambio v0.13:** cada evento lleva ahora un **🎯 Objetivo** que decide a
-> qué paciente le toca (`REGLAMENTO.md` §7.1). Antes elegía el jugador, y eso
-> permitía mandar todo el daño al paciente ya perdido: los eventos de un solo
-> objetivo casi no dolían. Reparto: 7 *EL MÁS GRAVE* · 7 *EL MÁS TRATADO* ·
-> 4 *EL QUE MEJOR VA* · 4 *TÚ ELIGES* · 4 *TODOS* · 2 *EL ✅ ESTABILIZADO*.
-> **Sin validar en mesa:** si resulta demasiado duro, la palanca es mover
-> cartas de `MAS_GRAVE` a `ELIGES` — es editar una columna del CSV.
+> **v0.14: se eliminó el Mazo de Eventos Centinela.** Cada ⚠️ trae impresa la
+> complicación que ese recurso causa de verdad (`REGLAMENTO.md` §7). El
+> simulador ya no las estima con una abstracción: **aplica las 17 exactas**,
+> así que por primera vez el número de balance incluye los eventos de verdad.
+> Calibración completa en `DISENO.md` §4c.
 >
-> También se separó el par LPP / Caída de Cama, que eran gemelas mecánicas
-> (ambas −1 ❤️ + 1 requisito). Ahora **E05 Lesión por Presión** es el escalón
-> leve puro (solo +1 🧑‍⚕️, va al más grave: el más postrado) y **E14 Caída de
-> Cama** es grave (−2 ❤️ +1 🩻, va al que mejor va: el que se paró solo).
-
-El simulador los modela **en agregado** (33% vida / 33% recurso / 34%
-exigencia), no carta a carta. Los eventos gordos reales pegan más que el
-promedio:
-
-- **E06 Corte de Suministro** — TODOS tus pacientes −1 ❤️.
-- **E09 Paro Cardiorrespiratorio** — un paciente queda en 1 ❤️.
-- **E17 Neumotórax a Tensión** — −3 ❤️ (−1 con 🩻). Único evento mitigable: ¿se entiende en mesa?
-- **E24 Resistencia Antibiótica** — bota todos los 💊 y pide 1 más. Contra un III/ROJO tratado es devastador.
-
-Vigilar en playtest: ¿un ⚠️ en la ronda 1 contra el paciente equivocado
-decide la partida antes de empezar?
-
----
+> Lo que queda por ver en mesa:
+> - ¿Se lee rápido? Las ⚠️ son ahora las cartas más cargadas del juego
+>   (nombre + tipo + chip + 🎯 + párrafo). Si frenan el robo, hay que acortar
+>   los textos.
+> - ¿Se echa de menos el teatro de voltear una carta del mazo maldito?
+> - Diez de diecisiete apuntan al que iba bien. ¿Se siente cruel-divertido o
+>   cruel-injusto?
+> - Las 4 huérfanas (*Corte de Suministro*, *Paro*, *Hemorragia Masiva*,
+>   *Cambio de Turno Caótico*) esperan en `cartas/retirados/`: son candidatas
+>   a Acciones de CAOS si el mazo de Protocolos pide más caos.
 
 ## 2. Mecánicas RESERVADAS sin efecto todavía (efecto pendiente literal)
 
@@ -100,7 +90,7 @@ Espacio dejado a propósito en las cartas, hoy sin regla que lo use:
 
 | # | Qué | Dónde vive | Para qué está reservado |
 |---|---|---|---|
-| ⬜ 1 | **Categoría de los Eventos** (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`, `GENERAL`) | `eventos.csv`, impresa en carta | Inmunidades de avatares futuros (el Broncopulmonar ignora eventos RESP…). Hoy es solo sabor. `REGLAMENTO.md` §7. **Descartado:** acoplar la categoría al recurso que dispara el ⚠️ (obligaría a 6 mini-mazos en la mesa; mucha manipulación para poco premio). |
+| ⬜ 1 | **Chip de sistema en los recursos ⚠️** como categoría de su complicación | `recursos.csv` | Inmunidades de avatares futuros (el Broncopulmonar ignora las complicaciones de recursos 🫁…). Al eliminarse el mazo Centinela en v0.14, la categoría clínica del evento desapareció; su sustituto natural es el sistema del recurso que la causa. |
 | ⬜ 2 | **Chip de sistema en pacientes** más allá de la sinergia | `pacientes.csv` | Las expansiones por sistema (`EXPANSIONES.md` §1). |
 | ⬜ 3 | **Columna `set`** en los CSV | No existe todavía | Filtrar base vs. expansión en Taller, PnP y simulador. `EXPANSIONES.md` §5. |
 | ⬜ 4 | **Frecuencias de avatar** como sistema (1×turno / 1×ronda / 1×partida / pasiva) | `personajes.csv` | Hoy cada avatar la usa; falta decidir si las expansiones respetan el mismo menú de frecuencias. |
@@ -117,7 +107,7 @@ Decisiones que la mesa va a preguntar y el reglamento aún no responde:
 | ⬜ 2 | **A17 Quiebre de Stock** — ¿bloquea un 🃏 Comodín declarado como ese tipo? | Sí: el comodín *se convierte* en el tipo al jugarse, y ese tipo está bloqueado. |
 | ⬜ 3 | **TAC de Urgencia** ya jugado — si el paciente pierde su único 🧑‍⚕️ (Vacaciones, Doctor Amor), ¿el TAC se queda? | Se queda: la restricción se paga al jugarlo, no es un estado. Confirmar y añadir a §5.5. |
 | ⬜ 4 | **Doblo Turno** en 4 jugadores (robo 3): ¿robas 3+3=6 y luego 1? | El texto dice "3 adicionales / robas solo 2": en robo 3 sería 6 ahora, 1 después. Confirmar que la mano de 5 lo soporta. |
-| ⬜ 5 | **E11 Reingreso Precoz** sobre un ✅ que iba a salir de alta este turno | El alta ocurre en la Entrega ANTES del Pasillo del rival, así que solo pega entre medio. Confirmar timing exacto con la carta en mano. |
+| ⬜ 5 | Una complicación 🎯 **EL ✅ ESTABILIZADO** sobre un paciente que iba a salir de alta este turno | El alta ocurre en tu Entrega, antes de que nadie más robe: solo puede pegarte entre medio. Confirmar timing en mesa. |
 | ⬜ 6 | **Modo Pelada Letal** + A16 Simulación Clínica: ¿puedes anular la victoria instantánea? | Sí: la Pelada es una Acción y ¿Cafecito? (A11) la anula. Anotarlo en Variantes. |
 
 ---

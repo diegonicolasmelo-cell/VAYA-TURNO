@@ -54,12 +54,19 @@ def cargar():
     # simulador mide el suelo del balance.
     guardia = []
     for r in leer("recursos.csv"):
+        # v0.14: la complicación va impresa en la propia carta ⚠️, con su
+        # 🎯 objetivo. Ya no existe el Mazo de Eventos Centinela.
+        comp = {"objetivo": r.get("comp_objetivo", ""),
+                "vida": int(r.get("comp_vida") or 0),
+                "pide": r.get("comp_pide", ""),
+                "descarta": r.get("comp_descarta", "")}
         for _ in range(int(r["copias"])):
             guardia.append({"clase": "recurso", "tipo": r["tipo"],
                             "sistema": r["sistema"],
                             "comodin": r["comodin"] == "si",
                             "restriccion": r["restriccion"],
-                            "warn": r["complicacion"] == "si"})
+                            "warn": r["complicacion"] == "si",
+                            "comp": comp})
 
     return pacientes, guardia
 
@@ -161,23 +168,48 @@ def elegir_carta(mano, cama):
     return None, 0, None
 
 
-def aplicar_evento(j, rng):
-    """Modelo agregado del Mazo de Eventos Adversos (18 cartas)."""
+def elegir_victima(j, objetivo):
+    """Resuelve el 🎯 Objetivo impreso en la carta ⚠️ (REGLAMENTO §7)."""
     ocupadas = [c for c in j.camas if c]
     if not ocupadas:
+        return None
+    if objetivo == "MAS_GRAVE":
+        return min(ocupadas, key=lambda c: c.vida)
+    if objetivo == "MEJOR":
+        return max(ocupadas, key=lambda c: c.vida)
+    if objetivo == "MAS_TRATADO":
+        return max(ocupadas, key=lambda c: sum(c.tiene.values()))
+    if objetivo == "ESTABLE":
+        est = [c for c in ocupadas if c.estable]
+        return est[0] if est else max(ocupadas, key=lambda c: c.vida)
+    # ELIGES: un jugador razonable se protege y manda el golpe al que ya perdió
+    return max(ocupadas, key=lambda c: c.faltan_total() - c.vida)
+
+
+def aplicar_complicacion(j, carta, descarte):
+    """v0.14: cada ⚠️ trae su complicación impresa en vez de mandarte a un
+    mazo aparte. La carta dice qué pasa y a quién."""
+    comp = carta.get("comp") or {}
+    objetivo = comp.get("objetivo")
+    if not objetivo:
         return
-    r = rng.random()
-    if r < 0.33:                                   # pérdida de vida
-        c = min(ocupadas, key=lambda c: c.faltan_total())
-        c.vida -= rng.choice([1, 1, 2])
-    elif r < 0.66:                                 # pérdida de recursos
-        c = rng.choice(ocupadas)
-        con = [t for t in TIPOS if c.tiene[t] > 0]
-        if con:
-            c.tiene[rng.choice(con)] -= 1
-    else:                                          # sube la exigencia
-        c = rng.choice(ocupadas)
-        c.pide[rng.choice(TIPOS)] += 1
+
+    if objetivo == "MANO":                  # golpea tu mano, no una cama
+        if j.mano:
+            j.mano.sort(key=lambda c: (c.get("comodin", False),
+                                       bool(c.get("sistema"))))
+            descarte.append(j.mano.pop(0))
+        return
+
+    cama = elegir_victima(j, objetivo)
+    if cama is None:
+        return
+    if comp.get("vida"):
+        cama.vida += comp["vida"]
+    if comp.get("pide"):
+        cama.pide[comp["pide"]] += 1
+    if comp.get("descarta") and cama.tiene[comp["descarta"]] > 0:
+        cama.tiene[comp["descarta"]] -= 1
 
 
 def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
@@ -251,7 +283,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     break
                 j.mano.append(carta)
                 if carta["warn"]:
-                    aplicar_evento(j, rng)
+                    aplicar_complicacion(j, carta, descarte)
                     for i, c in enumerate(j.camas):
                         if c and c.vida <= 0:
                             j.muertos.append(c.f)

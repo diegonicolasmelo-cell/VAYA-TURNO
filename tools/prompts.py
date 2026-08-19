@@ -174,70 +174,6 @@ NEURO=purple, METAB=olive, QUIR=amber; generic items = neutral hospital teal).
 
     return prompts
 
-def gen_prompts_eventos(datos):
-    """Genera prompts para 28 eventos en tandas por categoría."""
-    prompts = defaultdict(list)
-    categorias = defaultdict(list)
-
-    for e in datos:
-        cat = e.get("categoria", "GENERAL")
-        categorias[cat].append(e)
-
-    for cat, eventos in categorias.items():
-        batch = 1
-        for i in range(0, len(eventos), 5):  # Tandas de 5
-            tandas = eventos[i:i+5]
-            nombres = ", ".join([e["nombre"] for e in tandas])
-            ids = "-".join([e["id"] for e in tandas])
-
-            if len(tandas) == 1:
-                e = tandas[0]
-                prompt = f"""
-ID: {e["id"]}
-NOMBRE: {e["nombre"]}
-BATCH: evento-{cat}-{batch}
-OUTPUT: evento-{e["id"]}.png
-
-Medical event/complication: {e["nombre"]}
-Clinical category: {cat}
-Narrative: {e.get("frase", "Medical emergency")}
-
-Visual: Bust or semi-body with adverse gesture (panic, exhaustion, extreme focus).
-Context: Hand with papers, wall clock, drip, machine beeping.
-Emotion: Negative or tense (not neutral).
-
-Clinical details for {cat}:
-- RESP: Dyspnea, mild cyanosis (slightly blue skin), disconnected tube
-- CARD: Arrhythmic rhythm on monitor, sweat, hand on chest
-- NEURO: Confusion, stylized seizure, eyes rolling back
-- METAB: Hypoglycemia (tremor), dark urine (cup), glucometer
-- INFEC: Fever (thermometer), chills (motion lines), sweating
-- GENERAL: Team fatigue, overwhelming paperwork, clock in red
-
-{ambiente(cat)} — darker and more dramatic than resource cards.
-
-{ESTILO}
-"""
-            else:
-                prompt = f"""
-BATCH: evento-{cat}-{batch}
-IDS: {ids}
-OUTPUT: contactsheet-evento-{cat}-{batch}.png
-
-Generate a contact sheet with {len(tandas)} medical events/adverse effects, all {cat}.
-Events: {nombres}
-
-Visual: Each bust or semi-body with adverse gesture, 2:3 each. Negative/tense emotion.
-Minimal context (monitor, clock, drip). Full-bleed ICU background.
-{ambiente(cat)} — darker and more dramatic than resource cards.
-
-{ESTILO}
-"""
-            prompts["eventos-" + cat].append(prompt.strip())
-            batch += 1
-
-    return prompts
-
 def gen_prompts_acciones(datos):
     """Genera prompts para 20 acciones en tandas por tipo."""
     prompts = defaultdict(list)
@@ -385,7 +321,7 @@ def main():
     ap = argparse.ArgumentParser(
         description="Genera prompts de imagen para ilustraciones de ¡VAYA TURNO!"
     )
-    ap.add_argument("--tipo", choices=["pacientes", "recursos", "eventos", "acciones", "personajes", "sumarios", "todos"],
+    ap.add_argument("--tipo", choices=["pacientes", "recursos", "acciones", "personajes", "sumarios", "todos"],
                     default="todos", help="Tipo de cartas a generar prompts")
     ap.add_argument("--salida", default=None, help="Archivo de salida (stdout si omitido)")
     ap.add_argument("--batch", type=int, default=None, help="Filtrar solo un batch específico")
@@ -395,7 +331,6 @@ def main():
     try:
         pacientes = cargar_csv("pacientes.csv")
         recursos = cargar_csv("recursos.csv")
-        eventos = cargar_csv("eventos.csv")
         acciones = cargar_csv("acciones.csv")
         personajes = cargar_csv("personajes.csv")
         sumarios = cargar_csv("sumarios.csv")
@@ -409,8 +344,6 @@ def main():
         todos_prompts.update(gen_prompts_pacientes(pacientes))
     if args.tipo in ("recursos", "todos"):
         todos_prompts.update(gen_prompts_recursos(recursos))
-    if args.tipo in ("eventos", "todos"):
-        todos_prompts.update(gen_prompts_eventos(eventos))
     if args.tipo in ("acciones", "todos"):
         todos_prompts.update(gen_prompts_acciones(acciones))
     if args.tipo in ("personajes", "todos"):

@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.12 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.14 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -28,7 +28,6 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
 | Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Soporte Vital · 🃏 Comodín |
 | Cartas de **Protocolo** (Acciones) | 30 | Mazo aparte. Se compran con el **Canje** |
-| Cartas de **Evento Centinela** | 28 | Mazo aparte. Solo se roba cuando algo lo obliga |
 | Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
 | Fichas de **Estabilizado** (✅) | 12 | 3 por jugador |
@@ -47,12 +46,10 @@ Gana quien tenga **más puntos** al terminar la guardia.
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.1, *Entrega de Turno*) y les pone las fichas ❤️ que indique la carta.
-3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus ⚠️ adentro).
+3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus 17 ⚠️ adentro).
    Baraja aparte el **Mazo de Protocolos** (las 30 Acciones).
-4. Deja el **Mazo de Eventos Centinela** aparte, boca abajo. **Nunca se roba
-   por voluntad propia.**
-5. Cada jugador roba **4 cartas** de mano inicial.
-6. Empieza quien haya hecho el turno de noche más reciente. Si nadie lo
+4. Cada jugador roba **4 cartas** de mano inicial.
+5. Empieza quien haya hecho el turno de noche más reciente. Si nadie lo
    admite, quien tenga las manos más frías.
 
 **Ajuste por número de jugadores:**
@@ -64,9 +61,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | 4 | 2 | **3** | 10 | Menos camas y menos robo: los turnos vuelan |
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
-> competente salva ~61% de sus pacientes: unas **2,7 altas y 1,7
-> fallecidos** por guardia. Si tu mesa se aleja mucho de eso, revisa
-> `docs/DISENO.md` §4 antes de cambiar nada.
+> competente salva ~66% de sus pacientes: unas **2,8 altas y 1,4
+> fallecidos** por guardia, y salva al **43% de los Gravedad III**. Si tu mesa
+> se aleja mucho de eso, revisa `docs/DISENO.md` §4 antes de cambiar nada.
 
 ---
 
@@ -179,8 +176,8 @@ fichas ❤️ que indique la carta.
 jugadores).
 
 Si robas una carta con el símbolo **⚠️ Complicación**: quédate la carta (es un
-recurso normal), pero **inmediatamente** roba 1 carta del Mazo de Eventos
-Centinela y resuélvela. Después sigue robando hasta completar tu robo.
+recurso normal), pero **resuelve de inmediato la complicación impresa en ella**
+(ver §7). Después sigue robando hasta completar tu robo.
 
 > Sí. La carta que te salva te trae el problema. Bienvenido.
 
@@ -260,7 +257,7 @@ entera con un hueco en tu unidad: perder un paciente no solo cuesta puntos,
 cuesta también el turno de trabajo que esa cama no te va a dar.
 
 Esto vale para **cualquier** Alta Celestial, la cause el reloj, un Evento
-Centinela o la Pelada: siempre ✝️, siempre Sumario.
+una complicación ⚠️ o la Pelada: siempre ✝️, siempre Sumario.
 
 **Y llega el papeleo:** toma una carta de **Sumario Administrativo**. Queda en
 tu mano, no se puede jugar ni descartar, y **reduce tu límite de mano en 1**.
@@ -293,14 +290,13 @@ cada Sumario abierto**). Pasa el turno.
 |---|---|
 | ¿Se agotó el **Mazo de Pacientes**? | No se admite a nadie más. Las camas vacías quedan vacías y la guardia termina **al final de la ronda en curso**. |
 | ¿Se agotaron los **Sumarios** (son 6)? | No tomas ninguno. Tuviste suerte: la impresora estaba mala. |
-| ¿Se agotó el **Mazo de Eventos Centinela**? | Baraja su descarte y forma uno nuevo. |
 | ¿Puedo dejar una cama vacía a propósito? | No en la Entrega de Turno: si hay cama y hay mazo, admites. Sí durante el resto de la ronda, cuando el hueco lo dejó una muerte. |
 | ¿Puedo cerrar un Sumario el mismo turno que lo recibo? | No. Llega en tu Fin de Guardia; lo pagas en tu próximo Pase de Visita. |
 | ¿Un paciente ✅ puede recibir más recursos? | Sí, y conviene: los sobrantes son el colchón que aguanta un ataque. |
 | ¿Puedo mover un recurso de un paciente a otro? | Solo si una carta lo dice (*Reunión Clínica*). Por defecto, lo puesto queda puesto. |
 | ¿Los pacientes que quedan en cama al final puntúan? | No. Ni bien ni mal. Quedan para la próxima guardia. |
 | ¿Y si un efecto sube los requisitos de un paciente ya ✅? | Pierde el ✅ al instante si deja de cumplirlos, y vuelve a deteriorarse en tu siguiente Fin de Guardia. |
-| ¿El 🎯 Objetivo de un Centinela puede señalar a un paciente ✅? | Sí, y suele ser lo peor que te pasa: si el golpe le quita vida o recursos, puede perder la ficha. Solo *EL ESTABILIZADO* lo busca a propósito. |
+| ¿El 🎯 Objetivo de una complicación puede señalar a un paciente ✅? | Sí, y suele ser lo peor que te pasa: si el golpe le quita vida o recursos, puede perder la ficha. Solo *EL ESTABILIZADO* lo busca a propósito. |
 | ¿Cómo cuento "el más tratado"? | **Cartas de recurso encima**, no íconos. Un recurso específico que cuenta doble sigue siendo **una** carta. |
 
 ---
@@ -322,18 +318,23 @@ ganando** es la correcta. Ha funcionado en comités clínicos durante décadas.
 
 ---
 
-## 7. Eventos Centinela
+## 7. Las Complicaciones ⚠️
 
-El Mazo de Eventos Centinela se roba **únicamente** cuando un ⚠️ te obliga al
-robar. Nadie lo roba por voluntad propia y ninguna carta te manda a él: es el
-mazo de las cosas que pasan solas.
+**No hay mazo de eventos.** Cada carta marcada con ⚠️ **trae su propia
+complicación impresa**, y es siempre la complicación que ese recurso causa de
+verdad: la Ventilación Mecánica trae la neumonía asociada a ventilación
+mecánica, el catéter trae la bacteriemia, el antibiótico trae la resistencia.
 
-Se resuelve de inmediato y se descarta.
+> **Al robar una carta ⚠️: te la quedas** (es un recurso normal y lo puedes
+> jugar) **y resuelves su complicación de inmediato.** Después sigues robando.
+
+Son **17 cartas de las 63** del Mazo de Guardia. Robas una cada cuatro cartas,
+más o menos: una por turno.
 
 ### 7.1 A quién le pasa: el 🎯 Objetivo
 
-**La carta elige a la víctima, no tú.** Cada Evento Centinela lleva un
-🎯 Objetivo que dice a cuál de tus pacientes le toca:
+**La carta elige a la víctima, no tú.** Cada complicación lleva un 🎯 Objetivo
+que dice a cuál de tus pacientes le toca:
 
 | 🎯 Objetivo | A quién señala |
 |---|---|
@@ -341,25 +342,48 @@ Se resuelve de inmediato y se descarta.
 | **EL QUE MEJOR VA** | El que tenga **más ❤️** en este momento |
 | **EL MÁS TRATADO** | El que tenga **más recursos encima** (cuenta cartas, no íconos) |
 | **EL ESTABILIZADO ✅** | Tu paciente con ficha ✅. Si no tienes ninguno, va **al que mejor va** |
-| **TÚ ELIGES** | Eliges tú. Son pocas: la alergia y el extravío no discriminan |
-| **TODOS** | Todos tus pacientes a la vez. Son las cuatro que de verdad dan miedo |
+| **TÚ ELIGES** | Eliges tú. Son solo dos: la muestra perdida y la línea que hubo que retirar no discriminan |
+| **TU MANO** | No toca ninguna cama: descartas una carta de tu mano. Solo el *Stock de Sala* |
 
 **En caso de empate, eliges tú entre los empatados.** Es la única decisión que
 te queda, y a veces es la que importa.
 
 > **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
-> daño al paciente que ya diste por perdido y ningún evento dolería. Con el
-> Objetivo, el reloj te alcanza donde no querías: el *Paro Cardiorrespiratorio*
-> busca al que peor está, la *Caída de Cama* al que ya se sentía bien para
-> pararse solo, y el *Reingreso Precoz* justo al que ibas a dar de alta mañana.
+> daño al paciente que ya diste por perdido y ninguna complicación dolería.
+> Y fíjate hacia dónde apuntan: **diez de las diecisiete buscan al que iba
+> bien** o al que ya tenía su ✅. Eso no es casualidad — es la tesis del juego.
+> Lo que se complica en una UCI no es lo que ya estaba perdido: es lo que
+> parecía resuelto.
 
-Si el evento no puede aplicarse (pide descartar un Fármaco y ese paciente no
+Si la complicación no puede aplicarse (pide descartar un 💊 y ese paciente no
 tiene ninguno; o no tienes pacientes en cama), **no pasa nada**. No se
 sustituye por otro efecto ni se busca otro objetivo.
 
-Los eventos llevan además categoría (`RESP`, `CARD`, `NEURO`, `METAB`, `INFEC`,
-`GENERAL`). Hoy es solo sabor; queda reservada para inmunidades de futuros
-avatares.
+### 7.2 Las diecisiete
+
+| Carta ⚠️ | Complicación | 🎯 |
+|---|---|---|
+| Antibiótico de Amplio Espectro | Resistencia Antibiótica | ✅ ESTABILIZADO |
+| Sedoanalgesia | Delirium en UCI | EL QUE MEJOR VA |
+| Anticoagulación | Sangrado | EL MÁS GRAVE |
+| Noradrenalina | Taquicardia Ventricular | EL MÁS GRAVE |
+| Anticonvulsivante | Sobresedación | ✅ ESTABILIZADO |
+| Analgesia Postoperatoria | Depresión Respiratoria | EL QUE MEJOR VA |
+| Radiografía de Tórax | Hallazgo Incidental | ✅ ESTABILIZADO |
+| Ecografía a Pie de Cama | Falso Positivo | EL QUE MEJOR VA |
+| TAC de Urgencia | Nefropatía por Contraste | EL QUE MEJOR VA |
+| Línea Arterial | Isquemia Distal | TÚ ELIGES |
+| Catéter Venoso Central | Bacteriemia por Catéter | EL QUE MEJOR VA |
+| **Ventilación Mecánica** | **Neumonía Asociada a VM** | EL MÁS TRATADO |
+| Gases Arteriales | Muestra Hemolizada | TÚ ELIGES |
+| Técnico en Enfermería | El Turno Veinticuatro | EL MÁS GRAVE |
+| Gestor de Camas | Presión de Camas | EL QUE MEJOR VA |
+| Pabellón Disponible | Pabellón Suspendido | EL QUE MEJOR VA |
+| Stock de Sala | La Gaveta Vacía | TU MANO |
+
+> *El Turno Veinticuatro* es la única que actúa fuera de la cama donde juegas:
+> el técnico lleva un día de pie y confunde dos bombas **en el paciente más
+> grave**, aunque tú hayas puesto la carta en otro.
 
 ---
 
@@ -371,7 +395,7 @@ usarla.
 
 | Personaje | Frecuencia | Habilidad |
 |---|---|---|
-| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle el Evento Centinela al jugador de tu derecha: lo roba y lo resuelve él como si fuera suyo. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
+| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle su complicación al jugador de tu derecha: la resuelve él sobre sus pacientes, como si la hubiera robado. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
 | **El Médico Fantasma** | Pasiva | En las rondas 1–3 robas 1 carta **menos**. Desde la ronda 4, robas 1 carta **adicional** cada turno por el resto de la guardia. |
 | **Doctor Amor** | 1× por partida | **Seducción de Pasillo:** roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo. |
 | **El Director del Hospital** | 1× por partida | **Perdonazo Administrativo:** anula y descarta un Sumario, tuyo o de cualquier otro jugador. Puedes cobrar el favor. |
@@ -424,7 +448,7 @@ la próxima guardia. Ese es su problema.
 ```
 1. ENTREGA DE TURNO   a) ✅ de hace una ronda → ALTA + puntos
                       b) Cama vacía → revela 2 pacientes, elige 1
-                      c) Roba 4 (3 si son 4 jug.) · cada ⚠️ → 1 Centinela ya
+                      c) Roba 4 (3 si son 4 jug.) · cada ⚠️ → su complicación ya
 
 2. EL PASILLO         1 Negocio: Canje (bota 2 → roba 1 Protocolo)
                         o Trueque (da 2 a un rival → te da 1 del tipo que pidas)
@@ -446,7 +470,7 @@ la próxima guardia. Ese es su problema.
 fallecidos deja de ser una hazaña y se vuelve lo normal.
 
 **Modo Cooperativo (Brote).** Todos comparten una UCI de 6 camas y turnan las
-fases. Se roban **2** Eventos Centinela por ronda. Ganan si logran 25 puntos
+fases. Cada ⚠️ afecta a la unidad compartida. Ganan si logran 25 puntos
 sin superar 5 ✝️. Las cartas de ataque se descartan del mazo.
 
 **Modo Pelada Letal.** Tal como la parió su autor: si la *Pelada* saca dos

@@ -67,7 +67,7 @@ Tus personajes con tus mecánicas, adaptados solo en vocabulario al motor v0.10:
 
 | Avatar | Frecuencia | Habilidad (esencia tuya) |
 |---|---|---|
-| **El Diostor** | 1×ronda | Desvía el Evento Centinela de un ⚠️ al jugador de tu derecha |
+| **El Diostor** | 1×ronda | Desvía la complicación de un ⚠️ al jugador de tu derecha |
 | **El Médico Fantasma** | pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 extra siempre |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ Personal de un paciente rival |
 | **El Director del Hospital** | 1×partida | Anula un Sumario, de quien sea (favor cobrable) |
@@ -176,7 +176,7 @@ juego no tenía:
 | **Sistemas + sinergia** | Pacientes con subtipo (Respiratorio, Cardíaco…) y recursos con *"+1 si se aplica en ASMA/EPOC"* | Los 26 pacientes tienen sistema; 24 recursos son específicos y **cuentan doble** en su sistema. Sin aritmética: se cuentan íconos, algunos valen por dos |
 | **Restricciones como costo** | RNM *"en este turno solo puedes jugar esta carta"*; TAC *"solo con 3 personal en juego"* | Resonancia consume tu turno de recursos; TAC exige 1 🧑‍⚕️ sobre el paciente. Lo mejor diseñado del archivo |
 | **Comodines** | *Médico General* y *Dios-tor* como recurso comodín | 3 comodines (*Médico General de Turno*, *Stock de Sala*). Anti-brick validado |
-| **Vocabulario** | "Evento Centinela", "¿Y si vamos por un cafecito?", Liceeeencia!, Estás Despedido | Adoptados: el mazo se llama ahora **Eventos Centinela** |
+| **Vocabulario** | "Evento Centinela", "¿Y si vamos por un cafecito?", Liceeeencia!, Estás Despedido | Adoptados. El mazo de Eventos Centinela existió hasta v0.13; en v0.14 su contenido pasó a las cartas ⚠️ (`cartas/retirados/`) |
 
 También se escribieron efectos para **13 eventos centinela** que en el Excel
 eran solo títulos (VILI, Neumotórax a tensión, Bacteriemia, Resistencia

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Genera el TALLER DE GUARDIA: una sola página con las 159 cartas dentro,
+Genera el TALLER DE GUARDIA: una sola página con las 131 cartas dentro,
 el tablero de constantes del mazo y un editor en vivo.
 
     python3 tools/generar_taller.py        # → taller.html
@@ -73,7 +73,13 @@ ESQUEMA = {
             ("sistema", "sel", SIS), ("comodin", "sel", ["no", "si"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
+            ("comp_objetivo", "sel", ["", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
+                                      "ESTABLE", "ELIGES", "MANO"]),
+            ("comp_vida", "num", None),
+            ("comp_pide", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO"]),
+            ("comp_descarta", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO"]),
             ("copias", "num", None),
+            ("comp_nombre", "txt", None), ("comp_texto", "area", None),
             ("texto", "area", None), ("frase", "area", None),
         ],
     },
@@ -82,16 +88,6 @@ ESQUEMA = {
         "campos": [
             ("nombre", "txt", None),
             ("tipo", "sel", ["ATAQUE", "APOYO", "CAOS", "RESPUESTA", "EXTREMA"]),
-            ("copias", "num", None), ("texto", "area", None), ("frase", "area", None),
-        ],
-    },
-    "eventos": {
-        "titulo": "Eventos Centinela", "archivo": "eventos.csv", "icono": "⚠️",
-        "campos": [
-            ("nombre", "txt", None),
-            ("categoria", "sel", ["RESP", "CARD", "NEURO", "METAB", "INFEC", "GENERAL"]),
-            ("objetivo", "sel", ["MAS_GRAVE", "MEJOR", "MAS_TRATADO",
-                                 "ESTABLE", "ELIGES", "TODOS"]),
             ("copias", "num", None), ("texto", "area", None), ("frase", "area", None),
         ],
     },
@@ -284,6 +280,9 @@ input[type="search"]{flex:1;min-width:9rem;max-width:20rem}
 .c-obj{font-size:.56rem;font-weight:800;letter-spacing:.05em;color:var(--acento);
   border:1px solid var(--acento);padding:.06rem .25rem;align-self:flex-start;border-radius:2px}
 .c-efecto{border-left:2px solid var(--acento);padding-left:.3rem}
+.c-comp{border-top:1px dashed var(--mal);margin-top:.2rem;padding-top:.2rem;
+  display:flex;flex-direction:column;gap:.15rem}
+.c-comp .c-obj{color:var(--mal);border-color:var(--mal)}
 .chip{display:inline-block;padding:.08rem .3rem;font-size:.55rem;font-weight:800;
   letter-spacing:.05em;color:var(--chip-tinta);align-self:flex-start;
   font-family:ui-monospace,Menlo,monospace}
@@ -348,7 +347,7 @@ const GLIFO = {IMAGEN:"🩻",FARMACOS:"💊",PERSONAL:"🧑‍⚕️",MONITOREO:
 const SISTEMAS = ["RESP","CARD","NEURO","METAB","QUIR"];
 const OBJETIVO = {MAS_GRAVE:"EL MÁS GRAVE", MEJOR:"EL QUE MEJOR VA",
                   MAS_TRATADO:"EL MÁS TRATADO", ESTABLE:"EL ✅ ESTABILIZADO",
-                  ELIGES:"TÚ ELIGES", TODOS:"TODOS TUS PACIENTES"};
+                  ELIGES:"TÚ ELIGES", MANO:"TU MANO", TODOS:"TODOS TUS PACIENTES"};
 const NOMS = {RESP:"Respiratorio",CARD:"Cardíaco",NEURO:"Neurológico",
               METAB:"Metabólico",QUIR:"Quirúrgico"};
 const LLAVE = "vayaturno-taller-v1";
@@ -498,12 +497,17 @@ function pintarCarta(k,f,i){
     const rest = f.restriccion ? `<div class="c-warn">⚑ ${f.restriccion==="TURNO"?"CONSUME EL TURNO":"EXIGE 🧑‍⚕️"}</div>` : "";
     const txt = (f.texto||"").trim()
       ? `<div class="c-cuerpo c-efecto">${esc(f.texto)}</div>` : "";
+    // ⚠️: la complicación va impresa en la propia carta, con su 🎯 objetivo
+    const comp = f.complicacion==="si" ? `<div class="c-comp">
+        <div class="c-warn">⚠️ ${esc(f.comp_nombre||"COMPLICACIÓN")}</div>
+        ${f.comp_objetivo?`<div class="c-obj">🎯 ${esc(OBJETIVO[f.comp_objetivo]||f.comp_objetivo)}</div>`:""}
+        ${f.comp_texto?`<div class="c-cuerpo">${esc(f.comp_texto)}</div>`:""}
+      </div>` : "";
     dentro = `<div class="c-cab"><div>
         <div class="c-nom">${esc(f.nombre)}</div>
         <div class="c-meta">${NOMT[f.tipo]||esc(f.tipo)}</div></div>
         <div class="c-vida">${GLIFO[f.tipo]||""}</div></div>
-      ${chip}${nota}${txt}${rest}
-      ${f.complicacion==="si"?'<div class="c-warn">⚠️ COMPLICACIÓN</div>':""}${t(f.frase)}`;
+      ${chip}${nota}${txt}${rest}${comp}${t(f.frase)}`;
   } else if (k === "personajes"){
     dentro = `<div class="c-nom">${esc(f.nombre)}</div>
       <div class="c-meta">${esc(f.frecuencia)}</div>
@@ -512,7 +516,7 @@ function pintarCarta(k,f,i){
     const cat = f.categoria ? `<span class="chip ${esc(f.categoria)}">${esc(f.categoria)}</span>` : "";
     const obj = f.objetivo
       ? `<div class="c-obj">🎯 ${esc(OBJETIVO[f.objetivo] || f.objetivo)}</div>` : "";
-    const meta = f.tipo || (f.categoria ? "Evento Centinela" : "Maldición");
+    const meta = f.tipo || "Maldición";
     dentro = `<div class="c-nom">${esc(f.nombre)}</div>
       <div class="c-meta">${esc(meta)}</div>${cat}${obj}
       <div class="c-cuerpo">${esc(f.texto)}</div>${t(f.frase)}`;
@@ -683,9 +687,12 @@ function simCargar(fuente){
   });
   const guardia = [];
   fuente.recursos.forEach(r => {
+    // v0.14: la complicación viaja impresa en la propia carta ⚠️
+    const comp = {objetivo:r.comp_objetivo||"", vida:n(r.comp_vida),
+                  pide:r.comp_pide||"", descarta:r.comp_descarta||""};
     for (let i=0;i<copias(r);i++) guardia.push({
       tipo:r.tipo, sistema:r.sistema, comodin:r.comodin==="si",
-      restriccion:r.restriccion, warn:r.complicacion==="si"});
+      restriccion:r.restriccion, warn:r.complicacion==="si", comp});
   });
   return {pacientes, guardia};
 }
@@ -745,23 +752,36 @@ function elegirCarta(mano, cama){
   return null;
 }
 
-/* Modelo agregado del Mazo de Eventos Centinela. */
-function aplicarEvento(j, r){
-  const ocupadas = j.camas.filter(Boolean);
-  if (!ocupadas.length) return;
-  const x = r();
-  if (x < 0.33){
-    let c = ocupadas[0];
-    ocupadas.forEach(o => { if (faltanTotal(o) < faltanTotal(c)) c = o; });
-    c.vida -= elige(r,[1,1,2]);
-  } else if (x < 0.66){
-    const c = elige(r, ocupadas);
-    const con = SIM_TIPOS.filter(t => c.tiene[t] > 0);
-    if (con.length) c.tiene[elige(r,con)] -= 1;
-  } else {
-    const c = elige(r, ocupadas);
-    c.pide[elige(r,SIM_TIPOS)] += 1;
+/* v0.14: cada ⚠️ trae su complicación impresa, con su 🎯 objetivo.
+   Espejo de aplicar_complicacion() en tools/simular.py. */
+function elegirVictima(camas, objetivo){
+  const oc = camas.filter(Boolean);
+  if (!oc.length) return null;
+  const mejorPor = f => oc.reduce((a,b) => f(b) > f(a) ? b : a);
+  if (objetivo === "MAS_GRAVE")   return mejorPor(c => -c.vida);
+  if (objetivo === "MEJOR")       return mejorPor(c => c.vida);
+  if (objetivo === "MAS_TRATADO") return mejorPor(c => SIM_TIPOS.reduce((a,t)=>a+c.tiene[t],0));
+  if (objetivo === "ESTABLE")     return oc.find(c => c.estable) || mejorPor(c => c.vida);
+  // ELIGES: el jugador se protege y descarga el golpe en el que ya perdió
+  return mejorPor(c => faltanTotal(c) - c.vida);
+}
+
+function aplicarComplicacion(j, carta, descarte){
+  const comp = carta.comp || {};
+  if (!comp.objetivo) return;
+  if (comp.objetivo === "MANO"){
+    if (j.mano.length){
+      j.mano.sort((a,b) => (a.comodin?1:0)-(b.comodin?1:0) ||
+                           (a.sistema?1:0)-(b.sistema?1:0));
+      descarte.push(j.mano.shift());
+    }
+    return;
   }
+  const cama = elegirVictima(j.camas, comp.objetivo);
+  if (!cama) return;
+  if (comp.vida) cama.vida += comp.vida;
+  if (comp.pide) cama.pide[comp.pide] += 1;
+  if (comp.descarta && cama.tiene[comp.descarta] > 0) cama.tiene[comp.descarta] -= 1;
 }
 
 function jugarPartida(pacientes, guardia, cfg, r){
@@ -830,7 +850,7 @@ function jugarPartida(pacientes, guardia, cfg, r){
         if (!carta) break;
         j.mano.push(carta);
         if (carta.warn){
-          aplicarEvento(j, r);
+          aplicarComplicacion(j, carta, descarte);
           j.camas.forEach((c,i) => {
             if (!c) return;
             if (c.vida <= 0){
@@ -1122,7 +1142,7 @@ def main():
   <header>
     <div>
       <h1>Taller de <em>Guardia</em></h1>
-      <p class="sub">Las 159 cartas de ¡Vaya Turno! (v0.13), sus constantes, el
+      <p class="sub">Las 131 cartas de ¡Vaya Turno! (v0.14), sus constantes, el
       arte ya colocado y un editor en vivo. Tus cambios quedan guardados en
       este navegador.</p>
     </div>
@@ -1141,8 +1161,9 @@ def main():
     </div>
     <p class="banco-intro">Juega miles de partidas con <strong>las cartas que
     tienes en pantalla</strong>, incluidas tus ediciones sin guardar. Modela la
-    economía base: reloj, robo, sinergia, ⚠️ y Sumario. No modela avatares,
-    cartas de Acción ni el Trueque de Pasillo (v0.13) — mide el suelo del
+    economía base: reloj, robo, sinergia, las 17 complicaciones ⚠️ exactas y el
+    Sumario. No modela avatares,
+    cartas de Acción ni el Trueque de Pasillo — mide el suelo del
     balance, no el techo.</p>
     <div class="mandos">
       <div class="mando"><label for="s-jug">Jugadores</label>

@@ -5,7 +5,7 @@
 > Para el texto de reglas palabra por palabra que se lleva a la mesa, el
 > documento madre sigue siendo **[`REGLAMENTO.md`](REGLAMENTO.md)**.
 
-**Versión:** v0.12 · **Jugadores:** 2–4 · **Duración:** 30–45 min · **Edad:** 14+
+**Versión:** v0.14 · **Jugadores:** 2–4 · **Duración:** 30–45 min · **Edad:** 14+
 
 ---
 
@@ -45,15 +45,14 @@ Gana quien tenga **más puntos** al terminar la guardia.
 
 ---
 
-## 2. Qué trae la caja (159 cartas + fichas)
+## 2. Qué trae la caja (131 cartas + fichas)
 
 | Mazo | Diseños | Copias | Cómo se consigue |
 |---|---:|---:|---|
 | **Personajes** | 6 | 6 | Eliges uno al empezar |
 | **Pacientes** | 26 | 26 | Llegan solos (admisión: revela 2, elige 1) |
-| **Mazo de Guardia** (Recursos) | 43 | **63** | Robas 4 por turno (3 si son 4 jugadores) |
+| **Mazo de Guardia** (Recursos) | 43 | **63** | Robas 4 por turno (3 si son 4 jugadores). **17 llevan ⚠️** |
 | **Mazo de Protocolos** (Acciones) | 20 | **30** | Solo por Canje: botas 2 recursos → robas 1 |
-| **Eventos Centinela** | 28 | 28 | Nunca por voluntad: te los dispara un ⚠️ |
 | **Sumario Administrativo** | 1 | 6 | Llega solo, cada vez que se te muere alguien |
 
 Fichas: ~60 ❤️ vida · 12 ✅ estabilizado · 20 ✝️ cruces · 1 moneda (para la
@@ -85,8 +84,8 @@ Cada paciente pertenece a un sistema: 🫁 Respiratorio (4) · 🫀 Cardíaco (5
 | 🧑‍⚕️ Personal | 12 | Kinesiólogo Respiratorio 🫁, Pabellón Disponible 🔪 |
 | 🃏 Comodín | 3 | Cuentan como 1 del tipo que elijas. Nunca doblan. |
 
-**17 cartas llevan ⚠️ Complicación:** al robarlas del Mazo de Guardia te
-quedas la carta, pero disparas 1 Evento Centinela de inmediato. La carta que
+**17 cartas llevan ⚠️ Complicación:** al robarlas te quedas la carta, pero
+resuelves de inmediato la complicación impresa en ella (§2.4). La carta que
 te salva te trae el problema.
 
 **2 cartas con restricción:** el *TAC de Urgencia* exige un 🧑‍⚕️ ya puesto
@@ -106,20 +105,20 @@ No se roban: se **compran** en El Pasillo (Canje: descarta 2 recursos → roba
 | RESPUESTA 🛡️ (2 diseños, 4 copias) | ¿Y Si Vamos por un Cafecito?, Simulación Clínica | Se juegan fuera de turno, anulan cosas |
 | EXTREMA (1 diseño, 1 copia) | **Anda Rondando la Pelada** | 2 monedas: dos caras y un paciente rival recibe el Alta Celestial. Cualquier otra cosa: pierdes toda tu mano. |
 
-### 2.4 Eventos Centinela (28) y Sumarios (6)
+### 2.4 Las Complicaciones ⚠️ y los Sumarios (6)
 
-Los **Eventos** son las complicaciones: pérdidas de vida, de recursos o
-subidas de exigencia, con sabor clínico real (Neumonía asociada a VM,
-Resistencia Antibiótica, Caída de Cama…). Llevan categoría (RESP, CARD,
-NEURO, METAB, INFEC, GENERAL) que hoy es solo sabor — reservada para
-inmunidades de avatares futuros.
+**No hay mazo de eventos.** 17 de las 63 cartas del Mazo de Guardia llevan el
+sello **⚠️** y traen impresa **su propia complicación** — siempre la que ese
+recurso causa de verdad. La *Ventilación Mecánica ⚠️* trae la neumonía
+asociada a ventilación mecánica; el *Catéter Venoso ⚠️*, la bacteriemia; el
+*Antibiótico ⚠️*, la resistencia. Al robar la carta te la quedas **y**
+resuelves su complicación.
 
-**Cada evento trae un 🎯 Objetivo: la carta elige a la víctima, no tú.**
-*EL MÁS GRAVE* (menos ❤️) · *EL QUE MEJOR VA* (más ❤️) · *EL MÁS TRATADO*
-(más recursos encima) · *EL ✅ ESTABILIZADO* · *TÚ ELIGES* (solo 4) ·
-*TODOS* (las 4 que dan miedo de verdad). En empate eliges tú. Sin esta
-regla mandarías siempre el daño al paciente que ya diste por perdido y
-ningún evento dolería.
+Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *EL MÁS
+GRAVE* · *EL QUE MEJOR VA* · *EL MÁS TRATADO* · *EL ✅ ESTABILIZADO* · *TÚ
+ELIGES* · *TU MANO*. Diez de las diecisiete apuntan al que iba bien o al que
+ya tenía su ✅, y eso es deliberado: **lo que se complica en una UCI no es lo
+que ya estaba perdido, es lo que parecía resuelto.**
 
 El **Sumario Administrativo** es la maldición: llega cada vez que se te
 muere un paciente. Ocupa la mano, no se puede jugar ni descartar, **reduce tu
@@ -143,7 +142,7 @@ Lo peor de perder un paciente no son los puntos: es el formulario.
 2. **Admisión:** por cada cama vacía, revela 2 pacientes, elige 1, el otro
    al fondo. **No puedes dejar camas vacías.**
 3. **Robo:** 4 cartas del Mazo de Guardia (3 en partidas de 4). Cada ⚠️ que
-   robes dispara 1 Evento Centinela al instante.
+   robes resuelve su complicación al instante.
 
 ### 3.2 El Pasillo — *negocias*
 
@@ -193,7 +192,7 @@ interpretación que más perjudique al que va ganando es la correcta.
 
 | Personaje | Frecuencia | Habilidad en corto |
 |---|---|---|
-| **El Diostor** | 1×ronda | Le pasa el Evento Centinela de su ⚠️ al jugador de la derecha. |
+| **El Diostor** | 1×ronda | Le pasa la complicación de su ⚠️ al jugador de la derecha. |
 | **El Médico Fantasma** | Pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 más cada turno. |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ colocado sobre un paciente rival y se lo lleva a uno suyo. |
 | **El Director del Hospital** | 1×partida | Hace desaparecer un Sumario — tuyo o ajeno. Puede cobrar el favor. |
@@ -225,9 +224,9 @@ cama → quién llegó antes al café.
 
 | Jugadores | Camas | Robo | Rondas | Salvamento esperado |
 |---|---:|---:|---:|---:|
-| 2 | 3 | 4 | 8 | 62% |
-| 3 | 3 | 4 | 8 | 61% *(recomendada)* |
-| 4 | 2 | 3 | 10 | 57% |
+| 2 | 3 | 4 | 8 | 67% |
+| 3 | 3 | 4 | 8 | 66% *(recomendada)* |
+| 4 | 2 | 3 | 10 | 62% |
 
 Salvas a la mayoría. Siempre pierdes a alguien.
 
@@ -250,7 +249,7 @@ Salvas a la mayoría. Siempre pierdes a alguien.
 | Pieza | Estado |
 |---|---|
 | Reglamento (`REGLAMENTO.md`) | ✅ completo, v0.12 |
-| 159 cartas en CSV (`cartas/`) | ✅ texto y números cerrados |
+| 131 cartas en CSV (`cartas/`) | ✅ texto y números cerrados |
 | Balance de la economía base | ✅ simulado (Monte Carlo, 3.000 partidas/config) |
 | Taller de Guardia (`taller.html`) | ✅ galería + editor + simulador en el navegador |
 | Print-and-play (`pnp.html`) | ✅ generador listo |

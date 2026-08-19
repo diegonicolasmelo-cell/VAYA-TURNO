@@ -69,6 +69,7 @@ body{margin:0;background:#e9eef2;font-family:"Helvetica Neue",Arial,sans-serif;c
 .pts{display:flex;justify-content:space-between;font-size:2.9mm;font-weight:700;margin-bottom:1mm}
 .frase{font-size:2.55mm;font-style:italic;color:var(--suave);line-height:1.28}
 .warn{font-size:2.5mm;font-weight:700;color:#c0492f;letter-spacing:.04em}
+.comp{border-top:.3mm dashed #c0492f;margin-top:1mm;padding-top:1mm}
 .et{display:inline-block;font-size:2.2mm;font-weight:700;letter-spacing:.07em;
     border:.25mm solid var(--tinta);border-radius:1mm;padding:.3mm 1mm;margin-top:1mm}
 .hab{font-size:2.75mm;line-height:1.3;margin-bottom:1.5mm}
@@ -130,16 +131,25 @@ def carta_recurso(r):
                     '1 recurso del tipo que elijas.</div>')
     restr = (f'<div class="restr">⚑ {RESTRIC[r["restriccion"]]}</div>'
              if r["restriccion"] else "")
-    wa = '<div class="warn">⚠️ COMPLICACIÓN</div>' if r["complicacion"] == "si" else ""
     efecto = (f'<div class="cuerpo">{E(r["texto"])}</div>'
               if r.get("texto", "").strip() else "")
+    # v0.14: el ⚠️ trae su complicación impresa, con su 🎯 objetivo
+    if r["complicacion"] == "si":
+        diana = (f'<div class="et" style="border-color:#c0492f;color:#c0492f">'
+                 f'🎯 {E(OBJETIVO.get(r["comp_objetivo"], r["comp_objetivo"]))}</div>'
+                 if r.get("comp_objetivo") else "")
+        wa = (f'<div class="comp"><div class="warn">⚠️ '
+              f'{E(r.get("comp_nombre") or "COMPLICACIÓN")}</div>{diana}'
+              f'<div class="cuerpo">{E(r.get("comp_texto",""))}</div></div>')
+    else:
+        wa = ""
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(r['nombre'])}</div>
     <div class="tipo">{NOM[r['tipo']]}</div>{sis}</div>
     <div class="vida">{SIM[r['tipo']]}</div></div>
-  {sinergia}{efecto}{restr}
+  {sinergia}{efecto}{restr}{wa}
   <div class="arte">ilustración</div>
-  <div class="pie">{wa}<div class="frase">{E(r['frase'])}</div></div>
+  <div class="pie"><div class="frase">{E(r['frase'])}</div></div>
 </div>"""
 
 
@@ -160,22 +170,9 @@ OBJETIVO = {
     "MAS_TRATADO": "EL MÁS TRATADO · más recursos",
     "ESTABLE": "EL ✅ ESTABILIZADO",
     "ELIGES": "TÚ ELIGES",
+    "MANO": "TU MANO",
     "TODOS": "TODOS TUS PACIENTES",
 }
-
-
-def carta_evento(e):
-    obj = e.get("objetivo", "")
-    diana = (f'<div class="et" style="border-color:#c0492f;color:#c0492f">'
-             f'🎯 {E(OBJETIVO.get(obj, obj))}</div>') if obj else ""
-    return f"""<div class="carta">
-  <div class="cab"><div><div class="nombre">{E(e['nombre'])}</div>
-    <div class="tipo">Evento Centinela · {E(e['categoria'])}</div>{diana}</div></div>
-  <div class="banda" style="background:#c0492f"></div>
-  <div class="cuerpo">{E(e['texto'])}</div>
-  <div class="arte">ilustración</div>
-  <div class="pie"><div class="frase">{E(e['frase'])}</div></div>
-</div>"""
 
 
 def carta_personaje(c):
@@ -205,7 +202,6 @@ MAZOS = {
     "pacientes":  ("Pacientes",       "pacientes.csv",  carta_paciente),
     "recursos":   ("Recursos",        "recursos.csv",   carta_recurso),
     "acciones":   ("Acciones",        "acciones.csv",   carta_accion),
-    "eventos":    ("Eventos Centinela", "eventos.csv",  carta_evento),
     "personajes": ("Personajes",      "personajes.csv", carta_personaje),
     "sumarios":   ("Sumarios",        "sumarios.csv",   carta_sumario),
 }
