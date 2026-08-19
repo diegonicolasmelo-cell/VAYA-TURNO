@@ -906,7 +906,7 @@ function jugarPartida(pacientes, guardia, cfg, r){
 
 function simVacio(){
   const g = {}; GRAVEDADES.forEach(x => g[x] = [0,0]);
-  return {n:0, altas:0, muertos:0, puntos:0, limpias:0, grav:g};
+  return {n:0, altas:0, muertos:0, puntos:0, limpias:0, defendibles:0, grav:g};
 }
 function simAcumula(acc, jugadores){
   jugadores.forEach(j => {
@@ -917,6 +917,9 @@ function simAcumula(acc, jugadores){
     j.altas.forEach(f => p += f.alta);
     j.muertos.forEach(f => p += f.fallece);
     if (!j.muertos.length){ p += 3; acc.limpias += 1; }
+    else if (j.muertos.every(f => f.gravedad === "III" || f.gravedad === "ROJO")){
+      p += 1; acc.defendibles += 1;      // Guardia Defendible: "se hizo todo"
+    }
     acc.puntos += p;
     j.altas.forEach(f => { if (acc.grav[f.gravedad]) acc.grav[f.gravedad][0] += 1; });
     j.muertos.forEach(f => { if (acc.grav[f.gravedad]) acc.grav[f.gravedad][1] += 1; });
@@ -927,6 +930,7 @@ function simResumen(acc){
   const pct = g => { const [a,m] = acc.grav[g]; return (a+m) ? 100*a/(a+m) : null; };
   return {salv, altas:acc.altas/acc.n, muertos:acc.muertos/acc.n,
           puntos:acc.puntos/acc.n, limpias:100*acc.limpias/acc.n,
+          defendibles:100*acc.defendibles/acc.n,
           gI:pct("I"), gII:pct("II"), gIII:pct("III"), gROJO:pct("ROJO")};
 }
 
@@ -1018,7 +1022,8 @@ function pintarSim(cfg, tuyo, base){
   document.getElementById("s-estado").innerHTML =
     `${cfg.partidas.toLocaleString("es")} partidas · ${cfg.nJug} jugadores · ` +
     `${cfg.camasC} camas · robo ${cfg.robo} · ${cfg.rondas} rondas. ` +
-    `Puntaje medio <b class="mono">${tuyo.puntos.toFixed(1)}</b>. ` +
+    `Puntaje medio <b class="mono">${tuyo.puntos.toFixed(1)}</b> · ` +
+    `guardias defendibles <b class="mono">${tuyo.defendibles.toFixed(0)}%</b>. ` +
     `Salvamento por gravedad: <span class="mono">${extra}</span>.` +
     (base ? "" : " Sin ediciones todavía: no hay con qué comparar.");
 }
@@ -1142,7 +1147,7 @@ def main():
   <header>
     <div>
       <h1>Taller de <em>Guardia</em></h1>
-      <p class="sub">Las 131 cartas de ¡Vaya Turno! (v0.14), sus constantes, el
+      <p class="sub">Las 131 cartas de ¡Vaya Turno! (v0.15), sus constantes, el
       arte ya colocado y un editor en vivo. Tus cambios quedan guardados en
       este navegador.</p>
     </div>

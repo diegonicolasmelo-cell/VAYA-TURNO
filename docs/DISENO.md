@@ -38,7 +38,7 @@ cartas de ataque serían ruido; con ella, son el clímax de cada ronda.
 | ¿Cuántas cartas se juegan por turno? | Recursos ilimitados, **1 sola Acción** | La simulación mostró que limitar recursos no cambia el balance (el cuello de botella es el robo), solo añade una regla. En cambio limitar Acciones sí importa: sin ese tope, una mano con 3 ataques borra a un jugador de la partida. |
 | ¿Cómo entran los eventos adversos? | Símbolo ⚠️ en 17 de las 63 cartas de Recurso, **con su complicación impresa** (v0.14) | Tu idea de "robar un evento al robar recursos". Ata el castigo al motor del juego: mientras más juegas, más te expones — y desde v0.14 el problema es el que ese recurso causa de verdad. |
 | ¿Mazo único o mazos separados? | Guardia y Protocolos separados. **El mazo de Eventos se eliminó en v0.14** | La complicación vive impresa en la carta ⚠️ que la causa: menos componentes, un paso menos por turno, y coherencia clínica. Ver §4c. |
-| Puntuación | Altas − Fallecidos + bonus Guardia Limpia | El bonus de +3 evita que la estrategia dominante sea siempre "sacrificar sin culpa". Con él, hay dos rutas viables: maximizar altas o proteger el expediente. |
+| Puntuación | Altas − Fallecidos + **Guardia Limpia (+3)** o **Guardia Defendible (+1)** | El +3 evita que la estrategia dominante sea "sacrificar sin culpa". El +1 (v0.15) hace visible lo que ya medía la simulación: puedes perder a los difíciles, no a los fáciles. |
 
 ---
 
@@ -237,6 +237,47 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 > la simulación**, porque cualquiera mandaba el golpe al paciente ya perdido.
 > El 🎯 Objetivo no endurece el juego respecto a los números publicados: lo
 > pone de acuerdo con ellos.
+
+---
+
+## 4d. La Guardia Defendible: por qué el "Fallece −1" engañaba (v0.15)
+
+El autor preguntó lo obvio: si un Gravedad I solo resta 1 punto al morir,
+**¿cuál es el incentivo para salvarlo?** Se midió poniendo en la mesa a un
+jugador negligente contra dos normales (3.000 partidas):
+
+| Estrategia del jugador 0 | Sus puntos | Rivales | Ventaja |
+|---|---:|---:|---:|
+| Normal | 7,51 | 7,17 | +0,34 |
+| Nunca trata a los Gravedad I | 6,10 | 7,30 | **−1,20** |
+| Los aparca y los trata al final | 6,99 | 7,30 | −0,31 |
+
+**El incentivo ya existía** (−1,20) pero era invisible: la carta dice −1 y el
+costo real ronda los 4 puntos entre el Sumario, la cama muerta media ronda y —
+sobre todo— el bonus quemado (las Guardias Limpias del negligente caen del
+10,8% al 1,6%). Eso no es un problema de balance: **es un problema de
+legibilidad.** Un juego debe enseñar sus incentivos en la carta, no en la
+derrota.
+
+Se probaron dos arreglos:
+
+| Arreglo | Ventaja negligente | Ventaja aparcar | Veredicto |
+|---|---:|---:|---|
+| Escala de Sumarios (2 al leve, 0 al ROJO) | −1,20 | — | **Descartado**: efecto cero. El +2 del leve y el 0 del ROJO se cancelan, y el Sumario es una palanca más débil de lo que sugería el caso de la Gestora (§4b). Una regla más a cambio de nada. |
+| **Guardia Defendible (+1)** | **−1,37** | **−0,47** | **Adoptado.** |
+
+La Defendible sube el disuasivo contra *aparcar* un **52%** — que era el punto
+débil real, casi empatado —, salta en el **27,8%** de las guardias (suficiente
+para perseguirla, no tanto para ser automática) y solo infla el puntaje medio
+de 7,28 a 7,56.
+
+> **Y de paso puso nombre a algo que el juego no decía:** el Gravedad I no vale
+> por sus 2 puntos, vale por **lo rápido que libera la cama**. Tres recursos,
+> alta, y vuelves a revelar dos pacientes. Sus 7 ❤️ no son permiso para
+> ignorarlo: son el margen para elegir *cuándo* lo cierras.
+
+**Efecto sobre la Gestora:** su Derivación quema los dos bonus, no solo la
+Limpia. Verificado: su ventaja pasa de +0,66 a **+0,63** — sigue en banda.
 
 ---
 

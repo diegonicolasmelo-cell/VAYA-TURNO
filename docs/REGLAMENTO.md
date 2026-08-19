@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.14 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.15 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -62,8 +62,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
 > competente salva ~66% de sus pacientes: unas **2,8 altas y 1,4
-> fallecidos** por guardia, y salva al **43% de los Gravedad III**. Si tu mesa
-> se aleja mucho de eso, revisa `docs/DISENO.md` §4 antes de cambiar nada.
+> fallecidos** por guardia, salva al **43% de los Gravedad III** y cierra
+> Guardia Defendible una de cada cuatro veces. Si tu mesa se aleja mucho de
+> eso, revisa `docs/DISENO.md` §4 antes de cambiar nada.
 
 ---
 
@@ -430,10 +431,27 @@ la próxima guardia. Ese es su problema.
 ```
   + Puntos de cada paciente en tu pila de ALTAS
   − Penalización de cada ✝️ frente a ti
-  + 3   si terminas la guardia SIN NINGÚN FALLECIDO  ("Guardia Limpia")
+  + 3   si terminas SIN NINGÚN ✝️              ("Guardia Limpia")
+  + 1   si tus únicos ✝️ fueron Gravedad III
+        o Código Rojo                          ("Guardia Defendible")
   ─────────────────────────────────────────────────
   = Tu puntaje
 ```
+
+Los dos bonus **no se suman**: o cerraste sin muertos, o cerraste defendible.
+
+> **Guardia Defendible** es el consuelo del que se arriesgó. Si se te fue un
+> Crítico o un Código Rojo, nadie te va a preguntar nada: entraron muriéndose y
+> **se hizo todo**. Pero basta con que se te vaya **un solo Gravedad I** para
+> perderlo — de eso no se muere nadie, y en el comité te lo van a decir.
+>
+> Ahí está el incentivo que la carta no dice: el *Fallece −1* del leve engaña.
+> Dejarlo morir te cuesta **cuatro veces eso** entre el Sumario, la cama muerta
+> media ronda y los dos bonus que ya no vas a cobrar. El Gravedad I no vale por
+> sus 2 puntos: **vale por lo rápido que libera la cama.** Tres recursos, alta,
+> y vuelves a revelar dos pacientes — uno de los cuales puede ser un Crítico de
+> +5. Sus 7 ❤️ no son permiso para ignorarlo: son el margen para elegir *cuándo*
+> lo cierras.
 
 **Desempates**, en orden:
 1. Menos fallecidos.
@@ -466,8 +484,8 @@ la próxima guardia. Ese es su problema.
 ## 11. Variantes
 
 **Guardia Corta (25 min).** 6 rondas, todo lo demás igual. En esta variante
-**no se aplica el bonus de Guardia Limpia**: con tan pocas rondas terminar sin
-fallecidos deja de ser una hazaña y se vuelve lo normal.
+**no se aplican los bonus de Guardia Limpia ni Defendible**: con tan pocas
+rondas terminar sin fallecidos deja de ser una hazaña y se vuelve lo normal.
 
 **Modo Cooperativo (Brote).** Todos comparten una UCI de 6 camas y turnan las
 fases. Cada ⚠️ afecta a la unidad compartida. Ganan si logran 25 puntos

@@ -71,8 +71,8 @@ Tus personajes con tus mecánicas, adaptados solo en vocabulario al motor v0.10:
 | **El Médico Fantasma** | pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 extra siempre |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ Personal de un paciente rival |
 | **El Director del Hospital** | 1×partida | Anula un Sumario, de quien sea (favor cobrable) |
-| **La Gestora de Camas** | 1×partida | Devuelve un paciente al fondo del mazo y admite otro; no cuenta como muerte, pero deja Sumario y quema la Guardia Limpia (ajustado en v0.13) |
-| **El Médico Esotérico** | 1×turno | Revela la 1ª carta del Mazo de Guardia: recurso → gratis a un paciente; ⚠️ → el evento explota + descartas 1 |
+| **La Gestora de Camas** | 1×partida | Devuelve un paciente al fondo del mazo y admite otro; no cuenta como muerte, pero deja Sumario y quema los bonus de Limpia y Defendible (ajustado en v0.13/v0.15) |
+| **El Médico Esotérico** | 1×turno | Revela la 1ª carta del Mazo de Guardia: recurso → gratis a un paciente; ⚠️ → su complicación explota + descartas 1 |
 
 *Adaptación del Esotérico:* tu versión duplicaba el valor del recurso, pero
 en v0.10 los recursos no tienen valor numérico — el equivalente es que el

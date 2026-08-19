@@ -1,4 +1,4 @@
-# Pendientes de desarrollo — ¡VAYA TURNO! v0.14
+# Pendientes de desarrollo — ¡VAYA TURNO! v0.15
 
 La lista viva de lo que falta, carta por carta y mecánica por mecánica.
 Se trabaja de arriba hacia abajo: lo de arriba bloquea el playtest, lo de
@@ -32,6 +32,20 @@ Prioridad de observación en mesa, de más a menos peligrosa:
 | 🟢 8 | A03 Reunión Clínica, A04 Interconsulta, A14 Ojo Clínico, A15 Receta en Blanco, A19 Capacitación | Apoyos. Vigilar que el Canje (pagar 2 por 1) se sienta justo. |
 | 🟢 9 | A11 ¿Y Si Vamos por un Cafecito?, A16 Simulación Clínica | Respuestas 🛡️. Vigilar si 4 copias entre 30 son suficientes para que la defensa exista. |
 | 🟢 10 | A06 Se Cayó el Sistema, A12 Protocolo Institucional | Caos y copia. Ver ambigüedades en §3. |
+
+### 1.1a La Guardia Defendible (regla nueva, v0.15) — 🔶
+
++1 punto si tus únicos ✝️ fueron Gravedad III o Código Rojo (`REGLAMENTO.md`
+§9). Medida: sube el disuasivo contra aparcar a los leves un 52% y salta en el
+27,8% de las guardias (`DISENO.md` §4d).
+
+**Qué vigilar en mesa:**
+- ¿Se persigue o se ignora? Si nadie la menciona al contar puntos, el +1 es
+  demasiado poco y habría que subirlo a +2.
+- ¿Genera la conversación correcta? Lo que buscamos es el *"se me fue, pero se
+  hizo todo"* — si en cambio genera discusión sobre si tal muerte "contaba",
+  el corte III/ROJO está mal puesto y hay que incluir a los Gravedad II.
+- ¿Confunde tenerla junto a la Limpia? No se suman: o una u otra.
 
 ### 1.1b El Trueque de Pasillo (regla nueva, v0.13) — 🔶
 

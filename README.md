@@ -24,7 +24,7 @@ guardas por si llega un respiratorio?
 
 ## Estado del proyecto
 
-**v0.14 — listo para playtest.** Reglas cerradas, 131 cartas escritas, economía
+**v0.15 — listo para playtest.** Reglas cerradas, 131 cartas escritas, economía
 simulada y calibrada, y todo el material histórico del autor integrado:
 avatares, Sumario, Canje, la Pelada, y la **sinergia por sistema clínico**
 rescatada del Excel antiguo (ver `docs/SINTESIS.md`). Falta jugarlo con gente.
@@ -106,7 +106,11 @@ Configuración final, validada sobre 3.000 partidas por caso (v0.14):
 | 4 | 2 | 3 | 10 | 62% | 2,4 | 1,4 | 13% |
 
 Salvas la mayoría. Siempre pierdes a alguien. Terminar una guardia sin ningún
-fallecido pasa el ~11% de las veces, y por eso vale 3 puntos.
+fallecido pasa el ~11% de las veces, y por eso vale 3 puntos. Y si se te
+fueron **solo** los Gravedad III y los Código Rojo, te llevas la **Guardia
+Defendible (+1)**: se hizo todo, nadie te va a preguntar nada. Pasa el 28% de
+las veces, y basta un leve muerto para perderla — ese es el incentivo que el
+*Fallece −1* no dice (ver `docs/DISENO.md` §4d).
 
 En **v0.14 desapareció el mazo de Eventos Centinela**: cada una de las 17
 cartas ⚠️ trae impresa la complicación que ese recurso causa de verdad (la

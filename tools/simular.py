@@ -105,10 +105,17 @@ class Jugador:
         self.altas = []
         self.muertos = []
 
+    def defendible(self):
+        """Se te fueron solo los que se tenían que ir (Gravedad III o ROJO)."""
+        return bool(self.muertos) and all(
+            c["gravedad"] in ("III", "ROJO") for c in self.muertos)
+
     def puntos(self):
         p = sum(c["alta"] for c in self.altas) + sum(c["fallece"] for c in self.muertos)
         if not self.muertos:
-            p += 3          # bonus Guardia Limpia
+            p += 3          # Guardia Limpia
+        elif self.defendible():
+            p += 1          # Guardia Defendible: "se hizo todo"
         return p
 
 
@@ -367,7 +374,7 @@ def main():
         f["pide_total"] = sum(f["pide"].values())
 
     rng = random.Random(args.semilla)
-    altas, muertos, puntos, limpias = [], [], [], 0
+    altas, muertos, puntos, limpias, defendibles = [], [], [], 0, 0
     por_gravedad = {g: [0, 0] for g in ("I", "II", "III", "ROJO")}   # [altas, muertes]
 
     for _ in range(args.partidas):
@@ -380,6 +387,8 @@ def main():
             puntos.append(j.puntos())
             if not j.muertos:
                 limpias += 1
+            elif j.defendible():
+                defendibles += 1
             for f in j.altas:
                 por_gravedad[f["gravedad"]][0] += 1
             for f in j.muertos:
@@ -398,7 +407,9 @@ def main():
     print(f"Puntaje medio          {prom(puntos):.1f}   "
           f"(rango {min(puntos)} a {max(puntos)})")
     print(f"Guardias limpias       {100 * limpias / n:.1f}%   "
-          f"(objetivo: 5-15%, debe ser una hazaña)\n")
+          f"(objetivo: 5-15%, debe ser una hazaña)")
+    print(f"Guardias defendibles   {100 * defendibles / n:.1f}%   "
+          f"(+1: solo se te fueron los Gravedad III y ROJO)\n")
     print(f"{'gravedad':<10}{'altas':>7}{'muertes':>9}{'% salvado':>11}")
     for g, (a, m) in por_gravedad.items():
         pct = 100 * a / (a + m) if a + m else 0
