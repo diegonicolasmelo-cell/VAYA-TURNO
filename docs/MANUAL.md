@@ -190,7 +190,7 @@ interpretación que más perjudique al que va ganando es la correcta.
 | **El Médico Fantasma** | Pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 más cada turno. |
 | **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ colocado sobre un paciente rival y se lo lleva a uno suyo. |
 | **El Director del Hospital** | 1×partida | Hace desaparecer un Sumario — tuyo o ajeno. Puede cobrar el favor. |
-| **La Gestora de Camas** | 1×turno | Devuelve un paciente suyo al fondo del mazo (sin ✝️, sin Sumario) y admite otro. |
+| **La Gestora de Camas** | 1×partida | Devuelve un paciente suyo al fondo del mazo y admite otro. Sin ✝️ ni puntos negativos — pero toma Sumario y pierde la Guardia Limpia. |
 | **El Médico Esotérico** | 1×turno | Revela la 1ª carta del mazo: sin ⚠️ la coloca gratis; con ⚠️, evento + penitencia. |
 
 ---

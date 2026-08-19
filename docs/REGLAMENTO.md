@@ -348,13 +348,19 @@ usarla.
 | **El Médico Fantasma** | Pasiva | En las rondas 1–3 robas 1 carta **menos**. Desde la ronda 4, robas 1 carta **adicional** cada turno por el resto de la guardia. |
 | **Doctor Amor** | 1× por partida | **Seducción de Pasillo:** roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo. |
 | **El Director del Hospital** | 1× por partida | **Perdonazo Administrativo:** anula y descarta un Sumario, tuyo o de cualquier otro jugador. Puedes cobrar el favor. |
-| **La Gestora de Camas** | 1× por turno | **Derivación:** devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido ni deja Sumario. |
+| **La Gestora de Camas** | 1× por partida | **Derivación:** devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido: no pones ✝️ ni restas sus puntos. **Pero el papeleo es el mismo:** toma un Sumario, y tu guardia ya no puede ser Limpia. |
 | **El Médico Esotérico** | 1× por turno | **Confía en el Universo:** revela la primera carta del Mazo de Guardia. Recurso sin ⚠️ → colócalo **gratis** sobre un paciente tuyo. Con ⚠️ → resuelve el Evento y descarta 1 carta de tu mano como penitencia kármica. |
 
 > **Notas de balance sin validar** (se resuelven en la mesa): el Fantasma y el
 > Esotérico juegan cada turno mientras Amor y el Director juegan una vez — si
 > en el playtest los segundos se sienten planos, darles una pasiva menor es el
 > ajuste natural. Está anotado en `docs/DISENO.md` §5.
+>
+> **La Gestora sí está medida** (v0.13): con la Derivación gratis y cada turno
+> ganaba +2,7 puntos sobre sus rivales y cerraba Guardia Limpia el 31% de las
+> veces contra el 8% de los demás. Con el Sumario, la pérdida de la Limpia y el
+> límite de 1 por partida queda en **+0,7**, que es lo que debe valer una
+> habilidad. Los números están en `docs/DISENO.md` §4.
 
 ---
 

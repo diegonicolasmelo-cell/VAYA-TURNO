@@ -76,9 +76,10 @@ veces (esperado: ~17%), está roto.
 **Sospechas a confirmar o descartar** (de `DISENO.md` §5):
 - ¿El Fantasma y el Esotérico dominan por jugar **cada turno**, mientras Amor y
   el Director juegan **una vez por partida**? Es la asimetría más sospechosa.
-- ¿La Gestora de Camas rompe el juego? Cambiar un paciente sin ✝️ ni Sumario es
-  una salida de emergencia muy limpia; con el deterioro al final puede ser
-  todavía mejor de lo que parece.
+- La Gestora **ya se midió y se corrigió** en v0.13 (`DISENO.md` §4b): pasó de
+  +2,7 a +0,7 puntos de ventaja. Lo que queda por ver en mesa no es si rompe,
+  sino si **se siente bien**: con un solo uso por partida y el Sumario encima,
+  ¿el momento "este es el que derivo" resulta potente o mezquino?
 - ¿Alguien usó el Perdonazo del Director en un rival para cobrárselo después?
   Si no pasa nunca, la carta es solo un descarte de Sumario.
 

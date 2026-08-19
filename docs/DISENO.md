@@ -226,6 +226,52 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
 
 ---
 
+## 4b. La Gestora de Camas: la primera habilidad medida (v0.13)
+
+Un avatar sí se puede medir, aunque el simulador no los modele de fábrica: se
+le da la habilidad **a un solo jugador** y se compara su puntaje contra el de
+sus dos rivales **en la misma mesa**. Lo hicimos con la Gestora porque su
+Derivación era la sospechosa más obvia. 3.000 partidas por variante, 3
+jugadores, configuración estándar.
+
+| Variante | Ventaja sobre sus rivales | Guardias Limpias |
+|---|---:|---:|
+| Sin Gestora (control) | −0,18 | 8% |
+| 1×turno, gratis (v0.12) | **+2,66** | **31%** |
+| 1×partida, gratis | +2,12 | 25% |
+| 1×turno + deja Sumario | +1,77 | 30% |
+| 1×partida + deja Sumario | +1,18 | 24% |
+| 1×turno + Sumario + rompe Limpia | +1,06 | 6,7% |
+| **1×partida + Sumario + rompe Limpia (v0.13)** | **+0,66** | **6,3%** |
+| 1×partida + Sumario + Limpia + −1 pt | −0,04 | 6,3% |
+
+**Lo que enseñó la medición, y vale para cualquier habilidad futura:**
+
+1. **Bajar la frecuencia casi no sirve.** De 1×turno a 1×partida solo se
+   pierden 0,5 de los 2,7 puntos de ventaja, porque la oportunidad de derivar
+   es rara por naturaleza: incluso sin límite, una IA razonable solo encuentra
+   a quién derivar **0,9 veces por partida**. Si una habilidad se dispara poco,
+   limitar cuántas veces puedes usarla no la arregla — hay que tocar el efecto.
+2. **El daño real no estaba en los puntos, estaba en la Guardia Limpia.** La
+   Derivación gratis convertía una hazaña del 8% en un trámite del 31%. Toda
+   habilidad que esquive fallecidos tiene que pagar ese bonus, o desfigura la
+   estadística que le da sentido.
+3. **El coste de tempo no es coste.** Probamos dejar la cama vacía hasta la
+   siguiente Entrega de Turno (como una muerte): la ventaja no bajó, subió a
+   +2,70. Perder una cama con un paciente condenado encima es un alivio, no un
+   castigo. Cuidado con "compensar" con tempo en este juego.
+4. **El Sumario sí muerde** (−0,9 en 1×turno): cuesta 2 recursos y −1 de mano,
+   y eso se siente en la economía.
+5. **Banda sana para una habilidad: +0,3 a +1,0 puntos.** Por debajo es un
+   adorno; por encima elige al ganador en un juego cuyo puntaje medio es 6,3.
+   El −1 punto extra la dejaba en −0,04: convertía la habilidad en una trampa.
+
+> Reproducirlo: el parche del simulador está en el histórico de la sesión; la
+> forma de medir (un jugador con la habilidad contra dos sin ella, misma mesa,
+> misma semilla) es lo que hay que repetir para las otras cinco.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del
@@ -236,8 +282,9 @@ plan de playtest de `PLAYTEST.md` mide exactamente esas tres cosas.
      roba 1 carta"; Director — "una vez por turno, descarta 1 carta y roba 1".
    - *El Esotérico* tiene 80% de éxito en su revelación (48/60 cartas sin ⚠️).
      Si resulta demasiado seguro, la penitencia puede subir a 2 cartas.
-   - *La Gestora* puede ciclar pacientes buscando Gravedad I fáciles; si se
-     abusa, limitarla a 1 derivación cada 2 rondas.
+   - ~~*La Gestora* puede ciclar pacientes buscando Gravedad I fáciles.~~
+     **Medida y corregida en v0.13** — la sospecha era correcta pero el
+     diagnóstico no: el problema no era la frecuencia. Ver §4b.
    - *El Diostor* con 2 jugadores golpea siempre al mismo rival: revisar en
      duelos.
 2. **¿Es divertido perder pacientes?** El riesgo real del juego. Si en el

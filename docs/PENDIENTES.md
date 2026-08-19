@@ -47,7 +47,12 @@ del tipo que pidas (él elige cuál; puede negarse).
 - En 2 jugadores debería casi no usarse (darle 2 cartas a tu único rival
   rara vez conviene) — confirmar que efectivamente se autorregula.
 
-### 1.2 Las 6 habilidades de Personaje — todas 🔶
+### 1.2 Las habilidades de Personaje — 5 🔶 · 1 ✅ medida
+
+> **Cómo medir una habilidad sin modelar las seis** (`DISENO.md` §4b): das la
+> habilidad a **un solo jugador** y comparas su puntaje contra sus rivales en
+> la misma mesa, misma semilla. Banda sana: **+0,3 a +1,0 puntos**. Se hizo con
+> la Gestora; falta repetirlo con las otras cinco.
 
 Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 
@@ -55,7 +60,7 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 |---|---|
 | **El Médico Fantasma** | Pasiva que juega sola cada turno. ¿Netea a favor o en contra? (−3 cartas temprano / +5 tarde en 8 rondas). |
 | **El Médico Esotérico** | 1×turno con upside gratis. Posible avatar dominante. |
-| **La Gestora de Camas** | Descartar un paciente imposible sin castigo puede ser demasiado eficiente. Vigilar si "derivar al ROJO" se vuelve rutina. |
+| ~~**La Gestora de Camas**~~ | ✅ **Medida y corregida en v0.13** (`DISENO.md` §4b): de +2,66 a **+0,66** de ventaja. En mesa solo queda por ver si el momento "este es el que derivo" se siente potente o mezquino con un solo uso. |
 | **Doctor Amor** | 1×partida. ¿Se siente plano al lado de los de arriba? El ajuste natural es darle una pasiva menor. |
 | **El Director del Hospital** | Ídem: 1×partida y defensivo. |
 | **El Diostor** | Depende de cuántos ⚠️ robe. Frecuencia 1×ronda puede ser mucho o nada. |
