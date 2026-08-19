@@ -131,11 +131,13 @@ def carta_recurso(r):
     restr = (f'<div class="restr">⚑ {RESTRIC[r["restriccion"]]}</div>'
              if r["restriccion"] else "")
     wa = '<div class="warn">⚠️ COMPLICACIÓN</div>' if r["complicacion"] == "si" else ""
+    efecto = (f'<div class="cuerpo">{E(r["texto"])}</div>'
+              if r.get("texto", "").strip() else "")
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(r['nombre'])}</div>
     <div class="tipo">{NOM[r['tipo']]}</div>{sis}</div>
     <div class="vida">{SIM[r['tipo']]}</div></div>
-  {sinergia}{restr}
+  {sinergia}{efecto}{restr}
   <div class="arte">ilustración</div>
   <div class="pie">{wa}<div class="frase">{E(r['frase'])}</div></div>
 </div>"""

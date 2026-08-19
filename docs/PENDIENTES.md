@@ -152,6 +152,25 @@ Guardia" quedó documentado en `ARTE.md` §2 con su bloque de prompt.
 
 ---
 
+## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
+
+`recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43
+cartas. El Taller la deja editar y el PnP la imprime si tiene contenido.
+
+**Antes de llenarla, conviene saber esto:** hoy los recursos **no tienen
+texto** a propósito — son puro ícono, y todo lo que hacen se lee de sus
+símbolos (tipo, chip de sistema, ⚑ restricción, ⚠️ complicación). Eso es lo
+que permite jugar 5 recursos en un turno sin frenar la mesa. Cada recurso con
+texto es una carta más que leer **cada vez que alguien la juega**, y son la
+carta más frecuente del juego (63 de 159).
+
+Recomendación: **texto solo en unas pocas** (5–8 como mucho, las más
+memorables), no en las 43. Y ninguna que cambie la economía sin volver a
+correr `simular.py` — el simulador no lee esta columna, así que cualquier
+efecto que toque vida, requisitos o robo queda **fuera del balance validado**.
+
+---
+
 ## 6. Herramientas ⬜
 
 - ⬜ Columna `set` en CSVs + filtro en Taller/PnP/simulador (`EXPANSIONES.md` §5).

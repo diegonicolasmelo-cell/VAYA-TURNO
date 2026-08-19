@@ -73,7 +73,8 @@ ESQUEMA = {
             ("sistema", "sel", SIS), ("comodin", "sel", ["no", "si"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
-            ("copias", "num", None), ("frase", "area", None),
+            ("copias", "num", None),
+            ("texto", "area", None), ("frase", "area", None),
         ],
     },
     "acciones": {
@@ -282,6 +283,7 @@ input[type="search"]{flex:1;min-width:9rem;max-width:20rem}
 .c-warn{font-size:.56rem;font-weight:800;color:var(--mal);letter-spacing:.04em}
 .c-obj{font-size:.56rem;font-weight:800;letter-spacing:.05em;color:var(--acento);
   border:1px solid var(--acento);padding:.06rem .25rem;align-self:flex-start;border-radius:2px}
+.c-efecto{border-left:2px solid var(--acento);padding-left:.3rem}
 .chip{display:inline-block;padding:.08rem .3rem;font-size:.55rem;font-weight:800;
   letter-spacing:.05em;color:var(--chip-tinta);align-self:flex-start;
   font-family:ui-monospace,Menlo,monospace}
@@ -492,11 +494,13 @@ function pintarCarta(k,f,i){
     const nota = f.comodin==="si" ? `<div class="c-cuerpo"><b>Comodín:</b> cuenta como el tipo que elijas.</div>`
       : f.sistema ? `<div class="c-cuerpo"><b>Cuenta doble</b> en ${NOMS[f.sistema].toLowerCase()}.</div>` : "";
     const rest = f.restriccion ? `<div class="c-warn">⚑ ${f.restriccion==="TURNO"?"CONSUME EL TURNO":"EXIGE 🧑‍⚕️"}</div>` : "";
+    const txt = (f.texto||"").trim()
+      ? `<div class="c-cuerpo c-efecto">${esc(f.texto)}</div>` : "";
     dentro = `<div class="c-cab"><div>
         <div class="c-nom">${esc(f.nombre)}</div>
         <div class="c-meta">${NOMT[f.tipo]||esc(f.tipo)}</div></div>
         <div class="c-vida">${GLIFO[f.tipo]||""}</div></div>
-      ${chip}${nota}${rest}
+      ${chip}${nota}${txt}${rest}
       ${f.complicacion==="si"?'<div class="c-warn">⚠️ COMPLICACIÓN</div>':""}${t(f.frase)}`;
   } else if (k === "personajes"){
     dentro = `<div class="c-nom">${esc(f.nombre)}</div>
@@ -1013,6 +1017,24 @@ document.getElementById("s-jug").onchange = e => {
   document.getElementById("s-rondas").value = cuatro ? "10" : "8";
 };
 
+/* ── Tema: auto (sigue al sistema) · claro · oscuro ──────────── */
+const TEMAS = ["auto","light","dark"];
+const NOMTEMA = {auto:"◐ Tema: auto", light:"☀ Tema: claro", dark:"☾ Tema: oscuro"};
+function ponerTema(t){
+  if (t === "auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("tema").textContent = NOMTEMA[t];
+  try { localStorage.setItem(LLAVE + "-tema", t); } catch(e){}
+}
+let tema = "auto";
+try { tema = localStorage.getItem(LLAVE + "-tema") || "auto"; } catch(e){}
+if (!TEMAS.includes(tema)) tema = "auto";
+ponerTema(tema);
+document.getElementById("tema").onclick = () => {
+  tema = TEMAS[(TEMAS.indexOf(tema) + 1) % TEMAS.length];
+  ponerTema(tema);
+};
+
 /* ── Persistencia y arranque ─────────────────────────────────── */
 function guardar(){
   try { localStorage.setItem(LLAVE, JSON.stringify(DATOS)); } catch(e){}
@@ -1079,6 +1101,7 @@ def main():
       este navegador.</p>
     </div>
     <div class="acciones-cab">
+      <button class="btn" id="tema" aria-label="Cambiar tema">◐ Tema: auto</button>
       <button class="btn" id="reset">Descartar mis cambios</button>
     </div>
   </header>
