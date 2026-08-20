@@ -849,16 +849,6 @@ function jugarPartida(pacientes, guardia, cfg, r){
         const carta = robar();
         if (!carta) break;
         j.mano.push(carta);
-        if (carta.warn){
-          aplicarComplicacion(j, carta, descarte);
-          j.camas.forEach((c,i) => {
-            if (!c) return;
-            if (c.vida <= 0){
-              j.muertos.push(c.f); j.camas[i] = null;
-              if (sumario) j.sumarios += 1;
-            } else revisar(c, ronda);
-          });
-        }
       }
 
       // cerrar Sumarios: 2 cartas cada uno, botando lo que más sobra
@@ -886,6 +876,17 @@ function jugarPartida(pacientes, guardia, cfg, r){
           descarte.push(carta);
           cama.tiene[tipo] += aporte;
           revisar(cama, ronda);
+          // v0.17: la ⚠️ se dispara AL COLOCAR la carta, no al robarla
+          if (carta.warn){
+            aplicarComplicacion(j, carta, descarte);
+            j.camas.forEach((c,i) => {
+              if (!c) return;
+              if (c.vida <= 0){
+                j.muertos.push(c.f); j.camas[i] = null;
+                if (sumario) j.sumarios += 1;
+              } else revisar(c, ronda);
+            });
+          }
           colocada = true;
           if (carta.restriccion === "TURNO") bloqueado = true;
           break;

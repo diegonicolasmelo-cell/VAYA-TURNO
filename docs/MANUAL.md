@@ -84,9 +84,10 @@ Cada paciente pertenece a un sistema: 🫁 Respiratorio (4) · 🫀 Cardíaco (5
 | 🧑‍⚕️ Personal | 12 | Kinesiólogo Respiratorio 🫁, Pabellón Disponible 🔪 |
 | 🃏 Comodín | 3 | Cuentan como 1 del tipo que elijas. Nunca doblan. |
 
-**18 cartas llevan ⚠️ Complicación:** al robarlas te quedas la carta, pero
-resuelves de inmediato la complicación impresa en ella (§2.4). La carta que
-te salva te trae el problema.
+**18 cartas llevan ⚠️ Complicación:** robarlas no hace nada. Cuando **colocas**
+una sobre un paciente, el recurso surte efecto **y** resuelves la complicación
+impresa en ella (§2.4). La carta que te salva te trae el problema, y eres tú
+quien decide si vale la pena.
 
 **2 cartas con restricción:** el *TAC de Urgencia* exige un 🧑‍⚕️ ya puesto
 sobre el paciente; la *Resonancia con Cupo* te termina el Pase de Visita al
@@ -107,16 +108,18 @@ No se roban: se **compran** en El Pasillo (Canje: descarta 2 recursos → roba
 
 ### 2.4 Las Complicaciones ⚠️ y los Sumarios (6)
 
-**No hay mazo de eventos.** 17 de las 63 cartas del Mazo de Guardia llevan el
+**No hay mazo de eventos.** 18 de las 63 cartas del Mazo de Guardia llevan el
 sello **⚠️** y traen impresa **su propia complicación** — siempre la que ese
 recurso causa de verdad. La *Ventilación Mecánica ⚠️* trae la neumonía
 asociada a ventilación mecánica; el *Catéter Venoso ⚠️*, la bacteriemia; el
-*Antibiótico ⚠️*, la resistencia. Al robar la carta te la quedas **y**
-resuelves su complicación.
+*Antibiótico ⚠️*, la resistencia. **La complicación se dispara al colocar la
+carta sobre un paciente, no al robarla** — así que cada ⚠️ en tu mano es una
+decisión de costo-beneficio, no un castigo. Descartarla no dispara nada; si
+vuelve del descarte con una *Interconsulta*, vuelve a disparar.
 
 Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *EL MÁS
 GRAVE* · *EL QUE MEJOR VA* · *EL MÁS TRATADO* · *EL ✅ ESTABILIZADO* · *TÚ
-ELIGES* · *TU MANO*. Once de las dieciocho apuntan al que iba bien o al que
+ELIGES* · *TU MANO*. Doce de las dieciocho apuntan al que iba bien o al que
 ya tenía su ✅, y eso es deliberado: **lo que se complica en una UCI no es lo
 que ya estaba perdido, es lo que parecía resuelto.**
 

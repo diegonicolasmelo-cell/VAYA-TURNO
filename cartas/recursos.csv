@@ -7,7 +7,7 @@ R05,Anticoagulación,FARMACOS,💊,,no,,no,,,,,,,,1,Si sangra fue mucho. Si coag
 R06,Anticoagulación,FARMACOS,💊,,no,,si,,Sangrado,MAS_GRAVE,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
 R07,Hemoderivados,FARMACOS,💊,,no,,no,,,,,,,,1,"Llegaron. Sin la ficha, pero llegaron."
 R08,Noradrenalina,FARMACOS,💊,CARD,no,,no,,,,,,,,2,La presión sube. La del paciente y la tuya.
-R09,Noradrenalina,FARMACOS,💊,CARD,no,,si,,Taquicardia Ventricular,MAS_GRAVE,-1,PROCEDIMIENTOS,,Pierde 1 ❤️ y requiere 1 💉 adicional. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
+R09,Noradrenalina,FARMACOS,💊,CARD,no,,si,,Taquicardia Ventricular,MEJOR,-1,PROCEDIMIENTOS,,Pierde 1 ❤️ y requiere 1 💉 adicional. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
 R10,Broncodilatador en Nebulización,FARMACOS,💊,RESP,no,,no,,,,,,,,2,Sale más vapor que del baño turco. Algo tiene que estar llegando.
 R11,Anticonvulsivante,FARMACOS,💊,NEURO,no,,no,,,,,,,,1,Tercera dosis de carga. Vamos bien. Creo.
 R12,Anticonvulsivante,FARMACOS,💊,NEURO,no,,si,,Sobresedación,ESTABLE,0,PERSONAL,,Requiere 1 🧑‍⚕️ adicional. Tercera dosis de carga. Ya no despierta y hay que vigilarlo.,1,Tercera dosis de carga. Vamos bien. Creo.

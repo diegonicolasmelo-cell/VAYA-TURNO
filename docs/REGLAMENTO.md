@@ -326,11 +326,37 @@ complicación impresa**, y es siempre la complicación que ese recurso causa de
 verdad: la Ventilación Mecánica trae la neumonía asociada a ventilación
 mecánica, el catéter trae la bacteriemia, el antibiótico trae la resistencia.
 
-> **Al robar una carta ⚠️: te la quedas** (es un recurso normal y lo puedes
-> jugar) **y resuelves su complicación de inmediato.** Después sigues robando.
+> **La complicación se dispara al COLOCAR la carta sobre un paciente**, no al
+> robarla. Robarla no hace nada: es un recurso más en tu mano. En el momento
+> en que la pones sobre una cama, el recurso surte efecto **y** resuelves su
+> complicación de inmediato, en ese orden.
 
-Son **18 cartas de las 63** del Mazo de Guardia. Robas una cada cuatro cartas,
-más o menos: una por turno.
+Son **18 cartas de las 63** del Mazo de Guardia: una de cada cuatro que robas.
+
+**Por qué al jugarla y no al robarla.** Por tres motivos, en orden de peso:
+
+1. **Es auditable.** Robar es un acto privado: si la complicación se disparara
+   al robar, bastaría con callarse. Colocar una carta es un acto público, boca
+   arriba, delante de todos. La regla se hace cumplir sola.
+2. **Es verdad.** Un ventilador que nunca conectaste no puede dar una neumonía
+   asociada a ventilación mecánica.
+3. **Es una decisión.** Deja de ser un impuesto y pasa a ser la pregunta que se
+   hace de verdad en una UCI: *¿lo necesito lo suficiente como para aceptar lo
+   que trae?* A veces sí — tienes otro 🧑‍⚕️ en la mano y puedes pagar el
+   requisito extra. A veces conviene esperar la carta limpia.
+
+**Dos precisiones que van a salir en la mesa:**
+
+- **Descartar una ⚠️ no dispara nada.** Si la botas en el cierre de turno, si
+  te la roban de la mano o si la entregas en un Trueque, la complicación no
+  ocurre. Solo cuenta colocarla sobre un paciente.
+- **Si vuelve del descarte, vuelve a disparar.** Una carta ⚠️ rescatada con
+  *Interconsulta* (A04) resuelve su complicación otra vez al colocarla. No hay
+  cartas ⚠️ "ya gastadas": el riesgo viaja con la carta, siempre.
+
+> **En el Trueque, ojo.** El rival elige qué carta te entrega y tú no ves su
+> mano (§5.2). Si le pides un 💉 y tiene la pleurostomía con fuga aérea,
+> adivina cuál te va a pasar.
 
 ### 7.1 A quién le pasa: el 🎯 Objetivo
 
@@ -351,7 +377,7 @@ te queda, y a veces es la que importa.
 
 > **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
 > daño al paciente que ya diste por perdido y ninguna complicación dolería.
-> Y fíjate hacia dónde apuntan: **once de las dieciocho buscan al que iba
+> Y fíjate hacia dónde apuntan: **doce de las dieciocho buscan al que iba
 > bien** o al que ya tenía su ✅. Eso no es casualidad — es la tesis del juego.
 > Lo que se complica en una UCI no es lo que ya estaba perdido: es lo que
 > parecía resuelto.
@@ -367,7 +393,7 @@ sustituye por otro efecto ni se busca otro objetivo.
 | Antibiótico de Amplio Espectro | Resistencia Antibiótica | ✅ ESTABILIZADO |
 | Sedoanalgesia | Delirium en UCI | EL QUE MEJOR VA |
 | Anticoagulación | Sangrado | EL MÁS GRAVE |
-| Noradrenalina | Taquicardia Ventricular | EL MÁS GRAVE |
+| Noradrenalina | Taquicardia Ventricular | EL QUE MEJOR VA |
 | Anticonvulsivante | Sobresedación | ✅ ESTABILIZADO |
 | Analgesia Postoperatoria | Depresión Respiratoria | EL QUE MEJOR VA |
 | Radiografía de Tórax | Hallazgo Incidental | ✅ ESTABILIZADO |

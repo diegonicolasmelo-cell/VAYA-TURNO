@@ -81,6 +81,12 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 
 ### 1.3 Las 18 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
 
+> **v0.17: se disparan al COLOCAR la carta, no al robarla** (`DISENO.md` §4f).
+> Lo nuevo a vigilar: (a) la línea *cobarde* — el que evita jugar ⚠️ egresa
+> menos pero protege su bonus de cierre; (b) si un humano cronometra sus ⚠️
+> para que el 🎯 falle, el 43% de Gravedad III medido se queda corto;
+> (c) si el Trueque muere porque nadie quiere recibir cartas malditas.
+
 > **v0.14: se eliminó el Mazo de Eventos Centinela.** Cada ⚠️ trae impresa la
 > complicación que ese recurso causa de verdad (`REGLAMENTO.md` §7). El
 > simulador ya no las estima con una abstracción: **aplica las 18 exactas**,
@@ -92,7 +98,7 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 >   (nombre + tipo + chip + 🎯 + párrafo). Si frenan el robo, hay que acortar
 >   los textos.
 > - ¿Se echa de menos el teatro de voltear una carta del mazo maldito?
-> - Once de dieciocho apuntan al que iba bien. ¿Se siente cruel-divertido o
+> - Doce de dieciocho apuntan al que iba bien. ¿Se siente cruel-divertido o
 >   cruel-injusto?
 > - Las 4 huérfanas (*Corte de Suministro*, *Paro*, *Hemorragia Masiva*,
 >   *Cambio de Turno Caótico*) esperan en `cartas/retirados/`: son candidatas

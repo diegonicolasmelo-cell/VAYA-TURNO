@@ -289,16 +289,6 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                 if carta is None:
                     break
                 j.mano.append(carta)
-                if carta["warn"]:
-                    aplicar_complicacion(j, carta, descarte)
-                    for i, c in enumerate(j.camas):
-                        if c and c.vida <= 0:
-                            j.muertos.append(c.f)
-                            j.camas[i] = None
-                            if sumario:
-                                j.sumarios += 1
-                        elif c:
-                            c.revisar(ronda)
 
             # 4b. SUMARIOS: cerrar cada uno cuesta 2 cartas. La IA paga
             # apenas puede, botando los tipos que más le sobran.
@@ -327,6 +317,18 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     descarte.append(carta)
                     cama.tiene[tipo] += aporte
                     cama.revisar(ronda)
+                    # v0.17: la complicación ⚠️ se dispara AL COLOCAR la carta
+                    # sobre un paciente, no al robarla (REGLAMENTO §7).
+                    if carta["warn"]:
+                        aplicar_complicacion(j, carta, descarte)
+                        for i2, c2 in enumerate(j.camas):
+                            if c2 and c2.vida <= 0:
+                                j.muertos.append(c2.f)
+                                j.camas[i2] = None
+                                if sumario:
+                                    j.sumarios += 1
+                            elif c2:
+                                c2.revisar(ronda)
                     jugadas += 1
                     colocada = True
                     if carta.get("restriccion") == "TURNO":

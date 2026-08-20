@@ -427,6 +427,75 @@ Lecciones:
 
 ---
 
+### 4f. La ⚠️ se dispara al jugar, no al robar (v0.17)
+
+**El motivo decisivo no fue de diseño, fue de integridad.** Robar una carta es
+un acto privado: si la complicación se dispara al robar, cualquiera puede
+callarse y nadie se entera hasta varios turnos después, si es que se entera.
+Colocar una carta es un acto público, boca arriba. La regla pasa a hacerse
+cumplir sola. Ese argumento pesa más que la ficción (un ventilador que nunca
+conectaste no puede dar NAVM) y más que la información (dejas de anunciar lo
+que llevas en la mano).
+
+**Lo medido, antes de calibrar** — 5.000 partidas, semilla 42:
+
+| Modelo | Puntaje | Altas | Gravedad III | "No se me fue nadie" |
+|---|---:|---:|---:|---:|
+| Al robar (v0.16) | 7,4 | 2,82 | 43% | 10,2% |
+| Al jugar · IA normal | 7,0 | 2,69 | 39% | 11,9% |
+| Al jugar · IA que las evita | 7,0 | 2,68 | 39% | 12,1% |
+| Al jugar · IA que **nunca** las juega | 6,2 | 2,42 | 35% | 13,7% |
+| *Al robar · nunca las juega (control)* | *2,8* | *1,89* | *24%* | *3,5%* |
+
+**Disparar al jugar endurece el juego.** Es contraintuitivo y es el hallazgo
+central: al robar, la complicación estalla en la Entrega de Turno, con el
+tablero flaco y muchos pacientes sin recursos encima — y falla sola (te pide
+descartar un 💊 que no está, busca al ✅ y no hay). Al jugar, estalla en el
+Pase de Visita, con el tablero en su punto más poblado y más avanzado. Máxima
+superficie.
+
+**Los dos riesgos que parecían obvios no existen:**
+
+1. **Acaparar no funciona** — el límite de mano de 5 lo impide. La IA evasiva
+   rinde 2,68 altas contra 2,69 de la ingenua: ruido.
+2. **No se vuelven cartas muertas** — negarse a jugarlas cuesta 0,8 puntos.
+   Necesitas el recurso más de lo que te molesta la complicación, que es
+   exactamente la decisión que la regla quiere provocar.
+
+Sí aparece una línea **cobarde**: el que se niega sube su "No se me fue nadie"
+de 10,2% a 13,7% y salva 84% de los Gravedad I. No domina (6,2 contra 7,0),
+pero existe. A vigilar en mesa.
+
+**Calibración.** Gravedad III cayó a 39%, bajo la banda 40–50%. Se corrigió con
+**un solo campo**: *Taquicardia Ventricular* (Noradrenalina ⚠️) pasa de 🎯 EL
+MÁS GRAVE a 🎯 EL QUE MEJOR VA. Clínicamente es incluso mejor — la arritmia
+aparece cuando estás bajando la noradrenalina al que iba saliendo. Con 8.000
+partidas: salvamento 66% · altas 2,71 · **Gravedad III 43%** · "No se me fue
+nadie" 13,7% · puntaje 7,4. Las cinco métricas en banda.
+
+Se descartaron alternativas que daban 45% de Gravedad III porque empujaban
+"No se me fue nadie" a 15,5%, fuera de banda: la guardia limpia tiene que
+seguir siendo una hazaña.
+
+**Lo que el simulador no puede responder.** La IA juega la ⚠️ cuando es la
+mejor carta. Un humano la **cronometraría**: se guarda la de 🎯 ESTABILIZADO
+hasta no tener ningún ✅ en mesa y la complicación se pierde en el aire. Al
+controlar el *cuándo*, el jugador controla el estado de tablero que la carta
+va a leer, y eso erosiona el 🎯 (§7). El 43% es un **piso**, no una
+predicción. Solo la mesa lo resuelve.
+
+Lecciones:
+
+1. **Una regla que depende de un acto privado no es una regla, es un pacto de
+   honor.** Antes de discutir si un disparo es temático, pregúntate si es
+   auditable.
+2. **Mover un efecto "más tarde" no lo suaviza: lo concentra donde hay más
+   blanco.** La intuición decía más fácil; la medición dijo lo contrario.
+3. **El límite de mano ya era la defensa contra el acaparamiento.** No hizo
+   falta regla nueva: la restricción que ya existía cubría el hueco.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del
