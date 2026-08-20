@@ -1,5 +1,7 @@
-pnp.html
-__pycache__/
-*.pyc
+# Artefactos generados desde los CSV — se rehacen con tools/
 pnp.html
 taller.html
+*-imprimible.pdf
+
+__pycache__/
+*.pyc
