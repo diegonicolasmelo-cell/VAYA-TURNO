@@ -9,6 +9,13 @@ especializada: recibes más de un tipo de paciente y menos del resto.
 
 ---
 
+>  ⚠️ **Documento parcialmente desactualizado (v0.16).** Las recetas de abajo
+> todavía hablan de un **Mazo de Eventos Centinela** separado, que se retiró en
+> v0.14: hoy cada complicación va impresa en la carta de recurso ⚠️ que la
+> causa (`REGLAMENTO.md` §7). Los pasos que dicen "retira N Eventos Centinela"
+> hay que rediseñarlos como "cambia la complicación impresa de N recursos ⚠️".
+> Los conteos de recursos y pacientes sí están al día.
+
 ## 1. El modelo: reemplazar, no engordar
 
 **El mazo nunca crece.** Una expansión sustituye cartas de la caja base en el
@@ -18,7 +25,7 @@ específicos, eventos por eventos.
 **Por qué así y no acumulando:**
 
 - El balance está calibrado sobre proporciones (63 recursos, 26 pacientes,
-  17 ⚠️, 21 específicos). Si el mazo engorda, hay que recalibrar el robo en
+  18 ⚠️, 23 específicos). Si el mazo engorda, hay que recalibrar el robo en
   cada expansión y las partidas se alargan.
 - Temáticamente es lo que pasa de verdad: cuando abren la unidad de
   neurocríticos, no te llegan *más* pacientes — te llegan **otros**.
@@ -32,7 +39,7 @@ sistema:
 | Paso | Qué haces | Resultado |
 |---|---|---|
 | 1 | Retira **12 pacientes no-🧠** del mazo base y mete los 12 🧠 de la expansión | 26 pacientes · 12 neuro (46%) |
-| 2 | Retira **6 recursos específicos de otros sistemas** y mete los 6 🧠 | 63 recursos · 21 específicos · neuro pasa de 3 a 9 |
+| 2 | Retira **6 recursos específicos de otros sistemas** y mete los 6 🧠 | 63 recursos · 23 específicos · neuro pasa de 4 a 10 |
 | 3 | Retira **6 Eventos Centinela `GENERAL`** y mete los 6 🧠 | 28 eventos · 9 neuro |
 | 4 | Añade el avatar y las 2 acciones | Estos sí suman: son pocos y no mueven la economía |
 

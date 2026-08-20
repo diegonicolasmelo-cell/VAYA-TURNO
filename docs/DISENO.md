@@ -66,14 +66,15 @@ derivó de la demanda real agregada de las 26 cartas de paciente:
 
 | Tipo | Demanda | % | En el mazo | % |
 |---|---:|---:|---:|---:|
-| 💊 Fármacos | 45 | 34% | 20 | 33% |
-| 🩻 Imagen | 32 | 24% | 14 | 23% |
-| 📈 Monitoreo | 30 | 23% | 13 | 22% |
-| 🧑‍⚕️ Personal | 25 | 19% | 13 | 22% |
+| 💊 Fármacos | 44 | 33% | 20 | 33% |
+| 🩻 Imagen | 31 | 23% | 14 | 23% |
+| 💉 Procedimientos | 31 | 23% | 14 | 23% |
+| 🧑‍⚕️ Personal | 26 | 20% | 12 | 20% |
 
-Personal está deliberadamente **sobre-representado en 3 puntos** porque es el
-único tipo que las cartas de ataque destruyen (*Vacaciones*, *Licencia*). Sin
-ese colchón, un solo ataque se volvía letal.
+Desde v0.16 las cuatro plazas van **parejas** (ratio oferta/demanda 0,452–0,462,
+antes 0,44–0,48). El colchón que Personal tenía por ser el único tipo que las
+cartas de ataque destruyen (*Vacaciones*, *Licencia*) resultó innecesario: al
+medirlo, quitarlo no movió ninguna métrica fuera de banda.
 
 > **Si añades pacientes nuevos, vuelve a correr `tools/simular.py`.** Cambiar
 > la demanda sin cambiar el mazo desbalancea el juego en silencio.
@@ -365,6 +366,64 @@ jugadores, configuración estándar.
 > Reproducirlo: el parche del simulador está en el histórico de la sesión; la
 > forma de medir (un jugador con la habilidad contra dos sin ella, misma mesa,
 > misma semilla) es lo que hay que repetir para las otras cinco.
+
+---
+
+### 4e. Soporte Vital → 💉 Procedimientos (v0.16)
+
+**El problema real no era de balance, era de nombre.** La categoría se llamaba
+`MONITOREO` en el código, "Soporte Vital" en las cartas, "SOSTENER" en este
+documento y "monitoreo" en el README. Cuatro nombres para una plaza es el
+síntoma de una plaza sin concepto.
+
+Al auditar su contenido apareció el motivo: **11 de sus 14 copias ya eran
+procedimientos invasivos** (línea arterial, catéter venoso central, ventilación
+mecánica, gases arteriales). Solo *Monitor Multiparámetro* era monitoreo de
+verdad. No se creó una categoría nueva: se le puso el nombre correcto a una que
+llevaba dos años mal rotulada.
+
+**Por qué esta y no Imagen** (la otra candidata):
+
+| | Reemplazar Soporte Vital | Reemplazar Imagen |
+|---|---|---|
+| Contenido reciclable | 11 de 14 copias | 0 de 14 |
+| Ilustraciones perdidas | 0 (VM y Carro de Paro sobreviven) | 3 terminadas |
+| Sinergia perdida | 0 (Gases Arteriales sigue siendo punción) | CARD y NEURO pierden una fuente |
+| Verbo perdido | "SOSTENER", que nunca fue un verbo del jugador | SABER — el único diagnóstico |
+
+**Lo medido.** El renombrado puro es **idénticamente neutro**: 3.000 partidas
+con la misma semilla sobre una copia renombrada devolvieron los mismos números
+hasta el último dígito. Lo que sí movía el balance era el cambio de contenido,
+porque las cartas que entran llevan sinergia y la que sale no la tenía.
+
+| | antes | después | banda |
+|---|---:|---:|---|
+| Salvamento | 66% | 66% | 55–70% |
+| Altas por jugador | 2,82 | 2,83 | 2–3 |
+| Gravedad III salvada | 43% | 43% | 40–50% |
+| "No se me fue nadie" | 10,5% | 10,3% | 5–15% |
+
+**Los cambios de contenido.** Sale *Monitor Multiparámetro* (2 copias, sin
+sinergia). Entran *Pleurostomía* (RESP, ⚠️ **Fuga Aérea Persistente**, −1 ❤️,
+🎯 ESTABLE) y *Punción Lumbar* (NEURO). *Carro de Paro* pasa a llamarse
+*Reanimación* — el acto, no el mueble; conserva su ilustración porque el arte
+se resuelve por ID. El mazo sigue en 63 copias.
+
+**El equilibrio de requisitos.** Dos puntos movidos, ambos con lógica clínica:
+*El Que Googleó Sus Síntomas* cambia 1 🩻 por 1 🧑‍⚕️ (necesita que alguien le
+hable, no un segundo TAC) y *Pielonefritis Complicada* cambia 1 💊 por 1 💉
+(una pielonefritis obstructiva se drena). La demanda total no cambia, así que
+`total_recursos` y `puntos_alta` siguen válidos.
+
+Lecciones:
+
+1. **Una categoría que nadie sabe nombrar es una categoría sin concepto.** La
+   deriva terminológica no era descuido: era el diagnóstico.
+2. **Renombrar es gratis; recomponer no.** Separar las dos operaciones y medir
+   solo la segunda ahorró una recalibración entera.
+3. **Emparejar los ratios costó dos puntos de requisito.** El colchón de
+   Personal (3 puntos, justificado en su día por las cartas de ataque) resultó
+   ser folklore: al quitarlo, ninguna métrica se movió de banda.
 
 ---
 

@@ -37,7 +37,7 @@ Las cuatro plazas, en abstracto:
 | **SABER** | Reducir incertidumbre: ver qué tiene | 🩻 Imagen |
 | **ACTUAR** | Intervenir directo sobre el cuerpo | 💊 Fármacos |
 | **ACOMPAÑAR** | Tiempo humano cualificado | 🧑‍⚕️ Personal |
-| **SOSTENER** | Tecnología que mantiene el estado | 📈 Soporte Vital |
+| **INTERVENIR** | Acto técnico que deja algo puesto | 💉 Procedimientos |
 
 **No hay valores numéricos.** Se cuentan íconos, no se suman puntos. Esa es la
 diferencia entre este motor y la versión anterior del juego, y es lo que lo
@@ -144,7 +144,7 @@ funcionalidad que no haber empezado.
 | SABER | 🔍 **Evaluación** | Goniometría, test funcional, eco musculoesquelética, RM |
 | ACTUAR | 💊 **Analgesia** | AINE, infiltración, crioterapia, punción seca |
 | ACOMPAÑAR | 🙌 **Terapia** | Terapia manual, ejercicio supervisado, el kine, el equipo |
-| SOSTENER | ⚙️ **Agentes y órtesis** | Ultrasonido, onda corta, TENS, férula, bastón |
+| INTERVENIR | ⚙️ **Agentes y órtesis** | Ultrasonido, onda corta, TENS, férula, bastón |
 
 *Subtipos para la sinergia:* hombro, rodilla, columna, cadera, mano.
 
@@ -160,7 +160,7 @@ Senior que trata todo con manos, el que manda 40 ejercicios por WhatsApp.
 
 SABER = radiografía y sondaje · ACTUAR = procedimiento (obturación,
 endodoncia, exodoncia) · ACOMPAÑAR = sillón, higienista, tiempo de box ·
-SOSTENER = prótesis, ortodoncia, férula.
+INTERVENIR = prótesis, ortodoncia, férula.
 
 *Subtipos:* caries, periodoncia, endodoncia, ortodoncia, cirugía.
 *Consolidación:* el control a los seis meses.
@@ -169,7 +169,7 @@ SOSTENER = prótesis, ortodoncia, férula.
 **El reloj: la motivación.** A cero, vuelve a lo de antes.
 
 SABER = antropometría y exámenes · ACTUAR = plan alimentario ·
-ACOMPAÑAR = consulta y seguimiento · SOSTENER = suplementación.
+ACOMPAÑAR = consulta y seguimiento · INTERVENIR = suplementación y soporte enteral.
 
 Es el tema más difícil de los cuatro: el fracaso es lento y poco dramático.
 Necesitaría un reloj más largo y probablemente una partida más corta.
@@ -178,7 +178,7 @@ Necesitaría un reloj más largo y probablemente una partida más corta.
 **El reloj: la ventana.** A cero, se cronifica.
 
 SABER = evaluación deglución/voz/lenguaje · ACTUAR = maniobras y ejercicios ·
-ACOMPAÑAR = sesión y familia entrenada · SOSTENER = espesantes, adaptaciones,
+ACOMPAÑAR = sesión y familia entrenada · INTERVENIR = espesantes, adaptaciones,
 comunicación aumentativa.
 
 ---

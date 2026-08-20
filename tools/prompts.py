@@ -119,7 +119,7 @@ def gen_prompts_recursos(datos):
     tipo_etiqueta = {
         "FARMACOS": "Fármacos",
         "IMAGEN": "Imaging",
-        "MONITOREO": "Monitoring",
+        "PROCEDIMIENTOS": "Procedures",
         "PERSONAL": "Staff",
         "COMODIN": "Wildcard"
     }

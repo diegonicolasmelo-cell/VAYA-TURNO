@@ -9,7 +9,7 @@ arruinarle el turno al colega de al lado.**
 
 Eres médico a cargo de una UCI de tres camas. Los pacientes llegan solos, se
 deterioran solos y no esperan. Para salvarlos necesitas cuatro cosas que nunca
-hay al mismo tiempo: **🩻 imágenes, 💊 fármacos, 🧑‍⚕️ personal y 📈 monitoreo**.
+hay al mismo tiempo: **🩻 imágenes, 💊 fármacos, 🧑‍⚕️ personal y 💉 procedimientos**.
 
 No vas a poder salvarlos a todos. Eso no es un defecto del juego: **eso es
 triage.** Elige a quién salvas, deja ir al resto, y — mientras tanto — manda a

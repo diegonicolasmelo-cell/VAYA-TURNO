@@ -79,11 +79,11 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 | **El Director del Hospital** | Ídem: 1×partida y defensivo. |
 | **El Diostor** | Depende de cuántos ⚠️ robe. Frecuencia 1×ronda puede ser mucho o nada. |
 
-### 1.3 Las 17 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
+### 1.3 Las 18 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
 
 > **v0.14: se eliminó el Mazo de Eventos Centinela.** Cada ⚠️ trae impresa la
 > complicación que ese recurso causa de verdad (`REGLAMENTO.md` §7). El
-> simulador ya no las estima con una abstracción: **aplica las 17 exactas**,
+> simulador ya no las estima con una abstracción: **aplica las 18 exactas**,
 > así que por primera vez el número de balance incluye los eventos de verdad.
 > Calibración completa en `DISENO.md` §4c.
 >
@@ -92,7 +92,7 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 >   (nombre + tipo + chip + 🎯 + párrafo). Si frenan el robo, hay que acortar
 >   los textos.
 > - ¿Se echa de menos el teatro de voltear una carta del mazo maldito?
-> - Diez de diecisiete apuntan al que iba bien. ¿Se siente cruel-divertido o
+> - Once de dieciocho apuntan al que iba bien. ¿Se siente cruel-divertido o
 >   cruel-injusto?
 > - Las 4 huérfanas (*Corte de Suministro*, *Paro*, *Hemorragia Masiva*,
 >   *Cambio de Turno Caótico*) esperan en `cartas/retirados/`: son candidatas

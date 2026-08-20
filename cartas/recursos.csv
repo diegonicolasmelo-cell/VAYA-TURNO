@@ -7,31 +7,32 @@ R05,Anticoagulación,FARMACOS,💊,,no,,no,,,,,,,,1,Si sangra fue mucho. Si coag
 R06,Anticoagulación,FARMACOS,💊,,no,,si,,Sangrado,MAS_GRAVE,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
 R07,Hemoderivados,FARMACOS,💊,,no,,no,,,,,,,,1,"Llegaron. Sin la ficha, pero llegaron."
 R08,Noradrenalina,FARMACOS,💊,CARD,no,,no,,,,,,,,2,La presión sube. La del paciente y la tuya.
-R09,Noradrenalina,FARMACOS,💊,CARD,no,,si,,Taquicardia Ventricular,MAS_GRAVE,-1,MONITOREO,,Pierde 1 ❤️ y requiere 1 📈 adicional. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
+R09,Noradrenalina,FARMACOS,💊,CARD,no,,si,,Taquicardia Ventricular,MAS_GRAVE,-1,PROCEDIMIENTOS,,Pierde 1 ❤️ y requiere 1 💉 adicional. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
 R10,Broncodilatador en Nebulización,FARMACOS,💊,RESP,no,,no,,,,,,,,2,Sale más vapor que del baño turco. Algo tiene que estar llegando.
 R11,Anticonvulsivante,FARMACOS,💊,NEURO,no,,no,,,,,,,,1,Tercera dosis de carga. Vamos bien. Creo.
 R12,Anticonvulsivante,FARMACOS,💊,NEURO,no,,si,,Sobresedación,ESTABLE,0,PERSONAL,,Requiere 1 🧑‍⚕️ adicional. Tercera dosis de carga. Ya no despierta y hay que vigilarlo.,1,Tercera dosis de carga. Vamos bien. Creo.
 R13,Insulina en Bomba,FARMACOS,💊,METAB,no,,no,,,,,,,,2,Cada dos horas un hemoglucotest. Cada dos horas.
 R14,Analgesia Postoperatoria,FARMACOS,💊,QUIR,no,,no,,,,,,,,2,'¿Del uno al diez?' 'Quince.' Anotado: quince.
-R15,Analgesia Postoperatoria,FARMACOS,💊,QUIR,no,,si,,Depresión Respiratoria,MEJOR,0,MONITOREO,,Requiere 1 📈 adicional. Le dimos quince. Ahora hay que contarle las respiraciones.,1,'¿Del uno al diez?' 'Quince.' Anotado: quince.
+R15,Analgesia Postoperatoria,FARMACOS,💊,QUIR,no,,si,,Depresión Respiratoria,MEJOR,0,PROCEDIMIENTOS,,Requiere 1 💉 adicional. Le dimos quince. Ahora hay que contarle las respiraciones.,1,'¿Del uno al diez?' 'Quince.' Anotado: quince.
 R16,Radiografía de Tórax,IMAGEN,🩻,,no,,no,,,,,,,,3,"Rotada, penetrada y en espiración. Se informa igual."
 R17,Radiografía de Tórax,IMAGEN,🩻,,no,,si,,Hallazgo Incidental,ESTABLE,0,,IMAGEN,Descarta 1 recurso 🩻 suyo. Ya lo dábamos de alta. Apareció una sombra que nadie buscaba.,1,"Rotada, penetrada y en espiración. Se informa igual."
 R18,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,no,,,,,,,,3,"Veo algo. No sé qué es, pero lo veo."
 R19,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,si,,Falso Positivo,MEJOR,0,,IMAGEN,"Descarta 1 recurso 🩻 suyo. La hizo el que estaba, no el que sabía. Hay que repetirla.",1,"Veo algo. No sé qué es, pero lo veo."
 R20,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,no,,,,,,,,2,El traslado es más peligroso que la enfermedad. Vamos igual.
-R21,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,si,,Nefropatía por Contraste,MEJOR,0,MONITOREO,,Requiere 1 📈 adicional. El contraste pasó. La creatinina también.,1,El traslado es más peligroso que la enfermedad. Vamos igual.
+R21,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,si,,Nefropatía por Contraste,MEJOR,0,PROCEDIMIENTOS,,Requiere 1 💉 adicional. El contraste pasó. La creatinina también.,1,El traslado es más peligroso que la enfermedad. Vamos igual.
 R22,Angio-TAC,IMAGEN,🩻,CARD,no,,no,,,,,,,,2,"Contraste, creatinina, y una fe enorme."
 R23,Resonancia con Cupo,IMAGEN,🩻,NEURO,no,TURNO,no,,,,,,,,1,Existe. La han visto. Hay testigos.
-R24,Línea Arterial,MONITOREO,📈,,no,,no,,,,,,,,2,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
-R25,Línea Arterial,MONITOREO,📈,,no,,si,,Isquemia Distal,ELIGES,0,,MONITOREO,Descarta 1 recurso 📈 suyo. La mano quedó fría. Hubo que retirarla.,1,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
-R26,Catéter Venoso Central,MONITOREO,📈,,no,,no,,,,,,,,2,"Ecoguiado, estéril y con público."
-R27,Catéter Venoso Central,MONITOREO,📈,,no,,si,,Bacteriemia por Catéter,MEJOR,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
-R28,Monitor Multiparámetro,MONITOREO,📈,,no,,no,,,,,,,,2,Alarma cada once segundos. Ya nadie la escucha.
-R29,Carro de Paro,MONITOREO,📈,,no,,no,,,,,,,,1,Revisado el martes. Por alguien. Supuestamente.
-R30,Ventilación Mecánica,MONITOREO,📈,,no,,no,,,,,,,,2,Modo controlado. El paciente y el ventilador aún negocian.
-R31,Ventilación Mecánica,MONITOREO,📈,,no,,si,,Neumonía Asociada a VM,MAS_TRATADO,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
-R32,Gases Arteriales,MONITOREO,📈,METAB,no,,no,,,,,,,,1,pH 7.09. Alguien diga algo inteligente.
-R33,Gases Arteriales,MONITOREO,📈,METAB,no,,si,,Muestra Hemolizada,ELIGES,0,,MONITOREO,"Descarta 1 recurso 📈 suyo. Se tomó bien, se rotuló bien, se agitó como coctelera.",1,pH 7.09. Alguien diga algo inteligente.
+R24,Línea Arterial,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
+R25,Línea Arterial,PROCEDIMIENTOS,💉,,no,,si,,Isquemia Distal,ELIGES,0,,PROCEDIMIENTOS,Descarta 1 recurso 💉 suyo. La mano quedó fría. Hubo que retirarla.,1,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
+R26,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,"Ecoguiado, estéril y con público."
+R27,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,si,,Bacteriemia por Catéter,MEJOR,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
+R29,Reanimación,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,1,El carro se revisó el martes. Por alguien. Supuestamente.
+R30,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,Modo controlado. El paciente y el ventilador aún negocian.
+R31,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,si,,Neumonía Asociada a VM,MAS_TRATADO,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
+R32,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,no,,,,,,,,1,pH 7.09. Alguien diga algo inteligente.
+R33,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,si,,Muestra Hemolizada,ELIGES,0,,PROCEDIMIENTOS,"Descarta 1 recurso 💉 suyo. Se tomó bien, se rotuló bien, se agitó como coctelera.",1,pH 7.09. Alguien diga algo inteligente.
+R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,si,,Fuga Aérea Persistente,ESTABLE,-1,,,"Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.",1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
+R45,Punción Lumbar,PROCEDIMIENTOS,💉,NEURO,no,,no,,,,,,,,1,Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.
 R34,Enfermera de UCI,PERSONAL,🧑‍⚕️,,no,,no,,,,,,,,3,Sabe más que tú. Te lo dirá con mucha educación.
 R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,no,,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.
 R36,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,si,,El Turno Veinticuatro,MAS_GRAVE,0,FARMACOS,,Requiere 1 💊 adicional — aunque juegues esta carta sobre otro paciente. Lleva veinticuatro horas de pie. Confundió dos bombas.,1,Sostiene la unidad entera. Y la camilla. Y al interno.

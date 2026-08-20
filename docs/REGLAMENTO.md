@@ -26,7 +26,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 |---|---:|---|
 | Cartas de **Personaje** | 6 | Un médico por jugador |
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
-| Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 📈 Soporte Vital · 🃏 Comodín |
+| Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 💉 Procedimientos · 🃏 Comodín |
 | Cartas de **Protocolo** (Acciones) | 30 | Mazo aparte. Se compran con el **Canje** |
 | Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
@@ -46,7 +46,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.1, *Entrega de Turno*) y les pone las fichas ❤️ que indique la carta.
-3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus 17 ⚠️ adentro).
+3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus 18 ⚠️ adentro).
    Baraja aparte el **Mazo de Protocolos** (las 30 Acciones).
 4. Cada jugador roba **4 cartas** de mano inicial.
 5. Empieza quien haya hecho el turno de noche más reciente. Si nadie lo
@@ -79,7 +79,7 @@ Cada carta de paciente tiene:
 │  ─────────────────────────  │
 │  Requiere:                  │
 │   🩻 ×1   💊 ×3             │   ← Lo que necesita para estabilizarse
-│   📈 ×2   🧑‍⚕️ ×1             │
+│   💉 ×2   🧑‍⚕️ ×1             │
 │  ─────────────────────────  │
 │  Alta: +5      Fallece: −2  │
 │  "La hora dorada empezó     │
@@ -200,7 +200,7 @@ reunión. Aquí pasan las dos cosas turbias del juego:
     cambiando lo que te sobra por un favor. Pagas con azar: no sabes qué
     Protocolo te va a tocar.
   - **Trueque** (con un colega): ofrece **2 recursos de tu mano** a un rival y
-    pide **un tipo** de recurso (🩻, 💊, 🧑‍⚕️ o 📈). Si acepta, te entrega
+    pide **un tipo** de recurso (🩻, 💊, 🧑‍⚕️ o 💉). Si acepta, te entrega
     **1 carta de ese tipo de su mano** — él elige cuál, tú no ves su mano — y
     se queda tus 2. Puede negarse, y si nadie acepta no pierdes nada: aún
     puedes hacer el Canje. Pagas con política: le acabas de regalar ventaja
@@ -329,7 +329,7 @@ mecánica, el catéter trae la bacteriemia, el antibiótico trae la resistencia.
 > **Al robar una carta ⚠️: te la quedas** (es un recurso normal y lo puedes
 > jugar) **y resuelves su complicación de inmediato.** Después sigues robando.
 
-Son **17 cartas de las 63** del Mazo de Guardia. Robas una cada cuatro cartas,
+Son **18 cartas de las 63** del Mazo de Guardia. Robas una cada cuatro cartas,
 más o menos: una por turno.
 
 ### 7.1 A quién le pasa: el 🎯 Objetivo
@@ -351,7 +351,7 @@ te queda, y a veces es la que importa.
 
 > **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
 > daño al paciente que ya diste por perdido y ninguna complicación dolería.
-> Y fíjate hacia dónde apuntan: **diez de las diecisiete buscan al que iba
+> Y fíjate hacia dónde apuntan: **once de las dieciocho buscan al que iba
 > bien** o al que ya tenía su ✅. Eso no es casualidad — es la tesis del juego.
 > Lo que se complica en una UCI no es lo que ya estaba perdido: es lo que
 > parecía resuelto.
@@ -360,7 +360,7 @@ Si la complicación no puede aplicarse (pide descartar un 💊 y ese paciente no
 tiene ninguno; o no tienes pacientes en cama), **no pasa nada**. No se
 sustituye por otro efecto ni se busca otro objetivo.
 
-### 7.2 Las diecisiete
+### 7.2 Las dieciocho
 
 | Carta ⚠️ | Complicación | 🎯 |
 |---|---|---|
@@ -377,6 +377,7 @@ sustituye por otro efecto ni se busca otro objetivo.
 | Catéter Venoso Central | Bacteriemia por Catéter | EL QUE MEJOR VA |
 | **Ventilación Mecánica** | **Neumonía Asociada a VM** | EL MÁS TRATADO |
 | Gases Arteriales | Muestra Hemolizada | TÚ ELIGES |
+| Pleurostomía | Fuga Aérea Persistente | ✅ ESTABILIZADO |
 | Técnico en Enfermería | El Turno Veinticuatro | EL MÁS GRAVE |
 | Gestor de Camas | Presión de Camas | EL QUE MEJOR VA |
 | Pabellón Disponible | Pabellón Suspendido | EL QUE MEJOR VA |

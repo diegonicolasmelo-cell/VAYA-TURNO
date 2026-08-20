@@ -22,7 +22,7 @@ recursos** que nunca alcanzan para todos:
 | Imagen | 🩻 | Radiografías, ecografías, TAC |
 | Fármacos | 💊 | Antibióticos, sedación, drogas vasoactivas |
 | Personal | 🧑‍⚕️ | Enfermeras, técnicos, kinesiólogos |
-| Soporte Vital | 📈 | Monitores, ventilación, líneas |
+| Procedimientos | 💉 | Vías centrales, intubación, punciones, drenajes |
 
 **No vas a salvarlos a todos.** Eso no es un defecto: es triage. El juego
 consiste en elegir a quién salvas, dejar ir al resto con dignidad, y —
@@ -80,11 +80,11 @@ Cada paciente pertenece a un sistema: 🫁 Respiratorio (4) · 🫀 Cardíaco (5
 |---|---:|---|
 | 💊 Fármacos | 20 | Noradrenalina 🫀, Broncodilatador 🫁, Anticonvulsivante 🧠, Insulina 🧪, Analgesia Post-op 🔪… |
 | 🩻 Imagen | 14 | Angio-TAC 🫀, Resonancia con Cupo 🧠 |
-| 📈 Soporte Vital | 14 | Gases Arteriales 🧪 |
+| 💉 Procedimientos | 14 | Gases Arteriales 🧪, Pleurostomía 🫁, Punción Lumbar 🧠 |
 | 🧑‍⚕️ Personal | 12 | Kinesiólogo Respiratorio 🫁, Pabellón Disponible 🔪 |
 | 🃏 Comodín | 3 | Cuentan como 1 del tipo que elijas. Nunca doblan. |
 
-**17 cartas llevan ⚠️ Complicación:** al robarlas te quedas la carta, pero
+**18 cartas llevan ⚠️ Complicación:** al robarlas te quedas la carta, pero
 resuelves de inmediato la complicación impresa en ella (§2.4). La carta que
 te salva te trae el problema.
 
@@ -116,7 +116,7 @@ resuelves su complicación.
 
 Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *EL MÁS
 GRAVE* · *EL QUE MEJOR VA* · *EL MÁS TRATADO* · *EL ✅ ESTABILIZADO* · *TÚ
-ELIGES* · *TU MANO*. Diez de las diecisiete apuntan al que iba bien o al que
+ELIGES* · *TU MANO*. Once de las dieciocho apuntan al que iba bien o al que
 ya tenía su ✅, y eso es deliberado: **lo que se complica en una UCI no es lo
 que ya estaba perdido, es lo que parecía resuelto.**
 

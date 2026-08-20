@@ -22,8 +22,8 @@ import os
 import random
 from collections import Counter
 
-TIPOS = ("IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO")
-COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per", "MONITOREO": "mon"}
+TIPOS = ("IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS")
+COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per", "PROCEDIMIENTOS": "proc"}
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 

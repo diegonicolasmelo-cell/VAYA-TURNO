@@ -21,9 +21,9 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARTAS = os.path.join(RAIZ, "cartas")
 
 SIM = {"IMAGEN": "🩻", "FARMACOS": "💊", "PERSONAL": "🧑‍⚕️",
-       "MONITOREO": "📈", "COMODIN": "🃏"}
+       "PROCEDIMIENTOS": "💉", "COMODIN": "🃏"}
 NOM = {"IMAGEN": "Imagen", "FARMACOS": "Fármacos", "PERSONAL": "Personal",
-       "MONITOREO": "Soporte Vital", "COMODIN": "Comodín"}
+       "PROCEDIMIENTOS": "Procedimientos", "COMODIN": "Comodín"}
 # Sistemas clínicos: la sinergia paciente ↔ recurso
 SISTEMA = {
     "RESP":  ("Respiratorio", "🫁", "#3d7ea6"),
@@ -103,7 +103,7 @@ def carta_paciente(p):
     req = "".join(
         f'<div class="{"" if int(p[c]) else "off"}">{SIM[t]} ×{p[c]}</div>'
         for t, c in (("IMAGEN", "img"), ("FARMACOS", "far"),
-                     ("PERSONAL", "per"), ("MONITOREO", "mon"))
+                     ("PERSONAL", "per"), ("PROCEDIMIENTOS", "proc"))
     )
     return f"""<div class="carta {cls}">
   <div class="cab"><div><div class="nombre">{E(p['nombre'])}</div>

@@ -45,7 +45,7 @@ desaparece. La Era 3 lo resolvió mejor.
 
 ### Era 3 — "Categorías" (tu descripción de memoria, la del primer día)
 La que me dictaste al empezar: **cuatro categorías de recursos** (🩻 imagen,
-💊 fármacos, 🧑‍⚕️ personal, 📈 monitoreo), el paciente pide *cantidades por
+💊 fármacos, 🧑‍⚕️ personal, 💉 procedimientos), el paciente pide *cantidades por
 categoría*, contador de vida que baja por turno, estabilización + **una ronda
 de consolidación** antes del alta.
 

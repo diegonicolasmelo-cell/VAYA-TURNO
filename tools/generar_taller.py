@@ -60,7 +60,7 @@ ESQUEMA = {
             ("nombre", "txt", None), ("gravedad", "sel", ["I", "II", "III", "ROJO"]),
             ("sistema", "sel", SIS[1:]), ("vida", "num", None),
             ("img", "num", None), ("far", "num", None),
-            ("per", "num", None), ("mon", "num", None),
+            ("per", "num", None), ("proc", "num", None),
             ("puntos_alta", "num", None), ("puntos_fallece", "num", None),
             ("frase", "area", None), ("copias", "num", None),
         ],
@@ -69,15 +69,15 @@ ESQUEMA = {
         "titulo": "Recursos", "archivo": "recursos.csv", "icono": "💊",
         "campos": [
             ("nombre", "txt", None),
-            ("tipo", "sel", ["IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO", "COMODIN"]),
+            ("tipo", "sel", ["IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS", "COMODIN"]),
             ("sistema", "sel", SIS), ("comodin", "sel", ["no", "si"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
             ("comp_objetivo", "sel", ["", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
                                       "ESTABLE", "ELIGES", "MANO"]),
             ("comp_vida", "num", None),
-            ("comp_pide", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO"]),
-            ("comp_descarta", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "MONITOREO"]),
+            ("comp_pide", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS"]),
+            ("comp_descarta", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS"]),
             ("copias", "num", None),
             ("comp_nombre", "txt", None), ("comp_texto", "area", None),
             ("texto", "area", None), ("frase", "area", None),
@@ -340,10 +340,10 @@ JS = r"""
 const DATOS = window.__DATOS__, ESQUEMA = window.__ESQUEMA__,
       ARTE = window.__ARTE__ || {};
 const ORIG = JSON.parse(JSON.stringify(DATOS));
-const TIPOS = ["FARMACOS","IMAGEN","MONITOREO","PERSONAL"];
+const TIPOS = ["FARMACOS","IMAGEN","PROCEDIMIENTOS","PERSONAL"];
 const NOMT = {IMAGEN:"Imagen",FARMACOS:"Fármacos",PERSONAL:"Personal",
-              MONITOREO:"Soporte Vital",COMODIN:"Comodín"};
-const GLIFO = {IMAGEN:"🩻",FARMACOS:"💊",PERSONAL:"🧑‍⚕️",MONITOREO:"📈",COMODIN:"🃏"};
+              PROCEDIMIENTOS:"Procedimientos",COMODIN:"Comodín"};
+const GLIFO = {IMAGEN:"🩻",FARMACOS:"💊",PERSONAL:"🧑‍⚕️",PROCEDIMIENTOS:"💉",COMODIN:"🃏"};
 const SISTEMAS = ["RESP","CARD","NEURO","METAB","QUIR"];
 const OBJETIVO = {MAS_GRAVE:"EL MÁS GRAVE", MEJOR:"EL QUE MEJOR VA",
                   MAS_TRATADO:"EL MÁS TRATADO", ESTABLE:"EL ✅ ESTABILIZADO",
@@ -364,7 +364,7 @@ function balance(){
   const P = DATOS.pacientes, R = DATOS.recursos;
   const dem = {}, ofe = {};
   TIPOS.forEach(t => { dem[t]=0; ofe[t]=0; });
-  const COL = {IMAGEN:"img",FARMACOS:"far",PERSONAL:"per",MONITOREO:"mon"};
+  const COL = {IMAGEN:"img",FARMACOS:"far",PERSONAL:"per",PROCEDIMIENTOS:"proc"};
   P.forEach(p => TIPOS.forEach(t => dem[t] += n(p[COL[t]]) * copias(p)));
   R.forEach(r => { if (TIPOS.includes(r.tipo)) ofe[r.tipo] += copias(r); });
   const D = suma(TIPOS,t=>dem[t]) || 1, O = suma(TIPOS,t=>ofe[t]) || 1;
@@ -480,7 +480,7 @@ function pintarCarta(k,f,i){
   const t = s => arte + `<div class="c-frase">${esc(s)}</div>`;
   let dentro = "";
   if (k === "pacientes"){
-    const req = [["IMAGEN","img"],["FARMACOS","far"],["PERSONAL","per"],["MONITOREO","mon"]]
+    const req = [["IMAGEN","img"],["FARMACOS","far"],["PERSONAL","per"],["PROCEDIMIENTOS","proc"]]
       .map(([tp,c])=>`<div class="${n(f[c])?"":"off"}">${GLIFO[tp]} ×${n(f[c])}</div>`).join("");
     dentro = `<div class="c-cab"><div>
         <div class="c-nom">${esc(f.nombre)}</div>
@@ -607,7 +607,7 @@ function abrir(i){
     });
     if (mazo === "pacientes"){
       const p = DATOS[mazo][i];
-      p.total_recursos = String(n(p.img)+n(p.far)+n(p.per)+n(p.mon));
+      p.total_recursos = String(n(p.img)+n(p.far)+n(p.per)+n(p.proc));
     }
     const sync = document.getElementById("sync-gemelas");
     if (sync && sync.checked)
@@ -654,8 +654,8 @@ function renderSalida(){
    guardarla. El Python sigue siendo la verdad — este mide lo mismo
    con menos partidas, para que puedas iterar sin salir de la página.
    Si tocas el motor, hay que tocarlo en los dos lados.            */
-const SIM_TIPOS = ["IMAGEN","FARMACOS","PERSONAL","MONITOREO"];
-const SIM_COL = {IMAGEN:"img",FARMACOS:"far",PERSONAL:"per",MONITOREO:"mon"};
+const SIM_TIPOS = ["IMAGEN","FARMACOS","PERSONAL","PROCEDIMIENTOS"];
+const SIM_COL = {IMAGEN:"img",FARMACOS:"far",PERSONAL:"per",PROCEDIMIENTOS:"proc"};
 const GRAVEDADES = ["I","II","III","ROJO"];
 
 function rng32(semilla){                       // mulberry32
@@ -699,7 +699,7 @@ function simCargar(fuente){
 
 function camaNueva(f){
   return {f, vida:f.vida, pide:Object.assign({},f.pide),
-          tiene:{IMAGEN:0,FARMACOS:0,PERSONAL:0,MONITOREO:0},
+          tiene:{IMAGEN:0,FARMACOS:0,PERSONAL:0,PROCEDIMIENTOS:0},
           estable:false, estableDesde:null, nuevo:true};
 }
 const faltaDe = c => {
