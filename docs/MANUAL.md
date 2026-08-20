@@ -117,11 +117,12 @@ carta sobre un paciente, no al robarla** — así que cada ⚠️ en tu mano es 
 decisión de costo-beneficio, no un castigo. Descartarla no dispara nada; si
 vuelve del descarte con una *Interconsulta*, vuelve a disparar.
 
-Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *EL MÁS
-GRAVE* · *EL QUE MEJOR VA* · *EL MÁS TRATADO* · *EL ✅ ESTABILIZADO* · *TÚ
-ELIGES* · *TU MANO*. Doce de las dieciocho apuntan al que iba bien o al que
-ya tenía su ✅, y eso es deliberado: **lo que se complica en una UCI no es lo
-que ya estaba perdido, es lo que parecía resuelto.**
+Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *ESTE
+PACIENTE* · *EL MÁS GRAVE* · *EL QUE MEJOR VA* · *EL ✅ ESTABILIZADO* · *TÚ
+ELIGES* · *TU MANO*. Cuatro son de causalidad directa — la NAVM le da al que
+ventilaste, la bacteriemia al del catéter — y diez apuntan al que iba bien o
+al que ya tenía su ✅. Las dos cosas son deliberadas: **lo que se complica en
+una UCI es lo que parecía resuelto, o lo que tú mismo acabas de tocar.**
 
 El **Sumario Administrativo** es la maldición: llega cada vez que se te
 muere un paciente. Ocupa la mano, no se puede jugar ni descartar, **reduce tu

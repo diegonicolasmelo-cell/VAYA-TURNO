@@ -496,6 +496,68 @@ Lecciones:
 
 ---
 
+### 4g. 🎯 ESTE PACIENTE: la complicación del procedimiento (v0.18)
+
+El disparo al colocar (§4f) desbloqueó un objetivo que antes era imposible de
+escribir: **ESTE PACIENTE** — el que está debajo de la carta que acabas de
+poner. Es el objetivo más realista de los siete: la NAVM le da al que
+ventilaste, no a otro.
+
+**El criterio de reparto es causal, no estético.** ESTE se reservó para las
+complicaciones *del procedimiento* (le pasan al que lo recibió); los errores
+*de sistema* siguen disparando lejos, porque así funcionan de verdad:
+
+| Carta ⚠️ | 🎯 nuevo | Por qué |
+|---|---|---|
+| Ventilación Mecánica → NAVM | **ESTE** | La neumonía es del intubado |
+| Catéter Venoso Central → Bacteriemia | **ESTE** | El catéter infectado es el suyo |
+| Pleurostomía → Fuga Aérea | **ESTE** | El tubo que burbujea es el suyo |
+| TAC de Urgencia → Nefropatía | **ESTE** | El contraste se lo llevó él |
+| Anticoagulación → Sangrado | MAS_GRAVE → **MEJOR** | Compensación (ver abajo), y clínicamente mejor: sangra el que iba saliendo |
+| Errores de medicación, Turno 24, Pabellón… | sin cambio | Un error de sistema no elige al paciente que lo motivó |
+
+**Lo medido.** Una a una, las cuatro conversiones caben en banda. Juntas no:
+Gravedad III cae de 43% a **39%**, porque los graves son quienes consumen los
+recursos 💉 — ESTE concentra en ellos el golpe que MEJOR repartía hacia los
+sanos. La compensación exacta resultó ser *Sangrado* → MEJOR: devuelve hacia
+los sanos parte de la presión que ESTE les quitó.
+
+Configuración final, 8.000 partidas × 3 semillas (42/7/99):
+**Gravedad III 41/41/41%** · salvamento 66–67% · altas 2,73 · "No se me fue
+nadie" 13,8–14,2% · puntaje 7,4. Las cinco métricas en banda. Paridad
+Python↔JS verificada.
+
+**Dos vigilancias nuevas para la mesa** (anotadas en `PENDIENTES.md`):
+
+1. Gravedad III quedó en 41% — borde inferior de la banda, aunque el §4f ya
+   argumentó que el número simulado es un piso (el humano cronometra mejor
+   que la IA).
+2. "No se me fue nadie" quedó en ~14% — borde superior. Si el playtest lo
+   empuja sobre 15%, la palanca barata es devolver *Falso Positivo* o
+   *Pabellón Suspendido* a un efecto con −1 ❤️.
+
+**El costo de diseño asumido:** las ESTE son autoinfligidas y predecibles —
+menos crueles que el resto del mazo. Se aceptó porque compran la mejor
+enseñanza del juego: *sabes exactamente qué riesgo instalas cuando conectas
+el ventilador*. La sorpresa vive en las otras catorce.
+
+**Vocabulario:** 🎯 EL MÁS TRATADO quedó sin cartas (la NAVM era su única
+usuaria). Sigue implementado en ambos simuladores como vocabulario reservado.
+
+Lecciones:
+
+1. **Un objetivo nuevo no se reparte por sabor: se reparte por mecanismo
+   causal.** "¿La complicación es del procedimiento o del sistema?" respondió
+   sola qué cartas convertir, y la regla se explica en una frase.
+2. **Concentrar daño donde van los recursos es regresivo.** Los graves
+   consumen más 💉 → ESTE los castiga más. Todo objetivo ligado al flujo de
+   recursos hereda la distribución de ese flujo.
+3. **La compensación más limpia vive en la misma moneda que el daño.** El
+   déficit lo creó mover presión fuera de los sanos; lo cerró devolver una
+   carta (Sangrado) hacia los sanos — no tocar vidas, copias ni requisitos.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

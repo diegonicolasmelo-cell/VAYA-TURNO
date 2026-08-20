@@ -365,9 +365,9 @@ que dice a cuál de tus pacientes le toca:
 
 | 🎯 Objetivo | A quién señala |
 |---|---|
+| **ESTE PACIENTE** | El paciente sobre el que **acabas de colocar la carta**. La complicación es del procedimiento mismo: le pasa a quien se lo hiciste |
 | **EL MÁS GRAVE** | El que tenga **menos ❤️** en este momento |
 | **EL QUE MEJOR VA** | El que tenga **más ❤️** en este momento |
-| **EL MÁS TRATADO** | El que tenga **más recursos encima** (cuenta cartas, no íconos) |
 | **EL ESTABILIZADO ✅** | Tu paciente con ficha ✅. Si no tienes ninguno, va **al que mejor va** |
 | **TÚ ELIGES** | Eliges tú. Son solo dos: la muestra perdida y la línea que hubo que retirar no discriminan |
 | **TU MANO** | No toca ninguna cama: descartas una carta de tu mano. Solo el *Stock de Sala* |
@@ -377,10 +377,18 @@ te queda, y a veces es la que importa.
 
 > **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
 > daño al paciente que ya diste por perdido y ninguna complicación dolería.
-> Y fíjate hacia dónde apuntan: **doce de las dieciocho buscan al que iba
-> bien** o al que ya tenía su ✅. Eso no es casualidad — es la tesis del juego.
-> Lo que se complica en una UCI no es lo que ya estaba perdido: es lo que
-> parecía resuelto.
+> Y fíjate hacia dónde apuntan: **diez de las dieciocho buscan al que iba
+> bien** o al que ya tenía su ✅, y **cuatro más golpean exactamente al
+> paciente que acabas de tratar**. Eso no es casualidad — es la tesis del
+> juego. Lo que se complica en una UCI no es lo que ya estaba perdido: es lo
+> que parecía resuelto, o lo que tú mismo acabas de tocar.
+>
+> Las cuatro de 🎯 ESTE PACIENTE son las de causalidad directa: la NAVM le da
+> al que ventilaste, la bacteriemia al del catéter, la fuga aérea al de la
+> pleurostomía, la nefropatía al que pasó por el TAC. Los errores de sistema
+> — el fármaco equivocado, el turno de 24 horas, el pabellón caído — siguen
+> golpeando lejos, porque así funcionan: el error de medicación no elige al
+> paciente que lo motivó.
 
 Si la complicación no puede aplicarse (pide descartar un 💊 y ese paciente no
 tiene ninguno; o no tienes pacientes en cama), **no pasa nada**. No se
@@ -392,26 +400,27 @@ sustituye por otro efecto ni se busca otro objetivo.
 |---|---|---|
 | Antibiótico de Amplio Espectro | Resistencia Antibiótica | ✅ ESTABILIZADO |
 | Sedoanalgesia | Delirium en UCI | EL QUE MEJOR VA |
-| Anticoagulación | Sangrado | EL MÁS GRAVE |
+| Anticoagulación | Sangrado | EL QUE MEJOR VA |
 | Noradrenalina | Taquicardia Ventricular | EL QUE MEJOR VA |
 | Anticonvulsivante | Sobresedación | ✅ ESTABILIZADO |
 | Analgesia Postoperatoria | Depresión Respiratoria | EL QUE MEJOR VA |
 | Radiografía de Tórax | Hallazgo Incidental | ✅ ESTABILIZADO |
 | Ecografía a Pie de Cama | Falso Positivo | EL QUE MEJOR VA |
-| TAC de Urgencia | Nefropatía por Contraste | EL QUE MEJOR VA |
+| TAC de Urgencia | Nefropatía por Contraste | **ESTE PACIENTE** |
 | Línea Arterial | Isquemia Distal | TÚ ELIGES |
-| Catéter Venoso Central | Bacteriemia por Catéter | EL QUE MEJOR VA |
-| **Ventilación Mecánica** | **Neumonía Asociada a VM** | EL MÁS TRATADO |
+| Catéter Venoso Central | Bacteriemia por Catéter | **ESTE PACIENTE** |
+| **Ventilación Mecánica** | **Neumonía Asociada a VM** | **ESTE PACIENTE** |
 | Gases Arteriales | Muestra Hemolizada | TÚ ELIGES |
-| Pleurostomía | Fuga Aérea Persistente | ✅ ESTABILIZADO |
+| Pleurostomía | Fuga Aérea Persistente | **ESTE PACIENTE** |
 | Técnico en Enfermería | El Turno Veinticuatro | EL MÁS GRAVE |
 | Gestor de Camas | Presión de Camas | EL QUE MEJOR VA |
 | Pabellón Disponible | Pabellón Suspendido | EL QUE MEJOR VA |
 | Stock de Sala | La Gaveta Vacía | TU MANO |
 
-> *El Turno Veinticuatro* es la única que actúa fuera de la cama donde juegas:
-> el técnico lleva un día de pie y confunde dos bombas **en el paciente más
-> grave**, aunque tú hayas puesto la carta en otro.
+> Nota el contraste: el ventilador daña **al que ventilaste**, pero *El Turno
+> Veinticuatro* golpea **al paciente más grave aunque hayas puesto al técnico
+> en otra cama** — el cansancio no se queda donde lo asignaron. Esa es la
+> diferencia entre una complicación del procedimiento y un error de sistema.
 
 ---
 

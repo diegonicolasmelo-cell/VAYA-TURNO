@@ -193,7 +193,7 @@ def elegir_victima(j, objetivo):
     return max(ocupadas, key=lambda c: c.faltan_total() - c.vida)
 
 
-def aplicar_complicacion(j, carta, descarte):
+def aplicar_complicacion(j, carta, descarte, cama_jugada=None):
     """v0.14: cada ⚠️ trae su complicación impresa en vez de mandarte a un
     mazo aparte. La carta dice qué pasa y a quién."""
     comp = carta.get("comp") or {}
@@ -208,7 +208,12 @@ def aplicar_complicacion(j, carta, descarte):
             descarte.append(j.mano.pop(0))
         return
 
-    cama = elegir_victima(j, objetivo)
+    # v0.18: ESTE = el paciente que recibió la carta. La NAVM le da al que
+    # ventilaste, no a otro. Solo tiene sentido con el disparo al colocar.
+    if objetivo == "ESTE":
+        cama = cama_jugada
+    else:
+        cama = elegir_victima(j, objetivo)
     if cama is None:
         return
     if comp.get("vida"):
@@ -320,7 +325,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     # v0.17: la complicación ⚠️ se dispara AL COLOCAR la carta
                     # sobre un paciente, no al robarla (REGLAMENTO §7).
                     if carta["warn"]:
-                        aplicar_complicacion(j, carta, descarte)
+                        aplicar_complicacion(j, carta, descarte, cama)
                         for i2, c2 in enumerate(j.camas):
                             if c2 and c2.vida <= 0:
                                 j.muertos.append(c2.f)

@@ -4,7 +4,7 @@ R02,Antibiótico de Amplio Espectro,FARMACOS,💊,,no,,si,,Resistencia Antibiót
 R03,Sedoanalgesia,FARMACOS,💊,,no,,no,,,,,,,,1,Duerme él. Duerme la unidad. No duermes tú.
 R04,Sedoanalgesia,FARMACOS,💊,,no,,si,,Delirium en UCI,MEJOR,0,,PERSONAL,"Descarta 1 recurso 🧑‍⚕️ suyo. Justo cuando despertaba: se sacó la sonda, la vía y el ánimo del turno.",1,Duerme él. Duerme la unidad. No duermes tú.
 R05,Anticoagulación,FARMACOS,💊,,no,,no,,,,,,,,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
-R06,Anticoagulación,FARMACOS,💊,,no,,si,,Sangrado,MAS_GRAVE,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
+R06,Anticoagulación,FARMACOS,💊,,no,,si,,Sangrado,MEJOR,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
 R07,Hemoderivados,FARMACOS,💊,,no,,no,,,,,,,,1,"Llegaron. Sin la ficha, pero llegaron."
 R08,Noradrenalina,FARMACOS,💊,CARD,no,,no,,,,,,,,2,La presión sube. La del paciente y la tuya.
 R09,Noradrenalina,FARMACOS,💊,CARD,no,,si,,Taquicardia Ventricular,MEJOR,-1,PROCEDIMIENTOS,,Pierde 1 ❤️ y requiere 1 💉 adicional. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
@@ -19,19 +19,19 @@ R17,Radiografía de Tórax,IMAGEN,🩻,,no,,si,,Hallazgo Incidental,ESTABLE,0,,I
 R18,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,no,,,,,,,,3,"Veo algo. No sé qué es, pero lo veo."
 R19,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,si,,Falso Positivo,MEJOR,0,,IMAGEN,"Descarta 1 recurso 🩻 suyo. La hizo el que estaba, no el que sabía. Hay que repetirla.",1,"Veo algo. No sé qué es, pero lo veo."
 R20,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,no,,,,,,,,2,El traslado es más peligroso que la enfermedad. Vamos igual.
-R21,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,si,,Nefropatía por Contraste,MEJOR,0,PROCEDIMIENTOS,,Requiere 1 💉 adicional. El contraste pasó. La creatinina también.,1,El traslado es más peligroso que la enfermedad. Vamos igual.
+R21,TAC de Urgencia,IMAGEN,🩻,,no,PERSONAL,si,,Nefropatía por Contraste,ESTE,0,PROCEDIMIENTOS,,Requiere 1 💉 adicional. El contraste pasó. La creatinina también.,1,El traslado es más peligroso que la enfermedad. Vamos igual.
 R22,Angio-TAC,IMAGEN,🩻,CARD,no,,no,,,,,,,,2,"Contraste, creatinina, y una fe enorme."
 R23,Resonancia con Cupo,IMAGEN,🩻,NEURO,no,TURNO,no,,,,,,,,1,Existe. La han visto. Hay testigos.
 R24,Línea Arterial,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
 R25,Línea Arterial,PROCEDIMIENTOS,💉,,no,,si,,Isquemia Distal,ELIGES,0,,PROCEDIMIENTOS,Descarta 1 recurso 💉 suyo. La mano quedó fría. Hubo que retirarla.,1,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
 R26,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,"Ecoguiado, estéril y con público."
-R27,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,si,,Bacteriemia por Catéter,MEJOR,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
+R27,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,si,,Bacteriemia por Catéter,ESTE,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
 R29,Reanimación,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,1,El carro se revisó el martes. Por alguien. Supuestamente.
 R30,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,no,,,,,,,,2,Modo controlado. El paciente y el ventilador aún negocian.
-R31,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,si,,Neumonía Asociada a VM,MAS_TRATADO,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
+R31,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,si,,Neumonía Asociada a VM,ESTE,-1,FARMACOS,,Pierde 1 ❤️ y requiere 1 💊 adicional. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
 R32,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,no,,,,,,,,1,pH 7.09. Alguien diga algo inteligente.
 R33,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,si,,Muestra Hemolizada,ELIGES,0,,PROCEDIMIENTOS,"Descarta 1 recurso 💉 suyo. Se tomó bien, se rotuló bien, se agitó como coctelera.",1,pH 7.09. Alguien diga algo inteligente.
-R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,si,,Fuga Aérea Persistente,ESTABLE,-1,,,"Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.",1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
+R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,si,,Fuga Aérea Persistente,ESTE,-1,,,"Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.",1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
 R45,Punción Lumbar,PROCEDIMIENTOS,💉,NEURO,no,,no,,,,,,,,1,Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.
 R34,Enfermera de UCI,PERSONAL,🧑‍⚕️,,no,,no,,,,,,,,3,Sabe más que tú. Te lo dirá con mucha educación.
 R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,no,,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.

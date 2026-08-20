@@ -98,8 +98,17 @@ Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
 >   (nombre + tipo + chip + 🎯 + párrafo). Si frenan el robo, hay que acortar
 >   los textos.
 > - ¿Se echa de menos el teatro de voltear una carta del mazo maldito?
-> - Doce de dieciocho apuntan al que iba bien. ¿Se siente cruel-divertido o
->   cruel-injusto?
+> - Diez de dieciocho apuntan al que iba bien y cuatro (🎯 ESTE) al que
+>   acabas de tratar. ¿Se siente cruel-divertido o cruel-injusto? Las ESTE
+>   son autoinfligidas y predecibles: ¿le quitan sorpresa al mazo, o la
+>   anticipación ("sé lo que me puede pasar si conecto esto") compensa?
+> - Con 🎯 ESTE, el jugador decide en qué paciente estalla la complicación
+>   eligiendo dónde coloca la carta. ¿Aparece el "paciente pararrayos"
+>   (uno ya perdido que recibe todos los ⚠️)? El costo real es que el
+>   recurso queda gastado en él — medir en mesa si alcanza como freno.
+> - 🎯 EL MÁS TRATADO quedó **sin cartas** (la NAVM pasó a ESTE). El
+>   vocabulario sigue implementado en ambos simuladores por si una carta
+>   futura lo usa; si en v1.0 sigue huérfano, quitarlo del REGLAMENTO.
 > - Las 4 huérfanas (*Corte de Suministro*, *Paro*, *Hemorragia Masiva*,
 >   *Cambio de Turno Caótico*) esperan en `cartas/retirados/`: son candidatas
 >   a Acciones de CAOS si el mazo de Protocolos pide más caos.
@@ -142,6 +151,7 @@ Decisiones que la mesa va a preguntar y el reglamento aún no responde:
 | ⬜ 4 | **Rareza en 4 niveles** para todo el mazo | Material Gemini / Excel | Descartada para la base (el balance usa copias exactas, no rareza). Podría volver solo como lenguaje de expansiones. |
 | ⬜ 5 | **Eliminación de jugador** por acumular decesos | Material Gemini | Descartada en v0.12 (nadie queda fuera mirando 40 min). Rescatable como variante dura tipo "Modo Cruel". |
 | ⬜ 6 | **Tablero doble capa con hendiduras** para dados/fichas | Material Gemini | Decisión de producción, no de reglas. Para la versión deluxe, si algún día existe. |
+| ⬜ 8 | **Personal protector (pasivas de prevención)** — el recurso 🧑‍⚕️ protege al paciente donde está de UNA complicación con nombre: Kinesiólogo / *movilización precoz* → previene la debilidad adquirida en UCI; TENS / *posicionamiento y aseo de cavidades* → previene la NAVM; Enfermera / *omnipresencia* → previene la autoextubación. Unas cartas dañan, otras blindan: cada rol se reconoce en lo que hace bien. | Idea del autor (2026-08-20) | Sin definir — depende de qué complicaciones existan tras el playtest. Encaja en la columna `texto` de `recursos.csv` (§5b) y gana sentido con 🎯 ESTE PACIENTE: proteger ANTES de instalar el ⚠️ es una secuencia clínica real (§4g de `DISENO.md`). |
 | ❌ 7 | **Rescatar del descarte como regla libre** | Propuesta del autor (2026-08-18) | **Evaluada por simulación y descartada como regla base.** 2.000 partidas por variante (3 jug., config estándar): rescate 1:1 sube el salvamento de 61%→65% y **duplica las Guardias Limpias (8%→14%)** — mata la hazaña; rescate 2:1 resulta una trampa (la IA que lo usa siempre cae a 46% de salvamento: pagar 2 por 1 desangra la mano). El acceso al descarte queda como **efecto de carta** (*A04 Interconsulta* ya lo hace) y candidato a 1–2 cartas más en expansiones. La variante 1:1 podría rescatarse como "modo suave" para mesas nuevas. |
 
 ---

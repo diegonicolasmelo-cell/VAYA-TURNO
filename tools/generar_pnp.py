@@ -165,6 +165,7 @@ def carta_accion(a):
 
 
 OBJETIVO = {
+    "ESTE": "ESTE PACIENTE",
     "MAS_GRAVE": "EL MÁS GRAVE · menos ❤️",
     "MEJOR": "EL QUE MEJOR VA · más ❤️",
     "MAS_TRATADO": "EL MÁS TRATADO · más recursos",

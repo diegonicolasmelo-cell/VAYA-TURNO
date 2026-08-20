@@ -73,7 +73,7 @@ ESQUEMA = {
             ("sistema", "sel", SIS), ("comodin", "sel", ["no", "si"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
-            ("comp_objetivo", "sel", ["", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
+            ("comp_objetivo", "sel", ["", "ESTE", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
                                       "ESTABLE", "ELIGES", "MANO"]),
             ("comp_vida", "num", None),
             ("comp_pide", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS"]),
@@ -345,7 +345,7 @@ const NOMT = {IMAGEN:"Imagen",FARMACOS:"Fármacos",PERSONAL:"Personal",
               PROCEDIMIENTOS:"Procedimientos",COMODIN:"Comodín"};
 const GLIFO = {IMAGEN:"🩻",FARMACOS:"💊",PERSONAL:"🧑‍⚕️",PROCEDIMIENTOS:"💉",COMODIN:"🃏"};
 const SISTEMAS = ["RESP","CARD","NEURO","METAB","QUIR"];
-const OBJETIVO = {MAS_GRAVE:"EL MÁS GRAVE", MEJOR:"EL QUE MEJOR VA",
+const OBJETIVO = {ESTE:"ESTE PACIENTE", MAS_GRAVE:"EL MÁS GRAVE", MEJOR:"EL QUE MEJOR VA",
                   MAS_TRATADO:"EL MÁS TRATADO", ESTABLE:"EL ✅ ESTABILIZADO",
                   ELIGES:"TÚ ELIGES", MANO:"TU MANO", TODOS:"TODOS TUS PACIENTES"};
 const NOMS = {RESP:"Respiratorio",CARD:"Cardíaco",NEURO:"Neurológico",
@@ -766,7 +766,7 @@ function elegirVictima(camas, objetivo){
   return mejorPor(c => faltanTotal(c) - c.vida);
 }
 
-function aplicarComplicacion(j, carta, descarte){
+function aplicarComplicacion(j, carta, descarte, camaJugada){
   const comp = carta.comp || {};
   if (!comp.objetivo) return;
   if (comp.objetivo === "MANO"){
@@ -777,7 +777,9 @@ function aplicarComplicacion(j, carta, descarte){
     }
     return;
   }
-  const cama = elegirVictima(j.camas, comp.objetivo);
+  // v0.18: ESTE = el paciente que recibió la carta (solo con disparo al colocar)
+  const cama = comp.objetivo === "ESTE" ? camaJugada
+                                        : elegirVictima(j.camas, comp.objetivo);
   if (!cama) return;
   if (comp.vida) cama.vida += comp.vida;
   if (comp.pide) cama.pide[comp.pide] += 1;
@@ -878,7 +880,7 @@ function jugarPartida(pacientes, guardia, cfg, r){
           revisar(cama, ronda);
           // v0.17: la ⚠️ se dispara AL COLOCAR la carta, no al robarla
           if (carta.warn){
-            aplicarComplicacion(j, carta, descarte);
+            aplicarComplicacion(j, carta, descarte, cama);
             j.camas.forEach((c,i) => {
               if (!c) return;
               if (c.vida <= 0){
