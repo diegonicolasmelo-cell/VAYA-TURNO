@@ -6,9 +6,12 @@ Regenera pnp.html desde los CSV y lo imprime a PDF con Chromium (Playwright).
     python3 tools/exportar_pdf.py
     python3 tools/exportar_pdf.py --salida /ruta/VAYA-TURNO.pdf
 
-El PDF sale en A4 exacto (210×297 mm) sin márgenes de navegador: las cartas
-quedan a 63×88 mm reales SIEMPRE QUE se imprima al 100% ("tamaño real"),
-nunca con "ajustar a la página".
+    python3 tools/exportar_pdf.py --formato carta
+
+El PDF sale sin márgenes de navegador, en A4 exacto (210×297 mm) o Carta
+exacta (216×279 mm). Las cartas miden 63×88 mm reales —el tamaño estándar,
+el de Mitos y Leyendas o Magic— SIEMPRE QUE se imprima al 100% ("tamaño
+real"), nunca con "ajustar a la página".
 """
 import argparse
 import asyncio
@@ -20,7 +23,10 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 CHROMIUM = "/opt/pw-browsers/chromium"
 
 
-async def a_pdf(html: pathlib.Path, salida: pathlib.Path):
+PAPEL = {"a4": "A4", "carta": "Letter"}
+
+
+async def a_pdf(html: pathlib.Path, salida: pathlib.Path, formato: str = "a4"):
     from playwright.async_api import async_playwright
 
     async with async_playwright() as p:
@@ -32,7 +38,7 @@ async def a_pdf(html: pathlib.Path, salida: pathlib.Path):
         await pagina.goto(html.as_uri())
         await pagina.pdf(
             path=str(salida),
-            format="A4",
+            format=PAPEL[formato],
             print_background=True,
             margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
         )
@@ -43,6 +49,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--salida", default=str(RAIZ / "VAYA-TURNO-imprimible.pdf"))
     ap.add_argument("--html", default=str(RAIZ / "pnp.html"))
+    ap.add_argument("--formato", choices=list(PAPEL), default="a4",
+                    help="pliego: a4 (por defecto) o carta / Letter")
     ap.add_argument("--no-regenerar", action="store_true",
                     help="usa el pnp.html existente sin volver a generarlo")
     args = ap.parse_args()
@@ -50,13 +58,15 @@ def main():
     html = pathlib.Path(args.html)
     if not args.no_regenerar:
         subprocess.run([sys.executable, str(RAIZ / "tools" / "generar_pnp.py"),
-                        "--salida", str(html)], check=True)
+                        "--salida", str(html),
+                        "--formato", args.formato], check=True)
 
     salida = pathlib.Path(args.salida)
-    asyncio.run(a_pdf(html, salida))
+    asyncio.run(a_pdf(html, salida, args.formato))
     kb = salida.stat().st_size // 1024
     print(f"✔ {salida} ({kb} KB)")
-    print("  Al imprimir: A4 · tamaño real / 100% · NO 'ajustar a la página'.")
+    print(f"  Al imprimir: {PAPEL[args.formato]} · tamaño real / 100% · "
+          f"NO 'ajustar a la página'.")
 
 
 if __name__ == "__main__":

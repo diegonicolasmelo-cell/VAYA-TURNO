@@ -43,11 +43,33 @@ GRAV = {
     "ROJO": ("★ CÓDIGO ROJO", "gr"),
 }
 
+FORMATOS = {
+    "a4":    {"page": "A4",     "ancho": "210mm", "alto": "297mm",
+              "pad": "6mm",        "sep": True,  "nombre": "A4 (210×297 mm)"},
+    "carta": {"page": "Letter", "ancho": "216mm", "alto": "279mm",
+              "pad": "7.5mm 13.5mm", "sep": False, "nombre": "Carta / Letter (216×279 mm)"},
+}
+
+
+def css_para(formato):
+    """Ajusta el pliego. La carta mide 63×88 mm en los dos formatos."""
+    f = FORMATOS[formato]
+    css = (CSS.replace("__PAGESIZE__", f["page"])
+              .replace("--ancho:210mm", "--ancho:" + f["ancho"])
+              .replace("--alto:297mm", "--alto:" + f["alto"])
+              .replace("--pad:6mm", "--pad:" + f["pad"]))
+    if not f["sep"]:
+        # en Carta no sobra alto: la banda de título saldría a una hoja nueva
+        css += "\n.sep{display:none}"
+    return css
+
+
 CSS = """
-:root{--tinta:#14202b;--suave:#5b6b7a;--linea:#c8d3dc;--papel:#fff}
+:root{--tinta:#14202b;--suave:#5b6b7a;--linea:#c8d3dc;--papel:#fff;
+      --ancho:210mm;--alto:297mm;--pad:6mm}
 *{box-sizing:border-box}
 body{margin:0;background:#e9eef2;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--tinta)}
-.hoja{width:210mm;min-height:297mm;margin:0 auto 6mm;padding:6mm;background:var(--papel);
+.hoja{width:var(--ancho);min-height:var(--alto);margin:0 auto 6mm;padding:var(--pad);background:var(--papel);
       display:grid;grid-template-columns:repeat(3,63mm);
       gap:0;justify-content:center;align-content:start;grid-auto-rows:min-content}
 .carta{width:63mm;height:88mm;border:.25mm dashed var(--linea);padding:3.4mm;
@@ -84,7 +106,7 @@ body{margin:0;background:#e9eef2;font-family:"Helvetica Neue",Arial,sans-serif;c
       display:flex;align-items:center;justify-content:center;
       font-size:2.3mm;color:#c3ccd4;letter-spacing:.08em;text-transform:uppercase}
 @media print{body{background:none}.hoja{margin:0;box-shadow:none;page-break-after:always}}
-@page{size:A4;margin:0}
+@page{size:__PAGESIZE__;margin:0}
 """
 
 E = html.escape
@@ -212,6 +234,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--solo", choices=list(MAZOS), action="append")
     ap.add_argument("--salida", default=os.path.join(RAIZ, "pnp.html"))
+    ap.add_argument("--formato", choices=list(FORMATOS), default="a4",
+                    help="pliego: a4 (por defecto) o carta / Letter")
     args = ap.parse_args()
 
     elegidos = args.solo or list(MAZOS)
@@ -235,13 +259,17 @@ def main():
         partes.append("</div>")
 
     doc = (f'<!doctype html><html lang="es"><head><meta charset="utf-8">'
-           f'<title>¡Vaya Turno! · Print & Play</title><style>{CSS}</style>'
+           f'<title>¡Vaya Turno! · Print & Play</title>'
+           f'<style>{css_para(args.formato)}</style>'
            f'</head><body>{"".join(partes)}</body></html>')
 
     with open(args.salida, "w", encoding="utf-8") as f:
         f.write(doc)
-    print(f"✔ {total} cartas → {args.salida}")
-    print("  Imprime en A4, márgenes mínimos, con gráficos de fondo activados.")
+    hojas = "".join(partes).count('class="hoja"')
+    print(f"✔ {total} cartas · {hojas} hojas → {args.salida}")
+    print(f"  Pliego: {FORMATOS[args.formato]['nombre']} · 9 cartas de 63×88 mm por hoja.")
+    print("  Al imprimir: tamaño real / 100%, NO 'ajustar a la página', "
+          "con gráficos de fondo.")
 
 
 if __name__ == "__main__":
