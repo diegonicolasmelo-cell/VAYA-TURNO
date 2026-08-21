@@ -26,7 +26,8 @@ CHROMIUM = "/opt/pw-browsers/chromium"
 PAPEL = {"a4": "A4", "carta": "Letter"}
 
 
-async def a_pdf(html: pathlib.Path, salida: pathlib.Path, formato: str = "a4"):
+async def a_pdf(html: pathlib.Path, salida: pathlib.Path, formato: str = "a4",
+                horizontal: bool = False):
     from playwright.async_api import async_playwright
 
     async with async_playwright() as p:
@@ -39,6 +40,7 @@ async def a_pdf(html: pathlib.Path, salida: pathlib.Path, formato: str = "a4"):
         await pagina.pdf(
             path=str(salida),
             format=PAPEL[formato],
+            landscape=horizontal,
             print_background=True,
             margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
         )
@@ -51,6 +53,8 @@ def main():
     ap.add_argument("--html", default=str(RAIZ / "pnp.html"))
     ap.add_argument("--formato", choices=list(PAPEL), default="a4",
                     help="pliego: a4 (por defecto) o carta / Letter")
+    ap.add_argument("--horizontal", action="store_true",
+                    help="pliego apaisado (tableros)")
     ap.add_argument("--no-regenerar", action="store_true",
                     help="usa el pnp.html existente sin volver a generarlo")
     args = ap.parse_args()
@@ -62,7 +66,7 @@ def main():
                         "--formato", args.formato], check=True)
 
     salida = pathlib.Path(args.salida).resolve()
-    asyncio.run(a_pdf(html, salida, args.formato))
+    asyncio.run(a_pdf(html, salida, args.formato, args.horizontal))
     kb = salida.stat().st_size // 1024
     print(f"✔ {salida} ({kb} KB)")
     print(f"  Al imprimir: {PAPEL[args.formato]} · tamaño real / 100% · "

@@ -1,0 +1,104 @@
+<title>¡Vaya Turno! · Tablero central</title>
+<style>
+@page{size:Letter landscape;margin:0}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#14202b;background:#fff}
+.tab{width:279.4mm;height:215.9mm;padding:4mm;display:flex;flex-direction:column;
+     page-break-after:always}
+
+.cab{display:flex;align-items:baseline;gap:4mm;height:9mm;flex:none;
+     border-bottom:1.2pt solid #14202b;padding-bottom:1mm;margin-bottom:2mm}
+.logo{font-size:13.5pt;font-weight:800;letter-spacing:.02em}
+.logo span{font-weight:400;color:#5b6b7a;font-size:8.6pt}
+.sub{font-size:7.2pt;color:#5b6b7a;margin-left:auto}
+
+.fila{display:flex;gap:2mm;height:93mm;flex:none}
+.fila+.fila{margin-top:2.5mm}
+
+.pila{flex:1;display:flex;flex-direction:column;border-radius:1.5mm;overflow:hidden;
+      border:1pt solid #8fa0ae}
+.pila.dura{border:1.6pt solid #14202b}
+.banda{background:#14202b;color:#fff;font-size:6.6pt;font-weight:800;letter-spacing:.08em;
+       text-transform:uppercase;padding:.9mm 1.5mm;flex:none;line-height:1.15;height:8.5mm;
+       display:flex;flex-direction:column;justify-content:center}
+.banda small{display:block;font-weight:400;letter-spacing:0;text-transform:none;
+             color:#c8d3dc;font-size:5.8pt;margin-top:.2mm}
+.banda.suave{background:#e9eef2;color:#14202b}
+.banda.suave small{color:#5b6b7a}
+.slot{flex:1;margin:.8mm;border:1pt dashed #8fa0ae;border-radius:1mm;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:1mm;color:#b9c6d1;text-align:center;padding:0 2mm}
+.slot b{font-size:8.4pt;letter-spacing:.1em;color:#a4b3c0}
+.slot i{font-style:normal;font-size:6.6pt;letter-spacing:.08em;text-transform:uppercase}
+.slot.lleno{border-style:solid;border-color:#c8d3dc}
+.slot p{margin:1.5mm 0 0;font-size:6.4pt;line-height:1.3;color:#5b6b7a;
+        letter-spacing:0;text-transform:none}
+.slot p b{font-size:6.4pt;letter-spacing:0;color:#14202b;display:inline}
+
+.barra{flex:none;margin-top:2mm;border-top:.5pt solid #c8d3dc;padding-top:1.5mm;
+       display:flex;gap:5mm;font-size:6.6pt;color:#5b6b7a;line-height:1.25}
+.barra b{color:#14202b}
+.barra div:first-child{flex:1}
+</style>
+
+<div class="tab">
+  <div class="cab">
+    <div class="logo">¡VAYA TURNO! <span>· tablero central — al medio de la mesa</span></div>
+    <div class="sub">63 Recursos · 30 Protocolos · 26 Pacientes · 22 Personajes · 6 Sumarios</div>
+  </div>
+
+  <!-- FILA 1 · pacientes y papeleo -->
+  <div class="fila">
+    <div class="pila dura">
+      <div class="banda">Urgencia <small>los que esperan cama</small></div>
+      <div class="slot"><b>MAZO DE<br>PACIENTES</b><i>boca abajo</i></div>
+    </div>
+    <div class="pila">
+      <div class="banda suave">Admisión · revelado 1 <small>revela 2, elige 1</small></div>
+      <div class="slot"><i>paciente<br>revelado</i></div>
+    </div>
+    <div class="pila">
+      <div class="banda suave">Admisión · revelado 2 <small>el que no eliges va al fondo</small></div>
+      <div class="slot"><i>paciente<br>revelado</i></div>
+    </div>
+    <div class="pila dura">
+      <div class="banda">Sumarios <small>son 6 · si se acaban, no tomas ninguno</small></div>
+      <div class="slot"><b>PAPELEO</b><i>boca arriba</i>
+        <p>Cerrarlo cuesta <b>2 recursos</b>, en tu Pase de Visita. Nunca el mismo turno en que llega.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILA 2 · los dos mazos -->
+  <div class="fila">
+    <div class="pila dura">
+      <div class="banda">Mazo de Guardia · robo <small>63 recursos, con sus 18 ⚠️ dentro</small></div>
+      <div class="slot"><b>ROBO</b><i>boca abajo</i></div>
+    </div>
+    <div class="pila">
+      <div class="banda suave">Guardia · descarte <small>al agotarse el robo, barájalo y sigue</small></div>
+      <div class="slot lleno"><i>descarte de<br>recursos</i>
+        <p>A 2 jugadores alcanza justo hasta la ronda 8; a 3 se rebaraja en la 6.</p>
+      </div>
+    </div>
+    <div class="pila dura">
+      <div class="banda">Mazo de Protocolos · robo <small>30 Acciones · solo con el Canje</small></div>
+      <div class="slot"><b>ROBO</b><i>boca abajo</i>
+        <p><b>Canje:</b> descarta 2 recursos → roba 1 Protocolo. Máx. 1 por turno.</p>
+      </div>
+    </div>
+    <div class="pila">
+      <div class="banda suave">Protocolos · descarte</div>
+      <div class="slot lleno"><i>acciones<br>jugadas</i></div>
+    </div>
+  </div>
+
+  <div class="barra">
+    <div><b>RESERVA DE PERSONAJES</b> — reparte <b>2 avatares a cada jugador</b>; cada uno se
+      queda con 1 y devuelve el otro a esta pila, junto al tablero.
+      <b>Las zonas miden 64×82 mm</b>: la carta sobresale unos milímetros por abajo, es normal.</div>
+    <div><b>2 jug.</b> 3 camas · roba 4 · 8 rondas &nbsp;|&nbsp;
+      <b>3 jug.</b> 3 camas · roba 4 · 8 rondas (recomendado) &nbsp;|&nbsp;
+      <b>4 jug.</b> 2 camas · roba 3 · 10 rondas</div>
+  </div>
+</div>

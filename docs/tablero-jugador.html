@@ -1,0 +1,168 @@
+<title>¡Vaya Turno! · Tablero de jugador</title>
+<style>
+@page{size:Letter landscape;margin:0}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#14202b;background:#fff}
+.tab{width:279.4mm;height:215.9mm;padding:6mm;display:flex;flex-direction:column;
+     page-break-after:always}
+.tab:last-child{page-break-after:auto}
+
+/* cabecera */
+.cab{display:flex;align-items:center;gap:4mm;height:13mm;flex:none;
+     border-bottom:1.2pt solid #14202b;padding-bottom:1.5mm;margin-bottom:3mm}
+.logo{font-size:14pt;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.logo span{font-weight:400;color:#5b6b7a;font-size:9pt}
+.fases{display:flex;gap:0;flex:1;font-size:6.8pt;line-height:1.15}
+.fase{flex:1;border-left:.5pt solid #c8d3dc;padding:0 2mm}
+.fase:first-child{border-left:none}
+.fase b{display:block;font-size:7.4pt;letter-spacing:.05em;margin-bottom:.4mm}
+.fase i{font-style:normal;color:#5b6b7a}
+.jug{border:1pt solid #14202b;padding:1mm 3mm;font-size:8pt;white-space:nowrap}
+
+/* cuerpo */
+.cuerpo{flex:1;display:flex;gap:4mm;min-height:0}
+.izq{width:66mm;flex:none;display:flex;flex-direction:column;gap:3mm}
+.camas{flex:1;display:flex;gap:2mm}
+
+/* zonas genéricas */
+.zona{border:1pt dashed #8fa0ae;border-radius:1.5mm;position:relative;
+      display:flex;flex-direction:column}
+.zona.solida{border-style:solid;border-color:#14202b}
+.rot{position:absolute;top:1.2mm;left:2mm;font-size:6.6pt;font-weight:800;
+     letter-spacing:.1em;text-transform:uppercase;color:#14202b}
+.rot small{font-weight:400;letter-spacing:0;text-transform:none;color:#5b6b7a;
+           font-size:6.2pt;margin-left:1.5mm}
+.hueco{flex:1;display:flex;align-items:center;justify-content:center;
+       color:#c8d3dc;font-size:8pt;letter-spacing:.14em;text-transform:uppercase}
+
+/* cama */
+.cama{flex:1;display:flex;flex-direction:column;gap:1.5mm}
+.cama-rot{background:#14202b;color:#fff;font-size:7.4pt;font-weight:800;
+          letter-spacing:.14em;text-align:center;padding:.9mm;border-radius:1mm;flex:none}
+.paciente{height:91mm;flex:none}
+.trat{flex:1}
+.lanes{display:flex;flex-direction:column;justify-content:space-around;height:100%;
+       padding:5mm 1.5mm 1.5mm}
+.lane{display:flex;align-items:center;gap:1.5mm;border-bottom:.4pt dotted #c8d3dc;
+      padding-bottom:.7mm}
+.lane:last-child{border-bottom:none}
+.ic{font-size:8.5pt;width:6mm;text-align:center;flex:none}
+.nom{font-size:6.4pt;font-weight:700;letter-spacing:.06em;color:#5b6b7a;flex:1}
+.casillas{display:flex;gap:1.1mm}
+.cas{width:4.6mm;height:4.6mm;border:.7pt solid #8fa0ae;border-radius:.6mm}
+
+/* pilas pequeñas */
+.mini{height:26mm;flex:none}
+.doble{display:flex;gap:3mm}
+.doble>*{flex:1}
+.pie{flex:none;font-size:6.4pt;color:#5b6b7a;text-align:center;padding-top:1.5mm;
+     border-top:.4pt solid #c8d3dc;margin-top:2mm;line-height:1.35}
+</style>
+
+<div class="tab">
+  <div class="cab">
+    <div class="logo">¡VAYA TURNO! <span>· tablero de jugador</span></div>
+    <div class="fases">
+      <div class="fase"><b>1 · ENTREGA DE TURNO</b>
+        <i>✅ de hace una ronda → ALTA · cama vacía → revela 2, elige 1 · roba 4</i></div>
+      <div class="fase"><b>2 · EL PASILLO</b>
+        <i>1 Negocio: Canje o Trueque · máx. 1 Acción</i></div>
+      <div class="fase"><b>3 · PASE DE VISITA</b>
+        <i>coloca recursos · cada ⚠️ resuelve su complicación AL COLOCARLA</i></div>
+      <div class="fase"><b>4 · FIN DE GUARDIA</b>
+        <i>descarta hasta 5 (−1 por Sumario) · los no ✅ pierden 1 ❤️</i></div>
+    </div>
+    <div class="jug">JUGADOR ______</div>
+  </div>
+
+  <div class="cuerpo">
+    <div class="izq">
+      <div class="zona solida" style="height:97mm">
+        <div class="rot">Tu personaje <small>gíralo 90° al usar 1×PARTIDA</small></div>
+        <div class="hueco">avatar elegido</div>
+      </div>
+
+      <div class="zona" style="flex:1">
+        <div class="rot">Sumarios abiertos <small>cada uno resta 1 a tu mano</small></div>
+        <div class="hueco">papeleo</div>
+      </div>
+
+      <div class="doble" style="height:34mm">
+        <div class="zona solida">
+          <div class="rot">Altas ✅</div>
+          <div class="hueco" style="font-size:7pt">tus puntos</div>
+        </div>
+        <div class="zona solida">
+          <div class="rot">Fallecidos ✝️</div>
+          <div class="hueco" style="font-size:7pt">restan</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="camas">
+      <div class="cama">
+        <div class="cama-rot">CAMA 1</div>
+        <div class="zona solida paciente"><div class="hueco">paciente</div></div>
+        <div class="zona trat">
+          <div class="rot">Tratamiento <small>abanica hacia abajo</small></div>
+          <div class="lanes">
+            <div class="lane"><span class="ic">🩻</span><span class="nom">IMAGEN</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💊</span><span class="nom">FÁRMACOS</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">🧑‍⚕️</span><span class="nom">PERSONAL</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💉</span><span class="nom">PROCEDIM.</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cama">
+        <div class="cama-rot">CAMA 2</div>
+        <div class="zona solida paciente"><div class="hueco">paciente</div></div>
+        <div class="zona trat">
+          <div class="rot">Tratamiento <small>abanica hacia abajo</small></div>
+          <div class="lanes">
+            <div class="lane"><span class="ic">🩻</span><span class="nom">IMAGEN</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💊</span><span class="nom">FÁRMACOS</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">🧑‍⚕️</span><span class="nom">PERSONAL</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💉</span><span class="nom">PROCEDIM.</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cama">
+        <div class="cama-rot">CAMA 3</div>
+        <div class="zona solida paciente"><div class="hueco">paciente</div></div>
+        <div class="zona trat">
+          <div class="rot">Tratamiento <small>abanica hacia abajo</small></div>
+          <div class="lanes">
+            <div class="lane"><span class="ic">🩻</span><span class="nom">IMAGEN</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💊</span><span class="nom">FÁRMACOS</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">🧑‍⚕️</span><span class="nom">PERSONAL</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+            <div class="lane"><span class="ic">💉</span><span class="nom">PROCEDIM.</span>
+              <span class="casillas"><i class="cas"></i><i class="cas"></i><i class="cas"></i></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pie">
+<b>Cómo se usa el contador:</b> al admitir un paciente, marca una casilla por cada recurso
+    que <b>pide</b>; táchala al colocar ese recurso. Las casillas marcadas y sin tachar son lo que
+    le falta — no hace falta releer la carta. <b>Mete el tablero en una funda o mica y usa
+    plumón de pizarra</b>, así se borra entre partidas. Los recursos ya colocados se abanican
+    hacia abajo, fuera del tablero. &nbsp;·&nbsp; <b>No puedes dejar camas vacías</b> mientras
+    quede Mazo de Pacientes. &nbsp;·&nbsp; Un paciente completo espera <b>una ronda entera</b>
+    antes del alta.
+  </div>
+</div>
