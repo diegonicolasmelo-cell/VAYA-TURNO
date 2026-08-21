@@ -630,6 +630,78 @@ Lecciones:
 
 ---
 
+### 4i. v0.20 — el turno se vuelve decisión (tope, admisión, protecciones)
+
+**El diagnóstico que lo motivó** (partida narrada completa + 4.000 simuladas):
+el 59% de los turnos no tenía ni un alta ni un ✝️, la mano cerraba en 1,07
+cartas y el 0% de los turnos obligaba a elegir. El motor era coherente pero el
+turno promedio no contenía decisiones. Tres reglas y un arreglo:
+
+**1 · Tope de 3 recursos por turno.** El puntaje casi no se mueve (7,3 vs 7,6)
+pero la mano pasa de 1,07 a 3,4 cartas y el 93% de los turnos deja algo que
+querías bajar. Define además la moneda del juego (`ECONOMIA.md` §1).
+
+**2 · Admisión opcional + cama vacía = −1 punto por noche.** La intuición del
+autor ("el premio por admitir es más trabajo, que sea decisión") medida contra
+su propio riesgo (la tortuga que no admite nunca):
+
+| política | puntaje normal | puntaje tortuga | guardias sin ✝️ tortuga |
+|---|---:|---:|---:|
+| cama vacía gratis | 7,56 | 6,52 (viable) | 33% |
+| cama vacía = 1 Sumario | 6,94 | 5,73 (viable) | 25% |
+| **cama vacía = −1 punto** | **5,98** | **−2,62 (muerta)** | 30% pero pierde |
+
+El Sumario era la versión más temática y NO mató a la tortuga (el tope de mano
+tiene suelo). El punto seco sí. Un "Reingreso" como carta de ataque se
+descartó: una sola carta decidiendo la partida.
+
+**3 · Canje: roba 2, quédate 1.** El 50% del Mazo de Protocolos no avanza a
+ningún paciente propio; a ciegas, el Canje era pagar 2 progresos por una
+moneda al aire y la IA (y el autor) lo saltaban todos los turnos. 2-elige-1
+baja el blanco al 25% sin tocar el precio. No medible en simulador (no juega
+Acciones): a validar en mesa.
+
+**4 · Protecciones 🛡️** (idea del autor, §7.3): Kine→NAVM, Enfermera→
+Bacteriemia, Técnico→Delirium, en las copias sin ⚠️ (el gemelo cansado no
+previene). Prospectivas, viajan con la carta. En simulación previenen el 1,1%
+de las complicaciones — la IA no planifica la secuencia protector-antes-del-⚠️;
+un humano la buscará, así que 1,1% es el piso. Sin costo de balance medible.
+
+**Compensaciones de calibración:**
+- *El Turno Veinticuatro*: MAS_GRAVE → MEJOR (GIII 39→41; la nota del §7 se
+  reescribió: el error aparece donde nadie estaba mirando). Con esto
+  **MAS_GRAVE quedó sin cartas** — segundo vocabulario reservado junto a
+  MAS_TRATADO.
+- Las tres ⚠️ que se auto-anulaban (detectadas por el autor en su primera
+  partida física) descargan ahora OTRO tipo: Hallazgo Incidental −1 💊,
+  Falso Positivo −1 🧑‍⚕️, Pabellón Suspendido −1 💉.
+- También se corrigió un fósil: el §5.1c del reglamento aún decía que la ⚠️
+  disparaba al robar (regla muerta en v0.17).
+
+**Resultado final** (8.000 partidas × 3 semillas, 2 jug; paridad JS exacta):
+altas 2,81 · ✝️ 1,39 · salvamento 67% · **GIII 41–42%** · "No se me fue
+nadie" **8,0–8,7%** (por fin lejos del techo) · puntaje 6,3 (baja porque las
+camas vacías ahora cuestan — es puntaje redistribuido, no juego perdido).
+
+**La prueba de fuego:** la semilla 2026 —la partida narrada que bajo v0.19
+terminó en **−2** encadenado a admisiones forzadas imposibles— bajo v0.20
+terminó en **+8**: el jugador rechazó admitir estando sobrecargado, pagó −3
+en camas vacías, y usó ese aire para completar y dar de alta al Trasplante en
+Lista Cero (+8). La regla nueva convirtió la peor partida del motor en una
+historia de triage.
+
+Lecciones:
+
+1. **"% de turnos sin alta ni ✝️" es la métrica de aburrimiento** y ninguna de
+   las clásicas la veía. Medirla antes de discutir dinamismo.
+2. **El castigo temático no siempre es el castigo que funciona.** El Sumario
+   era más bonito; el −1 seco fue el único que mató la estrategia degenerada.
+3. **Una regla de agencia se prueba contra su peor abuso, no contra su uso
+   normal.** La admisión opcional era neutra en manos normales; la decisión
+   la tomó la tortuga.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

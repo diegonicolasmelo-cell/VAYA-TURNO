@@ -24,6 +24,8 @@ recursos** que nunca alcanzan para todos:
 | Personal | 🧑‍⚕️ | Enfermeras, técnicos, kinesiólogos |
 | Procedimientos | 💉 | Vías centrales, intubación, punciones, drenajes |
 
+**Reglas v0.20:** colocas **máx. 3 recursos por turno**; **admitir es opcional**, pero cada cama vacía te resta **1 punto por noche**; el Canje **roba 2 Protocolos y te quedas 1**; algunos 🧑‍⚕️ traen **🛡️ PREVIENE** (anulan su complicación nombrada si ya estaban puestos). Detalle en `REGLAMENTO.md`.
+
 **No vas a salvarlos a todos.** Eso no es un defecto: es triage. El juego
 consiste en elegir a quién salvas, dejar ir al resto con dignidad, y —
 mientras tanto — mandarle la enfermera de vacaciones al colega de al lado

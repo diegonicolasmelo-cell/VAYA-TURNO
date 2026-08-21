@@ -10,6 +10,12 @@ problema, termina la partida con las reglas como están, y decide después.
 
 ## Sesión 0 — En solitario a 2 manos: ¿cómo respira la mano? (2 partidas)
 
+> **⚠️ v0.20 cambió las reglas base** (tope 3, admisión opcional a −1/noche,
+> Canje 2-elige-1, protecciones 🛡️). El A/B de abajo sigue sirviendo con una
+> relectura: la Partida B ya no es "variante con tope" — es **el juego v0.20**
+> — y la Partida A es la regla vieja, como control. Referencia v0.20 medida:
+> altas 2,81 · ✝️ 1,39 · sin ✝️ 8% · GIII 41%.
+
 **Hoja de registro imprimible: `docs/registro-solitario.html`** (4 páginas Carta)
 → `python3 tools/exportar_pdf.py --html docs/registro-solitario.html --no-regenerar --formato carta --salida VAYA-TURNO-registro.pdf`
 

@@ -22,6 +22,11 @@ import os
 import random
 from collections import Counter
 
+# ── Reglas v0.20 (medidas en DISENO.md §4i) ──
+TOPE_VISITA = 3          # máx. recursos colocados por turno (None = sin tope, v0.19)
+ADMISION = "opcional"    # "forzada" (v0.19) | "opcional"
+CAMA_VACIA = "punto"     # cama vacía al Fin de Guardia = −1 punto ("sumario"/"nada" son variantes)
+UMBRAL_ADM = -3          # margen mínimo para admitir (política IA; -3 = casi siempre, lo medido óptimo)
 TIPOS = ("IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS")
 COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per", "PROCEDIMIENTOS": "proc"}
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -56,12 +61,14 @@ def cargar():
     for r in leer("recursos.csv"):
         # v0.14: la complicación va impresa en la propia carta ⚠️, con su
         # 🎯 objetivo. Ya no existe el Mazo de Eventos Centinela.
-        comp = {"objetivo": r.get("comp_objetivo", ""),
+        comp = {"nombre": r.get("comp_nombre", ""),
+                "objetivo": r.get("comp_objetivo", ""),
                 "vida": int(r.get("comp_vida") or 0),
                 "pide": r.get("comp_pide", ""),
                 "descarta": r.get("comp_descarta", "")}
         for _ in range(int(r["copias"])):
             guardia.append({"clase": "recurso", "tipo": r["tipo"],
+                            "previene": r.get("previene", ""),
                             "sistema": r["sistema"],
                             "comodin": r["comodin"] == "si",
                             "restriccion": r["restriccion"],
@@ -81,6 +88,7 @@ class Cama:
         self.tiene = Counter()
         self.estable = False
         self.estable_desde = None         # ronda en que se estabilizó
+        self.protege = set()              # complicaciones prevenidas (v0.20)
         self.nuevo = True                 # no se deteriora el turno que llega
 
     def falta(self):
@@ -112,6 +120,7 @@ class Jugador:
 
     def puntos(self):
         p = sum(c["alta"] for c in self.altas) + sum(c["fallece"] for c in self.muertos)
+        p -= getattr(self, "vacias", 0)   # v0.20: cama vacía = −1 (variante "punto")
         if not self.muertos:
             p += 3          # "No se me fue nadie"
         elif self.defendible():
@@ -216,12 +225,17 @@ def aplicar_complicacion(j, carta, descarte, cama_jugada=None):
         cama = elegir_victima(j, objetivo)
     if cama is None:
         return
+    # v0.20: la prevención es prospectiva — si el protector ya estaba, no ocurre
+    if comp.get("nombre") and comp["nombre"] in cama.protege:
+        return
     if comp.get("vida"):
         cama.vida += comp["vida"]
     if comp.get("pide"):
         cama.pide[comp["pide"]] += 1
     if comp.get("descarta") and cama.tiene[comp["descarta"]] > 0:
         cama.tiene[comp["descarta"]] -= 1
+        if comp["descarta"] == "PERSONAL" and cama.tiene["PERSONAL"] <= 0:
+            cama.protege.clear()          # el protector se fue con el resto
 
 
 def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
@@ -277,9 +291,15 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     j.altas.append(c.f)
                     j.camas[i] = None
 
-            # 3. ADMISIÓN (revela 2, elige 1)
+            # 3. ADMISIÓN (revela 2, elige 1) — v0.20: opcional
+            pendiente = sum(x.faltan_total() for x in j.camas if x)
             for i, c in enumerate(j.camas):
                 if c is None and mazo_p:
+                    if ADMISION == "opcional":
+                        ritmo = TOPE_VISITA or 3.5
+                        margen = (rondas - ronda + 1) * ritmo - pendiente
+                        if margen < UMBRAL_ADM:
+                            continue
                     opciones = [mazo_p.pop() for _ in range(min(2, len(mazo_p)))]
                     mejor = max(opciones,
                                 key=lambda f: (f["alta"] - f["fallece"]) / max(1, f["pide_total"]))
@@ -310,8 +330,9 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
 
             # 5. ACCIÓN (recursos ilimitados; la IA no juega Acciones)
             jugadas = 0
+            tope = TOPE_VISITA if TOPE_VISITA else jugadas_max
             turno_bloqueado = False       # lo activa la Resonancia
-            while jugadas < jugadas_max and not turno_bloqueado:
+            while jugadas < min(tope, jugadas_max) and not turno_bloqueado:
                 orden = elegir_objetivos(j.camas, None)
                 colocada = False
                 for cama in orden:
@@ -321,6 +342,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     j.mano.remove(carta)
                     descarte.append(carta)
                     cama.tiene[tipo] += aporte
+                    if carta.get("previene"):
+                        cama.protege.add(carta["previene"])
                     cama.revisar(ronda)
                     # v0.17: la complicación ⚠️ se dispara AL COLOCAR la carta
                     # sobre un paciente, no al robarla (REGLAMENTO §7).
@@ -352,6 +375,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
             # 7. FIN DE GUARDIA (variante propuesta: el día pasa al cerrar)
             if deterioro == "final":
                 deteriorar(j)
+            if ronda < rondas:
+                vacias = sum(1 for x in j.camas if x is None)
+                if vacias and CAMA_VACIA == "sumario" and sumario:
+                    j.sumarios += vacias
+                elif vacias and CAMA_VACIA == "punto":
+                    j.vacias = getattr(j, "vacias", 0) + vacias
 
     return jugadores
 

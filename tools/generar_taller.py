@@ -79,7 +79,7 @@ ESQUEMA = {
             ("comp_pide", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS"]),
             ("comp_descarta", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS"]),
             ("copias", "num", None),
-            ("comp_nombre", "txt", None), ("comp_texto", "area", None),
+            ("previene", "txt", None), ("comp_nombre", "txt", None), ("comp_texto", "area", None),
             ("texto", "area", None), ("frase", "area", None),
         ],
     },
@@ -688,10 +688,10 @@ function simCargar(fuente){
   const guardia = [];
   fuente.recursos.forEach(r => {
     // v0.14: la complicación viaja impresa en la propia carta ⚠️
-    const comp = {objetivo:r.comp_objetivo||"", vida:n(r.comp_vida),
+    const comp = {nombre:r.comp_nombre||"", objetivo:r.comp_objetivo||"", vida:n(r.comp_vida),
                   pide:r.comp_pide||"", descarta:r.comp_descarta||""};
     for (let i=0;i<copias(r);i++) guardia.push({
-      tipo:r.tipo, sistema:r.sistema, comodin:r.comodin==="si",
+      tipo:r.tipo, sistema:r.sistema, comodin:r.comodin==="si", previene:r.previene||"",
       restriccion:r.restriccion, warn:r.complicacion==="si", comp});
   });
   return {pacientes, guardia};
@@ -700,6 +700,7 @@ function simCargar(fuente){
 function camaNueva(f){
   return {f, vida:f.vida, pide:Object.assign({},f.pide),
           tiene:{IMAGEN:0,FARMACOS:0,PERSONAL:0,PROCEDIMIENTOS:0},
+          protege:new Set(),
           estable:false, estableDesde:null, nuevo:true};
 }
 const faltaDe = c => {
@@ -781,9 +782,14 @@ function aplicarComplicacion(j, carta, descarte, camaJugada){
   const cama = comp.objetivo === "ESTE" ? camaJugada
                                         : elegirVictima(j.camas, comp.objetivo);
   if (!cama) return;
+  // v0.20: la prevención es prospectiva — si el protector ya estaba, no ocurre
+  if (comp.nombre && cama.protege.has(comp.nombre)) return;
   if (comp.vida) cama.vida += comp.vida;
   if (comp.pide) cama.pide[comp.pide] += 1;
-  if (comp.descarta && cama.tiene[comp.descarta] > 0) cama.tiene[comp.descarta] -= 1;
+  if (comp.descarta && cama.tiene[comp.descarta] > 0){
+    cama.tiene[comp.descarta] -= 1;
+    if (comp.descarta === "PERSONAL" && cama.tiene.PERSONAL <= 0) cama.protege.clear();
+  }
 }
 
 function jugarPartida(pacientes, guardia, cfg, r){
@@ -832,9 +838,11 @@ function jugarPartida(pacientes, guardia, cfg, r){
           j.altas.push(c.f); j.camas[i] = null;
         }
       });
-      // admisión: revela 2, elige 1
+      // admisión: v0.20 OPCIONAL — revela 2, elige 1, o deja la cama vacía
+      const pend = j.camas.reduce((a,c)=>a+(c?faltanTotal(c):0),0);
       j.camas.forEach((c,i) => {
         if (c !== null || !mazoP.length) return;
+        if ((rondas - ronda + 1) * 3 - pend < -3) return;   // sobrecargado: no admite
         const op = [];
         for (let k=0;k<Math.min(2,mazoP.length);k++) op.push(mazoP.pop());
         let mejor = op[0];
@@ -866,9 +874,9 @@ function jugarPartida(pacientes, guardia, cfg, r){
         j.sumarios -= 1;
       }
 
-      // 3. PASE DE VISITA — recursos ilimitados (la IA no juega Acciones)
-      let bloqueado = false;
-      while (!bloqueado){
+      // 3. PASE DE VISITA — v0.20: máximo 3 recursos por turno
+      let bloqueado = false, jugadas = 0;
+      while (!bloqueado && jugadas < 3){
         let colocada = false;
         for (const cama of elegirObjetivos(j.camas)){
           const jugada = elegirCarta(j.mano, cama);
@@ -877,7 +885,9 @@ function jugarPartida(pacientes, guardia, cfg, r){
           j.mano.splice(j.mano.indexOf(carta),1);
           descarte.push(carta);
           cama.tiene[tipo] += aporte;
+          if (carta.previene) cama.protege.add(carta.previene);
           revisar(cama, ronda);
+          jugadas += 1;
           // v0.17: la ⚠️ se dispara AL COLOCAR la carta, no al robarla
           if (carta.warn){
             aplicarComplicacion(j, carta, descarte, cama);
@@ -902,6 +912,8 @@ function jugarPartida(pacientes, guardia, cfg, r){
 
       // 4. FIN DE GUARDIA
       if (deterioro === "final") deteriorar(j);
+      if (ronda < rondas)
+        j.vacias = (j.vacias||0) + j.camas.filter(c=>c===null).length;
     }
   }
   return jugadores;
@@ -916,7 +928,7 @@ function simAcumula(acc, jugadores){
     acc.n += 1;
     acc.altas += j.altas.length;
     acc.muertos += j.muertos.length;
-    let p = 0;
+    let p = -(j.vacias||0);            // v0.20: cama vacía = −1 por noche
     j.altas.forEach(f => p += f.alta);
     j.muertos.forEach(f => p += f.fallece);
     if (!j.muertos.length){ p += 3; acc.limpias += 1; }

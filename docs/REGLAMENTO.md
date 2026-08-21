@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.15 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.20 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -166,25 +166,23 @@ pasan los turnos de todos los demás, y ahí es donde te lo pueden arruinar.
 > todos, sin perder vida pero perfectamente saboteable. Ahí es donde se rompen
 > las amistades.
 
-**b) Admisión.** Por cada **cama vacía**, revela las **2 primeras cartas** del
-Mazo de Pacientes, **elige 1** y pon la otra **al fondo del mazo**. Coloca las
-fichas ❤️ que indique la carta.
+**b) Admisión (opcional desde v0.20).** Por cada **cama vacía puedes** revelar
+las **2 primeras cartas** del Mazo de Pacientes, **elegir 1** y poner la otra
+**al fondo del mazo** — o **dejar la cama vacía**. Decides antes de revelar,
+cama por cama. Coloca las fichas ❤️ que indique la carta.
 
-> No puedes dejar camas vacías. Nunca ha habido una cama vacía en una UCI y no
-> la va a haber en este juego.
+> **Pero la cama vacía se cobra:** en cada Fin de Guardia, **cada cama vacía
+> te resta 1 punto** (§5.4). Hay doce esperando en urgencias y todo el
+> hospital sabe que tienes una cama libre. Rechazar un ingreso es una decisión
+> clínica legítima — negarse a trabajar, no. La medición está en
+> `DISENO.md` §4i: el que nunca admite termina con puntaje negativo.
 
 **c) Robo.** Roba **4 cartas** del Mazo de Guardia (**3** en partidas de 4
 jugadores).
 
-Si robas una carta con el símbolo **⚠️ Complicación**: quédate la carta (es un
-recurso normal), pero **resuelve de inmediato la complicación impresa en ella**
-(ver §7). Después sigue robando hasta completar tu robo.
-
-> Sí. La carta que te salva te trae el problema. Bienvenido.
-
-El ⚠️ dispara **cada vez que la carta llega a tu mano desde el Mazo de
-Guardia**, sea en esta fase o por una Acción (*Doblo Turno*, *Receta en
-Blanco*). No dispara si la carta viene del descarte o de la mano de otro.
+Robar una carta **⚠️ Complicación no hace nada**: entra a tu mano como un
+recurso más. Su complicación se resuelve **al colocarla** sobre un paciente
+(§7). Nadie más tiene por qué saber lo que llevas en la mano.
 
 Si el Mazo de Guardia se agota, baraja el descarte y forma uno nuevo.
 
@@ -195,9 +193,10 @@ reunión. Aquí pasan las dos cosas turbias del juego:
 
 - **El Negocio** (máx. 1 por turno). La ventanilla del pasillo tiene un solo
   cupo, y eliges con quién tratas:
-  - **Canje** (con el mazo): descarta **2 recursos** de tu mano y roba
-    **1 carta del Mazo de Protocolos**. Así se consiguen las Acciones:
-    cambiando lo que te sobra por un favor. Pagas con azar: no sabes qué
+  - **Canje** (con el mazo): descarta **2 recursos** de tu mano, **roba 2
+    cartas del Mazo de Protocolos, quédate 1** y pon la otra bajo el mazo.
+    Así se consiguen las Acciones: cambiando lo que te sobra por un favor.
+    Pagas con azar acotado: no sabes qué
     Protocolo te va a tocar.
   - **Trueque** (con un colega): ofrece **2 recursos de tu mano** a un rival y
     pide **un tipo** de recurso (🩻, 💊, 🧑‍⚕️ o 💉). Si acepta, te entrega
@@ -229,8 +228,9 @@ nadie, que es la decisión difícil.
 
 La reunión. Cama por cama, se indica el tratamiento.
 
-- **Recursos:** juega **todos los que quieras**. Colócalos **encima de tus**
-  pacientes, en abanico. No son gastables: son su tratamiento.
+- **Recursos:** coloca **hasta 3 por turno** (v0.20), **encima de tus**
+  pacientes, en abanico. No son gastables: son su tratamiento. El día no da
+  para más: elegir cuáles 3 —y quién espera a mañana— es el trabajo.
 - **Cerrar Sumarios:** descarta 2 recursos por cada Sumario que quieras cerrar.
 
 En cuanto un paciente tiene **todos** los recursos que pide (da igual si le
@@ -266,6 +266,11 @@ Para cerrarlo: en tu Pase de Visita, descarta 2 recursos — o consigue que el
 Director del Hospital haga desaparecer el expediente.
 
 > Lo peor de perder un paciente no es perder los puntos. Es el formulario.
+
+**b2) La cama vacía se cobra.** Por **cada cama vacía** en tu unidad al cerrar
+este Fin de Guardia, **anota −1 punto** (no aplica en la última ronda: la
+guardia ya terminó). Da igual por qué está vacía — duelo, estrategia o pereza:
+el servicio factura igual.
 
 **c) Descarte.** Quédate con un máximo de **5 cartas** en mano (**menos 1 por
 cada Sumario abierto**). Pasa el turno.
@@ -366,7 +371,6 @@ que dice a cuál de tus pacientes le toca:
 | 🎯 Objetivo | A quién señala |
 |---|---|
 | **ESTE PACIENTE** | El paciente sobre el que **acabas de colocar la carta**. La complicación es del procedimiento mismo: le pasa a quien se lo hiciste |
-| **EL MÁS GRAVE** | El que tenga **menos ❤️** en este momento |
 | **EL QUE MEJOR VA** | El que tenga **más ❤️** en este momento |
 | **EL ESTABILIZADO ✅** | Tu paciente con ficha ✅. Si no tienes ninguno, va **al que mejor va** |
 | **TÚ ELIGES** | Eliges tú. Son solo dos: la muestra perdida y la línea que hubo que retirar no discriminan |
@@ -377,7 +381,7 @@ te queda, y a veces es la que importa.
 
 > **Por qué la carta decide.** Si eligieras libremente, mandarías siempre el
 > daño al paciente que ya diste por perdido y ninguna complicación dolería.
-> Y fíjate hacia dónde apuntan: **diez de las dieciocho buscan al que iba
+> Y fíjate hacia dónde apuntan: **once de las dieciocho buscan al que iba
 > bien** o al que ya tenía su ✅, y **cuatro más golpean exactamente al
 > paciente que acabas de tratar**. Eso no es casualidad — es la tesis del
 > juego. Lo que se complica en una UCI no es lo que ya estaba perdido: es lo
@@ -412,15 +416,40 @@ sustituye por otro efecto ni se busca otro objetivo.
 | **Ventilación Mecánica** | **Neumonía Asociada a VM** | **ESTE PACIENTE** |
 | Gases Arteriales | Muestra Hemolizada | TÚ ELIGES |
 | Pleurostomía | Fuga Aérea Persistente | **ESTE PACIENTE** |
-| Técnico en Enfermería | El Turno Veinticuatro | EL MÁS GRAVE |
+| Técnico en Enfermería | El Turno Veinticuatro | EL QUE MEJOR VA |
 | Gestor de Camas | Presión de Camas | EL QUE MEJOR VA |
 | Pabellón Disponible | Pabellón Suspendido | EL QUE MEJOR VA |
 | Stock de Sala | La Gaveta Vacía | TU MANO |
 
 > Nota el contraste: el ventilador daña **al que ventilaste**, pero *El Turno
-> Veinticuatro* golpea **al paciente más grave aunque hayas puesto al técnico
-> en otra cama** — el cansancio no se queda donde lo asignaron. Esa es la
+> Veinticuatro* golpea **al que iba mejor aunque hayas puesto al técnico en
+> otra cama** — el error aparece justo donde nadie estaba mirando. Esa es la
 > diferencia entre una complicación del procedimiento y un error de sistema.
+
+### 7.3 Las Protecciones 🛡️ (v0.20)
+
+Algunos recursos 🧑‍⚕️ Personal traen un texto **🛡️ PREVIENE** con el nombre de
+una complicación. Mientras ese Personal **siga sobre el paciente**, la
+complicación nombrada **no puede ocurrirle a ese paciente**: si una ⚠️ la
+señalara, simplemente no ocurre (no se sustituye ni busca otro objetivo).
+
+| Protector 🛡️ | Previene | La lógica |
+|---|---|---|
+| **Kinesiólogo Respiratorio** | Neumonía Asociada a VM | Movilización precoz |
+| **Enfermera de UCI** | Bacteriemia por Catéter | Manejo estéril del catéter |
+| **Técnico en Enfermería** | Delirium en UCI | Reorientación y aseo |
+
+Tres reglas cortas:
+
+1. **La prevención es prospectiva.** El protector debe estar colocado **antes**
+   de que la complicación se resuelva. Llegar después no revierte nada: la
+   complicación ya resuelta es historia. Proteger ANTES del procedimiento
+   invasivo — kinesiólogo primero, ventilador después — es la secuencia
+   correcta, aquí y en la vida real.
+2. **La protección viaja con la carta.** Si el protector deja la cama (robado,
+   descartado), la protección se va con él.
+3. **El gemelo cansado no previene.** El *Técnico en Enfermería* ⚠️ (El Turno
+   Veinticuatro) es el mismo cargo en otro estado: no trae 🛡️. Lee la carta.
 
 ---
 
@@ -537,19 +566,22 @@ Los dos bonus **no se suman**: o lo uno, o lo otro.
 
 ```
 1. ENTREGA DE TURNO   a) ✅ de hace una ronda → ALTA + puntos
-                      b) Cama vacía → revela 2 pacientes, elige 1
-                      c) Roba 4 (3 si son 4 jug.) · cada ⚠️ → su complicación ya
+                      b) Cama vacía → PUEDES revelar 2 y admitir 1
+                         (cada cama vacía: −1 punto al Fin de Guardia)
+                      c) Roba 4 (3 si son 4 jug.) · robar ⚠️ no hace nada
 
-2. EL PASILLO         1 Negocio: Canje (bota 2 → roba 1 Protocolo)
+2. EL PASILLO         1 Negocio: Canje (bota 2 → roba 2 Protocolos, elige 1)
                         o Trueque (da 2 a un rival → te da 1 del tipo que pidas)
                       Juega máx. 1 Acción
 
-3. PASE DE VISITA     Recursos sin límite (🫁🫀🧠🧪🔪 en su sistema = ×2)
+3. PASE DE VISITA     Máx. 3 recursos (en su sistema = ×2)
+                      Colocar ⚠️ → resuelve su complicación AHÍ (🛡️ la previene)
                       Cerrar Sumario: bota 2 recursos c/u
                       Completo → ✅ Estabilizado
 
 4. FIN DE GUARDIA     Pasa un día: todo no-✅ pierde 1 ❤️
                       A 0 ❤️ → Alta Celestial: ✝️ + Sumario
+                      Cada cama vacía: −1 punto (salvo en la última ronda)
                       Descarta hasta 5 en mano (−1 por Sumario abierto)
 ```
 
