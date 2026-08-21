@@ -61,23 +61,25 @@ del tipo que pidas (él elige cuál; puede negarse).
 - En 2 jugadores debería casi no usarse (darle 2 cartas a tu único rival
   rara vez conviene) — confirmar que efectivamente se autorregula.
 
-### 1.2 Las habilidades de Personaje — 5 🔶 · 1 ✅ medida
+### 1.2 Las habilidades de Personaje — 10 ✅ medidas · 11 🔶 de mesa · 1 al alza
 
-> **Cómo medir una habilidad sin modelar las seis** (`DISENO.md` §4b): das la
-> habilidad a **un solo jugador** y comparas su puntaje contra sus rivales en
-> la misma mesa, misma semilla. Banda sana: **+0,3 a +1,0 puntos**. Se hizo con
-> la Gestora; falta repetirlo con las otras cinco.
+> **v0.19: plantilla completa de 22 avatares** (`DISENO.md` §4h), con reparto
+> 2-elige-1 y vocabulario de alcance (*este paciente* / *tu unidad*). Diez
+> habilidades están medidas y en banda (+0,3 a +1,0); once usan piezas que el
+> simulador no modela y se calibran en playtest. El autor las modificará tras
+> el playtest — están diseñadas para sobrevivir a ese recorte, no para eludirlo.
 
-Ya anotado en `DISENO.md` §5 y `REGLAMENTO.md` §8:
+Lo que queda por vigilar en mesa:
 
 | Personaje | Riesgo |
 |---|---|
-| **El Médico Fantasma** | Pasiva que juega sola cada turno. ¿Netea a favor o en contra? (−3 cartas temprano / +5 tarde en 8 rondas). |
-| **El Médico Esotérico** | 1×turno con upside gratis. Posible avatar dominante. |
-| ~~**La Gestora de Camas**~~ | ✅ **Medida y corregida en v0.13** (`DISENO.md` §4b): de +2,66 a **+0,66** de ventaja. En mesa solo queda por ver si el momento "este es el que derivo" se siente potente o mezquino con un solo uso. |
-| **Doctor Amor** | 1×partida. ¿Se siente plano al lado de los de arriba? El ajuste natural es darle una pasiva menor. |
-| **El Director del Hospital** | Ídem: 1×partida y defensivo. |
-| **El Diostor** | Depende de cuántos ⚠️ robe. Frecuencia 1×ronda puede ser mucho o nada. |
+| **El Multiuso** | ✅ medido pero **caliente (+1,09)**. Si domina: el comodín inicial empieza en juego, no en mano. |
+| **El Diostor** | 🔶 Con v0.17 eligió momento: ahora decide CUÁNDO coloca la ⚠️ que endosa. Probablemente subió de poder. |
+| **El Médico Fantasma** | 🔶 ¿Netea a favor? (A.F. Kay en Battlegrounds era fuerte: el pago tardío vale más que el tempo temprano). |
+| **El Médico Esotérico** | 🔶 v0.19 le puso costo fijo (descarta 1 siempre). ¿Sigue siendo el más jugado? |
+| **La de Abastecimiento** | 🔶 Canje a 1 recurso = economía doble. La candidata a rota de las once de mesa. |
+| **El Carroñero de Pasillo** | 🔶 Roba de la mano rival: el único que castiga a un jugador ya golpeado. ¿Se siente miserable? |
+| **La Gestora de Camas** | ✅ v0.13 (+0,7). Sin cambios. |
 
 ### 1.3 Las 18 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
 

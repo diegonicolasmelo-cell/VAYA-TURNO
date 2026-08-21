@@ -192,18 +192,18 @@ interpretación que más perjudique al que va ganando es la correcta.
 
 ---
 
-## 4. Los seis personajes
+## 4. Los personajes (22 avatares)
 
-| Personaje | Frecuencia | Habilidad en corto |
-|---|---|---|
-| **El Diostor** | 1×ronda | Le pasa la complicación de su ⚠️ al jugador de la derecha. |
-| **El Médico Fantasma** | Pasiva | Rondas 1–3 roba 1 menos; desde la 4, roba 1 más cada turno. |
-| **Doctor Amor** | 1×partida | Roba un 🧑‍⚕️ colocado sobre un paciente rival y se lo lleva a uno suyo. |
-| **El Director del Hospital** | 1×partida | Hace desaparecer un Sumario — tuyo o ajeno. Puede cobrar el favor. |
-| **La Gestora de Camas** | 1×partida | Devuelve un paciente suyo al fondo del mazo y admite otro. Sin ✝️ ni puntos negativos — pero toma Sumario y pierde los dos bonus de cierre. |
-| **El Médico Esotérico** | 1×turno | Revela la 1ª carta del mazo: sin ⚠️ la coloca gratis; con ⚠️, evento + penitencia. |
+Cada jugador recibe **2 avatares al azar y se queda con 1**. Cada avatar tiene
+una habilidad — activa (1×TURNO / 1×PARTIDA, gira la carta al usarla) o
+pasiva. Toda habilidad declara su **alcance**: *este paciente* (solo el
+afectado) o *tu unidad* (todas tus camas). El índice completo con las
+frecuencias y las ventajas medidas está en `REGLAMENTO.md` §8; los textos
+completos, en las cartas.
 
----
+Diez habilidades están **medidas por simulación** y dentro de la banda sana
+(+0,3 a +1,0 puntos de ventaja); las once que dependen de Acciones, Canje o
+rivales se calibran en playtest.
 
 ## 5. Fin de partida y puntuación
 

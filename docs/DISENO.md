@@ -558,6 +558,78 @@ Lecciones:
 
 ---
 
+### 4h. La plantilla de 22 avatares (v0.19)
+
+Se aplicó la plantilla completa inspirada en los arquetipos de héroe de
+*Hearthstone Battlegrounds*, con dos reglas de armadura: **reparto 2-elige-1**
+(el draft chico absorbe desbalance residual) y **vocabulario de alcance**
+explícito en cada texto (*este paciente* / *tu unidad*).
+
+**Método:** el de §4b — la habilidad se le da solo al jugador 0 y se compara
+su puntaje contra el promedio de sus dos rivales, misma mesa, misma semilla,
+4.000 partidas. Sesgo de asiento medido: +0,07 (la señal es limpia). Banda
+sana: **+0,3 a +1,0**.
+
+**El hallazgo que gobernó toda la calibración: el robo de cartas repetible es
+la habilidad más rota del juego.** La mano es el cuello de botella de la
+economía, así que cada carta extra vale ~+0,5 puntos y además compone: robar
+alimenta colocar, colocar alimenta altas.
+
+| Versión descartada | Δ medida |
+|---|---:|
+| Residente: cada 3 recursos colocados → roba 1 | **+8,45** |
+| Buena Muñeca: roba 1 extra por turno (con filtro) | +4,99 |
+| Enfermera: 1×TURNO un paciente no se deteriora | +4,84 |
+| Dador: alta inmediata con ≤2 faltantes, gratis | +3,24 |
+| Residente: ídem pero máx 1 robo por turno | +4,45 |
+| Residente: el 3er recurso del turno cuenta doble | +2,24 |
+| Jefe de Servicio: cada alta → roba 1 | +1,84 |
+| Jefe: ídem, máx 2 por partida | +1,37 |
+| Intensivista: +1 ❤️ a Gravedad III **y** ROJO | +1,37 |
+| Residente: límite de mano 6 | **−0,11** (adorno) |
+
+**Las versiones que quedaron impresas:**
+
+| Avatar | Δ final |
+|---|---:|
+| El Intensivista (+1 ❤️ solo Gravedad III) | +0,97 |
+| El Jefe de Servicio (solo la primera alta) | +0,79 |
+| El Dador de Altas (falta exactamente 1, descarta 2) | +0,70 |
+| La Enfermera de Noche (1×PARTIDA, descarta 2) | +0,67 |
+| La de la Buena Muñeca (filtro neto cero) | +0,59 |
+| El Radiólogo de Guardia | +0,48 |
+| El Subespecialista (congelar paga el doblete) | +0,41 |
+| El Residente Aplicado (4º recurso al mismo paciente) | +0,41 |
+| El Reanimador | +0,30 |
+| El Multiuso (comodín inicial intocable) | **+1,09** 🔶 |
+
+El Multiuso queda deliberadamente caliente: es el único +1 carta seca de la
+plantilla y sirve de vara — si en mesa no se siente dominante, la banda puede
+relajarse; si se siente, el arreglo es que el comodín inicial empiece **en
+juego** sobre un paciente (pierde la flexibilidad de mano).
+
+**Los nueve «mesa»** (Diostor, Fantasma, Amor, Director, Esotérico,
+Abastecimiento, Dirigente, IAAS, Carroñero, Precavido, Jefa de Unidad) usan
+piezas que el simulador no modela — Acciones, Canje, manos rivales. Parten al
+playtest con la lección del robo aplicada de antemano: sus robos son 1×PARTIDA
+o con gatillo que controla el rival.
+
+Lecciones:
+
+1. **En una economía de mano apretada, "roba 1 carta" no es una habilidad
+   menor: es la moneda más cara del juego.** Medirlo antes de imprimir ahorró
+   ~seis avatares rotos.
+2. **El costo correcto vive en la misma moneda que el beneficio.** El
+   Subespecialista quedó en banda sin ajustes numéricos: congelar la carta un
+   turno ya paga el doblete. Enfermera y Dador entraron en banda pagando
+   cartas de la mano.
+3. **El sesgo de asiento (+0,07) hay que medirlo una vez y restarlo siempre.**
+4. **Un límite que la IA nunca toca es un adorno** (mano 6 = −0,11): antes de
+   regalar "capacidad extra", verificar que el jugador de verdad choque con
+   el límite.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

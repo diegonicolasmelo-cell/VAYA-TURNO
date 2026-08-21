@@ -426,29 +426,65 @@ sustituye por otro efecto ni se busca otro objetivo.
 
 ## 8. Los personajes
 
-Los seis avatares de la fauna hospitalaria. Cada uno tiene **una** habilidad,
-con su propia frecuencia de uso. Los de "1×PARTIDA" giran la carta 90° al
+La fauna hospitalaria completa: **22 avatares**. Cada uno tiene **una**
+habilidad con su frecuencia de uso; los de 1×PARTIDA giran la carta 90° al
 usarla.
 
-| Personaje | Frecuencia | Habilidad |
-|---|---|---|
-| **El Diostor** | 1× por ronda | Cuando robas una carta ⚠️, puedes pasarle su complicación al jugador de tu derecha: la resuelve él sobre sus pacientes, como si la hubiera robado. *"¿Yo, equivocarme? Debe ser un error del laboratorio."* |
-| **El Médico Fantasma** | Pasiva | En las rondas 1–3 robas 1 carta **menos**. Desde la ronda 4, robas 1 carta **adicional** cada turno por el resto de la guardia. |
-| **Doctor Amor** | 1× por partida | **Seducción de Pasillo:** roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y colócalo sobre un paciente tuyo. |
-| **El Director del Hospital** | 1× por partida | **Perdonazo Administrativo:** anula y descarta un Sumario, tuyo o de cualquier otro jugador. Puedes cobrar el favor. |
-| **La Gestora de Camas** | 1× por partida | **Derivación:** devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido: no pones ✝️ ni restas sus puntos. **Pero el papeleo es el mismo:** toma un Sumario, y tu guardia ya no puede ser Limpia. |
-| **El Médico Esotérico** | 1× por turno | **Confía en el Universo:** revela la primera carta del Mazo de Guardia. Recurso sin ⚠️ → colócalo **gratis** sobre un paciente tuyo. Con ⚠️ → resuelve el Evento y descarta 1 carta de tu mano como penitencia kármica. |
+**Reparto (v0.19):** con la plantilla ampliada, ya no se asigna uno al azar —
+**reparte 2 avatares a cada jugador y que cada uno se quede con 1**,
+devolviendo el otro a la caja. El pequeño draft absorbe las diferencias de
+poder y deja que cada uno juegue con un estilo que eligió.
 
-> **Notas de balance sin validar** (se resuelven en la mesa): el Fantasma y el
-> Esotérico juegan cada turno mientras Amor y el Director juegan una vez — si
-> en el playtest los segundos se sienten planos, darles una pasiva menor es el
-> ajuste natural. Está anotado en `docs/DISENO.md` §5.
->
-> **La Gestora sí está medida** (v0.13): con la Derivación gratis y cada turno
-> ganaba +2,7 puntos sobre sus rivales y cerraba "No se me fue nadie" el 31% de las
-> veces contra el 8% de los demás. Con el Sumario, la pérdida de la Limpia y el
-> límite de 1 por partida queda en **+0,7**, que es lo que debe valer una
-> habilidad. Los números están en `docs/DISENO.md` §4.
+### 8.1 Dónde aplica cada habilidad: el alcance
+
+Toda habilidad dice explícitamente su alcance, con dos palabras fijas:
+
+| Alcance | Significa |
+|---|---|
+| **este paciente** | Solo el paciente afectado por esa condición |
+| **tu unidad** | Todas tus camas (y tus recursos colocados en ellas) |
+
+Si una habilidad resuelve algo de otros pacientes o de otros jugadores, lo
+dice explícito en la carta. Nada aplica más allá de lo que su texto nombra.
+
+### 8.2 Los veintidós
+
+Los textos completos van en las cartas; esta tabla es el índice. La columna
+**Δ** es la ventaja medida con el método de `DISENO.md` §4b (banda sana:
++0,3 a +1,0); «mesa» significa que la habilidad usa piezas que el simulador
+no modela (Acciones, Canje, rivales) y se calibra en playtest.
+
+| Personaje | Frecuencia | Habilidad (resumen) | Δ |
+|---|---|---|---|
+| **El Diostor** | 1×RONDA | Al colocar una ⚠️, pásale la complicación al jugador de tu derecha; el recurso se queda en tu paciente | mesa · al alza con v0.17 |
+| **El Médico Fantasma** | PASIVA | Rondas 1–3 robas 1 menos; desde la 4, robas 1 más | mesa |
+| **Doctor Amor** | 1×PARTIDA · PASIVA | Roba un 🧑‍⚕️ rival · tus 🧑‍⚕️ no pueden ser robados | mesa |
+| **El Director del Hospital** | 1×PARTIDA · PASIVA | Anula un Sumario de cualquiera · cerrar tus Sumarios cuesta 1 carta | mesa |
+| **La Gestora de Camas** | 1×PARTIDA | Deriva un paciente sin ✝️; toma un Sumario y pierdes los bonus de cierre | **+0,7** ✅ v0.13 |
+| **El Médico Esotérico** | 1×TURNO | Descarta 1 carta como ofrenda y revela: sin ⚠️ entra gratis; con ⚠️ entra gratis y resuelves | mesa |
+| **La Enfermera de Noche** | 1×PARTIDA | Descarta 2: un Fin de Guardia sin deterioro en tu unidad | **+0,67** ✅ |
+| **El Jefe de Servicio** | 1×PARTIDA | Tu primera alta ✅ te da 1 carta | **+0,79** ✅ |
+| **La de Abastecimiento** | PASIVA | Tus Canjes cuestan 1 recurso en vez de 2 | mesa |
+| **El Dirigente Gremial** | PASIVA | Acción de ATAQUE contra tu unidad → robas 1 carta | mesa |
+| **El Subespecialista** | 1×TURNO | Congela 1 recurso boca abajo; al próximo turno entra gratis y cuenta doble | **+0,41** ✅ |
+| **La Enfermera de IAAS** | PASIVA | Cada 3 ⚠️ resueltas en tu unidad, roba 1 Protocolo gratis | mesa |
+| **El Residente Aplicado** | PASIVA | El 4º recurso sobre un mismo paciente en un turno cuenta doble | **+0,41** ✅ |
+| **El Reanimador** | 1×PARTIDA | Un paciente tuyo que fallecería queda en 1 ❤️ y pierde sus recursos | **+0,30** ✅ |
+| **El Dador de Altas** | 1×PARTIDA | Descarta 2: un paciente al que le falte 1 recurso queda ✅ | **+0,70** ✅ |
+| **El Radiólogo de Guardia** | PASIVA | Tus 🩻 con sistema cuentan doble en cualquier paciente tuyo | **+0,48** ✅ |
+| **El Multiuso** | PASIVA | +1 Comodín inicial; tus comodines son intocables | **+1,09** 🔶 caliente |
+| **La de la Buena Muñeca** | PASIVA | Tras robar, devuelve 1 carta al fondo y roba reemplazo | **+0,59** ✅ |
+| **El Intensivista** | PASIVA | Tus Gravedad III entran con +1 ❤️ | **+0,97** ✅ |
+| **El Carroñero de Pasillo** | PASIVA | Rival pone ✝️ → robas 1 carta al azar de su mano | mesa |
+| **El Precavido** | 1×PARTIDA | Busca una RESPUESTA 🛡️ en el Mazo de Protocolos, gratis | mesa |
+| **La Jefa de Unidad** | PASIVA | Tus 🧑‍⚕️ no pueden ser descartados por rivales | mesa |
+
+> **Por qué estos números** (`DISENO.md` §4h): las primeras versiones de
+> varios de estos avatares medían +1,4 a **+8,5** — todo lo que genere robo de
+> cartas repetible se dispara, porque robar alimenta colocar y colocar altas.
+> Lo que ves arriba es la versión ya calibrada de cada uno. Los «mesa» parten
+> del playtest con esa lección aprendida: si roban cartas, que sea una vez o
+> con gatillo rival.
 
 ---
 
