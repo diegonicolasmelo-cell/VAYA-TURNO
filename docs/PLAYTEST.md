@@ -8,17 +8,14 @@ problema, termina la partida con las reglas como están, y decide después.
 
 ---
 
-## Sesión 0 — En solitario: ¿cómo respira la mano? (1 jugador, 2 partidas)
+## Sesión 0 — En solitario a 2 manos: ¿cómo respira la mano? (2 partidas)
 
-**Hoja de registro imprimible: `docs/registro-solitario.html`**
+**Hoja de registro imprimible: `docs/registro-solitario.html`** (4 páginas Carta)
 → `python3 tools/exportar_pdf.py --html docs/registro-solitario.html --no-regenerar --formato carta --salida VAYA-TURNO-registro.pdf`
 
-Esta sesión no prueba el veneno ni la interacción: prueba **el motor y la mano**.
-Se juega con **un solo jugador**, 3 camas, 8 rondas, robo 4, mano 5.
-
-> **Saca las Acciones de ATAQUE del Mazo de Protocolos.** En solitario no tienen
-> blanco y solo ensucian los Canjes. Esto favorece levemente al Canje: tenlo en
-> cuenta si comparas con los números de 3 jugadores.
+Se juega **solo, llevando las dos manos**: 2 jugadores, 3 camas cada uno, 8 rondas,
+robo 4, mano 5. A dos manos el Mazo de Protocolos va **completo** — las Acciones de
+ATAQUE sí tienen blanco, que es justo lo que un solitario a una mano no puede probar.
 
 **El A/B que resuelve la duda abierta** (`DISENO.md` §4i, propuesta del autor):
 
@@ -27,33 +24,40 @@ Se juega con **un solo jugador**, 3 camas, 8 rondas, robo 4, mano 5.
 | Recursos colocados por turno | **ilimitados** (regla actual) | **máximo 3** |
 | Todo lo demás | idéntico | idéntico |
 
-**Línea base simulada** — 4.000 partidas en solitario, para comparar en vivo:
+**Línea base simulada** — 4.000 partidas a 2 jugadores:
 
 | | A · sin tope | B · con tope 3 |
 |---|---:|---:|
-| Altas | 2,75 | 2,76 |
-| ✝️ | 1,36 | 1,40 |
-| Puntaje | 7,6 | 7,5 |
+| Altas | 2,78 | 2,75 |
+| ✝️ | 1,36 | 1,42 |
+| Puntaje | 7,6 | 7,3 |
 | Salvamento | 67% | 66% |
-| Guardias sin ✝️ | 14% | 8% |
-| **Mano al cerrar el turno** | **1,03** | **3,42** |
+| Guardias sin ✝️ | 14,0% | 7,8% |
+| **Mano al cerrar el turno** | **1,03** | **3,41** |
 | **Turnos que chocan el tope** | **0%** | **93%** |
 | Descarte al cierre | 2% de los turnos | 16% de los turnos |
 
 Curva de la mano al cerrar, ronda a ronda:
 
 ```
-A sin tope:  R1 0,3 · R2 0,6 · R3 1,2 · R4 1,5 · R5 1,5 · R6 1,2 · R7 1,0 · R8 1,0
-B tope 3:    R1 1,0 · R2 2,1 · R3 3,1 · R4 4,0 · R5 4,6 · R6 4,2 · R7 4,0 · R8 4,3
+A sin tope:  R1 0,3 · R2 0,6 · R3 1,1 · R4 1,5 · R5 1,6 · R6 1,2 · R7 0,9 · R8 1,0
+B tope 3:    R1 1,0 · R2 2,1 · R3 3,1 · R4 4,0 · R5 4,6 · R6 4,1 · R7 4,0 · R8 4,3
 ```
 
-**Qué se decide con esto.** Si el puntaje sale parecido en A y B pero la mano de B
-es mucho más gruesa, el tope no le quitó juego al jugador: lo obligó a elegir. Ese
-es el único motivo para incorporarlo. Si B se sintió lenta o burocrática, no entra.
+> **Estas cifras son un techo, no una predicción.** El simulador **no juega Acciones**:
+> describe a alguien a quien nadie ataca. En cuanto uses ATAQUE y Sumarios, lo real
+> debería salir **peor** — y esa diferencia es la medida de cuánto pesa el veneno, que
+> es exactamente lo que no se puede simular.
 
-**Lo que NO se puede concluir de esta sesión:** nada sobre las Acciones de ataque,
-el Trueque, el Sumario en mesa, ni sobre si los avatares están equilibrados entre
-sí. Todo eso necesita rivales de verdad (Sesiones 1–3).
+**Qué se decide.** Si el puntaje sale parecido en A y B pero la mano de B es mucho más
+gruesa, el tope no le quitó juego al jugador: lo obligó a elegir. Ese es el único motivo
+para incorporarlo. Si B se sintió lenta o burocrática, no entra.
+
+**Lo que NO se puede concluir.** Llevando las dos manos ves las dos manos, así que el
+**Trueque** ("no ves su mano") y la **Auditoría** no se pueden probar honestamente.
+Resuélvelos con una regla fija —"el que entrega da la carta que menos le sirve"— y
+anótalo. La información oculta se prueba con gente de verdad. Tampoco se puede concluir
+nada sobre si los 22 avatares están equilibrados entre sí: eso son las Sesiones 1–3.
 
 ---
 
