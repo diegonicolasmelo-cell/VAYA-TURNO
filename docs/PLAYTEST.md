@@ -1,10 +1,59 @@
-# Plan de playtest — ¡Vaya Turno! v0.12
+# Plan de playtest — ¡Vaya Turno! v0.19
 
 Llevas dos años con esto en la cabeza. Lo que falta **no es más diseño**: son
 tres sesiones de mesa y un cuaderno. Este documento es ese cuaderno.
 
 La regla más importante: **no cambies nada a mitad de una sesión.** Anota el
 problema, termina la partida con las reglas como están, y decide después.
+
+---
+
+## Sesión 0 — En solitario: ¿cómo respira la mano? (1 jugador, 2 partidas)
+
+**Hoja de registro imprimible: `docs/registro-solitario.html`**
+→ `python3 tools/exportar_pdf.py --html docs/registro-solitario.html --no-regenerar --formato carta --salida VAYA-TURNO-registro.pdf`
+
+Esta sesión no prueba el veneno ni la interacción: prueba **el motor y la mano**.
+Se juega con **un solo jugador**, 3 camas, 8 rondas, robo 4, mano 5.
+
+> **Saca las Acciones de ATAQUE del Mazo de Protocolos.** En solitario no tienen
+> blanco y solo ensucian los Canjes. Esto favorece levemente al Canje: tenlo en
+> cuenta si comparas con los números de 3 jugadores.
+
+**El A/B que resuelve la duda abierta** (`DISENO.md` §4i, propuesta del autor):
+
+| | Partida A | Partida B |
+|---|---|---|
+| Recursos colocados por turno | **ilimitados** (regla actual) | **máximo 3** |
+| Todo lo demás | idéntico | idéntico |
+
+**Línea base simulada** — 4.000 partidas en solitario, para comparar en vivo:
+
+| | A · sin tope | B · con tope 3 |
+|---|---:|---:|
+| Altas | 2,75 | 2,76 |
+| ✝️ | 1,36 | 1,40 |
+| Puntaje | 7,6 | 7,5 |
+| Salvamento | 67% | 66% |
+| Guardias sin ✝️ | 14% | 8% |
+| **Mano al cerrar el turno** | **1,03** | **3,42** |
+| **Turnos que chocan el tope** | **0%** | **93%** |
+| Descarte al cierre | 2% de los turnos | 16% de los turnos |
+
+Curva de la mano al cerrar, ronda a ronda:
+
+```
+A sin tope:  R1 0,3 · R2 0,6 · R3 1,2 · R4 1,5 · R5 1,5 · R6 1,2 · R7 1,0 · R8 1,0
+B tope 3:    R1 1,0 · R2 2,1 · R3 3,1 · R4 4,0 · R5 4,6 · R6 4,2 · R7 4,0 · R8 4,3
+```
+
+**Qué se decide con esto.** Si el puntaje sale parecido en A y B pero la mano de B
+es mucho más gruesa, el tope no le quitó juego al jugador: lo obligó a elegir. Ese
+es el único motivo para incorporarlo. Si B se sintió lenta o burocrática, no entra.
+
+**Lo que NO se puede concluir de esta sesión:** nada sobre las Acciones de ataque,
+el Trueque, el Sumario en mesa, ni sobre si los avatares están equilibrados entre
+sí. Todo eso necesita rivales de verdad (Sesiones 1–3).
 
 ---
 

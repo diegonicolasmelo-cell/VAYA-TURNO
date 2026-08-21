@@ -55,13 +55,13 @@ def main():
                     help="usa el pnp.html existente sin volver a generarlo")
     args = ap.parse_args()
 
-    html = pathlib.Path(args.html)
+    html = pathlib.Path(args.html).resolve()
     if not args.no_regenerar:
         subprocess.run([sys.executable, str(RAIZ / "tools" / "generar_pnp.py"),
                         "--salida", str(html),
                         "--formato", args.formato], check=True)
 
-    salida = pathlib.Path(args.salida)
+    salida = pathlib.Path(args.salida).resolve()
     asyncio.run(a_pdf(html, salida, args.formato))
     kb = salida.stat().st_size // 1024
     print(f"✔ {salida} ({kb} KB)")
