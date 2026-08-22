@@ -128,6 +128,18 @@ Espacio dejado a propósito en las cartas, hoy sin regla que lo use:
 
 ---
 
+## 2b. Hallazgos del inventario de mecánicas (v0.20 · `MECANICAS.md`)
+
+| # | Hallazgo | Medición |
+|---|---|---|
+| 🚨 1 | **El 27,3% de las ⚠️ no hace nada.** Fallan las 6 que descartan un recurso (74–86% nulas); las que quitan ❤️ o suben requisito nunca fallan (0%). El paciente señalado no tiene el recurso que hay que descartarle. | 4.000 partidas · 50.177 complicaciones |
+| 🚨 2 | **El Trueque nunca se ha usado.** El simulador no lo modela y en dos partidas físicas el autor saltó El Pasillo completo. | mesa |
+| 🔶 3 | **Las protecciones 🛡️ previenen el 1,2% de las ⚠️.** Piso (la IA no secuencia), pero son 3 cartas para 3 de 18 complicaciones: se puede jugar una partida sin verlas actuar. | 4.000 partidas |
+| 🔶 4 | **El Sumario dura 1,00 rondas y se paga el 100% de las veces.** No es maldición, es factura: su efecto real es "descarta 2 cartas". Cuesta 4 reglas y un tipo de carta. | 10.731 sumarios |
+| 🔶 5 | **No hay mecánica de información.** Candidata barata: Urgencia visible (el próximo paciente boca arriba). | conceptual |
+
+---
+
 ## 3. Ambigüedades de reglas por cerrar (candidatas a la FAQ §5.5)
 
 Decisiones que la mesa va a preguntar y el reglamento aún no responde:
