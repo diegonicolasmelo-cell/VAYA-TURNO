@@ -1,6 +1,7 @@
 # Artefactos generados desde los CSV — se rehacen con tools/
 pnp.html
 taller.html
+docs/catalogo-cartas.html
 VAYA-TURNO*.pdf
 
 __pycache__/
