@@ -433,11 +433,15 @@ una complicación. Mientras ese Personal **siga sobre el paciente**, la
 complicación nombrada **no puede ocurrirle a ese paciente**: si una ⚠️ la
 señalara, simplemente no ocurre (no se sustituye ni busca otro objetivo).
 
-| Protector 🛡️ | Previene | La lógica |
+| Protector 🛡️ | Previene | El bundle |
 |---|---|---|
-| **Kinesiólogo Respiratorio** | Neumonía Asociada a VM | Movilización precoz |
+| **Técnico en Enfermería** | Neumonía Asociada a VM | Cabecera a 30° y aseo de cavidades |
 | **Enfermera de UCI** | Bacteriemia por Catéter | Manejo estéril del catéter |
-| **Técnico en Enfermería** | Delirium en UCI | Reorientación y aseo |
+| **Kinesiólogo Respiratorio** | Delirium en UCI | Movilización precoz |
+
+> Los tres son bundles reales, y por eso las protecciones enseñan algo: quien
+> juega el TENS antes de intubar está haciendo lo mismo que se hace en una UCI
+> de verdad.
 
 Tres reglas cortas:
 

@@ -6,7 +6,7 @@ A04,Interconsulta,APOYO,2,Busca en la pila de descartes 1 carta de Recurso y col
 A05,Doblo Turno,APOYO,1,Roba 3 cartas adicionales. En tu próximo turno robas solo 2.,"Me quedo. Total, ya estoy acá."
 A06,Se Cayó el Sistema,CAOS,1,"Durante la próxima ronda completa, ningún jugador puede jugar cartas de Acción.",Estamos trabajando en ello. Lleva tres años el cartel.
 A07,¡Liceeeencia!,ATAQUE,2,Intercambia tu carta de avatar con la de un rival hasta el final de tu próximo turno. Las habilidades 1×PARTIDA ya gastadas siguen gastadas.,Estrés laboral. Alguien tiene que cubrir el puesto. Ese alguien eres tú.
-A08,Presión de Camas,ATAQUE,1,Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Fin de Guardia.,Urgencias tiene doce esperando. Doce.
+A08,Llaman de Urgencias,ATAQUE,1,Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Fin de Guardia.,Urgencias tiene doce esperando. Doce.
 A09,Auditoría,ATAQUE,2,Mira la mano de un rival y descarta 1 carta de ella.,"Vengo a acompañar el proceso, no a fiscalizar. (Miente.)"
 A10,Rotación de Internos,CAOS,1,Intercambia tu mano completa con la de un rival a tu elección.,Nadie sabe quién rota a dónde. Ellos tampoco.
 A11,¿Y Si Vamos por un Cafecito?,RESPUESTA,2,🛡️ RESPUESTA — Juega fuera de turno. Anula una carta de Acción o una complicación ⚠️ que se acabe de resolver.,Nadie sabe quién lo hizo ni cuándo. Está listo y está caliente.
@@ -18,4 +18,4 @@ A16,Simulación Clínica,RESPUESTA,2,🛡️ RESPUESTA — Juega fuera de turno.
 A17,Quiebre de Stock,ATAQUE,1,"Elige un tipo de recurso. En su próximo turno, tu rival no puede jugar recursos de ese tipo.",Llega el jueves. Lleva tres jueves llegando.
 A18,Recorte Presupuestario,ATAQUE,1,"En su próximo turno, tu rival roba 2 cartas menos.",Hay que hacer más con menos. Otra vez menos.
 A19,Capacitación,APOYO,1,"Elige un paciente tuyo: hasta tu próximo turno, sus recursos no pueden ser robados ni descartados por rivales.",Ocho horas de PowerPoint. Algo quedó.
-A20,Muestra Hemolizada,ATAQUE,1,Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.,Se tomó bien. Se rotuló bien. Se agitó como coctelera.
+A20,Hay Que Repetirlo,ATAQUE,1,Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.,Se tomó bien. Se rotuló bien. Se agitó como coctelera.

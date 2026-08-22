@@ -34,11 +34,11 @@ R33,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,si,,,Muestra Hemolizada,ELIGE
 R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,si,,,Fuga Aérea Persistente,ESTE,-1,,,Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.,1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
 R45,Punción Lumbar,PROCEDIMIENTOS,💉,NEURO,no,,no,,,,,,,,,1,Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.
 R34,Enfermera de UCI,PERSONAL,🧑‍⚕️,,no,,no,"MANEJO ESTÉRIL 🛡️ — Mientras siga sobre este paciente, la Bacteriemia por Catéter no le ocurre.",Bacteriemia por Catéter,,,,,,,3,Sabe más que tú. Te lo dirá con mucha educación.
-R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,no,"REORIENTACIÓN Y ASEO 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.",Delirium en UCI,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.
+R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,no,"POSICIÓN 30° Y ASEO DE CAVIDADES 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.",Neumonía Asociada a VM,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.
 R36,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,si,,,El Turno Veinticuatro,MEJOR,0,FARMACOS,,Requiere 1 💊 adicional — aunque juegues esta carta sobre otro paciente. Lleva 24 horas de pie y confundió dos bombas en el que iba mejor: nadie estaba mirando al que parecía resuelto.,1,Sostiene la unidad entera. Y la camilla. Y al interno.
 R37,Interno Entusiasta,PERSONAL,🧑‍⚕️,,no,,no,,,,,,,,,1,Quiere aprender. Hoy. Ahora. Contigo.
 R38,Gestor de Camas,PERSONAL,🧑‍⚕️,,no,,si,,,Presión de Camas,MEJOR,-1,,,Pierde 1 ❤️. Necesitan la cama para ayer. Se adelantó todo.,1,No trae camas. Trae preguntas sobre las camas.
-R39,Kinesiólogo Respiratorio,PERSONAL,🧑‍⚕️,RESP,no,,no,"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.",Neumonía Asociada a VM,,,,,,,2,"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde."
+R39,Kinesiólogo Respiratorio,PERSONAL,🧑‍⚕️,RESP,no,,no,"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.",Delirium en UCI,,,,,,,2,"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde."
 R40,Pabellón Disponible,PERSONAL,🧑‍⚕️,QUIR,no,,no,,,,,,,,,1,Hay pabellón. Hay equipo. Falta el anestesista.
 R41,Pabellón Disponible,PERSONAL,🧑‍⚕️,QUIR,no,,si,,,Pabellón Suspendido,MEJOR,0,,PROCEDIMIENTOS,Descarta 1 recurso 💉 suyo. La preparación preoperatoria se perdió con la tabla quirúrgica.,1,Hay pabellón. Hay equipo. Falta el anestesista.
 R42,Médico General de Turno,COMODIN,🃏,,si,,no,,,,,,,,,2,"No es su especialidad, pero es el que está. Siempre es el que está."

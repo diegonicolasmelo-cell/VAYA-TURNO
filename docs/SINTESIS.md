@@ -182,7 +182,7 @@ También se escribieron efectos para **13 eventos centinela** que en el Excel
 eran solo títulos (VILI, Neumotórax a tensión, Bacteriemia, Resistencia
 antibiótica, Sobresedación, Bradicardia extrema, TV, Falla renal…) y para
 **6 acciones nuevas** (Ojo Clínico, Receta en Blanco, Quiebre de Stock,
-Recorte Presupuestario, Muestra Hemolizada, Capacitación, Simulación Clínica).
+Recorte Presupuestario, Hay Que Repetirlo, Capacitación, Simulación Clínica).
 El mazo de Protocolos se recortó luego a 30 copias / 20 diseños: 45 era
 demasiado para un mazo al que solo se llega por Canje, y casi la mitad de
 los diseños eran ataques que se solapaban entre sí.
