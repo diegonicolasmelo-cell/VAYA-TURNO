@@ -1,4 +1,4 @@
-# Pendientes de desarrollo — ¡VAYA TURNO! v0.15
+# Pendientes de desarrollo — ¡VAYA TURNO! v0.21
 
 La lista viva de lo que falta, carta por carta y mecánica por mecánica.
 Se trabaja de arriba hacia abajo: lo de arriba bloquea el playtest, lo de
@@ -83,6 +83,18 @@ Lo que queda por vigilar en mesa:
 
 ### 1.3 Las 18 complicaciones ⚠️ — ✅ medidas, 🔶 sin mesa
 
+> **v0.21: las dieciocho hacen lo mismo — el 🎯 pierde 1 ❤️** (`DISENO.md`
+> §4j). Se acabó el 27% de complicaciones nulas; queda **1,0%**, que son las
+> protecciones 🛡️ funcionando. Lo nuevo a vigilar en mesa:
+> - **¿Se sienten repetidas?** La apuesta es que no: el nombre, el dibujo y
+>   el 🎯 llevan la variedad, como en Pokémon todos los ataques son daño. Si
+>   en mesa se sienten intercambiables, la apuesta falló y hay que devolver
+>   variedad — pero por el lado de los Protocolos, no de las ⚠️.
+> - **¿El Gravedad III re-tasado (6 ❤️ · pide 8 · +6) se siente alcanzable?**
+>   Mide 40% de salvamento, el piso de la banda.
+> - Los textos quedaron **más cortos**: una línea de efecto y el chiste.
+>   Comprobar que ahora sí se leen rápido.
+
 > **v0.17: se disparan al COLOCAR la carta, no al robarla** (`DISENO.md` §4f).
 > Lo nuevo a vigilar: (a) la línea *cobarde* — el que evita jugar ⚠️ egresa
 > menos pero protege su bonus de cierre; (b) si un humano cronometra sus ⚠️
@@ -132,11 +144,11 @@ Espacio dejado a propósito en las cartas, hoy sin regla que lo use:
 
 | # | Hallazgo | Medición |
 |---|---|---|
-| 🚨 1 | **El 27,3% de las ⚠️ no hace nada.** Fallan las 6 que descartan un recurso (74–86% nulas); las que quitan ❤️ o suben requisito nunca fallan (0%). El paciente señalado no tiene el recurso que hay que descartarle. | 4.000 partidas · 50.177 complicaciones |
+| ✅ 1 | ~~El 27,3% de las ⚠️ no hace nada~~ — **cerrado en v0.21**: las 18 unificadas a −1 ❤️, teatro residual **1,0%**. Costó re-tasar el Gravedad III (`DISENO.md` §4j). | 4.000 → 5.000 partidas |
 | 🚨 2 | **El Trueque nunca se ha usado.** El simulador no lo modela y en dos partidas físicas el autor saltó El Pasillo completo. | mesa |
-| 🔶 3 | **Las protecciones 🛡️ previenen el 1,2% de las ⚠️.** Piso (la IA no secuencia), pero son 3 cartas para 3 de 18 complicaciones: se puede jugar una partida sin verlas actuar. | 4.000 partidas |
+| 🔶 3 | **Las protecciones 🛡️ previenen ~6% de su complicación** (1,0% del total; eran 1,2% en v0.20). Piso, porque la IA no secuencia — pero siguen siendo 3 cartas para 3 de 18: se puede jugar una partida sin verlas actuar. | 4.000 partidas |
 | 🔶 4 | **El Sumario dura 1,00 rondas y se paga el 100% de las veces.** No es maldición, es factura: su efecto real es "descarta 2 cartas". Cuesta 4 reglas y un tipo de carta. | 10.731 sumarios |
-| 🔶 5 | **No hay mecánica de información.** Candidata barata: Urgencia visible (el próximo paciente boca arriba). | conceptual |
+| ✅ 5 | ~~No hay mecánica de información~~ — **v0.21: Informe de Gestión de Camas** (el próximo paciente boca arriba). Medido: no cambia el resultado con una IA de política fija; su valor es humano, por confirmar en mesa. | 5.000 partidas |
 
 ---
 

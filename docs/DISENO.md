@@ -702,6 +702,100 @@ Lecciones:
 
 ---
 
+### 4j. v0.21 — una sola complicación, dieciocho nombres
+
+**El hallazgo que abrió el cambio.** Instrumentando 4.000 partidas resultó que
+**el 27,3% de las complicaciones no producía ningún efecto**, y no al azar:
+
+| Complicación | % que no hacía nada |
+|---|---:|
+| Pabellón Suspendido | 86,3% |
+| Delirium en UCI | 83,6% |
+| Falso Positivo | 80,3% |
+| Muestra Hemolizada | 75,6% |
+| Isquemia Distal | 73,6% |
+| Hallazgo Incidental | 55,7% |
+| *las otras doce* | **0,0%** |
+
+**El patrón es exacto: fallaban las seis que descartaban un recurso; no fallaba
+ninguna de las que quitaban ❤️ o subían un requisito.** El motivo es
+estructural: para descartar un 💊 del paciente señalado, ese paciente tiene que
+*tener* un 💊 puesto, y con 3 colocaciones por turno repartidas entre 3 camas,
+la mayoría de las veces no lo tiene. Seis cartas del mazo eran ⚠️ decorativas.
+
+**Las tres salidas, medidas** (5.000 partidas, 2 jugadores, semilla 42):
+
+| Opción | altas | ✝️ | salv | GIII | sin ✝️ |
+|---|---:|---:|---:|---:|---:|
+| v0.20 (tres familias, 27% teatro) | 2,81 | 1,39 | 67% | 41% | 8,2% |
+| **A · todas quitan 1 ❤️** | 3,10 | 1,63 | 66% | 37% | 5,7% |
+| B · efecto alternativo (*si no tiene, −1 ❤️*) | 2,77 | 1,58 | 64% | 38% | 4,9% |
+| C · las 6 apuntan al MÁS TRATADO | 2,55 | 1,51 | 63% | 36% | 7,0% |
+
+**Las tres endurecen el juego, y eso no es casualidad: el 27% de teatro era el
+amortiguador del balance sin que nadie lo hubiera puesto ahí.** Cuando el
+agujero es un agujero, todo lo que metas dentro es aditivo — fíjate que B es
+literalmente A más un descarte cuando sí se puede. La pregunta "¿simplifico o
+busco otros efectos?" era en realidad "¿cuánto más duro lo quiero?", y **A es
+la dosis mínima de la misma medicina**.
+
+**El daño colateral: quitar ❤️ es un impuesto regresivo.** Golpea más fuerte al
+Gravedad III, que tenía el plazo más corto (5 ❤️) y recibe más cartas que nadie:
+su salvamento cayó de 41% a 37%. Compensaciones medidas:
+
+| Compensación | GIII | Veredicto |
+|---|---:|---|
+| GIII con 6 ❤️ y nada más | 52% | se pasa: el plazo iba gratis |
+| bajar de 18 a 14 cartas ⚠️ | 39% | apenas mueve, y pierde cartas |
+| **GIII re-tasado: 6 ❤️ · pide 8 · +6 / −2** | **40–44%** | ✅ en banda |
+
+El re-tasado sale de la fórmula del propio juego (`ECONOMIA.md` §2):
+`alta + |fallece| = recursos que pide`. Si le das un ❤️ más de plazo, tiene que
+pagarlo con **un requisito más**, y entonces el alta sube a +6 para que la
+fórmula cierre. **No es un parche: es la tabla de precios aplicada.**
+
+El requisito extra se repartió clínicamente (Shock Séptico y Status → 💊;
+Politrauma y TEP → 💉; SDRA → 🧑‍⚕️; Pancreatitis → 🩻) en vez de concentrarlo,
+para no romper la tercera restricción de la economía: **la oferta sigue a la
+demanda**. Con la demanda subiendo de 132 a 138 se agregaron **2 copias**
+(Hemoderivados 💊 y Reanimación 💉), y el mazo pasó de 63 a 65 cartas:
+
+| | 🩻 | 💊 | 🧑‍⚕️ | 💉 |
+|---|---:|---:|---:|---:|
+| oferta/demanda v0.21 | 14/32 = 0,44 | 21/46 = 0,46 | 12/27 = 0,44 | 15/33 = 0,45 |
+
+**Resultado final (5.000 partidas, 2 jugadores):** altas 2,99 · ✝️ 1,50 ·
+puntaje 6,7 · salvamento 67% · GIII 40% · ROJO 70% · "no se me fue nadie" 6,6%.
+Todo en banda. Y el teatro pasó de **27,3% a 1,0%** — el 1% que queda son las
+tres protecciones 🛡️ haciendo exactamente su trabajo (Bacteriemia prevenida el
+8,5% de las veces, NAVM el 6,3%, Delirium el 3,2%: subieron de 1,2% a ~6%).
+
+**El Informe de Gestión de Camas** (la primera carta de Urgencia boca arriba)
+se midió y **no cambió nada**: 67% de salvamento y 40% de GIII con y sin. Es
+una regla que cambia lo que el jugador **sabe**, no el estado del juego, y una
+IA con política fija no puede aprovecharla. Se implementa igual —cuesta cero
+cartas y cero reglas— pero conviene saber que su valor es humano, no medible
+aquí: el flag `URGENCIA_VISIBLE` del simulador queda en `False` para no mover
+la línea base.
+
+**Lo que este cambio enseña, para la próxima carta:**
+
+1. **El azar impuesto debe ser confiable; el azar elegido puede ser variado.**
+   Una ⚠️ viene pegada a un recurso que necesitas: no la elegiste, así que
+   tiene que significar algo siempre. Un Protocolo lo compraste con un Canje:
+   ahí la variedad es el producto. Por eso las 18 ⚠️ convergen a un efecto y
+   los 30 Protocolos siguen siendo 30 efectos distintos.
+2. **La variedad se paga en confiabilidad, no en diseño.** Un efecto rico que
+   falla el 80% enseña a ignorar la mecánica; uno pobre que acierta el 100%
+   enseña a temerla.
+3. **Cuando quitas teatro, mide qué estaba amortiguando.** Ninguna de las
+   tres salidas era "gratis" y el simulador lo dijo antes que la mesa.
+4. **La fórmula de tasación se gana el sueldo cuando hay que compensar.**
+   El 6 ❤️ suelto se pasaba de largo; el 6 ❤️ pagado con un requisito cayó
+   justo. El precio no se adivina si ya está escrito.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

@@ -1,4 +1,4 @@
-# ¡VAYA TURNO! — Reglamento v0.20 (playtest)
+# ¡VAYA TURNO! — Reglamento v0.21 (playtest)
 
 > Juego de cartas para **2–4 médicos** · **30–45 min** · a partir de 14 años
 > (y de una tolerancia razonable al humor de pasillo)
@@ -26,7 +26,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 |---|---:|---|
 | Cartas de **Personaje** | 6 | Un médico por jugador |
 | Cartas de **Paciente** | 26 | Gravedad I, II, III y Código Rojo |
-| Cartas de **Recurso** | 63 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 💉 Procedimientos · 🃏 Comodín |
+| Cartas de **Recurso** | 65 | El **Mazo de Guardia**: 🩻 Imagen · 💊 Fármacos · 🧑‍⚕️ Personal · 💉 Procedimientos · 🃏 Comodín |
 | Cartas de **Protocolo** (Acciones) | 30 | Mazo aparte. Se compran con el **Canje** |
 | Cartas de **Sumario Administrativo** | 6 | La maldición. Llega sola, cuesta salir |
 | Fichas de **Vida** (❤️) | ~60 | Cubos, monedas o un dial por cama |
@@ -46,7 +46,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
    para **3 camas** debajo.
 2. Baraja el **Mazo de Pacientes**. Cada jugador **admite 3 pacientes**
    (ver §5.1, *Entrega de Turno*) y les pone las fichas ❤️ que indique la carta.
-3. Baraja el **Mazo de Guardia** (los 63 Recursos, con sus 18 ⚠️ adentro).
+   Terminado el reparto, **da vuelta la primera carta del mazo**: es el
+   *Informe de Gestión de Camas* y se queda boca arriba toda la partida.
+3. Baraja el **Mazo de Guardia** (los 65 Recursos, con sus 18 ⚠️ adentro).
    Baraja aparte el **Mazo de Protocolos** (las 30 Acciones).
 4. Cada jugador roba **4 cartas** de mano inicial.
 5. Empieza quien haya hecho el turno de noche más reciente. Si nadie lo
@@ -61,8 +63,8 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | 4 | 2 | **3** | 10 | Menos camas y menos robo: los turnos vuelan |
 
 > Estos números están simulados, no improvisados. Con ellos un jugador
-> competente salva ~66% de sus pacientes: unas **2,8 altas y 1,4
-> fallecidos** por guardia, salva al **43% de los Gravedad III** y cierra
+> competente salva ~67% de sus pacientes: unas **3,0 altas y 1,5
+> fallecidos** por guardia, salva al **40% de los Gravedad III** y cierra
 > "Se hizo todo" una de cada cuatro veces. Si tu mesa se aleja mucho de
 > eso, revisa `docs/DISENO.md` §4 antes de cambiar nada.
 
@@ -74,14 +76,14 @@ Cada carta de paciente tiene:
 
 ```
 ┌─────────────────────────────┐
-│  SHOCK SÉPTICO       ❤️ 5   │   ← Vida inicial
+│  SHOCK SÉPTICO       ❤️ 6   │   ← Vida inicial
 │  Gravedad III   🫀 CARDÍACO │   ← Sistema (ver §4.1)
 │  ─────────────────────────  │
 │  Requiere:                  │
-│   🩻 ×1   💊 ×3             │   ← Lo que necesita para estabilizarse
+│   🩻 ×1   💊 ×4             │   ← Lo que necesita para estabilizarse
 │   💉 ×2   🧑‍⚕️ ×1             │
 │  ─────────────────────────  │
-│  Alta: +5      Fallece: −2  │
+│  Alta: +6      Fallece: −2  │
 │  "La hora dorada empezó     │
 │   hace cuatro horas."       │
 └─────────────────────────────┘
@@ -91,11 +93,18 @@ Cada carta de paciente tiene:
 |---|---:|---:|---:|---:|
 | **I — Observación** | 7 | 3 | **+2** | −1 |
 | **II — Grave** | 6 | 5 | **+3** | −2 |
-| **III — Crítico** | 5 | 7 | **+5** | −2 |
+| **III — Crítico** | 6 | 8 | **+6** | −2 |
 | **★ Código Rojo** | 5 | 8 | **+8** | −3 |
 
 Los recursos se colocan **encima de la carta del paciente**, en abanico, y
 se quedan ahí. No son gastables: **son su tratamiento**.
+
+> **La tabla no es arbitraria: es la fórmula.** En los cuatro casos
+> `alta + |fallece| = recursos que pide`. Cada punto de swing cuesta
+> exactamente un recurso, y la **vida es el plazo, no el precio**: el
+> Gravedad III no es caro, es *urgente*. La única excepción deliberada es el
+> Código Rojo, que paga 11 de swing por 8 de precio — una prima del 37% por
+> aceptar el peor plazo del juego. Todo esto está en `docs/ECONOMIA.md`.
 
 ### El sistema del paciente
 
@@ -107,7 +116,7 @@ Eso importa por una sola regla, la de §4.1.
 
 ### 4.1 Recursos específicos: la sinergia
 
-21 de las 63 cartas del Mazo de Guardia llevan también un chip de sistema.
+21 de las 65 cartas del Mazo de Guardia llevan también un chip de sistema.
 
 > **Un recurso específico jugado sobre un paciente de su mismo sistema
 > cuenta como DOS recursos de su tipo, en vez de uno.**
@@ -168,8 +177,18 @@ pasan los turnos de todos los demás, y ahí es donde te lo pueden arruinar.
 
 **b) Admisión (opcional desde v0.20).** Por cada **cama vacía puedes** revelar
 las **2 primeras cartas** del Mazo de Pacientes, **elegir 1** y poner la otra
-**al fondo del mazo** — o **dejar la cama vacía**. Decides antes de revelar,
-cama por cama. Coloca las fichas ❤️ que indique la carta.
+**al fondo del mazo** — o **dejar la cama vacía**. Decides cama por cama.
+Coloca las fichas ❤️ que indique la carta.
+
+> **Informe de Gestión de Camas (v0.21).** La **primera carta del Mazo de
+> Pacientes está siempre boca arriba**, junto al mazo, desde la preparación.
+> Es una de las dos que revelarías. Así decides si admites **sabiendo al menos
+> la mitad de lo que te va a tocar**, igual que en un hospital de verdad: la
+> lista de espera de urgencias no es secreta. Cuando alguien admite, se
+> resuelve la elección y se **da vuelta la nueva primera carta**.
+>
+> No cuesta cartas ni reglas nuevas, y convierte «¿admito?» en una decisión
+> informada en vez de una apuesta.
 
 > **Pero la cama vacía se cobra:** en cada Fin de Guardia, **cada cama vacía
 > te resta 1 punto** (§5.4). Hay doce esperando en urgencias y todo el
@@ -331,12 +350,18 @@ complicación impresa**, y es siempre la complicación que ese recurso causa de
 verdad: la Ventilación Mecánica trae la neumonía asociada a ventilación
 mecánica, el catéter trae la bacteriemia, el antibiótico trae la resistencia.
 
+> **Toda complicación hace lo mismo: el paciente señalado pierde 1 ❤️.**
+> Una sola regla para las dieciocho (v0.21). Lo que cambia de una a otra es
+> **a quién le pega** —su 🎯 Objetivo— y cómo se llama. La única excepción la
+> dice su propia carta: *La Gaveta Vacía*, que no es una complicación clínica
+> sino de bodega, y te hace descartar de la mano.
+
 > **La complicación se dispara al COLOCAR la carta sobre un paciente**, no al
 > robarla. Robarla no hace nada: es un recurso más en tu mano. En el momento
 > en que la pones sobre una cama, el recurso surte efecto **y** resuelves su
 > complicación de inmediato, en ese orden.
 
-Son **18 cartas de las 63** del Mazo de Guardia: una de cada cuatro que robas.
+Son **18 cartas de las 65** del Mazo de Guardia: una de cada cuatro que robas.
 
 **Por qué al jugarla y no al robarla.** Por tres motivos, en orden de peso:
 
@@ -394,11 +419,23 @@ te queda, y a veces es la que importa.
 > golpeando lejos, porque así funcionan: el error de medicación no elige al
 > paciente que lo motivó.
 
-Si la complicación no puede aplicarse (pide descartar un 💊 y ese paciente no
-tiene ninguno; o no tienes pacientes en cama), **no pasa nada**. No se
+Si **no tienes ningún paciente en cama**, no pasa nada. Y si el objetivo está
+**protegido** por un 🛡️ que nombra esa complicación (§7.3), tampoco: no se
 sustituye por otro efecto ni se busca otro objetivo.
 
+> **Por qué las dieciocho hacen lo mismo.** Hasta v0.20 había tres familias
+> —quitar ❤️, subir un requisito, descartar un recurso— y las seis que
+> descartaban **fallaban entre el 74% y el 86% de las veces**, porque el
+> paciente señalado casi nunca tenía puesto justo ese recurso. Una de cada
+> cuatro ⚠️ era teatro: dabas vuelta la carta, leías el nombre, buscabas la
+> víctima y no pasaba nada. Hoy **el 99% resuelve**, y el 1% que no es un 🛡️
+> haciendo su trabajo. La variedad se mudó donde no puede fallar: los
+> nombres, los dibujos y el 🎯.
+
 ### 7.2 Las dieciocho
+
+**Todas quitan 1 ❤️ al paciente que señala su 🎯** (salvo la última, que va a
+tu mano). Se leen de corrido:
 
 | Carta ⚠️ | Complicación | 🎯 |
 |---|---|---|
@@ -555,7 +592,7 @@ Los dos bonus **no se suman**: o lo uno, o lo otro.
 > media ronda y los dos bonus que ya no vas a cobrar. El Gravedad I no vale por
 > sus 2 puntos: **vale por lo rápido que libera la cama.** Tres recursos, alta,
 > y vuelves a revelar dos pacientes — uno de los cuales puede ser un Crítico de
-> +5. Sus 7 ❤️ no son permiso para ignorarlo: son el margen para elegir *cuándo*
+> +6. Sus 7 ❤️ no son permiso para ignorarlo: son el margen para elegir *cuándo*
 > lo cierras.
 
 **Desempates**, en orden:

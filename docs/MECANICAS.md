@@ -1,4 +1,4 @@
-# Inventario de mecánicas — ¡VAYA TURNO! v0.20
+# Inventario de mecánicas — ¡VAYA TURNO! v0.21
 
 > Todas las frecuencias vienen de **4.000 partidas simuladas** (2 jugadores,
 > 64.000 turnos-jugador, 186.160 colocaciones). Una mecánica que casi no
@@ -57,41 +57,36 @@ tan en falso, que el jugador paga su reglamento sin recibir el juego**.
 
 | Mecánica | Frecuencia | Veredicto |
 |---|---:|---|
-| **⚠️ Complicaciones** | 0,78/turno · **27,3% no hace nada** | 🚨 **la mecánica más activa y la más rota** |
-| **🛡️ Protecciones** | **1,2%** de las ⚠️ | 🚨 casi no aparece |
+| **⚠️ Complicaciones** | 0,78/turno · **1,0% no hace nada** | ✅ **arreglada en v0.21**: las 18 quitan 1 ❤️ |
+| **🛡️ Protecciones** | ~6% de su complicación · 1,0% del total | 🔶 mejor, pero sigue siendo rara de ver |
 | **Sinergia ×2** | 12,8% de las colocaciones | ✅ 1 de cada 8 — frecuencia ideal |
 | **Comodín 🃏** | 4,9% (3 cartas) | 🔶 marginal pero barato |
 | **Restricción ⚑** | 4,6% (2 cartas) | 🔶 marginal pero barato |
 
-### 4.1 El problema grande: una de cada cuatro ⚠️ es teatro
+### 4.1 El problema grande, resuelto en v0.21
 
-Das vuelta la carta, lees el nombre, buscas la víctima según su 🎯… y **no
-pasa nada**. Ocurre el **27,3%** de las veces, y no está repartido al azar:
+**Hasta v0.20, una de cada cuatro ⚠️ era teatro**: dabas vuelta la carta,
+leías el nombre, buscabas la víctima según su 🎯… y no pasaba nada. El 27,3%,
+y no repartido al azar — fallaban **las seis que descartaban un recurso**
+(entre 74% y 86% cada una) y **ninguna** de las que quitaban ❤️ o subían un
+requisito. El motivo era estructural: para descartar un 💊 del paciente
+señalado, ese paciente tenía que *tener* un 💊 puesto, y con 3 colocaciones
+por turno repartidas entre tres camas casi nunca lo tenía.
 
-| Complicación | % que no hace nada |
-|---|---:|
-| Pabellón Suspendido | **86,3%** |
-| Delirium en UCI | **83,6%** |
-| Falso Positivo | **80,3%** |
-| Muestra Hemolizada | **75,6%** |
-| Isquemia Distal | **73,6%** |
-| Hallazgo Incidental | 55,7% |
-| *— las otras doce —* | **0,0%** |
+**v0.21 lo cierra unificando el efecto: las dieciocho quitan 1 ❤️ al paciente
+que señala su 🎯.** Una regla, dieciocho nombres. El teatro bajó a **1,0%**, y
+ese 1% es un 🛡️ previniendo — el único "no pasa nada" que el jugador quiere
+ver. La medición completa, y por qué hubo que re-tasar el Gravedad III para
+pagarlo, está en `DISENO.md` §4j.
 
-**El patrón es exacto: fallan las seis que descartan un recurso; no falla
-ninguna de las que quitan ❤️ o suben un requisito.** El motivo es
-estructural: para descartar un 💊 del paciente señalado, ese paciente tiene
-que *tener* un 💊 puesto — y con 3 colocaciones por turno repartidas entre
-tres camas, la mayoría de las veces no lo tiene.
+### 4.2 El problema chico: las protecciones se ven poco
 
-Seis cartas del mazo son, en la práctica, ⚠️ sin complicación.
-
-### 4.2 El problema chico: las protecciones casi no se ven
-
-1,2% de las ⚠️ prevenidas. Parte es artefacto —la IA no planifica la
-secuencia protector→procedimiento y un humano sí— pero aun así son 3 cartas
-protegiendo 3 complicaciones de 18. **Un jugador puede jugar una partida
-entera sin ver una protección funcionar.**
+v0.21 las mejoró de rebote —ya nada más borra al protector de la cama— y
+pasaron de 1,2% a ~6% de su propia complicación: la Bacteriemia se previene el
+8,5% de las veces, la NAVM el 6,3%, el Delirium el 3,2%. Aun así son 3 cartas
+cubriendo 3 complicaciones de 18, y parte del número es artefacto (la IA no
+planifica la secuencia protector→procedimiento y un humano sí).
+**Todavía se puede jugar una partida entera sin ver una protección funcionar.**
 
 ---
 
@@ -130,10 +125,13 @@ Su efecto neto es *"cuando se te muere un paciente, descarta 2 cartas"*.
 
 ## 7. Qué sobra
 
-**1 · La implementación de "descarta un recurso" (6 cartas).** No sobra la
-mecánica: sobra que falle. Arreglo posible: que la complicación tenga
-**efecto alternativo** cuando no puede aplicarse — *"descarta 1 💊 suyo; si no
-tiene, pierde 1 ❤️"*. Dos líneas por carta y el teatro desaparece.
+**1 · ~~La implementación de "descarta un recurso" (6 cartas)~~ — hecho en
+v0.21.** Se midieron las tres salidas (unificar a −1 ❤️, efecto alternativo,
+retargeting) y **las tres endurecían el juego**, porque el 27% de teatro era
+el amortiguador del balance. Ganó la unificación por ser la dosis mínima. La
+familia "descartar un recurso" no desapareció: **se mudó a los Protocolos**
+(*Vacaciones*), que es donde el jugador la juega mirando la mesa y por eso no
+puede fallar.
 
 **2 · El Sumario como carta física.** Si su efecto real es "descarta 2
 cartas", podría ser una línea del reglamento en vez de un tipo de carta con
@@ -170,13 +168,14 @@ no agregando otro.
 
 ## 9. Dónde atacar, en orden
 
-| # | Qué | Por qué | Costo |
+| # | Qué | Por qué | Estado |
 |---|---|---|---|
-| **1** | Efecto alternativo en las 6 ⚠️ que descartan | 27% de la mecánica más activa del juego es teatro | 6 textos, hay que recalibrar |
-| **2** | Probar El Pasillo en mesa | fase entera sin validar; se saltó 2 partidas seguidas | playtest |
-| **3** | A17 Quiebre de Stock | la carta más débil tras el tope de 3 | 1 texto |
-| **4** | Urgencia visible | cierra el hueco de información sin agregar cartas | 1 regla |
-| **5** | Sumario: ¿carta o línea? | decisión de sabor | ninguno hasta decidir |
+| ~~1~~ | Arreglar las ⚠️ que no hacían nada | 27% de la mecánica más activa era teatro | ✅ **v0.21**: las 18 quitan 1 ❤️ (1,0% residual) |
+| **1** | **Probar El Pasillo en mesa** | fase entera sin validar; se saltó 2 partidas seguidas | ⏳ **lo único que ya no se puede medir aquí** |
+| ~~3~~ | A17 Quiebre de Stock | la carta más débil tras el tope de 3 | ✅ **v0.21**: fijada a 💊 Fármacos |
+| ~~4~~ | Urgencia visible | cierra el hueco de información sin agregar cartas | ✅ **v0.21**: *Informe de Gestión de Camas* |
+| **2** | Sumario: ¿carta o línea? | dura 1,00 rondas y se cierra el 100% de las veces | decisión de sabor, sin costo hasta decidir |
+| **3** | Trueque | nunca medido, nunca usado | playtest |
 
 Lo que **no** hay que tocar: el deterioro, la ventana de consolidación, el
 tope de 3 y la sinergia. Los cuatro están midiendo sano y son el juego.

@@ -43,7 +43,7 @@ La fórmula está impresa en los 26 y es exacta:
 |---|---:|---:|---:|---:|---:|
 | I | 7 | 3 | +2 | −1 | 3 = 3 ✓ |
 | II | 6 | 5 | +3 | −2 | 5 = 5 ✓ |
-| III | 5 | 7 | +5 | −2 | 7 = 7 ✓ |
+| III | **6** | **8** | **+6** | −2 | 8 = 8 ✓ |
 | ROJO | 5 | 8 | +8 | −3 | **11 > 8** |
 
 **Léela como el precio de la energía en Pokémon:** el que pega 130 pide 3
@@ -53,7 +53,15 @@ compra puntos baratos: compra riesgo.
 
 La **vida** es el plazo del crédito, no el precio: 7 ❤️ = "tienes 7 rondas
 para pagar", 5 ❤️ = "tienes 5". Por eso el GIII es difícil sin ser caro: mismo
-precio por punto, la mitad del plazo.
+precio por punto, menos plazo.
+
+> **La fórmula se ganó el sueldo en v0.21.** Al unificar las complicaciones a
+> "−1 ❤️" el Gravedad III se hundió de 41% a 37% de salvamento: quitar vida es
+> un **impuesto regresivo**, y él es quien menos plazo tenía y más cartas
+> recibe. Darle 6 ❤️ a secas lo disparó a 52% —el plazo iba gratis—; darle
+> 6 ❤️ **pagando un requisito más** (y por tanto un alta de +6, que es lo que
+> la fórmula obliga) lo dejó en 40–44%, dentro de banda. El precio no se
+> adivina cuando ya está escrito.
 
 **El ROJO es la única carta con prima (11 de swing por 8 de precio)** — un
 sobrepago deliberado del 37% por aceptar el peor plazo del juego con el
@@ -74,16 +82,20 @@ Un recurso vale 1. Los modificadores:
 | Modificador | Ajuste | Compensación en el mazo |
 |---|---|---|
 | Sinergia (cuenta ×2 en su sistema) | vale hasta 2 | menos copias (1–2 por diseño) |
-| ⚠️ Complicación | **impuesto al colocar** | la complicación vale ≈ −1 colocación (quita un recurso, sube un requisito o baja 1 ❤️) |
+| ⚠️ Complicación | **impuesto fijo al colocar** | desde v0.21 **siempre −1 ❤️** al paciente que señala su 🎯. Un impuesto conocido y constante: por eso se puede tasar |
 | 🛡️ PREVIENE | +valor condicional | solo en Personal, solo 1 complicación con nombre, prospectivo |
 | Comodín | flexibilidad total, nunca dobla | 3 copias en todo el mazo |
 | Restricción (TAC exige 🧑‍⚕️) | descuento | permite más copias |
 
-La ⚠️ y el recurso se anulan aproximadamente (+1 colocación por −1 de
+La ⚠️ y el recurso se anulan aproximadamente (+1 colocación por −1 ❤️ de
 complicación): por eso la carta ⚠️ es una **decisión** y no basura ni premio.
-La regla de diseño que las mantiene sanas: **la complicación nunca puede
-quitar exactamente lo que la carta pone** (v0.20 corrigió las tres que lo
-hacían — se auto-anulaban).
+
+**La regla de v0.21 que ordenó todo esto: el azar impuesto debe ser
+confiable; el azar elegido puede ser variado.** Una ⚠️ no la eliges —viene
+pegada a un recurso que necesitas—, así que tiene que significar algo el 100%
+de las veces: de ahí que las dieciocho hagan lo mismo y la variedad viva en el
+nombre, el dibujo y el 🎯. Un Protocolo sí lo eliges y lo pagas con un Canje:
+ahí la variedad es el producto, y son 30 efectos distintos a propósito.
 
 ---
 
@@ -138,6 +150,12 @@ Conversiones útiles (todas medidas):
    tipos es el error que no se ve en mesa hasta la partida 20.
 
 ---
+
+*Cambios v0.21 tasados con estas reglas: la ⚠️ unificada a −1 ❤️ (impuesto
+fijo, medido en `DISENO.md` §4j), el Gravedad III re-tasado con la fórmula de
+§2, y +2 copias de recurso (Hemoderivados 💊, Reanimación 💉) para sostener la
+tercera restricción cuando la demanda subió de 132 a 138 — el mazo de Guardia
+pasó de 63 a 65 cartas.*
 
 *Cambios v0.20 tasados con estas reglas: tope 3 (define la moneda), admisión
 opcional a −1/noche (pone precio a la cama, mata la tortuga: −2,6 vs 6,0

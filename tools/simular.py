@@ -22,11 +22,18 @@ import os
 import random
 from collections import Counter
 
-# ── Reglas v0.20 (medidas en DISENO.md §4i) ──
+# ── Reglas v0.21 (medidas en DISENO.md §4i–§4j) ──
 TOPE_VISITA = 3          # máx. recursos colocados por turno (None = sin tope, v0.19)
 ADMISION = "opcional"    # "forzada" (v0.19) | "opcional"
 CAMA_VACIA = "punto"     # cama vacía al Fin de Guardia = −1 punto ("sumario"/"nada" son variantes)
 UMBRAL_ADM = -3          # margen mínimo para admitir (política IA; -3 = casi siempre, lo medido óptimo)
+# v0.21 Informe de Gestión de Camas: la primera carta de Urgencia está boca
+# arriba. Medido: NO cambia ningún resultado (salv 67%, GIII 40% con y sin) —
+# la regla cambia lo que el jugador SABE, no el estado del juego, y una IA con
+# política fija no puede aprovecharla. Se deja en False para que las medidas
+# sigan siendo comparables con la línea base afinada; ponlo en True para ver el
+# efecto de admitir sabiendo el costo del que viene (solo deja más camas vacías).
+URGENCIA_VISIBLE = False
 TIPOS = ("IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS")
 COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per", "PROCEDIMIENTOS": "proc"}
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +55,7 @@ def cargar():
             "alta": int(p["puntos_alta"]),
             "fallece": int(p["puntos_fallece"]),
         }
+        ficha["pide_total"] = sum(ficha["pide"].values())
         # la columna `copias` manda igual que en los recursos: hoy todos los
         # pacientes son únicos, pero el Taller deja subirla y el mazo tiene
         # que crecer de verdad si alguien lo hace.
@@ -298,6 +306,11 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5,
                     if ADMISION == "opcional":
                         ritmo = TOPE_VISITA or 3.5
                         margen = (rondas - ronda + 1) * ritmo - pendiente
+                        # v0.21 Informe de Gestión de Camas: el primero de la
+                        # fila está boca arriba, así que su costo se decide
+                        # sabiéndolo, no a ciegas.
+                        if URGENCIA_VISIBLE:
+                            margen -= mazo_p[-1]["pide_total"]
                         if margen < UMBRAL_ADM:
                             continue
                     opciones = [mazo_p.pop() for _ in range(min(2, len(mazo_p)))]

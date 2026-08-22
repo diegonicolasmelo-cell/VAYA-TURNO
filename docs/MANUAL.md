@@ -24,7 +24,7 @@ recursos** que nunca alcanzan para todos:
 | Personal | 🧑‍⚕️ | Enfermeras, técnicos, kinesiólogos |
 | Procedimientos | 💉 | Vías centrales, intubación, punciones, drenajes |
 
-**Reglas v0.20:** colocas **máx. 3 recursos por turno**; **admitir es opcional**, pero cada cama vacía te resta **1 punto por noche**; el Canje **roba 2 Protocolos y te quedas 1**; algunos 🧑‍⚕️ traen **🛡️ PREVIENE** (anulan su complicación nombrada si ya estaban puestos). Detalle en `REGLAMENTO.md`.
+**Reglas v0.21:** colocas **máx. 3 recursos por turno**; **admitir es opcional**, pero cada cama vacía te resta **1 punto por noche**; el Canje **roba 2 Protocolos y te quedas 1**; algunos 🧑‍⚕️ traen **🛡️ PREVIENE**; **toda ⚠️ quita 1 ❤️** al paciente que señala su 🎯; la primera carta de Urgencia está **boca arriba**. Detalle en `REGLAMENTO.md`.
 
 **No vas a salvarlos a todos.** Eso no es un defecto: es triage. El juego
 consiste en elegir a quién salvas, dejar ir al resto con dignidad, y —
@@ -37,7 +37,7 @@ Gana quien tenga **más puntos** al terminar la guardia.
 
 1. **El reloj:** todo paciente no estabilizado pierde 1 ❤️ cada Fin de
    Guardia. El día pasa aunque tú no llegues.
-2. **La sinergia:** 21 de los 63 recursos llevan un sistema clínico
+2. **La sinergia:** 21 de los 65 recursos llevan un sistema clínico
    (🫁🫀🧠🧪🔪). Jugados sobre un paciente de su mismo sistema **cuentan
    doble**. ¿Quemas el broncodilatador en el cardíaco que se te va ahora, o
    lo guardas por si llega un respiratorio?
@@ -52,9 +52,9 @@ Gana quien tenga **más puntos** al terminar la guardia.
 | Mazo | Diseños | Copias | Cómo se consigue |
 |---|---:|---:|---|
 | **Personajes** | 6 | 6 | Eliges uno al empezar |
-| **Pacientes** | 26 | 26 | Llegan solos (admisión: revela 2, elige 1) |
-| **Mazo de Guardia** (Recursos) | 43 | **63** | Robas 4 por turno (3 si son 4 jugadores). **17 llevan ⚠️** |
-| **Mazo de Protocolos** (Acciones) | 20 | **30** | Solo por Canje: botas 2 recursos → robas 1 |
+| **Pacientes** | 26 | 26 | Llegan solos (admisión opcional: revela 2, elige 1; la primera está boca arriba) |
+| **Mazo de Guardia** (Recursos) | 44 | **65** | Robas 4 por turno (3 si son 4 jugadores). **18 llevan ⚠️** |
+| **Mazo de Protocolos** (Acciones) | 20 | **30** | Solo por Canje: botas 2 recursos → robas 2 y te quedas 1 |
 | **Sumario Administrativo** | 1 | 6 | Llega solo, cada vez que se te muere alguien |
 
 Fichas: ~60 ❤️ vida · 12 ✅ estabilizado · 20 ✝️ cruces · 1 moneda (para la
@@ -66,7 +66,7 @@ Pelada) · 1 marcador de ronda.
 |---|---:|---:|---:|---:|---:|
 | **I — Observación** | 8 | 7 | 3 | +2 | −1 |
 | **II — Grave** | 10 | 6 | 5 | +3 | −2 |
-| **III — Crítico** | 6 | 5 | 7 | +5 | −2 |
+| **III — Crítico** | 6 | 6 | 8 | +6 | −2 |
 | **★ Código Rojo** | 2 | 5 | 8 | +8 | −3 |
 
 La matemática que importa: el III y el ROJO valen mucho más de lo que
@@ -98,7 +98,8 @@ jugarla.
 ### 2.3 El Mazo de Protocolos (30 Acciones)
 
 No se roban: se **compran** en El Pasillo (Canje: descarta 2 recursos → roba
-1 Protocolo, máx. 1 por turno). Máximo **1 Acción jugada por turno**.
+2 Protocolos y te quedas 1, máx. 1 por turno). Máximo **1 Acción jugada por
+turno**.
 
 | Tipo | Cuántas | La idea |
 |---|---:|---|
@@ -110,7 +111,7 @@ No se roban: se **compran** en El Pasillo (Canje: descarta 2 recursos → roba
 
 ### 2.4 Las Complicaciones ⚠️ y los Sumarios (6)
 
-**No hay mazo de eventos.** 18 de las 63 cartas del Mazo de Guardia llevan el
+**No hay mazo de eventos.** 18 de las 65 cartas del Mazo de Guardia llevan el
 sello **⚠️** y traen impresa **su propia complicación** — siempre la que ese
 recurso causa de verdad. La *Ventilación Mecánica ⚠️* trae la neumonía
 asociada a ventilación mecánica; el *Catéter Venoso ⚠️*, la bacteriemia; el
@@ -119,12 +120,14 @@ carta sobre un paciente, no al robarla** — así que cada ⚠️ en tu mano es 
 decisión de costo-beneficio, no un castigo. Descartarla no dispara nada; si
 vuelve del descarte con una *Interconsulta*, vuelve a disparar.
 
-Cada una trae un **🎯 Objetivo** que dice a qué paciente le toca: *ESTE
-PACIENTE* · *EL MÁS GRAVE* · *EL QUE MEJOR VA* · *EL ✅ ESTABILIZADO* · *TÚ
-ELIGES* · *TU MANO*. Cuatro son de causalidad directa — la NAVM le da al que
-ventilaste, la bacteriemia al del catéter — y diez apuntan al que iba bien o
-al que ya tenía su ✅. Las dos cosas son deliberadas: **lo que se complica en
-una UCI es lo que parecía resuelto, o lo que tú mismo acabas de tocar.**
+**Todas hacen lo mismo (v0.21): el paciente señalado pierde 1 ❤️.** Una regla
+para las dieciocho. Lo que cambia es su **🎯 Objetivo**, que dice a quién le
+toca: *ESTE PACIENTE* · *EL QUE MEJOR VA* · *EL ✅ ESTABILIZADO* · *TÚ ELIGES*
+· *TU MANO* (esta última solo el *Stock de Sala*, que te hace descartar). Cuatro
+son de causalidad directa — la NAVM le da al que ventilaste, la bacteriemia al
+del catéter — y once apuntan al que iba bien o al que ya tenía su ✅. Las dos
+cosas son deliberadas: **lo que se complica en una UCI es lo que parecía
+resuelto, o lo que tú mismo acabas de tocar.**
 
 El **Sumario Administrativo** es la maldición: llega cada vez que se te
 muere un paciente. Ocupa la mano, no se puede jugar ni descartar, **reduce tu
@@ -145,15 +148,18 @@ Lo peor de perder un paciente no son los puntos: es el formulario.
 1. **Altas:** todo paciente que ya tenía ✅ desde antes de este turno se va
    de alta. Anotas sus puntos. (Estabilizas en un turno, das de alta al
    siguiente — la ronda entre medio es la ventana de sabotaje.)
-2. **Admisión:** por cada cama vacía, revela 2 pacientes, elige 1, el otro
-   al fondo. **No puedes dejar camas vacías.**
-3. **Robo:** 4 cartas del Mazo de Guardia (3 en partidas de 4). Cada ⚠️ que
-   robes resuelve su complicación al instante.
+2. **Admisión (opcional):** por cada cama vacía, revela 2 pacientes, elige 1,
+   el otro al fondo. **Puedes dejar la cama vacía, pero te cuesta 1 punto por
+   noche.** La primera carta del mazo está boca arriba: sabes la mitad de lo
+   que te tocaría.
+3. **Robo:** 4 cartas del Mazo de Guardia (3 en partidas de 4). Robar una ⚠️
+   **no hace nada**: su complicación se resuelve al colocarla.
 
 ### 3.2 El Pasillo — *negocias*
 
 - **1 Negocio por turno**, a elección:
-  - **Canje** (con el mazo): bota 2 recursos → roba 1 Protocolo al azar.
+  - **Canje** (con el mazo): bota 2 recursos → roba **2** Protocolos y te
+    quedas con **1**.
   - **Trueque** (con un colega): da 2 recursos de tu mano a un rival → él te
     da 1 del tipo que pidas (elige cuál, puede negarse). Certeza en vez de
     azar — pero engordas a un rival, y la mesa lo ve.
@@ -165,7 +171,7 @@ de haber tratado a nadie.
 
 ### 3.3 Pase de Visita — *tratas*
 
-- Juega **todos los recursos que quieras** sobre tus pacientes.
+- Coloca **hasta 3 recursos** sobre tus pacientes.
 - Recurso específico en su sistema = cuenta **×2**.
 - Cierra Sumarios (2 recursos c/u).
 - Paciente con todo lo que pide → ficha **✅**: deja de deteriorarse al

@@ -1,27 +1,27 @@
 id,nombre,gravedad,sistema,vida,img,far,per,proc,total_recursos,puntos_alta,puntos_fallece,frase,copias
 P01,Dolor Torácico Atípico,I,CARD,7,1,1,0,1,3,2,-1,"Le duele cuando respira, cuando camina y cuando le hablan de la cuenta.",1
-P02,El del Frasco Completo,I,METAB,7,0,2,1,0,3,2,-1,"Se lo tomó todo. Incluido el algodón.",1
+P02,El del Frasco Completo,I,METAB,7,0,2,1,0,3,2,-1,Se lo tomó todo. Incluido el algodón.,1
 P03,Abandono de Tratamiento,I,CARD,7,0,2,0,1,3,2,-1,"Se sentía bien, así que dejó las pastillas. Hace ocho meses.",1
 P04,La Caída del Baño,I,QUIR,7,2,0,1,0,3,2,-1,"'Me resbalé', dice. Nadie en la sala le cree.",1
-P05,Crisis de Pánico en Box 4,I,NEURO,7,0,1,2,0,3,2,-1,"Se está muriendo. Todos los martes.",1
-P06,Deshidratado de Verano,I,METAB,7,0,1,1,1,3,2,-1,"Insiste en que cuatro cervezas cuentan como líquido.",1
-P07,El Que Googleó Sus Síntomas,I,NEURO,7,1,1,1,0,3,2,-1,"Trae impreso el diagnóstico. Y el tratamiento. Y el pronóstico.",1
-P08,Postoperado Que No Debería Estar Aquí,I,QUIR,7,1,0,1,1,3,2,-1,"El cirujano dijo 'obsérvenlo un rato'. Van tres días.",1
-P09,Neumonía Adquirida en la Comunidad,II,RESP,6,1,2,1,1,5,3,-2,"Lleva un mes tosiendo. Vino hoy porque no lo dejaba dormir.",1
-P10,Cetoacidosis Diabética,II,METAB,6,0,2,1,2,5,3,-2,"Se le acabó la insulina el jueves. Hoy es domingo.",1
-P11,ACV en Ventana,II,NEURO,6,2,1,1,1,5,3,-2,"Nadie sabe a qué hora empezó. Nadie.",1
-P12,Hemorragia Digestiva Alta,II,QUIR,6,1,2,0,2,5,3,-2,"Dice que es la primera vez. Es la sexta.",1
-P13,Insuficiencia Cardíaca Descompensada,II,CARD,6,1,2,1,1,5,3,-2,"Comió cazuela. Y sopa. Y jugo. Y postre.",1
-P14,Pielonefritis Complicada,II,METAB,6,1,2,1,1,5,3,-2,"Aguantó dos semanas por no faltar al trabajo.",1
-P15,Abdomen Agudo Sin Diagnóstico,II,QUIR,6,3,1,1,0,5,3,-2,"Cirugía dice que es de medicina. Medicina dice que es de cirugía.",1
-P16,EPOC Exacerbado,II,RESP,6,1,2,0,2,5,3,-2,"Trae su balón de oxígeno. Y su cajetilla.",1
-P17,Intoxicación Mixta,II,METAB,6,0,3,1,1,5,3,-2,"Nadie sabe qué tomó. Él tampoco.",1
-P18,Delirium del Adulto Mayor,II,NEURO,6,1,1,3,0,5,3,-2,"De día duerme. De noche dirige una orquesta.",1
-P19,Shock Séptico,III,CARD,5,1,3,1,2,7,5,-2,"La hora dorada empezó hace cuatro horas.",1
-P20,Politraumatizado,III,QUIR,5,3,1,1,2,7,5,-2,"Iba a 120. Sin cinturón. 'Por acá nunca hay control'.",1
-P21,Síndrome de Distrés Respiratorio,III,RESP,5,2,2,1,2,7,5,-2,"Los pulmones parecen vidrio esmerilado. Él parece tranquilo.",1
-P22,Status Epiléptico,III,NEURO,5,1,3,1,2,7,5,-2,"Cuarta dosis. Sigue convulsionando.",1
-P23,Pancreatitis Grave,III,QUIR,5,2,2,2,1,7,5,-2,"Fue un asado. Uno solo, insiste.",1
-P24,Tromboembolismo Pulmonar Masivo,III,RESP,5,2,2,0,3,7,5,-2,"Volvió de un vuelo de catorce horas y del baño no salió caminando.",1
-P25,Falla Multiorgánica,ROJO,CARD,5,2,3,1,2,8,8,-3,"Todo mal. Y en orden alfabético.",1
-P26,Trasplante en Lista Cero,ROJO,QUIR,5,2,2,2,2,8,8,-3,"Hay órgano. Hay avión. No hay pabellón.",1
+P05,Crisis de Pánico en Box 4,I,NEURO,7,0,1,2,0,3,2,-1,Se está muriendo. Todos los martes.,1
+P06,Deshidratado de Verano,I,METAB,7,0,1,1,1,3,2,-1,Insiste en que cuatro cervezas cuentan como líquido.,1
+P07,El Que Googleó Sus Síntomas,I,NEURO,7,1,1,1,0,3,2,-1,Trae impreso el diagnóstico. Y el tratamiento. Y el pronóstico.,1
+P08,Postoperado Que No Debería Estar Aquí,I,QUIR,7,1,0,1,1,3,2,-1,El cirujano dijo 'obsérvenlo un rato'. Van tres días.,1
+P09,Neumonía Adquirida en la Comunidad,II,RESP,6,1,2,1,1,5,3,-2,Lleva un mes tosiendo. Vino hoy porque no lo dejaba dormir.,1
+P10,Cetoacidosis Diabética,II,METAB,6,0,2,1,2,5,3,-2,Se le acabó la insulina el jueves. Hoy es domingo.,1
+P11,ACV en Ventana,II,NEURO,6,2,1,1,1,5,3,-2,Nadie sabe a qué hora empezó. Nadie.,1
+P12,Hemorragia Digestiva Alta,II,QUIR,6,1,2,0,2,5,3,-2,Dice que es la primera vez. Es la sexta.,1
+P13,Insuficiencia Cardíaca Descompensada,II,CARD,6,1,2,1,1,5,3,-2,Comió cazuela. Y sopa. Y jugo. Y postre.,1
+P14,Pielonefritis Complicada,II,METAB,6,1,2,1,1,5,3,-2,Aguantó dos semanas por no faltar al trabajo.,1
+P15,Abdomen Agudo Sin Diagnóstico,II,QUIR,6,3,1,1,0,5,3,-2,Cirugía dice que es de medicina. Medicina dice que es de cirugía.,1
+P16,EPOC Exacerbado,II,RESP,6,1,2,0,2,5,3,-2,Trae su balón de oxígeno. Y su cajetilla.,1
+P17,Intoxicación Mixta,II,METAB,6,0,3,1,1,5,3,-2,Nadie sabe qué tomó. Él tampoco.,1
+P18,Delirium del Adulto Mayor,II,NEURO,6,1,1,3,0,5,3,-2,De día duerme. De noche dirige una orquesta.,1
+P19,Shock Séptico,III,CARD,6,1,4,1,2,8,6,-2,La hora dorada empezó hace cuatro horas.,1
+P20,Politraumatizado,III,QUIR,6,3,1,1,3,8,6,-2,Iba a 120. Sin cinturón. 'Por acá nunca hay control'.,1
+P21,Síndrome de Distrés Respiratorio,III,RESP,6,2,2,2,2,8,6,-2,Los pulmones parecen vidrio esmerilado. Él parece tranquilo.,1
+P22,Status Epiléptico,III,NEURO,6,1,4,1,2,8,6,-2,Cuarta dosis. Sigue convulsionando.,1
+P23,Pancreatitis Grave,III,QUIR,6,3,2,2,1,8,6,-2,"Fue un asado. Uno solo, insiste.",1
+P24,Tromboembolismo Pulmonar Masivo,III,RESP,6,2,2,0,4,8,6,-2,Volvió de un vuelo de catorce horas y del baño no salió caminando.,1
+P25,Falla Multiorgánica,ROJO,CARD,5,2,3,1,2,8,8,-3,Todo mal. Y en orden alfabético.,1
+P26,Trasplante en Lista Cero,ROJO,QUIR,5,2,2,2,2,8,8,-3,Hay órgano. Hay avión. No hay pabellón.,1

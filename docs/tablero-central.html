@@ -44,7 +44,7 @@ body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#14202b;backgr
 <div class="tab">
   <div class="cab">
     <div class="logo">¡VAYA TURNO! <span>· tablero central — al medio de la mesa</span></div>
-    <div class="sub">63 Recursos · 30 Protocolos · 26 Pacientes · 22 Personajes · 6 Sumarios</div>
+    <div class="sub">65 Recursos · 30 Protocolos · 26 Pacientes · 22 Personajes · 6 Sumarios</div>
   </div>
 
   <!-- FILA 1 · pacientes y papeleo -->
@@ -53,12 +53,14 @@ body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#14202b;backgr
       <div class="banda">Urgencia <small>los que esperan cama</small></div>
       <div class="slot"><b>MAZO DE<br>PACIENTES</b><i>boca abajo</i></div>
     </div>
-    <div class="pila">
-      <div class="banda suave">Admisión · revelado 1 <small>revela 2, elige 1</small></div>
-      <div class="slot"><i>paciente<br>revelado</i></div>
+    <div class="pila dura">
+      <div class="banda">Informe de Gestión de Camas <small>siempre boca arriba</small></div>
+      <div class="slot lleno"><i>el próximo<br>de la fila</i>
+        <p>Es <b>una de las 2</b> que revelarías al admitir. Cuando alguien admite, se da vuelta la siguiente.</p>
+      </div>
     </div>
     <div class="pila">
-      <div class="banda suave">Admisión · revelado 2 <small>el que no eliges va al fondo</small></div>
+      <div class="banda suave">Admisión · el segundo revelado <small>el que no eliges va al fondo</small></div>
       <div class="slot"><i>paciente<br>revelado</i></div>
     </div>
     <div class="pila dura">
@@ -72,13 +74,13 @@ body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#14202b;backgr
   <!-- FILA 2 · los dos mazos -->
   <div class="fila">
     <div class="pila dura">
-      <div class="banda">Mazo de Guardia · robo <small>63 recursos, con sus 18 ⚠️ dentro</small></div>
+      <div class="banda">Mazo de Guardia · robo <small>65 recursos, con sus 18 ⚠️ dentro</small></div>
       <div class="slot"><b>ROBO</b><i>boca abajo</i></div>
     </div>
     <div class="pila">
       <div class="banda suave">Guardia · descarte <small>al agotarse el robo, barájalo y sigue</small></div>
       <div class="slot lleno"><i>descarte de<br>recursos</i>
-        <p>A 2 jugadores alcanza justo hasta la ronda 8; a 3 se rebaraja en la 6.</p>
+        <p>Toda ⚠️ hace lo mismo: <b>el paciente que señala su 🎯 pierde 1 ❤️</b>, al colocarla.</p>
       </div>
     </div>
     <div class="pila dura">
