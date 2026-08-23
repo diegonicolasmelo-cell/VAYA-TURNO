@@ -22,6 +22,13 @@ Existen dos juegos en el repo y **el playtest debe elegir**:
   `cartas/v030/`, `tools/simular_v030.py`, PnP con `--variante v030`.
   Suelo medido en `DISENO.md` §4k: salv 67% · GIII 43% · todo en banda.
 
+**Para probar la v0.30 sin cartas** está `docs/app.html` (se genera con
+`python3 tools/generar_app.py`): árbitro digital en un solo archivo, contra
+la IA o entre dos en un teléfono. Lleva el reloj, los ✅, la ventana de alta,
+las ⚠️, las 🛡️, la basura y los Sumarios; las Acciones y las habilidades de
+avatar se aplican a mano y quedan en la bitácora, que se copia al portapapeles
+para pegarla acá.
+
 Qué mirar en mesa antes de decidir: (1) ¿el sabotaje se siente táctico o
 sólo malicioso? (2) ¿la Pizarra hace que El Pasillo por fin se juegue?
 (3) ¿"No se me fue nadie" al 2,6% se siente épico o imposible? (4) ¿la
