@@ -7,7 +7,8 @@ ubica". La v0.21 estable se mide con tools/simular.py; este archivo mide el
 suelo de la variante. Reglas completas en docs/REGLAMENTO-v030.md.
 
 Qué modela:
-- Admisión OBLIGATORIA (revela 2, elige 1), se parte con 2 pacientes.
+- Admisión OBLIGATORIA (revela 2, elige 1). Se parte con 2 pacientes y la
+  ronda 1 se juega así: la tercera cama se admite recién en la ronda 2.
 - 3 colocaciones por turno gastables en un menú: tratar / sabotear /
   des-escalar / cerrar Sumario (1 colocación + 2 cartas).
 - Toda ⚠️ quita 1 ❤️ al paciente DONDE SE UBICA, propio o rival, al colocarla.
@@ -287,7 +288,10 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5):
                     j.camas[i] = None
 
             # 2. ADMISIÓN OBLIGATORIA (revela 2, elige 1)
-            for i, c in enumerate(j.camas):
+            # v0.32: la ronda 1 se juega con los 2 pacientes de la preparación;
+            # la tercera cama se llena recién en la ronda 2. Medido: neutro
+            # (salv 67% igual, GIII 43→45%, ROJO 80→73%, todo en banda).
+            for i, c in enumerate(j.camas if ronda > 1 else []):
                 if c is None and mazo_p:
                     opciones = [mazo_p.pop() for _ in range(min(2, len(mazo_p)))]
                     mejor = max(opciones,

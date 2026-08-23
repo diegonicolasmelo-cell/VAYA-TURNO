@@ -7,3 +7,4 @@ VAYA-TURNO*.pdf
 
 __pycache__/
 *.pyc
+docs/diseno-app/tablero-guardia-virtual.html

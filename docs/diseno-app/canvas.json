@@ -1,0 +1,37 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 390, "h": 844, "title": "A · Menos tinta por cama" },
+    { "file": "RivalPlegado.dc.html", "x": 540, "y": 0, "w": 390, "h": 844, "title": "B · Menos cosas a la vez" }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": -420,
+      "y": 0,
+      "w": 340,
+      "text": "EL PROBLEMA\n\"Me estoy mareando un poco.\"\n\nHoy cada cama muestra 4 filas de requisitos con icono + casillas + número, más 7 casillas de vida, más franja de color, más sellos. Seis camas en pantalla = 24 micro-filas compitiendo por la mirada.\n\nLas dos direcciones atacan el mareo por ejes distintos. Los tokens son los de la app real (Archivo Narrow / IBM Plex Mono / Petrona, acento #0d6e78, los cinco colores clínicos)."
+    },
+    {
+      "id": "dir-a",
+      "x": 0,
+      "y": -230,
+      "w": 390,
+      "text": "A · MENOS TINTA POR CAMA\nMisma estructura, la mitad de la información.\n\n· Dos números grandes y etiquetados por cama: VIDA y FALTAN. Se acabaron las casillas de vida.\n· Los requisitos ya cumplidos DESAPARECEN. Solo quedan fichas de lo que falta: 💊3 💉1.\n· El sistema clínico pasa de franja de color a un punto de 6 px.\n· El rival vive al 82% de tinta: mismo formato, menos peso.\n\nA FAVOR: se lee de un vistazo y sigue siendo el tablero que ya conoces.\nEN CONTRA: pierdes ver de un golpe lo que YA pusiste — para eso hay que tocar la cama."
+    },
+    {
+      "id": "dir-b",
+      "x": 540,
+      "y": -230,
+      "w": 390,
+      "text": "B · MENOS COSAS A LA VEZ\nEl rival se pliega a una sola línea.\n\n· La unidad rival queda en una tira con tres pastillas (vida + nombre corto). Se despliega al tocarla o sola cuando tomas una ⚠️.\n· Tus camas pasan a fila completa: nombre grande, un número de vida enorme, las fichas de lo que falta.\n· La Pizarra se encoge a tres pastillas con coste + nombre; el detalle aparece al tocar.\n\nA FAVOR: la mitad de la pantalla deja de pedirte atención cuando no la necesitas.\nEN CONTRA: sabotear cuesta un toque más, y el sabotaje es la gracia de la v0.30."
+    },
+    {
+      "id": "comun",
+      "x": 0,
+      "y": 900,
+      "w": 930,
+      "text": "LO QUE COMPARTEN LAS DOS · el reloj se ve detenido\nLa cama estabilizada muestra la vida en verde apagado con la marca «congelada», no en rojo de alarma. El ✅ ya detenía el deterioro desde siempre; lo que faltaba era que se notara sin leer el reglamento.\nTambién compartido: iconos SVG en vez de emoji, un solo acento, y color semántico solo donde significa algo (rojo = se muere, verde = estable, morado = basura clínica)."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

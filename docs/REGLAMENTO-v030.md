@@ -1,10 +1,14 @@
-# ¡VAYA TURNO! — Reglamento v0.31 (rama experimental)
+# ¡VAYA TURNO! — Reglamento v0.32 (rama experimental)
 
 > **Qué es esto.** El rediseño de agosto 2026: sabotaje con recursos ⚠️,
 > Pizarra de Turno, admisión obligatoria y complicación unificada "donde se
 > ubica". Usa los mazos de `cartas/v030/` (recursos, acciones y logros
 > propios; pacientes, personajes y sumarios se comparten con la base) — la
 > carpeta conserva el nombre `v030` porque **el mazo no cambió** en v0.31.
+>
+> **v0.32: la ronda 1 se juega con 2 pacientes.** La tercera cama se admite
+> recién en la ronda 2 — la unidad empieza a media carga y se llena sola.
+> Medido: neutro (salvamento 67% igual; GIII 43→45%, ROJO 80→73%).
 >
 > **v0.31: se eliminó la fase de El Pasillo.** El turno son ahora **tres
 > fases**: Entrega de Turno, Pase de Visita y Fin de Guardia. La Pizarra
@@ -49,8 +53,9 @@ Fichas: ❤️ vida · ✅ estabilizado · ✝️ cruces · 1 moneda · marcador
 
 1. Cada jugador recibe **2 avatares, elige 1** y devuelve el otro.
 2. Baraja el Mazo de Pacientes. Cada jugador **recibe 2 pacientes al azar**
-   — la tercera cama parte vacía. Da vuelta la primera carta del mazo:
-   es el **Informe de Gestión de Camas** y queda boca arriba toda la partida.
+   — la tercera cama parte vacía y **se queda vacía toda la ronda 1**. Da
+   vuelta la primera carta del mazo: es el **Informe de Gestión de Camas** y
+   queda boca arriba toda la partida.
 3. Baraja el **Mazo de Guardia** (67 recursos) y el **Mazo de Protocolos**.
    Revela las **3 primeras cartas de Protocolos**: esa fila es la
    **Pizarra de Turno**.
@@ -72,9 +77,13 @@ de alta… **salvo que tenga basura clínica encima** (§6.3): nadie se va con
 papeleo pendiente. Guarda la carta en tu pila de puntos; sus recursos van
 al descarte.
 
-**b) Admisión — OBLIGATORIA.** Por cada cama vacía **debes** admitir:
-revela 2 pacientes (el Informe boca arriba es uno de ellos), elige 1, el
-otro va al fondo. Da vuelta el nuevo Informe.
+**b) Admisión — OBLIGATORIA, desde la ronda 2.** Por cada cama vacía
+**debes** admitir: revela 2 pacientes (el Informe boca arriba es uno de
+ellos), elige 1, el otro va al fondo. Da vuelta el nuevo Informe.
+
+> **En la ronda 1 no se admite.** La guardia empieza con los 2 pacientes que
+> te tocaron y una cama libre: el primer turno es para ordenarte, no para
+> apagar tres incendios a la vez. La tercera cama se llena en la ronda 2.
 
 **c) Robo.** Roba **4 cartas** del Mazo de Guardia (3 en partidas de 4).
 Robar una ⚠️ no hace nada: es munición o tratamiento, según dónde la pongas.

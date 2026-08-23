@@ -107,6 +107,10 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .corazones{display:flex;gap:1.5px;align-items:center;margin:4px 0 5px}
 .hp{width:5px;height:9px;border-radius:1.5px;background:var(--vida);flex:none}
 .hp.off{background:var(--line)}
+.hp.frio{background:#8fbfae}
+.cong{display:inline-flex;align-items:center;gap:2px;font-size:7.5px;font-weight:700;
+      letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-left:4px}
+.cong svg{width:7px;height:7px;flex:none}
 .num{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
      color:var(--ink-2);margin-left:4px;font-variant-numeric:tabular-nums}
 .reqs{display:flex;flex-direction:column;gap:2.5px}
@@ -432,6 +436,8 @@ function faseEntrega(){
 
 function pedirAdmision(){
   const j = yo();
+  // v0.32: la ronda 1 se juega con los 2 pacientes de la preparación
+  if(G.ronda === 1){ hacerRobo(); return; }
   const i = j.camas.findIndex(c=>c===null);
   if(i<0 || !G.mazoP.length){ hacerRobo(); return; }
   const ops = [G.mazoP.pop()]; if(G.mazoP.length) ops.push(G.mazoP.pop());
@@ -745,8 +751,12 @@ function vistaCama(c, i, duenio, propio){
     `${esc(c.p.gravedad)}${SIS[c.p.sistema]?" · "+SIS[c.p.sistema][0]:""}`));
 
   const hp = el("div","corazones");
-  for(let k=0;k<c.vidaMax;k++) hp.appendChild(el("i", k<c.vida?"hp":"hp off"));
+  for(let k=0;k<c.vidaMax;k++)
+    hp.appendChild(el("i", k<c.vida ? (c.estable?"hp frio":"hp") : "hp off"));
   hp.appendChild(el("span","num",String(c.vida)));
+  // el ✅ detiene el reloj: que se vea, no solo que sea verdad
+  if(c.estable) hp.appendChild(el("span","cong",
+    '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
   d.appendChild(hp);
 
   const rq = el("div","reqs");
@@ -766,7 +776,7 @@ function vistaCama(c, i, duenio, propio){
   d.appendChild(rq);
 
   const sellos = el("div","sellos");
-  if(c.estable) sellos.appendChild(el("span","sello ok","✅ estable"));
+  if(c.estable) sellos.appendChild(el("span","sello ok","✅ estable · no se deteriora"));
   if(c.basura.length) sellos.appendChild(el("span","sello bas",`↯${c.basura.length} retiene alta`));
   if(c.escudo) sellos.appendChild(el("span","sello esc","🛡️"));
   c.protege.forEach(p=>sellos.appendChild(el("span","sello pro",`🛡️ ${esc(p.split(" ")[0])}`)));
@@ -1129,7 +1139,7 @@ function pantallaInicio(){
   const w = el("div");
   const h = el("div","portada");
   h.appendChild(el("h1",null,"¡Vaya Turno!"));
-  h.appendChild(el("div","sub","Guardia virtual · reglas v0.31"));
+  h.appendChild(el("div","sub","Guardia virtual · reglas v0.32"));
   h.appendChild(el("p",null,
     "Árbitro digital para probar el juego donde no puedas llevar las cartas. "+
     "Lleva el reloj, los ✅, la basura clínica y los Sumarios por ti."));
