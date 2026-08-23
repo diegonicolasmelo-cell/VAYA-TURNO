@@ -51,7 +51,9 @@ Fichas: ❤️ vida · ✅ estabilizado · ✝️ cruces · 1 moneda · marcador
 
 ## 3. Preparación
 
-1. Cada jugador recibe **2 avatares, elige 1** y devuelve el otro.
+1. Cada jugador recibe **3 avatares, elige 1** y devuelve los otros dos
+   a la reserva (v0.32: eran 2 — más elección al costo de una pizca más de
+   setup; el simulador no modela avatares, así que el balance no se mueve).
 2. Baraja el Mazo de Pacientes. Cada jugador **recibe 2 pacientes al azar**
    — la tercera cama parte vacía y **se queda vacía toda la ronda 1**. Da
    vuelta la primera carta del mazo: es el **Informe de Gestión de Camas** y

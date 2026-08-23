@@ -104,10 +104,9 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .faltan.cero{color:var(--ok)}
 .grav{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
       color:var(--ink-3);display:block;margin-top:2px}
-.corazones{display:flex;gap:1.5px;align-items:center;margin:4px 0 5px}
-.hp{width:5px;height:9px;border-radius:1.5px;background:var(--vida);flex:none}
-.hp.off{background:var(--line)}
-.hp.frio{background:#8fbfae}
+.corazones{display:flex;gap:1px;align-items:center;margin:4px 0 5px;flex-wrap:wrap}
+.cz{display:inline-flex;width:11px;height:11px;color:var(--vida);flex:none}
+.cz svg{width:100%;height:100%;display:block}
 .cong{display:inline-flex;align-items:center;gap:2px;font-size:7.5px;font-weight:700;
       letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-left:4px}
 .cong svg{width:7px;height:7px;flex:none}
@@ -150,14 +149,13 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .mano-rot{padding:8px 10px 0;font-size:9.5px;font-weight:700;letter-spacing:.11em;
           text-transform:uppercase;color:var(--ink-3);display:flex;gap:6px;align-items:center}
 .mano-rot span{flex:1;height:1px;background:var(--line-2)}
-.mano{display:flex;gap:6px;overflow-x:auto;padding:6px 10px 8px;
-      -webkit-overflow-scrolling:touch}
-.mano::-webkit-scrollbar{height:5px}
-.mano::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
-.carta{flex:none;width:104px;background:var(--paper);border:1px solid var(--line);
+.mano{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
+      padding:6px 10px 8px}
+@media (max-width:349px){.mano{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.carta{width:auto;background:var(--paper);border:1px solid var(--line);
        border-radius:8px;padding:6px;text-align:left;box-shadow:var(--sombra);
-       display:flex;flex-direction:column;gap:2px;min-height:112px;
-       transition:transform .12s ease;touch-action:pan-x}
+       display:flex;flex-direction:column;gap:2px;min-height:104px;
+       transition:transform .12s ease;touch-action:none}
 .carta.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc);transform:translateY(-6px)}
 .carta.no{opacity:.38}
 .carta.fantasmal{opacity:.25}
@@ -216,6 +214,29 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .log .r{color:var(--ink);font-weight:600;padding-top:6px}
 .log .m{color:var(--vida)} .log .a{color:var(--ok)}
 .nota{font-size:11px;color:var(--ink-3);line-height:1.4}
+
+.franja{position:fixed;left:0;right:0;top:36%;z-index:80;text-align:center;
+        background:var(--acc);color:#fff;padding:16px 0;pointer-events:none;
+        font-family:Petrona,Georgia,serif;font-size:27px;font-weight:700;
+        letter-spacing:.08em;box-shadow:0 10px 34px rgba(9,25,32,.35);
+        animation:franja 1.6s ease forwards}
+@keyframes franja{0%{opacity:0;transform:translateY(10px)}14%{opacity:1;transform:none}
+                  78%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.franja{animation:none}}
+
+.prot-mios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;
+           margin-top:8px}
+.prot-btn{margin-top:auto;padding:6px 4px;border-radius:6px;background:var(--acc);
+          color:var(--acc-ink);font-size:10px;font-weight:700;text-align:center;
+          letter-spacing:.03em}
+.prot-btn.no{background:var(--cerca);color:var(--ink-3);border:1px solid var(--line)}
+
+.ficha.hab{color:var(--acc-ink);background:var(--acc);border-color:var(--acc)}
+.ficha.hab.no{background:var(--cerca);color:var(--ink-3);border-color:var(--line)}
+.hab-desc{margin-top:7px;padding:9px 11px;border-radius:9px;background:var(--paper);
+          box-shadow:inset 0 0 0 1px var(--line);font-size:11.5px;line-height:1.4;
+          color:var(--ink-2)}
+.hab-desc b{color:var(--ink)}
 
 .cortina{position:fixed;inset:0;z-index:70;background:var(--acc);color:#fff;
          display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -281,11 +302,12 @@ function nuevaPartida(modo, nombres){
   const avat  = baraja(D.personajes.slice());
   const jug = nombres.map((nom,i)=>({
     nombre:nom, ia: modo==="ia" && i===1,
-    avatar: avat[i], mano:[], camas:[null,null,null],
+    avatar: null, mano:[], camas:[null,null,null],
     altas:[], muertos:[], sumarios:0,
     protocolos:[], coloc:COLOCACIONES, compraHecha:false, accionHecha:false,
-    roboMod:0, sinFarmacos:false, colocMod:0, habUsada:false
+    roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false
   }));
+  jug.forEach(j=>{ if(j.ia) j.avatar = avat.pop(); });
   G = { modo, ronda:1, turno:0, fase:0, mazoP, mazoG, descG:[], mazoA, descA:[],
         pizarra:[], sumariosLibres:6, log:[], fin:false, pendiente:null,
         sinAcciones:false, iniciado:false };
@@ -296,8 +318,26 @@ function nuevaPartida(modo, nombres){
   for(let i=0;i<3;i++){ const a=G.mazoA.pop(); if(a) G.pizarra.push(a); }
   jug.forEach(j=>{ for(let i=0;i<ROBO;i++) robar(j); });
   anota("r", `RONDA 1 · empieza ${jug[0].nombre}`);
+  G.avatarPool = avat;
   G.iniciado = true;
-  entrarFase(0);
+  siguienteAvatar();
+}
+
+/* Al inicio se revelan 3 avatares por jugador humano; elige 1 y los otros
+   vuelven al fondo de la pila. */
+function siguienteAvatar(){
+  const i = G.jug.findIndex(j=>!j.avatar);
+  if(i < 0){ G.pendiente = null; entrarFase(0); return; }
+  G.pendiente = {tipo:"avatar", jugador:i,
+                 ops: G.avatarPool.splice(-3, 3)};
+  guardar(); render();
+}
+function resolverAvatar(elegido){
+  const p = G.pendiente;
+  G.jug[p.jugador].avatar = elegido;
+  G.avatarPool.unshift(...p.ops.filter(o=>o!==elegido));
+  anota("", `${G.jug[p.jugador].nombre} será ${elegido.nombre}.`);
+  siguienteAvatar();
 }
 
 function nuevaCama(p){
@@ -407,6 +447,11 @@ function complicar(carta, cama, duenio){
 function entrarFase(f){
   G.fase = f;
   const j = yo();
+  if(f===0 && !j.ia && G.iniciado){
+    UI.franja = G.ronda;
+    clearTimeout(UI.franjaT);
+    UI.franjaT = setTimeout(()=>{ UI.franja = null; render(); }, 1700);
+  }
   if(f===0){ faseEntrega(); }
   if(f===1){ j.coloc = COLOCACIONES - (j.colocMod||0); j.colocMod = 0; }
   if(f===2){ faseFin(); }
@@ -495,7 +540,7 @@ function faseFin(){
 
 function terminarTurno(){
   const j = yo();
-  j.compraHecha=false; j.accionHecha=false; j.sinFarmacos=false;
+  j.compraHecha=false; j.accionHecha=false; j.sinFarmacos=false; j.habT=false;
   G.pendiente = null;
   G.turno++;
   if(G.turno >= G.jug.length){
@@ -620,6 +665,10 @@ const SVG = {
 };
 function ico(t){ return `<span class="ico t-${t}">${SVG[t]||SVG.COMODIN}</span>`; }
 
+const CZ_PATH = 'M8 13.6S2.2 10 2.2 6.2C2.2 4.1 3.8 2.7 5.5 2.7c1 0 1.9.5 2.5 1.3.6-.8 1.5-1.3 2.5-1.3 1.7 0 3.3 1.4 3.3 3.5 0 3.8-5.8 7.4-5.8 7.4z';
+const CZ_LLENO = `<svg viewBox="0 0 16 16"><path d="${CZ_PATH}" fill="currentColor"/></svg>`;
+const CZ_VACIO = `<svg viewBox="0 0 16 16"><path d="${CZ_PATH}" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>`;
+
 /* ══ render ═════════════════════════════════════════════════════════ */
 const el = (t,c,h)=>{ const e=document.createElement(t); if(c) e.className=c;
                       if(h!==undefined) e.innerHTML=h; return e; };
@@ -637,6 +686,7 @@ function render(){
   app.appendChild(bandaCentral());     // la Pizarra vive aquí, siempre visible
   app.appendChild(zonaJugador(yo(),true));
   app.appendChild(pie());
+  if(UI.franja) app.appendChild(el("div","franja",`TURNO ${UI.franja}`));
   pintarCapa();
 }
 
@@ -677,24 +727,73 @@ function zonaJugador(j, propio){
   const tres = el("div","tres");
   j.camas.forEach((c,i)=>tres.appendChild(vistaCama(c,i,j,propio)));
   z.appendChild(tres);
+  if(propio && j.protocolos.length) z.appendChild(protMios(j));
   if(propio) z.appendChild(tiraZona(j));
   return z;
 }
 
 function tiraZona(j){
+  const w = el("div");
   const t = el("div","tira");
-  t.appendChild(el("span","ficha",`<b>${esc(j.avatar.nombre)}</b>`));
+  const freq = (j.avatar && j.avatar.frecuencia) || "";
+  const activa = /1×/.test(freq);
+  t.appendChild(el("span","ficha",`<b>${esc(j.avatar ? j.avatar.nombre : "…")}</b>`));
+  if(j.avatar && activa){
+    const gastada = /PARTIDA/.test(freq) ? j.habP : j.habT;
+    const b = el("button","ficha hab"+(gastada?" no":""),
+      gastada ? "habilidad usada" : `⚡ Usar habilidad · ${esc(freq)}`);
+    if(!gastada) b.onclick = ()=>{
+      if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
+      anota("a",`${j.nombre} usa ${j.avatar.nombre}: aplica el efecto a mano.`);
+      UI.verHab = true; guardar(); render();
+    };
+    t.appendChild(b);
+  }
+  if(j.avatar){
+    const i = el("button","ficha", UI.verHab ? "✕ cerrar" : "ⓘ ¿qué hace?");
+    i.onclick = ()=>{ UI.verHab = !UI.verHab; render(); };
+    t.appendChild(i);
+  }
   if(j.sumarios)
     t.appendChild(el("span","ficha sum",
       `📋 <b>${j.sumarios}</b> · −${j.sumarios} de mano`));
-  j.protocolos.forEach(a=>{
-    const b = el("button","ficha pro",`📄 ${esc(a.nombre)}`);
-    b.onclick = abrirPanel;
-    t.appendChild(b);
+  w.appendChild(t);
+  if(UI.verHab && j.avatar)
+    w.appendChild(el("div","hab-desc",
+      `<b>${esc(j.avatar.nombre)}</b> · ${esc(freq)}${activa?"":" (pasiva: aplica sola, no se gasta)"}<br>`+
+      `${esc(j.avatar.habilidad)}`));
+  return w;
+}
+
+/* Tus Protocolos comprados: zona propia con su botón de jugar. */
+function protMios(j){
+  const w = el("div");
+  const rot = el("div","jugador-linea");
+  rot.style.marginTop = "9px";
+  rot.innerHTML = `<b>Tus Protocolos</b><span class="marca">${j.accionHecha?"ya jugaste 1 este turno":"máx. 1 por turno"}</span>`;
+  w.appendChild(rot);
+  const g = el("div","prot-mios");
+  g.style.marginTop = "0";
+  j.protocolos.forEach((a,idx)=>{
+    const c = el("div","prot");
+    const cab = el("div","prot-cab");
+    cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
+    c.appendChild(cab);
+    c.appendChild(el("div","prot-nom",esc(a.nombre)));
+    c.appendChild(el("div","prot-txt",esc(a.texto)));
+    const puede = G.fase===1 && !j.ia && !j.accionHecha && !G.sinAcciones;
+    const b = el("button","prot-btn"+(puede?"":" no"),
+                 puede ? "Jugar ahora" : "Guardada");
+    if(puede) b.onclick = ()=>{
+      j.protocolos.splice(idx,1); G.descA.push(a); j.accionHecha = true;
+      anota("a",`${j.nombre} juega ${a.nombre}. Aplícala a mano.`);
+      guardar(); alertaJugada(a);
+    };
+    c.appendChild(b);
+    g.appendChild(c);
   });
-  if(!j.sumarios && !j.protocolos.length)
-    t.appendChild(el("span","vacio","sin papeleo pendiente"));
-  return t;
+  w.appendChild(g);
+  return w;
 }
 
 function bandaCentral(){
@@ -752,7 +851,7 @@ function vistaCama(c, i, duenio, propio){
 
   const hp = el("div","corazones");
   for(let k=0;k<c.vidaMax;k++)
-    hp.appendChild(el("i", k<c.vida ? (c.estable?"hp frio":"hp") : "hp off"));
+    hp.appendChild(el("i","cz", k<c.vida ? CZ_LLENO : CZ_VACIO));
   hp.appendChild(el("span","num",String(c.vida)));
   // el ✅ detiene el reloj: que se vea, no solo que sea verdad
   if(c.estable) hp.appendChild(el("span","cong",
@@ -804,8 +903,9 @@ function pie(){
   const sobra = j.mano.length - limiteMano(j);
   f.appendChild(el("div","mano-rot",
     `Tu mano · ${j.mano.length}`+
-    (sobra>0?` <span style="color:var(--warn)">(botas ${sobra} al cerrar)</span>`:"")+
-    ` <span></span>`));
+    ` <span></span>`+
+    (sobra>0 ? `<span style="color:var(--warn)">botas ${sobra} al cerrar</span>`
+             : `arrastra para jugar u ordenar`)));
 
   const mano = el("div","mano");
   if(!j.mano.length) mano.appendChild(el("div","nota","Mano vacía."));
@@ -818,6 +918,7 @@ function pie(){
       if(!util) cl += " no";
     }
     const b = el("button", cl);
+    b.dataset.uid = c.uid;
     b.innerHTML = cuerpoCarta(c);
     b.onclick = ()=>{
       if(arrastre.huboArrastre){ arrastre.huboArrastre=false; return; }
@@ -871,13 +972,14 @@ function moverCarta(ev){
   if(!arrastre.carta) return;
   const dx = ev.clientX-arrastre.x0, dy = ev.clientY-arrastre.y0;
   if(!arrastre.activo){
-    // el gesto horizontal es para desplazar la mano; el vertical, para jugar
-    if(Math.abs(dy) < 14 || Math.abs(dy) <= Math.abs(dx)) return;
+    // la mano ya no se desplaza (es cuadrícula): cualquier dirección arrastra
+    if(Math.abs(dx) < 11 && Math.abs(dy) < 11) return;
     arrastre.activo = true;
     arrastre.huboArrastre = true;
     UI.sel = arrastre.carta;
     render();                                   // enciende las camas válidas
     const g = el("div","carta fantasma");
+    g.style.width = (arrastre.boton ? arrastre.boton.offsetWidth : 96) + "px";
     g.innerHTML = cuerpoCarta(arrastre.carta);
     document.body.appendChild(g);
     arrastre.fantasma = g;
@@ -895,13 +997,27 @@ function soltarCarta(ev){
   window.removeEventListener("pointermove", moverCarta);
   window.removeEventListener("pointerup", soltarCarta);
   window.removeEventListener("pointercancel", soltarCarta);
-  const a = arrastre.activo, sobre = arrastre.sobre;
+  const a = arrastre.activo, sobre = arrastre.sobre, carta = arrastre.carta;
   if(arrastre.fantasma) arrastre.fantasma.remove();
   arrastre.carta = null; arrastre.boton = null;
   arrastre.fantasma = null; arrastre.sobre = null; arrastre.activo = false;
   if(!a) return;                       // fue un toque: lo resuelve el onclick
-  if(sobre && sobre.__soltar) sobre.__soltar();
-  else { UI.sel = null; render(); }    // soltó al aire: no pasa nada
+  if(sobre && sobre.__soltar){ sobre.__soltar(); }
+  else {
+    // ¿soltó sobre otra carta de la mano? → reordenar
+    const bajo = document.elementFromPoint(ev.clientX, ev.clientY);
+    const tgt = bajo && bajo.closest && bajo.closest(".mano .carta[data-uid]");
+    if(tgt && carta){
+      const j = yo();
+      const from = j.mano.indexOf(carta);
+      const to = j.mano.findIndex(c=>c.uid === +tgt.dataset.uid);
+      if(from >= 0 && to >= 0 && from !== to){
+        j.mano.splice(to, 0, j.mano.splice(from, 1)[0]);
+        guardar();
+      }
+    }
+    UI.sel = null; render();
+  }
   setTimeout(()=>{ arrastre.huboArrastre = false; }, 60);
 }
 
@@ -953,6 +1069,28 @@ function pintarCapa(){
   if(!G || !G.pendiente) return;
   if(G.pendiente.tipo==="pasa"){ capa.appendChild(cortina()); return; }
   if(G.pendiente.tipo==="admision"){ capa.appendChild(modalAdmision()); return; }
+  if(G.pendiente.tipo==="avatar"){ capa.appendChild(modalAvatar()); return; }
+}
+
+function modalAvatar(){
+  const p = G.pendiente;
+  const velo = el("div","velo");
+  const m = el("div","modal");
+  m.appendChild(el("div","tirador"));
+  m.appendChild(el("h2",`${esc(G.jug[p.jugador].nombre)}: elige tu personaje`));
+  m.appendChild(el("p","Se revelan 3. Los que no elijas vuelven a la reserva."));
+  const cont = el("div","opciones");
+  p.ops.forEach(o=>{
+    const b = el("button","op");
+    b.innerHTML = `<b>${esc(o.nombre)}</b>`+
+      `<small><b>${esc(o.frecuencia)}</b> · ${esc(o.habilidad)}</small>`+
+      `<small style="font-style:italic">${esc(o.frase)}</small>`;
+    b.onclick = ()=> resolverAvatar(o);
+    cont.appendChild(b);
+  });
+  m.appendChild(cont);
+  velo.appendChild(m);
+  return velo;
 }
 
 function cortina(){
@@ -1007,27 +1145,6 @@ function abrirPanel(){
     });
     m.appendChild(g);
 
-    if(yo().protocolos.length){
-      const bl = el("div","bloque");
-      bl.appendChild(el("h3",null,"Tus Protocolos"));
-      const ops = el("div","opciones");
-      yo().protocolos.forEach((a,idx)=>{
-        const b = el("button","op");
-        b.innerHTML = `<b>${esc(a.nombre)}</b><small>${esc(a.texto)}</small>`;
-        if(G.fase===1 && !yo().accionHecha && !G.sinAcciones){
-          b.onclick = ()=>{
-            yo().protocolos.splice(idx,1); G.descA.push(a); yo().accionHecha=true;
-            anota("a",`${yo().nombre} juega ${a.nombre}. Aplícala a mano.`);
-            guardar(); UI.modal=null; alertaJugada(a);
-          };
-        } else b.disabled = true;
-        ops.appendChild(b);
-      });
-      bl.appendChild(ops);
-      bl.appendChild(el("div","nota","Las Acciones se aplican a mano: la app las anota, tú mueves las fichas."));
-      m.appendChild(bl);
-    }
-
     const es = el("div","bloque");
     es.appendChild(el("h3",null,"Escudos 🛡️ (se ponen a mano)"));
     const fil = el("div"); fil.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
@@ -1046,13 +1163,12 @@ function abrirPanel(){
     es.appendChild(el("div","nota","Márcalo al jugar <i>El Que Guarda Siempre Tiene</i>: el árbitro no dejará que te saboteen esa cama hasta tu próximo turno."));
     m.appendChild(es);
 
-    const av = el("div","bloque");
-    av.appendChild(el("h3",null,"Tu avatar"));
-    av.appendChild(el("p",`<b>${esc(yo().avatar.nombre)}</b> · ${esc(yo().avatar.frecuencia)}<br>${esc(yo().avatar.habilidad)}`));
-    const bu = el("button","btn chico","Usé mi habilidad");
-    bu.onclick = ()=>{ anota("a",`${yo().nombre} usa ${yo().avatar.nombre}.`); guardar(); cerrar(); };
-    av.appendChild(bu);
-    m.appendChild(av);
+    if(yo().avatar){
+      const av = el("div","bloque");
+      av.appendChild(el("h3",null,"Tu avatar"));
+      av.appendChild(el("p",`<b>${esc(yo().avatar.nombre)}</b> · ${esc(yo().avatar.frecuencia)}<br>${esc(yo().avatar.habilidad)}`));
+      m.appendChild(av);
+    }
 
     const bl2 = el("div","bloque");
     bl2.appendChild(el("h3",null,`Bitácora · ${G.log.length}`));
