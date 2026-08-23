@@ -853,6 +853,34 @@ el tope de 3 y el GIII re-tasado.
   Traducción a mesa: **jugar bien la carta sucia es el oficio de esta rama**
   — hay más pericia que en v0.21, y más castigo al que no la tiene.
 
+**El paso de balance (mismo día).** El autor eligió la v0.30 como dirección
+y pidió balancearla. Tres reglas cambiaron, todas por medición:
+
+1. **Piso universal: COLOCAR NUNCA MATA** (ni al paciente propio). Costo en
+   juego experto: cero — literalmente idéntico al decimal, porque el experto
+   ya evitaba rematarse. Beneficio: el novato sube de 56% a 62% de
+   salvamento y desaparece la peor experiencia del juego (matar a tu propio
+   paciente por no leer la letra chica). Bonus inesperado: el ROJO sube a
+   80% porque la jugada heroica sobre un paciente en 1 ❤️ se vuelve legal.
+2. **El Sumario volvió a morder la mano** (−1 al límite por cada abierto) y
+   **cerrar cuesta 2 cartas sin colocación**. El diseño anterior fracasó dos
+   veces medibles: con "1 colocación + 2 cartas" nadie cerró un solo Sumario
+   en 4.000 partidas (0%); y la Auditoría de −3 al que más tuviera le pegaba
+   al que YA iba perdiendo el 86–90% de las veces, ensanchando la brecha
+   final de 5,4 a 7,1. Con la mordida + cierre barato: **94% se cierran** y
+   la brecha queda en 5,4. Ningún umbral (≥2, ≥3, −2) arregló la Auditoría:
+   la correlación muertos→sumarios→perdedor es estructural.
+3. **La Auditoría del Ministerio quedó como variante opcional impresa** —
+   la carta misma advierte lo que mide.
+
+Se descartó re-especificar "No se me fue nadie" a "≤1 ✝️": ocurre el 45% de
+las veces — sería regalo, no logro. Queda el milagro (+3 al 3,2%), con la
+nota de que en mesa —donde nadie ataca óptimo y existe el escudo *El Que
+Guarda Siempre Tiene*— debería subir a 3–6%.
+
+**Suelo final de la rama: salv 67% · GIII 43% · ROJO 80% · altas 2,98 ·
+✝️ 1,50 · sin ✝️ 3,2%.** Todo en banda salvo el milagro, que es a propósito.
+
 ---
 
 ## 5. Lo que sigue abierto (en orden de riesgo)

@@ -1,4 +1,4 @@
 id,nombre,puntos,texto,frase
 L01,¡Durante Mi Guardia No!,+3,Al final de la partida: +3 puntos si terminas SIN NINGÚN ✝️.,"Ocho noches. Cero cruces. Nadie sabe cómo, y nadie pregunta."
 L02,Se Hizo Todo,+1,Al final de la partida: +1 punto si tus únicos ✝️ fueron Gravedad III o Código Rojo. No acumulable con ¡Durante Mi Guardia No!,Entraron muriéndose. Se hizo todo. El comité no tiene preguntas.
-L03,Auditoría del Ministerio,-3,"Al final de la partida: el jugador con MÁS Sumarios Administrativos abiertos recibe esta carta y resta 3 puntos. En caso de empate, nadie la recibe.","Vienen tres. Con credencial, chaqueta gris y sed de hallazgos."
+L03,Auditoría del Ministerio,-3,"VARIANTE OPCIONAL — Si tu mesa la activa: al final, el jugador con MÁS Sumarios abiertos resta 3 puntos (empate: nadie). Aviso de la gerencia: medido, le pega al que ya iba perdiendo 9 de cada 10 veces.","Vienen tres. Con credencial, chaqueta gris y sed de hallazgos."

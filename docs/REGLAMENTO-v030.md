@@ -6,10 +6,10 @@
 > propios; pacientes, personajes y sumarios se comparten con la base).
 >
 > **La v0.21 (`REGLAMENTO.md`) sigue siendo la versión estable e imprimible.**
-> Esta rama existe para probarse en mesa. Suelo medido con
-> `tools/simular_v030.py`: salvamento 64% · 2,9 altas · 1,6 fallecidos ·
-> Gravedad III 41% — en banda, salvo "No se me fue nadie" (2,6%), que en un
-> mundo con sabotaje se vuelve casi mítico. Ver §9.
+> Esta rama existe para probarse en mesa. Suelo medido tras el paso de
+> balance con `tools/simular_v030.py`: salvamento 67% · 3,0 altas · 1,5
+> fallecidos · Gravedad III 43% · ROJO 80% — todo en banda. "No se me fue
+> nadie" queda en 3,2%: con sabotaje, la guardia limpia es milagro (§9).
 
 Juego para **2–4 jugadores** · **30–45 min** · **14+**.
 
@@ -95,7 +95,11 @@ Tienes **3 colocaciones** y un menú. Cada línea cuesta 1 colocación:
 | **Tratar** | Coloca un recurso de tu mano sobre un paciente **tuyo**. Si trae ⚠️, resuélvela (§6.1) |
 | **Sabotear** | Coloca un recurso **⚠️** sobre un paciente **rival** (§6.2) |
 | **Des-escalar** | Retira 1 **basura clínica** de un paciente tuyo y descártala |
-| **Cerrar Sumario** | Además de la colocación, descarta **2 cartas** de tu mano |
+
+**Cerrar un Sumario NO gasta colocación:** en cualquier momento de tu Pase
+de Visita, descarta **2 cartas** de tu mano y cierra 1 Sumario (nunca el
+mismo turno en que llegó). *Se midió con colocación: nadie cerraba ninguno
+(0%). Sin ella, se cierra el 94%.*
 
 La sinergia sigue igual: recurso con sistema sobre paciente del mismo
 sistema **cuenta doble**. Paciente completo (y sin bloqueo) → ficha **✅**:
@@ -107,18 +111,22 @@ turno, das de alta al siguiente.**
 1. Todo paciente tuyo **sin ✅ pierde 1 ❤️**.
 2. A 0 ❤️: **Alta Celestial** — ✝️, penalización, y toma un **Sumario**
    del centro, boca arriba en tu zona.
-3. Descarta hasta quedar con **5 cartas**. (El Sumario ya no reduce tu
-   mano: ahora es papeleo sobre la mesa, a la vista de todos.)
+3. Descarta hasta quedar con **5 cartas, menos 1 por cada Sumario abierto**
+   que tengas en tu zona.
 
 ---
 
 ## 5. El Sumario Administrativo (v0.30)
 
-Vive **boca arriba en tu zona** — todos ven cuántos debes. Cerrar uno
-cuesta **1 colocación + 2 cartas** en tu Pase de Visita, nunca el mismo
-turno en que llegó. Al final de la partida, el jugador con **más Sumarios
-abiertos** recibe la **Auditoría del Ministerio: −3 puntos** (empate: nadie
-la recibe).
+Vive **boca arriba en tu zona** — todos ven cuántos debes — y **muerde
+mientras esté abierto: cada Sumario reduce tu límite de mano en 1**.
+Cerrarlo cuesta **2 cartas** en tu Pase de Visita (no gasta colocación),
+nunca el mismo turno en que llegó.
+
+> **La Auditoría del Ministerio es una VARIANTE opcional** (la carta lo
+> dice). Medida: le pega al que ya iba perdiendo el 86–90% de las veces y
+> ensancha la brecha final de 5,4 a 7,1 puntos — es sal en la herida.
+> Actívenla solo si su mesa disfruta ese tipo de maldad.
 
 ---
 
@@ -130,14 +138,20 @@ nombre y el dibujo son la sazón; la regla es una sola.
 
 ### 6.1 Sobre tu propio paciente
 
-El recurso cuenta para su receta **y** el paciente pierde 1 ❤️ (una ⚠️
-propia **sí puede matarlo** — ese riesgo es tuyo). La pregunta de siempre:
-*¿lo necesito lo suficiente como para aceptar lo que trae?*
+El recurso cuenta para su receta **y** el paciente pierde 1 ❤️. La pregunta
+de siempre: *¿lo necesito lo suficiente como para aceptar lo que trae?*
+
+> **COLOCAR NUNCA MATA.** Ninguna ⚠️ puede quitar el último ❤️ — ni la
+> tuya. Si el −1 lo dejaría en 0, queda en 1. **El que mata es el reloj**
+> (el deterioro del Fin de Guardia), no la carta. Esto habilita la jugada
+> heroica: un paciente en 1 ❤️ puede recibir todo lo que haga falta
+> mientras corres contra la noche. Medido: al experto no le cambia nada;
+> al jugador nuevo le devuelve 6 puntos de salvamento.
 
 ### 6.2 Sobre un paciente rival (sabotaje)
 
-- La complicación se resuelve: **pierde 1 ❤️**, pero un recurso rival
-  **nunca quita el último ❤️** (si lo dejaría en 0, queda en 1).
+- La complicación se resuelve: **pierde 1 ❤️** (con el piso de siempre:
+  colocar nunca mata).
 - **Si el tipo de la carta es algo que ese paciente pide, cuenta para su
   receta** — le regalaste tratamiento a cambio del golpe. Por eso el
   sabotaje fino se hace con tipos que **no** pide.
@@ -182,7 +196,6 @@ Tras la **ronda 8**:
   + puntos de cada paciente en tu pila de ALTAS
   − penalización de cada ✝️
   − 1 por cada cama vacía al final (solo pasa si se agotó Urgencias)
-  − 3 la Auditoría del Ministerio (el que tenga MÁS Sumarios abiertos)
   + 3 ¡Durante Mi Guardia No!  (ningún ✝️)
   + 1 Se Hizo Todo             (tus únicos ✝️ fueron III o ROJO)
 ```
@@ -207,19 +220,25 @@ esta rama reemplazó — léelas así:
 
 ## 9. Lo que la simulación ya dijo de esta rama
 
+Suelo final (4.000 partidas, 2 jugadores): **salv 67% · GIII 43% · ROJO
+80% · altas 2,98 · ✝️ 1,50 · sin ✝️ 3,2%.**
+
 - **Atacar paga sin dominar:** +0,89 puntos netos el jugador que sabotea
-  contra uno que no (medido con ~1,4 sabotajes por guardia). Está en la
-  banda sana de una habilidad — el sabotaje es una herramienta, no la
-  estrategia obligatoria.
-- **El precio de la interacción:** el salvamento baja de 70% (nadie ataca)
-  a 64% (todos atacan). Las muertes extra no vienen del golpe directo — el
-  piso de 1 ❤️ lo impide — sino del **tempo**: cada −1 y cada limpieza
-  atrasan un ✅ y el deterioro remata.
-- **"No se me fue nadie" queda casi mítico (2,6%).** En un mundo donde te
-  sabotean, la guardia limpia ya no es una hazaña: es un milagro. Si la
-  mesa lo confirma, candidatos: dejarlo como logro-leyenda, o cambiarlo por
-  "termina con 1 ✝️ o menos: +2". **Decidir en playtest, no antes.**
-- La IA de referencia **prefiere la copia limpia y no remata a su propio
-  paciente** con una ⚠️ (no la coloca sobre camas a 1 ❤️). Sin ese juicio,
-  el juego mide 61% de salvamento — jugar bien la carta sucia es parte del
-  oficio de esta rama.
+  contra uno que no (~1,4 sabotajes por guardia). El sabotaje es una
+  herramienta, no la estrategia obligatoria.
+- **El precio de la interacción es tempo, no sangre:** el piso impide
+  rematar, pero cada −1 y cada limpieza atrasan un ✅ y el deterioro cobra.
+- **"No se me fue nadie" queda en 3,2% bajo IA despiadada.** En mesa,
+  donde nadie ataca óptimo y existe *El Que Guarda Siempre Tiene* como
+  escudo, debería quedar entre 3 y 6%. Si tras el playtest se siente
+  imposible, el candidato es "≤1 ✝️: +2" — pero medido, ≤1 ✝️ ocurre el
+  45% de las veces: sería regalo. **Mejor milagro que regalo.**
+- **El piso universal es la regla-maestra del balance:** al experto no le
+  cambia un decimal; al novato le devuelve 6 puntos de salvamento y le
+  quita la peor experiencia posible (matar a su propio paciente por no
+  leer la letra chica). Y regala la jugada heroica del ROJO en 1 ❤️.
+- **El Sumario volvió a morder la mano** porque el castigo en puntos
+  fracasó dos veces: el martillo (−3 al peor) golpeaba al que ya perdía
+  9 de cada 10 veces, y el cierre con colocación hacía que nadie cerrara
+  nunca (0%). Con mordida + cierre de 2 cartas: **94% se cierran** — el
+  Sumario vuelve a ser una factura que se paga, no una lápida.

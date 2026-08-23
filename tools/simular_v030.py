@@ -15,9 +15,11 @@ Qué modela:
 - Sabotaje: colocar una ⚠️ sobre un paciente rival. Si el tipo le sirve,
   cuenta para su receta (por eso la IA tira tipos que NO pide = basura).
   La basura bloquea el ✅ hasta que se retire (des-escalada, 1 colocación).
-  Un recurso rival nunca quita el último ❤️ (piso 1). Máx. 1 por cama y ronda.
-- Sumario en zona (no ocupa mano); Auditoría del Ministerio: −3 al que
-  termina con MÁS sumarios abiertos (empate: nadie).
+  COLOCAR NUNCA MATA: ninguna ⚠️ quita el último ❤️, ni la propia (piso 1).
+  Máx. 1 sabotaje por cama y ronda.
+- Sumario boca arriba en zona, pero MUERDE: cada uno abierto reduce tu
+  límite de mano en 1. Cerrarlo cuesta 2 cartas (sin colocación).
+  La Auditoría del Ministerio quedó como variante opcional (ver flag).
 - Cama vacía solo penaliza al final (−1 c/u); con admisión obligatoria solo
   pasa si se agota el Mazo de Pacientes.
 - El Cirujano de Turno cuenta como 2 🧑‍⚕️. El Turno Veinticuatro además
@@ -42,7 +44,10 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ATAQUES = True           # False = nadie sabotea (cota superior de suavidad)
 BASURA_BLOQUEA = "alta"  # qué bloquea la basura rival: "estable" (el ✅),
                          # "alta" (estabiliza igual, pero no se va hasta limpiar)
-AUDITORIA = True         # −3 al que termina con más Sumarios abiertos
+AUDITORIA = False        # VARIANTE opcional: −3 al que junte más Sumarios.
+                         # Apagada por defecto: medido, le pega al que YA iba
+                         # perdiendo el 86-90% de las veces y ensancha la
+                         # brecha de 5,4 a 7,1. Es sal en la herida.
 PISO_RIVAL = 1           # un recurso rival no baja de aquí la vida
 
 
@@ -156,12 +161,6 @@ def elegir_carta(mano, cama):
             return False
         if c.get("restriccion") == "PERSONAL" and cama.tiene["PERSONAL"] == 0:
             return False
-        # v0.30: la ⚠️ pega DONDE SE UBICA. Nadie remata a su propio
-        # paciente con la colocación: la carta sucia no se juega sobre una
-        # cama que no aguanta el −1 (salvo que esté protegida).
-        if c.get("warn") and cama.vida <= 1 \
-                and not (c["comp"]["nombre"] and c["comp"]["nombre"] in cama.protege):
-            return False
         return True
 
     def orden(cands):
@@ -191,13 +190,15 @@ def elegir_carta(mano, cama):
 
 
 def resolver_warn(duenio, carta, cama):
-    """La complicación v0.30: −1 ❤️ donde se ubica, con 🛡️ y Turno 24."""
+    """La complicación v0.30: −1 ❤️ donde se ubica, con 🛡️ y Turno 24.
+    Piso universal (balance final): COLOCAR NUNCA MATA — ni al propio.
+    Medido: cero costo en juego experto, +6pp de salvamento al novato."""
     comp = carta.get("comp")
     if not comp:
         return
     if comp["nombre"] and comp["nombre"] in cama.protege:
         return                     # prevención prospectiva
-    cama.vida += comp["vida"]
+    cama.vida = max(1, cama.vida + comp["vida"])
     if carta.get("turno24") and duenio.mano:
         duenio.mano.sort(key=lambda c: (c.get("comodin", False),
                                         bool(c.get("sistema"))))
@@ -382,18 +383,17 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5):
                         j.camas[i2] = None
                         j.sumarios += 1
 
-            # 5. CERRAR SUMARIOS (1 colocación + 2 cartas; ya fuera del while
-            #    si el turno dio: la IA paga con lo que le sobró)
-            while j.sumarios > 0 and colocaciones > 0 and len(j.mano) >= 2:
+            # 5. CERRAR SUMARIOS (2 cartas, sin colocación — balance final:
+            #    con colocación nadie cerraba nunca, 0% medido; así, 94%)
+            while j.sumarios > 0 and len(j.mano) >= 2:
                 j.mano.sort(key=lambda c: (c.get("comodin", False),
                                            bool(c.get("sistema"))))
                 descarte.append(j.mano.pop(0))
                 descarte.append(j.mano.pop(0))
                 j.sumarios -= 1
-                colocaciones -= 1
 
-            # 6. CIERRE DE MANO (el Sumario ya no reduce el límite)
-            while len(j.mano) > mano_max:
+            # 6. CIERRE DE MANO (cada Sumario abierto muerde 1 de mano)
+            while len(j.mano) > max(1, mano_max - j.sumarios):
                 bota = j.mano[0]
                 j.mano.remove(bota)
                 descarte.append(bota)
