@@ -20,3 +20,4 @@ A18,Recorte Presupuestario,ATAQUE,2,1,"En su próximo turno, tu rival tiene solo
 A19,El Que Guarda Siempre Tiene,APOYO,1,1,"Elige un paciente tuyo: hasta tu próximo turno, sus recursos no pueden ser robados ni descartados, y los rivales no pueden colocarle recursos.",La gaveta del fondo. La que solo ella sabe abrir.
 A20,Hay Que Repetirlo,ATAQUE,2,1,Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.,Se tomó bien. Se rotuló bien. Se agitó como coctelera.
 A21,Encarnizamiento Terapéutico,ATAQUE,3,1,Elige un paciente rival sin ✅: pierde 1 ❤️ (no puede bajar de 1 ❤️) y su dueño descarta 1 recurso ya colocado sobre él.,Tres ciclos. Costillas nuevas. Nadie preguntó si correspondía.
+A22,Alta Anticipada,APOYO,2,1,"Elige un paciente tuyo estabilizado ✅ en este mismo turno y sin basura clínica: dale el alta de inmediato, sin esperar tu próxima Entrega. El alta apurada vale 2 puntos menos.",—¿Y el control? —En el CESFAM. —¿Cuándo? —Sí.

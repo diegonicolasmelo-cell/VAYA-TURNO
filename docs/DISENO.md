@@ -883,6 +883,63 @@ Guarda Siempre Tiene*— debería subir a 3–6%.
 
 ---
 
+### 4l. Robo × mano, y la Alta Anticipada (agosto 2026)
+
+La batería de jugabilidad instrumentada encontró que **el descarte al cierre
+muerde el 69% de los turnos** (v0.21: 17%). El autor pidió probar robo 3 /
+mano 6. Rejilla completa (4.000 partidas c/u, 2 jug, semilla 42):
+
+| robo · mano | salv | GIII | altas | pts | descarte | mano seca | rebarajes |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **4 · 5 (regla actual)** | 67% | 45% | 3,03 | 8,50 | 69% | 0,1% | 1,00 |
+| 3 · 6 | 57% | 31% | 2,39 | 4,61 | 0% | 2,2% | 0,00 |
+| **4 · 6** | **68%** | **47%** | **3,08** | **8,87** | **58%** | 0,1% | 1,00 |
+
+- **Robo 3 colapsa el juego**, con cualquier mano (3·5 y 3·7 dan idéntico):
+  el mazo nunca rebaraja — se ven 24 de 67 cartas por guardia — y el motor
+  se muere de hambre. El descarte cae a 0% porque la mano nunca crece: no es
+  que el problema se arregle, es que desaparece el excedente que da opciones.
+- **La palanca real es la mano, no el robo**: 4·6 es estrictamente mejor que
+  la regla actual en todo (descarte 69→58%, +10% de opciones retenidas,
+  salvamento y puntos iguales o mejores). El excedente robo−colocaciones
+  (4−3 = 1/turno) es estructural; agrandar el bolsillo lo amortigua gratis.
+  **Pendiente de decisión del autor** — es cambio de regla (§4.3).
+
+**La Alta Anticipada** (pedida por el autor como carta de Acción: egresar de
+inmediato un paciente recién ✅, saltando la consolidación). Medida asimétrica
+(el asiento A la tiene, el B no; sesgo de asiento +0,07 descontado):
+
+| versión | Δ neto | gana A |
+|---|---:|---:|
+| 1 uso, se gasta apenas se puede | −0,01 | 47% |
+| 1 uso, guardado hasta R7+ | +1,16 | 56% |
+| solo rondas 1–4 | −0,02 | 47% |
+| solo rondas 1–4, +roba 2 | +0,05 | 47% |
+| **con "el alta apurada vale −2 pts"** | **+0,39** | **50%** |
+
+Tres lecciones:
+
+1. **Todo el valor vive en la última ronda.** Un paciente ✅ en R8 nunca
+   consolida — la carta lo convierte en alta completa. Tal cual estaba
+   pensada era un botón de +1,2 puntos que todos guardan hasta el final: sin
+   decisión, fuera de toda banda.
+2. **"Premiar el egreso temprano" no se puede pagar en tempo ni en cartas.**
+   La versión solo-rondas-1-4 vale cero: liberar la cama antes no rinde
+   puntos (el cuello es la velocidad de tratamiento, no la cama) y el premio
+   en cartas se lo come el descarte del 69%. Como regla de puntaje pagaría
+   suerte de reparto: las altas antes de R4 ya ocurren solas.
+3. **La pena de −2 puntos la deja en banda**: +0,39 neto, 50% de winrate,
+   justa a **coste 2**. Y crea la decisión que faltaba — vale para el ROJO
+   (+5→+3) y para esquivar una ventana de sabotaje real; no vale para el
+   G-I (+2→0 y la cama queda vacía: −1).
+
+Impresa como **A22 · Alta Anticipada — coste 2, única**: *"Elige un paciente
+tuyo estabilizado ✅ en este mismo turno y sin basura clínica: dale el alta
+de inmediato, sin esperar tu próxima Entrega. El alta apurada vale 2 puntos
+menos."*
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

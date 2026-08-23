@@ -44,6 +44,19 @@ el arco dramático es de guardia real (la noche se pone fea tarde), pero las
 3 primeras rondas son sin consecuencias; (3) el mazo se rebaraja exactamente
 1 vez por partida, a la mitad — la densidad de ⚠️ se mantiene pareja.
 
+**Sobre el descarte del 69% — rejilla robo×mano ya medida** (DISENO §4l):
+robo 3 colapsa el juego (salv 57%, el mazo nunca rebaraja) — descartado;
+**robo 4 · mano 6 mejora todo** (descarte 69→58%, salv 68%, GIII 47%).
+⬜ **Decisión del autor pendiente**: subir el límite de mano a 6 en
+REGLAMENTO-v030 §4.3 (+ app + simulador). Es la única palanca que alivia
+el descarte sin tocar el motor.
+
+**A22 Alta Anticipada** (agosto 2026): agregada al mazo de Protocolos,
+coste 2, única, con la pena "el alta apurada vale 2 puntos menos" — sin
+la pena era un botón de +1,2 pts que todos guardan a la última ronda
+(medición completa en DISENO §4l). 🔶 vigilar en mesa si la pena se
+entiende y si el momento de usarla se siente como decisión.
+
 Qué mirar en mesa antes de decidir: (1) ¿el sabotaje se siente táctico o
 sólo malicioso? (2) ¿la Pizarra hace que El Pasillo por fin se juegue?
 (3) ¿"No se me fue nadie" al 2,6% se siente épico o imposible? (4) ¿la
