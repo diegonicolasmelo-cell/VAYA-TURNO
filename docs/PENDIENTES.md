@@ -9,6 +9,26 @@ abajo puede esperar años sin que pase nada.
 
 ---
 
+
+## 0. LA DECISIÓN GRANDE: ¿v0.21 o v0.30?
+
+Existen dos juegos en el repo y **el playtest debe elegir**:
+
+- **v0.21 (estable):** solitario paralelo con sabotaje ocasional vía
+  Acciones. `REGLAMENTO.md`, `cartas/`, `tools/simular.py`, taller y PDF.
+- **v0.30 (experimental):** la rama del sabotaje — ⚠️ de doble filo,
+  Pizarra, admisión obligatoria. `REGLAMENTO-v030.md`, `cartas/v030/`,
+  `tools/simular_v030.py`, PnP con `--variante v030`. Suelo medido en
+  `DISENO.md` §4k.
+
+Qué mirar en mesa antes de decidir: (1) ¿el sabotaje se siente táctico o
+sólo malicioso? (2) ¿la Pizarra hace que El Pasillo por fin se juegue?
+(3) ¿"No se me fue nadie" al 2,6% se siente épico o imposible? (4) ¿la
+basura girada 180° se lee bien físicamente? (5) ¿la admisión obligatoria
+se extraña como decisión?
+
+---
+
 ## 1. Cartas con efecto definido pero SIN VALIDAR (el simulador no las modela)
 
 El simulador (`tools/simular.py`) valida la economía base: pacientes,

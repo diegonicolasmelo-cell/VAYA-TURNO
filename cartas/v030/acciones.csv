@@ -1,0 +1,22 @@
+id,nombre,tipo,coste,copias,texto,frase
+A01,Vacaciones,ATAQUE,2,2,Elige un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y descártalo.,Quince días hábiles. Aprobados por RR.HH. justo hoy.
+A02,Cumpleaños del Residente,ATAQUE,3,2,Cada rival elige uno de sus recursos en juego y te lo entrega. Colócalos sobre tus pacientes.,Trajo torta para todos. Ahora todos le deben algo.
+A03,Reunión Clínica,APOYO,2,2,Redistribuye libremente hasta 3 recursos entre TUS pacientes.,Dos horas para decidir lo que ya sabías al minuto cuatro.
+A04,Interconsulta,APOYO,2,2,Busca en la pila de descartes 1 carta de Recurso y colócala sobre un paciente tuyo.,Respondió al cuarto día: 'sugiero evaluar'.
+A05,Doblo Turno,APOYO,1,1,Roba 3 cartas adicionales. En tu próximo turno robas solo 2.,"Me quedo. Total, ya estoy acá."
+A06,Se Cayó el Sistema,CAOS,1,1,"Durante la próxima ronda completa, ningún jugador puede jugar cartas de Acción.",Estamos trabajando en ello. Lleva tres años el cartel.
+A07,¡Liceeeencia!,ATAQUE,2,2,Intercambia tu carta de avatar con la de un rival hasta el final de tu próximo turno. Las habilidades 1×PARTIDA ya gastadas siguen gastadas.,Estrés laboral. Alguien tiene que cubrir el puesto. Ese alguien eres tú.
+A08,Llaman de Urgencias,ATAQUE,1,1,Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Fin de Guardia.,Urgencias tiene doce esperando. Doce.
+A09,Auditoría,ATAQUE,2,2,Mira la mano de un rival y descarta 1 carta de ella.,"Vengo a acompañar el proceso, no a fiscalizar. (Miente.)"
+A10,Rotación de Internos,CAOS,1,1,Intercambia tu mano completa con la de un rival a tu elección.,Nadie sabe quién rota a dónde. Ellos tampoco.
+A11,¿Y Si Vamos por un Cafecito?,RESPUESTA,2,2,🛡️ RESPUESTA — Juega fuera de turno. Anula una carta de Acción o una complicación ⚠️ que se acabe de resolver.,Nadie sabe quién lo hizo ni cuándo. Está listo y está caliente.
+A12,Protocolo Institucional,APOYO,1,1,"Copia el efecto de la última carta de Acción jugada en la partida, como si la jugaras tú.",Está en la intranet. En un PDF. En una carpeta. En algún lado.
+A13,Anda Rondando la Pelada,EXTREMA,1,1,ÚNICA. Juégala solo si un rival tiene 2 o más ✝️. Lanza 2 monedas. Dos caras: elige un paciente de ese rival (aunque esté ✅) y dale el Alta Celestial de inmediato. Cualquier otro resultado: descarta toda tu mano.,Pasó preguntando por la cama 4. Dijo que volvía al rato.
+A14,Ojo Clínico,APOYO,1,2,Mira las 3 primeras cartas del Mazo de Guardia. Devuélvelas en el orden que quieras o manda 1 al fondo.,Yo a este paciente lo veo raro. No sé por qué. Lo veo raro.
+A15,Receta en Blanco,APOYO,3,2,Busca en el Mazo de Guardia 1 recurso a tu elección y ponlo en tu mano. Baraja el mazo.,"La firmó apurado, sin mirar. Que Dios reparta suerte."
+A16,Simulación Clínica,RESPUESTA,2,2,🛡️ RESPUESTA — Juega fuera de turno. Anula una complicación ⚠️ antes de que se resuelva: el recurso se queda puesto sobre el paciente y no pasa nada más.,Lo practicamos con el muñeco. El muñeco no se movía tanto.
+A17,Quiebre de Stock,ATAQUE,2,1,"En su próximo turno, tu rival no puede colocar recursos 💊 Fármacos.",Llega el jueves. Lleva tres jueves llegando.
+A18,Recorte Presupuestario,ATAQUE,2,1,"En su próximo turno, tu rival tiene solo 2 colocaciones en su Pase de Visita.",Hay que hacer más con menos. Otra vez menos.
+A19,El Que Guarda Siempre Tiene,APOYO,1,1,"Elige un paciente tuyo: hasta tu próximo turno, sus recursos no pueden ser robados ni descartados, y los rivales no pueden colocarle recursos.",La gaveta del fondo. La que solo ella sabe abrir.
+A20,Hay Que Repetirlo,ATAQUE,2,1,Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.,Se tomó bien. Se rotuló bien. Se agitó como coctelera.
+A21,Encarnizamiento Terapéutico,ATAQUE,3,1,Elige un paciente rival sin ✅: pierde 1 ❤️ (no puede bajar de 1 ❤️) y su dueño descarta 1 recurso ya colocado sobre él.,Tres ciclos. Costillas nuevas. Nadie preguntó si correspondía.

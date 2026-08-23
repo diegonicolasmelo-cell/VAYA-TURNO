@@ -796,6 +796,65 @@ la línea base.
 
 ---
 
+### 4k. v0.30 — la rama del sabotaje (experimental)
+
+El autor propuso un rediseño (agosto 2026) y se construyó como **rama
+paralela**: `cartas/v030/` + `REGLAMENTO-v030.md` + `simular_v030.py`.
+**La v0.21 sigue siendo la estable.** Qué cambia y qué dijo la medición:
+
+**Decisiones de reglas (las 5 preguntas abiertas, respondidas por el autor):**
+1. La ⚠️ dispara al colocarla **sobre cualquier paciente**, propio o rival.
+2. Un recurso saboteado que el paciente **sí pide, cuenta** para su receta
+   (además del −1 ❤️) — por eso el sabotaje fino se hace con tipos que no
+   pide: *basura clínica*, girada 180°.
+3. La basura **retiene el alta** (no bloquea el ✅): nadie se va con papeleo
+   pendiente. Se midieron ambas variantes y **convergen bajo buen juego** —
+   la diferencia solo castiga al distraído, así que gana la amable.
+4. Cerrar Sumario cuesta **1 colocación + 2 cartas**.
+5. El 🎯 impreso **desaparece**: la víctima la decide la colocación.
+
+**Qué se adoptó del borrador v1.0 del autor:** Pizarra de Turno con costes
+1–3 (reemplaza Canje y Trueque), menú de colocaciones (tratar / sabotear /
+des-escalar / cerrar), admisión obligatoria, empezar con 2 pacientes,
+Sumario en zona + Auditoría del Ministerio (−3 al que tenga más abiertos),
+logros como cartas físicas, y la cirugía del mazo: fusión Sedoanalgesia
+QUIR, Corticoides→Hiperglicemia, Cristaloides→Sobrecarga, enroque de la
+Nefropatía al Angio-TAC (el TAC queda con *Incidente en el Traslado*),
+fuera el Anticonvulsivante, Reanimación pasa al mazo de Protocolos como
+*Encarnizamiento Terapéutico* (coste 3).
+
+**Qué se rechazó, con medición:** robar hasta 7 (salv 62%, GIII 36%,
+sin ✝️ 2,9% — y deflacta la carta justo cuando la Pizarra cobra en cartas;
+en régimen además roba MENOS que el fijo: ~3/turno), el Pabellón que daba
++1 ❤️ (compra el reloj, restricción §6 de ECONOMIA) y el comodín que contaba
+doble. La admisión obligatoria, en cambio, **midió BIEN** (+0,27 pts, semilla
+del desastre incluida): lo que la hacía letal en v0.19 ya lo habían arreglado
+el tope de 3 y el GIII re-tasado.
+
+**El suelo medido de la rama (4.000 partidas, 2 jug):**
+
+| | salv | GIII | ROJO | altas | ✝️ | sin ✝️ |
+|---|---:|---:|---:|---:|---:|---:|
+| v0.21 estable | 67% | 40% | 70% | 2,99 | 1,49 | 6,8% |
+| v0.30 sin ataques | 70% | 45% | 76% | 3,27 | 1,43 | 5,8% |
+| **v0.30 con ataques** | **64%** | **41%** | 72% | 2,89 | 1,64 | **2,6%** |
+
+- **Atacar paga sin dominar: +0,89 netos** (medido un atacante contra un
+  pacifista, descontado el sesgo de asiento), con ~1,4 sabotajes por
+  jugador por guardia. Es una herramienta, no la estrategia dominante.
+- **Las muertes del sabotaje son de tempo, no de golpe**: el piso de 1 ❤️
+  impide rematar, pero cada −1 y cada limpieza atrasan un ✅ y el deterioro
+  cobra. La interacción cuesta ~6 puntos de salvamento.
+- **"No se me fue nadie" cae a 2,6%** — bajo banda. En un mundo con
+  sabotaje la guardia limpia es milagro, no hazaña. Decidir en mesa:
+  dejarlo mítico o cambiarlo por "≤1 ✝️: +2".
+- **La IA necesitó juicio nuevo para no hundirse**: preferir la copia
+  limpia y no colocar ⚠️ sobre camas a 1 ❤️. Sin eso, 61% de salvamento.
+  Traducción a mesa: **jugar bien la carta sucia es el oficio de esta rama**
+  — hay más pericia que en v0.21, y más castigo al que no la tiene.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

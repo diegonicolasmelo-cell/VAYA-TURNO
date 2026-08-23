@@ -19,6 +19,7 @@ import os
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARTAS = os.path.join(RAIZ, "cartas")
+V030 = False   # rama experimental: mazos de cartas/v030/, coste en Acciones
 
 SIM = {"IMAGEN": "🩻", "FARMACOS": "💊", "PERSONAL": "🧑‍⚕️",
        "PROCEDIMIENTOS": "💉", "COMODIN": "🃏"}
@@ -157,9 +158,12 @@ def carta_recurso(r):
               if r.get("texto", "").strip() else "")
     # v0.14: el ⚠️ trae su complicación impresa, con su 🎯 objetivo
     if r["complicacion"] == "si":
-        diana = (f'<div class="et" style="border-color:#c0492f;color:#c0492f">'
-                 f'🎯 {E(OBJETIVO.get(r["comp_objetivo"], r["comp_objetivo"]))}</div>'
-                 if r.get("comp_objetivo") else "")
+        # v0.30: no hay 🎯 — la complicación pega donde se ubica la carta
+        diana = ('<div class="et" style="border-color:#c0492f;color:#c0492f">'
+                 '🎯 DONDE SE UBICA</div>' if V030 else
+                 (f'<div class="et" style="border-color:#c0492f;color:#c0492f">'
+                  f'🎯 {E(OBJETIVO.get(r["comp_objetivo"], r["comp_objetivo"]))}</div>'
+                  if r.get("comp_objetivo") else ""))
         wa = (f'<div class="comp"><div class="warn">⚠️ '
               f'{E(r.get("comp_nombre") or "COMPLICACIÓN")}</div>{diana}'
               f'<div class="cuerpo">{E(r.get("comp_texto",""))}</div></div>')
@@ -176,9 +180,12 @@ def carta_recurso(r):
 
 
 def carta_accion(a):
+    coste = ""
+    if a.get("coste"):
+        coste = (f'<div class="vida" style="font-size:4.5mm">💰{a["coste"]}</div>')
     return f"""<div class="carta">
   <div class="cab"><div><div class="nombre">{E(a['nombre'])}</div>
-    <div class="tipo">Acción · {E(a['tipo'])}</div></div></div>
+    <div class="tipo">Acción · {E(a['tipo'])}</div></div>{coste}</div>
   <div class="banda" style="background:#3a6ea5"></div>
   <div class="cuerpo">{E(a['texto'])}</div>
   <div class="arte">ilustración</div>
@@ -221,6 +228,19 @@ def carta_sumario(x):
 </div>"""
 
 
+def carta_logro(x):
+    color = "#2f8f6b" if x["puntos"].startswith("+") else "#b03d29"
+    return f"""<div class="carta">
+  <div class="cab"><div><div class="nombre">{E(x['nombre'])}</div>
+    <div class="tipo">Logro institucional</div></div>
+    <div class="vida" style="color:{color}">{E(x['puntos'])}</div></div>
+  <div class="banda" style="background:{color}"></div>
+  <div class="cuerpo">{E(x['texto'])}</div>
+  <div class="arte">ilustración</div>
+  <div class="pie"><div class="frase">{E(x['frase'])}</div></div>
+</div>"""
+
+
 MAZOS = {
     "pacientes":  ("Pacientes",       "pacientes.csv",  carta_paciente),
     "recursos":   ("Recursos",        "recursos.csv",   carta_recurso),
@@ -236,7 +256,18 @@ def main():
     ap.add_argument("--salida", default=os.path.join(RAIZ, "pnp.html"))
     ap.add_argument("--formato", choices=list(FORMATOS), default="a4",
                     help="pliego: a4 (por defecto) o carta / Letter")
+    ap.add_argument("--variante", choices=["v030"],
+                    help="rama experimental: recursos/acciones/logros de cartas/v030/")
     args = ap.parse_args()
+
+    global V030
+    if args.variante == "v030":
+        V030 = True
+        MAZOS["recursos"] = ("Recursos v0.30", os.path.join("v030", "recursos.csv"),
+                             carta_recurso)
+        MAZOS["acciones"] = ("Acciones v0.30", os.path.join("v030", "acciones.csv"),
+                             carta_accion)
+        MAZOS["logros"] = ("Logros", os.path.join("v030", "logros.csv"), carta_logro)
 
     elegidos = args.solo or list(MAZOS)
     partes, total = [], 0
