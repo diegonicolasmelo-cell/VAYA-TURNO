@@ -16,7 +16,8 @@ Existen dos juegos en el repo y **el playtest debe elegir**:
 
 - **v0.21 (estable):** solitario paralelo con sabotaje ocasional vía
   Acciones. `REGLAMENTO.md`, `cartas/`, `tools/simular.py`, taller y PDF.
-- **v0.30 (elegida por el autor, balanceada):** la rama del sabotaje —
+- **v0.31 (elegida por el autor, balanceada):** la rama del sabotaje —
+  **tres fases por turno**, sin El Pasillo —
   ⚠️ de doble filo, Pizarra, admisión obligatoria, piso universal ("colocar
   nunca mata"), Sumario que muerde la mano. `REGLAMENTO-v030.md`,
   `cartas/v030/`, `tools/simular_v030.py`, PnP con `--variante v030`.

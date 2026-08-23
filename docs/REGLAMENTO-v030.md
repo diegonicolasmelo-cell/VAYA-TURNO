@@ -1,9 +1,16 @@
-# ¡VAYA TURNO! — Reglamento v0.30 (rama experimental)
+# ¡VAYA TURNO! — Reglamento v0.31 (rama experimental)
 
 > **Qué es esto.** El rediseño de agosto 2026: sabotaje con recursos ⚠️,
 > Pizarra de Turno, admisión obligatoria y complicación unificada "donde se
 > ubica". Usa los mazos de `cartas/v030/` (recursos, acciones y logros
-> propios; pacientes, personajes y sumarios se comparten con la base).
+> propios; pacientes, personajes y sumarios se comparten con la base) — la
+> carpeta conserva el nombre `v030` porque **el mazo no cambió** en v0.31.
+>
+> **v0.31: se eliminó la fase de El Pasillo.** El turno son ahora **tres
+> fases**: Entrega de Turno, Pase de Visita y Fin de Guardia. La Pizarra
+> quedó en el centro de la mesa, siempre a la vista, y se compra durante el
+> Pase de Visita. Ninguna medición cambia: el simulador nunca modeló la
+> compra de Protocolos, así que el suelo de balance es el mismo.
 >
 > **La v0.21 (`REGLAMENTO.md`) sigue siendo la versión estable e imprimible.**
 > Esta rama existe para probarse en mesa. Suelo medido tras el paso de
@@ -56,7 +63,7 @@ Fichas: ❤️ vida · ✅ estabilizado · ✝️ cruces · 1 moneda · marcador
 
 ---
 
-## 4. El turno — cuatro fases
+## 4. El turno — tres fases
 
 ### 4.1 Entrega de Turno
 
@@ -72,21 +79,7 @@ otro va al fondo. Da vuelta el nuevo Informe.
 **c) Robo.** Roba **4 cartas** del Mazo de Guardia (3 en partidas de 4).
 Robar una ⚠️ no hace nada: es munición o tratamiento, según dónde la pongas.
 
-### 4.2 El Pasillo — la Pizarra de Turno
-
-Puedes **comprar 1 Protocolo** de la Pizarra pagando su **coste impreso**:
-descarta esa cantidad de cartas de tu mano (1, 2 o 3). Repón la Pizarra de
-inmediato. Puedes jugar la Acción ahora o guardarla.
-
-- Máximo **1 compra** y **1 Acción jugada** por turno (las RESPUESTA 🛡️ se
-  juegan fuera de turno y no cuentan).
-- **Limpieza de Pizarra:** si no compras nada, puedes descartar las 3 cartas
-  de la Pizarra y revelar 3 nuevas. Gasta tu compra del turno.
-
-> El Canje y el Trueque de la v0.21 no existen en esta rama: la Pizarra los
-> reemplaza.
-
-### 4.3 Pase de Visita — 3 colocaciones
+### 4.2 Pase de Visita — 3 colocaciones y la Pizarra
 
 Tienes **3 colocaciones** y un menú. Cada línea cuesta 1 colocación:
 
@@ -101,12 +94,27 @@ de Visita, descarta **2 cartas** de tu mano y cierra 1 Sumario (nunca el
 mismo turno en que llegó). *Se midió con colocación: nadie cerraba ninguno
 (0%). Sin ella, se cierra el 94%.*
 
+**La Pizarra de Turno tampoco gasta colocación.** Está en el centro de la
+mesa, siempre a la vista: tres Protocolos boca arriba con su coste impreso.
+Una vez por turno puedes **tomar uno pagando su coste en cartas de tu mano**
+(1, 2 o 3) y repones la Pizarra de inmediato. Puedes jugarlo ahí mismo o
+guardarlo para otro turno; en todo caso, **máximo 1 Acción jugada por
+turno** (las RESPUESTA 🛡️ se juegan fuera de turno y no cuentan).
+
+- **Limpieza de Pizarra:** si no tomas nada, puedes descartar los 3
+  Protocolos y revelar 3 nuevos. Gasta tu compra del turno.
+
+> El Canje y el Trueque de la v0.21 no existen en esta rama: la Pizarra los
+> reemplaza. Y desde v0.31 tampoco existe la fase de El Pasillo — comprar
+> es una decisión más del Pase de Visita, que es cuando de verdad miras la
+> Pizarra.
+
 La sinergia sigue igual: recurso con sistema sobre paciente del mismo
 sistema **cuenta doble**. Paciente completo (y sin bloqueo) → ficha **✅**:
 deja de deteriorarse. La regla de la ventana no cambia: **estabilizas en un
 turno, das de alta al siguiente.**
 
-### 4.4 Fin de Guardia
+### 4.3 Fin de Guardia
 
 1. Todo paciente tuyo **sin ✅ pierde 1 ❤️**.
 2. A 0 ❤️: **Alta Celestial** — ✝️, penalización, y toma un **Sumario**

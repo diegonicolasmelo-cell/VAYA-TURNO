@@ -26,6 +26,9 @@ Qué modela:
   descarta 1 carta de la mano del dueño de la unidad.
 - NO modela: la Pizarra (Acciones), el Becado (busca Protocolo), el Pabellón
   (mover recurso). Igual que siempre: esto es el suelo del balance.
+- v0.31 eliminó la fase de El Pasillo (el turno son 3 fases y la Pizarra se
+  compra dentro del Pase de Visita). Este archivo no cambia ni una cifra:
+  nunca modeló la compra de Protocolos, así que el suelo medido es el mismo.
 
     python3 tools/simular_v030.py --partidas 4000 --jugadores 2
 """
