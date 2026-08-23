@@ -30,6 +30,20 @@ las ⚠️, las 🛡️, la basura y los Sumarios; las Acciones y las habilidade
 avatar se aplican a mano y quedan en la bitácora, que se copia al portapapeles
 para pegarla acá.
 
+**Batería de jugabilidad (agosto 2026, 4.000 partidas 2j + 3.000 partidas
+3j, IA de referencia):** el flujo está sano — las 3 colocaciones se usan
+completas el 100% de los turnos y la "mano seca" (querer jugar y no poder)
+es 0,1%: no existen los turnos muertos. El circuito de sabotaje funciona
+como tempo puro: 1,4 ataques por guardia y 1,3 limpiezas — casi todo golpe
+se paga con una des-escalada. Sumarios: 81% se cierran. Tres cosas para
+vigilar en mesa: (1) **el descarte del cierre muerde el 69% de los turnos**
+(en la v0.21 era 17%) — robas 4 y colocas 3, así que casi siempre botas 1;
+es una decisión de calidad de mano, pero también un paso más por turno;
+(2) **nadie muere antes de la ronda 4** y el pico de muertes es la ronda 7 —
+el arco dramático es de guardia real (la noche se pone fea tarde), pero las
+3 primeras rondas son sin consecuencias; (3) el mazo se rebaraja exactamente
+1 vez por partida, a la mitad — la densidad de ⚠️ se mantiene pareja.
+
 Qué mirar en mesa antes de decidir: (1) ¿el sabotaje se siente táctico o
 sólo malicioso? (2) ¿la Pizarra hace que El Pasillo por fin se juegue?
 (3) ¿"No se me fue nadie" al 2,6% se siente épico o imposible? (4) ¿la

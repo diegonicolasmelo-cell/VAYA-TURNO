@@ -104,6 +104,12 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .faltan.cero{color:var(--ok)}
 .grav{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
       color:var(--ink-3);display:block;margin-top:2px}
+/* semáforo de gravedad: chip de color junto al nombre */
+.gchip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;
+       font-weight:700;letter-spacing:.05em;padding:2px 6px;border-radius:5px;
+       color:#fff;flex:none;line-height:1;margin-top:1px}
+.g-I{background:#237a5b} .g-II{background:#b57e14}
+.g-III{background:#c0492f} .g-ROJO{background:#7c1310}
 .corazones{display:flex;gap:1px;align-items:center;margin:4px 0 5px;flex-wrap:wrap}
 .cz{display:inline-flex;width:11px;height:11px;color:var(--vida);flex:none}
 .cz svg{width:100%;height:100%;display:block}
@@ -149,6 +155,11 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .mano-rot{padding:8px 10px 0;font-size:9.5px;font-weight:700;letter-spacing:.11em;
           text-transform:uppercase;color:var(--ink-3);display:flex;gap:6px;align-items:center}
 .mano-rot span{flex:1;height:1px;background:var(--line-2)}
+.coloc-caja{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;
+            background:var(--acc-soft);color:var(--ink);letter-spacing:.02em;
+            text-transform:none;font-size:11px;font-weight:700}
+.coloc-caja i{width:9px;height:9px;border-radius:99px;background:var(--acc);flex:none}
+.coloc-caja i.off{background:var(--line)}
 .mano{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
       padding:6px 10px 8px}
 @media (max-width:349px){.mano{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -695,7 +706,6 @@ function barraEstado(){
   b.appendChild(el("div","ronda",`R<b>${G.ronda}</b>/${RONDAS}`));
   b.appendChild(el("div","fase-chip",esc(FASES[G.fase][1])));
   b.appendChild(el("div","espacio"));
-  if(G.fase===1) b.appendChild(el("div","ronda",`<b>${yo().coloc}</b> colocaciones`));
   const p = el("button","icono-btn","☰");
   p.setAttribute("aria-label","Panel de guardia");
   p.onclick = abrirPanel;
@@ -846,8 +856,12 @@ function vistaCama(c, i, duenio, propio){
   const total = faltanTotal(c);
   cab.appendChild(el("span","faltan"+(total===0?" cero":""), total===0?"✓":String(total)));
   d.appendChild(cab);
-  d.appendChild(el("span","grav",
-    `${esc(c.p.gravedad)}${SIS[c.p.sistema]?" · "+SIS[c.p.sistema][0]:""}`));
+  const linea = el("div","grav");
+  linea.style.display = "flex"; linea.style.alignItems = "center"; linea.style.gap = "5px";
+  linea.appendChild(el("i","gchip g-"+c.p.gravedad,
+    c.p.gravedad==="ROJO" ? "★ ROJO" : "G·"+esc(c.p.gravedad)));
+  if(SIS[c.p.sistema]) linea.appendChild(el("span",null,SIS[c.p.sistema][0]));
+  d.appendChild(linea);
 
   const hp = el("div","corazones");
   for(let k=0;k<c.vidaMax;k++)
@@ -901,11 +915,19 @@ function pie(){
   const f = el("div","pie");
   const descartando = G.pendiente && G.pendiente.tipo==="descartar";
   const sobra = j.mano.length - limiteMano(j);
-  f.appendChild(el("div","mano-rot",
-    `Tu mano · ${j.mano.length}`+
-    ` <span></span>`+
-    (sobra>0 ? `<span style="color:var(--warn)">botas ${sobra} al cerrar</span>`
-             : `arrastra para jugar u ordenar`)));
+  const rot = el("div","mano-rot");
+  rot.innerHTML = `Tu mano · ${j.mano.length}`+
+    (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
+    ` <span></span>`;
+  if(G.fase===1 && !j.ia){
+    const cc = el("div","coloc-caja");
+    for(let k=0;k<COLOCACIONES;k++) cc.appendChild(el("i", k<j.coloc?"":"off"));
+    cc.appendChild(el("b",null,`${j.coloc} ${j.coloc===1?"colocación":"colocaciones"}`));
+    rot.appendChild(cc);
+  } else {
+    rot.innerHTML += "arrastra para jugar u ordenar";
+  }
+  f.appendChild(rot);
 
   const mano = el("div","mano");
   if(!j.mano.length) mano.appendChild(el("div","nota","Mano vacía."));
