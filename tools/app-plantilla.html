@@ -190,10 +190,10 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
      padding:9px 14px;border-radius:99px;background:var(--paper);
      border:1px solid var(--line);box-shadow:0 4px 16px rgba(22,36,46,.18);
      font-weight:700;font-size:12.5px}
-.mano-rot{margin:0 8px 4px;padding:6px 10px;font-size:9.5px;font-weight:700;
-          letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2);
-          display:flex;gap:6px;align-items:center;flex-wrap:wrap;row-gap:5px;
-          white-space:nowrap;background:rgba(255,255,255,.86);
+.mano-rot{margin:2px 8px 4px;padding:4px 8px 4px 12px;font-size:10px;
+          font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+          color:var(--ink-2);display:flex;gap:6px;align-items:center;
+          white-space:nowrap;background:rgba(255,255,255,.88);
           -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
           border:1px solid var(--line);border-radius:99px;
           box-shadow:0 2px 10px rgba(22,36,46,.1)}
@@ -214,7 +214,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
    Las cartas se solapan en arco; deslizas para navegar y la del centro
    crece hasta ser legible de verdad. La cuadrícula sigue existiendo:
    sirve para comparar las 6 de un vistazo y para marcar descartes.   */
-.mano.abanico{display:block;position:relative;height:208px;padding:0;margin:0;
+.mano.abanico{display:block;position:relative;height:192px;padding:0;margin:0;
               overflow:visible;background:none;border:0;box-shadow:none;
               -webkit-backdrop-filter:none;backdrop-filter:none;
               pointer-events:none;
@@ -222,7 +222,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
                  el gesto (pan) y el hojeo nunca recibía los pointermove */
               touch-action:none}
 .mano.abanico .ranura{pointer-events:auto;touch-action:none}
-.ranura{position:absolute;left:50%;bottom:34px;width:118px;
+.ranura{position:absolute;left:50%;bottom:16px;width:118px;
         transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
                   rotate(var(--a)) scale(var(--s));
         transform-origin:50% 135%;will-change:transform;
@@ -242,7 +242,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .ranura.foco .carta.no{opacity:.55}
 /* la pista de que hay más cartas a los lados */
 .abanico-borde{display:none}
-.puntos-mano{position:absolute;left:0;right:0;bottom:3px;z-index:41;display:flex;
+.puntos-mano{position:absolute;left:0;right:0;bottom:0;z-index:41;display:flex;
              gap:4px;justify-content:center;pointer-events:none}
 .puntos-mano i{width:5px;height:5px;border-radius:99px;background:var(--line)}
 .puntos-mano i.on{background:var(--acc);width:14px}
@@ -1492,6 +1492,9 @@ const el = (t,c,h)=>{ const e=document.createElement(t); if(c) e.className=c;
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 
 function render(){
+  document.querySelectorAll(".fantasma").forEach(f=>{
+    if(f !== arrastre.fantasma) f.remove();   // huérfanos de gestos muertos
+  });
   const app = document.getElementById("app");
   app.innerHTML = "";
   if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); return; }
@@ -1830,7 +1833,7 @@ function pie(){
   }
   const sobra = j.mano.length - limiteMano(j);
   const rot = el("div","mano-rot");
-  rot.innerHTML = `Tu mano · ${j.mano.length}`+
+  rot.innerHTML = `🂠 ${j.mano.length}`+
     (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
     ` <span></span>`;
   if(G.fase===1 && !j.ia){
@@ -1840,8 +1843,6 @@ function pie(){
     for(let k=0;k<COLOCACIONES;k++) cc.appendChild(el("i", k<j.coloc?"":"off"));
     cc.appendChild(el("b",null,`${j.coloc} ${j.coloc===1?"colocación":"colocaciones"}`));
     rot.appendChild(cc);
-  } else {
-    rot.innerHTML += "arrastra para jugar u ordenar";
   }
   if(!j.ia && j.mano.length > 1 && !descartando){
     const mb = el("button","mano-modo", manoAbanico()?"▦":"◗");
@@ -1857,7 +1858,6 @@ function pie(){
     ob.onclick = ()=>{ UI.manoOculta = true; render(); };
     rot.appendChild(ob);
   }
-  f.appendChild(rot);
 
   // el abanico estorba para marcar varios descartes: ahí manda la cuadrícula
   const abanico = manoAbanico() && !descartando && j.mano.length > 1;
@@ -1915,6 +1915,7 @@ function pie(){
     hojearAbanico(mano);
   }
   f.appendChild(mano);
+  f.appendChild(rot);          // el rótulo va DEBAJO del abanico
   f.appendChild(barraAcciones());
   return f;
 }
@@ -1966,6 +1967,7 @@ const PASO_ABANICO = 52;
 function hojearAbanico(cont){
   cont.addEventListener("pointerdown", ev=>{
     if(ev.target.closest(".ranura.foco")) return;   // esa la lleva el arrastre
+    sanearGestos();
     hojeo.x0 = ev.clientX; hojeo.y0 = ev.clientY;
     hojeo.base = UI.foco; hojeo.movio = false; hojeo.pos = UI.foco;
     window.addEventListener("pointermove", hojearMover);
@@ -1980,6 +1982,7 @@ function hojearMover(ev){
     if(Math.abs(dx) < 9) return;
     if(Math.abs(dy) > Math.abs(dx)){ hojearFin(); return; }  // era vertical
     hojeo.movio = true; arrastre.huboArrastre = true;
+    try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
   }
   const n = yo().mano.length;
   let pos = hojeo.base - dx/PASO_ABANICO;
@@ -2090,12 +2093,29 @@ function cuerpoCarta(c){
   return h;
 }
 
+function sanearGestos(){
+  clearTimeout(UI.snapT);
+  document.body.classList.remove("arrastrando");
+  document.querySelectorAll(".fantasma").forEach(f=>f.remove());
+  arrastre.carta = null; arrastre.boton = null; arrastre.fantasma = null;
+  arrastre.sobre = null; arrastre.activo = false;
+  arrastre.huboArrastre = false;
+  hojeo.x0 = null; hojeo.movio = false;
+  window.removeEventListener("pointermove", moverCarta);
+  window.removeEventListener("pointerup", soltarCarta);
+  window.removeEventListener("pointercancel", soltarCarta);
+  window.removeEventListener("pointermove", hojearMover);
+  window.removeEventListener("pointerup", hojearFin);
+  window.removeEventListener("pointercancel", hojearFin);
+}
+
 /* ══ arrastrar y soltar (funciona con dedo y con mouse) ═════════════ */
 const arrastre = {carta:null, boton:null, x0:0, y0:0, activo:false,
                   fantasma:null, sobre:null, huboArrastre:false};
 
 function tomarCarta(ev, carta, boton){
   if(ev.button !== undefined && ev.button !== 0) return;
+  sanearGestos();
   arrastre.carta = carta; arrastre.boton = boton;
   arrastre.x0 = ev.clientX; arrastre.y0 = ev.clientY;
   arrastre.activo = false;
@@ -2117,6 +2137,7 @@ function moverCarta(ev){
       hojeo.x0 = arrastre.x0; hojeo.y0 = arrastre.y0;
       hojeo.base = UI.foco; hojeo.movio = true; hojeo.pos = UI.foco;
       arrastre.huboArrastre = true;
+      try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
       window.removeEventListener("pointermove", moverCarta);
       window.removeEventListener("pointerup", soltarCarta);
       window.removeEventListener("pointercancel", soltarCarta);
@@ -2129,11 +2150,15 @@ function moverCarta(ev){
     }
     arrastre.activo = true;
     arrastre.huboArrastre = true;
+    // anclar el gesto al body: el render que viene destruye el botón de
+    // origen y en Android eso mataba el stream táctil a mitad de arrastre
+    try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
     UI.sel = arrastre.carta;
     document.body.classList.add("arrastrando"); // la mano se aparta del medio
     render();                                   // enciende las camas válidas
     const g = el("div","carta fantasma");
-    g.style.width = (arrastre.boton ? arrastre.boton.offsetWidth : 96) + "px";
+    const w0 = arrastre.boton ? arrastre.boton.offsetWidth : 0;
+    g.style.width = (w0 >= 60 ? w0 : 112) + "px";
     g.innerHTML = cuerpoCarta(arrastre.carta);
     document.body.appendChild(g);
     arrastre.fantasma = g;
