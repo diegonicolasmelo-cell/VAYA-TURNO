@@ -473,7 +473,7 @@ function siguienteAvatar(){
   if(i < 0){ G.pendiente = null; entrarFase(0); return; }
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
-  if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE");
+  if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE", 3400);
   guardar(); render();
 }
 function resolverAvatar(elegido){
@@ -1108,10 +1108,11 @@ function jugarAccion(a, alGastar){
 }
 
 /* ══ fases ══════════════════════════════════════════════════════════ */
-function mostrarFranja(txt){
+function mostrarFranja(txt, ms){
   UI.franja = txt;
+  UI.franjaMs = ms || 1700;
   clearTimeout(UI.franjaT);
-  UI.franjaT = setTimeout(()=>{ UI.franja = null; render(); }, 1700);
+  UI.franjaT = setTimeout(()=>{ UI.franja = null; render(); }, UI.franjaMs);
 }
 
 function entrarFase(f){
@@ -1372,6 +1373,7 @@ function render(){
   app.appendChild(pie());
   if(UI.franja){
     const fr = el("div","franja",esc(UI.franja));
+    fr.style.animationDuration = ((UI.franjaMs||1700) - 100)/1000 + "s";
     if(UI.franja.length > 16) fr.style.fontSize = "21px";
     app.appendChild(fr);
   }
