@@ -493,6 +493,27 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   30%{transform:scale(1)} 72%{opacity:1;transform:translateY(-8px)}
   100%{opacity:0;transform:translateY(-16px)}}
 
+/* la jugada de la IA se revela al centro: se lee la carta antes de seguir */
+.revelada{position:fixed;left:0;right:0;top:13%;z-index:76;display:flex;
+          flex-direction:column;align-items:center;gap:9px;
+          animation:aparecer .16s ease}
+.revelada.fuera{opacity:0;transition:opacity .16s ease}
+.revelada .carta.rev{width:172px;min-height:0;box-shadow:0 20px 55px rgba(9,25,32,.5);
+          animation:revCae .36s cubic-bezier(.2,1.15,.32,1);pointer-events:none}
+.revelada .carta.rev .carta-nom{font-size:14px}
+.revelada .carta.rev .carta-tipo{font-size:8.5px}
+.revelada .carta.rev .carta-pie{font-size:9.5px}
+.revelada .prot.rev{width:196px;box-shadow:0 20px 55px rgba(9,25,32,.5);
+          animation:revCae .36s cubic-bezier(.2,1.15,.32,1);pointer-events:none}
+.revelada .prot.rev .prot-nom{font-size:14px}
+.revelada .prot.rev .prot-txt{font-size:10.5px}
+@keyframes revCae{0%{transform:translateY(-30px) rotate(-5deg) scale(.78);opacity:0}
+                  100%{transform:none;opacity:1}}
+.rev-txt{background:var(--ink);color:#fff;font-size:12.5px;font-weight:700;
+         padding:7px 15px;border-radius:99px;max-width:88vw;text-align:center;
+         box-shadow:0 8px 26px rgba(9,25,32,.4)}
+.rev-txt b{color:#ffd9a8}
+
 /* avisos flotantes: altas, muertes y sabotajes no se pierden en la bitácora */
 #avisos{position:fixed;top:50px;left:50%;transform:translateX(-50%);z-index:85;
         display:flex;flex-direction:column;gap:6px;align-items:center;
@@ -679,6 +700,10 @@ function anota(cls, txt){ G.log.push({cls, txt, r:G.ronda}); }
 /* ══ consultas ══════════════════════════════════════════════════════ */
 const yo   = ()=> G.jug[G.turno];
 const otros= ()=> G.jug.filter((_,i)=>i!==G.turno);
+/* el dueño de la cámara: contra la IA siempre el humano. Antes el tablero
+   se daba vuelta en el turno de la IA — y con el turno pausado (v0.43) su
+   mano quedaba a la vista en el abanico. En hotseat sigue rotando. */
+const vista = ()=> (G.modo==="ia" && yo().ia) ? G.jug.find(j=>!j.ia) : yo();
 function falta(c,t){ return Math.max(0, c.pide[t]-c.tiene[t]); }
 function faltanTotal(c){ return TIPOS.reduce((s,t)=>s+falta(c,t),0); }
 function limiteMano(j){ return Math.max(1, MANO_MAX - j.sumarios); }
@@ -725,7 +750,6 @@ function colocar(carta, cama, duenio, esSabotaje){
   if(esSabotaje && !sirve){
     cama.basura.push(carta);
     anota("m", `${j.nombre} tira ${carta.nombre} sobre ${cama.p.nombre} (${duenio.nombre}): basura clínica.`);
-    if(j.ia) aviso("warn", `⚠️ ${esc(j.nombre)} sabotea a ${esc(cama.p.nombre)}`);
   } else {
     const ap = aporte(carta, cama, tipo);
     cama.tiene[tipo] += ap;
@@ -1192,32 +1216,19 @@ const PRIO_ACC = {
   A05:6, A18:6, A02:5, A08:5, A17:5, A03:4, A09:4, A13:4, A12:3,
   A10:3, A14:2, A07:2, A06:1,
 };
-function iaPizarra(j){
-  // 1. jugar lo guardado: la de mayor prioridad que hoy tenga objetivo
-  if(!j.accionHecha && !accionesBloqueadas()){
-    const jugables = j.protocolos
-      .filter(a=>ACC[a.id] && ACC[a.id].puede())
-      .sort((a,b)=>(PRIO_ACC[b.id]||0)-(PRIO_ACC[a.id]||0));
-    if(jugables.length){
-      const a = jugables[0];
-      jugarAccion(a, ()=>{
-        const k = j.protocolos.indexOf(a); if(k>=0) j.protocolos.splice(k,1);
-        anota("a", `${j.nombre} juega ${a.nombre}.`);
-        aviso("warn", `📋 ${esc(j.nombre)} juega <b>${esc(a.nombre)}</b>`);
-      });
-    }
-  }
-  // 2. comprar: exige 2 cartas de sobra por encima de lo que va a tratar
-  if(j.compraHecha) return;
+/* La compra de la IA: exige 2 cartas de sobra por encima de lo que va a
+   tratar (afinado en §4n). Devuelve la carta comprada o null. */
+function iaComprar(j){
+  if(j.compraHecha) return null;
   const porTratar = j.camas.filter(c=>c && !c.estable).length * 2;
   const sobra = j.mano.length - porTratar - 2;
-  if(sobra <= 0) return;
+  if(sobra <= 0) return null;
   const ops = G.pizarra
     .map((a,i)=>({a,i}))
     .filter(x=>+x.a.coste <= Math.min(sobra, j.mano.length) &&
                ACC[x.a.id] && ACC[x.a.id].puede())
     .sort((x,y)=>((PRIO_ACC[y.a.id]||0)-+y.a.coste)-((PRIO_ACC[x.a.id]||0)-+x.a.coste));
-  if(!ops.length) return;
+  if(!ops.length) return null;
   const {a, i} = ops[0];
   j.mano.sort((c1,c2)=>(c1.comodin?1:0)-(c2.comodin?1:0) ||
                        (c1.sistema?1:0)-(c2.sistema?1:0));
@@ -1226,6 +1237,7 @@ function iaPizarra(j){
   const nueva = G.mazoA.pop(); if(nueva) G.pizarra.push(nueva);
   j.protocolos.push(a); j.compraHecha = true;
   anota("a", `${j.nombre} toma ${a.nombre} (${a.coste}).`);
+  return a;
 }
 
 /* — la ventana de RESPUESTA 🛡️ (A11 y A16) — */
@@ -1294,10 +1306,14 @@ function entrarFase(f){
     mostrarFranja(`TURNO ${G.ronda} (DÍA ${G.ronda})`);
   }
   if(f===0){ faseEntrega(); }
-  if(f===1){ j.coloc = COLOCACIONES - (j.colocMod||0); j.colocMod = 0; }
+  if(f===1){ j.coloc = COLOCACIONES - (j.colocMod||0); j.colocMod = 0;
+             j._pi = false; j._compraVista = false; }
   if(f===2){ faseFin(); }
   guardar(); render();
-  if(j.ia && !G.fin && !G.pendiente) setTimeout(iaJuega, 550);
+  if(j.ia && !G.fin && !G.pendiente){
+    clearTimeout(UI.iaT);              // un solo hilo de IA, nunca dos
+    UI.iaT = setTimeout(iaJuega, 550);
+  }
 }
 
 function faseEntrega(){
@@ -1448,37 +1464,103 @@ function iaSabotaje(j){
   }));
   return best;
 }
+/* ══ EL TURNO DE LA IA SE VE (v0.43) ═════════════════════════════════
+   Antes el turno rival ocurría entero en un parpadeo y había que ir a la
+   bitácora a entender qué pasó. Ahora es una secuencia: cada jugada de la
+   IA revela la carta al centro —legible— y recién después cae la
+   siguiente. Tocar la revelación la adelanta. */
+let IA_PAUSA = 1250;          // ritmo entre jugadas; los tests lo bajan
+
+function revelarIA(cartaHtml, txt, luego){
+  const r = el("div","revelada");
+  r.innerHTML = (cartaHtml ? cartaHtml : "") +
+                `<div class="rev-txt">${txt}</div>`;
+  document.body.appendChild(r);
+  let hecho = false;
+  const fin = ()=>{ if(hecho) return; hecho = true;
+    r.classList.add("fuera"); setTimeout(()=>r.remove(), 160); luego(); };
+  const tm = setTimeout(fin, cartaHtml ? IA_PAUSA : Math.round(IA_PAUSA*0.65));
+  r.addEventListener("pointerdown", ev=>{ ev.stopPropagation();
+    clearTimeout(tm); fin(); });
+}
+function revCarta(c){
+  return `<div class="carta rev" style="border-left-color:${TCOL[c.tipo]||TCOL.COMODIN}">${cuerpoCarta(c)}</div>`;
+}
+function revProt(a){
+  return `<div class="prot rev"><div class="prot-cab">`+
+    `<span class="coste">${a.coste}</span><span class="prot-tipo">${esc(a.tipo)}</span></div>`+
+    `<div class="prot-nom">${esc(a.nombre)}</div>`+
+    `<div class="prot-txt">${esc(a.texto)}</div></div>`;
+}
+
 function iaJuega(){
   const j = yo();
-  if(G.fin || !j.ia) return;
-  if(G.fase===1){
-    iaPizarra(j);                                  // compra y juega Protocolos
-    let guard = 30;
-    while(j.coloc>0 && guard-- > 0){
-      // limpiar basura que retiene un alta o bloquea un ✅ inminente
-      const bloq = j.camas.find(c=>c && c.basura.length && (c.estable || faltanTotal(c)<=1));
-      if(bloq){ G.descG.push(bloq.basura.pop()); j.coloc--;
-        anota("", `${j.nombre} des-escala en ${bloq.p.nombre}.`); revisar(bloq,G.ronda); continue; }
-      // sabotaje prioritario: negarle el ✅ al que está por cerrar
-      const sab = iaSabotaje(j);
-      if(sab && faltanTotal(sab.cama)<=1 && !sab.cama.estable){
-        colocar(sab.carta, sab.cama, sab.duenio, true); continue;
-      }
-      let hecho=false;
-      for(const cama of iaElegirCamas(j)){
-        const carta = iaElegirCarta(j, cama);
-        if(carta){ colocar(carta, cama, j, false); hecho=true; break; }
-      }
-      if(hecho) continue;
-      if(sab){ colocar(sab.carta, sab.cama, sab.duenio, true); continue; }
-      break;
+  if(G.fin || !j.ia || G.fase!==1) return;
+
+  // 1. jugar un Protocolo guardado (un solo intento por turno)
+  if(!j._pi && !j.accionHecha && !accionesBloqueadas()){
+    j._pi = true;
+    const jugables = j.protocolos
+      .filter(a=>ACC[a.id] && ACC[a.id].puede())
+      .sort((a,b)=>(PRIO_ACC[b.id]||0)-(PRIO_ACC[a.id]||0));
+    if(jugables.length){
+      const a = jugables[0];
+      let jugo = false;
+      jugarAccion(a, ()=>{ jugo = true;
+        const k = j.protocolos.indexOf(a); if(k>=0) j.protocolos.splice(k,1);
+        anota("a", `${j.nombre} juega ${a.nombre}.`); });
+      if(jugo){ revelarIA(revProt(a), `${esc(j.nombre)} juega <b>${esc(a.nombre)}</b>`, iaJuega); return; }
     }
-    while(j.sumarios>0 && j.mano.length>=2){
-      G.descG.push(j.mano.pop()); G.descG.push(j.mano.pop()); j.sumarios--; G.sumariosLibres++;
-      anota("a", `${j.nombre} cierra un Sumario.`);
-    }
-    entrarFase(2); return;
   }
+  // 2. comprar de la Pizarra
+  if(!j._compraVista){
+    j._compraVista = true;
+    const a = iaComprar(j);
+    if(a){ guardar(); render();
+      revelarIA(revProt(a), `${esc(j.nombre)} toma <b>${esc(a.nombre)}</b> de la Pizarra`, iaJuega);
+      return; }
+  }
+  // 3. una colocación por paso
+  if(j.coloc > 0){
+    const bloq = j.camas.find(c=>c && c.basura.length && (c.estable || faltanTotal(c)<=1));
+    if(bloq){
+      G.descG.push(bloq.basura.pop()); j.coloc--;
+      anota("", `${j.nombre} des-escala en ${bloq.p.nombre}.`);
+      revisar(bloq, G.ronda); guardar(); render();
+      revelarIA(null, `${esc(j.nombre)} des-escala en <b>${esc(bloq.p.nombre)}</b>`, iaJuega);
+      return;
+    }
+    const sab = iaSabotaje(j);
+    if(sab && faltanTotal(sab.cama)<=1 && !sab.cama.estable){
+      colocar(sab.carta, sab.cama, sab.duenio, true); guardar(); render();
+      revelarIA(revCarta(sab.carta), `⚠️ ${esc(j.nombre)} sabotea a <b>${esc(sab.cama.p.nombre)}</b>`, iaJuega);
+      return;
+    }
+    for(const cama of iaElegirCamas(j)){
+      const carta = iaElegirCarta(j, cama);
+      if(carta){
+        colocar(carta, cama, j, false); guardar(); render();
+        revelarIA(revCarta(carta), `${esc(j.nombre)} trata a <b>${esc(cama.p.nombre)}</b>`, iaJuega);
+        return;
+      }
+    }
+    if(sab){
+      colocar(sab.carta, sab.cama, sab.duenio, true); guardar(); render();
+      revelarIA(revCarta(sab.carta), `⚠️ ${esc(j.nombre)} sabotea a <b>${esc(sab.cama.p.nombre)}</b>`, iaJuega);
+      return;
+    }
+    j.coloc = 0;               // no le queda nada que colocar
+  }
+  // 4. cerrar Sumarios, de a uno
+  if(j.sumarios > 0 && j.mano.length >= 2){
+    G.descG.push(j.mano.pop()); G.descG.push(j.mano.pop());
+    j.sumarios--; G.sumariosLibres++;
+    anota("a", `${j.nombre} cierra un Sumario.`); guardar(); render();
+    revelarIA(null, `📋 ${esc(j.nombre)} cierra un Sumario (paga 2 cartas)`, iaJuega);
+    return;
+  }
+  // 5. fin de su guardia
+  entrarFase(2);
 }
 
 /* ══ persistencia ═══════════════════════════════════════════════════ */
@@ -1542,9 +1624,10 @@ function render(){
   app.appendChild(barraEstado());
   const g = textoGuia();
   if(g) app.appendChild(el("div","guia",g));
-  otros().forEach(r=>app.appendChild(zonaJugador(r,false)));
+  const v = vista();
+  G.jug.filter(x=>x!==v).forEach(r=>app.appendChild(zonaJugador(r,false)));
   app.appendChild(bandaCentral());     // la Pizarra vive aquí, siempre visible
-  app.appendChild(zonaJugador(yo(),true));
+  app.appendChild(zonaJugador(v,true));
   app.appendChild(pie());
   if(UI.franja){
     const fr = el("div","franja",esc(UI.franja));
@@ -1622,9 +1705,9 @@ function tiraZona(j){
   if(j.sumarios)
     t.appendChild(el("span","ficha sum",`📋 <b>${j.sumarios}</b>`));
   if(j.avatar && activa){
-    const gastada = /PARTIDA/.test(freq) ? j.habP : j.habT;
+    const gastada = (/PARTIDA/.test(freq) ? j.habP : j.habT) || j !== yo();
     const b = el("button","ficha hab"+(gastada?" no":""),
-      gastada ? "usada" : "⚡ Usar");
+      (/PARTIDA/.test(freq) ? j.habP : j.habT) ? "usada" : "⚡ Usar");
     if(!gastada) b.onclick = ()=>{
       if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
       anota("a",`${j.nombre} usa ${j.avatar.nombre}: aplica el efecto a mano.`);
@@ -1662,7 +1745,7 @@ function protMios(j){
     c.appendChild(cab);
     c.appendChild(el("div","prot-nom",esc(a.nombre)));
     c.appendChild(el("div","prot-txt",esc(a.texto)));
-    const puede = puedeJugarAccion(a);
+    const puede = j === yo() && puedeJugarAccion(a);
     let rot2 = "Guardada";
     if(puede) rot2 = "Jugar ahora";
     else if(G.fase!==1 || j.ia) rot2 = "En el Pase de Visita";
@@ -1861,7 +1944,8 @@ function vistaCama(c, i, duenio, propio){
 }
 
 function pie(){
-  const j = yo();
+  const j = vista();
+  const mio = j === yo();              // ¿es mi turno? si no, la mano es inerte
   const f = el("div","pie");
   const descartando = G.pendiente && G.pendiente.tipo==="descartar";
   // plegada: solo la pastilla para reabrir y la barra de fase
@@ -1881,7 +1965,7 @@ function pie(){
   rot.innerHTML = `🂠 ${j.mano.length}`+
     (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
     ` <span></span>`;
-  if(G.fase===1 && !j.ia){
+  if(mio && G.fase===1 && !j.ia){
     const cc = el("div","coloc-caja"+
       (UI.colocPrev!==null && j.coloc<UI.colocPrev ? " gasto" : ""));
     UI.colocPrev = j.coloc;
@@ -1896,7 +1980,7 @@ function pie(){
     mb.onclick = cambiarModoMano;
     rot.appendChild(mb);
   }
-  if(!j.ia && !descartando){
+  if(mio && !descartando){
     const ob = el("button","btn-plegar","▼");
     ob.title = "Plegar la mano para ver el tablero";
     ob.setAttribute("aria-label", ob.title);
@@ -1914,7 +1998,7 @@ function pie(){
   j.mano.forEach((c,idx)=>{
     let cl = "carta";
     if(UI.sel===c || (descartando && UI.marcarDescartes.includes(c.uid))) cl += " sel";
-    if(G.fase===1 && !descartando){
+    if(mio && G.fase===1 && !descartando){
       const util = j.camas.some(x=>puedeColocarPropia(c,x)) ||
                    (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x))));
       if(!util) cl += " no";
@@ -1935,12 +2019,12 @@ function pie(){
         UI.foco = idx;                       // tocar un lado: traerla al centro
       } else if(abanico && esFoco){
         verCartaGrande(idx); return;         // tocar la del centro: verla grande
-      } else if(G.fase===1 && j.coloc>0 && !j.ia){
+      } else if(mio && G.fase===1 && j.coloc>0 && !j.ia){
         UI.sel = (UI.sel===c) ? null : c;
       }
       render();
     };
-    if(G.fase===1 && j.coloc>0 && !j.ia && !descartando && (!abanico || esFoco))
+    if(mio && G.fase===1 && j.coloc>0 && !j.ia && !descartando && (!abanico || esFoco))
       b.addEventListener("pointerdown", ev=>tomarCarta(ev,c,b));
 
     if(!abanico){ mano.appendChild(b); return; }
@@ -2029,7 +2113,7 @@ function hojearMover(ev){
     hojeo.movio = true; arrastre.huboArrastre = true;
     try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
   }
-  const n = yo().mano.length;
+  const n = document.querySelectorAll(".mano.abanico .ranura").length || 1;
   let pos = hojeo.base - dx/PASO_ABANICO;
   if(pos < 0) pos *= 0.3;                              // goma en los bordes
   else if(pos > n-1) pos = (n-1) + (pos-(n-1))*0.3;
@@ -2042,7 +2126,7 @@ function hojearFin(){
   window.removeEventListener("pointercancel", hojearFin);
   const m = hojeo.movio;
   if(m){
-    const n = yo().mano.length;
+    const n = document.querySelectorAll(".mano.abanico .ranura").length || 1;
     UI.foco = Math.max(0, Math.min(n-1, Math.round(hojeo.pos)));
     const cont = document.querySelector(".mano.abanico");
     if(cont) cont.classList.remove("vivo");            // vuelve la animación
