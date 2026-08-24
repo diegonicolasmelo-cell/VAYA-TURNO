@@ -93,21 +93,19 @@ plano (nunca ×2 en fármacos), el arreglo barato es re-etiquetar UNA carta
 —Sedoanalgesia calza clínicamente con el Status— antes que sacar pacientes;
 y vigilar RESP (59%), que carga hacia lo grave.
 
-⬜ **Tier list de avatares medido — rebalanceo pendiente** (DISENO §4p).
-Brecha de **6 puntos** entre el mejor y el peor sobre partidas de 8–9:
-elegir avatar pesa más que jugar bien. Lo urgente, en orden:
-- 🔴 **El Subespecialista (+5,03)**: guardar carta no cuesta indicación y
-  entra gratis Y doble. Arreglo: que guardar cueste 1 indicación, o que
-  entre gratis sin doblar.
-- 🔴 **El Residente Aplicado (0,00 usos en 3.000 partidas)**: pide el 4º
-  recurso sobre una cama y el turno solo tiene 3 indicaciones —
-  imposible. Al 3º valdría +1,32; conviene además condicionarlo.
-- 🔴 **El Médico Fantasma (−0,92)**: peor que no tener avatar. Gana cartas
-  netas pero las gana tarde, y el tempo temprano es lo que vale.
-- 🟡 Esotérico +3,16 · Diostor +2,61 · Doctor Amor +2,60: los tres regalan
-  tempo (colocación gratis / ⚠️ convertida en ataque / robo + blindaje).
-- 🟢 La franja C (+0,08 a +0,16) es correcta pero olvidable: Reanimador,
-  Precavido, Radiólogo, Dirigente, Director.
+✅ **Tier list de avatares medido Y rebalanceado** (DISENO §4p y §4q).
+La brecha de 6 puntos (−0,92…+5,03) quedó en **1,1 (+0,08…+1,22)**: los
+22 avatares aportan y ninguno domina. Doctrina pedida por el autor
+(Hearthstone: toda habilidad paga tempo · Battlegrounds: girar números,
+no identidades · Pokémon: cada avatar un momento único), 3 iteraciones
+medidas a 3.000 partidas por giro. 9 textos nuevos en personajes.csv:
+Subespecialista y Doctor Amor ahora 1×PARTIDA, Esotérico 2×PARTIDA,
+Diostor descarta 2, Enfermera vela UNA cama, Residente dobla al 3º de
+tipos distintos, Fantasma solo paga la ronda 1, Intensivista cubre ROJO,
+Buena Muñeca mira 3 y elige. 🔶 Para la mesa: la franja C (+0,08…+0,16)
+sigue siendo correcta pero olvidable — es problema de sabor, no de
+números, y la Buena Muñeca (+0,12) está subestimada por la heurística
+del simulador.
 
 ⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
 a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide

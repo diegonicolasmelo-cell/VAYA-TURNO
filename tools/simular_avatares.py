@@ -6,9 +6,13 @@ Se usa para el tier list de DISENO §4p: se asigna AVATARES = {0: "C13"} y
 se mide ese asiento contra uno sin avatar, con la misma semilla.
 No reemplaza a simular_v030.py: aquel es el suelo oficial del balance.
 
-Salvedades del modelo: Doctor Amor y La Jefa de Unidad cuentan escaneos y
-no bloqueos en USOS (su Δ sí es válido); La de la Buena Muñeca depende de
-la heurística de "carta inútil" y probablemente esté subestimada.
+Salvedades del modelo: La Jefa de Unidad cuenta escaneos y no bloqueos en
+USOS (su Δ sí es válido); La de la Buena Muñeca depende de la heurística de
+"carta inútil" y probablemente esté subestimada.
+
+Este archivo ya incluye el REBALANCE de DISENO §4q (agosto 2026): C01, C02,
+C03, C06, C07, C11, C13, C18 y C19 llevan sus habilidades retocadas y los
+textos de cartas/personajes.csv reflejan estas versiones.
 
 ORIGINAL:
 
@@ -333,7 +337,7 @@ def _saqueables(rivales, filtro=None):
                 continue
             for k, (c, t, a) in enumerate(cama.puestos):
                 # C03 Doctor Amor y C22 La Jefa: su 🧑‍⚕️ no se toca
-                if t == "PERSONAL" and getattr(r, "avatar", None) in ("C03", "C22"):
+                if t == "PERSONAL" and getattr(r, "avatar", None) == "C22":
                     if filtro is None or filtro(c, t):
                         marcar(r, r.avatar)     # solo cuenta si iba a robarlo
                     continue
@@ -684,14 +688,17 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     opciones.remove(mejor)
                     mazo_p[:0] = opciones
                     j.camas[i] = Cama(mejor)
-                    if j.avatar == "C19" and mejor["gravedad"] == "III":
+                    if j.avatar == "C19" and mejor["gravedad"] in ("III", "ROJO"):
                         j.camas[i].vida += 1; marcar(j, "C19")
                     j.camas[i].revisar(ronda)
 
             # 3. ROBO (fijo, ± lo que dejó Doblo Turno)
             n_robo = max(0, robo + getattr(j, "robo_mod", 0)); j.robo_mod = 0
             if j.avatar == "C02":
-                n_robo += -1 if ronda <= 3 else 1; marcar(j, "C02")
+                if ronda == 1:
+                    n_robo = max(0, n_robo - 1)   # el fantasma aún no llega
+                elif ronda >= 4:
+                    n_robo += 1; marcar(j, "C02")
             for _ in range(n_robo):
                 carta = robar()
                 if carta is None:
@@ -700,12 +707,22 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
 
             # C18 La Buena Muñeca: cambia la peor carta de la mano por otra
             if j.avatar == "C18" and j.mano:
-                inutil = next((c for c in j.mano if not any(
-                    cam and cam.falta().get(c["tipo"], 0) > 0 for cam in j.camas)), None)
+                inutil = next((c for c in j.mano
+                                   if not c.get("warn") and not c.get("comodin")
+                                   and not c.get("previene") and not c.get("cirujano")
+                                   and not any(cam and cam.falta().get(c["tipo"], 0) > 0
+                                               for cam in j.camas)), None)
                 if inutil:
                     j.mano.remove(inutil); mazo_g.insert(0, inutil)
-                    nueva = robar()
-                    if nueva: j.mano.append(nueva)
+                    vistas = [c for c in (robar() for _ in range(3)) if c]
+                    if vistas:
+                        mejor = max(vistas, key=lambda c: (
+                            c.get("comodin", False)
+                            or any(cam and cam.falta().get(c["tipo"], 0) > 0
+                                   for cam in j.camas), not c.get("warn")))
+                        vistas.remove(mejor)
+                        mazo_g[:0] = vistas        # el resto vuelve al fondo
+                        j.mano.append(mejor)
                     marcar(j, "C18")
             # C11 El Subespecialista: lo guardado entra gratis y cuenta doble
             if j.avatar == "C11" and j.guardado is not None:
@@ -739,7 +756,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                 if cand and dest is not None:
                     r0, cam0, k0 = cand[0]
                     robado = quitar_puesto(cam0, k0); cam0.revisar(ronda)
-                    poner_puesto(dest, robado, ronda)
+                    j.mano.append(robado)   # colocarlo cuesta su indicación
                     j.hab_p = True; marcar(j, "C03")
 
             # C15 El Dador de Altas: descarta 2 y completa al que le falta 1
@@ -767,7 +784,9 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
 
             # C06 El Médico Esotérico: ofrenda 1 carta y revela; lo que salga
             # se coloca gratis (con su ⚠️ si la trae)
-            if j.avatar == "C06" and j.mano and mazo_g:
+            if j.avatar == "C06" and j.mano and mazo_g \
+               and getattr(j, "usos_c06", 0) < 2:
+                j.usos_c06 = getattr(j, "usos_c06", 0) + 1
                 descarte.append(j.mano.pop(0))
                 rev = robar()
                 if rev is not None:
@@ -783,6 +802,17 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         if rev.get("previene"): dest.protege.add(rev["previene"])
                         if rev.get("warn"): resolver_warn(j, rev, dest)
                         dest.revisar(ronda); marcar(j, "C06")
+
+            # C11: guardar en reserva CUESTA 1 indicación (pagas 1 hoy por
+            # 2 mañana) — antes era gratis y valía +5 puntos
+            if j.avatar == "C11" and j.guardado is None and len(j.mano) > 4 \
+               and colocaciones > 0 and getattr(j, "usos_c11", 0) < 1:
+                util = next((c for c in j.mano if any(
+                    cam and cam.falta().get(c["tipo"], 0) > 0 for cam in j.camas)), None)
+                if util is not None:
+                    j.mano.remove(util); j.guardado = util
+                    colocaciones -= 1
+                    j.usos_c11 = getattr(j, "usos_c11", 0) + 1
 
             while colocaciones > 0:
                 # a) des-escalada: limpiar la basura que retiene el alta o
@@ -834,9 +864,11 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     if j.avatar == "C16" and carta["tipo"] == "IMAGEN" \
                        and carta.get("sistema") and aporte < 2:
                         aporte = 2; marcar(j, "C16")
-                    puestos_turno[id(cama)] = puestos_turno.get(id(cama), 0) + 1
-                    if j.avatar == "C13" and puestos_turno[id(cama)] == 4:
-                        aporte *= 2; marcar(j, "C13")
+                    puestos_turno.setdefault(id(cama), []).append(tipo)
+                    pt = puestos_turno[id(cama)]
+                    if j.avatar == "C13" and len(pt) == 3 \
+                       and len(set(pt)) == 3 and aporte == 1:
+                        aporte = 2; marcar(j, "C13")
                     j.mano.remove(carta)
                     descarte.append(carta)
                     cama.tiene[tipo] += aporte
@@ -846,10 +878,14 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     if carta.get("warn"):
                         # C01 El Diostor: la complicación la sufre el rival
                         desviada = False
-                        if j.avatar == "C01" and not j.diostor_r:
+                        if j.avatar == "C01" and not j.diostor_r and len(j.mano) >= 3:
                             victima = next((cm for r in rivales for cm in r.camas
                                             if cm and not cm.escudo), None)
                             if victima is not None:
+                                j.mano.sort(key=lambda x: (x.get("comodin", False),
+                                                           bool(x.get("sistema"))))
+                                descarte.append(j.mano.pop(0))
+                                descarte.append(j.mano.pop(0))
                                 comp = carta.get("comp") or {"nombre":"", "vida":-1}
                                 if not (comp["nombre"] and comp["nombre"] in victima.protege):
                                     victima.vida = max(PISO_RIVAL, victima.vida + comp["vida"])
@@ -912,12 +948,6 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     STATS["altas_r"][ronda] += 1
                     STATS["alta_ya_usos"] += 1
 
-            # C11: deja un recurso en reserva para el próximo Pase de Visita
-            if j.avatar == "C11" and j.guardado is None and len(j.mano) > 3:
-                util = next((c for c in j.mano if any(
-                    cam and cam.falta().get(c["tipo"], 0) > 0 for cam in j.camas)), None)
-                if util is not None:
-                    j.mano.remove(util); j.guardado = util
 
             if STATS is not None:
                 STATS["coloc"].append(3 - max(0, colocaciones))
@@ -951,15 +981,17 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
 
             # 7. FIN DE GUARDIA
             # C07 La Enfermera de Noche: descarta 2 y esta noche nadie cae
-            escudo_noche = False
-            if j.avatar == "C07" and not j.hab_p and len(j.mano) >= 2 \
+            velada = None
+            if j.avatar == "C07" and not j.hab_p and len(j.mano) >= 3 \
                and any(c and not c.estable and c.vida <= 1 for c in j.camas):
-                descarte.append(j.mano.pop(0)); descarte.append(j.mano.pop(0))
-                escudo_noche = True; j.hab_p = True; marcar(j, "C07")
+                for _ in range(3): descarte.append(j.mano.pop(0))
+                velada = min((c for c in j.camas if c and not c.estable),
+                             key=lambda c: c.vida)
+                j.hab_p = True; marcar(j, "C07")
             for i, c in enumerate(j.camas):
                 if c is None:
                     continue
-                if not c.estable and not escudo_noche:
+                if not c.estable and c is not velada:
                     c.vida -= 1 + c.extra          # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:

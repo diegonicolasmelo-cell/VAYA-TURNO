@@ -1210,18 +1210,76 @@ de la heurística de "carta inútil" del simulador (cambia la que hoy no
 sirve, aunque sirviera mañana): su −0,42 probablemente sea más cerca de
 cero en manos humanas. El resto se midió con la habilidad completa.
 
-**Estado: medido, sin tocar ninguna carta.** El rebalanceo es decisión
-del autor.
+**Estado: medido, sin tocar ninguna carta.** ~~El rebalanceo es decisión
+del autor.~~ **Rebalance pedido y aplicado: ver §4q.**
+
+### 4q. Rebalance de avatares (aplicado, agosto 2026)
+
+El autor pidió rebalancear §4p "con orientación de cartas similares de
+juegos afines: Battlegrounds, Hearthstone, los partidarios de Pokémon".
+De ahí salió la doctrina de tres reglas que guió cada retoque:
+
+1. **Hearthstone (poderes de héroe):** un poder sin coste de maná rompe el
+   juego; toda habilidad fuerte debe pagar **tempo** — indicaciones,
+   cartas o frecuencia.
+2. **Battlegrounds (ajuste numérico):** no se rediseña la identidad, se
+   giran los **números** (costes, puertas, frecuencias) hasta que el
+   héroe entre en banda. Cada giro se mide antes del siguiente.
+3. **Partidarios de Pokémon TCG:** cada avatar es un **momento único** —
+   nada de pasivas duplicadas ni habilidades que otro ya hace mejor.
+
+Banda objetivo: **+0,2 a ~+1,2 puntos netos** (todos aportan, ninguno
+domina). Tres iteraciones medidas (3.000 partidas, semilla 42, Pizarra
+encendida, sesgo de asiento +0,71 descontado):
+
+| avatar | antes | después | el giro que lo logró |
+|---|---:|---:|---|
+| El Subespecialista | **+5,03** | **+0,83** | la reserva cuesta 1 indicación y es **1×PARTIDA** (era gratis y cada turno; cada uso temprano valía ~0,8 pts) |
+| El Médico Esotérico | **+3,16** | **+0,65** | la ofrenda pasa a **2×PARTIDA** (cobrarle la indicación lo hundía a −1,49: la colocación gratis ES el poder) |
+| El Diostor | **+2,61** | **+1,22** | desviar la ⚠️ cuesta **2 cartas** (1 no mordía: con 58% de descarte una carta sale casi gratis) |
+| Doctor Amor | **+2,60** | **+1,19** | lo robado va a la **mano**, no directo a la cama (colocarlo cuesta su indicación); pierde la pasiva que duplicaba a La Jefa |
+| La Enfermera de Noche | +1,75 | **+1,06** | descarta **3** y vela **UNA** cama, no toda la unidad |
+| El Residente Aplicado | 0,00 | **+0,73** | el 4º recurso era imposible (3 indicaciones): ahora el **3º** dobla si los tres son de **tipos distintos** |
+| El Médico Fantasma | **−0,92** | **+0,23** | el precio temprano queda solo en la **ronda 1** (pagar R1–R3 lo hacía peor que nada: §4p, tempo > volumen) |
+| El Intensivista | −0,05 | **+0,53** | el +1 ❤️ cubre también **Código ROJO** |
+| La de la Buena Muñeca | −0,42 | **+0,12** | devuelve 1 y **mira 3, elige 1**; y la IA ya no bota comodines ni protecciones (ese era el bug del Δ negativo) |
+
+Resultado global: la brecha pasó de **6,0 puntos (−0,92…+5,03)** a
+**1,1 puntos (+0,08…+1,22)**, con los 22 avatares en positivo. Tier S
+final: Diostor, Doctor Amor, Gestora de Camas y Enfermera de Noche,
+todos entre +1,0 y +1,2 — dominantes de sabor, no de matemática.
+
+Lecciones que quedaron grabadas:
+
+- **La indicación es la moneda más cara del juego.** Al Esotérico,
+  cobrarle 1 indicación por su ritual lo movió **−4,5 puntos** (de +3,00
+  a −1,49): cada indicación del bucle normal se gasta con eficiencia
+  máxima, y una habilidad aleatoria no compite con eso. Corolario: las
+  habilidades que dan colocaciones **gratis** son las que hay que vigilar.
+- **Capar usos puede SUBIR el poder.** El Subespecialista con 4 cupos
+  midió +2,41, MÁS que sin tope (+1,54): el tope eliminó las reservas
+  tardías que eran pérdida neta (pagar indicación en R7–R8 sin retorno).
+  La frecuencia solo baja el poder si recorta los usos *buenos*.
+- **Los descartes casi no cuestan.** Con 58% de descarte natural, pedir
+  1 carta es cosmético; el mordisco empieza en 2–3 cartas.
+- **Un Δ negativo en una habilidad opcional = bug del modelo.** La Buena
+  Muñeca botaba comodines porque la heurística de "carta inútil" miraba
+  el tipo impreso y el comodín no calza con ninguno. Ninguna habilidad
+  opcional bien modelada puede medir bajo cero.
+
+Textos nuevos en `cartas/personajes.csv` (9 cartas), modelo en
+`tools/simular_avatares.py` (ya con el rebalance). El suelo oficial
+(simular_v030) no cambia: los avatares siguen fuera del suelo.
 
 ---
 
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
-1. ~~**Los seis avatares están sin balancear.**~~ **Medidos los 22 en
-   §4p (agosto 2026): brecha de 6 puntos entre el mejor y el peor.**
-   Lo urgente: el Subespecialista (+5,03) rompe el juego, el Residente
-   Aplicado es imposible de activar (0,00 usos) y el Médico Fantasma
-   (−0,92) es peor que no tener avatar. Notas históricas abajo.
+1. ~~**Los seis avatares están sin balancear.**~~ ~~Medidos los 22 en
+   §4p (agosto 2026): brecha de 6 puntos entre el mejor y el peor.~~
+   **CERRADO en §4q (agosto 2026): rebalance aplicado con doctrina
+   Hearthstone/Battlegrounds/Pokémon — brecha final 1,1 puntos, los 22
+   en positivo.** Notas históricas abajo.
    **Los seis originales:** (Desde v0.10 son los del
    autor: Diostor, Fantasma, Amor, Director, Gestora, Esotérico.) Sospechas:
    - *Doctor Amor* y *el Director* juegan una sola vez por partida, contra
