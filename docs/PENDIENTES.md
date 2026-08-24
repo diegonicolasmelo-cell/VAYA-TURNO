@@ -69,6 +69,18 @@ Estado de las brechas:
   efecto, pero se juegan en tu turno y no "fuera de turno". Ver si en mesa
   la diferencia se nota.
 
+⬜ **Valor propio de los recursos — medido, decisión pendiente** (DISENO
+§4o). Que el TAC valga 2 a cualquiera es un +6pp de salvamento que **la
+escasez no alcanza a pagar** (partir copias recupera solo 2pp): el cuello
+son las colocaciones, no las cartas. Lo que sí lo paga es exigir 🧑‍⚕️
+Personal ya puesto en esa cama (66%, en banda, y clínicamente cierto).
+Si se adopta: cartas simples con etiqueta de sistema, cartas complejas con
+valor 2 fijo y requisito de Personal, **sin acumular ambas**.
+
+⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
+a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide
+la variedad que siente un humano — decidir en mesa.
+
 **A22 Alta Anticipada** (agosto 2026): agregada al mazo de Protocolos,
 coste 2, única, con la pena "el alta apurada vale 2 puntos menos" — sin
 la pena era un botón de +1,2 pts que todos guardan a la última ronda

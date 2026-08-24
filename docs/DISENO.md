@@ -1055,6 +1055,65 @@ estrechas — es lo primero que confirmaría con las cartas en la mesa.
 
 ---
 
+### 4o. ¿Y si el TAC valiera más que la radiografía? (medido, sin decidir)
+
+El autor propuso que los recursos tengan **valor propio**: un TAC aporta 2
+a cualquier paciente porque da más información que una radiografía, y para
+compensarlo escasearía más. Hoy el único camino a "vale 2" es la **etiqueta
+de sistema** (Angio-TAC ×2 solo en CARD), y su reparo es justo: no todos los
+pacientes que necesitan un TAC son neurológicos.
+
+**Lo primero: el mazo ya codifica la complejidad, pero solo en la escasez.**
+Radiografía ×4 · Ecografía ×4 · TAC ×3 · Angio-TAC ×3 · Resonancia ×1. La
+idea está a medio implementar: lo escaso ya es lo complejo, pero lo complejo
+no rinde más.
+
+**La medición (12 diseños de alta complejidad a valor 2; 4.000 partidas):**
+
+| variante | mazo | salv | GIII | altas | pts |
+|---|---:|---:|---:|---:|---:|
+| BASE — solo la etiqueta da 2 | 67 | 68% | 47% | 3,08 | 8,87 |
+| vale 2 siempre, gratis | 67 | **74%** ✗ | 58% | 3,60 | 11,73 |
+| vale 2, copias a la mitad | 60 | **72%** ✗ | 55% | 3,51 | 11,10 |
+| vale 2 solo si le faltan ≥2 de ese tipo | 67 | **74%** ✗ | 58% | 3,60 | 11,73 |
+| **vale 2, pero exige 🧑‍⚕️ ya puesto** | 67 | **66%** ✔ | 44% | 2,99 | 8,36 |
+| solo las 3 de imagen valen 2 | 67 | 69% ✔ | 49% | 3,18 | 9,43 |
+
+Tres conclusiones, y la primera es la que manda:
+
+1. **La escasez NO paga el valor.** Partir las copias a la mitad recupera
+   solo 2 de los 6 puntos que regala el valor 2. El motivo es la regla que
+   ya conocíamos: **el cuello de botella son las colocaciones, no las
+   cartas.** Con el descarte mordiendo el 58% de los turnos, quitarte cartas
+   es un castigo barato; darte el doble por colocación es un premio caro.
+   Valor y escasez no son monedas intercambiables en este juego.
+2. **"Solo rinde doble si de verdad le faltan 2" no limita nada** (74%,
+   idéntico a gratis): al principio a todos les faltan 2 de todo, así que la
+   condición se cumple casi siempre. Es una restricción de mentira.
+3. **Lo que sí paga: un requisito de colocación.** "Vale 2 pero exige que ya
+   haya 🧑‍⚕️ Personal en esa cama" cae a 66% — en banda — y es clínicamente
+   cierto: a nadie se lo lleva solo al escáner. La mecánica ya existe en el
+   mazo (`restriccion=PERSONAL`), así que no inventa reglas.
+
+**Sobre acumular con la etiqueta:** no deberían. Etiqueta y valor propio son
+dos respuestas a la misma pregunta ("¿cuándo vale 2?"). Si el TAC vale 2
+para todos, su etiqueta NEURO deja de significar algo. El reparto natural
+sería: **cartas simples → valor 1 + etiqueta de sistema** (el ×2 condicional
+sigue siendo una decisión); **cartas complejas → valor 2 fijo con requisito
+de Personal, sin etiqueta**.
+
+**Y de paso, sobre el tamaño del mazo** (el autor sospechaba que sobran):
+recortando copias sin tocar valores, **de 67 a 55 cartas no cambia nada**
+medible a 2 ni a 3 jugadores (68% · GIII 46-47% · descarte 58% · mano seca
+0,1%). A 50 empieza a notarse en las rebarajas (2,7 por partida a 3
+jugadores: ves las mismas cartas tres veces). **Hay ~12 cartas de holgura**
+—menos que imprimir, menos que barajar— pero el simulador no mide la
+variedad que siente un humano, así que es una decisión de mesa.
+
+**Estado: medido, sin decidir.** Es un cambio grande al mazo físico.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del
