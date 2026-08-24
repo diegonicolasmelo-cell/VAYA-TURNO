@@ -36,20 +36,21 @@ completas el 100% de los turnos y la "mano seca" (querer jugar y no poder)
 es 0,1%: no existen los turnos muertos. El circuito de sabotaje funciona
 como tempo puro: 1,4 ataques por guardia y 1,3 limpiezas — casi todo golpe
 se paga con una des-escalada. Sumarios: 81% se cierran. Tres cosas para
-vigilar en mesa: (1) **el descarte del cierre muerde el 69% de los turnos**
-(en la v0.21 era 17%) — robas 4 y colocas 3, así que casi siempre botas 1;
-es una decisión de calidad de mano, pero también un paso más por turno;
-(2) **nadie muere antes de la ronda 4** y el pico de muertes es la ronda 7 —
+vigilar en mesa: (1) **el descarte del cierre muerde el 58% de los turnos**
+(era 69% con mano 5, y en la v0.21 un 17%) — robas 4 y colocas 3, así que
+seguido botas 1; es una decisión de calidad de mano, pero también un paso
+más por turno; (2) **nadie muere antes de la ronda 4** y el pico de muertes es la ronda 7 —
 el arco dramático es de guardia real (la noche se pone fea tarde), pero las
 3 primeras rondas son sin consecuencias; (3) el mazo se rebaraja exactamente
 1 vez por partida, a la mitad — la densidad de ⚠️ se mantiene pareja.
 
-**Sobre el descarte del 69% — rejilla robo×mano ya medida** (DISENO §4l):
-robo 3 colapsa el juego (salv 57%, el mazo nunca rebaraja) — descartado;
-**robo 4 · mano 6 mejora todo** (descarte 69→58%, salv 68%, GIII 47%).
-⬜ **Decisión del autor pendiente**: subir el límite de mano a 6 en
-REGLAMENTO-v030 §4.3 (+ app + simulador). Es la única palanca que alivia
-el descarte sin tocar el motor.
+**El descarte del 69% ya se atacó — límite de mano 6** (v0.33, DISENO §4l).
+Robo 3 colapsaba el juego (salv 57%, el mazo nunca rebaraja) y quedó
+descartado; **robo 4 · mano 6** baja el descarte a 58% y mejora todo lo
+demás medio punto, idéntico a 2 y 3 jugadores. ✅ Aplicado en
+REGLAMENTO-v030 §4.3, la app y `simular_v030.py`. 🔶 En mesa: confirmar que
+sostener 6 cartas no estorba físicamente y que la mano guardada se usa para
+planificar (juntar el cierre de Sumario, esperar la ⚠️) y no para acaparar.
 
 **A22 Alta Anticipada** (agosto 2026): agregada al mazo de Protocolos,
 coste 2, única, con la pena "el alta apurada vale 2 puntos menos" — sin

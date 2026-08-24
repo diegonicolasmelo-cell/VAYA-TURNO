@@ -130,7 +130,7 @@ turno, das de alta al siguiente.**
 1. Todo paciente tuyo **sin ✅ pierde 1 ❤️**.
 2. A 0 ❤️: **Alta Celestial** — ✝️, penalización, y toma un **Sumario**
    del centro, boca arriba en tu zona.
-3. Descarta hasta quedar con **5 cartas, menos 1 por cada Sumario abierto**
+3. Descarta hasta quedar con **6 cartas, menos 1 por cada Sumario abierto**
    que tengas en tu zona.
 
 ---
@@ -261,3 +261,9 @@ Suelo final (4.000 partidas, 2 jugadores): **salv 67% · GIII 43% · ROJO
   9 de cada 10 veces, y el cierre con colocación hacía que nadie cerrara
   nunca (0%). Con mordida + cierre de 2 cartas: **94% se cierran** — el
   Sumario vuelve a ser una factura que se paga, no una lápida.
+- **El límite de mano es 6 y no 5** porque robas 4 y colocas 3: te sobra
+  1 carta por turno, y con mano 5 estabas botando en el 69% de los turnos.
+  Con 6 el ritmo es idéntico (mismo robo, mismas colocaciones) pero la
+  carta que sobra alcanza a esperar un turno: baja a 58% y sube todo lo
+  demás medio punto. Bajar el robo a 3 —la alternativa obvia— hunde el
+  juego: el mazo nunca se rebaraja y el salvamento cae de 67% a 57%.

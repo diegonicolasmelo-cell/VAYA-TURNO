@@ -903,7 +903,23 @@ mano 6. Rejilla completa (4.000 partidas c/u, 2 jug, semilla 42):
   la regla actual en todo (descarte 69→58%, +10% de opciones retenidas,
   salvamento y puntos iguales o mejores). El excedente robo−colocaciones
   (4−3 = 1/turno) es estructural; agrandar el bolsillo lo amortigua gratis.
-  **Pendiente de decisión del autor** — es cambio de regla (§4.3).
+
+**Adoptado (v0.33): el límite de mano sube a 6.** El autor lo aprobó tras la
+medición. No cambia el ritmo —mismo robo, mismas colocaciones, misma
+duración— sino cuánto alcanzas a guardar: la carta que sobra cada turno
+ahora espera uno más, y eso es exactamente lo que necesitan las jugadas que
+requieren juntar piezas (las 2 cartas del Sumario, la ⚠️ que espera su
+momento, el escudo 🛡️). Confirmado en el simulador oficial y en la batería
+de jugabilidad a 2 y 3 jugadores:
+
+| | salv | GIII | ROJO | altas | ✝️ | pts | descarte | rebarajes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 jug | 68% | 47% | 76% | 3,08 | 1,45 | 8,87 | 58% | 1,00 |
+| 3 jug | 68% | 47% | 74% | 3,05 | 1,46 | 8,68 | 58% | 1,05 |
+
+Escala idéntico a 3 jugadores, las 3 colocaciones se siguen usando el 100%
+de los turnos y la mano seca sigue en 0,1%. Único costo: sostener 6 cartas
+en la mesa en vez de 5.
 
 **La Alta Anticipada** (pedida por el autor como carta de Acción: egresar de
 inmediato un paciente recién ✅, saltando la consolidación). Medida asimétrica

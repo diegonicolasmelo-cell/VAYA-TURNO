@@ -21,6 +21,10 @@ Qué modela:
 - Sumario boca arriba en zona, pero MUERDE: cada uno abierto reduce tu
   límite de mano en 1. Cerrarlo cuesta 2 cartas (sin colocación).
   La Auditoría del Ministerio quedó como variante opcional (ver flag).
+- v0.33: el límite de mano es 6 (era 5). Robas 4 y colocas 3, así que
+  sobra 1 carta por turno: con mano 5 el descarte mordía el 69% de los
+  turnos, con 6 el 58% y el resto mejora medio punto. Robar 3 en vez de
+  4 —la otra salida— hunde el juego (salv 57%, el mazo nunca rebaraja).
 - Cama vacía solo penaliza al final (−1 c/u); con admisión obligatoria solo
   pasa si se agota el Mazo de Pacientes.
 - El Cirujano de Turno cuenta como 2 🧑‍⚕️. El Turno Veinticuatro además
@@ -240,7 +244,7 @@ def elegir_sabotaje(j, rivales):
     return c, cama, r
 
 
-def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=5):
+def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
     mazo_p = pacientes[:]
     rng.shuffle(mazo_p)
     mazo_g = guardia[:]
