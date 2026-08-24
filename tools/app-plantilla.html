@@ -446,12 +446,13 @@ function nuevaPartida(modo, nombres){
     avatar: null, mano:[], camas:[null,null,null],
     altas:[], muertos:[], sumarios:0,
     protocolos:[], coloc:COLOCACIONES, compraHecha:false, accionHecha:false,
-    roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false
+    roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false, pena:0
   }));
   jug.forEach(j=>{ if(j.ia) j.avatar = avat.pop(); });
   G = { modo, ronda:1, turno:0, fase:0, mazoP, mazoG, descG:[], mazoA, descA:[],
         pizarra:[], sumariosLibres:6, log:[], fin:false, pendiente:null,
-        sinAcciones:false, iniciado:false };
+        bloqueoAcciones:0, ultimaAccion:null, ultimaComp:null,
+        canjeAvatar:null, iniciado:false };
   // 2 pacientes por jugador, la tercera cama parte vacía
   jug.forEach(j=>{ for(let i=0;i<2;i++) j.camas[i] = nuevaCama(G.mazoP.pop()); });
   G.jug = jug;
@@ -556,6 +557,9 @@ function colocar(carta, cama, duenio, esSabotaje){
   } else {
     const ap = aporte(carta, cama, tipo);
     cama.tiene[tipo] += ap;
+    // se guarda QUÉ aportó: sin esto no se puede retirar ni mover un recurso
+    // ya colocado (Vacaciones, Reunión Clínica, Hay Que Repetirlo…)
+    carta.puestoTipo = tipo; carta.puestoAp = ap;
     cama.puestos.push(carta);
     if(carta.previene) cama.protege.push(carta.previene);
     const doble = ap===2 ? " ×2" : "";
@@ -577,16 +581,468 @@ function colocar(carta, cama, duenio, esSabotaje){
 function complicar(carta, cama, duenio){
   const nom = carta.compNombre;
   if(nom && cama.protege.includes(nom)){
-    anota("a", `🛡️ ${nom} prevenida en ${cama.p.nombre}.`); return;
+    anota("a", `🛡️ ${nom} prevenida en ${cama.p.nombre}.`);
+    aviso("ok", `🛡️ ${esc(nom)} prevenida en ${esc(cama.p.nombre)}`);
+    return;
   }
   const antes = cama.vida;
   cama.vida = Math.max(1, cama.vida - 1);
+  // ventana de RESPUESTA: la última complicación resuelta se puede anular
+  if(cama.vida < antes)
+    G.ultimaComp = {cama:cama.uid, nombre:nom, paciente:cama.p.nombre, ronda:G.ronda};
   if(cama.vida===antes) anota("", `⚠️ ${nom}: ${cama.p.nombre} ya estaba en 1 ❤️ — colocar nunca mata.`);
   else anota("m", `⚠️ ${nom}: ${cama.p.nombre} pierde 1 ❤️ (queda ${cama.vida}).`);
   if(carta.turno24 && duenio.mano.length){
     const b = duenio.mano.pop(); G.descG.push(b);
     anota("m", `El Turno Veinticuatro: ${duenio.nombre} descarta ${b.nombre}.`);
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ACCIONES CON EFECTO REAL (v0.35)
+   Antes las 22 Acciones eran texto: la app las anotaba y tú movías las
+   fichas. Ahora el árbitro las ejecuta y te pide los objetivos que la
+   carta necesita. Cada entrada declara:
+     puede()  → ¿hay objetivos válidos ahora? (si no, no se deja jugar)
+     jugar(j, ok, no) → resuelve; llama ok() si se aplicó, no() si se
+                        canceló (la carta NO se gasta al cancelar).
+   ══════════════════════════════════════════════════════════════════ */
+
+/* — retirar y poner recursos ya colocados — */
+function quitarRecurso(cama, idx){
+  const x = cama.puestos.splice(idx,1)[0];
+  const t = x.puestoTipo || x.tipo, ap = x.puestoAp || 1;
+  if(TIPOS.includes(t)) cama.tiene[t] = Math.max(0, cama.tiene[t]-ap);
+  if(x.previene){ const k = cama.protege.indexOf(x.previene); if(k>=0) cama.protege.splice(k,1); }
+  revisar(cama, G.ronda);
+  return x;
+}
+function ponerRecurso(cama, x){
+  let t = x.puestoTipo || x.tipo;
+  if(x.comodin) t = TIPOS.filter(k=>falta(cama,k)>0)
+                        .sort((a,b)=>falta(cama,b)-falta(cama,a))[0] || t || "FARMACOS";
+  const ap = aporte(x, cama, t);
+  x.puestoTipo = t; x.puestoAp = ap;
+  if(TIPOS.includes(t)) cama.tiene[t] += ap;
+  cama.puestos.push(x);
+  if(x.previene) cama.protege.push(x.previene);
+  revisar(cama, G.ronda);
+}
+
+/* — listas de objetivos — */
+function objCamasPropias(f){
+  return yo().camas.filter(c=>c && (!f||f(c)))
+    .map(c=>({txt:esc(c.p.nombre),
+              sub:`${c.vida} ❤️ · faltan ${faltanTotal(c)}${c.estable?" · ✅ estable":""}`,
+              val:c}));
+}
+function objCamasRivales(f){
+  const out = [];
+  otros().forEach(r=>r.camas.forEach(c=>{
+    if(!c || c.escudo || (f && !f(c))) return;
+    out.push({txt:esc(c.p.nombre),
+              sub:`${esc(r.nombre)} · ${c.vida} ❤️ · faltan ${faltanTotal(c)}${c.estable?" · ✅":""}`,
+              val:{cama:c, duenio:r}});
+  }));
+  return out;
+}
+function objRecursosRivales(f){
+  const out = [];
+  otros().forEach(r=>r.camas.forEach(c=>{
+    if(!c || c.escudo) return;
+    c.puestos.forEach((x,i)=>{ if(!f || f(x))
+      out.push({txt:`${ico(x.tipo)} ${esc(x.nombre)}`,
+                sub:`sobre ${esc(c.p.nombre)} · ${esc(r.nombre)}`,
+                val:{cama:c, idx:i, carta:x, duenio:r}}); });
+  }));
+  return out;
+}
+function objRecursosPropios(){
+  const out = [];
+  yo().camas.forEach(c=>{ if(!c) return;
+    c.puestos.forEach((x,i)=>out.push({
+      txt:`${ico(x.tipo)} ${esc(x.nombre)}`, sub:`sobre ${esc(c.p.nombre)}`,
+      val:{cama:c, idx:i, carta:x}})); });
+  return out;
+}
+function objRivales(){
+  return otros().map(r=>({txt:esc(r.nombre),
+    sub:`${r.mano.length} cartas · ${r.altas.length} altas · ${r.muertos.length} ✝️`, val:r}));
+}
+const objCartas = lista => lista.map((x,i)=>({
+  txt:`${ico(x.tipo)} ${esc(x.nombre)}`,
+  sub:`${TNOM[x.tipo]||x.tipo}${x.sistema&&SIS[x.sistema]?" · "+SIS[x.sistema][0]:""}${x.warn?" · ⚠️ "+esc(x.compNombre):""}`,
+  val:{carta:x, idx:i}}));
+
+/* — hoja de selección: el paso genérico de "elige un objetivo".
+   No usa hoja(): una Acción de varios pasos no puede cerrarse tocando
+   fuera, o el efecto quedaría a medio aplicar. Sales por Cancelar. — */
+function elegirUno(titulo, ayuda, ops, fn, no){
+  const velo = el("div","velo");
+  const m = el("div","modal");
+  m.appendChild(el("div","tirador"));
+  m.appendChild(el("h2",esc(titulo)));
+  if(ayuda) m.appendChild(el("p",ayuda));
+  const cont = el("div","opciones");
+  ops.forEach(o=>{
+    const b = el("button","op");
+    b.innerHTML = `<b>${o.txt}</b>`+(o.sub?`<small>${o.sub}</small>`:"");
+    b.onclick = ()=>{ UI.modal=null; fn(o.val); };
+    cont.appendChild(b);
+  });
+  m.appendChild(cont);
+  const can = el("button","btn","Cancelar");
+  can.onclick = ()=>{ UI.modal=null; (no||render)(); };
+  m.appendChild(can);
+  velo.appendChild(m);
+  UI.modal = velo; render();
+}
+
+const ACC = {
+A01:{ // Vacaciones
+  puede:()=> objRecursosRivales(x=>x.tipo==="PERSONAL").length>0,
+  jugar(j, ok, no){
+    elegirUno("Vacaciones","Elige el 🧑‍⚕️ Personal que se toma quince días.",
+      objRecursosRivales(x=>x.tipo==="PERSONAL"), s=>{
+        quitarRecurso(s.cama, s.idx); G.descG.push(s.carta);
+        anota("a",`Vacaciones: ${s.carta.nombre} deja a ${s.cama.p.nombre} (${s.duenio.nombre}).`);
+        aviso("warn",`🧑‍⚕️ ${esc(s.carta.nombre)} se va de vacaciones`);
+        ok();
+      }, no);
+  }},
+A02:{ // Cumpleaños del Residente
+  puede:()=> otros().some(r=>r.camas.some(c=>c && !c.escudo && c.puestos.length)),
+  jugar(j, ok, no){
+    // cada rival entrega su recurso menos valioso; tú eliges dónde va
+    const botin = [];
+    otros().forEach(r=>{
+      const cands = [];
+      r.camas.forEach(c=>{ if(c && !c.escudo)
+        c.puestos.forEach((x,i)=>cands.push({c,i,x})); });
+      if(!cands.length) return;
+      cands.sort((a,b)=> faltanTotal(a.c)-faltanTotal(b.c));  // suelta el de la cama más lejana
+      const el0 = cands[0];
+      quitarRecurso(el0.c, el0.i); botin.push(el0.x);
+      anota("a",`Cumpleaños: ${r.nombre} entrega ${el0.x.nombre} (de ${el0.c.p.nombre}).`);
+    });
+    const colocarSiguiente = ()=>{
+      if(!botin.length){ aviso("ok","🎂 Cumpleaños del Residente: recursos recibidos"); ok(); return; }
+      const x = botin[0];
+      const destinos = objCamasPropias();
+      if(!destinos.length){ botin.forEach(c=>G.descG.push(c)); botin.length=0; colocarSiguiente(); return; }
+      elegirUno(`Colocar ${x.nombre}`,"Te lo trajeron de regalo. ¿Sobre quién lo pones?",
+        destinos, cama=>{ botin.shift(); ponerRecurso(cama, x); colocarSiguiente(); },
+        ()=>{ botin.shift(); G.descG.push(x); colocarSiguiente(); });
+    };
+    colocarSiguiente();
+  }},
+A03:{ // Reunión Clínica — mueve hasta 3 recursos entre tus pacientes
+  puede:()=> objRecursosPropios().length>0 && objCamasPropias().length>1,
+  jugar(j, ok, no){
+    let movidos = 0;
+    const paso = ()=>{
+      if(movidos>=3){ cierra(); return; }
+      const fuentes = objRecursosPropios();
+      if(!fuentes.length){ cierra(); return; }
+      elegirUno(`Reunión Clínica · ${movidos}/3`,
+        movidos ? "¿Mueves otro? Puedes parar cuando quieras." : "Elige el recurso que cambia de cama.",
+        fuentes, s=>{
+          const destinos = objCamasPropias(c=>c!==s.cama);
+          if(!destinos.length){ cierra(); return; }
+          elegirUno(`¿A quién va ${s.carta.nombre}?`, null, destinos, cama=>{
+            quitarRecurso(s.cama, s.idx); ponerRecurso(cama, s.carta);
+            anota("a",`Reunión Clínica: ${s.carta.nombre} pasa de ${s.cama.p.nombre} a ${cama.p.nombre}.`);
+            movidos++; paso();
+          }, paso);
+        }, cierra);
+    };
+    function cierra(){
+      if(movidos){ aviso("ok",`📋 Reunión Clínica: ${movidos} recurso${movidos>1?"s":""} redistribuido${movidos>1?"s":""}`); ok(); }
+      else no();
+    }
+    paso();
+  }},
+A04:{ // Interconsulta — rescata un recurso del descarte
+  puede:()=> G.descG.length>0 && objCamasPropias().length>0,
+  jugar(j, ok, no){
+    elegirUno("Interconsulta","Rescata 1 recurso de la pila de descartes.",
+      objCartas(G.descG.slice(-40).reverse()), s=>{
+        elegirUno(`Colocar ${s.carta.nombre}`,"Sobre cuál de tus pacientes.",
+          objCamasPropias(), cama=>{
+            const k = G.descG.indexOf(s.carta); if(k>=0) G.descG.splice(k,1);
+            ponerRecurso(cama, s.carta);
+            anota("a",`Interconsulta: ${s.carta.nombre} sobre ${cama.p.nombre}.`);
+            aviso("ok",`📞 Interconsulta: ${esc(s.carta.nombre)}`);
+            ok();
+          }, no);
+      }, no);
+  }},
+A05:{ // Doblo Turno
+  puede:()=>true,
+  jugar(j, ok){
+    for(let i=0;i<3;i++) robar(j);
+    j.roboMod = (j.roboMod||0) - 2;
+    anota("a",`${j.nombre} dobla turno: roba 3 (el próximo turno roba 2 menos).`);
+    aviso("ok","☕ Doblo Turno: +3 cartas");
+    ok();
+  }},
+A06:{ // Se Cayó el Sistema
+  puede:()=>true,
+  jugar(j, ok){
+    G.bloqueoAcciones = G.ronda + 1;
+    anota("a",`Se cayó el sistema: nadie juega Acciones en la ronda ${G.ronda+1}.`);
+    aviso("warn",`💻 Sin Acciones durante la ronda ${G.ronda+1}`);
+    ok();
+  }},
+A07:{ // ¡Liceeeencia! — cambia de avatar con un rival
+  puede:()=> otros().some(r=>r.avatar) && !!yo().avatar,
+  jugar(j, ok, no){
+    elegirUno("¡Liceeeencia!","¿A quién le tomas el puesto hasta el final de tu próximo turno?",
+      objRivales().filter(o=>o.val.avatar), r=>{
+        const mio = j.avatar; j.avatar = r.avatar; r.avatar = mio;
+        G.canjeAvatar = {a:G.jug.indexOf(j), b:G.jug.indexOf(r), ronda:G.ronda+1};
+        anota("a",`¡Liceeeencia! ${j.nombre} pasa a ser ${j.avatar.nombre}; ${r.nombre} queda como ${r.avatar.nombre}.`);
+        aviso("warn",`🔁 Ahora eres ${esc(j.avatar.nombre)}`);
+        ok();
+      }, no);
+  }},
+A08:{ // Llaman de Urgencias
+  puede:()=> objCamasRivales().length>0,
+  jugar(j, ok, no){
+    elegirUno("Llaman de Urgencias","El rival elige — aquí decide la app por él: será su paciente más grave.",
+      objRivales().filter(r=>r.val.camas.some(c=>c&&!c.escudo)), r=>{
+        const cands = r.camas.filter(c=>c && !c.escudo && !c.estable);
+        const c = (cands.length?cands:r.camas.filter(c=>c&&!c.escudo))
+                    .sort((a,b)=>a.vida-b.vida)[0];
+        c.extraDeterioro = (c.extraDeterioro||0) + 1;
+        anota("a",`Llaman de Urgencias: ${c.p.nombre} pierde 1 ❤️ extra en su Fin de Guardia.`);
+        aviso("warn",`📟 ${esc(c.p.nombre)}: −1 ❤️ extra este Fin de Guardia`);
+        ok();
+      }, no);
+  }},
+A09:{ // Auditoría — mira una mano y descarta 1
+  puede:()=> otros().some(r=>r.mano.length),
+  jugar(j, ok, no){
+    elegirUno("Auditoría","¿A quién le revisas la mano?",
+      objRivales().filter(o=>o.val.mano.length), r=>{
+        elegirUno(`Mano de ${r.nombre}`,"Elige la carta que se descarta.",
+          objCartas(r.mano), s=>{
+            const k = r.mano.indexOf(s.carta); if(k>=0) r.mano.splice(k,1);
+            G.descG.push(s.carta);
+            anota("a",`Auditoría: ${r.nombre} descarta ${s.carta.nombre}.`);
+            aviso("warn",`🔍 Auditoría: ${esc(r.nombre)} pierde ${esc(s.carta.nombre)}`);
+            ok();
+          }, no);
+      }, no);
+  }},
+A10:{ // Rotación de Internos — intercambia manos
+  puede:()=> otros().length>0,
+  jugar(j, ok, no){
+    elegirUno("Rotación de Internos","Cambias tu mano completa con la suya.",
+      objRivales(), r=>{
+        const m = j.mano; j.mano = r.mano; r.mano = m;
+        j.mano.forEach(c=>UI.nuevas.add(c.uid));
+        anota("a",`Rotación de Internos: ${j.nombre} y ${r.nombre} intercambian manos.`);
+        aviso("warn",`🔄 Manos intercambiadas con ${esc(r.nombre)}`);
+        ok();
+      }, no);
+  }},
+A11:{ // ¿Y Si Vamos por un Cafecito? — anula la última complicación
+  puede:()=> !!compAnulable(),
+  jugar(j, ok, no){ anularComplicacion("¿Y Si Vamos por un Cafecito?", ok, no); }},
+A12:{ // Protocolo Institucional — repite la última Acción jugada
+  puede:()=> !!(G.ultimaAccion && ACC[G.ultimaAccion] && G.ultimaAccion!=="A12"
+               && ACC[G.ultimaAccion].puede()),
+  jugar(j, ok, no){
+    const id = G.ultimaAccion;
+    const nom = (D.acciones.find(a=>a.id===id)||{}).nombre || id;
+    anota("a",`Protocolo Institucional: copia ${nom}.`);
+    ACC[id].jugar(j, ok, no);
+  }},
+A13:{ // Anda Rondando la Pelada — ÚNICA, dos monedas
+  puede:()=> otros().some(r=>r.muertos.length>=2),
+  jugar(j, ok, no){
+    const caras = (Math.random()<0.5) + (Math.random()<0.5);
+    if(caras<2){
+      j.mano.forEach(c=>G.descG.push(c)); j.mano = [];
+      anota("m",`La Pelada pasó de largo: ${j.nombre} descarta toda su mano.`);
+      aviso("mal","💀 Salió cruz: descartas toda tu mano");
+      ok(); return;
+    }
+    const ops = [];
+    otros().filter(r=>r.muertos.length>=2).forEach(r=>r.camas.forEach(c=>{
+      if(c) ops.push({txt:esc(c.p.nombre), sub:`${esc(r.nombre)} · ${c.vida} ❤️${c.estable?" · ✅":""}`,
+                      val:{cama:c, duenio:r}}); }));
+    if(!ops.length){ anota("m","La Pelada vino y no encontró a nadie."); ok(); return; }
+    elegirUno("💀 Dos caras","Vino preguntando por una cama. Elige cuál.", ops, s=>{
+      const r = s.duenio, i = r.camas.indexOf(s.cama);
+      r.muertos.push(s.cama.p);
+      s.cama.puestos.concat(s.cama.basura).forEach(x=>G.descG.push(x));
+      r.camas[i] = null;
+      if(G.sumariosLibres>0){ r.sumarios++; G.sumariosLibres--; }
+      anota("m",`✝️ La Pelada se lleva a ${s.cama.p.nombre} (${r.nombre}).`);
+      aviso("mal",`💀 ${esc(s.cama.p.nombre)} — se lo llevó la Pelada`);
+      ok();
+    }, ()=>{ ok(); });   // ya se lanzaron las monedas: la carta se gasta igual
+  }},
+A14:{ // Ojo Clínico — mira 3 y manda 1 al fondo
+  puede:()=> G.mazoG.length>0,
+  jugar(j, ok, no){
+    const tres = G.mazoG.slice(-3).reverse();
+    const ops = objCartas(tres).concat([{txt:"Dejarlas tal cual", sub:"No mueves nada", val:null}]);
+    elegirUno("Ojo Clínico","Las 3 primeras del Mazo de Guardia. Puedes mandar 1 al fondo.",
+      ops, s=>{
+        if(s){ const k = G.mazoG.indexOf(s.carta);
+               if(k>=0){ G.mazoG.splice(k,1); G.mazoG.unshift(s.carta); }
+               anota("a",`Ojo Clínico: ${s.carta.nombre} al fondo del mazo.`); }
+        else anota("a","Ojo Clínico: deja el mazo como estaba.");
+        aviso("ok","👁️ Ojo Clínico");
+        ok();
+      }, no);
+  }},
+A15:{ // Receta en Blanco — busca en el mazo
+  puede:()=> G.mazoG.length>0,
+  jugar(j, ok, no){
+    const orden = G.mazoG.slice().sort((a,b)=>
+      (a.tipo+a.nombre).localeCompare(b.tipo+b.nombre));
+    elegirUno("Receta en Blanco","Busca el recurso que quieras y llévatelo a la mano.",
+      objCartas(orden), s=>{
+        const k = G.mazoG.indexOf(s.carta); if(k>=0) G.mazoG.splice(k,1);
+        j.mano.push(s.carta); UI.nuevas.add(s.carta.uid);
+        G.mazoG = baraja(G.mazoG);
+        anota("a",`Receta en Blanco: ${j.nombre} busca ${s.carta.nombre}.`);
+        aviso("ok",`✍️ A la mano: ${esc(s.carta.nombre)}`);
+        ok();
+      }, no);
+  }},
+A16:{ // Simulación Clínica — anula la complicación, el recurso se queda
+  puede:()=> !!compAnulable(),
+  jugar(j, ok, no){ anularComplicacion("Simulación Clínica", ok, no); }},
+A17:{ // Quiebre de Stock
+  puede:()=> otros().length>0,
+  jugar(j, ok, no){
+    elegirUno("Quiebre de Stock","En su próximo turno no podrá colocar 💊 Fármacos.",
+      objRivales(), r=>{
+        r.sinFarmacos = true;
+        anota("a",`Quiebre de Stock: ${r.nombre} se queda sin 💊 su próximo turno.`);
+        aviso("warn",`📦 ${esc(r.nombre)}: sin Fármacos el próximo turno`);
+        ok();
+      }, no);
+  }},
+A18:{ // Recorte Presupuestario
+  puede:()=> otros().length>0,
+  jugar(j, ok, no){
+    elegirUno("Recorte Presupuestario","En su próximo Pase de Visita tendrá solo 2 colocaciones.",
+      objRivales(), r=>{
+        r.colocMod = (r.colocMod||0) + 1;
+        anota("a",`Recorte Presupuestario: ${r.nombre} jugará con 2 colocaciones.`);
+        aviso("warn",`✂️ ${esc(r.nombre)}: 2 colocaciones el próximo turno`);
+        ok();
+      }, no);
+  }},
+A19:{ // El Que Guarda Siempre Tiene
+  puede:()=> objCamasPropias(c=>!c.escudo).length>0,
+  jugar(j, ok, no){
+    elegirUno("El Que Guarda Siempre Tiene","Nadie podrá tocar sus recursos hasta tu próximo turno.",
+      objCamasPropias(c=>!c.escudo), c=>{
+        c.escudo = true;
+        anota("a",`🛡️ ${c.p.nombre} queda protegido hasta tu próximo turno.`);
+        aviso("ok",`🛡️ ${esc(c.p.nombre)} protegido`);
+        ok();
+      }, no);
+  }},
+A20:{ // Hay Que Repetirlo
+  puede:()=> objRecursosRivales(x=>x.tipo==="IMAGEN"||x.tipo==="PROCEDIMIENTOS").length>0,
+  jugar(j, ok, no){
+    elegirUno("Hay Que Repetirlo","Elige el 🩻 Imagen o 💉 Procedimiento que se echó a perder.",
+      objRecursosRivales(x=>x.tipo==="IMAGEN"||x.tipo==="PROCEDIMIENTOS"), s=>{
+        quitarRecurso(s.cama, s.idx); G.descG.push(s.carta);
+        anota("a",`Hay Que Repetirlo: se pierde ${s.carta.nombre} de ${s.cama.p.nombre} (${s.duenio.nombre}).`);
+        aviso("warn",`🔁 Se repite: ${esc(s.carta.nombre)}`);
+        ok();
+      }, no);
+  }},
+A21:{ // Encarnizamiento Terapéutico
+  puede:()=> objCamasRivales(c=>!c.estable).length>0,
+  jugar(j, ok, no){
+    elegirUno("Encarnizamiento Terapéutico","Un paciente rival sin ✅: −1 ❤️ (nunca baja de 1) y pierde un recurso.",
+      objCamasRivales(c=>!c.estable), s=>{
+        const antes = s.cama.vida;
+        s.cama.vida = Math.max(1, s.cama.vida - 1);
+        if(s.cama.puestos.length){
+          const x = quitarRecurso(s.cama, s.cama.puestos.length-1);
+          G.descG.push(x);
+          anota("m",`Encarnizamiento en ${s.cama.p.nombre}: −${antes-s.cama.vida} ❤️ y se pierde ${x.nombre}.`);
+        } else anota("m",`Encarnizamiento en ${s.cama.p.nombre}: −${antes-s.cama.vida} ❤️.`);
+        aviso("warn",`🩸 Encarnizamiento en ${esc(s.cama.p.nombre)}`);
+        ok();
+      }, no);
+  }},
+A22:{ // Alta Anticipada
+  puede:()=> objCamasPropias(c=>c.estable && c.estableDesde===G.ronda && !c.basura.length).length>0,
+  jugar(j, ok, no){
+    elegirUno("Alta Anticipada","Se va hoy mismo, sin esperar tu próxima Entrega. El alta apurada vale 2 puntos menos.",
+      objCamasPropias(c=>c.estable && c.estableDesde===G.ronda && !c.basura.length), c=>{
+        const i = j.camas.indexOf(c);
+        j.altas.push(c.p); j.pena = (j.pena||0) + 2;
+        c.puestos.forEach(x=>G.descG.push(x));
+        j.camas[i] = null;
+        anota("a",`ALTA ANTICIPADA · ${c.p.nombre} (+${c.p.alta} −2) — ${j.nombre}`);
+        aviso("ok",`🚪 Alta anticipada: ${esc(c.p.nombre)} <b>+${c.p.alta - 2}</b>`);
+        ok();
+      }, no);
+  }},
+};
+
+/* — la ventana de RESPUESTA 🛡️ (A11 y A16) — */
+function compAnulable(){
+  const u = G.ultimaComp;
+  if(!u || u.ronda !== G.ronda) return null;
+  const cama = yo().camas.find(c=>c && c.uid===u.cama);
+  return cama ? {cama, u} : null;    // solo sobre un paciente TUYO
+}
+function anularComplicacion(nombre, ok, no){
+  const t = compAnulable();
+  if(!t){ no(); return; }
+  hoja(nombre, (m, cerrar)=>{
+    m.appendChild(el("p",
+      `Anula <b>${esc(t.u.nombre)}</b> sobre <b>${esc(t.u.paciente)}</b>: recupera el ❤️ `+
+      `y el recurso se queda puesto.`));
+    const fila = el("div","acciones"); fila.style.padding="0";
+    const can = el("button","btn","Ahora no");
+    can.onclick = ()=>{ UI.modal=null; no(); };
+    const si = el("button","btn pri","Anular");
+    si.onclick = ()=>{
+      t.cama.vida = Math.min(t.cama.vidaMax, t.cama.vida + 1);
+      G.ultimaComp = null;
+      anota("a",`${nombre}: se anula ${t.u.nombre} en ${t.u.paciente}.`);
+      aviso("ok",`🛡️ ${esc(t.u.nombre)} anulada — ${esc(t.u.paciente)} recupera 1 ❤️`);
+      UI.modal=null; ok();
+    };
+    fila.appendChild(can); fila.appendChild(si);
+    m.appendChild(fila);
+  });
+}
+
+/* — puerta única: valida, resuelve y consume — */
+function accionesBloqueadas(){ return G.bloqueoAcciones === G.ronda; }
+function puedeJugarAccion(a){
+  const j = yo();
+  if(j.ia || G.fase!==1 || j.accionHecha || accionesBloqueadas()) return false;
+  const m = ACC[a.id];
+  return m ? m.puede() : false;
+}
+function jugarAccion(a, alGastar){
+  const j = yo();
+  const m = ACC[a.id];
+  if(!m) return;
+  m.jugar(j, ()=>{                       // ok: la carta se gasta
+    j.accionHecha = true;
+    G.ultimaAccion = a.id;
+    G.descA.push(a);
+    alGastar();
+    guardar(); render();
+  }, ()=>{ render(); });                 // cancelada: sigue guardada
 }
 
 /* ══ fases ══════════════════════════════════════════════════════════ */
@@ -611,6 +1067,17 @@ function entrarFase(f){
 
 function faseEntrega(){
   const j = yo();
+  // los escudos 🛡️ de El Que Guarda vencen ahora: protegieron toda la vuelta
+  j.camas.forEach(c=>{ if(c && c.escudo){ c.escudo=false;
+    anota("", `Vence la protección de ${c.p.nombre}.`); } });
+  // ¡Liceeeencia!: el avatar prestado vuelve a su dueño
+  if(G.canjeAvatar && G.ronda >= G.canjeAvatar.ronda &&
+     G.jug.indexOf(j) === G.canjeAvatar.a){
+    const A = G.jug[G.canjeAvatar.a], B = G.jug[G.canjeAvatar.b];
+    if(A && B){ const t = A.avatar; A.avatar = B.avatar; B.avatar = t;
+      anota("", `Se acaba la licencia: ${A.nombre} vuelve a ser ${A.avatar.nombre}.`); }
+    G.canjeAvatar = null;
+  }
   // a) altas — con ✅ de antes de este turno y sin basura encima
   j.camas.forEach((c,i)=>{
     if(c && c.estable && c.estableDesde!==null && c.estableDesde < G.ronda){
@@ -681,7 +1148,9 @@ function faseFin(){
       if(G.sumariosLibres>0){ j.sumarios++; G.sumariosLibres--; }
     }
   });
-  j.camas.forEach(c=>{ if(c){ c.atacada=false; c.escudo=false; } });
+  // el escudo NO se limpia aquí: dura "hasta tu próximo turno", así que
+  // tiene que sobrevivir los turnos rivales. Se retira en tu Entrega.
+  j.camas.forEach(c=>{ if(c) c.atacada=false; });
   if(j.mano.length > limiteMano(j)){
     if(j.ia){
       while(j.mano.length>limiteMano(j)) G.descG.push(j.mano.pop());
@@ -697,7 +1166,6 @@ function terminarTurno(){
   G.turno++;
   if(G.turno >= G.jug.length){
     G.turno = 0; G.ronda++;
-    G.sinAcciones = false;
     if(G.ronda > RONDAS){ G.fin = true; guardar(); render(); return; }
     anota("r", `RONDA ${G.ronda}`);
   }
@@ -708,6 +1176,7 @@ function terminarTurno(){
 /* ══ puntuación ═════════════════════════════════════════════════════ */
 function puntos(j){
   let p = j.altas.reduce((s,c)=>s+c.alta,0) + j.muertos.reduce((s,c)=>s+c.fallece,0);
+  p -= j.pena || 0;                                     // altas apuradas (A22)
   p -= j.camas.filter(c=>c===null).length;              // camas vacías al final
   if(!j.muertos.length) p += 3;
   else if(j.muertos.every(c=>c.gravedad==="III"||c.gravedad==="ROJO")) p += 1;
@@ -944,14 +1413,17 @@ function protMios(j){
     c.appendChild(cab);
     c.appendChild(el("div","prot-nom",esc(a.nombre)));
     c.appendChild(el("div","prot-txt",esc(a.texto)));
-    const puede = G.fase===1 && !j.ia && !j.accionHecha && !G.sinAcciones;
-    const b = el("button","prot-btn"+(puede?"":" no"),
-                 puede ? "Jugar ahora" : "Guardada");
-    if(puede) b.onclick = ()=>{
-      j.protocolos.splice(idx,1); G.descA.push(a); j.accionHecha = true;
-      anota("a",`${j.nombre} juega ${a.nombre}. Aplícala a mano.`);
-      guardar(); alertaJugada(a);
-    };
+    const puede = puedeJugarAccion(a);
+    let rot2 = "Guardada";
+    if(puede) rot2 = "Jugar ahora";
+    else if(G.fase!==1 || j.ia) rot2 = "En el Pase de Visita";
+    else if(accionesBloqueadas()) rot2 = "Sistema caído";
+    else if(j.accionHecha) rot2 = "Ya jugaste 1";
+    else rot2 = "Sin objetivo válido";
+    const b = el("button","prot-btn"+(puede?"":" no"), rot2);
+    if(puede) b.onclick = ()=> jugarAccion(a, ()=>{
+      const k = j.protocolos.indexOf(a); if(k>=0) j.protocolos.splice(k,1);
+    });
     c.appendChild(b);
     g.appendChild(c);
   });
@@ -963,6 +1435,12 @@ function bandaCentral(){
   const j = yo();
   const c = el("div","centro");
   const info = el("div","centro-info");
+  if(accionesBloqueadas()){
+    const cai = el("div","guia");
+    cai.style.cssText = "margin:-6px -10px 6px;border-bottom:0;background:#f6e7c8";
+    cai.innerHTML = "<b>💻 Se cayó el sistema.</b> Esta ronda nadie puede jugar Acciones.";
+    c.appendChild(cai);
+  }
   info.appendChild(el("span",null,`Urgencias ${G.mazoP.length}`));
   info.appendChild(el("span","sep"));
   info.appendChild(el("span",null, G.informe
@@ -1353,7 +1831,7 @@ function abrirPanel(){
     });
     if(!hay) fil.appendChild(el("span","nota","No tienes pacientes en cama."));
     es.appendChild(fil);
-    es.appendChild(el("div","nota","Márcalo al jugar <i>El Que Guarda Siempre Tiene</i>: el árbitro no dejará que te saboteen esa cama hasta tu próximo turno."));
+    es.appendChild(el("div","nota","<i>El Que Guarda Siempre Tiene</i> ya lo pone sola. Este interruptor queda para arbitrar a mano (habilidades de avatar, o si juegas con las cartas físicas al lado)."));
     m.appendChild(es);
 
     if(yo().avatar){
@@ -1423,23 +1901,21 @@ function alertaAccion(a){
   hoja(a.nombre, (m, cerrar)=>{
     m.appendChild(el("p",`<b>${esc(a.tipo)}</b> · ${esc(a.texto)}`));
     m.appendChild(el("p",`<i>“${esc(a.frase)}”</i>`));
-    m.appendChild(el("p","Júgala ahora o guárdala para otro turno. <b>Las Acciones se aplican a mano</b>: mueve las fichas y la app lo anota."));
+    const puede = puedeJugarAccion(a);
+    if(!puede) m.appendChild(el("p",
+      accionesBloqueadas() ? "El sistema está caído: esta ronda nadie juega Acciones."
+      : yo().accionHecha ? "Ya jugaste una Acción este turno. Queda guardada para el próximo."
+      : "Ahora mismo no hay objetivo válido para ella. Queda guardada."));
     const fila = el("div","acciones"); fila.style.padding="0";
     const g = el("button","btn","La guardo");
     g.onclick = ()=>{ yo().protocolos.push(a); guardar(); cerrar(); };
-    const p = el("button","btn pri","La juego ahora");
-    p.onclick = ()=>{ anota("a",`${yo().nombre} juega ${a.nombre}. Aplícala a mano.`);
-                      G.descA.push(a); yo().accionHecha=true; guardar(); cerrar(); };
-    fila.appendChild(g); fila.appendChild(p);
+    fila.appendChild(g);
+    if(puede){
+      const p = el("button","btn pri","La juego ahora");
+      p.onclick = ()=>{ UI.modal=null; jugarAccion(a, ()=>{}); };
+      fila.appendChild(p);
+    }
     m.appendChild(fila);
-  });
-}
-function alertaJugada(a){
-  hoja(a.nombre, (m, cerrar)=>{
-    m.appendChild(el("p",`<b>${esc(a.tipo)}</b> · ${esc(a.texto)}`));
-    m.appendChild(el("p","Aplica el efecto en el tablero. Queda en la bitácora."));
-    const b = el("button","btn pri","Listo"); b.onclick = cerrar;
-    m.appendChild(b);
   });
 }
 

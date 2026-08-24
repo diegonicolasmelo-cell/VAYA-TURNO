@@ -956,6 +956,51 @@ menos."*
 
 ---
 
+### 4m. Las Acciones dejan de ser texto (v0.35)
+
+Hasta aquí la app trataba las 22 Acciones como **honor system**: te cobraba
+el coste, las anotaba en la bitácora y tú movías las fichas. En el
+playtest del autor eso rompió el juego — *"algunas acciones no se están
+lanzando, hay otras que son de selección de objetivo y no las puedo
+seleccionar"*. Tenía razón, y el diagnóstico exacto es que **la mitad de
+las Acciones no tiene forma de aplicarse a mano en una app**: si *Vacaciones*
+descarta un 🧑‍⚕️ del rival, el jugador no puede tocar la zona rival; si
+*Reunión Clínica* redistribuye recursos, no hay manera de moverlos.
+
+Ahora hay un **motor de Acciones** con selección de objetivo. Cada carta
+declara `puede()` —¿existe un objetivo válido ahora mismo?— y `jugar()`,
+que abre las hojas de selección que la carta necesite y solo entonces se
+gasta. Cancelar a mitad no consume la carta.
+
+Tres decisiones que salieron de implementarlo:
+
+1. **Hubo que registrar qué aportó cada recurso al colocarse.** Un comodín
+   puesto como 💊 y un Cirujano que cuenta ×2 no se pueden retirar bien si
+   solo guardas la carta: hay que guardar el tipo y el aporte. Sin eso,
+   *Vacaciones*, *Hay Que Repetirlo* y *Reunión Clínica* dejarían recetas
+   descuadradas. Es la clase de deuda que solo aparece cuando una carta
+   quiere **deshacer** algo.
+2. **Las RESPUESTA 🛡️ se implementan como anulación, no como interrupción.**
+   *Simulación Clínica* dice "anula antes de que se resuelva: el recurso se
+   queda puesto"; *Cafecito*, "anula una que se acabe de resolver". Ambas
+   son, en efecto, **devolver el ❤️ dejando el recurso** — y eso sí se puede
+   hacer sin un sistema de interrupciones. La app guarda la última
+   complicación de la ronda sobre un paciente tuyo y la carta la revierte.
+3. **El escudo de *El Que Guarda Siempre Tiene* tenía el ciclo de vida al
+   revés.** Se limpiaba en tu propio Fin de Guardia, es decir, se apagaba
+   justo antes de los turnos rivales — protegía exactamente cuando nadie te
+   podía atacar. Ahora vence al empezar tu turno siguiente, que es lo que
+   dice la carta.
+
+**Lo que queda fuera del motor, a propósito:** la IA **no compra ni juega
+Protocolos** (nunca lo hizo). El suelo de balance medido en §4k–4l tampoco
+los modela, así que la app y el simulador siguen midiendo lo mismo — pero
+en la app significa que las Acciones son, por ahora, un recurso de una
+sola dirección: tú se las tiras a la IA y ella no responde. Es la brecha
+más grande que queda entre la app y una partida real de mesa.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

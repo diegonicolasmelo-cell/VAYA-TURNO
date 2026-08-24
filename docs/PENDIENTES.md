@@ -52,6 +52,17 @@ REGLAMENTO-v030 §4.3, la app y `simular_v030.py`. 🔶 En mesa: confirmar que
 sostener 6 cartas no estorba físicamente y que la mano guardada se usa para
 planificar (juntar el cierre de Sumario, esperar la ⚠️) y no para acaparar.
 
+**Las Acciones ya se ejecutan en la app** (v0.35, DISENO §4m): las 22
+tienen efecto real con selección de objetivo, verificadas una por una.
+Dos brechas conocidas, en orden de importancia:
+- ⬜ **La IA no compra ni juega Protocolos.** Nunca lo hizo, y el suelo
+  medido tampoco los modela. En la app eso hace que las Acciones vayan en
+  una sola dirección. Es lo que más separa la app de una partida de mesa.
+- 🔶 **Las RESPUESTA (A11, A16) son anulación, no interrupción**: revierten
+  la última complicación de la ronda sobre un paciente tuyo. Equivalente en
+  efecto, pero se juegan en tu turno y no "fuera de turno". Ver si en mesa
+  la diferencia se nota.
+
 **A22 Alta Anticipada** (agosto 2026): agregada al mazo de Protocolos,
 coste 2, única, con la pena "el alta apurada vale 2 puntos menos" — sin
 la pena era un botón de +1,2 pts que todos guardan a la última ronda

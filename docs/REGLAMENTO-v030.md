@@ -193,6 +193,18 @@ por Catéter* · Técnico en Enfermería ⇒ *Neumonía Asociada a VM* ·
 Kinesiólogo Respiratorio ⇒ *Delirium en UCI*. La prevención es prospectiva
 y viaja con la carta.
 
+> **Prospectiva quiere decir que el orden importa:** el protector tiene que
+> estar puesto **antes** de que llegue la complicación. Si te tiran la
+> Bacteriemia y recién después colocas la Enfermera de UCI, el ❤️ ya se
+> perdió. Es una apuesta preventiva, no un antídoto — y por eso vale la
+> pena poner al Kinesiólogo temprano sobre el paciente respiratorio.
+
+**No confundir con el escudo de *El Que Guarda Siempre Tiene* (A19)**, que
+es otra cosa: no previene una complicación con nombre, sino que **cierra la
+cama entera** — hasta tu próximo turno nadie puede sabotearla, ni robarle o
+descartarle recursos. Vence al empezar tu turno siguiente, así que te cubre
+toda la vuelta de los rivales.
+
 ### 6.5 Los dobles filos con texto 🛡️ propio
 
 Cuatro cartas de Personal traen, además de su ⚠️, un beneficio que **solo
