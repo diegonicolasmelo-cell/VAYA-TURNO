@@ -186,14 +186,17 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
    Las cartas se solapan en arco; deslizas para navegar y la del centro
    crece hasta ser legible de verdad. La cuadrícula sigue existiendo:
    sirve para comparar las 6 de un vistazo y para marcar descartes.   */
-.mano.abanico{display:block;position:relative;height:198px;padding:0;
+.mano.abanico{display:block;position:relative;height:208px;padding:0;
               overflow:hidden;touch-action:pan-y}
-.ranura{position:absolute;left:50%;bottom:32px;width:118px;
+.ranura{position:absolute;left:50%;bottom:34px;width:118px;
         transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
                   rotate(var(--a)) scale(var(--s));
-        transform-origin:50% 135%;
-        transition:transform .24s cubic-bezier(.2,.9,.3,1), opacity .2s ease;
+        transform-origin:50% 135%;will-change:transform;
+        transition:transform .22s cubic-bezier(.2,.9,.3,1), opacity .2s ease;
         z-index:var(--z)}
+/* mientras el dedo está abajo, las cartas lo siguen 1:1 — sin animación
+   intermedia, que era lo que se sentía trabado */
+.mano.abanico.vivo .ranura{transition:opacity .2s ease}
 .ranura.lejos{opacity:0;pointer-events:none}
 .abanico .carta{width:100%;min-height:132px;padding:8px}
 .abanico .carta .carta-nom{font-size:13px}
@@ -217,6 +220,40 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
            background:var(--cerca);flex:none}
 
 /* ── la carta en grande ──────────────────────────────────────────── */
+/* el avatar como carta activa (estilo TCG Pocket, invertido) */
+.activo{display:flex;align-items:center;gap:9px;margin-top:8px;position:relative;
+        background:var(--paper);border:1px solid var(--line);border-radius:10px;
+        padding:8px 10px 8px 13px;box-shadow:var(--sombra);overflow:hidden}
+.activo .raya{background:var(--acc)}
+.activo-rol{font-family:"IBM Plex Mono",monospace;font-size:8px;font-weight:600;
+            letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.activo-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:14.5px;
+            line-height:1.1}
+.activo-info{flex:1;min-width:0}
+.av-chip{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11px;
+         color:var(--ink);background:var(--paper);border:1px solid var(--line);
+         border-radius:7px;padding:2.5px 8px;white-space:nowrap;overflow:hidden;
+         text-overflow:ellipsis;max-width:40vw;box-shadow:var(--sombra)}
+
+/* recursos jugados como energías: una ficha de color por carta puesta */
+.energias{display:flex;gap:2.5px;flex-wrap:wrap;margin:0 0 4px;align-items:center}
+.energia{width:8.5px;height:8.5px;border-radius:99px;flex:none;
+         box-shadow:inset 0 -1.5px 1.5px rgba(0,0,0,.28),
+                    inset 0 1px 1px rgba(255,255,255,.5),
+                    0 0 0 1px rgba(22,36,46,.12)}
+.energia.brote{animation:brote .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes brote{0%{transform:scale(0)}70%{transform:scale(1.5)}100%{transform:scale(1)}}
+.energias .mas{font-family:"IBM Plex Mono",monospace;font-size:8px;
+               color:var(--ink-3);font-weight:700}
+
+/* la Pizarra vive en un cajón: el centro queda para los mazos */
+.btn-pizarra{display:flex;align-items:center;gap:7px;width:100%;padding:8px 11px;
+             border-radius:9px;border:1px solid var(--line);background:var(--paper);
+             box-shadow:var(--sombra);font-weight:700;font-size:12.5px}
+.btn-pizarra .gemas{display:flex;gap:3px;margin-left:auto}
+.btn-pizarra.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
+.btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
+
 .grande{background:var(--paper);border-radius:14px;border:1px solid var(--line);
         border-left:5px solid var(--line);padding:14px;
         box-shadow:0 10px 30px rgba(22,36,46,.2)}
@@ -1476,6 +1513,8 @@ function zonaJugador(j, propio){
   const z = el("div","zona "+(propio?"cerca":"lejos"));
   const linea = el("div","jugador-linea");
   linea.appendChild(el("b",null,esc(j.nombre)+(j.ia?" · IA":"")));
+  if(!propio && j.avatar)
+    linea.appendChild(el("span","av-chip",esc(j.avatar.nombre)));
   linea.appendChild(el("span","marca al",`${j.altas.length} altas`));
   linea.appendChild(el("span","marca",`${j.muertos.length} ✝️`));
   if(j.sumarios) linea.appendChild(el("span","marca su",`${j.sumarios} 📋`));
@@ -1490,16 +1529,25 @@ function zonaJugador(j, propio){
   return z;
 }
 
+/* Tu avatar como carta ACTIVA al pie de la unidad (Pocket invertido):
+   tú abajo, mirando tus 3 camas. */
 function tiraZona(j){
   const w = el("div");
-  const t = el("div","tira");
+  const t = el("div","activo");
   const freq = (j.avatar && j.avatar.frecuencia) || "";
   const activa = /1×/.test(freq);
-  t.appendChild(el("span","ficha",`<b>${esc(j.avatar ? j.avatar.nombre : "…")}</b>`));
+  const raya = el("i","raya"); t.appendChild(raya);
+  const info = el("div","activo-info");
+  info.appendChild(el("div","activo-rol",
+    "Tu avatar" + (freq ? " · " + esc(freq) : "")));
+  info.appendChild(el("div","activo-nom", esc(j.avatar ? j.avatar.nombre : "…")));
+  t.appendChild(info);
+  if(j.sumarios)
+    t.appendChild(el("span","ficha sum",`📋 <b>${j.sumarios}</b>`));
   if(j.avatar && activa){
     const gastada = /PARTIDA/.test(freq) ? j.habP : j.habT;
     const b = el("button","ficha hab"+(gastada?" no":""),
-      gastada ? "habilidad usada" : `⚡ Usar habilidad · ${esc(freq)}`);
+      gastada ? "usada" : "⚡ Usar");
     if(!gastada) b.onclick = ()=>{
       if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
       anota("a",`${j.nombre} usa ${j.avatar.nombre}: aplica el efecto a mano.`);
@@ -1508,13 +1556,11 @@ function tiraZona(j){
     t.appendChild(b);
   }
   if(j.avatar){
-    const i = el("button","ficha", UI.verHab ? "✕ cerrar" : "ⓘ ¿qué hace?");
+    const i = el("button","ficha", UI.verHab ? "✕" : "ⓘ");
+    i.setAttribute("aria-label","Qué hace la habilidad");
     i.onclick = ()=>{ UI.verHab = !UI.verHab; render(); };
     t.appendChild(i);
   }
-  if(j.sumarios)
-    t.appendChild(el("span","ficha sum",
-      `📋 <b>${j.sumarios}</b> · −${j.sumarios} de mano`));
   w.appendChild(t);
   if(UI.verHab && j.avatar)
     w.appendChild(el("div","hab-desc",
@@ -1575,21 +1621,58 @@ function bandaCentral(){
   info.appendChild(el("span",null,`Guardia ${G.mazoG.length}`));
   c.appendChild(info);
 
-  const p = el("div","pizarra");
-  G.pizarra.forEach((a,idx)=>{
-    const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
-    const b = el("button","prot "+(puede?"puede":"no"));
-    const cab = el("div","prot-cab");
-    cab.appendChild(el("span","coste",`${a.coste}`));
-    cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
-    b.appendChild(cab);
-    b.appendChild(el("div","prot-nom",esc(a.nombre)));
-    b.appendChild(el("div","prot-txt",esc(a.texto)));
-    if(puede) b.onclick = ()=>abrirCompra(idx);
-    p.appendChild(b);
-  });
-  c.appendChild(p);
+  // v0.38: la Pizarra sale del centro a un cajón — el tablero respira y
+  // los pacientes quedan cara a cara, como pidió el autor (estilo Pocket)
+  const alguna = G.fase===1 && !j.ia && !j.compraHecha &&
+                 G.pizarra.some(a=>j.mano.length >= +a.coste);
+  const bp = el("button","btn-pizarra"+(alguna?" puede":""));
+  bp.id = "btn-pizarra";
+  const gemas = G.pizarra.map(a=>`<span class="coste">${a.coste}</span>`).join("");
+  bp.innerHTML = `🗒️ Pizarra de Turno` +
+    `<span class="gemas">${gemas || '<span class="prot-tipo">vacía</span>'}</span>` +
+    `<span class="flecha">›</span>`;
+  bp.onclick = hojaPizarra;
+  c.appendChild(bp);
   return c;
+}
+
+/* el cajón de la Pizarra: los 3 Protocolos, la compra y la limpieza */
+function hojaPizarra(){
+  const j = yo();
+  hoja("Pizarra de Turno", (m, cerrar)=>{
+    m.appendChild(el("p", j.compraHecha
+      ? "Ya compraste este turno. Máximo 1 Protocolo por turno."
+      : "Toma 1 pagando su coste en cartas de tu mano. No gasta colocación."));
+    const p = el("div","pizarra");
+    G.pizarra.forEach((a,idx)=>{
+      const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
+      const b = el("button","prot "+(puede?"puede":"no"));
+      const cab = el("div","prot-cab");
+      cab.appendChild(el("span","coste",`${a.coste}`));
+      cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
+      b.appendChild(cab);
+      b.appendChild(el("div","prot-nom",esc(a.nombre)));
+      b.appendChild(el("div","prot-txt",esc(a.texto)));
+      if(puede) b.onclick = ()=>{ UI.modal=null; abrirCompra(idx); };
+      p.appendChild(b);
+    });
+    m.appendChild(p);
+    const fila = el("div","acciones"); fila.style.padding="12px 0 0";
+    if(G.fase===1 && !j.ia && !j.compraHecha && G.pizarra.length){
+      const lb = el("button","btn","Limpiar Pizarra");
+      lb.onclick = ()=>{
+        G.pizarra.forEach(a=>G.descA.push(a)); G.pizarra=[];
+        for(let i=0;i<3;i++){ const a=G.mazoA.pop(); if(a) G.pizarra.push(a); }
+        j.compraHecha = true;
+        anota("",`${j.nombre} limpia la Pizarra.`); guardar();
+        UI.modal=null; render();
+      };
+      fila.appendChild(lb);
+    }
+    const cb = el("button","btn pri","Cerrar"); cb.onclick = cerrar;
+    fila.appendChild(cb);
+    m.appendChild(fila);
+  });
 }
 
 function vistaCama(c, i, duenio, propio){
@@ -1640,6 +1723,22 @@ function vistaCama(c, i, duenio, propio){
   if(c.estable) hp.appendChild(el("span","cong",
     '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
   d.appendChild(hp);
+
+  if(c.puestos.length){
+    const en = el("div","energias");
+    const brota = UI.enerPrev && UI.enerPrev[c.uid]!==undefined &&
+                  c.puestos.length > UI.enerPrev[c.uid];
+    c.puestos.slice(0,9).forEach((x,k)=>{
+      const i2 = el("i","energia"+(brota && k===c.puestos.length-1 ? " brote" : ""));
+      i2.style.background = TCOL[x.puestoTipo||x.tipo] || TCOL.COMODIN;
+      i2.title = x.nombre;
+      en.appendChild(i2);
+    });
+    if(c.puestos.length>9) en.appendChild(el("span","mas",`+${c.puestos.length-9}`));
+    d.appendChild(en);
+  }
+  UI.enerPrev = UI.enerPrev || {};
+  UI.enerPrev[c.uid] = c.puestos.length;
 
   const rq = el("div","reqs");
   TIPOS.forEach(t=>{
@@ -1747,14 +1846,9 @@ function pie(){
       b.addEventListener("pointerdown", ev=>tomarCarta(ev,c,b));
 
     if(!abanico){ mano.appendChild(b); return; }
-    const d = idx - UI.foco, ad = Math.abs(d);
-    const r = el("div","ranura"+(esFoco?" foco":"")+(ad>3?" lejos":""));
-    // el hueco extra junto al foco deja tocable el centro de las vecinas
-    r.style.setProperty("--x", (d*46 + Math.sign(d)*40)+"px");
-    r.style.setProperty("--y", (ad*9 - (esFoco?12:0))+"px");
-    r.style.setProperty("--a", (d*6.5)+"deg");
-    r.style.setProperty("--s", esFoco?1.12:0.85);
-    r.style.setProperty("--z", String(30-ad));
+    const r = el("div","ranura"+(esFoco?" foco":""));
+    r.dataset.idx = idx;
+    ponRanura(r, idx - UI.foco);
     r.appendChild(b);
     mano.appendChild(r);
   });
@@ -1772,6 +1866,31 @@ function pie(){
   return f;
 }
 
+/* La geometría del abanico con d CONTINUO: el hueco junto al foco, el
+   levante y la escala son rampas, no saltos — así la mano puede seguir
+   al dedo píxel a píxel sin que nada pegue brincos. */
+function ponRanura(r, d){
+  const ad = Math.abs(d);
+  const cerca = Math.max(0, 1 - ad);          // 1 en el foco, 0 desde d=±1
+  const hueco = 40 * Math.max(-1, Math.min(1, d));
+  r.style.setProperty("--x", (d*46 + hueco)+"px");
+  r.style.setProperty("--y", (ad*9 - 20*cerca)+"px");
+  r.style.setProperty("--a", (d*6.5)+"deg");
+  r.style.setProperty("--s", String(0.85 + 0.37*cerca));
+  r.style.setProperty("--z", String(30 - Math.round(ad)));
+  r.classList.toggle("lejos", ad > 3.4);
+}
+function abanicoVivo(pos){
+  const cont = document.querySelector(".mano.abanico");
+  if(!cont) return;
+  cont.classList.add("vivo");
+  cont.querySelectorAll(".ranura").forEach(r=>{
+    const idx = +r.dataset.idx;
+    ponRanura(r, idx - pos);
+    r.classList.toggle("foco", Math.round(pos) === idx);
+  });
+}
+
 /* ¿abanico o cuadrícula? Se recuerda entre partidas. */
 function manoAbanico(){
   try{ return localStorage.getItem("vaya-turno-mano") !== "rejilla"; }
@@ -1783,17 +1902,19 @@ function cambiarModoMano(){
   render();
 }
 
-/* Deslizar de lado por el abanico: un paso cada 46 px, sin inercia para que
-   no se pase de largo con manos de 6 cartas.
-   El estado vive fuera del closure y los oyentes van en window: cada paso
-   redibuja la mano y destruiría el nodo que escucha el pointerup — con
-   oyentes locales, el toque siguiente al deslizamiento se perdía. */
-const hojeo = {x0:null, y0:null, base:0, movio:false};
+/* Hojear el abanico al estilo TCG Pocket: mientras el dedo está abajo las
+   cartas lo siguen 1:1 (sin redibujar nada — solo transforms), y al soltar
+   el abanico encaja en la carta más cercana. En los extremos hay goma:
+   puedes tirar un poco más allá y vuelve.
+   El estado vive fuera del closure y los oyentes van en window, porque el
+   render destruye los nodos y con oyentes locales se perdía el gesto. */
+const hojeo = {x0:null, y0:null, base:0, movio:false, pos:0};
+const PASO_ABANICO = 52;
 function hojearAbanico(cont){
   cont.addEventListener("pointerdown", ev=>{
     if(ev.target.closest(".ranura.foco")) return;   // esa la lleva el arrastre
     hojeo.x0 = ev.clientX; hojeo.y0 = ev.clientY;
-    hojeo.base = UI.foco; hojeo.movio = false;
+    hojeo.base = UI.foco; hojeo.movio = false; hojeo.pos = UI.foco;
     window.addEventListener("pointermove", hojearMover);
     window.addEventListener("pointerup", hojearFin);
     window.addEventListener("pointercancel", hojearFin);
@@ -1803,21 +1924,43 @@ function hojearMover(ev){
   if(hojeo.x0===null) return;
   const dx = ev.clientX-hojeo.x0, dy = ev.clientY-hojeo.y0;
   if(!hojeo.movio){
-    if(Math.abs(dx) < 14) return;
+    if(Math.abs(dx) < 9) return;
     if(Math.abs(dy) > Math.abs(dx)){ hojearFin(); return; }  // era vertical
     hojeo.movio = true; arrastre.huboArrastre = true;
   }
   const n = yo().mano.length;
-  const f = Math.max(0, Math.min(n-1, hojeo.base - Math.round(dx/46)));
-  if(f !== UI.foco){ UI.foco = f; render(); }
+  let pos = hojeo.base - dx/PASO_ABANICO;
+  if(pos < 0) pos *= 0.3;                              // goma en los bordes
+  else if(pos > n-1) pos = (n-1) + (pos-(n-1))*0.3;
+  hojeo.pos = pos;
+  abanicoVivo(pos);
 }
 function hojearFin(){
   window.removeEventListener("pointermove", hojearMover);
   window.removeEventListener("pointerup", hojearFin);
   window.removeEventListener("pointercancel", hojearFin);
   const m = hojeo.movio;
+  if(m){
+    const n = yo().mano.length;
+    UI.foco = Math.max(0, Math.min(n-1, Math.round(hojeo.pos)));
+    const cont = document.querySelector(".mano.abanico");
+    if(cont) cont.classList.remove("vivo");            // vuelve la animación
+    abanicoVivoSnap();
+  }
   hojeo.x0 = null; hojeo.movio = false;
   if(m) setTimeout(()=>{ arrastre.huboArrastre = false; }, 60);
+}
+/* el encaje: animar hacia el foco elegido y recién entonces redibujar */
+function abanicoVivoSnap(){
+  const cont = document.querySelector(".mano.abanico");
+  if(!cont){ render(); return; }
+  cont.querySelectorAll(".ranura").forEach(r=>{
+    const idx = +r.dataset.idx;
+    ponRanura(r, idx - UI.foco);
+    r.classList.toggle("foco", idx === UI.foco);
+  });
+  clearTimeout(UI.snapT);
+  UI.snapT = setTimeout(render, 240);   // el render fija botones y puntitos
 }
 
 /* la carta en grande, con toda su letra chica y navegación por la mano */
@@ -1919,7 +2062,7 @@ function moverCarta(ev){
     // equivocarse jugando saca el naipe fantasma y enciende camas.
     if(arrastre.abanico && Math.abs(dx) >= Math.abs(dy)*0.9){
       hojeo.x0 = arrastre.x0; hojeo.y0 = arrastre.y0;
-      hojeo.base = UI.foco; hojeo.movio = true;
+      hojeo.base = UI.foco; hojeo.movio = true; hojeo.pos = UI.foco;
       arrastre.huboArrastre = true;
       window.removeEventListener("pointermove", moverCarta);
       window.removeEventListener("pointerup", soltarCarta);
@@ -2000,12 +2143,6 @@ function barraAcciones(){
   }
   if(j.ia){ add("La IA está jugando…","",null,true); return b; }
   if(G.fase===1){
-    if(!j.compraHecha)
-      add("Limpiar Pizarra","",()=>{
-        G.pizarra.forEach(a=>G.descA.push(a)); G.pizarra=[];
-        for(let i=0;i<3;i++){ const a=G.mazoA.pop(); if(a) G.pizarra.push(a); }
-        j.compraHecha=true; anota("",`${j.nombre} limpia la Pizarra.`); guardar(); render();
-      });
     if(j.sumarios>0)
       add("Cerrar Sumario","",()=>{
         G.descG.push(j.mano.pop()); G.descG.push(j.mano.pop());
