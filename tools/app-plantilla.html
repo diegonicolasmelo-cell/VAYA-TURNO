@@ -1903,6 +1903,7 @@ function tomarCarta(ev, carta, boton){
   arrastre.carta = carta; arrastre.boton = boton;
   arrastre.x0 = ev.clientX; arrastre.y0 = ev.clientY;
   arrastre.activo = false;
+  arrastre.abanico = !!(boton.closest && boton.closest(".mano.abanico"));
   window.addEventListener("pointermove", moverCarta);
   window.addEventListener("pointerup", soltarCarta);
   window.addEventListener("pointercancel", soltarCarta);
@@ -1912,8 +1913,24 @@ function moverCarta(ev){
   if(!arrastre.carta) return;
   const dx = ev.clientX-arrastre.x0, dy = ev.clientY-arrastre.y0;
   if(!arrastre.activo){
-    // la mano ya no se desplaza (es cuadrícula): cualquier dirección arrastra
     if(Math.abs(dx) < 11 && Math.abs(dy) < 11) return;
+    // en el abanico manda la dirección: de lado navegas, hacia arriba juegas.
+    // El empate favorece navegar — equivocarse hojeando es gratis,
+    // equivocarse jugando saca el naipe fantasma y enciende camas.
+    if(arrastre.abanico && Math.abs(dx) >= Math.abs(dy)*0.9){
+      hojeo.x0 = arrastre.x0; hojeo.y0 = arrastre.y0;
+      hojeo.base = UI.foco; hojeo.movio = true;
+      arrastre.huboArrastre = true;
+      window.removeEventListener("pointermove", moverCarta);
+      window.removeEventListener("pointerup", soltarCarta);
+      window.removeEventListener("pointercancel", soltarCarta);
+      arrastre.carta = null; arrastre.boton = null; arrastre.abanico = false;
+      window.addEventListener("pointermove", hojearMover);
+      window.addEventListener("pointerup", hojearFin);
+      window.addEventListener("pointercancel", hojearFin);
+      hojearMover(ev);
+      return;
+    }
     arrastre.activo = true;
     arrastre.huboArrastre = true;
     UI.sel = arrastre.carta;
