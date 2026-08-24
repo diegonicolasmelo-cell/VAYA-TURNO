@@ -42,7 +42,7 @@ La misma carta, dos usos. Tú decides qué eres esta noche.
 |---|---:|---|
 | Cartas de **Paciente** | 26 | Las mismas de la base (Gravedad III: 6 ❤️ · pide 8 · +6/−2) |
 | Cartas de **Recurso** | 67 (44 diseños) | `cartas/v030/recursos.csv` · **22 llevan ⚠️** |
-| Cartas de **Protocolo** (Acciones) | 32 (22 diseños) | Con **coste impreso 1–3**. Se compran en la Pizarra |
+| Cartas de **Protocolo** (Acciones) | 31 (22 diseños) | Con **coste impreso 1–3**. Se compran en la Pizarra |
 | Cartas de **Personaje** | 22 | Las de la base (adaptaciones en §8) |
 | Cartas de **Logro** | 3 | *¡Durante Mi Guardia No!* · *Se Hizo Todo* · *Auditoría del Ministerio* |
 | **Sumario Administrativo** | 6 | Ahora vive **boca arriba en tu zona**, no en la mano |

@@ -1271,6 +1271,65 @@ Textos nuevos en `cartas/personajes.csv` (9 cartas), modelo en
 `tools/simular_avatares.py` (ya con el rebalance). El suelo oficial
 (simular_v030) no cambia: los avatares siguen fuera del suelo.
 
+### 4r. Tier list de ACCIONES vs. avatares (medido y corregido, agosto 2026)
+
+Sospecha del autor tras §4q: "algunas cartas de Acción otorgan un efecto
+más potente que algunos avatares". Se midió con la misma vara: asiento 0
+con la Pizarra surtida SOLO con la carta a medir (sus copias del CSV),
+asiento 1 sin Pizarra, 3.000 partidas, sesgo de asiento descontado.
+Δ = valor de guardia completo de tener esa carta en el arsenal —
+directamente comparable con los avatares de §4q (banda +0,08…+1,22).
+
+**La sospecha era correcta.** Tres cartas medían por encima del MEJOR
+avatar (+1,22), y la peor de las tres escondía un bug:
+
+| carta | Δ medido | veredicto |
+|---|---:|---|
+| A17 Quiebre de Stock | **+8,66** | **bug del simulador**, no de la carta: `sin_far` nunca se reseteaba — "en su próximo turno" duraba el resto de la guardia. Arreglado en ambos simuladores (patrón de un solo uso, como A18): la carta real mide **−0,74** |
+| A01 Vacaciones | **+2,21** | nerfeada → **+0,70** |
+| A04 Interconsulta | **+2,13** | nerfeada → **+0,67** |
+| A20 Hay Que Repetirlo | +1,11 | se queda: nivel tier-S de avatar, 1 sola copia |
+
+Los nerfs siguen la doctrina de §4q — **la colocación gratis es la moneda
+más cara del juego**, así que se les quitó exactamente eso:
+
+- **A01 Vacaciones**: el 🧑‍⚕️ ya no se descarta — **vuelve a la mano de su
+  dueño** (quince días hábiles: se va, pero vuelve). Negación de tempo,
+  no destrucción. Con el texto nuevo seguía en +1,37, así que además bajó
+  de 2 copias a 1 (giro Battlegrounds): **+0,70**. El mazo de Protocolos
+  queda en **31 cartas**.
+- **A04 Interconsulta**: el recurso rescatado del descarte va **a tu
+  mano**, no colocado gratis — colocarlo cuesta su indicación, como todo.
+  (La interconsulta responde "sugiero evaluar"; ejecutar sigue siendo
+  cosa tuya.) **+0,67** de una pasada.
+
+Con el arreglo de A17 y los dos nerfs, **la ventaja de usar la Pizarra
+baja de +1,24 a +0,31** — sigue conviniendo, pero ya no regala la
+partida: ahora es un avatar de media tabla, no uno extra.
+
+**Salvedades honestas de esta medición** (el monopolio de una carta con
+la IA de referencia subestima varias):
+
+- **Las de coste 3 la IA nunca las compra** (A02, A15, A21): su regla de
+  "solo con cartas que de verdad sobran" (PROT_SOBRA=2) no junta 3 nunca.
+  Sus Δ ≈ 0 son "no medible", no "inútil". Vigilar en mesa si las caras
+  se pudren en la Pizarra.
+- **Las simétricas o defensivas miden mal en monopolio**: A06 Se Cayó el
+  Sistema (−0,54) bloquea Acciones… cuando el rival no tiene ninguna. En
+  partida real con Pizarra compartida vale más.
+- **Las que atacan la MANO rinden poco por diseño** (A09 Auditoría
+  −0,37): con 58% de descarte natural, botarle una carta al rival es
+  pegarle a algo que iba a la basura igual. Coherente con §4q ("los
+  descartes casi no cuestan") — es economía del juego, no bug.
+- **A07 ¡Liceeeencia! y A12 Protocolo Institucional no están modeladas**
+  en el simulador (intercambio de avatar y copia de última Acción):
+  quedan para la mesa.
+
+Lección nueva para la caja de §4q: **toda fuente de colocación gratis
+debe medirse contra la banda de avatares** — Esotérico (+3,00 cuando
+colocaba gratis), A04 (+2,13) y el Subespecialista (+5,03 original)
+cayeron los tres por lo mismo, desde tres rincones distintos del juego.
+
 ---
 
 ## 5. Lo que sigue abierto (en orden de riesgo)

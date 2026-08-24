@@ -415,6 +415,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .btn{flex:1;padding:11px 8px;border-radius:8px;border:1px solid var(--line);
      background:var(--cerca);font-weight:600;font-size:13px;text-align:center;
      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease}
+.btn:disabled{opacity:.45;pointer-events:none}
 .btn.pri{background:linear-gradient(180deg,#118491,var(--acc) 55%,#0a5860);
          color:var(--acc-ink);border-color:#0a5860;
          box-shadow:0 2px 6px rgba(13,110,120,.32), inset 0 1px 0 rgba(255,255,255,.22)}
@@ -998,11 +999,11 @@ const ACC = {
 A01:{ // Vacaciones
   puede:()=> objRecursosRivales(x=>x.tipo==="PERSONAL").length>0,
   jugar(j, ok, no){
-    elegirUno("Vacaciones","Elige el 🧑‍⚕️ Personal que se toma quince días.",
+    elegirUno("Vacaciones","Elige el 🧑‍⚕️ Personal que se toma quince días. Vuelve a la mano de su dueño.",
       objRecursosRivales(x=>x.tipo==="PERSONAL"), s=>{
-        quitarRecurso(s.cama, s.idx); G.descG.push(s.carta);
-        anota("a",`Vacaciones: ${s.carta.nombre} deja a ${s.cama.p.nombre} (${s.duenio.nombre}).`);
-        aviso("warn",`🧑‍⚕️ ${esc(s.carta.nombre)} se va de vacaciones`);
+        quitarRecurso(s.cama, s.idx); s.duenio.mano.push(s.carta);
+        anota("a",`Vacaciones: ${s.carta.nombre} deja a ${s.cama.p.nombre} y vuelve a la mano de ${s.duenio.nombre}.`);
+        aviso("warn",`🧑‍⚕️ ${esc(s.carta.nombre)} se va de vacaciones (vuelve a la mano rival)`);
         ok();
       }, no);
   }},
@@ -1061,16 +1062,13 @@ A03:{ // Reunión Clínica — mueve hasta 3 recursos entre tus pacientes
 A04:{ // Interconsulta — rescata un recurso del descarte
   puede:()=> G.descG.length>0 && objCamasPropias().length>0,
   jugar(j, ok, no){
-    elegirUno("Interconsulta","Rescata 1 recurso de la pila de descartes.",
+    elegirUno("Interconsulta","Rescata 1 recurso de la pila de descartes: va a tu mano.",
       objCartas(G.descG.slice(-40).reverse()), s=>{
-        elegirUno(`Colocar ${s.carta.nombre}`,"Sobre cuál de tus pacientes.",
-          objCamasPropias(), cama=>{
-            const k = G.descG.indexOf(s.carta); if(k>=0) G.descG.splice(k,1);
-            ponerRecurso(cama, s.carta);
-            anota("a",`Interconsulta: ${s.carta.nombre} sobre ${cama.p.nombre}.`);
-            aviso("ok",`📞 Interconsulta: ${esc(s.carta.nombre)}`);
-            ok();
-          }, no);
+        const k = G.descG.indexOf(s.carta); if(k>=0) G.descG.splice(k,1);
+        j.mano.push(s.carta);
+        anota("a",`Interconsulta: ${s.carta.nombre} rescatada a la mano.`);
+        aviso("ok",`📞 Interconsulta: ${esc(s.carta.nombre)} a tu mano`);
+        ok();
       }, no);
   }},
 A05:{ // Doblo Turno
@@ -1442,6 +1440,17 @@ function faseEntrega(){
   pedirAdmision();
 }
 
+const FRASES_ADMISION = [
+  "Llaman de Urgencias",
+  "Solicitan cama desde Medicina",
+  "Llaman desde Cirugía",
+  "Traslado desde la Posta",
+  "Rescate desde Pabellón",
+  "La UTI pide una cama",
+  "Ambulancia en la puerta",
+  "Interconsulta: piden UCI",
+];
+
 function pedirAdmision(){
   const j = yo();
   // v0.32: la ronda 1 se juega con los 2 pacientes de la preparación
@@ -1454,7 +1463,8 @@ function pedirAdmision(){
       (b.alta-b.fallece)/Math.max(1,b.total) - (a.alta-a.fallece)/Math.max(1,a.total))[0];
     resolverAdmision(i, ops, mejor);
   } else {
-    G.pendiente = {tipo:"admision", cama:i, ops};
+    G.pendiente = {tipo:"admision", cama:i, ops, sel:null,
+      titulo: FRASES_ADMISION[Math.floor(Math.random()*FRASES_ADMISION.length)]};
     render();
   }
 }
@@ -2704,17 +2714,22 @@ function modalAdmision(){
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",null,"Admisión obligatoria"));
+  m.appendChild(el("h2",null,esc(G.pendiente.titulo || "Admisión obligatoria")));
   m.appendChild(el("p",null,"Elige a quién le das la cama. El otro vuelve al fondo de Urgencias."));
   const cont = el("div","opciones");
-  ops.forEach(o=>{
-    const b = el("button","op");
+  ops.forEach((o,ix)=>{
+    const b = el("button","op"+(G.pendiente.sel===ix?" sel":""));
     const pide = TIPOS.filter(t=>o.pide[t]>0).map(t=>`${ico(t)}${o.pide[t]}`).join(" ");
     b.innerHTML = `<b>${esc(o.nombre)}</b><small>${esc(o.gravedad)} · ${o.vida} ❤️ · pide ${pide} · alta +${o.alta} / fallece ${o.fallece}</small>`;
-    b.onclick = ()=> resolverAdmision(G.pendiente.cama, ops, o);
+    b.onclick = ()=>{ G.pendiente.sel = ix; render(); };
     cont.appendChild(b);
   });
   m.appendChild(cont);
+  const adm = el("button","btn pri","ADMITIR PACIENTE 🛏️");
+  adm.style.marginTop = "10px";
+  if(G.pendiente.sel===null || G.pendiente.sel===undefined) adm.disabled = true;
+  adm.onclick = ()=> resolverAdmision(G.pendiente.cama, ops, ops[G.pendiente.sel]);
+  m.appendChild(adm);
   velo.appendChild(m);
   return velo;
 }

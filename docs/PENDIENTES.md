@@ -107,6 +107,18 @@ sigue siendo correcta pero olvidable — es problema de sabor, no de
 números, y la Buena Muñeca (+0,12) está subestimada por la heurística
 del simulador.
 
+✅ **Acciones medidas contra la banda de avatares** (DISENO §4r). La
+sospecha del autor era correcta: A01 Vacaciones (+2,21) y A04
+Interconsulta (+2,13) superaban al mejor avatar (+1,22), y A17 Quiebre
+de Stock (+8,66) era un **bug del simulador** (el "próximo turno" duraba
+toda la guardia — arreglado en ambos simuladores). Nerfs con la doctrina
+§4q: A01 devuelve el 🧑‍⚕️ a la mano rival y baja a 1 copia (+0,70); A04
+rescata a la mano, no coloca gratis (+0,67). El mazo de Protocolos queda
+en **31 cartas** y la ventaja de usar la Pizarra baja de +1,24 a +0,31.
+🔶 Para la mesa: las Acciones de coste 3 (A02, A15, A21) la IA nunca las
+compra — vigilar si en mesa se pudren en la Pizarra; A07 y A12 no están
+modeladas en el simulador.
+
 ⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
 a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide
 la variedad que siente un humano — decidir en mesa.

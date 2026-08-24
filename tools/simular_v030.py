@@ -365,7 +365,9 @@ def ejecutar_accion(aid, j, rivales, ronda, ctx, rng):
         if not cand: return False
         cand.sort(key=lambda x: x[1].faltan_total())      # al que está por cerrar
         r, cama, k = cand[0]
-        descartar(quitar_puesto(cama, k)); cama.revisar(ronda)
+        pieza = quitar_puesto(cama, k); cama.revisar(ronda)
+        if aid == "A01": r.mano.append(pieza)   # se fue de vacaciones: VUELVE
+        else: descartar(pieza)                   # A20: la muestra arruinada no vuelve
         return True
 
     if aid == "A21":
@@ -435,7 +437,7 @@ def ejecutar_accion(aid, j, rivales, ronda, ctx, rng):
         cama = objetivos[0]
         for i, c in enumerate(ctx["descarte"]):
             if c["clase"] == "recurso" and cama.falta().get(c["tipo"], 0) > 0:
-                poner_puesto(cama, ctx["descarte"].pop(i), ronda); return True
+                j.mano.append(ctx["descarte"].pop(i)); return True   # a la MANO
         return False
 
     if aid == "A05":
@@ -712,6 +714,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         j.muertos.append(c2.f)
                         j.camas[i2] = None
                         j.sumarios += 1
+
+            j.sin_far = False   # A17 Quiebre de Stock: dura SOLO este pase
 
             # 5. CERRAR SUMARIOS (2 cartas, sin indicación — balance final:
             #    con indicación nadie cerraba nunca, 0% medido; así, 94%)
