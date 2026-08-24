@@ -1110,6 +1110,33 @@ jugadores: ves las mismas cartas tres veces). **Hay ~12 cartas de holgura**
 —menos que imprimir, menos que barajar— pero el simulador no mide la
 variedad que siente un humano, así que es una decisión de mesa.
 
+**¿Y el Personal no se volvería escaso?** (la pregunta del autor al leer
+esto). Medido: **no — se vuelve una llave, no un cuello.**
+
+| | salv | GIII | bloqueos/turno | camas con 🧑‍⚕️ | mano seca |
+|---|---:|---:|---:|---:|---:|
+| base (sin valor 2 ni requisito) | 68% | 47% | — | 31% | 0,1% |
+| valor 2 exigiendo 🧑‍⚕️ | 68% | 47% | 1,85 | 35% | 1,0% |
+| … +6 copias de Personal (mazo 73) | 69% | 49% | 1,56 | 41% | 0,7% |
+| … si el Personal se exige a sí mismo | 66% | 44% | 2,18 | 31% | 2,3% |
+
+- **Añadir Personal casi no alivia**: seis copias más bajan los bloqueos solo
+  un 16%. Eso prueba que la restricción **no es de oferta sino de secuencia**:
+  no te falta Personal en el mazo, te falta *haberlo puesto en esa cama*.
+  Subir copias inflaría el mazo sin comprar nada.
+- **Da igual planificarlo o no**: una IA que pone el 🧑‍⚕️ a propósito para
+  abrir la puerta saca 67%; la que no lo planifica, 68%. Gastar una
+  colocación en abrir la puerta cuesta casi lo mismo que perder la jugada.
+  La regla es autoequilibrada: ni trampa ni peaje esquivable.
+- **Las dos cartas de Personal complejas no pueden exigirse a sí mismas**
+  (Cirujano, Kinesiólogo): se autobloquean, y el resultado cae a 66% con el
+  doble de mano seca. Si se adopta la regla, esas dos quedan fuera — el
+  requisito aplica a las **10 no-Personal**.
+- **Lo que sí hay que vigilar en mesa: 1,85 bloqueos por turno.** A la IA no
+  le duele (la mano seca sube solo de 0,1% a 1,0%: siempre tiene otra cosa
+  que hacer), pero para un humano es "tengo el TAC en la mano y no lo puedo
+  jugar". Ese es el costo real de la regla, y es de sensación, no de números.
+
 **Estado: medido, sin decidir.** Es un cambio grande al mazo físico.
 
 ---

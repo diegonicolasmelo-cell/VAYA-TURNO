@@ -75,7 +75,12 @@ escasez no alcanza a pagar** (partir copias recupera solo 2pp): el cuello
 son las colocaciones, no las cartas. Lo que sí lo paga es exigir 🧑‍⚕️
 Personal ya puesto en esa cama (66%, en banda, y clínicamente cierto).
 Si se adopta: cartas simples con etiqueta de sistema, cartas complejas con
-valor 2 fijo y requisito de Personal, **sin acumular ambas**.
+valor 2 fijo y requisito de Personal, **sin acumular ambas**, y el
+requisito solo sobre las **10 no-Personal** (Cirujano y Kinesiólogo se
+autobloquearían). Medido: el Personal **no escasea**, se vuelve una llave
+— añadir copias casi no alivia porque la traba es de secuencia, no de
+oferta. Vigilar en mesa la sensación de "tengo el TAC y no puedo jugarlo"
+(1,85 bloqueos por turno).
 
 ⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
 a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide
