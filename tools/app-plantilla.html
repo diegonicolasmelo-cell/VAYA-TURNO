@@ -341,6 +341,7 @@ function siguienteAvatar(){
   if(i < 0){ G.pendiente = null; entrarFase(0); return; }
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
+  if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE");
   guardar(); render();
 }
 function resolverAvatar(elegido){
@@ -455,13 +456,17 @@ function complicar(carta, cama, duenio){
 }
 
 /* ══ fases ══════════════════════════════════════════════════════════ */
+function mostrarFranja(txt){
+  UI.franja = txt;
+  clearTimeout(UI.franjaT);
+  UI.franjaT = setTimeout(()=>{ UI.franja = null; render(); }, 1700);
+}
+
 function entrarFase(f){
   G.fase = f;
   const j = yo();
   if(f===0 && !j.ia && G.iniciado){
-    UI.franja = G.ronda;
-    clearTimeout(UI.franjaT);
-    UI.franjaT = setTimeout(()=>{ UI.franja = null; render(); }, 1700);
+    mostrarFranja(`TURNO ${G.ronda} (DÍA ${G.ronda})`);
   }
   if(f===0){ faseEntrega(); }
   if(f===1){ j.coloc = COLOCACIONES - (j.colocMod||0); j.colocMod = 0; }
@@ -697,7 +702,11 @@ function render(){
   app.appendChild(bandaCentral());     // la Pizarra vive aquí, siempre visible
   app.appendChild(zonaJugador(yo(),true));
   app.appendChild(pie());
-  if(UI.franja) app.appendChild(el("div","franja",`TURNO ${UI.franja}`));
+  if(UI.franja){
+    const fr = el("div","franja",esc(UI.franja));
+    if(UI.franja.length > 16) fr.style.fontSize = "21px";
+    app.appendChild(fr);
+  }
   pintarCapa();
 }
 
