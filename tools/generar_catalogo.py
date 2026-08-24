@@ -119,7 +119,7 @@ def bloque_recursos():
     copias = sum(int(r["copias"]) for r in rec)
     warn = sum(1 for r in rec if r["complicacion"] == "si")
     nota = (f"{len(rec)} diseños · {copias} cartas · {warn} llevan ⚠️ · "
-            "el <b>coste</b> de todos es el mismo: <b>1 colocación</b> "
+            "el <b>coste</b> de todos es el mismo: <b>1 indicación</b> "
             "(el chip de sistema la hace valer 2 sobre su paciente)")
     return tabla("Recursos — el Mazo de Guardia", nota,
                  ["#", "id", "Carta", "Tipo", "Sistema", "Cop.",
@@ -142,7 +142,7 @@ def bloque_acciones():
     copias = sum(int(a["copias"]) for a in acc)
     nota = (f"{len(acc)} diseños · {copias} cartas · "
             "el <b>coste</b> de todas es el mismo: <b>un Canje</b> "
-            "(2 recursos + el Negocio del turno ≈ 2 colocaciones ≈ 1 punto)")
+            "(2 recursos + el Negocio del turno ≈ 2 indicaciones ≈ 1 punto)")
     return tabla("Protocolos — las Acciones", nota,
                  ["#", "id", "Carta", "Tipo", "Cop.", "Efecto", "Comentario"],
                  filas,

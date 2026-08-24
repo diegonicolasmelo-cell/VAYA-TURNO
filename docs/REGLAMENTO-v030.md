@@ -90,9 +90,16 @@ ellos), elige 1, el otro va al fondo. Da vuelta el nuevo Informe.
 **c) Robo.** Roba **4 cartas** del Mazo de Guardia (3 en partidas de 4).
 Robar una ⚠️ no hace nada: es munición o tratamiento, según dónde la pongas.
 
-### 4.2 Pase de Visita — 3 colocaciones y la Pizarra
+### 4.2 Pase de Visita — 3 indicaciones y la Pizarra
 
-Tienes **3 colocaciones** y un menú. Cada línea cuesta 1 colocación:
+> **Por qué se llaman indicaciones.** Los recursos del juego —imágenes,
+> fármacos, procedimientos, personal— son todos **indicaciones médicas**:
+> lo que el médico deja escrito y el equipo ejecuta. Pedir un TAC es una
+> indicación; suspender un fármaco que otro dejó puesto, también. Por eso
+> la moneda del turno no se llama "jugadas": **indicas tres cosas por
+> turno**, y retirar algo cuenta igual que ponerlo.
+
+Tienes **3 indicaciones** y un menú. Cada línea cuesta 1 indicación:
 
 | Opción | Qué haces |
 |---|---|
@@ -100,12 +107,12 @@ Tienes **3 colocaciones** y un menú. Cada línea cuesta 1 colocación:
 | **Sabotear** | Coloca un recurso **⚠️** sobre un paciente **rival** (§6.2) |
 | **Des-escalar** | Retira 1 **basura clínica** de un paciente tuyo y descártala |
 
-**Cerrar un Sumario NO gasta colocación:** en cualquier momento de tu Pase
+**Cerrar un Sumario NO gasta indicación:** en cualquier momento de tu Pase
 de Visita, descarta **2 cartas** de tu mano y cierra 1 Sumario (nunca el
-mismo turno en que llegó). *Se midió con colocación: nadie cerraba ninguno
+mismo turno en que llegó). *Se midió con indicación: nadie cerraba ninguno
 (0%). Sin ella, se cierra el 94%.*
 
-**La Pizarra de Turno tampoco gasta colocación.** Está en el centro de la
+**La Pizarra de Turno tampoco gasta indicación.** Está en el centro de la
 mesa, siempre a la vista: tres Protocolos boca arriba con su coste impreso.
 Una vez por turno puedes **tomar uno pagando su coste en cartas de tu mano**
 (1, 2 o 3) y repones la Pizarra de inmediato. Puedes jugarlo ahí mismo o
@@ -139,7 +146,7 @@ turno, das de alta al siguiente.**
 
 Vive **boca arriba en tu zona** — todos ven cuántos debes — y **muerde
 mientras esté abierto: cada Sumario reduce tu límite de mano en 1**.
-Cerrarlo cuesta **2 cartas** en tu Pase de Visita (no gasta colocación),
+Cerrarlo cuesta **2 cartas** en tu Pase de Visita (no gasta indicación),
 nunca el mismo turno en que llegó.
 
 > **La Auditoría del Ministerio es una VARIANTE opcional** (la carta lo
@@ -152,7 +159,7 @@ nunca el mismo turno en que llegó.
 ## 6. Las Complicaciones ⚠️ — una regla, dos filos
 
 **Toda ⚠️ hace lo mismo: el paciente DONDE SE UBICA la carta pierde 1 ❤️,
-al colocarla.** No hay 🎯 impreso: la víctima la decide la colocación. El
+al colocarla.** No hay 🎯 impreso: la víctima la decide la indicación. El
 nombre y el dibujo son la sazón; la regla es una sola.
 
 ### 6.1 Sobre tu propio paciente
@@ -182,7 +189,7 @@ Un recurso rival que el paciente **no pide** se queda sobre él **girado
 180°**: es *basura clínica*. No cuenta para nada, pero **el paciente no
 puede irse de alta mientras tenga basura encima** — se estabiliza igual
 (el ✅ detiene el reloj), pero el alta espera el papeleo. Se limpia con la
-**Des-escalada** (1 colocación por carta).
+**Des-escalada** (1 indicación por carta).
 
 ### 6.4 Las Protecciones 🛡️ PREVIENE
 
@@ -270,12 +277,12 @@ Suelo final (4.000 partidas, 2 jugadores): **salv 67% · GIII 43% · ROJO
   leer la letra chica). Y regala la jugada heroica del ROJO en 1 ❤️.
 - **El Sumario volvió a morder la mano** porque el castigo en puntos
   fracasó dos veces: el martillo (−3 al peor) golpeaba al que ya perdía
-  9 de cada 10 veces, y el cierre con colocación hacía que nadie cerrara
+  9 de cada 10 veces, y el cierre con indicación hacía que nadie cerrara
   nunca (0%). Con mordida + cierre de 2 cartas: **94% se cierran** — el
   Sumario vuelve a ser una factura que se paga, no una lápida.
 - **El límite de mano es 6 y no 5** porque robas 4 y colocas 3: te sobra
   1 carta por turno, y con mano 5 estabas botando en el 69% de los turnos.
-  Con 6 el ritmo es idéntico (mismo robo, mismas colocaciones) pero la
+  Con 6 el ritmo es idéntico (mismo robo, mismas indicaciones) pero la
   carta que sobra alcanza a esperar un turno: baja a 58% y sube todo lo
   demás medio punto. Bajar el robo a 3 —la alternativa obvia— hunde el
   juego: el mazo nunca se rebaraja y el salvamento cae de 67% a 57%.

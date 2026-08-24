@@ -198,11 +198,37 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
           border:1px solid var(--line);border-radius:99px;
           box-shadow:0 2px 10px rgba(22,36,46,.1)}
 .mano-rot span{flex:1;height:1px;background:var(--line-2)}
-.coloc-caja{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;
-            background:var(--acc-soft);color:var(--ink);letter-spacing:.02em;
-            text-transform:none;font-size:11px;font-weight:700}
-.coloc-caja i{width:9px;height:9px;border-radius:99px;background:var(--acc);flex:none}
-.coloc-caja i.off{background:var(--line)}
+/* Las indicaciones son LA moneda del turno: se ven grandes, y cada gasto
+   se anima desde la cama donde ocurrió hasta el contador. */
+.indic-caja{display:flex;align-items:center;gap:5px;padding:4px 10px 4px 6px;
+            border-radius:99px;background:var(--acc-soft);color:var(--ink);
+            letter-spacing:.02em;text-transform:none;font-size:11.5px;
+            font-weight:700;border:1px solid rgba(13,110,120,.28)}
+.indic-caja i{width:14px;height:14px;border-radius:99px;flex:none;
+            background:radial-gradient(circle at 34% 30%,#3ea7b0,var(--acc) 62%,#0a5860);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 1px 2px rgba(9,25,32,.3)}
+.indic-caja i.off{background:transparent;box-shadow:none;
+            border:2px dashed rgba(13,110,120,.35)}
+.indic-caja i.apaga{animation:apagaIndic .5s cubic-bezier(.3,1,.4,1) forwards}
+@keyframes apagaIndic{
+  0%{transform:scale(1.5);box-shadow:0 0 0 6px rgba(13,110,120,.3)}
+  60%{transform:scale(.85)}
+  100%{transform:scale(1);background:transparent;box-shadow:none;
+       border:2px dashed rgba(13,110,120,.35)}}
+.indic-caja.vacio{background:#fbeee0;border-color:#d9a441;color:#7a5209}
+.indic-caja.vacio i.off{border-color:rgba(122,82,9,.35)}
+
+/* la ficha que viaja de la cama al contador */
+.ficha-indic{position:fixed;z-index:84;width:20px;height:20px;border-radius:99px;
+            margin:-10px 0 0 -10px;pointer-events:none;
+            background:radial-gradient(circle at 34% 30%,#5fc2ca,var(--acc) 60%,#0a5860);
+            box-shadow:0 0 0 4px rgba(13,110,120,.22), 0 4px 12px rgba(9,25,32,.35);
+            transition:transform .5s cubic-bezier(.5,0,.6,.5), opacity .5s ease}
+
+/* cada acción dice lo que cuesta, como las gemas de la Pizarra */
+.cama-btn .precio{display:inline-block;width:9px;height:9px;border-radius:99px;
+            background:currentColor;margin-left:6px;vertical-align:middle;
+            opacity:.85}
 .mano{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
       padding:8px;margin:0 8px;pointer-events:auto;
       background:rgba(255,255,255,.93);border:1px solid var(--line);
@@ -611,7 +637,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .fase-chip.ia-chip{background:var(--ink-2);animation:pensando 1.2s ease-in-out infinite}
 @keyframes pensando{0%,100%{opacity:1}50%{opacity:.55}}
 
-.coloc-caja.gasto{animation:gasto .4s ease}
+.indic-caja.gasto{animation:gasto .4s ease}
 @keyframes gasto{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
 
 .mtile.gana{border-color:var(--acc);background:linear-gradient(180deg,#eef8f7,var(--cerca));
@@ -661,7 +687,9 @@ const TCOL = {IMAGEN:"#3d7ea6",FARMACOS:"#b03d29",PERSONAL:"#2f8f6b",
 // se compra durante el Pase de Visita, que es cuando de verdad la miras.
 const FASES = [["entrega","Entrega de Turno"],["visita","Pase de Visita"],
                ["fin","Fin de Guardia"]];
-const RONDAS = 8, CAMAS = 3, ROBO = 4, MANO_MAX = 6, COLOCACIONES = 3;
+const RONDAS = 8, CAMAS = 3, ROBO = 4, MANO_MAX = 6, INDICACIONES = 3;
+// nota: el campo interno sigue llamándose j.coloc porque viaja dentro de
+// la partida guardada; renombrarlo rompería las guardias en curso.
 const CLAVE = "vaya-turno-v030-partida";
 
 /* ══ estado ═════════════════════════════════════════════════════════ */
@@ -696,7 +724,7 @@ function nuevaPartida(modo, nombres){
     nombre:nom, ia: modo==="ia" && i===1,
     avatar: null, mano:[], camas:[null,null,null],
     altas:[], muertos:[], sumarios:0,
-    protocolos:[], coloc:COLOCACIONES, compraHecha:false, accionHecha:false,
+    protocolos:[], coloc:INDICACIONES, compraHecha:false, accionHecha:false,
     roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false, pena:0
   }));
   jug.forEach(j=>{ if(j.ia) j.avatar = avat.pop(); });
@@ -1203,11 +1231,11 @@ A17:{ // Quiebre de Stock
 A18:{ // Recorte Presupuestario
   puede:()=> otros().length>0,
   jugar(j, ok, no){
-    elegirUno("Recorte Presupuestario","En su próximo Pase de Visita tendrá solo 2 colocaciones.",
+    elegirUno("Recorte Presupuestario","En su próximo Pase de Visita tendrá solo 2 indicaciones.",
       objRivales(), r=>{
         r.colocMod = (r.colocMod||0) + 1;
-        anota("a",`Recorte Presupuestario: ${r.nombre} jugará con 2 colocaciones.`);
-        aviso("warn",`✂️ ${esc(r.nombre)}: 2 colocaciones el próximo turno`);
+        anota("a",`Recorte Presupuestario: ${r.nombre} jugará con 2 indicaciones.`);
+        aviso("warn",`✂️ ${esc(r.nombre)}: 2 indicaciones el próximo turno`);
         ok();
       }, no);
   }},
@@ -1370,7 +1398,7 @@ function entrarFase(f){
     mostrarFranja(`TURNO ${G.ronda} (DÍA ${G.ronda})`);
   }
   if(f===0){ faseEntrega(); }
-  if(f===1){ j.coloc = COLOCACIONES - (j.colocMod||0); j.colocMod = 0;
+  if(f===1){ j.coloc = INDICACIONES - (j.colocMod||0); j.colocMod = 0;
              j._pi = false; j._compraVista = false; }
   if(f===2){ faseFin(); }
   guardar(); render();
@@ -1645,7 +1673,7 @@ function iaJuega(){
       revelarIA(revProt(a), `${esc(j.nombre)} toma <b>${esc(a.nombre)}</b> de la Pizarra`, iaJuega);
       return; }
   }
-  // 3. una colocación por paso
+  // 3. una indicación por paso
   if(j.coloc > 0){
     const bloq = j.camas.find(c=>c && c.basura.length && (c.estable || faltanTotal(c)<=1));
     if(bloq){
@@ -1928,7 +1956,7 @@ function hojaPizarra(){
   hoja("Pizarra de Turno", (m, cerrar)=>{
     m.appendChild(el("p", j.compraHecha
       ? "Ya compraste este turno. Máximo 1 Protocolo por turno."
-      : "Toma 1 pagando su coste en cartas de tu mano. No gasta colocación."));
+      : "Toma 1 pagando su coste en cartas de tu mano. No gasta indicación."));
     const p = el("div","pizarra");
     G.pizarra.forEach((a,idx)=>{
       const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
@@ -2055,15 +2083,20 @@ function vistaCama(c, i, duenio, propio){
   if(sellos.childNodes.length) d.appendChild(sellos);
 
   if(objetivo){
-    const soltar = ()=>{ colocar(sel, c, duenio, !propio); UI.sel=null; guardar(); render(); };
+    const soltar = ()=>{ volarIndic(d);
+      colocar(sel, c, duenio, !propio); UI.sel=null; guardar(); render(); };
     d.appendChild(el("span","cama-btn",
-      propio ? "Tratar" : (leSirve(sel,c) ? "Le sirve ⚠️" : "Sabotear")));
+      (propio ? "Tratar" : (leSirve(sel,c) ? "Le sirve ⚠️" : "Sabotear")) +
+      '<i class="precio"></i>'));
     d.onclick = soltar;
     d.__soltar = soltar;          // lo usa el arrastre
   } else if(activo && propio && !sel && c.basura.length){
-    const b = el("button","cama-btn sec","Des-escalar");
-    b.onclick = ()=>{ G.descG.push(c.basura.pop()); yo().coloc--;
-      anota("",`Des-escalada en ${c.p.nombre}.`); revisar(c,G.ronda); guardar(); render(); };
+    // retirar basura ocupa una indicación: en vez de poner, retiras
+    const b = el("button","cama-btn sec",'Des-escalar<i class="precio"></i>');
+    b.onclick = ()=>{ volarIndic(d);
+      G.descG.push(c.basura.pop()); yo().coloc--;
+      anota("",`Des-escalada en ${c.p.nombre} (gasta 1 indicación).`);
+      revisar(c,G.ronda); guardar(); render(); };
     d.appendChild(b);
   }
   return d;
@@ -2092,11 +2125,17 @@ function pie(){
     (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
     ` <span></span>`;
   if(mio && G.fase===1 && !j.ia){
-    const cc = el("div","coloc-caja"+
-      (UI.colocPrev!==null && j.coloc<UI.colocPrev ? " gasto" : ""));
+    const gasto = UI.colocPrev!==null && j.coloc < UI.colocPrev;
+    const cc = el("div","indic-caja"+(j.coloc===0?" vacio":""));
+    cc.id = "indic-caja";
+    for(let k=0;k<INDICACIONES;k++){
+      // la que se acaba de gastar se apaga a la vista, no de un salto
+      const punto = el("i", k<j.coloc ? "" : (gasto && k===j.coloc ? "off apaga" : "off"));
+      cc.appendChild(punto);
+    }
+    cc.appendChild(el("b",null, j.coloc===0 ? "sin indicaciones"
+      : `${j.coloc} ${j.coloc===1?"indicación":"indicaciones"}`));
     UI.colocPrev = j.coloc;
-    for(let k=0;k<COLOCACIONES;k++) cc.appendChild(el("i", k<j.coloc?"":"off"));
-    cc.appendChild(el("b",null,`${j.coloc} ${j.coloc===1?"colocación":"colocaciones"}`));
     rot.appendChild(cc);
   }
   if(!j.ia && j.mano.length > 1 && !descartando){
@@ -2368,6 +2407,30 @@ function sanearGestos(){
   window.removeEventListener("pointermove", hojearMover);
   window.removeEventListener("pointerup", hojearFin);
   window.removeEventListener("pointercancel", hojearFin);
+}
+
+/* Une causa y efecto: la indicación gastada viaja desde la cama donde
+   actuaste hasta el contador. Sin esto, el contador bajaba en silencio
+   al otro extremo de la pantalla y nadie notaba que había pagado. */
+function volarIndic(desde){
+  if(!desde || !desde.getBoundingClientRect) return;
+  const r = desde.getBoundingClientRect();
+  const f = el("div","ficha-indic");
+  f.style.left = (r.x + r.width/2) + "px";
+  f.style.top  = (r.y + r.height - 14) + "px";
+  document.body.appendChild(f);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const caja = document.getElementById("indic-caja");
+    if(caja){
+      const q = caja.getBoundingClientRect();
+      f.style.transform = `translate(${q.x + 18 - (r.x + r.width/2)}px,` +
+                          `${q.y + q.height/2 - (r.y + r.height - 14)}px) scale(.6)`;
+    } else {
+      f.style.transform = "translateY(40vh) scale(.6)";
+    }
+    f.style.opacity = "0.15";
+  }));
+  setTimeout(()=>f.remove(), 560);
 }
 
 /* ══ arrastrar y soltar (funciona con dedo y con mouse) ═════════════ */
@@ -2727,7 +2790,7 @@ function abrirCompra(idx){
   const j = yo(); const a = G.pizarra[idx]; const coste = +a.coste;
   const marcados = [];
   hoja(`Tomar · ${a.nombre}`, (m, cerrar)=>{
-    m.appendChild(el("p",null,`Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano. Marca cuáles descartas. No gasta colocación.`));
+    m.appendChild(el("p",null,`Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano. Marca cuáles descartas. No gasta indicación.`));
     const cont = el("div","opciones");
     let confirmar;
     j.mano.forEach(c=>{

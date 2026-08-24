@@ -9,17 +9,17 @@ suelo de la variante. Reglas completas en docs/REGLAMENTO-v030.md.
 Qué modela:
 - Admisión OBLIGATORIA (revela 2, elige 1). Se parte con 2 pacientes y la
   ronda 1 se juega así: la tercera cama se admite recién en la ronda 2.
-- 3 colocaciones por turno gastables en un menú: tratar / sabotear /
-  des-escalar / cerrar Sumario (1 colocación + 2 cartas).
+- 3 indicaciones por turno gastables en un menú: tratar / sabotear /
+  des-escalar / cerrar Sumario (1 indicación + 2 cartas).
 - Toda ⚠️ quita 1 ❤️ al paciente DONDE SE UBICA, propio o rival, al colocarla.
   Las protecciones 🛡️ PREVIENE siguen funcionando (prospectivas, por nombre).
 - Sabotaje: colocar una ⚠️ sobre un paciente rival. Si el tipo le sirve,
   cuenta para su receta (por eso la IA tira tipos que NO pide = basura).
-  La basura bloquea el ✅ hasta que se retire (des-escalada, 1 colocación).
+  La basura bloquea el ✅ hasta que se retire (des-escalada, 1 indicación).
   COLOCAR NUNCA MATA: ninguna ⚠️ quita el último ❤️, ni la propia (piso 1).
   Máx. 1 sabotaje por cama y ronda.
 - Sumario boca arriba en zona, pero MUERDE: cada uno abierto reduce tu
-  límite de mano en 1. Cerrarlo cuesta 2 cartas (sin colocación).
+  límite de mano en 1. Cerrarlo cuesta 2 cartas (sin indicación).
   La Auditoría del Ministerio quedó como variante opcional (ver flag).
 - v0.33: el límite de mano es 6 (era 5). Robas 4 y colocas 3, así que
   sobra 1 carta por turno: con mano 5 el descarte mordía el 69% de los
@@ -314,7 +314,7 @@ def _saqueables(rivales, filtro=None):
 def acciones_utiles(j, rivales, ronda, ctx):
     """Devuelve [(prioridad, id)] de las Acciones que HOY harían algo.
     La prioridad es la heurística de la IA: primero lo que más mueve
-    la aguja, igual que hace con las colocaciones."""
+    la aguja, igual que hace con las indicaciones."""
     u = []
     saq_per = _saqueables(rivales, lambda c, t: t == "PERSONAL")
     saq_ip = _saqueables(rivales, lambda c, t: t in ("IMAGEN", "PROCEDIMIENTOS"))
@@ -625,12 +625,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                                or jugadores.index(j) in PROT_ASIENTOS):
                 turno_pizarra(j, rivales, ronda, ctx, rng)
 
-            # 4. PASE DE VISITA: 3 colocaciones, menú
-            colocaciones = 3
+            # 4. PASE DE VISITA: 3 indicaciones, menú
+            indicaciones = 3
             if hasattr(j, "recorte"):      # A18 (no modelado, gancho)
-                colocaciones = j.recorte
+                indicaciones = j.recorte
                 del j.recorte
-            while colocaciones > 0:
+            while indicaciones > 0:
                 # a) des-escalada: limpiar la basura que retiene el alta o
                 # que bloquea un ✅ inminente
                 if BASURA_BLOQUEA == "alta":
@@ -641,7 +641,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                                       and c.faltan_total() <= 1), None)
                 if bloqueada is not None:
                     bloqueada.basura -= 1
-                    colocaciones -= 1
+                    indicaciones -= 1
                     bloqueada.revisar(ronda)
                     continue
                 # a2) sabotaje PRIORITARIO: el rival está a 1 de cerrar y
@@ -662,7 +662,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                                 if carta.get("turno24") and duenio.mano:
                                     duenio.mano.pop(0)
                             cama.revisar(ronda)
-                            colocaciones -= 1
+                            indicaciones -= 1
                             continue
                 # b) tratar lo propio
                 jugada = None
@@ -685,7 +685,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         resolver_warn(j, carta, cama)   # propio: sin piso
                         ctx["ult_comp"] = cama
                     cama.revisar(ronda)
-                    colocaciones -= 1
+                    indicaciones -= 1
                 # c) sabotaje con la basura de la mano
                 elif ATAQUES and getattr(j, "ataca", True):
                     sab = elegir_sabotaje(j, rivales)
@@ -703,7 +703,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         if carta.get("turno24") and duenio.mano:
                             duenio.mano.pop(0)
                     cama.revisar(ronda)
-                    colocaciones -= 1
+                    indicaciones -= 1
                 else:
                     break
                 # muertes inmediatas por ⚠️ propia
@@ -713,8 +713,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         j.camas[i2] = None
                         j.sumarios += 1
 
-            # 5. CERRAR SUMARIOS (2 cartas, sin colocación — balance final:
-            #    con colocación nadie cerraba nunca, 0% medido; así, 94%)
+            # 5. CERRAR SUMARIOS (2 cartas, sin indicación — balance final:
+            #    con indicación nadie cerraba nunca, 0% medido; así, 94%)
             while j.sumarios > 0 and len(j.mano) >= 2:
                 j.mano.sort(key=lambda c: (c.get("comodin", False),
                                            bool(c.get("sistema"))))

@@ -10,14 +10,14 @@
 ## 1. La moneda base
 
 En Hearthstone la moneda es el maná; en Pokémon, las energías. Acá la moneda
-es **la colocación**: el derecho a poner 1 recurso sobre un paciente. Con
-robo 4 y tope 3, tienes **3 colocaciones por turno y 24 por guardia**. Todo
+es **la indicación**: el derecho a poner 1 recurso sobre un paciente. Con
+robo 4 y tope 3, tienes **3 indicaciones por turno y 24 por guardia**. Todo
 lo demás se convierte a esa moneda:
 
 | Cosa | Vale | De dónde sale |
 |---|---|---|
-| 1 recurso colocado donde se pide | **1 colocación** | por definición |
-| 1 recurso con sinergia en su sistema | **2 colocaciones** | cuenta doble |
+| 1 recurso colocado donde se pide | **1 indicación** | por definición |
+| 1 recurso con sinergia en su sistema | **2 indicaciones** | cuenta doble |
 | 1 carta en mano | **≈ ½ punto** | medido: cada carta extra rinde +0,5 pts (§4h de DISENO) |
 | 1 punto de puntaje | **≈ 2 cartas** | inverso de lo anterior |
 | 1 Sumario | ≈ 1 punto | −1 de mano + 2 cartas para cerrarlo |
@@ -87,7 +87,7 @@ Un recurso vale 1. Los modificadores:
 | Comodín | flexibilidad total, nunca dobla | 3 copias en todo el mazo |
 | Restricción (TAC exige 🧑‍⚕️) | descuento | permite más copias |
 
-La ⚠️ y el recurso se anulan aproximadamente (+1 colocación por −1 ❤️ de
+La ⚠️ y el recurso se anulan aproximadamente (+1 indicación por −1 ❤️ de
 complicación): por eso la carta ⚠️ es una **decisión** y no basura ni premio.
 
 **La regla de v0.21 que ordenó todo esto: el azar impuesto debe ser
@@ -102,9 +102,9 @@ ahí la variedad es el producto, y son 30 efectos distintos a propósito.
 ## 4. Cómo se tasa una ACCIÓN
 
 Una Acción cuesta, vía Canje: **2 recursos + el cupo del Negocio + el azar de
-2-elige-1**. En moneda: ≈ 2 colocaciones. Entonces:
+2-elige-1**. En moneda: ≈ 2 indicaciones. Entonces:
 
-> **Una Acción debe producir un swing de ~2 colocaciones (≈ 1 punto), con
+> **Una Acción debe producir un swing de ~2 indicaciones (≈ 1 punto), con
 > varianza permitida hacia ambos lados.**
 
 Ejemplos ya impresos, tasados con esa vara:
@@ -117,7 +117,7 @@ Ejemplos ya impresos, tasados con esa vara:
 | *Receta en Blanco* (busca 1 recurso) | tutor = 2 cartas | **justa SOLO porque cuesta un Canje**; jamás gratis |
 | *Anda Rondando la Pelada* | enorme, 50% de perder la mano | prima de varianza tipo ROJO |
 
-**Para crear una Acción nueva:** estima su swing en colocaciones. 2 = precio
+**Para crear una Acción nueva:** estima su swing en indicaciones. 2 = precio
 justo. 3+ = necesita costo extra (descarte, moneda, condición). 1 = agrégale
 cadencia ("y roba 1 Protocolo") o hazla RESPUESTA.
 

@@ -183,10 +183,10 @@ reales de UCI, y esa es la mejor parte del juego.
 
 Para que las imágenes acompañen la potencia de cada carta:
 
-- La moneda real es **la colocación**: tienes 3 por turno, 24 por guardia.
+- La moneda real es **la indicación**: tienes 3 por turno, 24 por guardia.
 - **1 carta en mano ≈ medio punto.** Un tutor (buscar la carta exacta) vale
   dos cartas.
-- Una **Acción** cuesta un Canje ≈ 2 colocaciones ≈ 1 punto de swing. Son
+- Una **Acción** cuesta un Canje ≈ 2 indicaciones ≈ 1 punto de swing. Son
   cartas de momento, no de poder bruto.
 - Una **habilidad de avatar** sana vale entre **+0,3 y +1,0 puntos** de
   ventaja. Ninguna gana la partida sola.

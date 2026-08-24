@@ -31,7 +31,7 @@ avatar se aplican a mano y quedan en la bitácora, que se copia al portapapeles
 para pegarla acá.
 
 **Batería de jugabilidad (agosto 2026, 4.000 partidas 2j + 3.000 partidas
-3j, IA de referencia):** el flujo está sano — las 3 colocaciones se usan
+3j, IA de referencia):** el flujo está sano — las 3 indicaciones se usan
 completas el 100% de los turnos y la "mano seca" (querer jugar y no poder)
 es 0,1%: no existen los turnos muertos. El circuito de sabotaje funciona
 como tempo puro: 1,4 ataques por guardia y 1,3 limpiezas — casi todo golpe
@@ -72,7 +72,7 @@ Estado de las brechas:
 ⬜ **Valor propio de los recursos — medido, decisión pendiente** (DISENO
 §4o). Que el TAC valga 2 a cualquiera es un +6pp de salvamento que **la
 escasez no alcanza a pagar** (partir copias recupera solo 2pp): el cuello
-son las colocaciones, no las cartas. Lo que sí lo paga es exigir 🧑‍⚕️
+son las indicaciones, no las cartas. Lo que sí lo paga es exigir 🧑‍⚕️
 Personal ya puesto en esa cama (66%, en banda, y clínicamente cierto).
 Si se adopta: cartas simples con etiqueta de sistema, cartas complejas con
 valor 2 fijo y requisito de Personal, **sin acumular ambas**, y el

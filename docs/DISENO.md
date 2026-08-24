@@ -720,7 +720,7 @@ Lecciones:
 **El patrón es exacto: fallaban las seis que descartaban un recurso; no fallaba
 ninguna de las que quitaban ❤️ o subían un requisito.** El motivo es
 estructural: para descartar un 💊 del paciente señalado, ese paciente tiene que
-*tener* un 💊 puesto, y con 3 colocaciones por turno repartidas entre 3 camas,
+*tener* un 💊 puesto, y con 3 indicaciones por turno repartidas entre 3 camas,
 la mayoría de las veces no lo tiene. Seis cartas del mazo eran ⚠️ decorativas.
 
 **Las tres salidas, medidas** (5.000 partidas, 2 jugadores, semilla 42):
@@ -810,11 +810,11 @@ paralela**: `cartas/v030/` + `REGLAMENTO-v030.md` + `simular_v030.py`.
 3. La basura **retiene el alta** (no bloquea el ✅): nadie se va con papeleo
    pendiente. Se midieron ambas variantes y **convergen bajo buen juego** —
    la diferencia solo castiga al distraído, así que gana la amable.
-4. Cerrar Sumario cuesta **1 colocación + 2 cartas**.
-5. El 🎯 impreso **desaparece**: la víctima la decide la colocación.
+4. Cerrar Sumario cuesta **1 indicación + 2 cartas**.
+5. El 🎯 impreso **desaparece**: la víctima la decide la indicación.
 
 **Qué se adoptó del borrador v1.0 del autor:** Pizarra de Turno con costes
-1–3 (reemplaza Canje y Trueque), menú de colocaciones (tratar / sabotear /
+1–3 (reemplaza Canje y Trueque), menú de indicaciones (tratar / sabotear /
 des-escalar / cerrar), admisión obligatoria, empezar con 2 pacientes,
 Sumario en zona + Auditoría del Ministerio (−3 al que tenga más abiertos),
 logros como cartas físicas, y la cirugía del mazo: fusión Sedoanalgesia
@@ -863,8 +863,8 @@ y pidió balancearla. Tres reglas cambiaron, todas por medición:
    paciente por no leer la letra chica). Bonus inesperado: el ROJO sube a
    80% porque la jugada heroica sobre un paciente en 1 ❤️ se vuelve legal.
 2. **El Sumario volvió a morder la mano** (−1 al límite por cada abierto) y
-   **cerrar cuesta 2 cartas sin colocación**. El diseño anterior fracasó dos
-   veces medibles: con "1 colocación + 2 cartas" nadie cerró un solo Sumario
+   **cerrar cuesta 2 cartas sin indicación**. El diseño anterior fracasó dos
+   veces medibles: con "1 indicación + 2 cartas" nadie cerró un solo Sumario
    en 4.000 partidas (0%); y la Auditoría de −3 al que más tuviera le pegaba
    al que YA iba perdiendo el 86–90% de las veces, ensanchando la brecha
    final de 5,4 a 7,1. Con la mordida + cierre barato: **94% se cierran** y
@@ -901,11 +901,11 @@ mano 6. Rejilla completa (4.000 partidas c/u, 2 jug, semilla 42):
   que el problema se arregle, es que desaparece el excedente que da opciones.
 - **La palanca real es la mano, no el robo**: 4·6 es estrictamente mejor que
   la regla actual en todo (descarte 69→58%, +10% de opciones retenidas,
-  salvamento y puntos iguales o mejores). El excedente robo−colocaciones
+  salvamento y puntos iguales o mejores). El excedente robo−indicaciones
   (4−3 = 1/turno) es estructural; agrandar el bolsillo lo amortigua gratis.
 
 **Adoptado (v0.33): el límite de mano sube a 6.** El autor lo aprobó tras la
-medición. No cambia el ritmo —mismo robo, mismas colocaciones, misma
+medición. No cambia el ritmo —mismo robo, mismas indicaciones, misma
 duración— sino cuánto alcanzas a guardar: la carta que sobra cada turno
 ahora espera uno más, y eso es exactamente lo que necesitan las jugadas que
 requieren juntar piezas (las 2 cartas del Sumario, la ⚠️ que espera su
@@ -917,7 +917,7 @@ de jugabilidad a 2 y 3 jugadores:
 | 2 jug | 68% | 47% | 76% | 3,08 | 1,45 | 8,87 | 58% | 1,00 |
 | 3 jug | 68% | 47% | 74% | 3,05 | 1,46 | 8,68 | 58% | 1,05 |
 
-Escala idéntico a 3 jugadores, las 3 colocaciones se siguen usando el 100%
+Escala idéntico a 3 jugadores, las 3 indicaciones se siguen usando el 100%
 de los turnos y la mano seca sigue en 0,1%. Único costo: sostener 6 cartas
 en la mesa en vez de 5.
 
@@ -1043,7 +1043,7 @@ Cuatro lecturas:
    Exigiendo 2 cartas de sobra por encima de lo que necesita para tratar,
    compra 1,6 y sus puntos casi no bajan (8,53) mientras los del rival caen
    a 7,12. **La Pizarra es una trampa de tempo**: cada carta gastada en un
-   Protocolo es media colocación que no hiciste, y solo compensa cuando de
+   Protocolo es media indicación que no hiciste, y solo compensa cuando de
    verdad te sobraba.
 
 **Cuatro Acciones que la IA no juega nunca** y conviene mirar en mesa:
@@ -1083,14 +1083,14 @@ Tres conclusiones, y la primera es la que manda:
 
 1. **La escasez NO paga el valor.** Partir las copias a la mitad recupera
    solo 2 de los 6 puntos que regala el valor 2. El motivo es la regla que
-   ya conocíamos: **el cuello de botella son las colocaciones, no las
+   ya conocíamos: **el cuello de botella son las indicaciones, no las
    cartas.** Con el descarte mordiendo el 58% de los turnos, quitarte cartas
-   es un castigo barato; darte el doble por colocación es un premio caro.
+   es un castigo barato; darte el doble por indicación es un premio caro.
    Valor y escasez no son monedas intercambiables en este juego.
 2. **"Solo rinde doble si de verdad le faltan 2" no limita nada** (74%,
    idéntico a gratis): al principio a todos les faltan 2 de todo, así que la
    condición se cumple casi siempre. Es una restricción de mentira.
-3. **Lo que sí paga: un requisito de colocación.** "Vale 2 pero exige que ya
+3. **Lo que sí paga: un requisito de indicación.** "Vale 2 pero exige que ya
    haya 🧑‍⚕️ Personal en esa cama" cae a 66% — en banda — y es clínicamente
    cierto: a nadie se lo lleva solo al escáner. La mecánica ya existe en el
    mazo (`restriccion=PERSONAL`), así que no inventa reglas.
@@ -1126,7 +1126,7 @@ esto). Medido: **no — se vuelve una llave, no un cuello.**
   Subir copias inflaría el mazo sin comprar nada.
 - **Da igual planificarlo o no**: una IA que pone el 🧑‍⚕️ a propósito para
   abrir la puerta saca 67%; la que no lo planifica, 68%. Gastar una
-  colocación en abrir la puerta cuesta casi lo mismo que perder la jugada.
+  indicación en abrir la puerta cuesta casi lo mismo que perder la jugada.
   La regla es autoequilibrada: ni trampa ni peaje esquivable.
 - **Las dos cartas de Personal complejas no pueden exigirse a sí mismas**
   (Cirujano, Kinesiólogo): se autobloquean, y el resultado cae a 66% con el

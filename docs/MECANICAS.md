@@ -1,7 +1,7 @@
 # Inventario de mecánicas — ¡VAYA TURNO! v0.21
 
 > Todas las frecuencias vienen de **4.000 partidas simuladas** (2 jugadores,
-> 64.000 turnos-jugador, 186.160 colocaciones). Una mecánica que casi no
+> 64.000 turnos-jugador, 186.160 indicaciones). Una mecánica que casi no
 > dispara cuesta reglamento y no paga.
 
 ---
@@ -47,7 +47,7 @@ tan en falso, que el jugador paga su reglamento sin recibir el juego**.
 |---|---:|---|
 | **Colocar recursos** | 2,91/turno | ✅ el verbo central |
 | **Tope de 3** | choca el **93,5%** de los turnos | ✅ **la mejor regla de v0.20**: convierte "descargar la mano" en "elegir" |
-| **Elegir a quién** | cada colocación | ✅ el corazón del triage |
+| **Elegir a quién** | cada indicación | ✅ el corazón del triage |
 | **Descarte por límite de mano** | muerde el **16,6%** de los turnos | ✅ frecuencia correcta: duele sin ser rutina |
 | **Admisión opcional** | 0,18 camas vacías/turno | ✅ nueva en v0.20, ya se usa |
 
@@ -59,7 +59,7 @@ tan en falso, que el jugador paga su reglamento sin recibir el juego**.
 |---|---:|---|
 | **⚠️ Complicaciones** | 0,78/turno · **1,0% no hace nada** | ✅ **arreglada en v0.21**: las 18 quitan 1 ❤️ |
 | **🛡️ Protecciones** | ~6% de su complicación · 1,0% del total | 🔶 mejor, pero sigue siendo rara de ver |
-| **Sinergia ×2** | 12,8% de las colocaciones | ✅ 1 de cada 8 — frecuencia ideal |
+| **Sinergia ×2** | 12,8% de las indicaciones | ✅ 1 de cada 8 — frecuencia ideal |
 | **Comodín 🃏** | 4,9% (3 cartas) | 🔶 marginal pero barato |
 | **Restricción ⚑** | 4,6% (2 cartas) | 🔶 marginal pero barato |
 
@@ -70,7 +70,7 @@ leías el nombre, buscabas la víctima según su 🎯… y no pasaba nada. El 27
 y no repartido al azar — fallaban **las seis que descartaban un recurso**
 (entre 74% y 86% cada una) y **ninguna** de las que quitaban ❤️ o subían un
 requisito. El motivo era estructural: para descartar un 💊 del paciente
-señalado, ese paciente tenía que *tener* un 💊 puesto, y con 3 colocaciones
+señalado, ese paciente tenía que *tener* un 💊 puesto, y con 3 indicaciones
 por turno repartidas entre tres camas casi nunca lo tenía.
 
 **v0.21 lo cierra unificando el efecto: las dieciocho quitan 1 ❤️ al paciente
