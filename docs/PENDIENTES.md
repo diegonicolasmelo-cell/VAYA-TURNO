@@ -93,6 +93,22 @@ plano (nunca ×2 en fármacos), el arreglo barato es re-etiquetar UNA carta
 —Sedoanalgesia calza clínicamente con el Status— antes que sacar pacientes;
 y vigilar RESP (59%), que carga hacia lo grave.
 
+⬜ **Tier list de avatares medido — rebalanceo pendiente** (DISENO §4p).
+Brecha de **6 puntos** entre el mejor y el peor sobre partidas de 8–9:
+elegir avatar pesa más que jugar bien. Lo urgente, en orden:
+- 🔴 **El Subespecialista (+5,03)**: guardar carta no cuesta indicación y
+  entra gratis Y doble. Arreglo: que guardar cueste 1 indicación, o que
+  entre gratis sin doblar.
+- 🔴 **El Residente Aplicado (0,00 usos en 3.000 partidas)**: pide el 4º
+  recurso sobre una cama y el turno solo tiene 3 indicaciones —
+  imposible. Al 3º valdría +1,32; conviene además condicionarlo.
+- 🔴 **El Médico Fantasma (−0,92)**: peor que no tener avatar. Gana cartas
+  netas pero las gana tarde, y el tempo temprano es lo que vale.
+- 🟡 Esotérico +3,16 · Diostor +2,61 · Doctor Amor +2,60: los tres regalan
+  tempo (colocación gratis / ⚠️ convertida en ataque / robo + blindaje).
+- 🟢 La franja C (+0,08 a +0,16) es correcta pero olvidable: Reanimador,
+  Precavido, Radiólogo, Dirigente, Director.
+
 ⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
 a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide
 la variedad que siente un humano — decidir en mesa.

@@ -1141,9 +1141,88 @@ esto). Medido: **no — se vuelve una llave, no un cuello.**
 
 ---
 
+### 4p. Tier list de avatares (medido, agosto 2026)
+
+Los 22 avatares nunca se habían medido — eran los del autor desde la v0.10,
+con la nota "sin balancear" abierta en §5 desde entonces. Se implementaron
+las 22 habilidades en `simav.py` (copia del simulador con ganchos de avatar)
+y se midió cada una **contra un asiento sin avatar, misma semilla, 3.000
+partidas, con la Pizarra encendida** — la vara comparable: Δ = lo que vale
+la habilidad en puntos, descontado el sesgo de asiento.
+
+| tier | avatar | Δ pts | winrate | usos/guardia |
+|---|---|---:|---:|---:|
+| **S** | El Subespecialista | **+5,03** | +24,4pp | 5,8 |
+| **S** | El Médico Esotérico | **+3,16** | +17,0pp | 7,2 |
+| **S** | El Diostor | **+2,61** | +15,8pp | 3,6 |
+| **S** | Doctor Amor | **+2,60** | +16,6pp | — |
+| **S** | La Enfermera de Noche | +1,75 | +9,9pp | 1,0 |
+| **S** | La Gestora de Camas | +1,15 | +8,3pp | 0,9 |
+| A | El Dador de Altas | +0,61 | +3,1pp | 0,8 |
+| A | La de Abastecimiento | +0,54 | +2,8pp | 3,3 |
+| A | El Multiuso | +0,51 | +4,0pp | 1,0 |
+| B | El Carroñero de Pasillo | +0,47 | +2,1pp | 1,6 |
+| B | El Jefe de Servicio | +0,38 | +2,6pp | 1,0 |
+| B | La Jefa de Unidad | +0,30 | +2,0pp | — |
+| B | La Enfermera de IAAS | +0,22 | +1,2pp | 1,1 |
+| C | El Director del Hospital | +0,16 | +1,8pp | 1,2 |
+| C | El Dirigente Gremial | +0,14 | +0,1pp | 0,8 |
+| C | El Radiólogo de Guardia | +0,12 | +0,9pp | 1,1 |
+| C | El Precavido | +0,12 | +1,5pp | 1,0 |
+| C | El Reanimador | +0,08 | +0,6pp | 1,0 |
+| D | **El Residente Aplicado** | **0,00** | 0,0pp | **0,00** |
+| D | El Intensivista | −0,05 | −1,2pp | 1,0 |
+| F | La de la Buena Muñeca | −0,42 | −1,4pp | 2,9 |
+| F | **El Médico Fantasma** | **−0,92** | −4,4pp | 8,0 |
+
+**La brecha es de 6 puntos** entre el mejor y el peor, sobre partidas que
+promedian 8–9 puntos. Elegir avatar decide más que jugar bien.
+
+**Los cuatro problemas, en orden:**
+
+1. **El Subespecialista (+5,03) rompe el juego.** Su habilidad no cuesta
+   indicación: guardas una carta y al turno siguiente entra **gratis y
+   doble**. Son +8 indicaciones-equivalentes por guardia cuando el tope
+   son 24. Arreglo obvio: que dejar la carta en reserva **cueste una
+   indicación** (sigue siendo bueno: pagas 1 hoy por 2 mañana), o que
+   entre gratis pero **sin** doblar.
+2. **El Esotérico (+3,16), el Diostor (+2,61) y Doctor Amor (+2,60)** son
+   el mismo problema en tres sabores: una colocación gratis por turno, o
+   convertir tu propia ⚠️ en ataque, o robar un 🧑‍⚕️ *y* blindar los tuyos.
+   Todos regalan tempo, que es la moneda del juego.
+3. **El Residente Aplicado es imposible de activar: 0,00 usos en 3.000
+   partidas.** Pide el 4º recurso sobre una misma cama en un turno, y el
+   turno solo tiene **3 indicaciones**. Es una habilidad que no existe.
+   Medido el arreglo: **al 3er recurso vale +1,32 pts** (tier S bajo, 3,4
+   activaciones por guardia) — pasaría de carta muerta a carta fuerte, así
+   que conviene además pedirle algo (que el 3º sea del mismo tipo, por
+   ejemplo).
+4. **El Médico Fantasma (−0,92) es activamente malo.** Roba −1 en las
+   rondas 1–3 y +1 desde la 4: en cartas netas gana (+2), pero pierde
+   donde importa. Las cartas tempranas construyen las altas que consolidan;
+   las tardías caen en el 58% de descarte. Es la prueba más limpia de que
+   **en este juego el tempo temprano vale más que el volumen tardío**.
+
+**Salvedades honestas del modelo:** *Doctor Amor* y *La Jefa de Unidad*
+protegen su 🧑‍⚕️ del saqueo — su columna de usos cuenta escaneos, no
+bloqueos, y se omite; su Δ sí es válido. *La de la Buena Muñeca* depende
+de la heurística de "carta inútil" del simulador (cambia la que hoy no
+sirve, aunque sirviera mañana): su −0,42 probablemente sea más cerca de
+cero en manos humanas. El resto se midió con la habilidad completa.
+
+**Estado: medido, sin tocar ninguna carta.** El rebalanceo es decisión
+del autor.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
-1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del
+1. ~~**Los seis avatares están sin balancear.**~~ **Medidos los 22 en
+   §4p (agosto 2026): brecha de 6 puntos entre el mejor y el peor.**
+   Lo urgente: el Subespecialista (+5,03) rompe el juego, el Residente
+   Aplicado es imposible de activar (0,00 usos) y el Médico Fantasma
+   (−0,92) es peor que no tener avatar. Notas históricas abajo.
+   **Los seis originales:** (Desde v0.10 son los del
    autor: Diostor, Fantasma, Amor, Director, Gestora, Esotérico.) Sospechas:
    - *Doctor Amor* y *el Director* juegan una sola vez por partida, contra
      avatares que actúan cada turno. Si se sienten planos, pasivas menores
