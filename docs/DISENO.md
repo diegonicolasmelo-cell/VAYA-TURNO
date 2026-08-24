@@ -1001,6 +1001,60 @@ más grande que queda entre la app y una partida real de mesa.
 
 ---
 
+### 4n. La IA aprende a usar la Pizarra — y cuánto mueve el balance
+
+Cerrada la brecha de §4m, quedaba la otra: **la IA nunca compraba ni jugaba
+Protocolos**, así que las Acciones iban en una sola dirección. Para poder
+medir el efecto hubo que modelar la Pizarra en el simulador (20 de las 22
+Acciones; quedan fuera *¡Liceeeencia!* —los avatares no se modelan— y
+*Protocolo Institucional*, que copia). Va tras la bandera `--pizarra`: **por
+defecto apagada**, para que el suelo de §4k–4l siga siendo comparable carta
+por carta. Con la bandera apagada reproduce el suelo exacto (68% · 47% ·
+3,08 · 8,87), lo que valida el modelo.
+
+**Cuánto mueve (4.000 partidas, semilla 42):**
+
+| | salv | GIII | ROJO | altas | ✝️ | pts | 0✝️ | descarte |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 jug · sin Pizarra | 68% | 47% | 76% | 3,08 | 1,45 | 8,87 | 2,6% | 58% |
+| **2 jug · con Pizarra** | **64%** | **42%** | **66%** | **2,82** | **1,57** | **7,42** | 2,7% | **20%** |
+| 3 jug · sin Pizarra | 68% | 47% | 74% | 3,05 | 1,46 | 8,68 | 2,9% | 58% |
+| **3 jug · con Pizarra** | **64%** | **43%** | **65%** | **2,81** | **1,57** | **7,30** | 2,9% | 26% |
+
+Cuatro lecturas:
+
+1. **El juego se endurece, pero no se sale de banda.** Salvamento 68→64%
+   (banda 55–70%), GIII 47→42%, ROJO 76→66%. Es el efecto esperado de meter
+   en juego un mazo mayoritariamente de ATAQUE: los dos se estorban. La
+   guardia con Pizarra es la versión difícil del mismo juego, no otro juego.
+2. **La Pizarra resuelve sola el problema del descarte: 58% → 20%.** Es el
+   hallazgo que no esperaba. El excedente de robar 4 y colocar 3 tenía dos
+   destinos posibles —el tarro o la Pizarra— y hasta ahora solo existía el
+   tarro. Esto **no invalida la mano de 6** de §4l (sigue siendo mejor en
+   todo), pero sí reencuadra el problema: el descarte alto era, en parte,
+   el síntoma de una mecánica que estaba escrita y no se jugaba.
+3. **Usarla paga, sin dominar: +1,24 netos** (medido A la usa contra B que
+   no, descontado el sesgo de asiento), con 55% de victorias. Está en la
+   misma banda que atacar (+0,89 de §4k): una herramienta más, no la
+   estrategia obligatoria.
+4. **Comprar de más es un error medible, y la IA lo cometía.** Con la
+   heurística ingenua (comprar apenas alcance) la IA compraba 3,97 por
+   guardia y **se hacía daño sola**: sus propios puntos caían de 8,89 a 7,84.
+   Exigiendo 2 cartas de sobra por encima de lo que necesita para tratar,
+   compra 1,6 y sus puntos casi no bajan (8,53) mientras los del rival caen
+   a 7,12. **La Pizarra es una trampa de tempo**: cada carta gastada en un
+   Protocolo es media colocación que no hiciste, y solo compensa cuando de
+   verdad te sobraba.
+
+**Cuatro Acciones que la IA no juega nunca** y conviene mirar en mesa:
+*¡Liceeeencia!* y *Protocolo Institucional* (fuera del modelo),
+*Rotación de Internos* (solo con la mano casi vacía) y *Alta Anticipada*
+(pide estabilizar y egresar el mismo turno, y que el alta pague la pena
+de −2). Las dos últimas pueden estar pidiendo condiciones demasiado
+estrechas — es lo primero que confirmaría con las cartas en la mesa.
+
+---
+
 ## 5. Lo que sigue abierto (en orden de riesgo)
 
 1. **Los seis avatares están sin balancear.** (Desde v0.10 son los del

@@ -54,10 +54,16 @@ planificar (juntar el cierre de Sumario, esperar la ⚠️) y no para acaparar.
 
 **Las Acciones ya se ejecutan en la app** (v0.35, DISENO §4m): las 22
 tienen efecto real con selección de objetivo, verificadas una por una.
-Dos brechas conocidas, en orden de importancia:
-- ⬜ **La IA no compra ni juega Protocolos.** Nunca lo hizo, y el suelo
-  medido tampoco los modela. En la app eso hace que las Acciones vayan en
-  una sola dirección. Es lo que más separa la app de una partida de mesa.
+Estado de las brechas:
+- ✅ **La IA ya compra y juega Protocolos** (v0.36, DISENO §4n). Medido:
+  el juego se endurece pero queda en banda (salv 68→64%, GIII 47→42%),
+  usarla paga +1,24 netos con 55% de victorias, y **el descarte cae del
+  58% al 20%** — la Pizarra es el otro destino del excedente. Comprar de
+  más es un error medible: la IA exige 2 cartas de sobra antes de comprar.
+- 🔶 **Cuatro Acciones que la IA nunca juega**: A07 ¡Liceeeencia! y A12
+  Protocolo Institucional (fuera del modelo del simulador), A10 Rotación
+  de Internos y A22 Alta Anticipada (condiciones muy estrechas). Mirar en
+  mesa si A10 y A22 piden demasiado.
 - 🔶 **Las RESPUESTA (A11, A16) son anulación, no interrupción**: revierten
   la última complicación de la ronda sobre un paciente tuyo. Equivalente en
   efecto, pero se juegan en tu turno y no "fuera de turno". Ver si en mesa

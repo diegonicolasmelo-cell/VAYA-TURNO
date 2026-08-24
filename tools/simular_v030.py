@@ -29,8 +29,10 @@ Qué modela:
   pasa si se agota el Mazo de Pacientes.
 - El Cirujano de Turno cuenta como 2 🧑‍⚕️. El Turno Veinticuatro además
   descarta 1 carta de la mano del dueño de la unidad.
-- NO modela: la Pizarra (Acciones), el Becado (busca Protocolo), el Pabellón
-  (mover recurso). Igual que siempre: esto es el suelo del balance.
+- La PIZARRA se modela con --pizarra (v0.36): 20 de las 22 Acciones, con
+  la heurística de compra afinada. Por defecto va APAGADA para que el
+  suelo siga siendo comparable con el histórico de §4k-4l.
+- NO modela: el Becado (busca Protocolo) ni el Pabellón (mover recurso).
 - v0.31 eliminó la fase de El Pasillo (el turno son 3 fases y la Pizarra se
   compra dentro del Pase de Visita). Este archivo no cambia ni una cifra:
   nunca modeló la compra de Protocolos, así que el suelo medido es el mismo.
@@ -57,6 +59,13 @@ AUDITORIA = False        # VARIANTE opcional: −3 al que junte más Sumarios.
                          # perdiendo el 86-90% de las veces y ensancha la
                          # brecha de 5,4 a 7,1. Es sal en la herida.
 PISO_RIVAL = 1           # un recurso rival no baja de aquí la vida
+PROTOCOLOS = False       # ¿se modela la Pizarra? False = suelo histórico de
+                         # §4k–4l, comparable carta por carta. True = ambos
+                         # jugadores compran y juegan Acciones (§4n).
+PROT_ASIENTOS = None     # None = todos; {0} = solo el asiento A (asimétrico)
+PROT_SOBRA = 2           # cartas de sobra que la IA exige para comprar.
+                         # Afinado: con 0 compra de más y se hace daño sola.
+STATS = None             # gancho de instrumentación (lo llena el arnés)
 
 
 def cargar():
@@ -105,6 +114,9 @@ class Cama:
         self.protege = set()
         self.basura = 0            # recursos rivales que no pide (v0.30)
         self.atacada = False       # máx. 1 sabotaje por ronda
+        self.puestos = []          # [(carta, tipo, aporte)] — para retirar
+        self.escudo = False        # A19: cama cerrada al saqueo
+        self.extra = 0             # A08: −1 ❤️ extra el próximo Fin de Guardia
 
     def falta(self):
         return {t: max(0, self.pide[t] - self.tiene[t]) for t in TIPOS}
@@ -136,6 +148,7 @@ class Jugador:
 
     def puntos(self):
         p = sum(c["alta"] for c in self.altas) + sum(c["fallece"] for c in self.muertos)
+        p -= getattr(self, "pena", 0)      # A22: el alta apurada vale menos
         p -= getattr(self, "vacias", 0)
         p -= getattr(self, "auditoria", 0)
         if not self.muertos:
@@ -244,6 +257,290 @@ def elegir_sabotaje(j, rivales):
     return c, cama, r
 
 
+# ══════════════════════════════════════════════════════════════════════
+# LA PIZARRA (Protocolos / Acciones) — modelada para poder medirla.
+# El suelo histórico de §4k–4l se midió SIN esto: PROTOCOLOS=False lo
+# reproduce carta por carta. Con True, ambos jugadores compran y juegan.
+# ══════════════════════════════════════════════════════════════════════
+
+def cargar_acciones():
+    with open(os.path.join(RAIZ, "cartas", "v030", "acciones.csv"),
+              encoding="utf-8") as f:
+        filas = list(csv.DictReader(f))
+    mazo = []
+    for a in filas:
+        for _ in range(int(a["copias"])):
+            mazo.append({"id": a["id"], "nombre": a["nombre"],
+                         "tipo": a["tipo"], "coste": int(a["coste"])})
+    return mazo
+
+
+def quitar_puesto(cama, k):
+    """Retira el k-ésimo recurso colocado y descuadra la receta como toca."""
+    carta, tipo, ap = cama.puestos.pop(k)
+    if tipo in TIPOS:
+        cama.tiene[tipo] = max(0, cama.tiene[tipo] - ap)
+    if carta.get("previene"):
+        cama.protege.discard(carta["previene"])
+    return carta
+
+
+def poner_puesto(cama, carta, ronda):
+    tipo = carta["tipo"]
+    if carta.get("comodin"):
+        f = cama.falta()
+        tipo = max(f, key=lambda k: f[k])
+    ap = 2 if (carta.get("sistema") and carta["sistema"] == cama.f["sistema"]) else 1
+    if tipo in TIPOS:
+        cama.tiene[tipo] += ap
+    cama.puestos.append((carta, tipo, ap))
+    if carta.get("previene"):
+        cama.protege.add(carta["previene"])
+    cama.revisar(ronda)
+
+
+def _saqueables(rivales, filtro=None):
+    out = []
+    for r in rivales:
+        for cama in r.camas:
+            if cama is None or cama.escudo:
+                continue
+            for k, (c, t, a) in enumerate(cama.puestos):
+                if filtro is None or filtro(c, t):
+                    out.append((r, cama, k))
+    return out
+
+
+def acciones_utiles(j, rivales, ronda, ctx):
+    """Devuelve [(prioridad, id)] de las Acciones que HOY harían algo.
+    La prioridad es la heurística de la IA: primero lo que más mueve
+    la aguja, igual que hace con las colocaciones."""
+    u = []
+    saq_per = _saqueables(rivales, lambda c, t: t == "PERSONAL")
+    saq_ip = _saqueables(rivales, lambda c, t: t in ("IMAGEN", "PROCEDIMIENTOS"))
+    saq_any = _saqueables(rivales)
+    # cuánto estorba: quitarle un recurso al que está por cerrar vale más
+    def urgencia(lista):
+        return max((3 - cam.faltan_total() for _, cam, _ in lista), default=-9)
+    rival_cerca = [cam for r in rivales for cam in r.camas
+                   if cam and not cam.escudo and not cam.estable]
+    mios = [c for c in j.camas if c]
+    mios_no_ok = [c for c in mios if not c.estable]
+
+    if saq_per:  u.append((6 + urgencia(saq_per), "A01"))
+    if saq_ip:   u.append((6 + urgencia(saq_ip), "A20"))
+    if rival_cerca: u.append((7 + max(3 - c.faltan_total() for c in rival_cerca), "A21"))
+    if saq_any:  u.append((5, "A02"))
+    if rival_cerca: u.append((5, "A08"))
+    if any(r.mano for r in rivales): u.append((3, "A09"))
+    if rivales: u.append((4, "A17"))
+    if rivales: u.append((5, "A18"))
+    # apoyo
+    if len(mios) > 1 and any(c.puestos for c in mios): u.append((4, "A03"))
+    if ctx["descarte"] and mios_no_ok: u.append((6, "A04"))
+    u.append((5, "A05"))
+    if mios_no_ok: u.append((7, "A15"))
+    if any(c.estable and c.estable_desde == ronda and c.basura == 0 for c in mios):
+        u.append((6, "A22"))
+    if any(not c.escudo and (c.estable or c.faltan_total() <= 1) for c in mios):
+        u.append((6, "A19"))
+    # respuesta / caos
+    if ctx["ult_comp"] is not None: u.append((6, "A11"))
+    if ctx["ult_comp"] is not None: u.append((6, "A16"))
+    if any(len(r.muertos) >= 2 and any(r.camas) for r in rivales): u.append((4, "A13"))
+    if rivales and len(j.mano) <= 2: u.append((3, "A10"))
+    u.append((1, "A06"))
+    u.append((2, "A14"))
+    return u
+
+
+def ejecutar_accion(aid, j, rivales, ronda, ctx, rng):
+    """Aplica el efecto. Devuelve True si hizo algo."""
+    def descartar(c): ctx["descarte"].append(c)
+
+    if aid == "A01" or aid == "A20":
+        f = (lambda c, t: t == "PERSONAL") if aid == "A01" \
+            else (lambda c, t: t in ("IMAGEN", "PROCEDIMIENTOS"))
+        cand = _saqueables(rivales, f)
+        if not cand: return False
+        cand.sort(key=lambda x: x[1].faltan_total())      # al que está por cerrar
+        r, cama, k = cand[0]
+        descartar(quitar_puesto(cama, k)); cama.revisar(ronda)
+        return True
+
+    if aid == "A21":
+        cand = [c for r in rivales for c in r.camas
+                if c and not c.escudo and not c.estable]
+        if not cand: return False
+        cand.sort(key=lambda c: c.faltan_total())
+        cama = cand[0]
+        cama.vida = max(1, cama.vida - 1)
+        if cama.puestos:
+            descartar(quitar_puesto(cama, len(cama.puestos) - 1)); cama.revisar(ronda)
+        return True
+
+    if aid == "A02":
+        botin = []
+        for r in rivales:
+            cand = _saqueables([r])
+            if not cand: continue
+            cand.sort(key=lambda x: -x[1].faltan_total())
+            _, cama, k = cand[0]
+            botin.append(quitar_puesto(cama, k)); cama.revisar(ronda)
+        if not botin: return False
+        for c in botin:
+            destino = next((x for x in elegir_objetivos(j.camas)), None)
+            if destino: poner_puesto(destino, c, ronda)
+            else: descartar(c)
+        return True
+
+    if aid == "A08":
+        cand = [c for r in rivales for c in r.camas
+                if c and not c.escudo and not c.estable]
+        if not cand: return False
+        min(cand, key=lambda c: c.vida).extra += 1
+        return True
+
+    if aid == "A09":
+        r = max(rivales, key=lambda x: len(x.mano))
+        if not r.mano: return False
+        r.mano.sort(key=lambda c: (c.get("comodin", False), bool(c.get("sistema"))))
+        descartar(r.mano.pop())            # le quita la mejor
+        return True
+
+    if aid == "A17":
+        rng.choice(rivales).sin_far = True; return True
+    if aid == "A18":
+        rng.choice(rivales).recorte = 2; return True
+
+    if aid == "A03":
+        # mueve hasta 3 recursos a la cama más cerca de cerrar
+        objetivos = elegir_objetivos(j.camas)
+        if not objetivos: return False
+        destino = objetivos[0]
+        movidos = 0
+        for cama in j.camas:
+            if cama is None or cama is destino: continue
+            for k in range(len(cama.puestos) - 1, -1, -1):
+                if movidos >= 3: break
+                _, t, _ = cama.puestos[k]
+                if destino.falta().get(t, 0) > 0:
+                    poner_puesto(destino, quitar_puesto(cama, k), ronda)
+                    cama.revisar(ronda); movidos += 1
+        return movidos > 0
+
+    if aid == "A04":
+        objetivos = elegir_objetivos(j.camas)
+        if not objetivos or not ctx["descarte"]: return False
+        cama = objetivos[0]
+        for i, c in enumerate(ctx["descarte"]):
+            if c["clase"] == "recurso" and cama.falta().get(c["tipo"], 0) > 0:
+                poner_puesto(cama, ctx["descarte"].pop(i), ronda); return True
+        return False
+
+    if aid == "A05":
+        for _ in range(3):
+            c = ctx["robar"]()
+            if c: j.mano.append(c)
+        j.robo_mod = getattr(j, "robo_mod", 0) - 2
+        return True
+
+    if aid == "A15":
+        objetivos = elegir_objetivos(j.camas)
+        if not objetivos or not ctx["mazo"]: return False
+        cama = objetivos[0]
+        f = cama.falta()
+        mejor, mi = None, None
+        for i, c in enumerate(ctx["mazo"]):
+            if c.get("warn"): continue
+            v = (2 if (c.get("sistema") and c["sistema"] == cama.f["sistema"]) else 1) \
+                if f.get(c["tipo"], 0) > 0 else 0
+            if v and (mejor is None or v > mejor):
+                mejor, mi = v, i
+                if v == 2: break
+        if mi is None: return False
+        j.mano.append(ctx["mazo"].pop(mi)); rng.shuffle(ctx["mazo"])
+        return True
+
+    if aid == "A22":
+        cand = [c for c in j.camas
+                if c and c.estable and c.estable_desde == ronda and c.basura == 0]
+        if not cand: return False
+        c = max(cand, key=lambda x: x.f["alta"])
+        if c.f["alta"] - 2 <= 0: return False          # no vale la pena
+        j.altas.append(c.f); j.pena = getattr(j, "pena", 0) + 2
+        j.camas[j.camas.index(c)] = None
+        return True
+
+    if aid == "A19":
+        cand = [c for c in j.camas
+                if c and not c.escudo and (c.estable or c.faltan_total() <= 1)]
+        if not cand: return False
+        cand[0].escudo = True; return True
+
+    if aid in ("A11", "A16"):
+        t = ctx["ult_comp"]
+        if t is None or t not in [c for c in j.camas if c]: return False
+        t.vida = min(t.f["vida"], t.vida + 1)
+        ctx["ult_comp"] = None
+        return True
+
+    if aid == "A13":
+        vics = [r for r in rivales if len(r.muertos) >= 2 and any(r.camas)]
+        if not vics: return False
+        if rng.random() < 0.25:                        # dos caras
+            r = vics[0]
+            cam = max((c for c in r.camas if c), key=lambda c: c.f["alta"])
+            r.muertos.append(cam.f); r.camas[r.camas.index(cam)] = None
+            r.sumarios += 1
+        else:
+            for c in j.mano: descartar(c)
+            j.mano.clear()
+        return True
+
+    if aid == "A10":
+        r = max(rivales, key=lambda x: len(x.mano))
+        j.mano, r.mano = r.mano, j.mano
+        return True
+
+    if aid == "A06":
+        ctx["bloqueo"] = ronda + 1; return True
+
+    if aid == "A14":
+        if ctx["mazo"] and ctx["mazo"][-1].get("warn"):
+            ctx["mazo"].insert(0, ctx["mazo"].pop())   # la ⚠️ al fondo
+            return True
+        return False
+
+    return False
+
+
+def turno_pizarra(j, rivales, ronda, ctx, rng):
+    """La IA usa la Pizarra: máx. 1 compra y 1 Acción jugada por turno."""
+    # 1. JUGAR lo que ya tiene guardado
+    if ctx["bloqueo"] != ronda:
+        for prio, aid in sorted(acciones_utiles(j, rivales, ronda, ctx), reverse=True):
+            if aid not in j.protocolos: continue
+            if ejecutar_accion(aid, j, rivales, ronda, ctx, rng):
+                j.protocolos.remove(aid)
+                break
+    # 2. COMPRAR: solo con cartas que de verdad sobran
+    sobra = len(j.mano) - sum(1 for c in j.camas if c and not c.estable) * 2 - PROT_SOBRA
+    if sobra <= 0 or not ctx["pizarra"]: return
+    quiere = {aid for _, aid in acciones_utiles(j, rivales, ronda, ctx)}
+    opciones = [(i, a) for i, a in enumerate(ctx["pizarra"])
+                if a["coste"] <= min(sobra, len(j.mano)) and a["id"] in quiere]
+    if not opciones: return
+    prio = {aid: p for p, aid in acciones_utiles(j, rivales, ronda, ctx)}
+    i, a = max(opciones, key=lambda x: prio.get(x[1]["id"], 0) - x[1]["coste"])
+    j.mano.sort(key=lambda c: (c.get("comodin", False), bool(c.get("sistema"))))
+    for _ in range(a["coste"]):
+        if j.mano: ctx["descarte"].append(j.mano.pop(0))
+    ctx["pizarra"].pop(i)
+    if ctx["mazo_a"]: ctx["pizarra"].append(ctx["mazo_a"].pop())
+    j.protocolos.append(a["id"])
+
+
 def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
     mazo_p = pacientes[:]
     rng.shuffle(mazo_p)
@@ -261,6 +558,14 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
         return mazo_g.pop()
 
     jugadores = [Jugador(camas_c) for _ in range(n_jug)]
+    for j in jugadores:
+        j.protocolos, j.sin_far, j.robo_mod = [], False, 0
+
+    mazo_a = cargar_acciones() if PROTOCOLOS else []
+    rng.shuffle(mazo_a)
+    ctx = {"pizarra": [mazo_a.pop() for _ in range(min(3, len(mazo_a)))],
+           "mazo_a": mazo_a, "mazo": mazo_g, "descarte": descarte,
+           "robar": robar, "bloqueo": 0, "ult_comp": None}
 
     # Se parte con 2 pacientes; la tercera cama se llena por admisión.
     for j in jugadores:
@@ -280,6 +585,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
 
         for j in jugadores:
             rivales = [x for x in jugadores if x is not j]
+            for c in j.camas:            # el escudo A19 te cubrió la vuelta
+                if c: c.escudo = False
 
             # 1. ALTAS (consolidadas desde una ronda anterior)
             for i, c in enumerate(j.camas):
@@ -305,12 +612,18 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     j.camas[i] = Cama(mejor)
                     j.camas[i].revisar(ronda)
 
-            # 3. ROBO (fijo)
-            for _ in range(robo):
+            # 3. ROBO (fijo, ± lo que dejó Doblo Turno)
+            for _ in range(max(0, robo + j.robo_mod)):
                 carta = robar()
                 if carta is None:
                     break
                 j.mano.append(carta)
+            j.robo_mod = 0
+
+            # 3.5 LA PIZARRA: compra y juega Protocolos (máx. 1 de cada)
+            if PROTOCOLOS and (PROT_ASIENTOS is None
+                               or jugadores.index(j) in PROT_ASIENTOS):
+                turno_pizarra(j, rivales, ronda, ctx, rng)
 
             # 4. PASE DE VISITA: 3 colocaciones, menú
             colocaciones = 3
@@ -345,6 +658,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                             comp = carta.get("comp") or {"nombre": "", "vida": -1}
                             if not (comp["nombre"] and comp["nombre"] in cama.protege):
                                 cama.vida = max(PISO_RIVAL, cama.vida + comp["vida"])
+                                ctx["ult_comp"] = cama
                                 if carta.get("turno24") and duenio.mano:
                                     duenio.mano.pop(0)
                             cama.revisar(ronda)
@@ -352,8 +666,10 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                             continue
                 # b) tratar lo propio
                 jugada = None
+                mano_ok = [c for c in j.mano
+                           if not (j.sin_far and c["tipo"] == "FARMACOS")]
                 for cama in elegir_objetivos(j.camas):
-                    carta, aporte, tipo = elegir_carta(j.mano, cama)
+                    carta, aporte, tipo = elegir_carta(mano_ok, cama)
                     if carta is not None:
                         jugada = (carta, aporte, tipo, cama)
                         break
@@ -362,10 +678,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     j.mano.remove(carta)
                     descarte.append(carta)
                     cama.tiene[tipo] += aporte
+                    cama.puestos.append((carta, tipo, aporte))
                     if carta.get("previene"):
                         cama.protege.add(carta["previene"])
                     if carta.get("warn"):
                         resolver_warn(j, carta, cama)   # propio: sin piso
+                        ctx["ult_comp"] = cama
                     cama.revisar(ronda)
                     colocaciones -= 1
                 # c) sabotaje con la basura de la mano
@@ -381,6 +699,7 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     comp = carta.get("comp") or {"nombre": "", "vida": -1}
                     if not (comp["nombre"] and comp["nombre"] in cama.protege):
                         cama.vida = max(PISO_RIVAL, cama.vida + comp["vida"])
+                        ctx["ult_comp"] = cama
                         if carta.get("turno24") and duenio.mano:
                             duenio.mano.pop(0)
                     cama.revisar(ronda)
@@ -414,7 +733,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                 if c is None:
                     continue
                 if not c.estable:
-                    c.vida -= 1
+                    c.vida -= 1 + c.extra      # A08 Llaman de Urgencias
+                c.extra = 0
                 if c.vida <= 0:
                     j.muertos.append(c.f)
                     j.camas[i] = None
@@ -440,11 +760,15 @@ def main():
     ap.add_argument("--rondas", type=int, default=8)
     ap.add_argument("--semilla", type=int, default=42)
     ap.add_argument("--sin-ataques", action="store_true")
+    ap.add_argument("--pizarra", action="store_true",
+                    help="modela la Pizarra: ambos compran y juegan Acciones")
     args = ap.parse_args()
 
-    global ATAQUES
+    global ATAQUES, PROTOCOLOS
     if args.sin_ataques:
         ATAQUES = False
+    if args.pizarra:
+        PROTOCOLOS = True
 
     pacientes, guardia = cargar()
     rng = random.Random(args.semilla)

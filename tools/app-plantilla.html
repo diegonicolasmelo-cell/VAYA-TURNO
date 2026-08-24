@@ -631,20 +631,24 @@ function ponerRecurso(cama, x){
 
 /* — listas de objetivos — */
 function objCamasPropias(f){
+  // primero la que está más cerca de cerrar (y aún no cerró)
   return yo().camas.filter(c=>c && (!f||f(c)))
     .map(c=>({txt:esc(c.p.nombre),
               sub:`${c.vida} ❤️ · faltan ${faltanTotal(c)}${c.estable?" · ✅ estable":""}`,
-              val:c}));
+              val:c, orden:(c.estable?99:0) + faltanTotal(c)}))
+    .sort((a,b)=>a.orden-b.orden);
 }
+/* las listas de rivales van ordenadas por "a quién estorba más": primero
+   el que está por cerrar. Así la IA acierta eligiendo la primera. */
 function objCamasRivales(f){
   const out = [];
   otros().forEach(r=>r.camas.forEach(c=>{
     if(!c || c.escudo || (f && !f(c))) return;
     out.push({txt:esc(c.p.nombre),
               sub:`${esc(r.nombre)} · ${c.vida} ❤️ · faltan ${faltanTotal(c)}${c.estable?" · ✅":""}`,
-              val:{cama:c, duenio:r}});
+              val:{cama:c, duenio:r}, orden:faltanTotal(c)});
   }));
-  return out;
+  return out.sort((a,b)=>a.orden-b.orden);
 }
 function objRecursosRivales(f){
   const out = [];
@@ -653,9 +657,9 @@ function objRecursosRivales(f){
     c.puestos.forEach((x,i)=>{ if(!f || f(x))
       out.push({txt:`${ico(x.tipo)} ${esc(x.nombre)}`,
                 sub:`sobre ${esc(c.p.nombre)} · ${esc(r.nombre)}`,
-                val:{cama:c, idx:i, carta:x, duenio:r}}); });
+                val:{cama:c, idx:i, carta:x, duenio:r}, orden:faltanTotal(c)}); });
   }));
-  return out;
+  return out.sort((a,b)=>a.orden-b.orden);
 }
 function objRecursosPropios(){
   const out = [];
@@ -677,7 +681,16 @@ const objCartas = lista => lista.map((x,i)=>({
 /* — hoja de selección: el paso genérico de "elige un objetivo".
    No usa hoja(): una Acción de varios pasos no puede cerrarse tocando
    fuera, o el efecto quedaría a medio aplicar. Sales por Cancelar. — */
-function elegirUno(titulo, ayuda, ops, fn, no){
+function elegirUno(titulo, ayuda, ops, fn, no, prefiere){
+  if(!ops.length){ (no||render)(); return; }
+  // la IA no abre hojas: elige sola. Las listas ya vienen ordenadas por
+  // conveniencia, así que "la primera" es su mejor opción salvo que la
+  // carta pida otro criterio (prefiere).
+  if(yo().ia){
+    const v = prefiere ? prefiere(ops) : ops[0].val;
+    if(v===undefined || v===null && !ops.some(o=>o.val===null)){ (no||render)(); return; }
+    fn(v); return;
+  }
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
@@ -990,9 +1003,58 @@ A22:{ // Alta Anticipada
         anota("a",`ALTA ANTICIPADA · ${c.p.nombre} (+${c.p.alta} −2) — ${j.nombre}`);
         aviso("ok",`🚪 Alta anticipada: ${esc(c.p.nombre)} <b>+${c.p.alta - 2}</b>`);
         ok();
-      }, no);
+      }, no, ops=>{                      // la IA: solo si el alta paga la pena
+        const b = ops.slice().sort((x,y)=>y.val.p.alta - x.val.p.alta)[0];
+        return b && b.val.p.alta > 2 ? b.val : undefined;
+      });
   }},
 };
+
+/* ══ la IA usa la Pizarra ═══════════════════════════════════════════
+   Heurística portada del simulador y afinada con 4.000 partidas: la
+   clave es que solo compra con cartas que DE VERDAD sobran (dos por
+   encima de lo que necesita para tratar). Comprando de más se hace
+   daño sola: −1,0 puntos propios y el mismo daño al rival.        */
+const PRIO_ACC = {
+  A21:10, A15:9, A01:8, A20:8, A04:8, A11:7, A16:7, A22:7, A19:6,
+  A05:6, A18:6, A02:5, A08:5, A17:5, A03:4, A09:4, A13:4, A12:3,
+  A10:3, A14:2, A07:2, A06:1,
+};
+function iaPizarra(j){
+  // 1. jugar lo guardado: la de mayor prioridad que hoy tenga objetivo
+  if(!j.accionHecha && !accionesBloqueadas()){
+    const jugables = j.protocolos
+      .filter(a=>ACC[a.id] && ACC[a.id].puede())
+      .sort((a,b)=>(PRIO_ACC[b.id]||0)-(PRIO_ACC[a.id]||0));
+    if(jugables.length){
+      const a = jugables[0];
+      jugarAccion(a, ()=>{
+        const k = j.protocolos.indexOf(a); if(k>=0) j.protocolos.splice(k,1);
+        anota("a", `${j.nombre} juega ${a.nombre}.`);
+        aviso("warn", `📋 ${esc(j.nombre)} juega <b>${esc(a.nombre)}</b>`);
+      });
+    }
+  }
+  // 2. comprar: exige 2 cartas de sobra por encima de lo que va a tratar
+  if(j.compraHecha) return;
+  const porTratar = j.camas.filter(c=>c && !c.estable).length * 2;
+  const sobra = j.mano.length - porTratar - 2;
+  if(sobra <= 0) return;
+  const ops = G.pizarra
+    .map((a,i)=>({a,i}))
+    .filter(x=>+x.a.coste <= Math.min(sobra, j.mano.length) &&
+               ACC[x.a.id] && ACC[x.a.id].puede())
+    .sort((x,y)=>((PRIO_ACC[y.a.id]||0)-+y.a.coste)-((PRIO_ACC[x.a.id]||0)-+x.a.coste));
+  if(!ops.length) return;
+  const {a, i} = ops[0];
+  j.mano.sort((c1,c2)=>(c1.comodin?1:0)-(c2.comodin?1:0) ||
+                       (c1.sistema?1:0)-(c2.sistema?1:0));
+  for(let k=0;k<+a.coste;k++){ const c=j.mano.shift(); if(c) G.descG.push(c); }
+  G.pizarra.splice(i,1);
+  const nueva = G.mazoA.pop(); if(nueva) G.pizarra.push(nueva);
+  j.protocolos.push(a); j.compraHecha = true;
+  anota("a", `${j.nombre} toma ${a.nombre} (${a.coste}).`);
+}
 
 /* — la ventana de RESPUESTA 🛡️ (A11 y A16) — */
 function compAnulable(){
@@ -1216,7 +1278,8 @@ function iaSabotaje(j){
 function iaJuega(){
   const j = yo();
   if(G.fin || !j.ia) return;
-  if(G.fase===1){                                  // la IA no usa la Pizarra
+  if(G.fase===1){
+    iaPizarra(j);                                  // compra y juega Protocolos
     let guard = 30;
     while(j.coloc>0 && guard-- > 0){
       // limpiar basura que retiene un alta o bloquea un ✅ inminente
