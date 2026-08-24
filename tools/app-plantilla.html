@@ -524,6 +524,22 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
         animation:sello .38s cubic-bezier(.2,1.6,.4,1) .3s backwards}
 @keyframes sello{0%{transform:rotate(-14deg) scale(2.4);opacity:0}
                  100%{transform:rotate(9deg) scale(1);opacity:1}}
+/* el espejo del alta: la Celestial — carta en penumbra, timbre rojo de
+   SUMARIO y la moneda gris que cae en vez de volar */
+.fa-carta.celestial{background:#2b3239;border-color:#454f57;color:#e8edf0;
+        box-shadow:0 0 0 4px rgba(124,19,16,.35), 0 24px 70px rgba(0,0,0,.6)}
+.fa-carta.celestial::after{background:linear-gradient(180deg,transparent,
+        rgba(0,0,0,.42));transform:none;animation:aparecer .8s ease}
+.fa-carta.celestial .fa-sub{color:#93a2ac}
+.sello-alta.rojo{color:#e05545;border-color:#e05545;
+        background:rgba(43,50,57,.88);transform:rotate(-8deg);
+        animation:selloRojo .38s cubic-bezier(.2,1.6,.4,1) .3s backwards}
+@keyframes selloRojo{0%{transform:rotate(10deg) scale(2.4);opacity:0}
+                     100%{transform:rotate(-8deg) scale(1);opacity:1}}
+.moneda.gris{color:#2b3239;
+        background:radial-gradient(circle at 34% 30%,#e8edf0,#aeb9c0 58%,#78868f);
+        box-shadow:inset 0 -2px 4px rgba(20,26,30,.4), inset 0 2px 3px rgba(255,255,255,.6),
+                   0 6px 18px rgba(9,25,32,.35)}
 .moneda{position:fixed;left:50%;top:26%;z-index:83;width:48px;height:48px;
         margin:-24px 0 0 -24px;border-radius:99px;display:flex;align-items:center;
         justify-content:center;font-family:"IBM Plex Mono",monospace;
@@ -1133,7 +1149,10 @@ A13:{ // Anda Rondando la Pelada — ÚNICA, dos monedas
       r.camas[i] = null;
       if(G.sumariosLibres>0){ r.sumarios++; G.sumariosLibres--; }
       anota("m",`✝️ La Pelada se lleva a ${s.cama.p.nombre} (${r.nombre}).`);
-      aviso("mal",`💀 ${esc(s.cama.p.nombre)} — se lo llevó la Pelada`);
+      (UI.fxAltas = UI.fxAltas || []).push({
+        tipo:"celestial", nombre:s.cama.p.nombre, pts:s.cama.p.fallece,
+        jug:r.nombre, arte:s.cama.p.arte, nota:"se la llevó la Pelada",
+        propio: !(G.modo==="ia" && r.ia) });
       ok();
     }, ()=>{ ok(); });   // ya se lanzaron las monedas: la carta se gasta igual
   }},
@@ -1440,7 +1459,9 @@ function faseFin(){
     if(c.vida<=0){
       j.muertos.push(c.p);
       anota("m", `✝️ ALTA CELESTIAL · ${c.p.nombre} (${c.p.fallece}) — ${j.nombre}`);
-      aviso("mal", `✝️ ${esc(c.p.nombre)} — Alta Celestial · ${esc(j.nombre)}`);
+      (UI.fxAltas = UI.fxAltas || []).push({
+        tipo:"celestial", nombre:c.p.nombre, pts:c.p.fallece, jug:j.nombre,
+        arte:c.p.arte, propio: !(G.modo==="ia" && j.ia) });
       c.puestos.concat(c.basura).forEach(x=>G.descG.push(x));
       j.camas[i]=null;
       if(G.sumariosLibres>0){ j.sumarios++; G.sumariosLibres--; }
@@ -1520,27 +1541,32 @@ let IA_PAUSA = 2000;          // ritmo entre jugadas; los tests lo bajan
 let FX_ALTA  = 2000;          // duración de la ceremonia del alta
 
 function celebrarAlta(fx, luego){
+  const celestial = fx.tipo === "celestial";
   const cont = el("div","altafx");
-  const carta = el("div","fa-carta");
+  const carta = el("div","fa-carta"+(celestial?" celestial":""));
   carta.style.setProperty("--dur", (FX_ALTA/1000)+"s");
   carta.innerHTML =
     (fx.arte ? `<div class="fa-arte" style="background-image:url('${fx.arte}')"></div>` : "") +
     `<div class="fa-nom">${esc(fx.nombre)}</div>` +
-    `<div class="fa-sub">${esc(fx.jug)} · ${fx.nota||"alta médica"}</div>` +
-    `<div class="sello-alta">ALTA ✚</div>`;
+    `<div class="fa-sub">${esc(fx.jug)} · ${fx.nota||(celestial?"alta celestial · deja Sumario":"alta médica")}</div>` +
+    (celestial ? `<div class="sello-alta rojo">SUMARIO ⚠</div>`
+               : `<div class="sello-alta">ALTA ✚</div>`);
   cont.appendChild(carta);
   document.body.appendChild(cont);
   let fin = false;
   const irse = ()=>{ if(fin) return; fin = true; cont.remove(); luego(); };
-  // la moneda nace sobre la carta y vuela al marcador de altas del dueño
+  // la moneda: dorada vuela al marcador; la gris cae y se apaga
   setTimeout(()=>{
     if(fin) return;
-    const m = el("div","moneda", `+${fx.pts}`);
+    const m = el("div","moneda"+(celestial?" gris":""),
+                 (fx.pts>0?"+":"")+fx.pts);
     document.body.appendChild(m);
-    const destino = document.querySelector(
+    const destino = celestial ? null : document.querySelector(
       (fx.propio ? ".zona.cerca" : ".zona.lejos") + " .marca.al");
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      if(destino){
+      if(celestial){
+        m.style.transform = "translateY(46vh) rotate(24deg) scale(.55)";
+      } else if(destino){
         const r = destino.getBoundingClientRect();
         m.style.transform = `translate(${r.x + r.width/2 - innerWidth/2}px,` +
                             `${r.y + r.height/2 - innerHeight*0.26}px) scale(.35)`;
@@ -1551,10 +1577,8 @@ function celebrarAlta(fx, luego){
     }));
     setTimeout(()=>{
       m.remove();
-      const d2 = document.querySelector(
-        (fx.propio ? ".zona.cerca" : ".zona.lejos") + " .marca.al");
-      if(d2){ d2.classList.add("pop-marca");
-              setTimeout(()=>d2.classList.remove("pop-marca"), 520); }
+      if(destino){ destino.classList.add("pop-marca");
+                   setTimeout(()=>destino.classList.remove("pop-marca"), 520); }
     }, Math.round(FX_ALTA*0.34));
   }, Math.round(FX_ALTA*0.42));
   const tm = setTimeout(irse, FX_ALTA);
