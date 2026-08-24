@@ -2499,12 +2499,24 @@ function barraAcciones(){
 /* ══ capa: cortina, admisión, hojas ═════════════════════════════════ */
 function pintarCapa(){
   const capa = document.getElementById("capa");
+  // La rueda de avatares NO se reconstruye en cada render: rehacerla
+  // devolvía las 3 cartas a su posición cruda y volvían a acomodarse —
+  // ese era el tirón al elegir personaje (lo disparaba, entre otros, el
+  // temporizador de la franja SELECCIONA TU PERSONAJE a los 3,4 s).
+  if(!UI.modal && G && G.pendiente && G.pendiente.tipo==="avatar"){
+    if(capa.dataset.av === String(G.pendiente.jugador) &&
+       capa.querySelector(".rueda")) return;          // ya está montada
+    capa.innerHTML = "";
+    capa.dataset.av = String(G.pendiente.jugador);
+    capa.appendChild(modalAvatar());
+    return;
+  }
   capa.innerHTML = "";
+  delete capa.dataset.av;
   if(UI.modal){ capa.appendChild(UI.modal); return; }
   if(!G || !G.pendiente) return;
   if(G.pendiente.tipo==="pasa"){ capa.appendChild(cortina()); return; }
   if(G.pendiente.tipo==="admision"){ capa.appendChild(modalAdmision()); return; }
-  if(G.pendiente.tipo==="avatar"){ capa.appendChild(modalAvatar()); return; }
 }
 
 /* La rueda de personajes: los 3 giran sobre un eje vertical, SIN tope —
@@ -2513,8 +2525,8 @@ function pintarCapa(){
 const rueda = {x0:null, base:0, movio:false};
 function focoRueda(n){ return ((Math.round(UI.avPos||0) % n) + n) % n; }
 
-function pintarRueda(pos){
-  const cont = document.querySelector(".rueda");
+function pintarRueda(pos, donde){
+  const cont = donde || document.querySelector(".rueda");
   if(!cont) return;
   const cartas = cont.querySelectorAll(".av-carta");
   const n = cartas.length;
@@ -2529,7 +2541,8 @@ function pintarRueda(pos){
     c.style.opacity = (0.2+0.8*cerca).toFixed(2);
     c.style.zIndex = String(Math.round(10+20*cerca));
   });
-  const pista = document.querySelectorAll(".rueda-pista i");
+  const raiz = cont.parentNode || document;
+  const pista = raiz.querySelectorAll(".rueda-pista i");
   const f = ((Math.round(pos)%n)+n)%n;
   pista.forEach((i2,k)=>i2.classList.toggle("on", k===f));
 }
@@ -2609,7 +2622,7 @@ function modalAvatar(){
   m.appendChild(be);
   velo.appendChild(m);
   armarRueda(cont);
-  requestAnimationFrame(()=>pintarRueda(UI.avPos||0));
+  pintarRueda(UI.avPos||0, cont);   // ya colocadas al nacer, sin parpadeo
   return velo;
 }
 
