@@ -82,6 +82,17 @@ autobloquearían). Medido: el Personal **no escasea**, se vuelve una llave
 oferta. Vigilar en mesa la sensación de "tengo el TAC y no puedo jugarlo"
 (1,85 bloqueos por turno).
 
+✅ **¿Sacar los pacientes NEURO? Medido: no hace falta** (agosto 2026).
+La sospecha del autor era correcta en los datos —NEURO pide 8💊 vs 5🩻 y es
+el único sistema con CERO fármacos de sinergia (el Anticonvulsivante se fue
+en la cirugía v1.0 y nadie ocupó el hueco)— pero no se traduce en
+desbalance: NEURO salva al 68%, el promedio exacto del juego (METAB 73 ·
+CARD 72 · NEURO 68 · QUIR 66 · RESP 59). La etiqueta ×2 es acelerador, no
+requisito. Se dejó tal cual. 🔶 Dos cosas para la mesa: si NEURO se siente
+plano (nunca ×2 en fármacos), el arreglo barato es re-etiquetar UNA carta
+—Sedoanalgesia calza clínicamente con el Status— antes que sacar pacientes;
+y vigilar RESP (59%), que carga hacia lo grave.
+
 ⬜ **El mazo tiene ~12 cartas de holgura**: de 67 a 55 no cambia nada medible
 a 2 ni a 3 jugadores. A 50 se nota en las rebarajas. El simulador no mide
 la variedad que siente un humano — decidir en mesa.

@@ -355,6 +355,16 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   100%{opacity:1;transform:none}}
 .carta.no{opacity:.38}
 .carta.fantasmal{opacity:.25}
+/* arte de carta: aparece solo si cartas/arte/<id>.* existe */
+.carta .arte{height:44px;border-radius:5px;margin:-2px -2px 2px;
+             background-size:cover;background-position:center top;flex:none}
+.abanico .carta .arte{height:58px}
+.grande .g-arte{height:160px;border-radius:10px;margin-bottom:10px;
+                background-size:cover;background-position:center 25%}
+.av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
+                   background-size:cover;background-position:center 20%}
+.pfoto{width:24px;height:24px;border-radius:6px;flex:none;
+       background-size:cover;background-position:center;margin-right:1px}
 .carta-cab{display:flex;align-items:center;gap:3px}
 .carta-tipo{font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:600;
             letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
@@ -1771,6 +1781,11 @@ function vistaCama(c, i, duenio, propio){
   d.appendChild(raya);
 
   const cab = el("div","cama-cab");
+  if(c.p.arte){
+    const ft = el("i","pfoto");
+    ft.style.backgroundImage = `url("${c.p.arte}")`;
+    cab.appendChild(ft);
+  }
   cab.appendChild(el("span","pnom",esc(c.p.nombre)));
   const total = faltanTotal(c);
   cab.appendChild(el("span","faltan"+(total===0?" cero":""), total===0?"✓":String(total)));
@@ -2060,6 +2075,11 @@ function verCartaGrande(idx){
 
   const g = el("div","grande");
   g.style.borderLeftColor = TCOL[c.tipo] || TCOL.COMODIN;
+  if(c.arte){
+    const ga = el("div","g-arte");
+    ga.style.backgroundImage = `url("${c.arte}")`;
+    g.appendChild(ga);
+  }
   const cab = el("div","g-cab");
   cab.innerHTML = ico(c.tipo) + `<span>${TNOM[c.tipo]||c.tipo}</span>`;
   g.appendChild(cab);
@@ -2109,9 +2129,10 @@ function verCartaGrande(idx){
 }
 
 function cuerpoCarta(c){
-  let h = `<div class="carta-cab">${ico(c.tipo)}`+
-          `<span class="carta-tipo">${TNOM[c.tipo]||c.tipo}</span></div>`+
-          `<div class="carta-nom">${esc(c.nombre)}</div>`;
+  let h = c.arte ? `<i class="arte" style="background-image:url('${c.arte}')"></i>` : "";
+  h += `<div class="carta-cab">${ico(c.tipo)}`+
+       `<span class="carta-tipo">${TNOM[c.tipo]||c.tipo}</span></div>`+
+       `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
     h += `<span class="etiq x2" style="color:${SIS[c.sistema][1]}">${SIS[c.sistema][0]} ×2</span>`;
   if(c.cirujano) h += `<span class="etiq x2">×2 personal</span>`;
@@ -2353,7 +2374,8 @@ function modalAvatar(){
   p.ops.forEach((o,i)=>{
     const c = el("button","op av-carta");
     c.dataset.i = i;
-    c.innerHTML = `<div class="av-rol">${esc(o.frecuencia)}</div>`+
+    c.innerHTML = (o.arte ? `<div class="av-arte" style="background-image:url('${o.arte}')"></div>` : "")+
+      `<div class="av-rol">${esc(o.frecuencia)}</div>`+
       `<div class="av-nom">${esc(o.nombre)}</div>`+
       `<div class="av-hab">${esc(o.habilidad)}</div>`+
       `<div class="av-frase">“${esc(o.frase)}”</div>`;

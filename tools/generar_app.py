@@ -12,7 +12,9 @@ no se puedan llevar las cartas.
     python3 tools/generar_app.py
 """
 
+import base64
 import csv
+import io
 import json
 import os
 
@@ -27,6 +29,42 @@ COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per",
 def leer(*partes):
     with open(os.path.join(RAIZ, *partes), encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def cargar_arte():
+    """cartas/arte/<id>.(png|jpg|webp) → data-URI por id de carta.
+    Se recomprime a WebP ~500 px para que la app quede bajo los 16 MB."""
+    carpeta = os.path.join(RAIZ, "cartas", "arte")
+    arte = {}
+    if not os.path.isdir(carpeta):
+        return arte
+    try:
+        from PIL import Image
+    except ImportError:
+        Image = None
+    for nombre in sorted(os.listdir(carpeta)):
+        raiz, ext = os.path.splitext(nombre)
+        if ext.lower() not in (".png", ".jpg", ".jpeg", ".webp"):
+            continue
+        ruta = os.path.join(carpeta, nombre)
+        datos_img = open(ruta, "rb").read()
+        mime = "image/webp"
+        if Image is not None:
+            im = Image.open(io.BytesIO(datos_img)).convert("RGB")
+            if im.width > 520:
+                im = im.resize((520, round(im.height * 520 / im.width)))
+            buf = io.BytesIO()
+            im.save(buf, "WEBP", quality=80)
+            if buf.tell() < len(datos_img):
+                datos_img = buf.getvalue()
+            else:
+                mime = {".png": "image/png", ".webp": "image/webp"}.get(
+                    ext.lower(), "image/jpeg")
+        else:
+            mime = {".png": "image/png", ".webp": "image/webp"}.get(
+                ext.lower(), "image/jpeg")
+        arte[raiz.upper()] = f"data:{mime};base64," +             base64.b64encode(datos_img).decode()
+    return arte
 
 
 def datos():
@@ -67,6 +105,17 @@ def datos():
         "habilidad": c["habilidad"], "frase": c["frase"],
     } for c in leer("cartas", "personajes.csv")]
 
+    arte = cargar_arte()
+    for lista in (pacientes, recursos, acciones, personajes):
+        for c in lista:
+            if c.get("id") and c["id"].upper() in arte:
+                c["arte"] = arte[c["id"].upper()]
+    if arte:
+        usados = {c["id"].upper() for l in (pacientes, recursos, acciones,
+                  personajes) for c in l if c.get("arte")}
+        sueltos = set(arte) - usados
+        print(f"  arte: {len(usados)} cartas ilustradas" +
+              (f" · sin dueño: {', '.join(sorted(sueltos))}" if sueltos else ""))
     return {"pacientes": pacientes, "recursos": recursos,
             "acciones": acciones, "personajes": personajes}
 
