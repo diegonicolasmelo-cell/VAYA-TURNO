@@ -167,11 +167,36 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .tira .vacio{font-size:10px;color:var(--ink-3);font-style:italic}
 
 /* ── pie: mano + acciones ───────────────────────────────────────────── */
-.pie{flex:none;position:sticky;bottom:0;background:var(--paper);
-     border-top:1px solid var(--line);box-shadow:0 -3px 14px rgba(22,36,46,.09);z-index:10}
-.mano-rot{padding:8px 10px 0;font-size:9.5px;font-weight:700;letter-spacing:.11em;
-          text-transform:uppercase;color:var(--ink-3);display:flex;gap:6px;
-          align-items:center;flex-wrap:wrap;row-gap:5px;white-space:nowrap}
+/* v0.39: la mano flota SOBRE el tablero (estilo Pocket): sin panel sólido,
+   el juego se ve debajo y solo las cartas y los controles reciben el dedo */
+.pie{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:600px;
+     background:transparent;z-index:45;pointer-events:none}
+.pie::after{content:"";position:absolute;left:0;right:0;bottom:0;height:64px;
+     background:linear-gradient(180deg,transparent,rgba(22,36,46,.12));
+     pointer-events:none;z-index:-1}
+.pie .acciones,.pie .mano-rot{pointer-events:auto}
+/* el tablero reserva solo una franja abajo: el resto queda a la vista */
+.app{padding-bottom:calc(156px + env(safe-area-inset-bottom,0px))}
+
+/* mientras arrastras una carta, la mano se aparta para despejar tus camas */
+body.arrastrando .pie .mano,body.arrastrando .pie .mano-rot,
+body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
+     transition:opacity .15s ease}
+
+/* la mano plegada: una pastilla para volver a abrirla */
+.mano-cerrada{display:flex;justify-content:flex-end;padding:0 10px 10px;
+     pointer-events:none}
+.mano-cerrada button{pointer-events:auto;display:flex;align-items:center;gap:7px;
+     padding:9px 14px;border-radius:99px;background:var(--paper);
+     border:1px solid var(--line);box-shadow:0 4px 16px rgba(22,36,46,.18);
+     font-weight:700;font-size:12.5px}
+.mano-rot{margin:0 8px 4px;padding:6px 10px;font-size:9.5px;font-weight:700;
+          letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2);
+          display:flex;gap:6px;align-items:center;flex-wrap:wrap;row-gap:5px;
+          white-space:nowrap;background:rgba(255,255,255,.86);
+          -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+          border:1px solid var(--line);border-radius:99px;
+          box-shadow:0 2px 10px rgba(22,36,46,.1)}
 .mano-rot span{flex:1;height:1px;background:var(--line-2)}
 .coloc-caja{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;
             background:var(--acc-soft);color:var(--ink);letter-spacing:.02em;
@@ -179,15 +204,24 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .coloc-caja i{width:9px;height:9px;border-radius:99px;background:var(--acc);flex:none}
 .coloc-caja i.off{background:var(--line)}
 .mano{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
-      padding:6px 10px 8px}
+      padding:8px;margin:0 8px;pointer-events:auto;
+      background:rgba(255,255,255,.93);border:1px solid var(--line);
+      border-radius:12px;box-shadow:0 6px 22px rgba(22,36,46,.16);
+      -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 @media (max-width:349px){.mano{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 /* ── la mano en abanico (v0.37) ──────────────────────────────────────
    Las cartas se solapan en arco; deslizas para navegar y la del centro
    crece hasta ser legible de verdad. La cuadrícula sigue existiendo:
    sirve para comparar las 6 de un vistazo y para marcar descartes.   */
-.mano.abanico{display:block;position:relative;height:208px;padding:0;
-              overflow:hidden;touch-action:pan-y}
+.mano.abanico{display:block;position:relative;height:208px;padding:0;margin:0;
+              overflow:visible;background:none;border:0;box-shadow:none;
+              -webkit-backdrop-filter:none;backdrop-filter:none;
+              pointer-events:none;
+              /* touch-action none: en el teléfono el navegador se quedaba con
+                 el gesto (pan) y el hojeo nunca recibía los pointermove */
+              touch-action:none}
+.mano.abanico .ranura{pointer-events:auto;touch-action:none}
 .ranura{position:absolute;left:50%;bottom:34px;width:118px;
         transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
                   rotate(var(--a)) scale(var(--s));
@@ -207,10 +241,7 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
                                0 3px 8px rgba(22,36,46,.14)}
 .ranura.foco .carta.no{opacity:.55}
 /* la pista de que hay más cartas a los lados */
-.abanico-borde{position:absolute;top:0;bottom:0;width:26px;z-index:40;
-               pointer-events:none}
-.abanico-borde.izq{left:0;background:linear-gradient(90deg,var(--paper),transparent)}
-.abanico-borde.der{right:0;background:linear-gradient(270deg,var(--paper),transparent)}
+.abanico-borde{display:none}
 .puntos-mano{position:absolute;left:0;right:0;bottom:3px;z-index:41;display:flex;
              gap:4px;justify-content:center;pointer-events:none}
 .puntos-mano i{width:5px;height:5px;border-radius:99px;background:var(--line)}
@@ -313,6 +344,9 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
           rotate:-4deg}
 
 .acciones{display:flex;gap:6px;padding:0 10px 10px}
+.pie .acciones .btn{box-shadow:0 4px 14px rgba(22,36,46,.18)}
+.pie .acciones .btn:not(.pri){background:rgba(246,250,250,.95);
+     -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .btn{flex:1;padding:11px 8px;border-radius:8px;border:1px solid var(--line);
      background:var(--cerca);font-weight:600;font-size:13px;text-align:center;
      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease}
@@ -1782,6 +1816,18 @@ function pie(){
   const j = yo();
   const f = el("div","pie");
   const descartando = G.pendiente && G.pendiente.tipo==="descartar";
+  // plegada: solo la pastilla para reabrir y la barra de fase
+  if(UI.manoOculta && !descartando){
+    const cc = el("div","mano-cerrada");
+    const btn = el("button",null,
+      `🂠 Tu mano · ${j.mano.length}` +
+      (G.fase===1 && !j.ia ? ` · ${j.coloc} coloc.` : "") + " ▲");
+    btn.onclick = ()=>{ UI.manoOculta = false; render(); };
+    cc.appendChild(btn);
+    f.appendChild(cc);
+    f.appendChild(barraAcciones());
+    return f;
+  }
   const sobra = j.mano.length - limiteMano(j);
   const rot = el("div","mano-rot");
   rot.innerHTML = `Tu mano · ${j.mano.length}`+
@@ -1803,6 +1849,13 @@ function pie(){
     mb.setAttribute("aria-label", mb.title);
     mb.onclick = cambiarModoMano;
     rot.appendChild(mb);
+  }
+  if(!j.ia && !descartando){
+    const ob = el("button","mano-modo","▼");
+    ob.title = "Plegar la mano para ver el tablero";
+    ob.setAttribute("aria-label", ob.title);
+    ob.onclick = ()=>{ UI.manoOculta = true; render(); };
+    rot.appendChild(ob);
   }
   f.appendChild(rot);
 
@@ -2077,6 +2130,7 @@ function moverCarta(ev){
     arrastre.activo = true;
     arrastre.huboArrastre = true;
     UI.sel = arrastre.carta;
+    document.body.classList.add("arrastrando"); // la mano se aparta del medio
     render();                                   // enciende las camas válidas
     const g = el("div","carta fantasma");
     g.style.width = (arrastre.boton ? arrastre.boton.offsetWidth : 96) + "px";
@@ -2098,6 +2152,7 @@ function soltarCarta(ev){
   window.removeEventListener("pointerup", soltarCarta);
   window.removeEventListener("pointercancel", soltarCarta);
   const a = arrastre.activo, sobre = arrastre.sobre, carta = arrastre.carta;
+  document.body.classList.remove("arrastrando");
   if(arrastre.fantasma) arrastre.fantasma.remove();
   arrastre.carta = null; arrastre.boton = null;
   arrastre.fantasma = null; arrastre.sobre = null; arrastre.activo = false;
