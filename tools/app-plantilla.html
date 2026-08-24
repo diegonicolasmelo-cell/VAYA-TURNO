@@ -285,6 +285,35 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .btn-pizarra.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
 .btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
 
+/* ── la rueda de personajes: carrusel circular sin tope ──────────────
+   Los 3 giran sobre un eje vertical; deslizas y da la vuelta completa. */
+.rueda{position:relative;height:270px;margin:4px 0 10px;perspective:800px;
+       touch-action:none;overflow:hidden}
+.rueda .op.av-carta{position:absolute;left:50%;top:6px;width:232px;
+       margin-left:-116px;padding:14px 14px 12px;text-align:left;
+       background:var(--paper);border:1px solid var(--line);border-radius:13px;
+       box-shadow:0 8px 24px rgba(22,36,46,.16);
+       transition:transform .28s cubic-bezier(.2,.9,.3,1), opacity .28s ease;
+       will-change:transform}
+.rueda.viva .op.av-carta{transition:none}
+.av-rol{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+        letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
+.av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
+        line-height:1.1;margin:4px 0 7px}
+.av-hab{font-size:12px;line-height:1.4;color:var(--ink-2)}
+.av-frase{font-family:Petrona,Georgia,serif;font-style:italic;font-size:11.5px;
+          color:var(--ink-3);margin-top:8px;line-height:1.35}
+.rueda-pista{display:flex;gap:5px;justify-content:center;margin:0 0 10px}
+.rueda-pista i{width:6px;height:6px;border-radius:99px;background:var(--line)}
+.rueda-pista i.on{background:var(--acc);width:16px}
+
+/* plegar la mano vive APARTE de la mano: botón redondo, arriba a la
+   derecha del abanico, lejos de las cartas y de los otros controles */
+.btn-plegar{position:absolute;right:8px;top:-14px;width:42px;height:42px;
+       border-radius:99px;background:rgba(255,255,255,.94);z-index:44;
+       border:1px solid var(--line);box-shadow:0 4px 14px rgba(22,36,46,.2);
+       font-size:16px;line-height:1;color:var(--ink-2);pointer-events:auto}
+
 .grande{background:var(--paper);border-radius:14px;border:1px solid var(--line);
         border-left:5px solid var(--line);padding:14px;
         box-shadow:0 10px 30px rgba(22,36,46,.2)}
@@ -605,6 +634,7 @@ function siguienteAvatar(){
   if(i < 0){ G.pendiente = null; entrarFase(0); return; }
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
+  UI.avPos = 0;
   if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE", 3400);
   guardar(); render();
 }
@@ -826,8 +856,8 @@ function elegirUno(titulo, ayuda, ops, fn, no, prefiere){
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",esc(titulo)));
-  if(ayuda) m.appendChild(el("p",ayuda));
+  m.appendChild(el("h2",null,esc(titulo)));
+  if(ayuda) m.appendChild(el("p",null,ayuda));
   const cont = el("div","opciones");
   ops.forEach(o=>{
     const b = el("button","op");
@@ -1852,11 +1882,11 @@ function pie(){
     rot.appendChild(mb);
   }
   if(!j.ia && !descartando){
-    const ob = el("button","mano-modo","▼");
+    const ob = el("button","btn-plegar","▼");
     ob.title = "Plegar la mano para ver el tablero";
     ob.setAttribute("aria-label", ob.title);
     ob.onclick = ()=>{ UI.manoOculta = true; render(); };
-    rot.appendChild(ob);
+    f.appendChild(ob);
   }
 
   // el abanico estorba para marcar varios descartes: ahí manda la cuadrícula
@@ -2246,24 +2276,108 @@ function pintarCapa(){
   if(G.pendiente.tipo==="avatar"){ capa.appendChild(modalAvatar()); return; }
 }
 
+/* La rueda de personajes: los 3 giran sobre un eje vertical, SIN tope —
+   si sigues hacia la derecha, da la vuelta completa. Tocar al del centro
+   (o el botón) lo elige; tocar uno de lado lo trae al centro. */
+const rueda = {x0:null, base:0, movio:false};
+function focoRueda(n){ return ((Math.round(UI.avPos||0) % n) + n) % n; }
+
+function pintarRueda(pos){
+  const cont = document.querySelector(".rueda");
+  if(!cont) return;
+  const cartas = cont.querySelectorAll(".av-carta");
+  const n = cartas.length;
+  cartas.forEach(c=>{
+    let d = ((+c.dataset.i - pos) % n + n) % n;   // distancia circular
+    if(d > n/2) d -= n;
+    const th = d * 2*Math.PI/n;
+    const x = Math.sin(th) * 132;
+    const cerca = (Math.cos(th)+1)/2;             // 1 al frente, 0 atrás
+    c.style.transform = `translateX(${x}px) rotateY(${(-th*32).toFixed(1)}deg)`+
+                        ` scale(${(0.68+0.34*cerca).toFixed(3)})`;
+    c.style.opacity = (0.2+0.8*cerca).toFixed(2);
+    c.style.zIndex = String(Math.round(10+20*cerca));
+  });
+  const pista = document.querySelectorAll(".rueda-pista i");
+  const f = ((Math.round(pos)%n)+n)%n;
+  pista.forEach((i2,k)=>i2.classList.toggle("on", k===f));
+}
+
+function armarRueda(cont){
+  cont.addEventListener("pointerdown", ev=>{
+    rueda.x0 = ev.clientX; rueda.base = UI.avPos||0; rueda.movio = false;
+    window.addEventListener("pointermove", ruedaMover);
+    window.addEventListener("pointerup", ruedaFin);
+    window.addEventListener("pointercancel", ruedaFin);
+  });
+}
+function ruedaMover(ev){
+  if(rueda.x0===null) return;
+  const dx = ev.clientX - rueda.x0;
+  if(!rueda.movio){
+    if(Math.abs(dx) < 9) return;
+    rueda.movio = true;
+    try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
+    const c = document.querySelector(".rueda");
+    if(c) c.classList.add("viva");
+  }
+  UI.avPos = rueda.base - dx/150;      // sin tope: gira y gira
+  pintarRueda(UI.avPos);
+}
+function ruedaFin(){
+  window.removeEventListener("pointermove", ruedaMover);
+  window.removeEventListener("pointerup", ruedaFin);
+  window.removeEventListener("pointercancel", ruedaFin);
+  if(rueda.movio){
+    UI.avPos = Math.round(UI.avPos||0);
+    const c = document.querySelector(".rueda");
+    if(c) c.classList.remove("viva");
+    pintarRueda(UI.avPos);
+  }
+  const m = rueda.movio;
+  rueda.x0 = null; rueda.movio = false;
+  if(m) setTimeout(()=>{ rueda.movio = false; }, 60);
+  rueda.hubo = m;
+  if(m) setTimeout(()=>{ rueda.hubo = false; }, 80);
+}
+
 function modalAvatar(){
   const p = G.pendiente;
+  const n = p.ops.length;
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",`${esc(G.jug[p.jugador].nombre)}: elige tu personaje`));
-  m.appendChild(el("p","Se revelan 3. Los que no elijas vuelven a la reserva."));
-  const cont = el("div","opciones");
-  p.ops.forEach(o=>{
-    const b = el("button","op");
-    b.innerHTML = `<b>${esc(o.nombre)}</b>`+
-      `<small><b>${esc(o.frecuencia)}</b> · ${esc(o.habilidad)}</small>`+
-      `<small style="font-style:italic">${esc(o.frase)}</small>`;
-    b.onclick = ()=> resolverAvatar(o);
-    cont.appendChild(b);
+  m.appendChild(el("h2",null,`${esc(G.jug[p.jugador].nombre)}: elige tu personaje`));
+  m.appendChild(el("p",null,"Gira la rueda — no tiene tope — y toca al del centro para quedártelo."));
+  const cont = el("div","rueda");
+  p.ops.forEach((o,i)=>{
+    const c = el("button","op av-carta");
+    c.dataset.i = i;
+    c.innerHTML = `<div class="av-rol">${esc(o.frecuencia)}</div>`+
+      `<div class="av-nom">${esc(o.nombre)}</div>`+
+      `<div class="av-hab">${esc(o.habilidad)}</div>`+
+      `<div class="av-frase">“${esc(o.frase)}”</div>`;
+    c.onclick = ()=>{
+      if(rueda.hubo){ rueda.hubo = false; return; }
+      const f = focoRueda(n);
+      if(i === f){ resolverAvatar(o); return; }
+      let d = ((i - (UI.avPos||0)) % n + n) % n;   // girar hasta traerlo
+      if(d > n/2) d -= n;
+      UI.avPos = Math.round((UI.avPos||0) + d);
+      pintarRueda(UI.avPos);
+    };
+    cont.appendChild(c);
   });
   m.appendChild(cont);
+  const pista = el("div","rueda-pista");
+  p.ops.forEach(()=>pista.appendChild(el("i")));
+  m.appendChild(pista);
+  const be = el("button","btn pri","Quedarme con este");
+  be.onclick = ()=> resolverAvatar(p.ops[focoRueda(n)]);
+  m.appendChild(be);
   velo.appendChild(m);
+  armarRueda(cont);
+  requestAnimationFrame(()=>pintarRueda(UI.avPos||0));
   return velo;
 }
 
@@ -2282,8 +2396,8 @@ function modalAdmision(){
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2","Admisión obligatoria"));
-  m.appendChild(el("p","Elige a quién le das la cama. El otro vuelve al fondo de Urgencias."));
+  m.appendChild(el("h2",null,"Admisión obligatoria"));
+  m.appendChild(el("p",null,"Elige a quién le das la cama. El otro vuelve al fondo de Urgencias."));
   const cont = el("div","opciones");
   ops.forEach(o=>{
     const b = el("button","op");
@@ -2301,7 +2415,7 @@ function hoja(titulo, construir){
   const velo = el("div","velo");
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",esc(titulo)));
+  m.appendChild(el("h2",null,esc(titulo)));
   construir(m, ()=>{ UI.modal=null; render(); });
   velo.appendChild(m);
   velo.onclick = e => { if(e.target===velo){ UI.modal=null; render(); } };
@@ -2340,7 +2454,7 @@ function abrirPanel(){
     if(yo().avatar){
       const av = el("div","bloque");
       av.appendChild(el("h3",null,"Tu avatar"));
-      av.appendChild(el("p",`<b>${esc(yo().avatar.nombre)}</b> · ${esc(yo().avatar.frecuencia)}<br>${esc(yo().avatar.habilidad)}`));
+      av.appendChild(el("p",null,`<b>${esc(yo().avatar.nombre)}</b> · ${esc(yo().avatar.frecuencia)}<br>${esc(yo().avatar.habilidad)}`));
       m.appendChild(av);
     }
 
@@ -2368,7 +2482,7 @@ function abrirCompra(idx){
   const j = yo(); const a = G.pizarra[idx]; const coste = +a.coste;
   const marcados = [];
   hoja(`Tomar · ${a.nombre}`, (m, cerrar)=>{
-    m.appendChild(el("p",`Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano. Marca cuáles descartas. No gasta colocación.`));
+    m.appendChild(el("p",null,`Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano. Marca cuáles descartas. No gasta colocación.`));
     const cont = el("div","opciones");
     let confirmar;
     j.mano.forEach(c=>{
@@ -2402,8 +2516,8 @@ function abrirCompra(idx){
 
 function alertaAccion(a){
   hoja(a.nombre, (m, cerrar)=>{
-    m.appendChild(el("p",`<b>${esc(a.tipo)}</b> · ${esc(a.texto)}`));
-    m.appendChild(el("p",`<i>“${esc(a.frase)}”</i>`));
+    m.appendChild(el("p",null,`<b>${esc(a.tipo)}</b> · ${esc(a.texto)}`));
+    m.appendChild(el("p",null,`<i>“${esc(a.frase)}”</i>`));
     const puede = puedeJugarAccion(a);
     if(!puede) m.appendChild(el("p",
       accionesBloqueadas() ? "El sistema está caído: esta ronda nadie juega Acciones."
