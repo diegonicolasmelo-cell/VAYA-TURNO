@@ -493,6 +493,49 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   30%{transform:scale(1)} 72%{opacity:1;transform:translateY(-8px)}
   100%{opacity:0;transform:translateY(-16px)}}
 
+/* ── LA CEREMONIA DEL ALTA (v0.44): el punto se gana con bombos ──────
+   El equivalente a anotar el punto en un TCG: la carta del paciente se
+   presenta, cae el timbre de ALTA y la moneda vuela a tu marcador. */
+.altafx{position:fixed;inset:0;z-index:82;display:flex;justify-content:center;
+        align-items:flex-start;padding-top:15vh;pointer-events:none}
+.fa-carta{pointer-events:auto;position:relative;width:216px;background:var(--paper);
+        border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;
+        box-shadow:0 0 0 4px rgba(35,122,91,.25), 0 24px 70px rgba(9,25,32,.5);
+        overflow:hidden;animation:faEntra .45s cubic-bezier(.2,1.2,.3,1),
+                                  faSale .4s ease calc(var(--dur) - .4s) forwards}
+@keyframes faEntra{0%{transform:translateY(34px) scale(.7);opacity:0}
+                   100%{transform:none;opacity:1}}
+@keyframes faSale{to{transform:translateY(-44px) scale(.92);opacity:0}}
+.fa-carta::after{content:"";position:absolute;inset:0;pointer-events:none;
+        background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.55) 47%,
+                   rgba(255,255,255,.55) 52%,transparent 66%);
+        transform:translateX(-110%);animation:brillo .9s ease .45s forwards}
+.fa-arte{height:104px;border-radius:9px;margin:-4px -4px 9px;
+         background-size:cover;background-position:center 22%}
+.fa-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
+        line-height:1.12}
+.fa-sub{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+        letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+        margin-top:5px}
+.sello-alta{position:absolute;right:8px;top:10px;transform:rotate(9deg);
+        font-family:"IBM Plex Mono",monospace;font-weight:700;font-size:15px;
+        letter-spacing:.12em;color:var(--ok);border:3px solid var(--ok);
+        border-radius:7px;padding:3px 9px;background:rgba(244,251,248,.9);
+        animation:sello .38s cubic-bezier(.2,1.6,.4,1) .3s backwards}
+@keyframes sello{0%{transform:rotate(-14deg) scale(2.4);opacity:0}
+                 100%{transform:rotate(9deg) scale(1);opacity:1}}
+.moneda{position:fixed;left:50%;top:26%;z-index:83;width:48px;height:48px;
+        margin:-24px 0 0 -24px;border-radius:99px;display:flex;align-items:center;
+        justify-content:center;font-family:"IBM Plex Mono",monospace;
+        font-weight:700;font-size:16px;color:#5c4102;
+        background:radial-gradient(circle at 34% 30%,#ffe9a8,#f4c542 58%,#c99a1f);
+        box-shadow:inset 0 -2px 4px rgba(92,65,2,.4), inset 0 2px 3px rgba(255,255,255,.7),
+                   0 6px 18px rgba(9,25,32,.35);
+        transition:transform .62s cubic-bezier(.45,.05,.75,.4), opacity .62s ease;
+        animation:monedaNace .3s cubic-bezier(.2,1.5,.4,1)}
+@keyframes monedaNace{0%{transform:scale(0)}100%{transform:scale(1)}}
+.pop-marca{animation:gasto .5s ease}
+
 /* la jugada de la IA se revela al centro: se lee la carta antes de seguir */
 .revelada{position:fixed;left:0;right:0;top:13%;z-index:76;display:flex;
           flex-direction:column;align-items:center;gap:9px;
@@ -1197,7 +1240,9 @@ A22:{ // Alta Anticipada
         c.puestos.forEach(x=>G.descG.push(x));
         j.camas[i] = null;
         anota("a",`ALTA ANTICIPADA · ${c.p.nombre} (+${c.p.alta} −2) — ${j.nombre}`);
-        aviso("ok",`🚪 Alta anticipada: ${esc(c.p.nombre)} <b>+${c.p.alta - 2}</b>`);
+        (UI.fxAltas = UI.fxAltas || []).push({
+          nombre:c.p.nombre, pts:c.p.alta - 2, jug:j.nombre, arte:c.p.arte,
+          nota:"alta anticipada · −2", propio: !(G.modo==="ia" && j.ia) });
         ok();
       }, no, ops=>{                      // la IA: solo si el alta paga la pena
         const b = ops.slice().sort((x,y)=>y.val.p.alta - x.val.p.alta)[0];
@@ -1339,7 +1384,9 @@ function faseEntrega(){
       j.altas.push(c.p);
       c.puestos.forEach(x=>G.descG.push(x));
       anota("a", `ALTA · ${c.p.nombre} (+${c.p.alta}) — ${j.nombre}`);
-      aviso("ok", `✚ Alta: ${esc(c.p.nombre)} <b>+${c.p.alta}</b> · ${esc(j.nombre)}`);
+      (UI.fxAltas = UI.fxAltas || []).push({
+        nombre:c.p.nombre, pts:c.p.alta, jug:j.nombre, arte:c.p.arte,
+        propio: !(G.modo==="ia" && j.ia) });
       j.camas[i] = null;
     }
   });
@@ -1469,7 +1516,56 @@ function iaSabotaje(j){
    bitácora a entender qué pasó. Ahora es una secuencia: cada jugada de la
    IA revela la carta al centro —legible— y recién después cae la
    siguiente. Tocar la revelación la adelanta. */
-let IA_PAUSA = 1250;          // ritmo entre jugadas; los tests lo bajan
+let IA_PAUSA = 2000;          // ritmo entre jugadas; los tests lo bajan
+let FX_ALTA  = 2000;          // duración de la ceremonia del alta
+
+function celebrarAlta(fx, luego){
+  const cont = el("div","altafx");
+  const carta = el("div","fa-carta");
+  carta.style.setProperty("--dur", (FX_ALTA/1000)+"s");
+  carta.innerHTML =
+    (fx.arte ? `<div class="fa-arte" style="background-image:url('${fx.arte}')"></div>` : "") +
+    `<div class="fa-nom">${esc(fx.nombre)}</div>` +
+    `<div class="fa-sub">${esc(fx.jug)} · ${fx.nota||"alta médica"}</div>` +
+    `<div class="sello-alta">ALTA ✚</div>`;
+  cont.appendChild(carta);
+  document.body.appendChild(cont);
+  let fin = false;
+  const irse = ()=>{ if(fin) return; fin = true; cont.remove(); luego(); };
+  // la moneda nace sobre la carta y vuela al marcador de altas del dueño
+  setTimeout(()=>{
+    if(fin) return;
+    const m = el("div","moneda", `+${fx.pts}`);
+    document.body.appendChild(m);
+    const destino = document.querySelector(
+      (fx.propio ? ".zona.cerca" : ".zona.lejos") + " .marca.al");
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(destino){
+        const r = destino.getBoundingClientRect();
+        m.style.transform = `translate(${r.x + r.width/2 - innerWidth/2}px,` +
+                            `${r.y + r.height/2 - innerHeight*0.26}px) scale(.35)`;
+      } else {
+        m.style.transform = "translateY(-40vh) scale(.35)";
+      }
+      m.style.opacity = "0.1";
+    }));
+    setTimeout(()=>{
+      m.remove();
+      const d2 = document.querySelector(
+        (fx.propio ? ".zona.cerca" : ".zona.lejos") + " .marca.al");
+      if(d2){ d2.classList.add("pop-marca");
+              setTimeout(()=>d2.classList.remove("pop-marca"), 520); }
+    }, Math.round(FX_ALTA*0.34));
+  }, Math.round(FX_ALTA*0.42));
+  const tm = setTimeout(irse, FX_ALTA);
+  cont.addEventListener("pointerdown", ev=>{ ev.stopPropagation();
+    clearTimeout(tm); irse(); });
+}
+function colaAltas(){
+  if(UI.fxViva || !UI.fxAltas || !UI.fxAltas.length) return;
+  UI.fxViva = true;
+  celebrarAlta(UI.fxAltas.shift(), ()=>{ UI.fxViva = false; colaAltas(); });
+}
 
 function revelarIA(cartaHtml, txt, luego){
   const r = el("div","revelada");
@@ -1496,6 +1592,11 @@ function revProt(a){
 function iaJuega(){
   const j = yo();
   if(G.fin || !j.ia || G.fase!==1) return;
+  if(UI.fxViva){                       // primero termina la ceremonia del alta
+    clearTimeout(UI.iaT);
+    UI.iaT = setTimeout(iaJuega, 300);
+    return;
+  }
 
   // 1. jugar un Protocolo guardado (un solo intento por turno)
   if(!j._pi && !j.accionHecha && !accionesBloqueadas()){
@@ -1636,6 +1737,7 @@ function render(){
     app.appendChild(fr);
   }
   pintarCapa();
+  colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
   // veces en la misma pasada síncrona (0→1 anidado), así que la limpieza va
   // diferida: todos los renders del mismo latido conservan la clase
