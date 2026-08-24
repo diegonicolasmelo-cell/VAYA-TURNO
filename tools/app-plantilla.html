@@ -170,7 +170,8 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .pie{flex:none;position:sticky;bottom:0;background:var(--paper);
      border-top:1px solid var(--line);box-shadow:0 -3px 14px rgba(22,36,46,.09);z-index:10}
 .mano-rot{padding:8px 10px 0;font-size:9.5px;font-weight:700;letter-spacing:.11em;
-          text-transform:uppercase;color:var(--ink-3);display:flex;gap:6px;align-items:center}
+          text-transform:uppercase;color:var(--ink-3);display:flex;gap:6px;
+          align-items:center;flex-wrap:wrap;row-gap:5px;white-space:nowrap}
 .mano-rot span{flex:1;height:1px;background:var(--line-2)}
 .coloc-caja{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;
             background:var(--acc-soft);color:var(--ink);letter-spacing:.02em;
@@ -180,6 +181,65 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .mano{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
       padding:6px 10px 8px}
 @media (max-width:349px){.mano{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ── la mano en abanico (v0.37) ──────────────────────────────────────
+   Las cartas se solapan en arco; deslizas para navegar y la del centro
+   crece hasta ser legible de verdad. La cuadrícula sigue existiendo:
+   sirve para comparar las 6 de un vistazo y para marcar descartes.   */
+.mano.abanico{display:block;position:relative;height:198px;padding:0;
+              overflow:hidden;touch-action:pan-y}
+.ranura{position:absolute;left:50%;bottom:32px;width:118px;
+        transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
+                  rotate(var(--a)) scale(var(--s));
+        transform-origin:50% 135%;
+        transition:transform .24s cubic-bezier(.2,.9,.3,1), opacity .2s ease;
+        z-index:var(--z)}
+.ranura.lejos{opacity:0;pointer-events:none}
+.abanico .carta{width:100%;min-height:132px;padding:8px}
+.abanico .carta .carta-nom{font-size:13px}
+.abanico .carta .carta-tipo{font-size:8.5px}
+.abanico .carta .etiq{font-size:8.5px;padding:2px 5px}
+.abanico .carta .carta-pie{font-size:9.5px}
+.ranura.foco .carta{box-shadow:0 10px 26px rgba(22,36,46,.26),
+                               0 3px 8px rgba(22,36,46,.14)}
+.ranura.foco .carta.no{opacity:.55}
+/* la pista de que hay más cartas a los lados */
+.abanico-borde{position:absolute;top:0;bottom:0;width:26px;z-index:40;
+               pointer-events:none}
+.abanico-borde.izq{left:0;background:linear-gradient(90deg,var(--paper),transparent)}
+.abanico-borde.der{right:0;background:linear-gradient(270deg,var(--paper),transparent)}
+.puntos-mano{position:absolute;left:0;right:0;bottom:3px;z-index:41;display:flex;
+             gap:4px;justify-content:center;pointer-events:none}
+.puntos-mano i{width:5px;height:5px;border-radius:99px;background:var(--line)}
+.puntos-mano i.on{background:var(--acc);width:14px}
+.mano-modo{margin-left:auto;font-size:13px;line-height:1;color:var(--ink-2);
+           border:1px solid var(--line);border-radius:8px;width:30px;height:24px;
+           background:var(--cerca);flex:none}
+
+/* ── la carta en grande ──────────────────────────────────────────── */
+.grande{background:var(--paper);border-radius:14px;border:1px solid var(--line);
+        border-left:5px solid var(--line);padding:14px;
+        box-shadow:0 10px 30px rgba(22,36,46,.2)}
+.grande .g-cab{display:flex;align-items:center;gap:6px;
+               font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
+               letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.grande .g-cab .ico{font-size:19px}
+.grande h3{font-family:Petrona,Georgia,serif;font-size:23px;line-height:1.1;
+           margin:6px 0 8px;font-weight:700}
+.grande .g-etiqs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.grande .g-etiqs .etiq{font-size:10px;padding:3px 8px}
+.grande .g-txt{font-size:13px;line-height:1.45;color:var(--ink-2)}
+.grande .g-warn{margin-top:10px;padding:9px 11px;border-radius:9px;
+                background:#fdf4e3;border:1px solid #e6d3a8;font-size:12.5px;
+                line-height:1.4;color:#6b4a09}
+.grande .g-frase{margin-top:10px;font-family:Petrona,Georgia,serif;
+                 font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.4}
+.grande-nav{display:flex;align-items:center;gap:8px;margin-top:10px}
+.grande-nav .cual{flex:1;text-align:center;font-family:"IBM Plex Mono",monospace;
+                  font-size:11px;color:var(--ink-3)}
+.nav-btn{width:42px;height:42px;border-radius:99px;border:1px solid var(--line);
+         background:var(--cerca);font-size:17px;line-height:1;flex:none}
+.nav-btn:disabled{opacity:.35}
 .carta{width:auto;background:var(--paper);border:1px solid var(--line);
        border-left-width:3px;
        border-radius:8px;padding:6px;text-align:left;box-shadow:var(--sombra);
@@ -418,7 +478,8 @@ const CLAVE = "vaya-turno-v030-partida";
 let G = null;          // partida
 let UI = {sel:null, selProt:null, modal:null, marcarDescartes:[],
           // pulso de juego: diffs entre renders para animar solo lo que cambió
-          nuevas:new Set(), vidaPrev:{}, okPrev:{}, reqPrev:{}, colocPrev:null};
+          nuevas:new Set(), vidaPrev:{}, okPrev:{}, reqPrev:{}, colocPrev:null,
+          foco:0};
 
 /* aviso flotante — vive fuera de #app, sobrevive a los re-render */
 function aviso(cls, html){
@@ -1637,12 +1698,23 @@ function pie(){
   } else {
     rot.innerHTML += "arrastra para jugar u ordenar";
   }
+  if(!j.ia && j.mano.length > 1 && !descartando){
+    const mb = el("button","mano-modo", manoAbanico()?"▦":"◗");
+    mb.title = manoAbanico() ? "Ver la mano en cuadrícula" : "Ver la mano en abanico";
+    mb.setAttribute("aria-label", mb.title);
+    mb.onclick = cambiarModoMano;
+    rot.appendChild(mb);
+  }
   f.appendChild(rot);
 
-  const mano = el("div","mano");
+  // el abanico estorba para marcar varios descartes: ahí manda la cuadrícula
+  const abanico = manoAbanico() && !descartando && j.mano.length > 1;
+  const mano = el("div","mano"+(abanico?" abanico":""));
   if(!j.mano.length) mano.appendChild(el("div","nota","Mano vacía."));
+
+  if(abanico) UI.foco = Math.max(0, Math.min(UI.foco||0, j.mano.length-1));
   let nCarta = 0;
-  j.mano.forEach(c=>{
+  j.mano.forEach((c,idx)=>{
     let cl = "carta";
     if(UI.sel===c || (descartando && UI.marcarDescartes.includes(c.uid))) cl += " sel";
     if(G.fase===1 && !descartando){
@@ -1656,23 +1728,155 @@ function pie(){
     b.style.borderLeftColor = TCOL[c.tipo] || TCOL.COMODIN;
     b.dataset.uid = c.uid;
     b.innerHTML = cuerpoCarta(c);
+    const esFoco = abanico && idx === UI.foco;
     b.onclick = ()=>{
       if(arrastre.huboArrastre){ arrastre.huboArrastre=false; return; }
       if(descartando){
         const i = UI.marcarDescartes.indexOf(c.uid);
         if(i>=0) UI.marcarDescartes.splice(i,1); else UI.marcarDescartes.push(c.uid);
+      } else if(abanico && !esFoco){
+        UI.foco = idx;                       // tocar un lado: traerla al centro
+      } else if(abanico && esFoco){
+        verCartaGrande(idx); return;         // tocar la del centro: verla grande
       } else if(G.fase===1 && j.coloc>0 && !j.ia){
         UI.sel = (UI.sel===c) ? null : c;
       }
       render();
     };
-    if(G.fase===1 && j.coloc>0 && !j.ia && !descartando)
+    if(G.fase===1 && j.coloc>0 && !j.ia && !descartando && (!abanico || esFoco))
       b.addEventListener("pointerdown", ev=>tomarCarta(ev,c,b));
-    mano.appendChild(b);
+
+    if(!abanico){ mano.appendChild(b); return; }
+    const d = idx - UI.foco, ad = Math.abs(d);
+    const r = el("div","ranura"+(esFoco?" foco":"")+(ad>3?" lejos":""));
+    // el hueco extra junto al foco deja tocable el centro de las vecinas
+    r.style.setProperty("--x", (d*46 + Math.sign(d)*40)+"px");
+    r.style.setProperty("--y", (ad*9 - (esFoco?12:0))+"px");
+    r.style.setProperty("--a", (d*6.5)+"deg");
+    r.style.setProperty("--s", esFoco?1.12:0.85);
+    r.style.setProperty("--z", String(30-ad));
+    r.appendChild(b);
+    mano.appendChild(r);
   });
+
+  if(abanico){
+    mano.appendChild(el("i","abanico-borde izq"));
+    mano.appendChild(el("i","abanico-borde der"));
+    const pts = el("div","puntos-mano");
+    j.mano.forEach((_,i)=>pts.appendChild(el("i", i===UI.foco?"on":"")));
+    mano.appendChild(pts);
+    hojearAbanico(mano);
+  }
   f.appendChild(mano);
   f.appendChild(barraAcciones());
   return f;
+}
+
+/* ¿abanico o cuadrícula? Se recuerda entre partidas. */
+function manoAbanico(){
+  try{ return localStorage.getItem("vaya-turno-mano") !== "rejilla"; }
+  catch(e){ return true; }
+}
+function cambiarModoMano(){
+  try{ localStorage.setItem("vaya-turno-mano", manoAbanico()?"rejilla":"abanico"); }
+  catch(e){}
+  render();
+}
+
+/* Deslizar de lado por el abanico: un paso cada 46 px, sin inercia para que
+   no se pase de largo con manos de 6 cartas.
+   El estado vive fuera del closure y los oyentes van en window: cada paso
+   redibuja la mano y destruiría el nodo que escucha el pointerup — con
+   oyentes locales, el toque siguiente al deslizamiento se perdía. */
+const hojeo = {x0:null, y0:null, base:0, movio:false};
+function hojearAbanico(cont){
+  cont.addEventListener("pointerdown", ev=>{
+    if(ev.target.closest(".ranura.foco")) return;   // esa la lleva el arrastre
+    hojeo.x0 = ev.clientX; hojeo.y0 = ev.clientY;
+    hojeo.base = UI.foco; hojeo.movio = false;
+    window.addEventListener("pointermove", hojearMover);
+    window.addEventListener("pointerup", hojearFin);
+    window.addEventListener("pointercancel", hojearFin);
+  });
+}
+function hojearMover(ev){
+  if(hojeo.x0===null) return;
+  const dx = ev.clientX-hojeo.x0, dy = ev.clientY-hojeo.y0;
+  if(!hojeo.movio){
+    if(Math.abs(dx) < 14) return;
+    if(Math.abs(dy) > Math.abs(dx)){ hojearFin(); return; }  // era vertical
+    hojeo.movio = true; arrastre.huboArrastre = true;
+  }
+  const n = yo().mano.length;
+  const f = Math.max(0, Math.min(n-1, hojeo.base - Math.round(dx/46)));
+  if(f !== UI.foco){ UI.foco = f; render(); }
+}
+function hojearFin(){
+  window.removeEventListener("pointermove", hojearMover);
+  window.removeEventListener("pointerup", hojearFin);
+  window.removeEventListener("pointercancel", hojearFin);
+  const m = hojeo.movio;
+  hojeo.x0 = null; hojeo.movio = false;
+  if(m) setTimeout(()=>{ arrastre.huboArrastre = false; }, 60);
+}
+
+/* la carta en grande, con toda su letra chica y navegación por la mano */
+function verCartaGrande(idx){
+  const j = yo();
+  const c = j.mano[idx];
+  if(!c) return;
+  const velo = el("div","velo");
+  const m = el("div","modal");
+  m.appendChild(el("div","tirador"));
+
+  const g = el("div","grande");
+  g.style.borderLeftColor = TCOL[c.tipo] || TCOL.COMODIN;
+  const cab = el("div","g-cab");
+  cab.innerHTML = ico(c.tipo) + `<span>${TNOM[c.tipo]||c.tipo}</span>`;
+  g.appendChild(cab);
+  g.appendChild(el("h3",null,esc(c.nombre)));
+  const et = el("div","g-etiqs");
+  if(c.sistema && SIS[c.sistema])
+    et.appendChild(el("span","etiq x2",`${SIS[c.sistema][0]} cuenta ×2`)).style.color = SIS[c.sistema][1];
+  if(c.cirujano) et.appendChild(el("span","etiq x2","cuenta como 2 🧑‍⚕️"));
+  if(c.previene) et.appendChild(el("span","etiq s",`🛡️ previene ${esc(c.previene)}`));
+  if(c.restriccion==="PERSONAL") et.appendChild(el("span","etiq r","⚑ pide 🧑‍⚕️ ya puesto"));
+  if(c.restriccion==="TURNO") et.appendChild(el("span","etiq r","⚑ cierra tu Pase de Visita"));
+  if(c.comodin) et.appendChild(el("span","etiq x2","🃏 vale cualquier tipo"));
+  if(et.childNodes.length) g.appendChild(et);
+  if(c.texto) g.appendChild(el("div","g-txt",esc(c.texto)));
+  if(c.warn) g.appendChild(el("div","g-warn",
+    `<b>⚠️ ${esc(c.compNombre)}</b> — ${esc(c.compTexto||"el paciente donde la coloques pierde 1 ❤️.")}`));
+  if(c.frase) g.appendChild(el("div","g-frase",`“${esc(c.frase)}”`));
+  m.appendChild(g);
+
+  const nav = el("div","grande-nav");
+  const ant = el("button","nav-btn","‹"); ant.disabled = idx<=0;
+  ant.onclick = ()=>{ UI.modal=null; UI.foco=idx-1; verCartaGrande(idx-1); };
+  const sig = el("button","nav-btn","›"); sig.disabled = idx>=j.mano.length-1;
+  sig.onclick = ()=>{ UI.modal=null; UI.foco=idx+1; verCartaGrande(idx+1); };
+  nav.appendChild(ant);
+  nav.appendChild(el("div","cual",`${idx+1} / ${j.mano.length}`));
+  nav.appendChild(sig);
+  m.appendChild(nav);
+
+  const fila = el("div","acciones"); fila.style.padding="12px 0 0";
+  const cerrar = el("button","btn","Cerrar");
+  cerrar.onclick = ()=>{ UI.modal=null; render(); };
+  fila.appendChild(cerrar);
+  const jugable = G.fase===1 && !j.ia && j.coloc>0 &&
+    (j.camas.some(x=>puedeColocarPropia(c,x)) ||
+     (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x)))));
+  if(jugable){
+    const jb = el("button","btn pri","Jugar esta");
+    jb.onclick = ()=>{ UI.modal=null; UI.sel=c; UI.foco=idx; render(); };
+    fila.appendChild(jb);
+  }
+  m.appendChild(fila);
+
+  velo.appendChild(m);
+  velo.onclick = e => { if(e.target===velo){ UI.modal=null; render(); } };
+  UI.modal = velo; render();
 }
 
 function cuerpoCarta(c){
@@ -2055,7 +2259,7 @@ function pantallaFinal(){
   const b = el("button","btn pri","Nueva guardia"); b.style.marginTop="12px";
   b.onclick = ()=>{ borrar(); G=null;
     UI={sel:null,selProt:null,modal:null,marcarDescartes:[],
-        nuevas:new Set(),vidaPrev:{},okPrev:{},reqPrev:{},colocPrev:null};
+        nuevas:new Set(),vidaPrev:{},okPrev:{},reqPrev:{},colocPrev:null,foco:0};
     render(); };
   s.appendChild(b);
   w.appendChild(s);
