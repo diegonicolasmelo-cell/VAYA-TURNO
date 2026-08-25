@@ -34,6 +34,26 @@ partida guiada contra la IA con un coach de 10 pasos que señala cada
 elemento en pantalla (unidad, mano, indicaciones, Pizarra…), avanza solo
 cuando haces la acción y se puede saltar en cualquier momento.
 
+**La app instalable (PWA)** sale de la misma plantilla con
+`python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
+teléfono con su ícono, abre a pantalla completa y **funciona sin
+internet** (service worker + tipografías alojadas en casa; nada le pide
+nada a Google). Es el paso previo a las tiendas: el mismo código se
+envuelve después con Capacitor.
+
+> ⚠️ `docs/juego/` es la única salida generada que **sí se versiona**:
+> GitHub Pages sirve archivos, no ejecuta scripts. Después de tocar la
+> plantilla o los CSV hay que **recompilar y comprometer** esa carpeta, o
+> la app publicada se queda atrás. Los dos formatos van juntos:
+> `generar_app.py` (artefacto) y `generar_app.py --pwa` (app).
+
+**Para publicarla** (una sola vez, en GitHub → Settings → Pages): fuente
+*Deploy from a branch*, rama `claude/medical-card-game-o9synq` (o `main`
+cuando se fusione), carpeta **`/docs`**. Queda en
+`https://diegonicolasmelo-cell.github.io/VAYA-TURNO/` (portada) y
+`.../VAYA-TURNO/juego/` (el juego). Ojo: **la instalación exige HTTPS** —
+Pages lo da; abrir el archivo local no basta.
+
 **Batería de jugabilidad (agosto 2026, 4.000 partidas 2j + 3.000 partidas
 3j, IA de referencia):** el flujo está sano — las 3 indicaciones se usan
 completas el 100% de los turnos y la "mano seca" (querer jugar y no poder)

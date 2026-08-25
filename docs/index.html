@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¡Vaya Turno! — juego de cartas de guardia en UCI</title>
+<meta name="description" content="¡Vaya Turno!: juego de cartas sobre el triage en una unidad de cuidados intensivos. Guardia virtual jugable en el teléfono.">
+<meta name="theme-color" content="#0a5860">
+<link rel="icon" href="juego/iconos/icono-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="juego/iconos/apple-touch-icon.png">
+<style>
+  :root{
+    --mesa:#dfe7ea; --papel:#ffffff; --ink:#16242e; --ink-2:#4c6675;
+    --ink-3:#87a0ad; --line:#c7d6db; --acc:#0d6e78; --acc-soft:#d5e9eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:26px 18px 40px;
+       font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+       color:var(--ink);line-height:1.55;
+       background:radial-gradient(130% 100% at 50% 0%, #e6edf0 0%, var(--mesa) 52%, #ccd9d3 100%) fixed;
+       min-height:100vh}
+  main{max-width:520px;margin:0 auto}
+  .marco{background:var(--papel);border:1px solid var(--line);border-radius:16px;
+         padding:22px 20px;box-shadow:0 1px 2px rgba(22,36,46,.08), 0 8px 26px rgba(22,36,46,.09)}
+  h1{font-family:Petrona,Georgia,serif;font-size:31px;margin:0;letter-spacing:-.4px}
+  .sub{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+       letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+  p{font-size:14.5px;color:var(--ink-2);margin:15px 0 0}
+  .jugar{display:block;margin-top:20px;padding:15px;border-radius:11px;
+         background:linear-gradient(180deg,#118491,var(--acc) 55%,#0a5860);
+         color:#fff;text-align:center;text-decoration:none;font-weight:700;
+         font-size:16px;letter-spacing:.02em;
+         box-shadow:0 4px 16px rgba(13,110,120,.3)}
+  .jugar small{display:block;font-weight:400;font-size:11.5px;opacity:.85;margin-top:3px}
+  ul{margin:16px 0 0;padding-left:19px;font-size:13.5px;color:var(--ink-2)}
+  li{margin-bottom:5px}
+  .nota{margin-top:18px;padding:11px 13px;background:var(--acc-soft);
+        border-radius:10px;font-size:12.5px;color:var(--ink)}
+  footer{max-width:520px;margin:16px auto 0;text-align:center;
+         font-size:11px;color:var(--ink-3);line-height:1.5}
+  a{color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+  <div class="marco">
+    <h1>¡Vaya Turno!</h1>
+    <div class="sub">Juego de cartas · guardia en UCI</div>
+    <p>Tienes tres camas, un mazo de recursos y ocho rondas de guardia.
+      Estabiliza a tus pacientes antes de que se te vayan, aguanta las
+      complicaciones y — si hace falta — deja que el de al lado se
+      arregle solo.</p>
+
+    <a class="jugar" href="juego/">▶ JUGAR AHORA
+      <small>Contra la máquina o entre dos en el mismo teléfono</small></a>
+
+    <ul>
+      <li><b>Se instala:</b> ábrela en el celular y elige "Instalar" — queda
+        con su ícono y funciona sin internet.</li>
+      <li><b>Trae tutorial:</b> la <i>Primera guardia</i> te enseña paso a paso.</li>
+      <li>No necesita cuenta, ni registro, ni conexión.</li>
+    </ul>
+
+    <div class="nota">El formato final del juego es <b>físico</b>: cartas de
+      verdad sobre una mesa. Esta guardia virtual existe para probar las
+      reglas donde no se puedan llevar.</div>
+  </div>
+  <footer>
+    Un juego de Diego Melo · hecho en Chile<br>
+    <a href="https://github.com/diegonicolasmelo-cell/VAYA-TURNO">Reglamento y cartas en GitHub</a>
+  </footer>
+</main>
+</body>
+</html>

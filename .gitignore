@@ -5,6 +5,10 @@ docs/catalogo-cartas.html
 docs/app.html
 VAYA-TURNO*.pdf
 
+# docs/juego/ TAMBIÉN se genera (tools/generar_app.py --pwa), pero SÍ se
+# versiona: es la app instalable que GitHub Pages publica, y Pages sirve
+# archivos, no ejecuta scripts. Si no está comprometida, no hay app.
+
 __pycache__/
 *.pyc
 docs/diseno-app/tablero-guardia-virtual.html

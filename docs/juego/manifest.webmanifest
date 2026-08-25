@@ -1,0 +1,36 @@
+{
+  "name": "¡Vaya Turno! — Guardia Virtual",
+  "short_name": "¡Vaya Turno!",
+  "description": "Guardia virtual de ¡Vaya Turno!: el juego de cartas de triage en UCI, contra la máquina o entre dos en el mismo teléfono.",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "categories": [
+    "games"
+  ],
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#dfe7ea",
+  "theme_color": "#0a5860",
+  "icons": [
+    {
+      "src": "iconos/icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/icono-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
