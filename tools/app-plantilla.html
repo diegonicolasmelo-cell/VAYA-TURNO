@@ -657,10 +657,35 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .portada p{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin:14px 0 0}
 .pie-app{padding:12px 14px 22px;font-size:10.5px;color:var(--ink-3);
          line-height:1.4;text-align:center}
+
+/* ── el coach del tutorial ─────────────────────────────────────────── */
+#tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
+.tuto-anillo{position:fixed;border:2.5px solid var(--acc);border-radius:14px;
+  box-shadow:0 0 0 4px rgba(17,132,145,.18), 0 0 22px rgba(17,132,145,.35);
+  animation:tutoPulso 1.6s ease-in-out infinite;pointer-events:none}
+@keyframes tutoPulso{
+  0%,100%{box-shadow:0 0 0 4px rgba(17,132,145,.18), 0 0 22px rgba(17,132,145,.35)}
+  50%{box-shadow:0 0 0 8px rgba(17,132,145,.08), 0 0 30px rgba(17,132,145,.5)}}
+.tuto-burbuja{position:fixed;left:12px;right:12px;max-width:420px;margin:0 auto;
+  background:var(--papel,#fffdf8);border:1.5px solid var(--acc);border-radius:14px;
+  padding:13px 14px 11px;box-shadow:0 10px 34px rgba(22,36,46,.28);
+  pointer-events:auto;animation:subir .3s cubic-bezier(.2,.9,.3,1)}
+.tuto-burbuja .paso{font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:3px}
+.tuto-burbuja h3{font-family:Petrona,Georgia,serif;font-size:16.5px;margin:0 0 5px}
+.tuto-burbuja p{font-size:12.5px;line-height:1.45;color:var(--ink-2);margin:0}
+.tuto-burbuja .tuto-pie{display:flex;align-items:center;gap:10px;margin-top:10px}
+.tuto-burbuja .btn.pri{flex:none;padding:8px 16px;font-size:12.5px}
+.tuto-burbuja .tuto-haz{font-size:11.5px;color:var(--acc);font-weight:600;
+  animation:tutoGuino 1.4s ease-in-out infinite}
+@keyframes tutoGuino{0%,100%{opacity:1}50%{opacity:.45}}
+.tuto-burbuja .tuto-salta{margin-left:auto;background:none;border:none;
+  font-size:10.5px;color:var(--ink-3);text-decoration:underline;padding:4px}
 </style>
 
 <div class="app" id="app"></div>
 <div id="capa"></div>
+<div id="tuto"></div>
 
 <script>
 "use strict";
@@ -716,7 +741,7 @@ function baraja(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 function copiasDe(lista){ const out=[]; lista.forEach(c=>{ for(let i=0;i<(+c.copias||1);i++) out.push({...c,uid:uid()}); }); return out; }
 
 /* ══ construir partida ══════════════════════════════════════════════ */
-function nuevaPartida(modo, nombres){
+function nuevaPartida(modo, nombres, tuto){
   const mazoP = baraja(copiasDe(D.pacientes));
   const mazoG = baraja(copiasDe(D.recursos));
   const mazoA = baraja(copiasDe(D.acciones));
@@ -742,6 +767,7 @@ function nuevaPartida(modo, nombres){
   anota("r", `RONDA 1 · empieza ${jug[0].nombre}`);
   G.avatarPool = avat;
   G.iniciado = true;
+  if(tuto) G.tuto = {i:0};
   UI.vidaPrev = {}; UI.okPrev = {}; UI.reqPrev = {}; UI.colocPrev = null;
   siguienteAvatar();
 }
@@ -1782,8 +1808,8 @@ function render(){
   });
   const app = document.getElementById("app");
   app.innerHTML = "";
-  if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); return; }
-  if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); return; }
+  if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); pintarTuto(); return; }
+  if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); pintarTuto(); return; }
   app.appendChild(barraEstado());
   const g = textoGuia();
   if(g) app.appendChild(el("div","guia",g));
@@ -1798,7 +1824,7 @@ function render(){
     if(UI.franja.length > 16) fr.style.fontSize = "21px";
     app.appendChild(fr);
   }
-  pintarCapa();
+  pintarCapa(); pintarTuto();
   colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
   // veces en la misma pasada síncrona (0→1 anidado), así que la limpieza va
@@ -2570,6 +2596,96 @@ function barraAcciones(){
 }
 
 /* ══ capa: cortina, admisión, hojas ═════════════════════════════════ */
+/* ── EL COACH: la primera guardia, paso a paso ──────────────────────
+   Cada paso ancla a un elemento real (sel), espera su momento (cuando)
+   y avanza con Entendido o solo, al cumplirse la acción (listo).
+   El humano del tutorial es siempre el asiento 0. */
+function hum(){ return G.jug[0]; }
+function miTurno(){ return yo()===hum() && G.fase===1 && !G.pendiente; }
+const TUTO = [
+ {tit:"Elige tu personaje", sel:".rueda",
+  txt:"Bienvenido a tu primera guardia. Gira la rueda: cada avatar tiene una habilidad distinta. Toca al del centro para quedártelo.",
+  cuando:()=> G.pendiente && G.pendiente.tipo==="avatar",
+  listo:()=> !(G.pendiente && G.pendiente.tipo==="avatar"),
+  haz:"elige uno para seguir"},
+ {tit:"Tu unidad", sel:".zona.cerca .tres",
+  txt:"Estos son tus pacientes. Cada uno pide recursos (los iconitos con puntos): complétalos y queda estabilizado ✅. Si sus ❤️ llegan a 0, fallece.",
+  cuando: miTurno},
+ {tit:"Tu mano", sel:".pie",
+  txt:"Tus cartas, en abanico: desliza a los lados para hojear y toca la del centro para verla en grande. ▼ pliega la mano y deja ver el tablero.",
+  cuando: miTurno},
+ {tit:"Las 3 indicaciones", sel:"#indic-caja",
+  txt:"Tu moneda de cada turno: colocar un recurso, sabotear o des-escalar gasta 1. Se acaban las tres y se acabó tu jugada.",
+  cuando: miTurno},
+ {tit:"Coloca tu primer recurso", sel:".zona.cerca .tres",
+  txt:"Arrastra una carta que tu paciente pida hasta su cama (o tócala y luego toca la cama). Si comparten sistema, ¡vale doble!",
+  cuando: miTurno,
+  listo:()=> G.ronda>1 || (yo()===hum() && G.fase===1 && hum().coloc < INDICACIONES),
+  haz:"coloca una carta para seguir"},
+ {tit:"Cuidado con las ⚠️", sel:null,
+  txt:"Los recursos con ⚠️ traen una complicación: donde caen, quitan 1 ❤️. Sobre tu paciente, la sufres tú; sobre un rival es sabotaje, y si el tipo no le sirve queda como basura que bloquea su ✅.",
+  cuando: miTurno},
+ {tit:"La Pizarra de Turno", sel:"#btn-pizarra",
+  txt:"Aquí se compran las cartas de Acción pagando cartas de tu mano (máx. 1 compra y 1 jugada por turno). Ataques, rescates y respuestas: ábrela cuando te sobren cartas.",
+  cuando: miTurno},
+ {tit:"Fin de Guardia", sel:".pie .acciones",
+  txt:"Cuando gastes tus indicaciones, toca Fin de Guardia: tus pacientes sin ✅ pierden 1 ❤️ y descartas hasta el límite de mano. Después juega el rival — sus cartas se revelan una a una.",
+  cuando:()=> yo()===hum() && G.fase===1,
+  listo:()=> G.fase===2 || yo()!==hum() || G.ronda>1,
+  haz:"toca Fin de Guardia"},
+ {tit:"El alta y los Sumarios", sel:".zona.cerca",
+  txt:"Un paciente ✅ que sobrevive hasta tu próxima Entrega de Turno se va de alta y suma sus puntos. Si uno fallece, abres un Sumario 📋: te muerde 1 carta del límite de mano hasta cerrarlo pagando 2 cartas.",
+  cuando:()=> G.ronda>=2 && miTurno()},
+ {tit:"¡Buena guardia!", sel:null,
+  txt:"Eso es todo: 8 rondas, gana quien sume más puntos. Arriba ves ronda y fase; en ☰ está el marcador y la bitácora. El coach se retira — la unidad es tuya.",
+  cuando:()=> G.ronda>=2 && miTurno(), fin:true},
+];
+
+function pintarTuto(){
+  const cont = document.getElementById("tuto");
+  if(!cont) return;
+  cont.innerHTML = "";
+  if(!G || !G.tuto || G.fin) return;
+  let p = TUTO[G.tuto.i];
+  while(p && p.listo && p.listo()){ G.tuto.i++; p = TUTO[G.tuto.i]; }
+  if(!p){ G.tuto = null; guardar(); return; }
+  if(UI.modal || UI.fxViva) return;               // hojas y ceremonias mandan
+  if(G.pendiente && G.pendiente.tipo!=="avatar") return;
+  if(p.cuando && !p.cuando()) return;             // aún no es su momento
+  const obj = p.sel ? document.querySelector(p.sel) : null;
+  let arriba = true;                              // burbuja arriba o abajo
+  if(obj){
+    const r = obj.getBoundingClientRect();
+    if(r.width && r.height){
+      const an = el("div","tuto-anillo");
+      an.style.left = Math.max(2, r.left-5)+"px";
+      an.style.top = Math.max(2, r.top-5)+"px";
+      an.style.width = Math.min(innerWidth-8, r.width+10)+"px";
+      an.style.height = (r.height+10)+"px";
+      cont.appendChild(an);
+      arriba = r.top + r.height/2 > innerHeight/2;
+    }
+  }
+  const b = el("div","tuto-burbuja");
+  b.appendChild(el("div","paso",`Tutorial · paso ${G.tuto.i+1} de ${TUTO.length}`));
+  b.appendChild(el("h3",null,esc(p.tit)));
+  b.appendChild(el("p",null,p.txt));
+  const pie2 = el("div","tuto-pie");
+  if(p.listo){
+    pie2.appendChild(el("span","tuto-haz","▸ "+esc(p.haz||"hazlo para seguir")));
+  } else {
+    const ok = el("button","btn pri", p.fin ? "¡A jugar!" : "Entendido");
+    ok.onclick = ()=>{ if(p.fin){ G.tuto=null; } else { G.tuto.i++; } guardar(); render(); };
+    pie2.appendChild(ok);
+  }
+  const sk = el("button","tuto-salta","saltar tutorial");
+  sk.onclick = ()=>{ G.tuto = null; guardar(); render(); };
+  pie2.appendChild(sk);
+  b.appendChild(pie2);
+  if(arriba) b.style.top = "70px"; else b.style.bottom = "16px";
+  cont.appendChild(b);
+}
+
 function pintarCapa(){
   const capa = document.getElementById("capa");
   // La rueda de avatares NO se reconstruye en cada render: rehacerla
@@ -2876,6 +2992,9 @@ function pantallaInicio(){
     b.innerHTML = `<b>${tit}</b><small>${sub}</small>`;
     b.onclick = fn; ops.appendChild(b);
   };
+  mk("📖 Primera guardia (tutorial)",
+     "¿Primera vez? Partida guiada contra la IA: el coach te muestra cada paso.",
+     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], true));
   mk("Solo contra la IA",
      "La IA usa la heurística medida en el simulador. Para probar en cualquier parte.",
      ()=>nuevaPartida("ia",["Tú","Dr. Silicio"]));
@@ -2895,8 +3014,8 @@ function pantallaInicio(){
     "<br><b>Tres fases por turno:</b> Entrega de Turno (altas, admisión y robo), "+
     "Pase de Visita (colocas recursos y usas la Pizarra) y Fin de Guardia "+
     "(deterioro y descarte).<br><br>"+
-    "Las <b>Acciones</b> y las <b>habilidades de avatar</b> se aplican a mano: "+
-    "la app te las muestra y las anota, pero no las automatiza."));
+    "Las <b>Acciones</b> se juegan solas desde la Pizarra; las "+
+    "<b>habilidades de avatar</b> se aplican a mano y la app las anota."));
   w.appendChild(s);
   w.appendChild(el("div","pie-app","El formato final del juego es físico. Esto existe para probar."));
   return w;

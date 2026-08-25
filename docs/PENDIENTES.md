@@ -26,9 +26,13 @@ Existen dos juegos en el repo y **el playtest debe elegir**:
 **Para probar la v0.30 sin cartas** está `docs/app.html` (se genera con
 `python3 tools/generar_app.py`): árbitro digital en un solo archivo, contra
 la IA o entre dos en un teléfono. Lleva el reloj, los ✅, la ventana de alta,
-las ⚠️, las 🛡️, la basura y los Sumarios; las Acciones y las habilidades de
-avatar se aplican a mano y quedan en la bitácora, que se copia al portapapeles
-para pegarla acá.
+las ⚠️, las 🛡️, la basura y los Sumarios; las Acciones se juegan solas desde
+la Pizarra; las habilidades de avatar se aplican a mano y quedan en la
+bitácora, que se copia al portapapeles para pegarla acá. Para quien juega
+por primera vez está **"📖 Primera guardia (tutorial)"** en la portada:
+partida guiada contra la IA con un coach de 10 pasos que señala cada
+elemento en pantalla (unidad, mano, indicaciones, Pizarra…), avanza solo
+cuando haces la acción y se puede saltar en cualquier momento.
 
 **Batería de jugabilidad (agosto 2026, 4.000 partidas 2j + 3.000 partidas
 3j, IA de referencia):** el flujo está sano — las 3 indicaciones se usan
