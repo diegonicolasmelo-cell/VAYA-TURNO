@@ -34,6 +34,14 @@ partida guiada contra la IA con un coach de 10 pasos que señala cada
 elemento en pantalla (unidad, mano, indicaciones, Pizarra…), avanza solo
 cuando haces la acción y se puede saltar en cualquier momento.
 
+**El holograma de la carta grande** (referencia: Pokémon TCG Pocket): al
+ver una carta en grande se inclina en 3D siguiendo el dedo, con una luz
+que la recorre y resorte al soltar; en Android además responde al
+giroscopio sin tocarla (iPhone exige permiso con gesto, ahí es solo al
+dedo). Las cartas con sistema (×2) y los comodines llevan la banda
+iridiscente arcoíris — jerarquía de rareza visual. Sin assets nuevos:
+puro CSS/JS, y cuando llegue el arte los reflejos caen encima solos.
+
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
 teléfono con su ícono, abre a pantalla completa y **funciona sin

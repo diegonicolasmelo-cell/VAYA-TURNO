@@ -399,6 +399,42 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .abanico .carta .arte{height:58px}
 .grande .g-arte{height:160px;border-radius:10px;margin-bottom:10px;
                 background-size:cover;background-position:center 25%}
+
+/* ── el holograma de la carta grande (referencia: Pokémon TCG Pocket) ──
+   La carta vive dentro de un escenario con perspectiva y se inclina
+   siguiendo el dedo; una luz la recorre. --hx/--hy es dónde está el dedo
+   sobre la carta, --hp empuja la banda arcoíris de las iridiscentes. */
+.holo-esc{perspective:900px;touch-action:none}
+.grande.holo{position:relative;overflow:hidden;
+  --hx:50%; --hy:50%; --hp:50%;
+  transition:transform .55s cubic-bezier(.2,.9,.3,1), box-shadow .55s ease;
+  will-change:transform}
+.grande.holo.vivo{transition:box-shadow .3s ease;
+  box-shadow:0 22px 48px rgba(22,36,46,.32)}
+.grande.holo.giro{transition:transform .14s linear, box-shadow .55s ease}
+/* la luz: un claro que sigue al dedo, con sombra ambiental alrededor —
+   sobre papel blanco un brillo blanco no se ve, así que lo que se mueve
+   es el sombreado */
+.holo-brillo{position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(120% 90% at var(--hx) var(--hy),
+    rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 34%,
+    rgba(58,84,99,.14) 100%);
+  opacity:0;transition:opacity .35s ease}
+.grande.holo.vivo .holo-brillo, .grande.holo.giro .holo-brillo{opacity:1}
+/* la banda iridiscente: solo las cartas con sistema (×2) y los comodines.
+   multiply sobre papel claro = arcoíris pastel, muy de la caja retro */
+.holo-arco{position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(112deg,
+    rgba(255,255,255,0) 12%,
+    rgba(255,64,150,.5) 30%, rgba(255,205,64,.5) 40%,
+    rgba(64,227,180,.5) 50%, rgba(64,150,255,.5) 60%,
+    rgba(190,92,255,.5) 70%, rgba(255,255,255,0) 88%);
+  background-size:240% 240%;
+  background-position:var(--hp) var(--hp);
+  mix-blend-mode:multiply;filter:saturate(1.25);
+  opacity:0;transition:opacity .35s ease}
+.grande.holo.vivo .holo-arco, .grande.holo.giro .holo-arco{opacity:.22}
+.grande.holo.iris.vivo .holo-arco, .grande.holo.iris.giro .holo-arco{opacity:.38}
 .av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
                    background-size:cover;background-position:center 20%}
 .pfoto{width:24px;height:24px;border-radius:6px;flex:none;
@@ -2426,7 +2462,14 @@ function verCartaGrande(idx){
   if(c.warn) g.appendChild(el("div","g-warn",
     `<b>⚠️ ${esc(c.compNombre)}</b> — ${esc(c.compTexto||"el paciente donde la coloques pierde 1 ❤️.")}`));
   if(c.frase) g.appendChild(el("div","g-frase",`“${esc(c.frase)}”`));
-  m.appendChild(g);
+  g.classList.add("holo");
+  if(c.sistema || c.comodin) g.classList.add("iris");
+  if(c.sistema || c.comodin) g.appendChild(el("div","holo-arco"));
+  g.appendChild(el("div","holo-brillo"));
+  const escenario = el("div","holo-esc");
+  escenario.appendChild(g);
+  armarHolo(escenario, g);
+  m.appendChild(escenario);
 
   const nav = el("div","grande-nav");
   const ant = el("button","nav-btn","‹"); ant.disabled = idx<=0;
@@ -2456,6 +2499,67 @@ function verCartaGrande(idx){
   velo.onclick = e => { if(e.target===velo){ UI.modal=null; render(); } };
   UI.modal = velo; render();
 }
+
+/* La carta grande se toma con el dedo: se inclina hacia donde tocas y
+   la luz te sigue; al soltar vuelve sola con su resorte (la transición
+   CSS). En escritorio basta pasar el mouse. Los overlays van DENTRO de
+   la carta, así que rotan con ella. */
+function armarHolo(esc, carta){
+  let rid = 0;
+  const pinta = (px, py)=>{
+    carta.style.transform =
+      "rotateX(" + ((py - .5) * -13).toFixed(2) + "deg) " +
+      "rotateY(" + ((px - .5) * 15).toFixed(2) + "deg) scale(1.02)";
+    carta.style.setProperty("--hx", (px * 100).toFixed(1) + "%");
+    carta.style.setProperty("--hy", (py * 100).toFixed(1) + "%");
+    carta.style.setProperty("--hp", (130 - (px + py) * 65).toFixed(1) + "%");
+  };
+  const mueve = ev=>{
+    const r = carta.getBoundingClientRect();
+    if(!r.width) return;
+    const px = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width));
+    const py = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(()=>pinta(px, py));
+  };
+  const suelta = ()=>{
+    cancelAnimationFrame(rid);
+    carta.classList.remove("vivo");
+    carta.style.transform = "";
+  };
+  esc.addEventListener("pointerdown", ev=>{
+    carta.classList.remove("giro");
+    carta.classList.add("vivo");
+    mueve(ev);
+  });
+  esc.addEventListener("pointermove", ev=>{
+    // con mouse, el puro hover ya la inclina; con dedo, solo tomada
+    if(ev.pointerType === "mouse" && !carta.classList.contains("vivo"))
+      carta.classList.add("vivo");
+    if(carta.classList.contains("vivo")) mueve(ev);
+  });
+  esc.addEventListener("pointerup", suelta);
+  esc.addEventListener("pointercancel", suelta);
+  esc.addEventListener("pointerleave", suelta);
+}
+
+/* El giroscopio le da vida a la carta aunque no la toques. En Android los
+   eventos llegan solos; el iPhone exige pedir permiso con un gesto, así
+   que ahí la carta responde solo al dedo. Un único listener global: busca
+   la carta abierta en vez de suscribirse por modal (nada que des-suscribir). */
+addEventListener("deviceorientation", ev=>{
+  const carta = document.querySelector(".grande.holo:not(.vivo)");
+  if(!carta || ev.gamma == null || ev.beta == null) return;
+  const px = Math.min(1, Math.max(0, .5 + ev.gamma / 70));
+  const py = Math.min(1, Math.max(0, .5 + (ev.beta - 40) / 90));
+  carta.classList.add("giro");
+  carta.style.transform =
+    "rotateX(" + ((py - .5) * -8).toFixed(2) + "deg) " +
+    "rotateY(" + ((px - .5) * 9).toFixed(2) + "deg)";
+  carta.style.setProperty("--hx", (px * 100).toFixed(1) + "%");
+  carta.style.setProperty("--hy", (py * 100).toFixed(1) + "%");
+  carta.style.setProperty("--hp", (130 - (px + py) * 65).toFixed(1) + "%");
+});
 
 function cuerpoCarta(c){
   let h = c.arte ? `<i class="arte" style="background-image:url('${c.arte}')"></i>` : "";
