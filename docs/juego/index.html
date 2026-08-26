@@ -816,6 +816,13 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .portada{padding:30px 16px 20px}
 .portada h1{font-family:Petrona,Georgia,serif;font-weight:700;font-size:30px;
             line-height:1.05;margin:0}
+/* El logotipo trae su propio contorno azul, así que se sostiene solo sobre
+   la imagen del pasillo y no necesita fondo detrás. */
+.portada h1 .logo{display:block;width:100%;max-width:310px;height:auto;
+                  margin:0 auto 2px;
+                  filter:drop-shadow(0 3px 10px rgba(22,36,46,.28))}
+.portada h1:has(.logo){text-align:center}
+body.con-portada .portada h1 + .sub{text-align:center}
 .portada .sub{font-family:"IBM Plex Mono",monospace;font-size:10.5px;
               letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
 .portada p{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin:14px 0 0}
@@ -848,10 +855,10 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
    lo más claro del cuadro y el menú igual necesita apagarlo hacia el
    papel para leerse. */
 #portada .velo{position:absolute;inset:0;background:
-   /* un aclarado suave arriba para que el título se lea sobre el techo */
-   linear-gradient(to bottom, rgba(242,247,248,.72) 0%,
-                              rgba(242,247,248,.30) 12%,
-                              rgba(242,247,248,0) 24%),
+   /* apenas un aclarado arriba: el logotipo trae su propio contorno y no
+      necesita más, pero el techo del pasillo se agradece un punto suave */
+   linear-gradient(to bottom, rgba(242,247,248,.34) 0%,
+                              rgba(242,247,248,0) 16%),
    linear-gradient(to bottom, rgba(223,231,234,0) 0%,
                               rgba(223,231,234,0) 44%,
                               rgba(223,231,234,.45) 58%,
@@ -872,9 +879,18 @@ body.con-portada .app{background:none;position:relative;z-index:1}
 /* Con portada, el menú baja: el auxiliar está en el tercio de arriba y si
    los botones empiezan donde empezaban le tapan la cara. Y se vuelven
    vidrio esmerilado, para que el pasillo se siga viendo por detrás. */
-body.con-portada .portada{padding-top:44px}
-body.con-portada .portada p{color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.7)}
-body.con-portada .opciones{margin-top:14vh}
+body.con-portada .portada{padding-top:22px}
+/* Bajo un logotipo tan grande el texto queda sobre el pasillo y no se lee.
+   El subtítulo y el párrafo se juntan en una sola placa esmerilada —la
+   misma de los botones— para que sigan siendo legibles sin taparlo todo. */
+body.con-portada .portada .sub{background:rgba(255,255,255,.74);
+   backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+   margin:6px -4px 0;padding:9px 12px 5px;border-radius:13px 13px 0 0;color:var(--ink-2)}
+body.con-portada .portada p{background:rgba(255,255,255,.74);
+   backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+   margin:0 -4px;padding:4px 12px 11px;border-radius:0 0 13px 13px;
+   color:var(--ink);text-align:center}
+body.con-portada .opciones{margin-top:8vh}
 body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    backdrop-filter:blur(9px) saturate(1.15);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
@@ -3298,7 +3314,8 @@ function alertaAccion(a){
    como data-URI y en la PWA como ruta, que es la única forma de que el
    service worker pueda cachearlos por separado. Vacíos = sin portada, y
    la pantalla de inicio queda como estaba. */
-const PORTADA = {video:"portada/portada.mp4", cuadro:"portada/portada.jpg"};
+const PORTADA = {video:"portada/portada.mp4", cuadro:"portada/portada.jpg",
+                 logo:"portada/logo.webp"};
 const CLAVE_SON = "vt-portada-sonido";
 
 function pintarPortada(){
@@ -3360,7 +3377,17 @@ function pintarPortada(){
 function pantallaInicio(){
   const w = el("div");
   const h = el("div","portada");
-  h.appendChild(el("h1",null,"¡Vaya Turno!"));
+  const t = el("h1");
+  if(PORTADA.logo){
+    // el logotipo dibujado reemplaza al título tipográfico, pero el <h1>
+    // se queda: el nombre del juego sigue siendo el encabezado de la
+    // página para quien no ve la imagen
+    const img = document.createElement("img");
+    img.src = PORTADA.logo; img.alt = "¡Vaya Turno!"; img.className = "logo";
+    img.width = 1000; img.height = 635;      // reserva el sitio, sin saltos
+    t.appendChild(img);
+  } else t.textContent = "¡Vaya Turno!";
+  h.appendChild(t);
   h.appendChild(el("div","sub","Guardia virtual · reglas v0.33"));
   h.appendChild(el("p",null,
     "Árbitro digital para probar el juego donde no puedas llevar las cartas. "+

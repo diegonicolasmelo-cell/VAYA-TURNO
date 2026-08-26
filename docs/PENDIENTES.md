@@ -150,6 +150,18 @@ fijo de respaldo. Cinco cosas aprendidas montándolo:
   copia en VP9/Opus; el mp4 está bien, el que no puede es el navegador de
   pruebas.
 
+**El logotipo** manda en la portada desde v0.53: reemplaza al título
+tipográfico, aunque el `<h1>` se queda (el nombre sigue siendo el
+encabezado para quien no ve la imagen). El maestro sin recortar está en
+`arte/portada/logo-crudo.webp` y `tools/recortar_logo.py` lo deja sobre
+transparencia. Dos cosas de ese recorte que no son obvias: el fondo NO se
+quita con un «todo lo blanco a transparente», porque el logo tiene brillos
+blancos DENTRO de las letras y ese método los perfora — se rellena desde
+los bordes; y además hay que sacar los bolsones de blanco ENCERRADOS entre
+el tubo del monitor y las letras, que no tocan ningún borde y quedaban
+como manchas flotando sobre el video (se separan por área: un brillo
+pintado es un trazo fino, un hueco de fondo es una mancha ancha).
+
 Nada de GIF: medido, el mismo bucle en GIF a 360 px y 12 fps pesa 15 MB
 contra 2 MB del mp4 a 720 px, 24 fps y con sonido.
 

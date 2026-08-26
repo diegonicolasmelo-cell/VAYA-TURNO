@@ -112,9 +112,10 @@ def cargar_portada(destino=None):
     sea un archivo propio y no parte del HTML: el service worker lo cachea
     solo, y una corrección de reglas no obliga a bajarlo de nuevo."""
     carpeta = os.path.join(RAIZ, "arte", "portada")
-    out = {"video": "", "cuadro": ""}
+    out = {"video": "", "cuadro": "", "logo": ""}
     for clave, nombre, mime in (("video", "portada.mp4", "video/mp4"),
-                                ("cuadro", "portada.jpg", "image/jpeg")):
+                                ("cuadro", "portada.jpg", "image/jpeg"),
+                                ("logo", "logo.webp", "image/webp")):
         ruta = os.path.join(carpeta, nombre)
         if not os.path.isfile(ruta):
             continue
@@ -195,7 +196,8 @@ def armar(d, pwa=False, css_local=None, portada=None):
     html = plantilla.replace(marca, json.dumps(d, ensure_ascii=False,
                                                separators=(",", ":")))
     for clave, hueco in (("video", '/*__PORTADA_VIDEO__*/""'),
-                         ("cuadro", '/*__PORTADA_CUADRO__*/""')):
+                         ("cuadro", '/*__PORTADA_CUADRO__*/""'),
+                         ("logo", '/*__PORTADA_LOGO__*/""')):
         if hueco not in html:
             raise SystemExit("La plantilla no tiene el marcador " + hueco)
         html = html.replace(hueco, json.dumps((portada or {}).get(clave, "")), 1)
@@ -348,7 +350,7 @@ def construir_pwa():
     urls = sorted({c["arte"] for l in d.values() for c in l if c.get("arte")})
     # el fondo de la portada va con el arte: caché primero, y si falla la
     # descarga la app igual instala y la portada queda en el cuadro fijo
-    urls += [u for u in (portada["video"], portada["cuadro"]) if u]
+    urls += [u for u in portada.values() if u]
     # la versión de la caché sale del contenido: si nada cambió, el
     # teléfono no vuelve a descargar; si algo cambió, se entera solo
     sello = hashlib.sha256((html + man + "".join(urls + (tipos or []))
