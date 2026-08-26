@@ -39,7 +39,9 @@ SALIDA_PWA = os.path.join(RAIZ, "docs", "juego")
 NOMBRE = "¡Vaya Turno!"
 LEMA = ("Guardia virtual de ¡Vaya Turno!: el juego de cartas de triage en "
         "UCI, contra la máquina o entre dos en el mismo teléfono.")
-TEMA = "#0a5860"      # el teal del ícono; pinta la barra de estado
+TEMA = "#0a5860"      # el teal del tablero; pinta la barra de estado. NO
+                      # es el amarillo del ícono: la app por dentro es
+                      # teal y blanca, el amarillo es solo el logotipo.
 FONDO = "#dfe7ea"
 TIPOS = ("IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS")
 COL = {"IMAGEN": "img", "FARMACOS": "far", "PERSONAL": "per",
