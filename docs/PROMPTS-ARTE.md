@@ -19,6 +19,39 @@ silueta protagonista, UNA acción legible, el sujeto en el tercio central
 — la carta se lee a tamaño de pulgar sobre la mesa. Las claves están
 dentro de cada prompt; no lo recortes.
 
+**El estilo de la casa se recalibró (agosto 2026)** sobre las primeras 10
+imágenes reales que salieron de Flow, no sobre el ideal teórico anterior:
+proporciones adultas en vez de cabezones, sombreado suave en vez de color
+plano, línea media en vez de gruesa. Lo que sí se mantuvo intacto es lo
+que estaba funcionando: **cada imagen vive en UNA sola familia de color**,
+que es lo que hará que 115 cartas se vean del mismo mazo.
+
+Tres reglas nuevas que vale la pena conocer:
+
+1. **El cansancio es de unos pocos, no de todos.** El bloque anterior
+   pedía "caras cansadas y ojeras" en las 115 cartas — por eso todos los
+   personajes salían siendo la misma persona agotada. Ahora el ánimo se
+   define carta por carta (`MOOD`), y solo 5 lo piden: el Residente, la
+   Enfermera de Noche, el Multiuso, el Turno Extra y el Técnico. A varios
+   se les prohíbe explícitamente salir cansados.
+2. **Cada personaje trae su físico** (`WHO`): edad, contextura, pelo y un
+   rasgo reconocible de lejos. Es el otro arreglo del "todos se parecen".
+3. **Las Acciones tienen que dar risa.** Su encuadre exige construir el
+   cuadro alrededor de UN chiste visual y exagerar más que en el resto
+   del mazo.
+
+**La oveja negra:** *Doctor Amor* (C03) rompe el molde a propósito —
+registro de telenovela glamorosa, otro nivel de dibujo— pero conserva
+encuadre, tamaño de sujeto y familia de color, así que sigue siendo del
+mismo mazo. Si quieres que otra carta sea la excepción (o agregar más),
+es una línea en el diccionario `ROMPE` de
+`tools/generar_prompts_arte.py`.
+
+> ⚠️ **Fija la proporción en Flow, no solo en el texto.** En la primera
+> tanda salieron verticales, cuadradas y apaisadas mezcladas; para cartas
+> tienen que ser **2:3 vertical** todas. Y pide **máximo dos palabras** de
+> texto dentro de la imagen: las frases largas salen cortadas.
+
 **El orden sugerido:** los 22 personajes primero (fijan las caras del
 juego), después los 26 pacientes, después recursos, y al final Acciones
 y el Sumario.
@@ -37,10 +70,22 @@ eyes closed"* y *"same exact image, <micro-acción>"*).
 ### C01 · El Diostor
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 50s, tall and lean, silver at the temples, aquiline nose, immaculately groomed. This person must be instantly distinguishable from every other character in the deck.
 SCENE: hospital corridor as his personal catwalk: smug senior attending, immaculate flowing coat, arms open in a blameless shrug, a faint saint-like halo; a junior trails behind carrying his paperwork.
+MOOD: supremely confident and untroubled, not a worry in the world
 ```
 
 - **Descripción:** 1×RONDA — Cuando colocas una carta ⚠️, puedes descartar 2 cartas de tu mano para pasarle su complicación al jugador de tu derecha: la resuelve él sobre sus pacientes, como si la hubiera jugado. El recurso se queda igual sobre tu paciente.
@@ -50,9 +95,20 @@ SCENE: hospital corridor as his personal catwalk: smug senior attending, immacul
 ### C02 · El Médico Fantasma
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 40s, average build, bald with dark heavy eyebrows, permanent five-o'clock shadow. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the night door of the on-call residence: a half-translucent doctor with coffee slipping backwards out of frame, ghostly motion trail, his pager glowing and ringing unanswered on the desk.
 ```
 
@@ -63,22 +119,46 @@ SCENE: the night door of the on-call residence: a half-translucent doctor with c
 ### C03 · Doctor Amor
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
-SCENE: ward corridor at golden lamp light: telenovela-handsome doctor leaning on an IV pole like a lamppost, winking, a rose in the coat pocket, tiny sparkles; the ECG behind draws a heart.
+WHO: woman in her 30s, glamorous and poised, long honey-blonde hair, dramatic lashes, glossy lips. This person must be instantly distinguishable from every other character in the deck.
+SCENE: ward corridor at golden lamp light, posing as if for a magazine cover: she leans on an IV pole like a lamppost, one hand on her chest, winking straight at the viewer, a rose tucked in the coat pocket, tiny sparkles around her; the ECG on the monitor behind traces a heart shape.
+MOOD: radiant, flirtatious, delighted with herself
+STYLE BREAK — this ONE card deliberately leaves the house style: render it as glossy telenovela / fashion-magazine glamour — airbrushed skin, dramatic eyelashes, glossy lips, idealized proportions, little sparkle highlights, a beauty-shot finish. Everything else stays identical to the rest of the deck: same 2:3 framing, same subject size, same single ambient color family, same hospital background treatment. It must read as the one character who believes she is starring in a different show.
 ```
 
 - **Descripción:** 1×PARTIDA — SEDUCCIÓN DE PASILLO — Roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y añádelo a tu mano. Colocarlo después cuesta su indicación, como cualquier carta.
 - **Frase de la carta:** «Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?»
-- **Añadido extra:** Retrato vivo: variante 1 «same exact image, eyes closed»; variante 2 «same exact image, guiña un ojo y aparece la rosa» (tradúcela al inglés al pedirla). Manda las 3 como C03.png, C03-b.png y C03-c.png.
+- **Añadido extra:** 🐑 **OVEJA NEGRA**: esta carta rompe el estilo a propósito (otro registro de dibujo) pero conserva encuadre, tamaño de sujeto y familia de color. Es la excepción que confirma el mazo. Retrato vivo: variante 1 «same exact image, eyes closed»; variante 2 «same exact image, guiña un ojo y aparece la rosa» (tradúcela al inglés al pedirla). Manda las 3 como C03.png, C03-b.png y C03-c.png.
 
 ### C04 · El Director del Hospital
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 60s, heavy-set, thinning gray hair combed back, double chin, expensive suit. This person must be instantly distinguishable from every other character in the deck.
 SCENE: top-floor office overlooking the hospital through glass: suited director with hospital badge, phone at the ear, one hand feeding a report into a shredder, political smile, golf trophy on the shelf.
 ```
 
@@ -89,9 +169,20 @@ SCENE: top-floor office overlooking the hospital through glass: suited director 
 ### C05 · La Gestora de Camas
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: woman in her 40s, petite and wiry, dark hair in a tight bun, reading glasses pushed up on her head. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the bed-management whiteboard as a war room: sharp woman with radio in hand moving bed magnets like chess pieces; behind her, a stretcher waits with a suitcase on it.
 ```
 
@@ -102,9 +193,20 @@ SCENE: the bed-management whiteboard as a war room: sharp woman with radio in ha
 ### C06 · El Médico Esotérico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 30s, slim, long hair in a loose bun, beaded necklaces over the scrubs, wispy beard. This person must be instantly distinguishable from every other character in the deck.
 SCENE: a dim on-call room turned ritual den: doctor with amulets and crystals over the scrubs, sage smoke curling, lab results spread like tarot cards around a candle.
 ```
 
@@ -115,10 +217,22 @@ SCENE: a dim on-call room turned ritual den: doctor with amulets and crystals ov
 ### C07 · La Enfermera de Noche
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: woman in her 50s, sturdy and grounded, short gray-streaked curls, calm heavy-lidded eyes. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the dark ward under one pool of lamplight: serene night nurse sitting guard with a thermos, finger to her lips in a shh; the alarm bells behind her wrapped in gauze.
+MOOD: the calm tiredness of the night shift — serene, heavy-lidded, unhurried
 ```
 
 - **Descripción:** 1×PARTIDA — TURNO TRANQUILO — Descarta 3 cartas de tu mano y elige 1 paciente de tu unidad: en este Fin de Guardia, ese paciente no pierde ❤️.
@@ -128,9 +242,20 @@ SCENE: the dark ward under one pool of lamplight: serene night nurse sitting gua
 ### C08 · El Jefe de Servicio
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 60s, barrel-chested, full white beard, tortoiseshell glasses. This person must be instantly distinguishable from every other character in the deck.
 SCENE: hospital corridor photo-op: gray-haired chief posing with a thumbs up for a framed picture, camera flash frozen; behind him the exhausted team does the actual work.
 ```
 
@@ -141,10 +266,22 @@ SCENE: hospital corridor photo-op: gray-haired chief posing with a thumbs up for
 ### C09 · La de Abastecimiento
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: woman in her 40s, stocky and strong, dark hair in a practical ponytail, big hoop earrings. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the supply warehouse aisle: supply queen among tall shelves of labeled boxes, walkie-talkie on her belt, SAFETY BOOTS, hi-vis vest over the uniform, checking inventory on a clipboard with a pen chained to it, one finger counting boxes.
+MOOD: brisk and businesslike, in charge of her warehouse
 ```
 
 - **Descripción:** PASIVA — BODEGA LLENA — Tus Canjes cuestan 1 recurso en vez de 2.
@@ -154,10 +291,22 @@ SCENE: the supply warehouse aisle: supply queen among tall shelves of labeled bo
 ### C10 · El Dirigente Gremial
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 40s, broad-shouldered, thick black moustache, receding hairline. This person must be instantly distinguishable from every other character in the deck.
 SCENE: OUTSIDE the hospital entrance in open daylight: union leader with sash and megaphone, fist raised high, a stack of petitions under the arm, a protest banner strung between two poles behind, coworkers with little flags.
+MOOD: fired up, righteous, shouting
 ```
 
 - **Descripción:** PASIVA — ASAMBLEA EXTRAORDINARIA — Cada vez que una Acción de ATAQUE rival te elige a ti o a un paciente de tu unidad, roba 1 carta.
@@ -167,9 +316,20 @@ SCENE: OUTSIDE the hospital entrance in open daylight: union leader with sash an
 ### C11 · El Subespecialista
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 50s, very thin, hair parted with a ruler, half-moon glasses, bow tie under the coat. This person must be instantly distinguishable from every other character in the deck.
 SCENE: a quiet consult office with a diploma wall: elegant subspecialist examining one single ECG strip through a magnifying glass, unhurried, one eyebrow raised; a four-day-old interconsult form waits in the inbox tray.
 ```
 
@@ -180,10 +340,22 @@ SCENE: a quiet consult office with a diploma wall: elegant subspecialist examini
 ### C12 · La Enfermera de IAAS
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: woman in her 30s, tall, tight braids, freckles across the nose, impeccable PPE. This person must be instantly distinguishable from every other character in the deck.
 SCENE: a corridor checkpoint: infection-control nurse in impeccable PPE holding a giant folded spreadsheet printout cascading to the floor, pointing at a hand-hygiene poster; an alcohol-gel spray holstered like a sheriff.
+MOOD: alert and meticulous, mildly evangelical about hand hygiene
 ```
 
 - **Descripción:** PASIVA — VIGILANCIA EPIDEMIOLÓGICA — Cada 3 complicaciones ⚠️ que se resuelvan en tu unidad, roba 1 Protocolo gratis.
@@ -193,10 +365,22 @@ SCENE: a corridor checkpoint: infection-control nurse in impeccable PPE holding 
 ### C13 · El Residente Aplicado
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: young man in his 20s, skinny, messy dark hair, patchy first beard. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the on-call study desk at dawn: young resident with heroic dark circles, a tower of highlighted textbooks, three coffee cups, pens lined in the pocket, eager overachiever smile.
+MOOD: wrecked but eager — heavy dark circles, running on coffee and enthusiasm
 ```
 
 - **Descripción:** PASIVA — PACIENTE EMBLEMA — Si en un mismo turno colocas 3 recursos de tipos distintos sobre un mismo paciente, el 3º cuenta doble (si no doblaba ya).
@@ -206,10 +390,22 @@ SCENE: the on-call study desk at dawn: young resident with heroic dark circles, 
 ### C14 · El Reanimador
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 30s, athletic and broad, buzzcut, thick forearms, set jaw. This person must be instantly distinguishable from every other character in the deck.
 SCENE: bedside mid-code, lit from below by the monitor: intense doctor with defibrillator paddles raised and charging, absolute NOT TODAY determination; a nurse hands adrenaline from the side.
+MOOD: pure adrenaline and focus, wide awake
 ```
 
 - **Descripción:** 1×PARTIDA — MASAJE Y ADRENALINA — Cuando un paciente tuyo fuera a fallecer, no muere: queda con 1 ❤️ y pierde todos sus recursos colocados.
@@ -219,9 +415,20 @@ SCENE: bedside mid-code, lit from below by the monitor: intense doctor with defi
 ### C15 · El Dador de Altas
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 40s, medium build, salt-and-pepper hair, quick darting eyes, pen behind the ear. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the ward exit door: doctor stamping discharge papers in a motion blur of triple stamps, a half-dressed patient already being wheeled out; behind, the empty bed is being remade at speed.
 ```
 
@@ -232,9 +439,20 @@ SCENE: the ward exit door: doctor stamping discharge papers in a motion blur of 
 ### C16 · El Radiólogo de Guardia
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 50s, soft build, pale from the reading room, round glasses, cardigan under the coat. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the dark reading room lit only by lightbox glow: radiologist holding a film up close, intrigued squint, dictaphone in the other hand; a leaning tower of unread studies beside.
 ```
 
@@ -245,10 +463,22 @@ SCENE: the dark reading room lit only by lightbox glow: radiologist holding a fi
 ### C17 · El Multiuso
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 50s, wiry and weathered, gray stubble, worn cap, rolled sleeves. This person must be instantly distinguishable from every other character in the deck.
 SCENE: mid-corridor, mid-everything: handyman-orderly with a utility belt mixing wrench, BP cuff, plunger and cables, a monitor under one arm and a mop in the other hand, unbothered.
+MOOD: worn out and completely unbothered, has seen worse
 ```
 
 - **Descripción:** PASIVA — EL QUE HACE DE TODO — Empiezas la guardia con 1 Comodín 🃏 adicional en la mano. Tus comodines no pueden ser robados ni descartados por rivales.
@@ -258,10 +488,22 @@ SCENE: mid-corridor, mid-everything: handyman-orderly with a utility belt mixing
 ### C18 · La de la Buena Muñeca
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: young woman in her 20s, petite, dark hair in a high ponytail, small tattoo on the forearm. This person must be instantly distinguishable from every other character in the deck.
 SCENE: bedside, first try: confident nurse flexing her wrist with a tiny halo on it, syringe with one perfect drop, the patient's arm relieved; a caught butterfly needle drawn like a medal.
+MOOD: quietly cocky, enjoying being good at this
 ```
 
 - **Descripción:** PASIVA — AL PRIMER INTENTO — Al final de tu Entrega de Turno, puedes devolver 1 carta de tu mano al fondo del Mazo de Guardia: mira las 3 primeras cartas del mazo, quédate con 1 y devuelve el resto al fondo.
@@ -271,10 +513,22 @@ SCENE: bedside, first try: confident nurse flexing her wrist with a tiny halo on
 ### C19 · El Intensivista
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 40s, compact and solid, shaved head, thick dark beard. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the eye of the storm: dead-calm intensivist sipping coffee while every monitor around flashes and alarms; his face says this is a normal Tuesday.
+MOOD: unnervingly calm, mildly bored, this is a normal Tuesday
 ```
 
 - **Descripción:** PASIVA — A MÍ NO ME ASUSTA — Tus pacientes de Gravedad III y Código ROJO entran a tu unidad con +1 ❤️.
@@ -284,9 +538,20 @@ SCENE: the eye of the storm: dead-calm intensivist sipping coffee while every mo
 ### C20 · El Carroñero de Pasillo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 30s, very tall and lanky, long neck, thin moustache, darting eyes. This person must be instantly distinguishable from every other character in the deck.
 SCENE: a night corridor corner: lanky figure peeking around the wall, sneaky grin, wheeling an IV pole loaded like a shopping cart with borrowed equipment, eyes locked on an unattended monitor.
 ```
 
@@ -297,9 +562,20 @@ SCENE: a night corridor corner: lanky figure peeking around the wall, sneaky gri
 ### C21 · El Precavido
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: man in his 40s, medium build, neat side part, thick glasses, a row of pens in the pocket. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the supply-room doorway: doctor opening his coat like a street vendor to reveal contingency folders, spare batteries, masks and a tiny umbrella; behind, a wall calendar with March circled in red and a told-you-so face.
 ```
 
@@ -310,10 +586,22 @@ SCENE: the supply-room doorway: doctor opening his coat like a street vendor to 
 ### C22 · La Jefa de Unidad
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
+WHO: woman in her 50s, imposing presence, silver hair in a severe bun, reading glasses on a chain. This person must be instantly distinguishable from every other character in the deck.
 SCENE: the nurses station as a fortress: formidable head nurse, arms crossed, reading glasses on a chain, looking over them straight at the viewer; her staff sheltered behind her and a metrics board of all-green checkmarks.
+MOOD: composed authority, absolutely in control
 ```
 
 - **Descripción:** PASIVA — CUMPLIMIENTO DE METAS — Los recursos 🧑‍⚕️ de tu unidad no pueden ser descartados por cartas de rivales.
@@ -332,7 +620,17 @@ es el chiste — y el prompt ya la convirtió en escena.
 ### P01 · Dolor Torácico Atípico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: middle-aged man clutching his chest with theatrical agony while side-eyeing the hospital bill on his tray table; one eyebrow says the pain moved when the price appeared. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -345,7 +643,17 @@ SCENE: middle-aged man clutching his chest with theatrical agony while side-eyei
 ### P02 · El del Frasco Completo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient sitting up with an innocent guilty smile, holding an empty pill bottle upside down; a lone cotton ball missing from the cotton jar beside him. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -358,7 +666,17 @@ SCENE: patient sitting up with an innocent guilty smile, holding an empty pill b
 ### P03 · Abandono de Tratamiento
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: relaxed man shrugging with total confidence, a dusty unopened pill box with cobwebs on his nightstand, calendar behind showing eight months crossed out. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -371,7 +689,17 @@ SCENE: relaxed man shrugging with total confidence, a dusty unopened pill box wi
 ### P04 · La Caída del Baño
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: bruised patient with an arm sling insisting with a straight face, while the whole scene behind him (wet floor sign, rubber duck) contradicts his story. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -384,7 +712,17 @@ SCENE: bruised patient with an arm sling insisting with a straight face, while t
 ### P05 · Crisis de Pánico en Box 4
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: hyperventilating woman gripping the bed rails with catastrophic eyes, monitor behind showing a perfectly normal rhythm; a wall calendar with every Tuesday circled. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -397,7 +735,17 @@ SCENE: hyperventilating woman gripping the bed rails with catastrophic eyes, mon
 ### P06 · Deshidratado de Verano
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: sunburnt young man with cracked lips holding up four fingers proudly, empty beer cans arranged like a trophy on the tray, IV line already running. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -410,7 +758,17 @@ SCENE: sunburnt young man with cracked lips holding up four fingers proudly, emp
 ### P07 · El Que Googleó Sus Síntomas
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: smug patient in bed holding out a thick printed stack titled with a diagnosis, treatment plan bookmarked, the doctor's clipboard hanging defeated at the bedside. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -423,7 +781,17 @@ SCENE: smug patient in bed holding out a thick printed stack titled with a diagn
 ### P08 · Postoperado Que No Debería Estar Aquí
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: post-op patient camped in the bed with personal slippers, a plant and three days of newspapers; surgical drain still attached, roots almost growing. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -436,7 +804,17 @@ SCENE: post-op patient camped in the bed with personal slippers, a plant and thr
 ### P09 · Neumonía Adquirida en la Comunidad
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gray-faced man mid-cough with a Venturi mask lifted to talk, one month of crumpled tissue packets on the blanket, dark rings of a sleepless month. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -449,7 +827,17 @@ SCENE: gray-faced man mid-cough with a Venturi mask lifted to talk, one month of
 ### P10 · Cetoacidosis Diabética
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young woman breathing deep and fast (Kussmaul), empty insulin pen on the nightstand, calendar showing Thursday to Sunday crossed out, sweet fruity breath drawn as tiny wavy lines. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -462,7 +850,17 @@ SCENE: young woman breathing deep and fast (Kussmaul), empty insulin pen on the 
 ### P11 · ACV en Ventana
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: elderly patient with one side of the face drooping, a wall clock behind with a giant question mark on it, family silhouettes shrugging at the door. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -475,7 +873,17 @@ SCENE: elderly patient with one side of the face drooping, a wall clock behind w
 ### P12 · Hemorragia Digestiva Alta
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: pale patient with a knowing look away from the doctor, six little tally marks scratched on the bed rail, a basin discreetly at hand. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -488,7 +896,17 @@ SCENE: pale patient with a knowing look away from the doctor, six little tally m
 ### P13 · Insuficiencia Cardíaca Descompensada
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: grandfather with swollen ankles propped up, oxygen on, surrounded by the loving evidence: a thermos of cazuela, soup cup, juice box and a dessert plate on the tray. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -501,7 +919,17 @@ SCENE: grandfather with swollen ankles propped up, oxygen on, surrounded by the 
 ### P14 · Pielonefritis Complicada
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: exhausted woman in work uniform still holding her lanyard, fever flush on the cheeks, an IV starting; her phone buzzing with work messages on the tray. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -514,7 +942,17 @@ SCENE: exhausted woman in work uniform still holding her lanyard, fever flush on
 ### P15 · Abdomen Agudo Sin Diagnóstico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient with hands on the belly, in a tug-of-war of pointing arrows: a surgical cap silhouette points left, a stethoscope silhouette points right; he belongs to no one. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -527,7 +965,17 @@ SCENE: patient with hands on the belly, in a tug-of-war of pointing arrows: a su
 ### P16 · EPOC Exacerbado
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: wiry old man with a Venturi mask, his oxygen tank on one side of the bed and his cigarette pack peeking from the robe pocket on the other; both drawn as loyal pets. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -540,7 +988,17 @@ SCENE: wiry old man with a Venturi mask, his oxygen tank on one side of the bed 
 ### P17 · Intoxicación Mixta
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young man with spiral eyes and a chalkboard of question marks behind, toxicology chart on the wall with everything circled; he shrugs too. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -553,7 +1011,17 @@ SCENE: young man with spiral eyes and a chalkboard of question marks behind, tox
 ### P18 · Delirium del Adulto Mayor
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: sweet grandmother asleep like an angel in daylight... with a tiny inset moon showing her conducting an invisible orchestra with the IV pole as baton at night. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -566,7 +1034,17 @@ SCENE: sweet grandmother asleep like an angel in daylight... with a tiny inset m
 ### P19 · Shock Séptico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gravely ill patient, flushed and sweaty, four infusion pumps stacked like a totem beside the bed, a melted golden hourglass on the monitor shelf. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -579,7 +1057,17 @@ SCENE: gravely ill patient, flushed and sweaty, four infusion pumps stacked like
 ### P20 · Politraumatizado
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young man in cervical collar and full fixation, monitor busy; a tiny speedometer at 120 and an unbuckled seatbelt drawn as ghost icons above. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -592,7 +1080,17 @@ SCENE: young man in cervical collar and full fixation, monitor busy; a tiny spee
 ### P21 · Síndrome de Distrés Respiratorio
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: serene intubated patient, almost peaceful, while the chest X-ray on the lightbox behind is a storm of frosted glass; the calm and the storm in one frame. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -605,7 +1103,17 @@ SCENE: serene intubated patient, almost peaceful, while the chest X-ray on the l
 ### P22 · Status Epiléptico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: intubated patient with EEG leads, four empty syringes lined up on the cart like spent shells, a tiny lightning bolt still crossing the monitor trace. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -618,7 +1126,17 @@ SCENE: intubated patient with EEG leads, four empty syringes lined up on the car
 ### P23 · Pancreatitis Grave
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: big man intubated with a distended belly, dreaming (thought bubble) of a single innocent asado skewer with a halo; enzyme numbers towering on the monitor. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -631,7 +1149,17 @@ SCENE: big man intubated with a distended belly, dreaming (thought bubble) of a 
 ### P24 · Tromboembolismo Pulmonar Masivo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient on high-flow oxygen gripping the bed, a suitcase with flight stickers still at the bedside, boarding pass on the floor; one leg drawn swollen. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -644,7 +1172,17 @@ SCENE: patient on high-flow oxygen gripping the bed, a suitcase with flight stic
 ### P25 · Falla Multiorgánica
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the most tangled bed of the deck: ventilator, pumps, lines and drains all at once, each labeled organ waving a tiny white flag in alphabetical order. Clinical state: ventilated, several infusion pumps running, the most extreme scene in the deck.
@@ -657,7 +1195,17 @@ SCENE: the most tangled bed of the deck: ventilator, pumps, lines and drains all
 ### P26 · Trasplante en Lista Cero
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient ready and packed on the stretcher, IV pole as flag mast; through the window a tiny plane circles and the OR doors behind have a CLOSED sign. Clinical state: ventilated, several infusion pumps running, the most extreme scene in the deck.
@@ -680,7 +1228,17 @@ pide la complicada como variación de la misma imagen.
 ### R01 · Antibiótico de Amplio Espectro
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a proud wide-spectrum antibiotic IV bag hanging center stage with a superhero glow, covering the whole scene with its shadow like a protective cape.
@@ -693,7 +1251,17 @@ SCENE: a proud wide-spectrum antibiotic IV bag hanging center stage with a super
 ### R02 · Antibiótico de Amplio Espectro
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same wide-spectrum IV bag, but a tiny army of smug bacteria wearing helmets and carrying microscopic shields marches across the tubing unharmed.
@@ -706,7 +1274,17 @@ SCENE: the same wide-spectrum IV bag, but a tiny army of smug bacteria wearing h
 ### R46 · Sedoanalgesia
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a sedation syringe pump purring softly, zzz bubbles floating up, a serene sleeping patient silhouette in the background; the whole ward exhales.
@@ -719,7 +1297,17 @@ SCENE: a sedation syringe pump purring softly, zzz bubbles floating up, a serene
 ### R47 · Sedoanalgesia
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same syringe pump at night, the zzz bubbles turning into ?! sparks, the patient silhouette behind wide-eyed conducting an invisible orchestra.
@@ -732,7 +1320,17 @@ SCENE: the same syringe pump at night, the zzz bubbles turning into ?! sparks, t
 ### R05 · Anticoagulación
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an anticoagulation vial balanced dead-center on a tiny seesaw, one side a blood drop, the other a clot; both watching each other with suspicion.
@@ -745,7 +1343,17 @@ SCENE: an anticoagulation vial balanced dead-center on a tiny seesaw, one side a
 ### R06 · Anticoagulación
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same vial and seesaw, tipped hard: the blood-drop side flooding, tiny red drips escaping the frame; the balance was never fair.
@@ -758,7 +1366,17 @@ SCENE: the same vial and seesaw, tipped hard: the blood-drop side flooding, tiny
 ### R07 · Hemoderivados
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a blood bag arriving in a cooler with a heroic entrance, dramatic light, its paper tag missing — just a torn string where the form should be.
@@ -771,7 +1389,17 @@ SCENE: a blood bag arriving in a cooler with a heroic entrance, dramatic light, 
 ### R08 · Noradrenalina
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a noradrenaline syringe pump with a pressure gauge climbing, the needle rising like a thermometer in summer; steady hands hold the frame.
@@ -784,7 +1412,17 @@ SCENE: a noradrenaline syringe pump with a pressure gauge climbing, the needle r
 ### R09 · Noradrenalina
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same pump, gauge needle buried in red, the ECG trace behind gone jagged like a mountain range; everything vibrates slightly.
@@ -797,7 +1435,17 @@ SCENE: the same pump, gauge needle buried in red, the ECG trace behind gone jagg
 ### R10 · Broncodilatador en Nebulización
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a nebulizer mask puffing majestic clouds of vapor that fill the top of the frame like a spa; a tiny rubber duck silhouette in the mist.
@@ -810,7 +1458,17 @@ SCENE: a nebulizer mask puffing majestic clouds of vapor that fill the top of th
 ### R13 · Insulina en Bomba
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an insulin pump beside a glucometer, both flanked by a clock face marked every two hours; a stack of used test strips like a tiny card deck.
@@ -823,7 +1481,17 @@ SCENE: an insulin pump beside a glucometer, both flanked by a clock face marked 
 ### R48 · Corticoides
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a corticosteroid vial radiating a mighty power aura, flexing its glow; everything around it stands a little straighter.
@@ -836,7 +1504,17 @@ SCENE: a corticosteroid vial radiating a mighty power aura, flexing its glow; ev
 ### R49 · Corticoides
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same vial, but a pyramid of sugar cubes has piled up behind it and the glucometer beside shows a screaming high number with sweat drops.
@@ -849,7 +1527,17 @@ SCENE: the same vial, but a pyramid of sugar cubes has piled up behind it and th
 ### R50 · Cristaloides
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a crystal-clear saline bag glinting like a jewel, one perfect drop mid-fall, calm and generous.
@@ -862,7 +1550,17 @@ SCENE: a crystal-clear saline bag glinting like a jewel, one perfect drop mid-fa
 ### R51 · Cristaloides
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same saline bag overflowing, a puddle spreading below, tiny sandbags stacked around the IV pole like flood defense.
@@ -875,7 +1573,17 @@ SCENE: the same saline bag overflowing, a puddle spreading below, tiny sandbags 
 ### R16 · Radiografía de Tórax
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a chest X-ray film held up to the light — slightly rotated, slightly crooked, clipped anyway; the lightbox hums with routine dignity.
@@ -888,7 +1596,17 @@ SCENE: a chest X-ray film held up to the light — slightly rotated, slightly cr
 ### R17 · Radiografía de Tórax
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same film with one tiny circled shadow in a corner, three question marks orbiting it; nobody asked for this discovery.
@@ -901,7 +1619,17 @@ SCENE: the same film with one tiny circled shadow in a corner, three question ma
 ### R18 · Ecografía a Pie de Cama
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a bedside ultrasound machine with a proud gray blob on screen, the probe raised like a sword; conviction without certainty.
@@ -914,7 +1642,17 @@ SCENE: a bedside ultrasound machine with a proud gray blob on screen, the probe 
 ### R19 · Ecografía a Pie de Cama
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same ultrasound, the blob on screen now suspiciously shaped like a fish, the probe scratching its own cable in doubt.
@@ -927,7 +1665,17 @@ SCENE: the same ultrasound, the blob on screen now suspiciously shaped like a fi
 ### R20 · TAC de Urgencia
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a CT scanner donut glowing at the end of a corridor while a stretcher rolls toward it at full speed, motion lines and a flying chart.
@@ -940,7 +1688,17 @@ SCENE: a CT scanner donut glowing at the end of a corridor while a stretcher rol
 ### R21 · TAC de Urgencia
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same corridor mid-disaster: stretcher drifting a corner, IV pole tipping, papers airborne — the scanner still glowing patiently far away.
@@ -953,7 +1711,17 @@ SCENE: the same corridor mid-disaster: stretcher drifting a corner, IV pole tipp
 ### R22 · Angio-TAC
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an angio-CT console showing vessels lit up like a golden subway map, the contrast injector standing by like a rocket booster.
@@ -966,7 +1734,17 @@ SCENE: an angio-CT console showing vessels lit up like a golden subway map, the 
 ### R52 · Angio-TAC
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same console, but the contrast bottle drips its last drop and a kidney-shaped warning light blinks on the corner of the screen.
@@ -979,7 +1757,17 @@ SCENE: the same console, but the contrast bottle drips its last drop and a kidne
 ### R23 · Resonancia con Cupo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an MRI machine glowing like a mythical portal behind a velvet rope, a take-a-number ticket dispenser beside it showing 87.
@@ -992,7 +1780,17 @@ SCENE: an MRI machine glowing like a mythical portal behind a velvet rope, a tak
 ### R24 · Línea Arterial
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an arterial line finally in place on a wrist, drawn triumphant; behind, a tray discreetly hides four bent needles under a cloth.
@@ -1005,7 +1803,17 @@ SCENE: an arterial line finally in place on a wrist, drawn triumphant; behind, a
 ### R25 · Línea Arterial
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same wrist, the fingertips drawn faintly blue-violet, a tiny alarm bell above; the line itself whistles innocently.
@@ -1018,7 +1826,17 @@ SCENE: the same wrist, the fingertips drawn faintly blue-violet, a tiny alarm be
 ### R26 · Catéter Venoso Central
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a central line kit laid out on a sterile field like surgical jewelry, ultrasound at the ready, an audience of small silhouettes at the door.
@@ -1031,7 +1849,17 @@ SCENE: a central line kit laid out on a sterile field like surgical jewelry, ult
 ### R27 · Catéter Venoso Central
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same kit, but a conga line of tiny green germs with party hats climbs up the catheter; the sterile field pretends not to see.
@@ -1044,7 +1872,17 @@ SCENE: the same kit, but a conga line of tiny green germs with party hats climbs
 ### R30 · Ventilación Mecánica
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a mechanical ventilator with its knobs and screen, connected by tubing drawn as a tug-of-war rope to a small pair of stubborn lungs.
@@ -1057,7 +1895,17 @@ SCENE: a mechanical ventilator with its knobs and screen, connected by tubing dr
 ### R31 · Ventilación Mecánica
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same ventilator, tiny germs surfing down the tubing on droplets, the lungs bracing; the machine keeps its dignity.
@@ -1070,7 +1918,17 @@ SCENE: the same ventilator, tiny germs surfing down the tubing on droplets, the 
 ### R32 · Gases Arteriales
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an arterial blood gas syringe resting on crushed ice like a delicacy, a pH strip beside reading catastrophic; someone must now say something smart.
@@ -1083,7 +1941,17 @@ SCENE: an arterial blood gas syringe resting on crushed ice like a delicacy, a p
 ### R33 · Gases Arteriales
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same syringe shaken like a cocktail — foam, pink froth and a tiny paper umbrella planted on top; the lab will not be amused.
@@ -1096,7 +1964,17 @@ SCENE: the same syringe shaken like a cocktail — foam, pink froth and a tiny p
 ### R44 · Pleurostomía
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a chest tube kit with chalk marks counting rib spaces on a diagram, the water-seal chamber bubbling politely in a corner.
@@ -1109,7 +1987,17 @@ SCENE: a chest tube kit with chalk marks counting rib spaces on a diagram, the w
 ### R45 · Punción Lumbar
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a lumbar puncture needle poised over the curved back of a patient curled like a shrimp, a dotted target line between two vertebrae.
@@ -1122,8 +2010,18 @@ SCENE: a lumbar puncture needle poised over the curved back of a patient curled 
 ### R34 · Enfermera de UCI
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: veteran ICU nurse, bust, taping a line with perfect technique while giving the viewer the polite look of someone who already knows the answer.
 ```
@@ -1135,10 +2033,21 @@ SCENE: veteran ICU nurse, bust, taping a line with perfect technique while givin
 ### R35 · Técnico en Enfermería
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: ICU technician carrying half the unit in one arm — supply stack, monitor cable, and the dignity of the whole shift — without dropping anything.
+MOOD: tired but unstoppable, carrying everything without complaint
 ```
 
 - **Descripción:** 🧑‍⚕️ Personal · 🛡️ previene Neumonía Asociada a VM · 2 copia(s)
@@ -1148,10 +2057,21 @@ SCENE: ICU technician carrying half the unit in one arm — supply stack, monito
 ### R36 · Personal de Turno Extra
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same technician on hour twenty-four: two coffee mugs, cap slightly crooked, one eye twitching, still standing, still carrying everything.
+MOOD: hour twenty-four — visibly exhausted, eye twitch, still standing
 ```
 
 - **Descripción:** 🧑‍⚕️ Personal · ⚠️ El Turno Veinticuatro · 1 copia(s)
@@ -1161,10 +2081,21 @@ SCENE: the same technician on hour twenty-four: two coffee mugs, cap slightly cr
 ### R37 · Becado de Medicina
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young medical fellow with an open manual, enthusiastic sparkle, pockets bursting with pocket guides; a heart full of theory and hands full of hope.
+MOOD: bright-eyed and over-caffeinated, no tiredness at all
 ```
 
 - **Descripción:** 🧑‍⚕️ Personal · ⚠️ Aún Estoy Aprendiendo · 1 copia(s)
@@ -1174,8 +2105,18 @@ SCENE: young medical fellow with an open manual, enthusiastic sparkle, pockets b
 ### R38 · Gestor de Camas
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: bed manager holding a clipboard where the beds are drawn as Tetris pieces that don't fit; he brings no beds, only questions about beds.
 ```
@@ -1187,8 +2128,18 @@ SCENE: bed manager holding a clipboard where the beds are drawn as Tetris pieces
 ### R39 · Kinesiólogo Respiratorio
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: respiratory physiotherapist mid chest-percussion, already half out of the door in motion blur; came, aspirated, mobilized, vanished.
 ```
@@ -1200,8 +2151,18 @@ SCENE: respiratory physiotherapist mid chest-percussion, already half out of the
 ### R53 · Pabellón
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gleaming operating room double doors opening with rays of light — and one dotted silhouette where the anesthesiologist should be standing.
 ```
@@ -1213,8 +2174,18 @@ SCENE: gleaming operating room double doors opening with rays of light — and o
 ### R54 · Cirujano de Turno
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: scrubbed surgeon counting instruments with theatrical confidence; on the count tray, one gauze slot conspicuously empty and glowing.
 ```
@@ -1226,8 +2197,18 @@ SCENE: scrubbed surgeon counting instruments with theatrical confidence; on the 
 ### R42 · Médico General de Turno
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-STAFF PORTRAIT: bust or half body of the person in their working gesture, tired but competent, ICU ambience behind.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the general practitioner on duty, bust, holding a swiss-army stethoscope with a tool for everything; the one who is always there.
 ```
@@ -1239,7 +2220,17 @@ SCENE: the general practitioner on duty, bust, holding a swiss-army stethoscope 
 ### R43 · Stock de Sala
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an open ward drawer with the survivors: odd gloves, one saline flush, a bandage roll and a tiny tumbleweed of gauze rolling past.
@@ -1261,8 +2252,18 @@ y ya viene puesta en cada prompt.
 ### A01 · Vacaciones
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a nurse silhouette walking off toward the exit with a suitcase and a sun hat, leaving a glowing dotted outline at the bedside; an HR stamp floats above, freshly inked.
 ```
@@ -1274,8 +2275,18 @@ SCENE: a nurse silhouette walking off toward the exit with a suitcase and a sun 
 ### A02 · Cumpleaños del Residente
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a circle of rival staff reluctantly handing supplies to one beaming resident holding a birthday cake; every gift has a tiny invisible debt attached.
 ```
@@ -1287,8 +2298,18 @@ SCENE: a circle of rival staff reluctantly handing supplies to one beaming resid
 ### A03 · Reunión Clínica
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a long meeting table with a wall clock at the two-hour mark, resources sliding across the table like poker chips toward their new beds.
 ```
@@ -1300,8 +2321,18 @@ SCENE: a long meeting table with a wall clock at the two-hour mark, resources sl
 ### A04 · Interconsulta
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a hand rescuing one shining card from a trash bin of crumpled papers, a note attached reading like a polite suggestion; the find goes to the pocket, not the bed.
 ```
@@ -1313,8 +2344,18 @@ SCENE: a hand rescuing one shining card from a trash bin of crumpled papers, a n
 ### A05 · Doblo Turno
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: one doctor with two ID badges, three coffees and an armful of extra cards, while a ghost version of tomorrow-him slumps in the corner.
 ```
@@ -1326,8 +2367,18 @@ SCENE: one doctor with two ID badges, three coffees and an armful of extra cards
 ### A06 · Se Cayó el Sistema
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: night slate-blue palette (#4a5a78) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a dead computer screen at the nurses station with a yellowed sticky note, staff frozen mid-click around it; a cable drawn like a crime scene.
 ```
@@ -1339,8 +2390,18 @@ SCENE: a dead computer screen at the nurses station with a yellowed sticky note,
 ### A07 · ¡Liceeeencia!
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two white coats swapping mid-air between two horrified doctors, name tags trading places; a medical leave form flutters down like a feather.
 ```
@@ -1352,8 +2413,18 @@ SCENE: two white coats swapping mid-air between two horrified doctors, name tags
 ### A08 · Llaman de Urgencias
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a red wall phone ringing itself off the hook, twelve tally marks scratched beside it, the corridor lights flickering to attention.
 ```
@@ -1365,8 +2436,18 @@ SCENE: a red wall phone ringing itself off the hook, twelve tally marks scratche
 ### A09 · Auditoría
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an auditor with a clipboard leaning uncomfortably close over someone's fanned hand of cards, smiling the smile of someone who is definitely fiscalizing.
 ```
@@ -1378,8 +2459,18 @@ SCENE: an auditor with a clipboard leaning uncomfortably close over someone's fa
 ### A10 · Rotación de Internos
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: night slate-blue palette (#4a5a78) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two full hands of cards crossing mid-air in a small tornado between two desks, name stickers flying loose; nobody knows who rotates where.
 ```
@@ -1391,8 +2482,18 @@ SCENE: two full hands of cards crossing mid-air in a small tornado between two d
 ### A11 · ¿Y Si Vamos por un Cafecito?
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: calm hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two steaming coffee cups on a tray raised like a shield, an incoming complication bolt bouncing off the steam; somewhere, a kettle did its duty.
 ```
@@ -1404,8 +2505,18 @@ SCENE: two steaming coffee cups on a tray raised like a shield, an incoming comp
 ### A12 · Protocolo Institucional
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a dusty institutional binder glowing on a shelf as it photocopies the last played card by itself, the copy sliding out still warm.
 ```
@@ -1417,8 +2528,18 @@ SCENE: a dusty institutional binder glowing on a shelf as it photocopies the las
 ### A13 · Anda Rondando la Pelada
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: deep nocturnal purple, almost black (#3d2b52) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the far end of a dark corridor: a hooded skeletal figure in scrubs politely asking at bed 4, two coins spinning in the air above an open palm.
 ```
@@ -1430,8 +2551,18 @@ SCENE: the far end of a dark corridor: a hooded skeletal figure in scrubs polite
 ### A14 · Ojo Clínico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a doctor with one enormous magnifying-glass eye squinting at three face-down cards on the deck, one of them sweating.
 ```
@@ -1443,8 +2574,18 @@ SCENE: a doctor with one enormous magnifying-glass eye squinting at three face-d
 ### A15 · Receta en Blanco
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a signed blank prescription flying through the ward like a golden ticket, staff diving after it; the signature is a lightning scribble.
 ```
@@ -1456,8 +2597,18 @@ SCENE: a signed blank prescription flying through the ward like a golden ticket,
 ### A16 · Simulación Clínica
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: calm hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a CPR training dummy heroically raising a shield to block an incoming complication bolt aimed at the bed behind it; it has seen worse.
 ```
@@ -1469,8 +2620,18 @@ SCENE: a CPR training dummy heroically raising a shield to block an incoming com
 ### A17 · Quiebre de Stock
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a pharmacy shelf empty except for a small sign promising Thursday, a spider web in the corner and one loyal box of the wrong size.
 ```
@@ -1482,8 +2643,18 @@ SCENE: a pharmacy shelf empty except for a small sign promising Thursday, a spid
 ### A18 · Recorte Presupuestario
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a giant pair of budget scissors cutting a ribbon shaped like an IV line; below, a hand holds two indication tokens where three used to be.
 ```
@@ -1495,8 +2666,18 @@ SCENE: a giant pair of budget scissors cutting a ribbon shaped like an IV line; 
 ### A19 · El Que Guarda Siempre Tiene
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the deep bottom drawer opening with a golden glow while a veteran nurse guards it, key on a necklace; inside, exactly what was needed.
 ```
@@ -1508,8 +2689,18 @@ SCENE: the deep bottom drawer opening with a golden glow while a veteran nurse g
 ### A20 · Hay Que Repetirlo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a sample tube shaken like a cocktail shaker with a tiny umbrella, next to an X-ray sliding into a bin with a REPEAT stamp mid-air.
 ```
@@ -1521,8 +2712,18 @@ SCENE: a sample tube shaken like a cocktail shaker with a tiny umbrella, next to
 ### A21 · Encarnizamiento Terapéutico
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a wall of machines looming over one tiny bed, one more device being plugged in by insistent hands; new ribs gleam, nobody asked the question.
 ```
@@ -1534,8 +2735,18 @@ SCENE: a wall of machines looming over one tiny bed, one more device being plugg
 ### A22 · Alta Anticipada
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
-ACTION SCENE: minimal scene, one or two figures or a single element in motion; the emotion leads over the detail.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
+ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a patient in street clothes sprinting out the ward door trailing ECG leads like streamers, discharge paper stamped mid-air, one slipper left behind.
 ```
@@ -1551,7 +2762,17 @@ SCENE: a patient in street clothes sprinting out the ward door trailing ECG lead
 ### S01 · Sumario Administrativo
 
 ```text
-Modern retro cartoon illustration, thick uniform dark-brown outlines (ligne claire), flat colors with minimal 1-2 tone cel shading, subtle vintage print grain. Exaggerated comic style: big heads (3-4 heads tall), expressive tired faces, drawn under-eye circles, anxious hospital humor. Board-game card art composition: one strong silhouette, one clear readable action, the subject in the central third of the frame. Full-bleed background, never white. No game text, no labels except small ambient signs. No photorealism, no watercolor, no gradients. Aspect ratio 2:3 portrait.
+Modern flat-vector cartoon illustration in the style of a contemporary animated TV series. Clean digital finish: smooth flat color fills with soft two-step cel shading plus gentle airbrushed gradients on skin and fabric. No visible brush texture, no grain, no photorealism.
+LINE: medium-weight outline in desaturated dark brown or deep teal, never pure black; even and confident, slightly tapered at the ends. Interior detail lines noticeably thinner than the silhouette.
+CHARACTERS: adult naturalistic proportions with a slightly enlarged head (about 5 to 6 heads tall). Large round eyes with clear white sclera and dark irises; thick expressive eyebrows doing most of the acting; simple mouths, soft rounded jawlines. Ordinary hospital clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. Chilean public-hospital cast: varied ages, builds and skin tones.
+EXPRESSION: the mood and energy of each card are specified below in MOOD — follow them exactly. Do NOT add generic tiredness, eye bags or worry to a face that was not asked for them.
+COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, skin and clothing all sit inside that single color family, with a narrow value range and low overall contrast. Only two or three supporting accent colors are allowed.
+BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
+LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
+TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
+Aspect ratio 2:3 portrait.
 OBJECT CARD: a single document as the whole threat, filling the frame with its shadow.
 AMBIENT COLOR FAMILY: cold gray-teal bureaucratic palette (#5f7a80) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a manila folder bristling with red stamps and seals, grown huge, casting a long shadow over a tiny clinician's desk below; one paper clip like a padlock.

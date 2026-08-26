@@ -17,15 +17,51 @@ RAIZ = "/home/user/VAYA-TURNO"
 def leer(*p):
     return list(csv.DictReader(open(os.path.join(RAIZ, *p), encoding="utf-8")))
 
-BASE = ("Modern retro cartoon illustration, thick uniform dark-brown outlines "
-        "(ligne claire), flat colors with minimal 1-2 tone cel shading, subtle "
-        "vintage print grain. Exaggerated comic style: big heads (3-4 heads "
-        "tall), expressive tired faces, drawn under-eye circles, anxious "
-        "hospital humor. Board-game card art composition: one strong "
-        "silhouette, one clear readable action, the subject in the central "
-        "third of the frame. Full-bleed background, never white. No game "
-        "text, no labels except small ambient signs. No photorealism, no "
-        "watercolor, no gradients. Aspect ratio 2:3 portrait.")
+# El estilo de la casa, derivado de las primeras 10 imágenes reales que
+# salieron de Flow (agosto 2026) — NO del ideal teórico anterior. Dos
+# cambios de fondo respecto de la v1: proporciones adultas en vez de
+# cabezones, y sombreado suave en vez de color plano puro.
+#
+# 🔴 REGLA DURA: aquí NO se menciona el cansancio. El bloque v1 pedía
+# "caras cansadas y ojeras" en las 115 cartas, y por eso todos los
+# personajes salían siendo la misma persona agotada. El ánimo se define
+# carta por carta (ANIMO), y el cansancio es la excepción, no la regla.
+BASE = ("Modern flat-vector cartoon illustration in the style of a "
+        "contemporary animated TV series. Clean digital finish: smooth flat "
+        "color fills with soft two-step cel shading plus gentle airbrushed "
+        "gradients on skin and fabric. No visible brush texture, no grain, "
+        "no photorealism.\n"
+        "LINE: medium-weight outline in desaturated dark brown or deep teal, "
+        "never pure black; even and confident, slightly tapered at the ends. "
+        "Interior detail lines noticeably thinner than the silhouette.\n"
+        "CHARACTERS: adult naturalistic proportions with a slightly enlarged "
+        "head (about 5 to 6 heads tall). Large round eyes with clear white "
+        "sclera and dark irises; thick expressive eyebrows doing most of the "
+        "acting; simple mouths, soft rounded jawlines. Ordinary hospital "
+        "clothing: teal or navy scrubs, white coats, lanyards, stethoscopes. "
+        "Chilean public-hospital cast: varied ages, builds and skin tones.\n"
+        "EXPRESSION: the mood and energy of each card are specified below in "
+        "MOOD — follow them exactly. Do NOT add generic tiredness, eye bags "
+        "or worry to a face that was not asked for them.\n"
+        "COLOR: the ENTIRE image is graded into ONE dominant hue — "
+        "background, props, skin and clothing all sit inside that single "
+        "color family, with a narrow value range and low overall contrast. "
+        "Only two or three supporting accent colors are allowed.\n"
+        "BACKGROUND: a real, readable interior drawn simplified and "
+        "flattened, painted in the same hue as the subject and pushed one "
+        "step lower in contrast so the subject separates cleanly.\n"
+        "LIGHT: soft ambient overhead light, gentle falloff, no hard "
+        "shadows, no rim light, no lens flare.\n"
+        "TONE: affectionate workplace comedy — competent people, warm "
+        "humour, never cruel and never grim.\n"
+        "COMPOSITION: board-game card art — one strong silhouette, one clear "
+        "readable action, the subject in the central third, filling about "
+        "70% of the frame at eye level. Full bleed, never white.\n"
+        "AVOID: photorealism, watercolor, painterly texture, thick black "
+        "comic-book inking, chibi or super-deformed proportions, neon or "
+        "rainbow palettes, real brand logos, and any text longer than two "
+        "words.\n"
+        "Aspect ratio 2:3 portrait.")
 
 FAM = {"RESP": "hospital teal-blue (#5b9dc4)",
        "CARD": "burnt orange / brick red (#e0705a)",
@@ -55,9 +91,14 @@ MARCO_R = ("OBJECT CARD: the object nearly isolated, 3/4 or frontal view, "
            "filling about 60% of the frame, on an ambient monochrome "
            "hospital background, never white.")
 MARCO_RP = ("STAFF PORTRAIT: bust or half body of the person in their "
-            "working gesture, tired but competent, ICU ambience behind.")
+            "working gesture, competent and absorbed in the task, ICU "
+            "ambience behind.")
 MARCO_A = ("ACTION SCENE: minimal scene, one or two figures or a single "
-           "element in motion; the emotion leads over the detail.")
+           "element in motion. THIS CARD HAS TO BE FUNNY — build the whole "
+           "frame around ONE visual gag: an exaggerated reaction, an absurd "
+           "detail, a comic contrast between what is said and what is seen. "
+           "Push the expressions further than in the rest of the deck. The "
+           "joke leads; the detail follows.")
 MARCO_C = ("CHARACTER PORTRAIT: full body, signature pose, filling about "
            "70% of the frame. This is an archetype portrait — draw the "
            "personality, not the uniform.")
@@ -175,9 +216,11 @@ EC = {
 "C02": ("the night door of the on-call residence: a half-translucent doctor "
         "with coffee slipping backwards out of frame, ghostly motion trail, "
         "his pager glowing and ringing unanswered on the desk", NOCHE),
-"C03": ("ward corridor at golden lamp light: telenovela-handsome doctor "
-        "leaning on an IV pole like a lamppost, winking, a rose in the coat "
-        "pocket, tiny sparkles; the ECG behind draws a heart", None),
+"C03": ("ward corridor at golden lamp light, posing as if for a magazine "
+        "cover: she leans on an IV pole like a lamppost, one hand on her "
+        "chest, winking straight at the viewer, a rose tucked in the coat "
+        "pocket, tiny sparkles around her; the ECG on the monitor behind "
+        "traces a heart shape", None),
 "C04": ("top-floor office overlooking the hospital through glass: suited "
         "director with hospital badge, phone at the ear, one hand feeding a "
         "report into a shredder, political smile, golf trophy on the shelf",
@@ -246,6 +289,75 @@ EC = {
         "at the viewer; her staff sheltered behind her and a metrics "
         "board of all-green checkmarks", None),
 }
+# ══ EL FÍSICO DE CADA PERSONAJE ═══════════════════════════════════════
+# El arreglo del "todos se parecen": sin esto el generador dibuja 22 veces
+# la misma cara. Cada uno lleva edad, contextura, pelo y UN rasgo que lo
+# hace reconocible de lejos, en la miniatura de la carta.
+FISICO = {
+"C01": "man in his 50s, tall and lean, silver at the temples, aquiline nose, immaculately groomed",
+"C02": "man in his 40s, average build, bald with dark heavy eyebrows, permanent five-o'clock shadow",
+"C03": "woman in her 30s, glamorous and poised, long honey-blonde hair, dramatic lashes, glossy lips",
+"C04": "man in his 60s, heavy-set, thinning gray hair combed back, double chin, expensive suit",
+"C05": "woman in her 40s, petite and wiry, dark hair in a tight bun, reading glasses pushed up on her head",
+"C06": "man in his 30s, slim, long hair in a loose bun, beaded necklaces over the scrubs, wispy beard",
+"C07": "woman in her 50s, sturdy and grounded, short gray-streaked curls, calm heavy-lidded eyes",
+"C08": "man in his 60s, barrel-chested, full white beard, tortoiseshell glasses",
+"C09": "woman in her 40s, stocky and strong, dark hair in a practical ponytail, big hoop earrings",
+"C10": "man in his 40s, broad-shouldered, thick black moustache, receding hairline",
+"C11": "man in his 50s, very thin, hair parted with a ruler, half-moon glasses, bow tie under the coat",
+"C12": "woman in her 30s, tall, tight braids, freckles across the nose, impeccable PPE",
+"C13": "young man in his 20s, skinny, messy dark hair, patchy first beard",
+"C14": "man in his 30s, athletic and broad, buzzcut, thick forearms, set jaw",
+"C15": "man in his 40s, medium build, salt-and-pepper hair, quick darting eyes, pen behind the ear",
+"C16": "man in his 50s, soft build, pale from the reading room, round glasses, cardigan under the coat",
+"C17": "man in his 50s, wiry and weathered, gray stubble, worn cap, rolled sleeves",
+"C18": "young woman in her 20s, petite, dark hair in a high ponytail, small tattoo on the forearm",
+"C19": "man in his 40s, compact and solid, shaved head, thick dark beard",
+"C20": "man in his 30s, very tall and lanky, long neck, thin moustache, darting eyes",
+"C21": "man in his 40s, medium build, neat side part, thick glasses, a row of pens in the pocket",
+"C22": "woman in her 50s, imposing presence, silver hair in a severe bun, reading glasses on a chain",
+}
+
+# ══ EL ÁNIMO ══════════════════════════════════════════════════════════
+# El cansancio es de UNOS POCOS, no de todos (petición del autor). Solo
+# las cartas listadas aquí llevan instrucción de ánimo; el resto se dibuja
+# con la expresión que pida su escena, sin ojeras impuestas.
+ANIMO = {
+# los que de verdad están reventados — y en quienes el cansancio ES el chiste
+"C13": "MOOD: wrecked but eager — heavy dark circles, running on coffee and enthusiasm",
+"C07": "MOOD: the calm tiredness of the night shift — serene, heavy-lidded, unhurried",
+"C17": "MOOD: worn out and completely unbothered, has seen worse",
+"R36": "MOOD: hour twenty-four — visibly exhausted, eye twitch, still standing",
+"R35": "MOOD: tired but unstoppable, carrying everything without complaint",
+"R37": "MOOD: bright-eyed and over-caffeinated, no tiredness at all",
+# los que explícitamente NO deben salir cansados (el generador tiende a ello)
+"C01": "MOOD: supremely confident and untroubled, not a worry in the world",
+"C03": "MOOD: radiant, flirtatious, delighted with herself",
+"C14": "MOOD: pure adrenaline and focus, wide awake",
+"C19": "MOOD: unnervingly calm, mildly bored, this is a normal Tuesday",
+"C22": "MOOD: composed authority, absolutely in control",
+"C18": "MOOD: quietly cocky, enjoying being good at this",
+"C12": "MOOD: alert and meticulous, mildly evangelical about hand hygiene",
+"C09": "MOOD: brisk and businesslike, in charge of her warehouse",
+"C10": "MOOD: fired up, righteous, shouting",
+}
+
+# ══ LA OVEJA NEGRA ════════════════════════════════════════════════════
+# Cartas que rompen el molde A PROPÓSITO: cambian el REGISTRO de dibujo,
+# nunca el encuadre ni la familia de color, para que sigan siendo del
+# mismo mazo. Petición del autor: "que rompa el molde y esté en otro
+# nivel, pero el encuadre debe ser el mismo".
+ROMPE = {
+"C03": ("STYLE BREAK — this ONE card deliberately leaves the house style: "
+        "render it as glossy telenovela / fashion-magazine glamour — "
+        "airbrushed skin, dramatic eyelashes, glossy lips, idealized "
+        "proportions, little sparkle highlights, a beauty-shot finish. "
+        "Everything else stays identical to the rest of the deck: same 2:3 "
+        "framing, same subject size, same single ambient color family, same "
+        "hospital background treatment. It must read as the one character "
+        "who believes she is starring in a different show."),
+}
+
 MICRO = {
 "C01": "se ajusta la solapa y se mira en el reflejo del vidrio",
 "C02": "mira el celular, se da media vuelta y se desvanece un poco más",
@@ -278,12 +390,23 @@ TIPO_ICO = {"IMAGEN": "🩻 Imagen", "FARMACOS": "💊 Fármacos",
             "PERSONAL": "🧑‍⚕️ Personal", "PROCEDIMIENTOS": "💉 Procedimientos",
             "COMODIN": "🃏 Comodín"}
 
-def prompt(marco, familia, escena, extra_linea=""):
+def prompt(marco, familia, escena, fisico="", animo="", rompe="",
+           extra_linea=""):
+    """Arma el prompt completo. El orden importa: el estilo general primero,
+    el encuadre después, y al final lo que distingue a ESTA carta — físico,
+    escena y ánimo — que es lo que el generador retiene con más fuerza."""
     p = (BASE + "\n" + marco + "\n"
          "AMBIENT COLOR FAMILY: " + familia + " — the whole image lives in "
          "this ONE monochromatic family; background and subject share the "
-         "same color temperature.\n"
-         "SCENE: " + escena + ".")
+         "same color temperature.")
+    if fisico:
+        p += "\nWHO: " + fisico + ". This person must be instantly "
+        p += "distinguishable from every other character in the deck."
+    p += "\nSCENE: " + escena + "."
+    if animo:
+        p += "\n" + animo
+    if rompe:
+        p += "\n" + rompe
     if extra_linea:
         p += "\n" + extra_linea
     return p
@@ -335,6 +458,39 @@ silueta protagonista, UNA acción legible, el sujeto en el tercio central
 — la carta se lee a tamaño de pulgar sobre la mesa. Las claves están
 dentro de cada prompt; no lo recortes.
 
+**El estilo de la casa se recalibró (agosto 2026)** sobre las primeras 10
+imágenes reales que salieron de Flow, no sobre el ideal teórico anterior:
+proporciones adultas en vez de cabezones, sombreado suave en vez de color
+plano, línea media en vez de gruesa. Lo que sí se mantuvo intacto es lo
+que estaba funcionando: **cada imagen vive en UNA sola familia de color**,
+que es lo que hará que 115 cartas se vean del mismo mazo.
+
+Tres reglas nuevas que vale la pena conocer:
+
+1. **El cansancio es de unos pocos, no de todos.** El bloque anterior
+   pedía "caras cansadas y ojeras" en las 115 cartas — por eso todos los
+   personajes salían siendo la misma persona agotada. Ahora el ánimo se
+   define carta por carta (`MOOD`), y solo 5 lo piden: el Residente, la
+   Enfermera de Noche, el Multiuso, el Turno Extra y el Técnico. A varios
+   se les prohíbe explícitamente salir cansados.
+2. **Cada personaje trae su físico** (`WHO`): edad, contextura, pelo y un
+   rasgo reconocible de lejos. Es el otro arreglo del "todos se parecen".
+3. **Las Acciones tienen que dar risa.** Su encuadre exige construir el
+   cuadro alrededor de UN chiste visual y exagerar más que en el resto
+   del mazo.
+
+**La oveja negra:** *Doctor Amor* (C03) rompe el molde a propósito —
+registro de telenovela glamorosa, otro nivel de dibujo— pero conserva
+encuadre, tamaño de sujeto y familia de color, así que sigue siendo del
+mismo mazo. Si quieres que otra carta sea la excepción (o agregar más),
+es una línea en el diccionario `ROMPE` de
+`tools/generar_prompts_arte.py`.
+
+> ⚠️ **Fija la proporción en Flow, no solo en el texto.** En la primera
+> tanda salieron verticales, cuadradas y apaisadas mezcladas; para cartas
+> tienen que ser **2:3 vertical** todas. Y pide **máximo dos palabras** de
+> texto dentro de la imagen: las frases largas salen cortadas.
+
 **El orden sugerido:** los 22 personajes primero (fijan las caras del
 juego), después los 26 pacientes, después recursos, y al final Acciones
 y el Sumario.
@@ -356,12 +512,19 @@ eyes closed"* y *"same exact image, <micro-acción>"*).
         cid = c["id"]
         escena, fam_noct = EC[cid]
         fam = fam_noct or FAM[""]
-        ptxt = prompt(MARCO_C, fam, escena)
+        ptxt = prompt(MARCO_C, fam, escena, fisico=FISICO.get(cid, ""),
+                      animo=ANIMO.get(cid, ""), rompe=ROMPE.get(cid, ""))
         ficha = f"{c['frecuencia']} — {c['habilidad']}"
-        extra = (f"Retrato vivo: variante 1 «same exact image, eyes closed»; "
-                 f"variante 2 «same exact image, {MICRO[cid]}» (tradúcela al "
-                 f"inglés al pedirla). Manda las 3 como {cid}.png, "
-                 f"{cid}-b.png y {cid}-c.png.")
+        extra = ""
+        if cid in ROMPE:
+            extra += ("🐑 **OVEJA NEGRA**: esta carta rompe el estilo a "
+                      "propósito (otro registro de dibujo) pero conserva "
+                      "encuadre, tamaño de sujeto y familia de color. Es la "
+                      "excepción que confirma el mazo. ")
+        extra += (f"Retrato vivo: variante 1 «same exact image, eyes closed»; "
+                  f"variante 2 «same exact image, {MICRO[cid]}» (tradúcela al "
+                  f"inglés al pedirla). Manda las 3 como {cid}.png, "
+                  f"{cid}-b.png y {cid}-c.png.")
         bloque(fh, cid, c["nombre"], ptxt, ficha, c["frase"], extra)
 
     fh.write("""---
@@ -406,7 +569,7 @@ pide la complicada como variación de la misma imagen.
         marco = MARCO_RP if r["tipo"] in ("PERSONAL",) else MARCO_R
         if r["tipo"] == "COMODIN":
             marco = MARCO_RP if rid == "R42" else MARCO_R
-        ptxt = prompt(marco, fam, ER[rid])
+        ptxt = prompt(marco, fam, ER[rid], animo=ANIMO.get(rid, ""))
         partes = [TIPO_ICO.get(r["tipo"], r["tipo"])]
         if r["sistema"]:
             partes.append(f"{SIS_NOM[r['sistema']]} ×2")
