@@ -55,13 +55,20 @@ BASE = ("Modern flat-vector cartoon illustration in the style of a "
         "TONE: affectionate workplace comedy — competent people, warm "
         "humour, never cruel and never grim.\n"
         "COMPOSITION: board-game card art — one strong silhouette, one clear "
-        "readable action, the subject in the central third, filling about "
-        "70% of the frame at eye level. Full bleed, never white.\n"
+        "readable action, filling about 70% of the frame at eye level. Full "
+        "bleed, never white.\n"
+        "CROP SAFETY (important): the head and the identifying object must "
+        "sit in the UPPER HALF of the frame, with the eyes about one third "
+        "down from the top. The game shows only a wide strip taken from the "
+        "top of the image on the small card, so anything in the bottom third "
+        "may never be seen. Leave a small margin at every edge: nothing "
+        "important touches the border.\n"
         "AVOID: photorealism, watercolor, painterly texture, thick black "
         "comic-book inking, chibi or super-deformed proportions, neon or "
         "rainbow palettes, real brand logos, and any text longer than two "
         "words.\n"
-        "Aspect ratio 2:3 portrait.")
+        "Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — "
+        "never square and never landscape.")
 
 FAM = {"RESP": "hospital teal-blue (#5b9dc4)",
        "CARD": "burnt orange / brick red (#e0705a)",
@@ -486,10 +493,20 @@ mismo mazo. Si quieres que otra carta sea la excepción (o agregar más),
 es una línea en el diccionario `ROMPE` de
 `tools/generar_prompts_arte.py`.
 
-> ⚠️ **Fija la proporción en Flow, no solo en el texto.** En la primera
-> tanda salieron verticales, cuadradas y apaisadas mezcladas; para cartas
-> tienen que ser **2:3 vertical** todas. Y pide **máximo dos palabras** de
-> texto dentro de la imagen: las frases largas salen cortadas.
+> ⚠️ **Fija la proporción en el selector, no solo en el texto.** En la
+> primera tanda salieron verticales, cuadradas y apaisadas mezcladas.
+> Usa **3:4 vertical** en todas — es la opción de retrato más común y
+> calza casi exacto con una carta de póker real (63×88 mm = 0,716; 3:4 =
+> 0,75). Si tampoco estuviera: 1:1 antes que 9:16, y **nunca apaisado**.
+>
+> ⚠️ **La cara va en la mitad de arriba.** La app muestra en la mano solo
+> una franja ancha recortada del **borde superior** de la imagen: si el
+> personaje queda centrado verticalmente, en la carta se ve el techo de la
+> sala. Los ojos, más o menos a un tercio desde arriba. Ya va escrito en
+> cada prompt, pero conviene revisarlo al elegir entre variantes.
+>
+> ⚠️ Pide **máximo dos palabras** de texto dentro de la imagen: las frases
+> largas salen cortadas.
 
 **El orden sugerido:** los 22 personajes primero (fijan las caras del
 juego), después los 26 pacientes, después recursos, y al final Acciones

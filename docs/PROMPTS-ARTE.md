@@ -47,10 +47,20 @@ mismo mazo. Si quieres que otra carta sea la excepción (o agregar más),
 es una línea en el diccionario `ROMPE` de
 `tools/generar_prompts_arte.py`.
 
-> ⚠️ **Fija la proporción en Flow, no solo en el texto.** En la primera
-> tanda salieron verticales, cuadradas y apaisadas mezcladas; para cartas
-> tienen que ser **2:3 vertical** todas. Y pide **máximo dos palabras** de
-> texto dentro de la imagen: las frases largas salen cortadas.
+> ⚠️ **Fija la proporción en el selector, no solo en el texto.** En la
+> primera tanda salieron verticales, cuadradas y apaisadas mezcladas.
+> Usa **3:4 vertical** en todas — es la opción de retrato más común y
+> calza casi exacto con una carta de póker real (63×88 mm = 0,716; 3:4 =
+> 0,75). Si tampoco estuviera: 1:1 antes que 9:16, y **nunca apaisado**.
+>
+> ⚠️ **La cara va en la mitad de arriba.** La app muestra en la mano solo
+> una franja ancha recortada del **borde superior** de la imagen: si el
+> personaje queda centrado verticalmente, en la carta se ve el techo de la
+> sala. Los ojos, más o menos a un tercio desde arriba. Ya va escrito en
+> cada prompt, pero conviene revisarlo al elegir entre variantes.
+>
+> ⚠️ Pide **máximo dos palabras** de texto dentro de la imagen: las frases
+> largas salen cortadas.
 
 **El orden sugerido:** los 22 personajes primero (fijan las caras del
 juego), después los 26 pacientes, después recursos, y al final Acciones
@@ -78,9 +88,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 50s, tall and lean, silver at the temples, aquiline nose, immaculately groomed. This person must be instantly distinguishable from every other character in the deck.
@@ -103,9 +114,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 40s, average build, bald with dark heavy eyebrows, permanent five-o'clock shadow. This person must be instantly distinguishable from every other character in the deck.
@@ -127,9 +139,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 30s, glamorous and poised, long honey-blonde hair, dramatic lashes, glossy lips. This person must be instantly distinguishable from every other character in the deck.
@@ -153,9 +166,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 60s, heavy-set, thinning gray hair combed back, double chin, expensive suit. This person must be instantly distinguishable from every other character in the deck.
@@ -177,9 +191,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 40s, petite and wiry, dark hair in a tight bun, reading glasses pushed up on her head. This person must be instantly distinguishable from every other character in the deck.
@@ -201,9 +216,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 30s, slim, long hair in a loose bun, beaded necklaces over the scrubs, wispy beard. This person must be instantly distinguishable from every other character in the deck.
@@ -225,9 +241,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 50s, sturdy and grounded, short gray-streaked curls, calm heavy-lidded eyes. This person must be instantly distinguishable from every other character in the deck.
@@ -250,9 +267,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 60s, barrel-chested, full white beard, tortoiseshell glasses. This person must be instantly distinguishable from every other character in the deck.
@@ -274,9 +292,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 40s, stocky and strong, dark hair in a practical ponytail, big hoop earrings. This person must be instantly distinguishable from every other character in the deck.
@@ -299,9 +318,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 40s, broad-shouldered, thick black moustache, receding hairline. This person must be instantly distinguishable from every other character in the deck.
@@ -324,9 +344,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 50s, very thin, hair parted with a ruler, half-moon glasses, bow tie under the coat. This person must be instantly distinguishable from every other character in the deck.
@@ -348,9 +369,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 30s, tall, tight braids, freckles across the nose, impeccable PPE. This person must be instantly distinguishable from every other character in the deck.
@@ -373,9 +395,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: young man in his 20s, skinny, messy dark hair, patchy first beard. This person must be instantly distinguishable from every other character in the deck.
@@ -398,9 +421,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 30s, athletic and broad, buzzcut, thick forearms, set jaw. This person must be instantly distinguishable from every other character in the deck.
@@ -423,9 +447,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 40s, medium build, salt-and-pepper hair, quick darting eyes, pen behind the ear. This person must be instantly distinguishable from every other character in the deck.
@@ -447,9 +472,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 50s, soft build, pale from the reading room, round glasses, cardigan under the coat. This person must be instantly distinguishable from every other character in the deck.
@@ -471,9 +497,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 50s, wiry and weathered, gray stubble, worn cap, rolled sleeves. This person must be instantly distinguishable from every other character in the deck.
@@ -496,9 +523,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: young woman in her 20s, petite, dark hair in a high ponytail, small tattoo on the forearm. This person must be instantly distinguishable from every other character in the deck.
@@ -521,9 +549,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 40s, compact and solid, shaved head, thick dark beard. This person must be instantly distinguishable from every other character in the deck.
@@ -546,9 +575,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: nocturnal dark hospital teal (#2e5a63) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 30s, very tall and lanky, long neck, thin moustache, darting eyes. This person must be instantly distinguishable from every other character in the deck.
@@ -570,9 +600,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: man in his 40s, medium build, neat side part, thick glasses, a row of pens in the pocket. This person must be instantly distinguishable from every other character in the deck.
@@ -594,9 +625,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 CHARACTER PORTRAIT: full body, signature pose, filling about 70% of the frame. This is an archetype portrait — draw the personality, not the uniform.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 WHO: woman in her 50s, imposing presence, silver hair in a severe bun, reading glasses on a chain. This person must be instantly distinguishable from every other character in the deck.
@@ -628,9 +660,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: middle-aged man clutching his chest with theatrical agony while side-eyeing the hospital bill on his tray table; one eyebrow says the pain moved when the price appeared. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -651,9 +684,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient sitting up with an innocent guilty smile, holding an empty pill bottle upside down; a lone cotton ball missing from the cotton jar beside him. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -674,9 +708,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: relaxed man shrugging with total confidence, a dusty unopened pill box with cobwebs on his nightstand, calendar behind showing eight months crossed out. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -697,9 +732,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: bruised patient with an arm sling insisting with a straight face, while the whole scene behind him (wet floor sign, rubber duck) contradicts his story. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -720,9 +756,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: hyperventilating woman gripping the bed rails with catastrophic eyes, monitor behind showing a perfectly normal rhythm; a wall calendar with every Tuesday circled. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -743,9 +780,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: sunburnt young man with cracked lips holding up four fingers proudly, empty beer cans arranged like a trophy on the tray, IV line already running. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -766,9 +804,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: smug patient in bed holding out a thick printed stack titled with a diagnosis, treatment plan bookmarked, the doctor's clipboard hanging defeated at the bedside. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -789,9 +828,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: post-op patient camped in the bed with personal slippers, a plant and three days of newspapers; surgical drain still attached, roots almost growing. Clinical state: awake and sitting up, dramatic or annoyed, at most a nasal cannula, 30-50 years old.
@@ -812,9 +852,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gray-faced man mid-cough with a Venturi mask lifted to talk, one month of crumpled tissue packets on the blanket, dark rings of a sleepless month. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -835,9 +876,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young woman breathing deep and fast (Kussmaul), empty insulin pen on the nightstand, calendar showing Thursday to Sunday crossed out, sweet fruity breath drawn as tiny wavy lines. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -858,9 +900,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: elderly patient with one side of the face drooping, a wall clock behind with a giant question mark on it, family silhouettes shrugging at the door. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -881,9 +924,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: pale patient with a knowing look away from the doctor, six little tally marks scratched on the bed rail, a basin discreetly at hand. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -904,9 +948,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: grandfather with swollen ankles propped up, oxygen on, surrounded by the loving evidence: a thermos of cazuela, soup cup, juice box and a dessert plate on the tray. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -927,9 +972,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: exhausted woman in work uniform still holding her lanyard, fever flush on the cheeks, an IV starting; her phone buzzing with work messages on the tray. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -950,9 +996,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient with hands on the belly, in a tug-of-war of pointing arrows: a surgical cap silhouette points left, a stethoscope silhouette points right; he belongs to no one. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -973,9 +1020,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: wiry old man with a Venturi mask, his oxygen tank on one side of the bed and his cigarette pack peeking from the robe pocket on the other; both drawn as loyal pets. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -996,9 +1044,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young man with spiral eyes and a chalkboard of question marks behind, toxicology chart on the wall with everything circled; he shrugs too. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -1019,9 +1068,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: sweet grandmother asleep like an angel in daylight... with a tiny inset moon showing her conducting an invisible orchestra with the IV pole as baton at night. Clinical state: drowsy, Venturi mask or oxygen, monitor visible behind, 40-70 years old.
@@ -1042,9 +1092,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gravely ill patient, flushed and sweaty, four infusion pumps stacked like a totem beside the bed, a melted golden hourglass on the monitor shelf. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1065,9 +1116,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young man in cervical collar and full fixation, monitor busy; a tiny speedometer at 120 and an unbuckled seatbelt drawn as ghost icons above. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1088,9 +1140,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: serene intubated patient, almost peaceful, while the chest X-ray on the lightbox behind is a storm of frosted glass; the calm and the storm in one frame. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1111,9 +1164,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: intubated patient with EEG leads, four empty syringes lined up on the cart like spent shells, a tiny lightning bolt still crossing the monitor trace. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1134,9 +1188,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: big man intubated with a distended belly, dreaming (thought bubble) of a single innocent asado skewer with a halo; enzyme numbers towering on the monitor. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1157,9 +1212,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient on high-flow oxygen gripping the bed, a suitcase with flight stickers still at the bedside, boarding pass on the floor; one leg drawn swollen. Clinical state: intubated, deep sedation, arterial line, the monitor is a protagonist, over 60.
@@ -1180,9 +1236,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the most tangled bed of the deck: ventilator, pumps, lines and drains all at once, each labeled organ waving a tiny white flag in alphabetical order. Clinical state: ventilated, several infusion pumps running, the most extreme scene in the deck.
@@ -1203,9 +1260,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 PATIENT PORTRAIT: frontal bust from chest to head, soft frontal light, ICU monitor and IV pole simplified behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: patient ready and packed on the stretcher, IV pole as flag mast; through the window a tiny plane circles and the OR doors behind have a CLOSED sign. Clinical state: ventilated, several infusion pumps running, the most extreme scene in the deck.
@@ -1236,9 +1294,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a proud wide-spectrum antibiotic IV bag hanging center stage with a superhero glow, covering the whole scene with its shadow like a protective cape.
@@ -1259,9 +1318,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same wide-spectrum IV bag, but a tiny army of smug bacteria wearing helmets and carrying microscopic shields marches across the tubing unharmed.
@@ -1282,9 +1342,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a sedation syringe pump purring softly, zzz bubbles floating up, a serene sleeping patient silhouette in the background; the whole ward exhales.
@@ -1305,9 +1366,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same syringe pump at night, the zzz bubbles turning into ?! sparks, the patient silhouette behind wide-eyed conducting an invisible orchestra.
@@ -1328,9 +1390,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an anticoagulation vial balanced dead-center on a tiny seesaw, one side a blood drop, the other a clot; both watching each other with suspicion.
@@ -1351,9 +1414,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same vial and seesaw, tipped hard: the blood-drop side flooding, tiny red drips escaping the frame; the balance was never fair.
@@ -1374,9 +1438,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a blood bag arriving in a cooler with a heroic entrance, dramatic light, its paper tag missing — just a torn string where the form should be.
@@ -1397,9 +1462,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a noradrenaline syringe pump with a pressure gauge climbing, the needle rising like a thermometer in summer; steady hands hold the frame.
@@ -1420,9 +1486,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same pump, gauge needle buried in red, the ECG trace behind gone jagged like a mountain range; everything vibrates slightly.
@@ -1443,9 +1510,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a nebulizer mask puffing majestic clouds of vapor that fill the top of the frame like a spa; a tiny rubber duck silhouette in the mist.
@@ -1466,9 +1534,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an insulin pump beside a glucometer, both flanked by a clock face marked every two hours; a stack of used test strips like a tiny card deck.
@@ -1489,9 +1558,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a corticosteroid vial radiating a mighty power aura, flexing its glow; everything around it stands a little straighter.
@@ -1512,9 +1582,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same vial, but a pyramid of sugar cubes has piled up behind it and the glucometer beside shows a screaming high number with sweat drops.
@@ -1535,9 +1606,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a crystal-clear saline bag glinting like a jewel, one perfect drop mid-fall, calm and generous.
@@ -1558,9 +1630,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same saline bag overflowing, a puddle spreading below, tiny sandbags stacked around the IV pole like flood defense.
@@ -1581,9 +1654,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a chest X-ray film held up to the light — slightly rotated, slightly crooked, clipped anyway; the lightbox hums with routine dignity.
@@ -1604,9 +1678,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same film with one tiny circled shadow in a corner, three question marks orbiting it; nobody asked for this discovery.
@@ -1627,9 +1702,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a bedside ultrasound machine with a proud gray blob on screen, the probe raised like a sword; conviction without certainty.
@@ -1650,9 +1726,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same ultrasound, the blob on screen now suspiciously shaped like a fish, the probe scratching its own cable in doubt.
@@ -1673,9 +1750,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a CT scanner donut glowing at the end of a corridor while a stretcher rolls toward it at full speed, motion lines and a flying chart.
@@ -1696,9 +1774,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same corridor mid-disaster: stretcher drifting a corner, IV pole tipping, papers airborne — the scanner still glowing patiently far away.
@@ -1719,9 +1798,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an angio-CT console showing vessels lit up like a golden subway map, the contrast injector standing by like a rocket booster.
@@ -1742,9 +1822,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: burnt orange / brick red (#e0705a) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same console, but the contrast bottle drips its last drop and a kidney-shaped warning light blinks on the corner of the screen.
@@ -1765,9 +1846,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an MRI machine glowing like a mythical portal behind a velvet rope, a take-a-number ticket dispenser beside it showing 87.
@@ -1788,9 +1870,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an arterial line finally in place on a wrist, drawn triumphant; behind, a tray discreetly hides four bent needles under a cloth.
@@ -1811,9 +1894,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same wrist, the fingertips drawn faintly blue-violet, a tiny alarm bell above; the line itself whistles innocently.
@@ -1834,9 +1918,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a central line kit laid out on a sterile field like surgical jewelry, ultrasound at the ready, an audience of small silhouettes at the door.
@@ -1857,9 +1942,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same kit, but a conga line of tiny green germs with party hats climbs up the catheter; the sterile field pretends not to see.
@@ -1880,9 +1966,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a mechanical ventilator with its knobs and screen, connected by tubing drawn as a tug-of-war rope to a small pair of stubborn lungs.
@@ -1903,9 +1990,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same ventilator, tiny germs surfing down the tubing on droplets, the lungs bracing; the machine keeps its dignity.
@@ -1926,9 +2014,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an arterial blood gas syringe resting on crushed ice like a delicacy, a pH strip beside reading catastrophic; someone must now say something smart.
@@ -1949,9 +2038,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: olive green (#5cb583) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same syringe shaken like a cocktail — foam, pink froth and a tiny paper umbrella planted on top; the lab will not be amused.
@@ -1972,9 +2062,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a chest tube kit with chalk marks counting rib spaces on a diagram, the water-seal chamber bubbling politely in a corner.
@@ -1995,9 +2086,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: dark lavender purple (#a184c9) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a lumbar puncture needle poised over the curved back of a patient curled like a shrimp, a dotted target line between two vertebrae.
@@ -2018,9 +2110,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: veteran ICU nurse, bust, taping a line with perfect technique while giving the viewer the polite look of someone who already knows the answer.
@@ -2041,9 +2134,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: ICU technician carrying half the unit in one arm — supply stack, monitor cable, and the dignity of the whole shift — without dropping anything.
@@ -2065,9 +2159,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the same technician on hour twenty-four: two coffee mugs, cap slightly crooked, one eye twitching, still standing, still carrying everything.
@@ -2089,9 +2184,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: young medical fellow with an open manual, enthusiastic sparkle, pockets bursting with pocket guides; a heart full of theory and hands full of hope.
@@ -2113,9 +2209,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: bed manager holding a clipboard where the beds are drawn as Tetris pieces that don't fit; he brings no beds, only questions about beds.
@@ -2136,9 +2233,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: hospital teal-blue (#5b9dc4) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: respiratory physiotherapist mid chest-percussion, already half out of the door in motion blur; came, aspirated, mobilized, vanished.
@@ -2159,9 +2257,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: amber / mustard (#c19a4e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: gleaming operating room double doors opening with rays of light — and one dotted silhouette where the anesthesiologist should be standing.
@@ -2182,9 +2281,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: scrubbed surgeon counting instruments with theatrical confidence; on the count tray, one gauze slot conspicuously empty and glowing.
@@ -2205,9 +2305,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 STAFF PORTRAIT: bust or half body of the person in their working gesture, competent and absorbed in the task, ICU ambience behind.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the general practitioner on duty, bust, holding a swiss-army stethoscope with a tool for everything; the one who is always there.
@@ -2228,9 +2329,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: the object nearly isolated, 3/4 or frontal view, filling about 60% of the frame, on an ambient monochrome hospital background, never white.
 AMBIENT COLOR FAMILY: neutral hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an open ward drawer with the survivors: odd gloves, one saline flush, a bandage roll and a tiny tumbleweed of gauze rolling past.
@@ -2260,9 +2362,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a nurse silhouette walking off toward the exit with a suitcase and a sun hat, leaving a glowing dotted outline at the bedside; an HR stamp floats above, freshly inked.
@@ -2283,9 +2386,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a circle of rival staff reluctantly handing supplies to one beaming resident holding a birthday cake; every gift has a tiny invisible debt attached.
@@ -2306,9 +2410,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a long meeting table with a wall clock at the two-hour mark, resources sliding across the table like poker chips toward their new beds.
@@ -2329,9 +2434,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a hand rescuing one shining card from a trash bin of crumpled papers, a note attached reading like a polite suggestion; the find goes to the pocket, not the bed.
@@ -2352,9 +2458,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: one doctor with two ID badges, three coffees and an armful of extra cards, while a ghost version of tomorrow-him slumps in the corner.
@@ -2375,9 +2482,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: night slate-blue palette (#4a5a78) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a dead computer screen at the nurses station with a yellowed sticky note, staff frozen mid-click around it; a cable drawn like a crime scene.
@@ -2398,9 +2506,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two white coats swapping mid-air between two horrified doctors, name tags trading places; a medical leave form flutters down like a feather.
@@ -2421,9 +2530,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a red wall phone ringing itself off the hook, twelve tally marks scratched beside it, the corridor lights flickering to attention.
@@ -2444,9 +2554,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: an auditor with a clipboard leaning uncomfortably close over someone's fanned hand of cards, smiling the smile of someone who is definitely fiscalizing.
@@ -2467,9 +2578,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: night slate-blue palette (#4a5a78) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two full hands of cards crossing mid-air in a small tornado between two desks, name stickers flying loose; nobody knows who rotates where.
@@ -2490,9 +2602,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: calm hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: two steaming coffee cups on a tray raised like a shield, an incoming complication bolt bouncing off the steam; somewhere, a kettle did its duty.
@@ -2513,9 +2626,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a dusty institutional binder glowing on a shelf as it photocopies the last played card by itself, the copy sliding out still warm.
@@ -2536,9 +2650,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: deep nocturnal purple, almost black (#3d2b52) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the far end of a dark corridor: a hooded skeletal figure in scrubs politely asking at bed 4, two coins spinning in the air above an open palm.
@@ -2559,9 +2674,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a doctor with one enormous magnifying-glass eye squinting at three face-down cards on the deck, one of them sweating.
@@ -2582,9 +2698,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a signed blank prescription flying through the ward like a golden ticket, staff diving after it; the signature is a lightning scribble.
@@ -2605,9 +2722,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: calm hospital teal (#4a8a96) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a CPR training dummy heroically raising a shield to block an incoming complication bolt aimed at the bed behind it; it has seen worse.
@@ -2628,9 +2746,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a pharmacy shelf empty except for a small sign promising Thursday, a spider web in the corner and one loyal box of the wrong size.
@@ -2651,9 +2770,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a giant pair of budget scissors cutting a ribbon shaped like an IV line; below, a hand holds two indication tokens where three used to be.
@@ -2674,9 +2794,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: the deep bottom drawer opening with a golden glow while a veteran nurse guards it, key on a necklace; inside, exactly what was needed.
@@ -2697,9 +2818,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a sample tube shaken like a cocktail shaker with a tiny umbrella, next to an X-ray sliding into a bin with a REPEAT stamp mid-air.
@@ -2720,9 +2842,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: brick red / rust conflict palette (#b5533c) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a wall of machines looming over one tiny bed, one more device being plugged in by insistent hands; new ribs gleam, nobody asked the question.
@@ -2743,9 +2866,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 ACTION SCENE: minimal scene, one or two figures or a single element in motion. THIS CARD HAS TO BE FUNNY — build the whole frame around ONE visual gag: an exaggerated reaction, an absurd detail, a comic contrast between what is said and what is seen. Push the expressions further than in the rest of the deck. The joke leads; the detail follows.
 AMBIENT COLOR FAMILY: warm amber / honey palette (#c98d3e) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a patient in street clothes sprinting out the ward door trailing ECG leads like streamers, discharge paper stamped mid-air, one slipper left behind.
@@ -2770,9 +2894,10 @@ COLOR: the ENTIRE image is graded into ONE dominant hue — background, props, s
 BACKGROUND: a real, readable interior drawn simplified and flattened, painted in the same hue as the subject and pushed one step lower in contrast so the subject separates cleanly.
 LIGHT: soft ambient overhead light, gentle falloff, no hard shadows, no rim light, no lens flare.
 TONE: affectionate workplace comedy — competent people, warm humour, never cruel and never grim.
-COMPOSITION: board-game card art — one strong silhouette, one clear readable action, the subject in the central third, filling about 70% of the frame at eye level. Full bleed, never white.
+COMPOSITION: board-game card art — one strong silhouette, one clear readable action, filling about 70% of the frame at eye level. Full bleed, never white.
+CROP SAFETY (important): the head and the identifying object must sit in the UPPER HALF of the frame, with the eyes about one third down from the top. The game shows only a wide strip taken from the top of the image on the small card, so anything in the bottom third may never be seen. Leave a small margin at every edge: nothing important touches the border.
 AVOID: photorealism, watercolor, painterly texture, thick black comic-book inking, chibi or super-deformed proportions, neon or rainbow palettes, real brand logos, and any text longer than two words.
-Aspect ratio 2:3 portrait.
+Portrait orientation, aspect ratio 3:4 (or 2:3 if available) — never square and never landscape.
 OBJECT CARD: a single document as the whole threat, filling the frame with its shadow.
 AMBIENT COLOR FAMILY: cold gray-teal bureaucratic palette (#5f7a80) — the whole image lives in this ONE monochromatic family; background and subject share the same color temperature.
 SCENE: a manila folder bristling with red stamps and seals, grown huge, casting a long shadow over a tiny clinician's desk below; one paper clip like a padlock.
