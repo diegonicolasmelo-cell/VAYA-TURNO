@@ -38,8 +38,16 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+/* El piso de la UCI visto desde arriba, con el mismo ojo de pez del
+   playmat físico: la rejilla de baldosas se abomba desde el centro. Va
+   sobre .app y no sobre el body porque .app ES la superficie de juego —
+   y porque su color sólido tapaba el fondo. Con attachment fixed el piso
+   se queda quieto mientras las cartas se desplazan encima: la cámara es
+   el dron, no el tablero. Muy tenue a propósito: es suelo, no adorno. */
 .app{max-width:600px;margin:0 auto;min-height:100vh;min-height:100dvh;
-     display:flex;flex-direction:column;background:var(--mesa)}
+     display:flex;flex-direction:column;
+     background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20860%22%20width%3D%22400%22%20height%3D%22860%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236e97a8%22%20stroke-width%3D%221.1%22%20opacity%3D%220.40%22%3E%3Cpath%20d%3D%22M-160.1%20-300.9Q-38.1%20406.2%20-183.6%201260.7%22%2F%3E%3Cpath%20d%3D%22M-91.5%20-264.6Q12.7%20402.7%20-111.6%201217.4%22%2F%3E%3Cpath%20d%3D%22M-30.6%20-234.0Q55.9%20399.8%20-47.3%201180.9%22%2F%3E%3Cpath%20d%3D%22M24.0%20-209.1Q92.8%20397.4%2010.7%201151.2%22%2F%3E%3Cpath%20d%3D%22M73.5%20-189.9Q124.6%20395.5%2063.7%201128.3%22%2F%3E%3Cpath%20d%3D%22M119.3%20-176.3Q152.7%20394.2%20112.9%201112.2%22%2F%3E%3Cpath%20d%3D%22M162.7%20-168.5Q178.4%20393.5%20159.7%201102.8%22%2F%3E%3Cpath%20d%3D%22M205.0%20-166.3Q202.9%20393.2%20205.4%201100.2%22%2F%3E%3Cpath%20d%3D%22M247.3%20-169.8Q227.5%20393.6%20251.1%201104.4%22%2F%3E%3Cpath%20d%3D%22M291.2%20-179.0Q253.6%20394.5%20298.4%201115.4%22%2F%3E%3Cpath%20d%3D%22M337.8%20-193.9Q282.5%20395.9%20348.4%201133.1%22%2F%3E%3Cpath%20d%3D%22M388.4%20-214.5Q315.4%20397.9%20402.4%201157.6%22%2F%3E%3Cpath%20d%3D%22M444.3%20-240.7Q353.6%20400.4%20461.8%201188.9%22%2F%3E%3Cpath%20d%3D%22M506.9%20-272.6Q398.5%20403.5%20527.8%201227.0%22%2F%3E%3Cpath%20d%3D%22M-211.5%20-279.3Q200.0%2033.7%20611.5%20-279.3%22%2F%3E%3Cpath%20d%3D%22M-203.0%20-212.9Q200.0%2074.9%20603.0%20-212.9%22%2F%3E%3Cpath%20d%3D%22M-195.2%20-149.6Q200.0%20112.9%20595.2%20-149.6%22%2F%3E%3Cpath%20d%3D%22M-188.1%20-89.2Q200.0%20148.0%20588.1%20-89.2%22%2F%3E%3Cpath%20d%3D%22M-181.8%20-31.5Q200.0%20180.4%20581.8%20-31.5%22%2F%3E%3Cpath%20d%3D%22M-176.2%2023.9Q200.0%20210.5%20576.2%2023.9%22%2F%3E%3Cpath%20d%3D%22M-171.2%2077.2Q200.0%20238.5%20571.2%2077.2%22%2F%3E%3Cpath%20d%3D%22M-167.0%20128.7Q200.0%20264.7%20567.0%20128.7%22%2F%3E%3Cpath%20d%3D%22M-163.5%20178.7Q200.0%20289.5%20563.5%20178.7%22%2F%3E%3Cpath%20d%3D%22M-160.8%20227.4Q200.0%20312.9%20560.8%20227.4%22%2F%3E%3Cpath%20d%3D%22M-158.7%20275.3Q200.0%20335.5%20558.7%20275.3%22%2F%3E%3Cpath%20d%3D%22M-157.4%20322.4Q200.0%20357.4%20557.4%20322.4%22%2F%3E%3Cpath%20d%3D%22M-156.7%20369.2Q200.0%20378.8%20556.7%20369.2%22%2F%3E%3Cpath%20d%3D%22M-156.8%20415.8Q200.0%20400.2%20556.8%20415.8%22%2F%3E%3Cpath%20d%3D%22M-157.6%20462.6Q200.0%20421.7%20557.6%20462.6%22%2F%3E%3Cpath%20d%3D%22M-159.1%20509.9Q200.0%20443.7%20559.1%20509.9%22%2F%3E%3Cpath%20d%3D%22M-161.3%20557.9Q200.0%20466.5%20561.3%20557.9%22%2F%3E%3Cpath%20d%3D%22M-164.3%20607.0Q200.0%20490.2%20564.3%20607.0%22%2F%3E%3Cpath%20d%3D%22M-168.0%20657.3Q200.0%20515.3%20568.0%20657.3%22%2F%3E%3Cpath%20d%3D%22M-172.3%20709.2Q200.0%20541.9%20572.3%20709.2%22%2F%3E%3Cpath%20d%3D%22M-177.4%20763.0Q200.0%20570.4%20577.4%20763.0%22%2F%3E%3Cpath%20d%3D%22M-183.2%20818.9Q200.0%20601.0%20583.2%20818.9%22%2F%3E%3Cpath%20d%3D%22M-189.7%20877.2Q200.0%20634.0%20589.7%20877.2%22%2F%3E%3Cpath%20d%3D%22M-197.0%20938.2Q200.0%20669.8%20597.0%20938.2%22%2F%3E%3Cpath%20d%3D%22M-204.9%201002.2Q200.0%20708.5%20604.9%201002.2%22%2F%3E%3Cpath%20d%3D%22M-213.6%201069.4Q200.0%20750.4%20613.6%201069.4%22%2F%3E%3Cpath%20d%3D%22M-223.0%201140.2Q200.0%20796.0%20623.0%201140.2%22%2F%3E%3Cpath%20d%3D%22M-233.1%201214.9Q200.0%20845.3%20633.1%201214.9%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/cover no-repeat fixed,
+                var(--mesa)}
 
 /* iconos de tipo: SVG, no emoji — el emoji de radiografía y el de personal
    sanitario no existen en muchos teléfonos y salían como cuadrado */
@@ -67,10 +75,10 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
 /* ── zonas ──────────────────────────────────────────────────────────── */
 .zona{padding:7px 10px}
-.zona.lejos{background:linear-gradient(180deg,#cdd9de,var(--lejos) 60%);
+.zona.lejos{background:linear-gradient(180deg,rgba(205,217,222,.86),rgba(213,224,228,.82) 60%);
             border-bottom:1px solid var(--line);
             box-shadow:inset 0 -10px 16px -14px rgba(22,36,46,.35)}
-.zona.cerca{background:linear-gradient(180deg,#e9f1f2,var(--cerca) 45%);
+.zona.cerca{background:linear-gradient(180deg,rgba(233,241,242,.84),rgba(242,247,248,.80) 45%);
             flex:1;display:flex;flex-direction:column}
 .jugador-linea{display:flex;align-items:center;gap:7px;margin-bottom:6px;
                font-size:11px;color:var(--ink-2)}
