@@ -42,6 +42,48 @@ dedo). Las cartas con sistema (×2) y los comodines llevan la banda
 iridiscente arcoíris — jerarquía de rareza visual. Sin assets nuevos:
 puro CSS/JS, y cuando llegue el arte los reflejos caen encima solos.
 
+⬜ **Cartas que cambian de imagen según lo que se les coloca** (idea del
+autor, agosto 2026): el paciente parte sin intubar y al recibir
+Ventilación Mecánica su ilustración cambia a intubado; lo mismo con
+Pleurostomía y otros procedimientos icónicos. **Medido antes de decidir**
+(2.000 partidas, 2 jugadores): los recursos icónicos SÍ aterrizan seguido
+— VM **2,52 por partida** (1,26 por jugador), CVC 2,52, Noradrenalina
+2,29, Enfermera de UCI 2,11, Línea Arterial 1,76, Kinesiólogo 1,70,
+Pabellón 1,36, Cirujano 0,86, Pleurostomía 0,54; el Personal completo
+suma 8,12 por partida. O sea: el efecto se vería ~1,3 veces por guardia
+por jugador, no es un adorno que nadie alcanza a ver.
+
+Lo técnico está resuelto: la app ya guarda en `cama.puestos` las cartas
+completas, así que reaccionar a un id concreto es trivial. **El costo son
+imágenes, no código.**
+
+🔴 **El riesgo clínico está medido y es real**: la VM cae sobre pacientes
+de **Gravedad I el 12% de las veces** (el juego reparte recursos por
+tipo, no por indicación). Dibujar intubada a la Crisis de Pánico en Box 4
+sería enseñar al revés. Si se hace, el cambio de imagen debe exigir
+**Gravedad II o mayor**; en Gravedad I el recurso se coloca igual pero la
+ilustración no cambia.
+
+Tres fases posibles, de menor a mayor costo de arte:
+- **Fase 0 — insignias de equipo (0 imágenes)**: la cama muestra qué
+  lleva puesto (tubo, catéter, línea, drogas) con los iconos que ya
+  existen. Todo el valor educativo de "qué le puse a este paciente", sin
+  arte nuevo.
+- **Fase 1 — retrato de alta (26 imágenes)**: el paciente recuperado para
+  la ceremonia de egreso. Es el estado que más se ve (~3 altas por
+  guardia) y el más satisfactorio.
+- **Fase 2 — retrato intervenido (18 imágenes)**: la idea original, solo
+  para Gravedad II+.
+
+Las capas transparentes (dibujar el tubo aparte y superponerlo) serían lo
+barato en teoría —el encuadre de pacientes ya está estandarizado en
+BRIEF-IA §5.1— pero la generación con IA no registra con precisión
+suficiente: un tubo flotando cerca de la boca se ve peor que no tenerlo.
+
+**Estado: en pausa por decisión del autor** (agosto 2026) mientras se
+genera el arte base. Nada implementado; los números quedan aquí para
+retomarla.
+
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
 teléfono con su ícono, abre a pantalla completa y **funciona sin
