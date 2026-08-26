@@ -100,7 +100,8 @@ ser tablero y pasa a ser ruido.
 
 **La Pizarra es una pizarra magnética de verdad** (v0.51): marco cromado
 con bandas claras y oscuras, superficie blanca satinada, protectores de
-esquina de plástico negro —periféricos, cada canto termina en ellos— y un
+esquina de plástico negro —triangulares y periféricos: cortan el canto en
+diagonal y la pizarra termina en ellos— y un
 reflejo que la recorre cada 6,5 s. La tira del tablero y el cajón abierto
 llevan el mismo marco: al desplegarla no cambias de objeto, la miras de
 cerca. Tres cosas que costó acertar y conviene no volver a romper: el
