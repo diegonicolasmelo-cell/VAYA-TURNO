@@ -101,7 +101,8 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .centro-info .sep{flex:1;height:1px;background:var(--line)}
 /* La pizarra abierta lleva el mismo marco que su tira en el tablero: al
    desplegarla no cambias de objeto, la miras de cerca. Mismo cromado y
-   los mismos protectores de esquina, un punto más chicos. */
+   los mismos protectores de esquina, un punto más grandes: el panel es
+   más alto que la tira, así que la tapa aguanta un pelo más. */
 .pizarra{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
          position:relative;padding:9px;border:6px solid transparent;
          border-radius:9px;
@@ -390,7 +391,11 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
              box-shadow:0 0 0 1px rgba(60,78,88,.5) inset,
                         0 1px 0 rgba(255,255,255,.95) inset,
                         0 3px 12px rgba(22,36,46,.2);
-             font-weight:700;font-size:12.5px;overflow:hidden}
+             font-weight:700;font-size:12.5px}
+/* Sin overflow:hidden. Recortaba los protectores de esquina: `overflow`
+   recorta al PADDING-BOX, y el ::after vive en el área del borde
+   (inset:-6px), o sea completamente fuera. El lustre ya se recorta solo
+   —es una capa de fondo con padding-box—, así que no hacía falta. */
 /* el lustre recorre la pizarra cada tantos segundos: blanco con un filo
    espectral apenas insinuado — es una pizarra, no una carta holográfica */
 @media (prefers-reduced-motion: no-preference){
@@ -413,11 +418,13 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
     linear-gradient(to top left,#535d65 0%,#2a333a 30%,#0b0f12 49.3%,transparent 50%) right bottom/16px 16px no-repeat}
 .btn-pizarra .gemas{display:flex;gap:3px;margin-left:auto}
 /* cuando hay algo comprable, el marco se enciende con un halo — no con
-   otra animación: `animation` es una sola propiedad y pisaría el lustre */
+   otra animación: `animation` es una sola propiedad y pisaría el lustre.
+   Es un resplandor difuso, no un aro: un aro duro sobre el cromado se
+   leía como un segundo marco turquesa encima del metal. */
 .btn-pizarra.puede{box-shadow:0 0 0 1px rgba(60,78,88,.5) inset,
                               0 1px 0 rgba(255,255,255,.95) inset,
-                              0 0 0 2px rgba(13,110,120,.45),
-                              0 3px 14px rgba(13,110,120,.3)}
+                              0 0 13px 2px rgba(13,110,120,.34),
+                              0 3px 14px rgba(13,110,120,.26)}
 .btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
 
 /* ── la rueda de personajes: carrusel circular sin tope ──────────────

@@ -104,7 +104,7 @@ esquina de plástico negro —triangulares y periféricos: cortan el canto en
 diagonal y la pizarra termina en ellos— y un
 reflejo que la recorre cada 6,5 s. La tira del tablero y el cajón abierto
 llevan el mismo marco: al desplegarla no cambias de objeto, la miras de
-cerca. Tres cosas que costó acertar y conviene no volver a romper: el
+cerca. Cuatro cosas que costó acertar y conviene no volver a romper: el
 marco NO puede hacerse con `border-image` (`slice:1` toma un píxel por
 lado y cada borde sale de un color liso — hay que usar dos capas,
 `padding-box` para la superficie y `border-box` para el metal); el
@@ -112,7 +112,14 @@ reflejo NO puede ser un `::before` (con `z-index:-1` queda tras el fondo
 opaco y con `0` tapa el texto — va como capa del `background`, que se
 pinta sobre la superficie y bajo las letras); y el reflejo NO puede ser
 blanco, porque sobre una pizarra blanca el blanco no se ve: lo que se lee
-son sus filos, una sombra fría delante y un filo espectral detrás.
+son sus filos, una sombra fría delante y un filo espectral detrás. Y la
+cuarta: la tira del tablero NO puede llevar `overflow:hidden`, porque
+`overflow` recorta al *padding-box* y los protectores de esquina viven en
+el área del borde (`inset:-6px`) — se los comía enteros y la tira quedaba
+sin tapitas mientras el cajón sí las mostraba. El aviso de "hay algo
+comprable" tampoco puede ser un aro duro de 2 px: sobre el cromado se lee
+como un segundo marco turquesa encima del metal, así que es un resplandor
+difuso.
 
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
