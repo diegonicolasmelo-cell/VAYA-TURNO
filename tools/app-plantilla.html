@@ -826,6 +826,10 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
    Queda detrás por orden en el documento, que basta. */
 #portada{position:fixed;inset:0;pointer-events:none;
          background:var(--mesa) center/cover no-repeat}
+/* Sin partida se vacía, PERO hay que esconderlo entero: es fijo y opaco,
+   y `.app` no está posicionada, así que su piso y las camas se pintan por
+   DEBAJO. Vaciar los hijos no basta — el contenedor seguía tapando. */
+#portada[hidden]{display:none}
 #portada video{position:absolute;inset:0;width:100%;height:100%;
                object-fit:cover;display:block}
 /* El clip deja el 40% de abajo vacío a propósito, pero el piso mojado es
@@ -889,7 +893,7 @@ body.con-portada .opciones .op{background:rgba(255,255,255,.80);
   font-size:10.5px;color:var(--ink-3);text-decoration:underline;padding:4px}
 </style>
 
-<div id="portada" aria-hidden="true"></div>
+<div id="portada" aria-hidden="true" hidden></div>
 <div class="app" id="app"></div>
 <div id="capa"></div>
 <div id="tuto"></div>
@@ -3289,7 +3293,10 @@ function pintarPortada(){
   const toca = !G && (PORTADA.video || PORTADA.cuadro);
   document.body.classList.toggle("con-portada", !!toca);
   const viejo = document.querySelector(".son-portada");
-  if(!toca){ cont.innerHTML = ""; if(viejo) viejo.remove(); return; }
+  if(!toca){ cont.hidden = true; cont.innerHTML = "";
+             cont.style.backgroundImage = "";
+             if(viejo) viejo.remove(); return; }
+  cont.hidden = false;
   if(cont.firstChild) return;          // ya está puesta: no la reinicies
 
   if(PORTADA.cuadro) cont.style.backgroundImage = `url("${PORTADA.cuadro}")`;

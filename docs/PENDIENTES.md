@@ -140,6 +140,11 @@ fijo de respaldo. Cinco cosas aprendidas montándolo:
 · El navegador no deja arrancar con sonido sin que alguien toque algo. El
   video parte mudo por obligación y el audio es un botón, que recuerda la
   elección.
+· Al empezar la partida NO basta con vaciar `#portada`: el contenedor es
+  fijo y opaco, y `.app` no está posicionada, así que el piso de la unidad
+  y las camas se pintan por DEBAJO y quedaban tapadas por el cuadro fijo
+  del pasillo. Hay que esconderlo entero (`hidden`) y limpiar también el
+  `background-image` en línea.
 · El Chromium de Playwright NO trae H.264 ni AAC (`canPlayType` → "NO", y
   el video da `error 4`). Para probar la integración hay que armar una
   copia en VP9/Opus; el mp4 está bien, el que no puede es el navegador de
