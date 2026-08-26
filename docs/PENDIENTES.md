@@ -162,22 +162,6 @@ el tubo del monitor y las letras, que no tocan ningún borde y quedaban
 como manchas flotando sobre el video (se separan por área: un brillo
 pintado es un trazo fino, un hueco de fondo es una mancha ancha).
 
-**El ícono de la app instalable** sale del logotipo desde v0.53: el
-monitor con la línea del ECG, sobre el amarillo de las letras y con el
-mismo contorno azul marino, con los colores tomados del archivo con
-cuentagotas. NO es un recorte del logo — ahí el monitor mide 180 px y
-estirarlo a 512 lo dejaba blando —, está redibujado en
-`tools/iconos_pwa.py`, que es determinista. Tres decisiones medidas
-mirándolo al tamaño real: el nombre completo no cabe (a 48 px cada línea
-del logotipo quedaría de 7 px de alto, y un objeto se reconoce a ese
-tamaño pero dos palabras apiladas no); el ECG lleva UN latido y no dos,
-porque dos se empastan en una mancha verde; y la versión `maskable` va
-SIN marco, porque el sistema la recorta al gusto y un borde dibujado sale
-partido — el fondo va a sangre y solo el emblema vive en la zona segura.
-
-El `theme_color` sigue siendo el teal del tablero, no el amarillo: la app
-por dentro es teal y blanca, el amarillo es solo el logotipo.
-
 Nada de GIF: medido, el mismo bucle en GIF a 360 px y 12 fps pesa 15 MB
 contra 2 MB del mp4 a 720 px, 24 fps y con sonido.
 
