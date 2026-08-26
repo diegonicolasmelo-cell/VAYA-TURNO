@@ -165,6 +165,12 @@ pintado es un trazo fino, un hueco de fondo es una mancha ancha).
 Nada de GIF: medido, el mismo bucle en GIF a 360 px y 12 fps pesa 15 MB
 contra 2 MB del mp4 a 720 px, 24 fps y con sonido.
 
+**El sello de la caché cuenta también los íconos** por su contenido, no
+por su nombre. Están en el núcleo del service worker, así que cambiar el
+dibujo sin mover el sello dejaba a los teléfonos ya instalados con el
+ícono viejo para siempre — no hay nada que los invalide. Comprobado: el
+sello se mueve al cambiar el dibujo y vuelve al mismo valor al revertirlo.
+
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
 teléfono con su ícono, abre a pantalla completa y **funciona sin

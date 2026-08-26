@@ -352,8 +352,15 @@ def construir_pwa():
     # descarga la app igual instala y la portada queda en el cuadro fijo
     urls += [u for u in portada.values() if u]
     # la versión de la caché sale del contenido: si nada cambió, el
-    # teléfono no vuelve a descargar; si algo cambió, se entera solo
-    sello = hashlib.sha256((html + man + "".join(urls + (tipos or []))
+    # teléfono no vuelve a descargar; si algo cambió, se entera solo.
+    # Los ÍCONOS cuentan por su contenido, no por su nombre: están en el
+    # núcleo de la caché, así que cambiar el dibujo sin cambiar el sello
+    # dejaba a los teléfonos ya instalados con el ícono viejo para siempre.
+    huellas = "".join(
+        hashlib.sha256(open(os.path.join(SALIDA_PWA, "iconos", n), "rb")
+                       .read()).hexdigest()
+        for n in sorted(os.listdir(os.path.join(SALIDA_PWA, "iconos"))))
+    sello = hashlib.sha256((html + man + huellas + "".join(urls + (tipos or []))
                             ).encode()).hexdigest()[:12]
 
     with open(os.path.join(SALIDA_PWA, "index.html"), "w", encoding="utf-8") as f:
