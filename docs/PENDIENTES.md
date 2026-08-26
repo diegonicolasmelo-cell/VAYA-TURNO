@@ -84,6 +84,20 @@ suficiente: un tubo flotando cerca de la boca se ve peor que no tenerlo.
 genera el arte base. Nada implementado; los números quedan aquí para
 retomarla.
 
+**La sala ilustrada está en los dos tableros.** El playmat físico
+(`docs/playmat.svg`, 440×438 mm) usa la sala entera de
+`cartas/tablero/sala-uci.jpg` como fondo y le monta encima las zonas
+vectoriales: slots de 63×88 mm, marcador de vida y contadores. En el
+juego digital, `tools/generar_sala_app.py` recorta de esa misma
+ilustración la banda de las tres camas y la pone detrás de cada unidad —
+la tuya y la del rival girada 180°, como si estuviera al otro lado de la
+mesa. La franja se estira un 12% desde el centro para que las camas
+dibujadas (20%, 51% y 81% de la ilustración) caigan bajo las columnas de
+cartas (17%, 50% y 83%): cada carta se apoya sobre su cama, y una cama
+vacía se ve como una cama vacía de verdad. La imagen va lavada al 45%
+hacia el blanco porque detrás van cartas: si compite con ellas deja de
+ser tablero y pasa a ser ruido.
+
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
 teléfono con su ícono, abre a pantalla completa y **funciona sin
