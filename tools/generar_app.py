@@ -104,6 +104,32 @@ def cargar_arte(destino=None):
     return arte
 
 
+def cargar_portada(destino=None):
+    """arte/portada/portada.(mp4|jpg) → el fondo vivo de la pantalla de inicio.
+
+    Mismo trato que el arte de cartas: data-URI en el artefacto, archivo
+    aparte en la PWA. El video pesa ~2 MB, así que en la PWA importa que
+    sea un archivo propio y no parte del HTML: el service worker lo cachea
+    solo, y una corrección de reglas no obliga a bajarlo de nuevo."""
+    carpeta = os.path.join(RAIZ, "arte", "portada")
+    out = {"video": "", "cuadro": ""}
+    for clave, nombre, mime in (("video", "portada.mp4", "video/mp4"),
+                                ("cuadro", "portada.jpg", "image/jpeg")):
+        ruta = os.path.join(carpeta, nombre)
+        if not os.path.isfile(ruta):
+            continue
+        crudo = open(ruta, "rb").read()
+        if destino:
+            os.makedirs(destino, exist_ok=True)
+            with open(os.path.join(destino, nombre), "wb") as f:
+                f.write(crudo)
+            out[clave] = "portada/" + nombre
+        else:
+            out[clave] = ("data:" + mime + ";base64,"
+                          + base64.b64encode(crudo).decode())
+    return out
+
+
 def datos(destino_arte=None):
     pacientes = []
     for p in leer("cartas", "pacientes.csv"):
@@ -157,7 +183,7 @@ def datos(destino_arte=None):
             "acciones": acciones, "personajes": personajes}
 
 
-def armar(d, pwa=False, css_local=None):
+def armar(d, pwa=False, css_local=None, portada=None):
     """Mete los datos en la plantilla. En modo PWA además la envuelve en un
     documento completo: la plantilla es un fragmento (el artefacto le pone
     la cabecera), pero un archivo servido por Pages necesita la suya."""
@@ -168,6 +194,11 @@ def armar(d, pwa=False, css_local=None):
         raise SystemExit("La plantilla no tiene el marcador /*__DATOS__*/{}")
     html = plantilla.replace(marca, json.dumps(d, ensure_ascii=False,
                                                separators=(",", ":")))
+    for clave, hueco in (("video", '/*__PORTADA_VIDEO__*/""'),
+                         ("cuadro", '/*__PORTADA_CUADRO__*/""')):
+        if hueco not in html:
+            raise SystemExit("La plantilla no tiene el marcador " + hueco)
+        html = html.replace(hueco, json.dumps((portada or {}).get(clave, "")), 1)
     if not pwa:
         return html
     html = html.replace("/*__PWA__*/false", "/*__PWA__*/true", 1)
@@ -308,11 +339,16 @@ def construir_pwa():
     os.makedirs(SALIDA_PWA, exist_ok=True)
     d = datos(destino_arte=os.path.join(SALIDA_PWA, "arte"))
     tipos = tipografias_pwa.preparar(os.path.join(SALIDA_PWA, "tipos"))
-    html = armar(d, pwa=True, css_local="tipos/tipos.css" if tipos else None)
+    portada = cargar_portada(destino=os.path.join(SALIDA_PWA, "portada"))
+    html = armar(d, pwa=True, css_local="tipos/tipos.css" if tipos else None,
+                 portada=portada)
     man = manifiesto()
     iconos_pwa.generar(os.path.join(SALIDA_PWA, "iconos"))
 
     urls = sorted({c["arte"] for l in d.values() for c in l if c.get("arte")})
+    # el fondo de la portada va con el arte: caché primero, y si falla la
+    # descarga la app igual instala y la portada queda en el cuadro fijo
+    urls += [u for u in (portada["video"], portada["cuadro"]) if u]
     # la versión de la caché sale del contenido: si nada cambió, el
     # teléfono no vuelve a descargar; si algo cambió, se entera solo
     sello = hashlib.sha256((html + man + "".join(urls + (tipos or []))
@@ -332,7 +368,7 @@ def construir_pwa():
     peso = sum(os.path.getsize(os.path.join(r, n))
                for r, _, ns in os.walk(SALIDA_PWA) for n in ns)
     print(f"✔ App instalable → {SALIDA_PWA}/ ({peso // 1024} KB en total)")
-    print(f"  index.html {len(html) // 1024} KB · {len(urls)} imágenes · "
+    print(f"  index.html {len(html) // 1024} KB · {len(urls)} archivos de arte · "
           f"{len(tipos or [])} archivos de tipografía · caché {sello}")
     return d
 
@@ -343,7 +379,7 @@ def main():
         d = construir_pwa()
     else:
         d = datos()
-        html = armar(d)
+        html = armar(d, portada=cargar_portada())
         os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
         with open(SALIDA, "w", encoding="utf-8") as f:
             f.write(html)

@@ -121,6 +121,33 @@ comprable" tampoco puede ser un aro duro de 2 px: sobre el cromado se lee
 como un segundo marco turquesa encima del metal, así que es un resplandor
 difuso.
 
+**La pantalla de inicio tiene fondo vivo** (v0.52): el clip del auxiliar
+de aseo trapeando el pasillo, en bucle y con la unidad sonando. Sale de
+`arte/portada/` y se rehace con `tools/generar_portada_video.py clip.mp4`,
+que le pega su propio reverso —el clip de Flow no cierra el ciclo y en
+`loop` se veía el corte—, le sintetiza la banda de sonido y saca el cuadro
+fijo de respaldo. Cinco cosas aprendidas montándolo:
+
+· El `<video>` NO puede vivir dentro de `#app`: `render()` hace
+  `innerHTML = ""` y el video volvería a empezar en cada repintado. Va
+  fuera, y `pintarPortada()` lo deja quieto si ya está puesto.
+· Un `<video>` NO puede colgar de un `data:` URI — el navegador no lo
+  puede pedir por tramos y se queda en 0x0. En el artefacto hay que pasar
+  el data-URI por `fetch` → `blob:` antes de dárselo.
+· `position:fixed` crea contexto de apilado en Chrome, así que el botón de
+  sonido no podía subir sobre `.app` desde dentro de `#portada`: se
+  dibujaba pero era intocable. Cuelga de `<body>`.
+· El navegador no deja arrancar con sonido sin que alguien toque algo. El
+  video parte mudo por obligación y el audio es un botón, que recuerda la
+  elección.
+· El Chromium de Playwright NO trae H.264 ni AAC (`canPlayType` → "NO", y
+  el video da `error 4`). Para probar la integración hay que armar una
+  copia en VP9/Opus; el mp4 está bien, el que no puede es el navegador de
+  pruebas.
+
+Nada de GIF: medido, el mismo bucle en GIF a 360 px y 12 fps pesa 15 MB
+contra 2 MB del mp4 a 720 px, 24 fps y con sonido.
+
 **La app instalable (PWA)** sale de la misma plantilla con
 `python3 tools/generar_app.py --pwa` → `docs/juego/`. Se instala en el
 teléfono con su ícono, abre a pantalla completa y **funciona sin

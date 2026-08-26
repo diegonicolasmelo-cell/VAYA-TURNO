@@ -817,6 +817,53 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .ios-ic{display:inline-block;border:1px solid var(--ink-2);border-radius:4px;
   padding:0 5px;font-size:11px;line-height:1.5}
 
+/* ── el fondo vivo de la pantalla de inicio ────────────────────────
+   Vive FUERA de #app, que se vacía entero en cada render: si el <video>
+   estuviera adentro volvería a empezar cada vez que se repinta el menú.
+   Solo existe mientras no hay partida. */
+/* Sin z-index a propósito: con uno, #portada crearía contexto de apilado
+   y el botón de sonido quedaría atrapado bajo .app, invisible al dedo.
+   Queda detrás por orden en el documento, que basta. */
+#portada{position:fixed;inset:0;pointer-events:none;
+         background:var(--mesa) center/cover no-repeat}
+#portada video{position:absolute;inset:0;width:100%;height:100%;
+               object-fit:cover;display:block}
+/* El clip deja el 40% de abajo vacío a propósito, pero el piso mojado es
+   lo más claro del cuadro y el menú igual necesita apagarlo hacia el
+   papel para leerse. */
+#portada .velo{position:absolute;inset:0;background:
+   /* un aclarado suave arriba para que el título se lea sobre el techo */
+   linear-gradient(to bottom, rgba(242,247,248,.72) 0%,
+                              rgba(242,247,248,.30) 12%,
+                              rgba(242,247,248,0) 24%),
+   linear-gradient(to bottom, rgba(223,231,234,0) 0%,
+                              rgba(223,231,234,0) 44%,
+                              rgba(223,231,234,.45) 58%,
+                              rgba(223,231,234,.82) 72%,
+                              rgba(223,231,234,.97) 84%, var(--mesa) 93%)}
+/* Cuelga de <body>, no de #portada: `position:fixed` crea contexto de
+   apilado, así que un hijo de #portada no puede subir sobre .app por más
+   z-index que le pongas — quedaba dibujado pero intocable. */
+.son-portada{position:fixed;z-index:6;
+   top:calc(10px + env(safe-area-inset-top,0px));
+   right:12px;width:38px;height:38px;border-radius:50%;
+   border:1px solid rgba(60,78,88,.22);background:rgba(255,255,255,.82);
+   backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+   font-size:16px;line-height:1;cursor:pointer;
+   box-shadow:0 2px 8px rgba(22,36,46,.14)}
+/* mientras hay portada, el piso de la unidad estorba: es otro escenario */
+body.con-portada .app{background:none;position:relative;z-index:1}
+/* Con portada, el menú baja: el auxiliar está en el tercio de arriba y si
+   los botones empiezan donde empezaban le tapan la cara. Y se vuelven
+   vidrio esmerilado, para que el pasillo se siga viendo por detrás. */
+body.con-portada .portada{padding-top:44px}
+body.con-portada .portada p{color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.7)}
+body.con-portada .opciones{margin-top:14vh}
+body.con-portada .opciones .op{background:rgba(255,255,255,.80);
+   backdrop-filter:blur(9px) saturate(1.15);
+   -webkit-backdrop-filter:blur(9px) saturate(1.15);
+   border-color:rgba(60,78,88,.16)}
+
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
 .tuto-anillo{position:fixed;border:2.5px solid var(--acc);border-radius:14px;
@@ -842,6 +889,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   font-size:10.5px;color:var(--ink-3);text-decoration:underline;padding:4px}
 </style>
 
+<div id="portada" aria-hidden="true"></div>
 <div class="app" id="app"></div>
 <div id="capa"></div>
 <div id="tuto"></div>
@@ -1990,8 +2038,10 @@ function render(){
   });
   const app = document.getElementById("app");
   app.innerHTML = "";
-  if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); pintarTuto(); return; }
-  if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); pintarTuto(); return; }
+  if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); pintarTuto();
+         pintarPortada(); return; }
+  if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); pintarTuto();
+             pintarPortada(); return; }
   app.appendChild(barraEstado());
   const g = textoGuia();
   if(g) app.appendChild(el("div","guia",g));
@@ -2006,7 +2056,7 @@ function render(){
     if(UI.franja.length > 16) fr.style.fontSize = "21px";
     app.appendChild(fr);
   }
-  pintarCapa(); pintarTuto();
+  pintarCapa(); pintarTuto(); pintarPortada();
   colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
   // veces en la misma pasada síncrona (0→1 anidado), así que la limpieza va
@@ -3223,6 +3273,66 @@ function alertaAccion(a){
     }
     m.appendChild(fila);
   });
+}
+
+/* ══ el fondo vivo de la portada ════════════════════════════════════
+   Los dos archivos los inyecta tools/generar_app.py: en el artefacto van
+   como data-URI y en la PWA como ruta, que es la única forma de que el
+   service worker pueda cachearlos por separado. Vacíos = sin portada, y
+   la pantalla de inicio queda como estaba. */
+const PORTADA = {video:/*__PORTADA_VIDEO__*/"", cuadro:/*__PORTADA_CUADRO__*/""};
+const CLAVE_SON = "vt-portada-sonido";
+
+function pintarPortada(){
+  const cont = document.getElementById("portada");
+  if(!cont) return;
+  const toca = !G && (PORTADA.video || PORTADA.cuadro);
+  document.body.classList.toggle("con-portada", !!toca);
+  const viejo = document.querySelector(".son-portada");
+  if(!toca){ cont.innerHTML = ""; if(viejo) viejo.remove(); return; }
+  if(cont.firstChild) return;          // ya está puesta: no la reinicies
+
+  if(PORTADA.cuadro) cont.style.backgroundImage = `url("${PORTADA.cuadro}")`;
+  // si el teléfono pide menos animación, se queda el cuadro fijo y ya
+  const quieto = window.matchMedia &&
+                 matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let vid = null;
+  if(PORTADA.video && !quieto){
+    vid = document.createElement("video");
+    vid.poster = PORTADA.cuadro || "";
+    vid.loop = true; vid.playsInline = true; vid.preload = "auto";
+    vid.setAttribute("playsinline","");        // Safari viejo mira el atributo
+    vid.muted = true;                          // sin esto NO parte solo
+    cont.appendChild(vid);
+    // Un <video> NO puede colgar de un data: URI: el navegador no lo puede
+    // pedir por tramos y se queda en 0x0 (probado en Chromium; en iOS ni
+    // arranca). En el artefacto el archivo viene incrustado, así que hay
+    // que convertirlo a blob: antes de dárselo. En la PWA es una ruta y
+    // esto se salta solo.
+    const listo = PORTADA.video.startsWith("data:")
+      ? fetch(PORTADA.video).then(r=>r.blob()).then(b=>URL.createObjectURL(b))
+      : Promise.resolve(PORTADA.video);
+    listo.then(u=>{ vid.src = u; return vid.play(); })
+         .catch(()=>{});                       // si no parte, queda el cuadro
+  }
+  cont.appendChild(el("div","velo"));
+
+  if(vid){
+    // El navegador no deja arrancar con sonido sin que alguien toque algo,
+    // así que el audio es un botón: parte apagado y se recuerda la elección.
+    const b = el("button","son-portada");
+    const pinta = ()=>{ b.textContent = vid.muted ? "🔇" : "🔊";
+      b.setAttribute("aria-label", vid.muted ? "Encender el sonido"
+                                             : "Apagar el sonido"); };
+    if(localStorage.getItem(CLAVE_SON) === "1"){ vid.muted = false;
+                                                 vid.play().catch(()=>{}); }
+    pinta();
+    b.onclick = ()=>{ vid.muted = !vid.muted;
+      try{ localStorage.setItem(CLAVE_SON, vid.muted ? "0" : "1"); }catch(e){}
+      if(!vid.muted) vid.play().catch(()=>{});
+      pinta(); };
+    document.body.appendChild(b);
+  }
 }
 
 /* ══ pantallas ══════════════════════════════════════════════════════ */
