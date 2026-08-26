@@ -111,7 +111,26 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
              font-family:"IBM Plex Mono",monospace;font-size:9.5px;
              letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
 .centro-info .sep{flex:1;height:1px;background:var(--line)}
-.pizarra{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+/* La pizarra abierta lleva el mismo marco que su tira en el tablero: al
+   desplegarla no cambias de objeto, la miras de cerca. Mismo cromado y
+   los mismos protectores de esquina, un punto más chicos. */
+.pizarra{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+         position:relative;padding:9px;border:6px solid transparent;
+         border-radius:9px;
+         background:linear-gradient(177deg,#ffffff 0%,#f7fbfc 55%,#e9f1f3 100%) padding-box,
+                    linear-gradient(147deg,
+                      #ffffff 0%, #b9c6cd 11%, #74838c 21%, #fdfefe 31%,
+                      #93a2aa 44%, #5f6d76 55%, #eef3f5 66%,
+                      #8e9da5 78%, #d9e2e6 89%, #ffffff 100%) border-box;
+         box-shadow:0 0 0 1px rgba(60,78,88,.45) inset,
+                    0 3px 12px rgba(22,36,46,.16)}
+.pizarra::after{content:"";position:absolute;inset:-6px;pointer-events:none;
+  border-radius:9px;
+  background:
+    linear-gradient(143deg,#4b555d 0%,#2b343a 38%,#0c1013 100%) left top/14px 14px no-repeat,
+    linear-gradient(217deg,#4b555d 0%,#2b343a 38%,#0c1013 100%) right top/14px 14px no-repeat,
+    linear-gradient(37deg,#0c1013 0%,#2b343a 62%,#4b555d 100%) left bottom/14px 14px no-repeat,
+    linear-gradient(323deg,#0c1013 0%,#2b343a 62%,#4b555d 100%) right bottom/14px 14px no-repeat}
 .prot{background:var(--paper);border:1px solid var(--line);border-radius:8px;
       padding:6px;text-align:left;box-shadow:var(--sombra);display:flex;
       flex-direction:column;gap:3px;min-height:92px;position:relative}
@@ -340,11 +359,77 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
                color:var(--ink-3);font-weight:700}
 
 /* la Pizarra vive en un cajón: el centro queda para los mazos */
-.btn-pizarra{display:flex;align-items:center;gap:7px;width:100%;padding:8px 11px;
-             border-radius:9px;border:1px solid var(--line);background:var(--paper);
-             box-shadow:var(--sombra);font-weight:700;font-size:12.5px}
+/* ── LA PIZARRA: una pizarra magnética de verdad ───────────────────────
+   Marco cromado con las tapitas negras de plástico en las esquinas, la
+   superficie blanca satinada y un brillo que la recorre. Es el único
+   objeto del tablero con esquinas RECTAS — las pizarras de la unidad no
+   tienen esquinas redondeadas, y eso mismo la hace destacar entre tanta
+   carta redondeada.
+
+   El marco es un border-image de degradado: bandas claras y oscuras
+   alternadas es lo que el ojo lee como metal pulido. Con `1` de slice el
+   navegador no redondea nada, que es justo lo que queremos. */
+.btn-pizarra{display:flex;align-items:center;gap:7px;width:100%;
+             padding:9px 12px;position:relative;isolation:isolate;
+             border:6px solid transparent;border-radius:9px;
+             /* dos capas: la superficie recortada al padding-box y el
+                cromado al border-box. Con border-image el degradado se
+                aplanaba — `slice:1` toma UN píxel por lado y cada borde
+                salía de un color liso. Así el metal recorre el marco
+                entero y las bandas claras/oscuras se ven. */
+             /* tres capas: el lustre arriba, la superficie al medio, el
+                cromado al fondo. El brillo va COMO CAPA DE FONDO y no como
+                ::before: un pseudo-elemento o queda detrás del fondo opaco
+                (z-index:-1) o tapa el texto (z-index:0). Así se pinta sobre
+                la pizarra y bajo las letras, que es donde tiene que ir. */
+             /* El reflejo NO puede ser blanco: sobre una pizarra blanca el
+                blanco no se ve. Lo que se lee son los filos — una sombra
+                fría delante y un filo espectral detrás, con el núcleo
+                claro al medio. Igual que un reflejo cruzando un vidrio. */
+             background:linear-gradient(112deg,
+                          rgba(255,255,255,0) 28%, rgba(108,152,176,.22) 37%,
+                          rgba(255,255,255,.98) 46%, rgba(150,116,196,.20) 55%,
+                          rgba(96,168,182,.13) 60%,
+                          rgba(255,255,255,0) 68%) padding-box,
+                        linear-gradient(177deg,#ffffff 0%,#f7fbfc 55%,#e9f1f3 100%) padding-box,
+                        linear-gradient(147deg,
+                          #ffffff 0%, #b9c6cd 11%, #74838c 21%, #fdfefe 31%,
+                          #93a2aa 44%, #5f6d76 55%, #eef3f5 66%,
+                          #8e9da5 78%, #d9e2e6 89%, #ffffff 100%) border-box;
+             background-size:250% 100%, auto, auto;
+             background-position:132% 0, 0 0, 0 0;
+             background-repeat:no-repeat;
+             box-shadow:0 0 0 1px rgba(60,78,88,.5) inset,
+                        0 1px 0 rgba(255,255,255,.95) inset,
+                        0 3px 12px rgba(22,36,46,.2);
+             font-weight:700;font-size:12.5px;overflow:hidden}
+/* el lustre recorre la pizarra cada tantos segundos: blanco con un filo
+   espectral apenas insinuado — es una pizarra, no una carta holográfica */
+@media (prefers-reduced-motion: no-preference){
+  .btn-pizarra{animation:lustre 6.5s ease-in-out infinite}}
+@keyframes lustre{
+  0%,42%{background-position:138% 0, 0 0, 0 0}
+  100%{background-position:-48% 0, 0 0, 0 0}}
+/* las cuatro tapitas de plástico negro de las esquinas */
+/* Los cuatro protectores de esquina. Son PERIFÉRICOS: cada canto de la
+   pizarra termina en ellos, así que su borde exterior es el borde de la
+   pizarra —de ahí el border-radius, que recorta justo las cuatro esquinas
+   de estos cuadrados y deja el resto a escuadra, que es la forma real de
+   una tapa de plástico. El marco cromado muere debajo. */
+.btn-pizarra::after{content:"";position:absolute;inset:-6px;pointer-events:none;
+  border-radius:9px;
+  background:
+    linear-gradient(143deg,#4b555d 0%,#2b343a 38%,#0c1013 100%) left top/13px 13px no-repeat,
+    linear-gradient(217deg,#4b555d 0%,#2b343a 38%,#0c1013 100%) right top/13px 13px no-repeat,
+    linear-gradient(37deg,#0c1013 0%,#2b343a 62%,#4b555d 100%) left bottom/13px 13px no-repeat,
+    linear-gradient(323deg,#0c1013 0%,#2b343a 62%,#4b555d 100%) right bottom/13px 13px no-repeat}
 .btn-pizarra .gemas{display:flex;gap:3px;margin-left:auto}
-.btn-pizarra.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
+/* cuando hay algo comprable, el marco se enciende con un halo — no con
+   otra animación: `animation` es una sola propiedad y pisaría el lustre */
+.btn-pizarra.puede{box-shadow:0 0 0 1px rgba(60,78,88,.5) inset,
+                              0 1px 0 rgba(255,255,255,.95) inset,
+                              0 0 0 2px rgba(13,110,120,.45),
+                              0 3px 14px rgba(13,110,120,.3)}
 .btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
 
 /* ── la rueda de personajes: carrusel circular sin tope ──────────────
