@@ -3,6 +3,16 @@
 from datos import *
 
 
+def zona(cid, extra=""):
+    """La zona de arte, con el tinte de la propia ilustración detrás.
+
+    `aire` achica la imagen dentro del hueco en vez de recortarla: con arte
+    9:16 el cover solo deja ver la mitad del alto y los personajes quedan
+    encima de la cámara. Al meterla al 78 % del ancho se ve un 64 %, y los
+    costados se rellenan con el tinte —que en arte monocromo no se nota."""
+    return f'<div class="zona-art{extra}" style="--tinte:{TINTE.get(cid, "#0d1417")}">'
+
+
 def holgura(txt):
     """Cuánto texto trae la carta decide cuánto arte cabe."""
     n = len(txt or "")
@@ -62,7 +72,7 @@ def a_ava(cid, foco):
 def b_pac(cid, foco):
     p = PAC[cid]; col = SIS[p["sistema"]][2]
     return f'''<article class="cta vb" style="--tipo:{col}">
- <div class="zona-art"><img src="{uri(cid)}" alt="" style="object-position:{foco}">
+ {zona(cid)}<img src="{uri(cid)}" alt="" style="object-position:{foco}">
   <div class="disuelve"></div><div class="chips flot">{_chips_pac(p)}</div>
   <div class="hpflot">{vidas(p)}</div></div>
  <div class="panel">
@@ -74,7 +84,7 @@ def b_pac(cid, foco):
 def b_rec(cid, foco):
     r = REC[cid]; col = TCOL[r["tipo"]]
     return f'''<article class="cta vb" style="--tipo:{col}">
- <div class="zona-art alto"><img src="{uri(cid)}" alt="" style="object-position:{foco}">
+ {zona(cid, " alto")}<img src="{uri(cid)}" alt="" style="object-position:{foco}">
   <div class="disuelve"></div>
   <div class="chips flot"><i class="chip" style="background:{col}">{TIC[r["tipo"]]} {e(r["tipo"].title())}</i></div></div>
  <div class="panel"><h3>{e(r["nombre"])}</h3>
@@ -83,7 +93,7 @@ def b_rec(cid, foco):
 def b_acc(cid, foco):
     a = ACC[cid]; col = ACOL.get(a["tipo"], "#4a8a96")
     return f'''<article class="cta vb" style="--tipo:{col}">
- <div class="zona-art med"><img src="{uri(cid)}" alt="" style="object-position:{foco}">
+ {zona(cid, " med aire")}<img src="{uri(cid)}" alt="" style="object-position:{foco}">
   <div class="disuelve"></div>
   <div class="chips flot"><i class="chip" style="background:{col}">{e(a["tipo"])}</i></div>
   <span class="coste flot">{e(a["coste"])}</span></div>
@@ -93,7 +103,7 @@ def b_acc(cid, foco):
 def b_ava(cid, foco):
     c = PER[cid]; tit, hab = parte(c["habilidad"])
     return f'''<article class="cta vb" style="--tipo:#0d6e78">
- <div class="zona-art bajo"><img src="{uri(cid)}" alt="" style="object-position:{foco}">
+ {zona(cid, " bajo aire")}<img src="{uri(cid)}" alt="" style="object-position:{foco}">
   <div class="disuelve"></div>
   <div class="chips flot"><i class="chip" style="background:#0d6e78">avatar</i>
    <i class="chip hueco">{e(c["frecuencia"])}</i></div></div>

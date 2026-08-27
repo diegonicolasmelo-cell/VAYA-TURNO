@@ -35,6 +35,26 @@ requerimientos.
    con comillas y `\n` escapados. Una coma de más metía texto basura en el
    HTML — y esos `\n` sueltos eran los que desbordaban las cartas.
 
+## Cuánto de la escena se ve
+
+El hueco del arte en la opción B es casi cuadrado (222 × 198). Medido con
+`object-fit: cover`, esto es lo que entra de la ilustración según su forma:
+
+| hueco | arte 9:16 | arte 3:4 | arte 1:1 | arte 4:3 |
+|---|---|---|---|---|
+| paciente y protocolo (64 %) | **50 %** | 67 % | 89 % | 100 % |
+| avatar largo (52 %) | **41 %** | 55 % | 73 % | 97 % |
+| carta entera (opción C) | 79 % | 100 % | 100 % | 100 % |
+
+Por eso los personajes se ven pegados a la cámara: con 9:16 solo entra la
+mitad del alto. **El arreglo no es CSS, es la forma del archivo** — para la
+opción B hay que generar en 1:1.
+
+Mientras tanto, `.zona-art.aire` mete la imagen al 78 % del ancho en vez de
+llenar el hueco (se ve un 64 % en vez del 50 %) y rellena los costados con
+`TINTE`, la mediana del borde de la propia ilustración. Con arte monocromo
+no se nota.
+
 ## Lo que Pokémon sí aporta
 
 El coste de energía. Una línea de ataque Pokémon es «fichas de color, el

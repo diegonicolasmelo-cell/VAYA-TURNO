@@ -121,10 +121,19 @@ ul.lista li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;he
 .va .cuerpo .pie{margin-top:auto}
 
 /* ── B · DOS TERCIOS ─────────────────────────────────────────────── */
-.vb .zona-art{position:relative;height:calc(var(--w)*.894);flex:none;background:#0d1417}
+.vb .zona-art{position:relative;height:calc(var(--w)*.894);flex:none;
+  background:var(--tinte,#0d1417);overflow:hidden}
+/* `aire`: la imagen se mete al 78 % del ancho en vez de llenar el hueco.
+   Con arte 9:16 el cover solo deja ver el 50 % del alto y los personajes
+   quedan pegados a la cámara; así se ve un 64 %. Los costados se rellenan
+   con el tinte de la propia ilustración, que en arte monocromo no se nota.
+   Es un parche para el arte que YA existe: la solución de verdad es
+   generar el arte con la forma del hueco. */
+.vb .zona-art.aire img{width:78%;left:11%}
 .vb .zona-art.alto{height:calc(var(--w)*1.006)}
 .vb .zona-art.bajo{height:calc(var(--w)*.727)}
-.vb .zona-art img{width:100%;height:100%;object-fit:cover;display:block}
+.vb .zona-art img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block}
 /* el arte no termina en un corte: se disuelve en el panel */
 .vb .disuelve{position:absolute;inset:auto 0 0;height:22%;
   background:linear-gradient(to top,var(--papel),rgba(253,254,254,0))}

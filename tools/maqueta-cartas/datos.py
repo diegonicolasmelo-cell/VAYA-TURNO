@@ -48,3 +48,18 @@ def vidas(p):
 
 def parte(hab):
     return hab.split(" — ", 1) if " — " in hab else ("", hab)
+
+# El tinte de cada ilustración: la mediana del borde. Con arte monocromo
+# —que es lo que hay— rellenar los costados con este color es invisible.
+TINTE = {
+    "R50": "#54898e",
+    "R07": "#5b9397",
+    "P04": "#d2a043",
+    "P11": "#a27eb4",
+    "P02": "#a4c99d",
+    "A01": "#e4a884",
+    "A19": "#a8a5a2",
+    "C17": "#e8e5cf",
+    "C19": "#85a39c",
+    "C01": "#ffffff",
+}

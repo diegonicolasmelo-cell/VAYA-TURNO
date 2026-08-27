@@ -121,6 +121,57 @@ mazo, 250 caracteres, para que veas el peor caso y no el bonito.</p>
 </section>
 
 <section>
+<p class="eyebrow">Lo que pediste último, y es lo más importante</p>
+<h2>Los personajes se ven demasiado cerca</h2>
+<p>Tienes razón y se puede medir. El hueco del arte en la opción B es un
+rectángulo casi cuadrado —222 de ancho por 198 de alto—. Tu arte es 9:16,
+mucho más alto. Al llenar el hueco, <strong>solo entra la mitad del alto de
+la ilustración</strong>: la cabeza se come el cuadro y la escena que
+dibujaste desaparece.</p>
+
+<div class="tabla-env"><table>
+<thead><tr><th>Qué parte de la ilustración se ve</th>
+<th class="num">arte 9:16</th><th class="num">arte 3:4</th>
+<th class="num">arte 1:1</th><th class="num">arte 4:3</th></tr></thead>
+<tbody>
+<tr><td>Paciente y protocolo (arte al 64&nbsp;%)</td>
+    <td class="num no">50&nbsp;%</td><td class="num">67&nbsp;%</td>
+    <td class="num si">89&nbsp;%</td><td class="num si">100&nbsp;%</td></tr>
+<tr><td>Avatar largo (arte al 52&nbsp;%)</td>
+    <td class="num no">41&nbsp;%</td><td class="num">55&nbsp;%</td>
+    <td class="num">73&nbsp;%</td><td class="num si">97&nbsp;%</td></tr>
+<tr><td>Carta entera, opción C</td>
+    <td class="num">79&nbsp;%</td><td class="num si">100&nbsp;%</td>
+    <td class="num si">100&nbsp;%</td><td class="num si">100&nbsp;%</td></tr>
+</tbody></table></div>
+
+<div class="nota grave">
+<h4>El arreglo no es CSS, es la forma del archivo</h4>
+<p>Por CSS solo puedo achicar la imagen y rellenar los costados. La solución
+de verdad es <strong>generar el arte con la forma del hueco</strong>: para
+la opción B, el hueco es casi cuadrado, así que <strong>1:1 muestra el
+89&nbsp;% de la escena en vez del 50&nbsp;%</strong>. Ese es el cambio.</p>
+<p>Y aparte del formato, el encuadre: hoy los prompts piden «la cara y el
+objeto en la mitad de arriba, los ojos a un tercio del borde», que es lo que
+te está pegando la cámara a la cara. Con la B hay que pedir
+<strong>plano medio, el personaje ocupando la mitad de la altura, con
+escenario visible alrededor</strong>.</p>
+</div>
+
+<h3 style="font-family:Petrona,Georgia,serif;font-size:20px;margin:26px 0 4px">
+El parche para el arte que ya tienes</h3>
+<p>Mientras regeneras, las cartas con efecto llevan la imagen metida al
+78&nbsp;% del ancho en vez de llenar el hueco: se ve un 64&nbsp;% en vez del
+50&nbsp;%. Los costados se rellenan con <strong>el tinte de la propia
+ilustración</strong> —la mediana de su borde— y como tu arte es monocromo,
+no se nota que hay relleno. Míralo en El Que Guarda y en El Diostor de la
+opción B, arriba.</p>
+<p>Esto además apoya lo que dices del color: si el tinte es el color del
+sistema, el relleno deja de ser un parche y pasa a ser información. Un
+paciente Neuro es morado hasta en los bordes.</p>
+</section>
+
+<section>
 <p class="eyebrow">Mi recomendación</p>
 <h2>B para el juego, y una cosa más</h2>
 <p><strong>La B es la respuesta</strong>, y no solo porque sea la que pediste.
