@@ -2633,6 +2633,7 @@ function botonFin(){
   const b = el("button","btn-fin");
   b.id = "btn-fin";
   b.innerHTML = "Fin de<br>Guardia";
+  b.setAttribute("aria-label","Fin de Guardia");   // el <br> parte el nombre
   b.onclick = ()=>{ UI.sel = null; entrarFase(2); };
   return b;
 }

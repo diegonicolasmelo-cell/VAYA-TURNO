@@ -121,6 +121,40 @@ comprable" tampoco puede ser un aro duro de 2 px: sobre el cromado se lee
 como un segundo marco turquesa encima del metal, así que es un resplandor
 difuso.
 
+**El campo v0.55** es la reestructura grande (adaptada de Battlegrounds,
+con la ropa de la unidad — el mockup vive en el artifact del campo):
+
+· **La cama con arte es una ficha**: ilustración, marco del color de la
+  gravedad, corazones, los requerimientos aplanados a fichas de color y el
+  «faltan» grande. El nombre y el desglose viven en el zoom (tocar la
+  cama). Sin arte queda la carta clásica, transitorio.
+· **El rival es una ficha consultable** con badge ✅ alta ×N / ⚠ cerca;
+  tocarla abre su unidad en un cajón vivo donde también se sabotea.
+· **El zócalo**: retrato al centro con el ANILLO de indicaciones (tres
+  segmentos que se apagan al colocar; volarIndic aterriza ahí), el poder
+  ⚡ al hombro (late disponible, hoja con Usar/Ver carta), Sumarios al
+  otro lado.
+· **Fin de Guardia** es el botón redondo de la esquina opuesta. OJO: .pie
+  es pointer-events:none y cada hijo tocable lo reactiva — sin
+  pointer-events:auto el botón se dibuja pero no se toca.
+· **Urgencias/Guardia en rieles** a los bordes (.app.partida les hace
+  sitio con padding); al centro queda solo «Próximo: …».
+· **La mano es un selector**: miniaturas al filo con scroll nativo; tocar
+  abre la carta grande (‹ › y «Jugar esta»), luego tocas la cama. La
+  cuadrícula queda SOLO para descartes. El plegado murió (UI.manoOculta
+  es bandera inerte para no romper guardias guardadas).
+· **El ARRASTRE se retiró**: el flujo es tocar carta → Jugar esta → tocar
+  cama. Código muerto por purgar en una pasada propia: arrastre/tomarCarta,
+  ponRanura/abanicoVivo/hojear*, manoAbanico/cambiarModoMano, CSS de
+  .ranura/.abanico/.mano-cerrada/.btn-plegar/.indic-caja, y el driver
+  gesto.py del scratchpad quedó obsoleto.
+· **Emotes**: tocar tu retrato abre 4 burbujas (3 de la casa + la frase de
+  tu avatar); burbuja viva 2,6 s; la IA contesta con la frase del suyo el
+  65% de las veces; anti-spam 3,5 s.
+· Una trampa que costó: la clase «ficha» ya existía (fichitas de la tira
+  del avatar, display:flex) y bautizar igual el modo de la cama la
+  colapsaba a 35 px — por eso el modo se llama `pficha`.
+
 **La carta va en maquetación B** desde v0.54: el arte entra a sangre por
 arriba y se **disuelve** en la ficha —no se corta, que una línea dura
 partiría la carta en dos—, y el nombre y los datos viven sobre papel. Está
