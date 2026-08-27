@@ -1038,6 +1038,78 @@ body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
    border-color:rgba(60,78,88,.16)}
 
+/* ── el zócalo (v0.55): tu identidad al centro-abajo ─────────────────
+   El retrato con el ANILLO de indicaciones alrededor: tres segmentos que
+   se apagan al colocar — el contador vive sobre quien gasta, no escondido
+   en la barra de la mano. El poder ⚡ cuelga del hombro y late mientras
+   está disponible. Adaptado de Battlegrounds, con la ropa de la unidad. */
+.zocalo{position:relative;height:92px;margin-top:6px}
+.aro-av{position:absolute;left:50%;transform:translateX(-50%);bottom:0;
+  width:82px;height:82px;z-index:42;border:0;padding:0;background:none;
+  cursor:pointer;font:inherit}
+.aro-av::before{content:"";position:absolute;inset:-8px;border-radius:50%;
+  background:conic-gradient(from -84deg,
+    var(--seg1,var(--line)) 0deg 108deg, transparent 108deg 120deg,
+    var(--seg2,var(--line)) 120deg 228deg, transparent 228deg 240deg,
+    var(--seg3,var(--line)) 240deg 348deg, transparent 348deg 360deg);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px))}
+.aro-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;
+  object-position:center 12%;border:3px solid var(--paper);display:block;
+  box-shadow:0 6px 16px rgba(22,36,46,.28)}
+.aro-av .ini{width:100%;height:100%;border-radius:50%;display:grid;
+  place-items:center;background:var(--acc);color:#fff;font-family:Petrona,Georgia,serif;
+  font-weight:700;font-size:30px;border:3px solid var(--paper);
+  box-shadow:0 6px 16px rgba(22,36,46,.28)}
+@media (prefers-reduced-motion: no-preference){
+  .aro-av img,.aro-av .ini{animation:av-respira 5.2s ease-in-out infinite}}
+@keyframes av-respira{0%,100%{transform:scale(1)}50%{transform:scale(1.02) translateY(-1px)}}
+.aro-av .ind{position:absolute;left:50%;transform:translateX(-50%);top:-16px;
+  font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  color:var(--ink-2);background:var(--paper);padding:2px 8px;border-radius:999px;
+  white-space:nowrap;box-shadow:0 2px 6px rgba(22,36,46,.18)}
+.poder-av{position:absolute;left:calc(50% + 34px);bottom:52px;width:36px;height:36px;
+  border-radius:50%;background:var(--acc);color:#fff;border:3px solid var(--paper);
+  display:grid;place-items:center;font-size:15px;z-index:43;
+  box-shadow:0 5px 14px rgba(13,110,120,.4)}
+.poder-av.gastado{background:var(--line);color:var(--ink-3);box-shadow:none}
+@media (prefers-reduced-motion: no-preference){
+  .poder-av.vivo{animation:poder-late 2.4s ease-in-out infinite}}
+@keyframes poder-late{
+  0%,100%{box-shadow:0 5px 14px rgba(13,110,120,.4),0 0 0 0 rgba(13,110,120,.5)}
+  70%{box-shadow:0 5px 14px rgba(13,110,120,.4),0 0 0 10px rgba(13,110,120,0)}}
+.suml{position:absolute;left:calc(50% - 74px);bottom:52px;z-index:42;
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+  color:var(--ink-2);background:var(--paper);border:1px solid var(--line);
+  border-radius:999px;padding:4px 8px;box-shadow:var(--sombra)}
+
+/* Fin de Guardia: el botón redondo de la esquina opuesta al avatar */
+/* pointer-events:auto obligatorio: .pie es pointer-events:none y cada
+   hijo tocable lo reactiva — sin esto el botón se dibuja pero no se toca */
+.btn-fin{position:fixed;right:max(10px,calc(50% - 290px));bottom:74px;z-index:40;
+  pointer-events:auto;
+  width:66px;height:66px;border-radius:50%;background:var(--acc);color:var(--acc-ink);
+  border:3px solid var(--paper);font:inherit;font-weight:700;font-size:11px;
+  line-height:1.12;display:grid;place-items:center;text-align:center;
+  box-shadow:0 7px 18px rgba(13,110,120,.4)}
+
+/* los rieles: Urgencias y la Guardia apoyadas en el borde de la mesa —
+   antes eran texto flotando en la franja del centro */
+.app.partida{padding-left:24px;padding-right:24px}
+.riel-lat{position:fixed;top:62px;bottom:0;width:21px;z-index:4;
+  background:var(--lejos);display:flex;flex-direction:column;align-items:center;
+  gap:7px;padding:10px 0;pointer-events:none}
+.riel-lat.izq{left:max(0px,calc(50% - 300px));border-radius:0 10px 10px 0}
+.riel-lat.der{right:max(0px,calc(50% - 300px));border-radius:10px 0 0 10px}
+.riel-lat .mazo{width:14px;height:21px;border-radius:3px;background:var(--paper);
+  border:1px solid var(--line);box-shadow:1.5px 1.5px 0 rgba(22,36,46,.12);flex:none}
+.riel-lat .cnt{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  color:var(--ink-2)}
+.riel-lat .eti{writing-mode:vertical-rl;font-family:"IBM Plex Mono",monospace;
+  font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.riel-lat .cala{margin-top:auto;font-size:10px;opacity:.6;padding-bottom:150px;
+  writing-mode:vertical-rl;font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
 .tuto-anillo{position:fixed;border:2.5px solid var(--acc);border-radius:14px;
@@ -2212,10 +2284,13 @@ function render(){
   });
   const app = document.getElementById("app");
   app.innerHTML = "";
+  app.classList.remove("partida");
   if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); pintarTuto();
          pintarPortada(); return; }
   if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); pintarTuto();
              pintarPortada(); return; }
+  app.classList.add("partida");
+  app.appendChild(rieles());
   app.appendChild(barraEstado());
   const g = textoGuia();
   if(g) app.appendChild(el("div","guia",g));
@@ -2358,54 +2433,97 @@ function modalRival(j){
   return velo;
 }
 
-/* Tu avatar como carta ACTIVA al pie de la unidad (Pocket invertido):
-   tú abajo, mirando tus 3 camas. */
+/* El zócalo (v0.55): el retrato al centro con el anillo de indicaciones,
+   el poder ⚡ al hombro y los Sumarios al otro lado. El anillo ES el
+   contador: cada colocación apaga un segmento. */
 function tiraZona(j){
-  const w = el("div");
-  const t = el("div","activo");
-  const freq = (j.avatar && j.avatar.frecuencia) || "";
-  const activa = /1×/.test(freq);
-  const raya = el("i","raya"); t.appendChild(raya);
-  const info = el("div","activo-info");
-  info.appendChild(el("div","activo-rol",
-    "Tu avatar" + (freq ? " · " + esc(freq) : "")));
-  info.appendChild(el("div","activo-nom", esc(j.avatar ? j.avatar.nombre : "…")));
-  // el nombre abre la carta en grande; la ⓘ sigue siendo el vistazo rápido
-  if(j.avatar){
-    info.style.cursor = "pointer";
-    info.setAttribute("role","button");
-    info.setAttribute("tabindex","0");
-    info.setAttribute("aria-label","Ver la carta de " + j.avatar.nombre);
-    const abre = ()=> verAvatarGrande(j);
-    info.onclick = abre;
-    info.onkeydown = ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); abre(); } };
+  const w = el("div","zocalo");
+  const a = j.avatar;
+  if(j.sumarios) w.appendChild(el("span","suml",`📋 ${j.sumarios}`));
+
+  const aro = el("button","aro-av");
+  aro.id = "indic-caja";              // volarIndic aterriza aquí
+  const activo = G.fase===1 && !j.ia && j === yo();
+  for(let k=1;k<=3;k++)
+    aro.style.setProperty("--seg"+k,
+      (activo && j.coloc>=k) ? "var(--warn, #e0af3c)" : "var(--line)");
+  if(a && a.arte){
+    const im = document.createElement("img");
+    im.src = a.arte; im.alt = "Tu avatar: " + esc(a.nombre);
+    aro.appendChild(im);
+  } else aro.appendChild(el("span","ini", a ? esc(a.nombre.replace(/^(El|La|Los|Las)\s+/i,"")[0]) : "?"));
+  if(activo) aro.appendChild(el("span","ind",`${j.coloc} de ${INDICACIONES}`));
+  aro.setAttribute("aria-label", a ? "Tu avatar: " + a.nombre : "Tu avatar");
+  aro.onclick = ()=> verAvatarGrande(j);
+  w.appendChild(aro);
+
+  if(a){
+    const freq = a.frecuencia || "";
+    const act1 = /1×/.test(freq);
+    const gast = act1 && (/PARTIDA/.test(freq) ? j.habP : j.habT);
+    const pod = el("button","poder-av" +
+      (act1 && !gast && j===yo() ? " vivo" : "") + (gast ? " gastado" : ""));
+    pod.innerHTML = gast ? "✓" : "⚡";
+    pod.setAttribute("aria-label","Poder de " + a.nombre);
+    pod.onclick = ()=> hojaPoder(j);
+    w.appendChild(pod);
   }
-  t.appendChild(info);
-  if(j.sumarios)
-    t.appendChild(el("span","ficha sum",`📋 <b>${j.sumarios}</b>`));
-  if(j.avatar && activa){
-    const gastada = (/PARTIDA/.test(freq) ? j.habP : j.habT) || j !== yo();
-    const b = el("button","ficha hab"+(gastada?" no":""),
-      (/PARTIDA/.test(freq) ? j.habP : j.habT) ? "usada" : "⚡ Usar");
-    if(!gastada) b.onclick = ()=>{
-      if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
-      anota("a",`${j.nombre} usa ${j.avatar.nombre}: aplica el efecto a mano.`);
-      UI.verHab = true; guardar(); render();
-    };
-    t.appendChild(b);
-  }
-  if(j.avatar){
-    const i = el("button","ficha", UI.verHab ? "✕" : "ⓘ");
-    i.setAttribute("aria-label","Qué hace la habilidad");
-    i.onclick = ()=>{ UI.verHab = !UI.verHab; render(); };
-    t.appendChild(i);
-  }
-  w.appendChild(t);
-  if(UI.verHab && j.avatar)
-    w.appendChild(el("div","hab-desc",
-      `<b>${esc(j.avatar.nombre)}</b> · ${esc(freq)}${activa?"":" (pasiva: aplica sola, no se gasta)"}<br>`+
-      `${esc(j.avatar.habilidad)}`));
   return w;
+}
+
+/* el poder en su hoja: qué hace, y el Usar si corresponde */
+function hojaPoder(j){
+  const a = j.avatar;
+  hoja(a.nombre, (m, cerrar)=>{
+    const freq = a.frecuencia || "";
+    const act1 = /1×/.test(freq);
+    const gast = act1 && (/PARTIDA/.test(freq) ? j.habP : j.habT);
+    m.appendChild(el("p",null,
+      `<b>${esc(freq)}</b>${act1 ? "" : " · pasiva: aplica sola, no se gasta"}` +
+      `${gast ? " · <b>ya usada</b>" : ""}<br>${esc(a.habilidad)}`));
+    const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
+    if(act1 && !gast && j===yo() && !j.ia){
+      const ub = el("button","btn pri","⚡ Usar ahora");
+      ub.onclick = ()=>{
+        if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
+        anota("a",`${j.nombre} usa ${a.nombre}: aplica el efecto a mano.`);
+        guardar(); UI.modal = null; render();
+      };
+      fila.appendChild(ub);
+    }
+    const vb = el("button","btn","Ver la carta");
+    vb.onclick = ()=>{ UI.modal = null; verAvatarGrande(j); };
+    fila.appendChild(vb);
+    const cb = el("button","btn","Cerrar"); cb.onclick = cerrar;
+    fila.appendChild(cb);
+    m.appendChild(fila);
+  });
+}
+
+/* los rieles: los mazos apoyados en el borde de la mesa */
+function rieles(){
+  const w = el("div");
+  const iz = el("div","riel-lat izq");
+  iz.innerHTML = `<i class="mazo"></i><span class="cnt">${G.mazoP.length}</span>` +
+                 `<span class="eti">urgencias</span>`;
+  const muertos = G.jug.reduce((n,x)=>n+x.muertos.length, 0);
+  const de = el("div","riel-lat der");
+  de.innerHTML = `<i class="mazo"></i><span class="cnt">${G.mazoG.length}</span>` +
+                 `<span class="eti">guardia</span>` +
+                 (muertos ? `<span class="cala">✝ ${muertos}</span>` : "");
+  w.appendChild(iz); w.appendChild(de);
+  return w;
+}
+
+/* el botón redondo de Fin de Guardia, en la esquina opuesta al avatar */
+function botonFin(){
+  const j = yo();
+  if(G.fase!==1 || j.ia || vista()!==j || G.pendiente) return null;
+  const b = el("button","btn-fin");
+  b.id = "btn-fin";
+  b.innerHTML = "Fin de<br>Guardia";
+  b.onclick = ()=>{ UI.sel = null; entrarFase(2); };
+  return b;
 }
 
 /* Tus Protocolos comprados: zona propia con su botón de jugar. */
@@ -2452,12 +2570,12 @@ function bandaCentral(){
     cai.innerHTML = "<b>💻 Se cayó el sistema.</b> Esta ronda nadie puede jugar Acciones.";
     c.appendChild(cai);
   }
-  info.appendChild(el("span",null,`Urgencias ${G.mazoP.length}`));
+  // v0.55: Urgencias y Guardia viven en los rieles; aquí queda solo el dato
+  // que es información de juego y no un contador: quién viene llegando
   info.appendChild(el("span","sep"));
   info.appendChild(el("span",null, G.informe
     ? `Próximo: ${esc(G.informe.nombre)}` : "Urgencias vacía"));
   info.appendChild(el("span","sep"));
-  info.appendChild(el("span",null,`Guardia ${G.mazoG.length}`));
   c.appendChild(info);
 
   // v0.38: la Pizarra sale del centro a un cajón — el tablero respira y
@@ -2749,6 +2867,7 @@ function pie(){
     cc.appendChild(btn);
     f.appendChild(cc);
     f.appendChild(barraAcciones());
+    const bf = botonFin(); if(bf) f.appendChild(bf);
     return f;
   }
   const sobra = j.mano.length - limiteMano(j);
@@ -2756,20 +2875,6 @@ function pie(){
   rot.innerHTML = `🂠 ${j.mano.length}`+
     (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
     ` <span></span>`;
-  if(mio && G.fase===1 && !j.ia){
-    const gasto = UI.colocPrev!==null && j.coloc < UI.colocPrev;
-    const cc = el("div","indic-caja"+(j.coloc===0?" vacio":""));
-    cc.id = "indic-caja";
-    for(let k=0;k<INDICACIONES;k++){
-      // la que se acaba de gastar se apaga a la vista, no de un salto
-      const punto = el("i", k<j.coloc ? "" : (gasto && k===j.coloc ? "off apaga" : "off"));
-      cc.appendChild(punto);
-    }
-    cc.appendChild(el("b",null, j.coloc===0 ? "sin indicaciones"
-      : `${j.coloc} ${j.coloc===1?"indicación":"indicaciones"}`));
-    UI.colocPrev = j.coloc;
-    rot.appendChild(cc);
-  }
   if(!j.ia && j.mano.length > 1 && !descartando){
     const mb = el("button","mano-modo", manoAbanico()?"▦":"◗");
     mb.title = manoAbanico() ? "Ver la mano en cuadrícula" : "Ver la mano en abanico";
@@ -2843,6 +2948,7 @@ function pie(){
   f.appendChild(mano);
   f.appendChild(rot);          // el rótulo va DEBAJO del abanico
   f.appendChild(barraAcciones());
+  const bf = botonFin(); if(bf) f.appendChild(bf);
   return f;
 }
 
@@ -3321,7 +3427,7 @@ function barraAcciones(){
         anota("a",`${j.nombre} cierra un Sumario.`); guardar(); render();
       }, j.mano.length<2);
     if(UI.sel) add("Cancelar","",()=>{ UI.sel=null; render(); });
-    add("Fin de Guardia","pri",()=>{ UI.sel=null; entrarFase(2); });
+    // Fin de Guardia ya no vive aquí: es el botón redondo de la esquina
   }
   return b;
 }
@@ -3346,7 +3452,7 @@ const TUTO = [
   txt:"Tus cartas, en abanico: desliza a los lados para hojear y toca la del centro para verla en grande. ▼ pliega la mano y deja ver el tablero.",
   cuando: miTurno},
  {tit:"Las 3 indicaciones", sel:"#indic-caja",
-  txt:"Tu moneda de cada turno: colocar un recurso, sabotear o des-escalar gasta 1. Se acaban las tres y se acabó tu jugada.",
+  txt:"El anillo dorado de tu retrato es tu moneda del turno: colocar, sabotear o des-escalar apaga un segmento. Se apagan los tres y se acabó tu jugada.",
   cuando: miTurno},
  {tit:"Coloca tu primer recurso", sel:".zona.cerca .tres",
   txt:"Arrastra una carta que tu paciente pida hasta su cama (o tócala y luego toca la cama). Si comparten sistema, ¡vale doble!",
@@ -3359,7 +3465,7 @@ const TUTO = [
  {tit:"La Pizarra de Turno", sel:"#btn-pizarra",
   txt:"Aquí se compran las cartas de Acción pagando cartas de tu mano (máx. 1 compra y 1 jugada por turno). Ataques, rescates y respuestas: ábrela cuando te sobren cartas.",
   cuando: miTurno},
- {tit:"Fin de Guardia", sel:".pie .acciones",
+ {tit:"Fin de Guardia", sel:"#btn-fin",
   txt:"Cuando gastes tus indicaciones, toca Fin de Guardia: tus pacientes sin ✅ pierden 1 ❤️ y descartas hasta el límite de mano. Después juega el rival — sus cartas se revelan una a una.",
   cuando:()=> yo()===hum() && G.fase===1,
   listo:()=> G.fase===2 || yo()!==hum() || G.ronda>1,
