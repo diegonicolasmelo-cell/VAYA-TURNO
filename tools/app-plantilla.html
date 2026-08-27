@@ -178,6 +178,63 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .faltan.cero{color:var(--ok)}
 .grav{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
       color:var(--ink-3);display:block;margin-top:2px}
+/* ── la cama-ficha (v0.55): arte y números; el texto vive en el zoom.
+   Solo cuando el paciente TIENE arte — sin arte se queda la carta clásica,
+   que es transitorio mientras llegan las 115 ilustraciones. */
+.cama.pficha{padding:0 0 5px;border-width:2px;border-color:var(--gravc,var(--line))}
+.cama.pficha .cama-arte{margin:0 0 4px;aspect-ratio:1/1}
+.cama.pficha .f-grav{position:absolute;top:4px;left:4px;z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:8px;font-weight:700;
+  letter-spacing:.04em;color:#fff;background:var(--gravc);padding:2px 5px;
+  border-radius:5px}
+.cama.pficha .f-faltan{position:absolute;top:2px;right:5px;z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:700;
+  color:var(--acc);text-shadow:0 1px 0 var(--paper),0 0 6px var(--paper)}
+.cama.pficha .f-faltan.cero{color:var(--ok)}
+.cama.pficha .cuerpo-f{padding:0 6px}
+.cama.pficha .corazones{margin:0 0 3px}
+.cama.pficha .pips{display:flex;gap:2.5px;flex-wrap:wrap;margin:0 0 2px}
+.cama.pficha .pip{width:7.5px;height:7.5px;border-radius:50%;flex:none;
+  border:1.3px solid var(--pc);background:transparent}
+.cama.pficha .pip.ll{background:var(--pc);border-color:var(--pc);
+  box-shadow:inset 0 -1px 1px rgba(0,0,0,.3)}
+.cama.pficha .pip.extra{background:var(--ink-3);border-color:var(--ink-3);opacity:.55}
+.cama.pficha .sellos{margin-top:3px;padding:0 6px}
+.cama.pficha .cama-btn{width:calc(100% - 12px);margin:5px 6px 0}
+
+/* ── el rival es una ficha consultable, no media pantalla ──────────── */
+.rival-chip{display:flex;align-items:center;gap:7px;width:100%;text-align:left;
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:6px 9px;box-shadow:var(--sombra);font:inherit}
+.rival-chip .foto{width:34px;height:34px;border-radius:50%;flex:none;
+  object-fit:cover;object-position:center 12%;border:2px solid var(--line);
+  background:var(--lejos)}
+.rival-chip .foto-ini{width:34px;height:34px;border-radius:50%;flex:none;
+  display:grid;place-items:center;background:var(--acc);color:#fff;
+  font-weight:700;font-size:15px;border:2px solid var(--line)}
+.rival-chip .qn{flex:1;min-width:0;line-height:1.12}
+.rival-chip .qn b{font-family:Petrona,Georgia,serif;font-size:13.5px;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rival-chip .qn span{font-family:"IBM Plex Mono",monospace;font-size:8px;
+  color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rival-chip .dato{font-family:"IBM Plex Mono",monospace;font-size:9px;
+  color:var(--ink-2);background:var(--cerca);border:1px solid var(--line);
+  border-radius:6px;padding:2.5px 6px;flex:none;white-space:nowrap}
+.rival-chip .peligro{font-family:"IBM Plex Mono",monospace;font-size:8.5px;
+  font-weight:700;letter-spacing:.04em;color:#fff;background:var(--vida);
+  border-radius:6px;padding:3px 6px;flex:none;white-space:nowrap;
+  animation:parpadea 1.6s ease-in-out infinite}
+@keyframes parpadea{0%,100%{opacity:1}50%{opacity:.55}}
+.rival-chip .abre{color:var(--ink-3);font-size:13px;flex:none}
+.rival-chip.blanco{border-color:var(--acc);cursor:pointer;
+  animation:respira 1.1s ease-in-out infinite}
+/* dentro del cajón del rival, sus camas con todo el detalle */
+.modal .zona-rival .tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;background-image:var(--sala-suya);background-size:112% auto;
+  background-position:center 46%;background-repeat:no-repeat;border-radius:9px;
+  padding:6px 4px}
+
 /* semáforo de gravedad: chip de color junto al nombre */
 .gchip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;
        font-weight:700;letter-spacing:.05em;padding:2px 6px;border-radius:5px;
@@ -2173,6 +2230,14 @@ function render(){
     if(UI.franja.length > 16) fr.style.fontSize = "21px";
     app.appendChild(fr);
   }
+  if(UI.verRival && !UI.modal){
+    const r = G.jug.find(x=>x.nombre===UI.verRival && x!==vista());
+    if(r) UI.modal = modalRival(r); else UI.verRival = null;
+  } else if(UI.verRival && UI.modal && UI.modal.querySelector(".zona-rival")){
+    const r = G.jug.find(x=>x.nombre===UI.verRival && x!==vista());
+    UI.modal = r ? modalRival(r) : null;
+    if(!r) UI.verRival = null;
+  }
   pintarCapa(); pintarTuto(); pintarPortada();
   colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
@@ -2209,11 +2274,13 @@ function textoGuia(){
 }
 
 function zonaJugador(j, propio){
-  const z = el("div","zona "+(propio?"cerca":"lejos"));
+  // v0.55: el rival ya no ocupa media pantalla — es una ficha consultable
+  // (estilo riel de Battlegrounds, adaptado a UN rival). Sus camas se abren
+  // tocándola, y el badge avisa lo único urgente: que está por dar de alta.
+  if(!propio) return chipRival(j);
+  const z = el("div","zona cerca");
   const linea = el("div","jugador-linea");
-  linea.appendChild(el("b",null,esc(j.nombre)+(j.ia?" · IA":"")));
-  if(!propio && j.avatar)
-    linea.appendChild(el("span","av-chip",esc(j.avatar.nombre)));
+  linea.appendChild(el("b",null,esc(j.nombre)));
   linea.appendChild(el("span","marca al",`${j.altas.length} altas`));
   linea.appendChild(el("span","marca",`${j.muertos.length} ✝️`));
   if(j.sumarios) linea.appendChild(el("span","marca su",`${j.sumarios} 📋`));
@@ -2223,9 +2290,72 @@ function zonaJugador(j, propio){
   const tres = el("div","tres");
   j.camas.forEach((c,i)=>tres.appendChild(vistaCama(c,i,j,propio)));
   z.appendChild(tres);
-  if(propio && j.protocolos.length) z.appendChild(protMios(j));
-  if(propio) z.appendChild(tiraZona(j));
+  if(j.protocolos.length) z.appendChild(protMios(j));
+  z.appendChild(tiraZona(j));
   return z;
+}
+
+function chipRival(j){
+  const sel = UI.sel;
+  const activo = G.fase===1 && !yo().ia && yo().coloc>0 && !G.pendiente;
+  const saboteable = sel && activo && j.camas.some(c=>c && puedeSabotear(sel,c));
+  const b = el("button","rival-chip"+(saboteable?" blanco":""));
+  b.setAttribute("aria-label","Ver la unidad de "+j.nombre);
+  if(j.avatar && j.avatar.arte){
+    const f = document.createElement("img");
+    f.className = "foto"; f.src = j.avatar.arte; f.alt = "";
+    b.appendChild(f);
+  } else b.appendChild(el("span","foto-ini",esc((j.nombre||"?")[0])));
+  const qn = el("span","qn");
+  qn.appendChild(el("b",null,esc(j.nombre)+(j.ia?" · IA":"")));
+  if(j.avatar) qn.appendChild(el("span",null,esc(j.avatar.nombre)));
+  b.appendChild(qn);
+  b.appendChild(el("span","dato",`🂠 ${j.mano.length}`));
+  b.appendChild(el("span","dato",`${j.altas.length} altas`));
+  if(j.muertos.length) b.appendChild(el("span","dato",`${j.muertos.length} ✝️`));
+  // el aviso que no puede perderse al sacar sus camas de la pantalla:
+  // ✅ = tiene un paciente estable (alta segura si sobrevive);
+  // ⚠ = alguno está a 1 recurso de completarse
+  const listas = j.camas.filter(c=>c && c.estable).length;
+  const cerca = j.camas.some(c=>c && !c.estable && faltanTotal(c)===1);
+  if(listas) b.appendChild(el("span","peligro",`✅ alta ×${listas}`));
+  else if(cerca) b.appendChild(el("span","peligro","⚠ cerca"));
+  b.appendChild(el("span","abre","›"));
+  b.onclick = ()=>{ UI.verRival = j.nombre; render(); };
+  return b;
+}
+
+/* el cajón del rival: sus camas con todo el detalle, y ahí también se
+   sabotea — se reconstruye en cada render para que refleje la jugada */
+function modalRival(j){
+  const velo = el("div","velo");
+  const m = el("div","modal");
+  m.appendChild(el("div","tirador"));
+  m.appendChild(el("h2",null,"Unidad de "+esc(j.nombre)));
+  const sel = UI.sel;
+  if(sel && sel.warn)
+    m.appendChild(el("p",null,`Tienes <b>${esc(sel.nombre)}</b> ⚠️ en la mano: toca una cama para jugarla aquí.`));
+  const z = el("div","zona-rival");
+  const linea = el("div","jugador-linea");
+  if(j.avatar) linea.appendChild(el("span","av-chip",esc(j.avatar.nombre)));
+  linea.appendChild(el("span","marca al",`${j.altas.length} altas`));
+  linea.appendChild(el("span","marca",`${j.muertos.length} ✝️`));
+  if(j.sumarios) linea.appendChild(el("span","marca su",`${j.sumarios} 📋`));
+  linea.appendChild(el("div","espacio"));
+  linea.appendChild(el("span","marca",`${j.mano.length} cartas`));
+  z.appendChild(linea);
+  const tres = el("div","tres");
+  j.camas.forEach((c,i)=>tres.appendChild(vistaCama(c,i,j,false)));
+  z.appendChild(tres);
+  m.appendChild(z);
+  const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
+  const cb = el("button","btn pri","Cerrar");
+  cb.onclick = ()=>{ UI.verRival = null; UI.modal = null; render(); };
+  fila.appendChild(cb);
+  m.appendChild(fila);
+  velo.appendChild(m);
+  velo.onclick = e=>{ if(e.target===velo){ UI.verRival = null; UI.modal = null; render(); } };
+  return velo;
 }
 
 /* Tu avatar como carta ACTIVA al pie de la unidad (Pocket invertido):
@@ -2408,30 +2538,44 @@ function vistaCama(c, i, duenio, propio){
   const d = el(objetivo ? "button" : "div", clase);
   if(popNum) d.appendChild(el("span","pop-num "+popNum[0], popNum[1]));
 
-  const raya = el("i","raya");
-  raya.style.background = SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)";
-  d.appendChild(raya);
-
-  if(c.p.arte){
+  // v0.55: con arte, la cama es una FICHA — arte y números; el nombre y el
+  // detalle viven en el zoom (tócala). Sin arte sigue la carta clásica.
+  const ficha = !!c.p.arte;
+  const total = faltanTotal(c);
+  if(ficha){
+    d.classList.add("pficha");   // "ficha" a secas ya existe: las fichitas
+                                 // de la tira del avatar (display:flex), y
+                                 // chocaba — la cama colapsaba a una fila
+    d.style.setProperty("--gravc", GRAVC[c.p.gravedad] || "var(--line)");
     const za = el("div","cama-arte");
     if(c.p.tinte) za.style.setProperty("--tinte", c.p.tinte);
     const im = document.createElement("img");
-    im.src = c.p.arte; im.alt = "";
+    im.src = c.p.arte; im.alt = esc(c.p.nombre);
     za.appendChild(im);
     za.appendChild(el("div","disuelve"));
+    za.appendChild(el("span","f-grav",
+      c.p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(c.p.gravedad)));
+    za.appendChild(el("span","f-faltan"+(total===0?" cero":""),
+      total===0 ? "✓" : String(total)));
     d.appendChild(za);
+  } else {
+    const raya = el("i","raya");
+    raya.style.background = SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)";
+    d.appendChild(raya);
+    const cab = el("div","cama-cab");
+    cab.appendChild(el("span","pnom",esc(c.p.nombre)));
+    cab.appendChild(el("span","faltan"+(total===0?" cero":""), total===0?"✓":String(total)));
+    d.appendChild(cab);
+    const linea = el("div","grav");
+    linea.style.display = "flex"; linea.style.alignItems = "center"; linea.style.gap = "5px";
+    linea.appendChild(el("i","gchip g-"+c.p.gravedad,
+      c.p.gravedad==="ROJO" ? "★ ROJO" : "G·"+esc(c.p.gravedad)));
+    if(SIS[c.p.sistema]) linea.appendChild(el("span",null,SIS[c.p.sistema][0]));
+    d.appendChild(linea);
   }
-  const cab = el("div","cama-cab");
-  cab.appendChild(el("span","pnom",esc(c.p.nombre)));
-  const total = faltanTotal(c);
-  cab.appendChild(el("span","faltan"+(total===0?" cero":""), total===0?"✓":String(total)));
-  d.appendChild(cab);
-  const linea = el("div","grav");
-  linea.style.display = "flex"; linea.style.alignItems = "center"; linea.style.gap = "5px";
-  linea.appendChild(el("i","gchip g-"+c.p.gravedad,
-    c.p.gravedad==="ROJO" ? "★ ROJO" : "G·"+esc(c.p.gravedad)));
-  if(SIS[c.p.sistema]) linea.appendChild(el("span",null,SIS[c.p.sistema][0]));
-  d.appendChild(linea);
+
+  const cuerpoF = ficha ? el("div","cuerpo-f") : d;
+  if(ficha) d.appendChild(cuerpoF);
 
   const hp = el("div","corazones");
   for(let k=0;k<c.vidaMax;k++)
@@ -2440,9 +2584,24 @@ function vistaCama(c, i, duenio, propio){
   // el ✅ detiene el reloj: que se vea, no solo que sea verdad
   if(c.estable) hp.appendChild(el("span","cong",
     '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
-  d.appendChild(hp);
+  cuerpoF.appendChild(hp);
 
-  if(c.puestos.length){
+  if(ficha){
+    // los requerimientos, aplanados: una fila de fichas de color. Vacía =
+    // pide, llena = tiene, gris = de más. El desglose por tipo va en el zoom.
+    const fila = el("div","pips");
+    TIPOS.forEach(t=>{
+      const nn = Math.max(c.pide[t], c.tiene[t]);
+      for(let k=0;k<nn;k++){
+        const pp = el("i","pip"+(k<c.tiene[t] ? (k<c.pide[t] ? " ll":" extra") : ""));
+        pp.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
+        fila.appendChild(pp);
+      }
+    });
+    cuerpoF.appendChild(fila);
+  }
+
+  if(!ficha && c.puestos.length){
     const en = el("div","energias");
     const brota = UI.enerPrev && UI.enerPrev[c.uid]!==undefined &&
                   c.puestos.length > UI.enerPrev[c.uid];
@@ -2459,6 +2618,7 @@ function vistaCama(c, i, duenio, propio){
   UI.enerPrev[c.uid] = c.puestos.length;
 
   const rq = el("div","reqs");
+  if(ficha) rq.style.display = "none";   // el desglose vive en el zoom
   TIPOS.forEach(t=>{
     if(!c.pide[t] && !c.tiene[t]) return;
     const f = falta(c,t);
@@ -2493,13 +2653,85 @@ function vistaCama(c, i, duenio, propio){
   } else if(activo && propio && !sel && c.basura.length){
     // retirar basura ocupa una indicación: en vez de poner, retiras
     const b = el("button","cama-btn sec",'Des-escalar<i class="precio"></i>');
-    b.onclick = ()=>{ volarIndic(d);
+    b.onclick = ev=>{ ev.stopPropagation(); volarIndic(d);
       G.descG.push(c.basura.pop()); yo().coloc--;
       anota("",`Des-escalada en ${c.p.nombre} (gasta 1 indicación).`);
       revisar(c,G.ronda); guardar(); render(); };
     d.appendChild(b);
   }
+  if(!objetivo){
+    // tocar la cama abre al paciente en grande: ahí están el nombre, el
+    // desglose de requerimientos y todo lo que la ficha ya no muestra
+    d.style.cursor = "pointer";
+    d.onclick = ()=> verPacienteGrande(c);
+  }
   return d;
+}
+
+/* la gravedad como color de marco, para la cama-ficha */
+const GRAVC = {I:"#237a5b", II:"#b57e14", III:"#c0492f", ROJO:"#7c1310"};
+
+/* El paciente en grande: la ficha muestra números; aquí está TODO —
+   nombre, frase, desglose por tipo, lo puesto y los estados. */
+function verPacienteGrande(c){
+  hoja(c.p.nombre, (m, cerrar)=>{
+    const g = el("div","grande conarte");
+    g.style.borderLeftColor = SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)";
+    let cuerpo = g;
+    if(c.p.arte){
+      const ga = el("div","g-arte");
+      if(c.p.tinte) ga.style.setProperty("--tinte", c.p.tinte);
+      const im = document.createElement("img");
+      im.src = c.p.arte; im.alt = "";
+      ga.appendChild(im);
+      ga.appendChild(el("div","disuelve"));
+      g.appendChild(ga);
+      cuerpo = el("div","g-cuerpo");
+      g.appendChild(cuerpo);
+    } else g.classList.remove("conarte");
+    const cab = el("div","g-cab");
+    cab.innerHTML = `<i class="gchip g-${esc(c.p.gravedad)}" style="font-size:9px">`+
+      (c.p.gravedad==="ROJO" ? "★ ROJO" : "G·"+esc(c.p.gravedad)) + `</i>`+
+      `<span>${SIS[c.p.sistema] ? SIS[c.p.sistema][0] : ""} ${esc(c.p.sistema)}</span>`+
+      `<span>· alta +${c.p.alta} · fallece ${c.p.fallece}</span>`;
+    cuerpo.appendChild(cab);
+    cuerpo.appendChild(el("h3",null,esc(c.p.nombre)));
+    const hp = el("div","corazones");
+    for(let k=0;k<c.vidaMax;k++)
+      hp.appendChild(el("i","cz", k<c.vida ? CZ_LLENO : CZ_VACIO));
+    hp.appendChild(el("span","num",String(c.vida)));
+    if(c.estable) hp.appendChild(el("span","cong","✅ estable"));
+    cuerpo.appendChild(hp);
+    const rq = el("div","reqs"); rq.style.margin = "8px 0 0";
+    TIPOS.forEach(t=>{
+      if(!c.pide[t] && !c.tiene[t]) return;
+      const f = falta(c,t);
+      const r = el("div","req");
+      r.style.setProperty("--tc", TCOL[t] || "var(--ink-3)");
+      r.style.fontSize = "12px";
+      r.innerHTML = ico(t) + `<span style="flex:none;width:92px">${TNOM[t]||t}</span>`;
+      const cas = el("span","casillas");
+      const nn = Math.max(c.pide[t], c.tiene[t]);
+      for(let k=0;k<nn;k++)
+        cas.appendChild(el("i", k<c.tiene[t] ? (k<c.pide[t]?"cas full":"cas extra") : "cas"));
+      r.appendChild(cas);
+      r.appendChild(el("span","resta"+(f===0?" ok":""), f===0?"✓":String(f)));
+      rq.appendChild(r);
+    });
+    cuerpo.appendChild(rq);
+    if(c.puestos.length)
+      cuerpo.appendChild(el("div","g-txt",
+        "Puesto: " + c.puestos.map(x=>esc(x.nombre)).join(", ") + "."));
+    if(c.basura.length)
+      cuerpo.appendChild(el("div","g-warn",
+        `↯ ${c.basura.length} basura clínica — retiene el alta hasta des-escalar.`));
+    if(c.p.frase) cuerpo.appendChild(el("div","g-frase",`“${esc(c.p.frase)}”`));
+    m.appendChild(g);
+    const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
+    const cb = el("button","btn pri","Cerrar"); cb.onclick = cerrar;
+    fila.appendChild(cb);
+    m.appendChild(fila);
+  });
 }
 
 function pie(){
