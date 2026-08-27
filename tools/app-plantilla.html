@@ -1038,6 +1038,36 @@ body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
    border-color:rgba(60,78,88,.16)}
 
+/* ── la mano-selector (v0.55): miniaturas al filo, lectura en el zoom ─
+   La mano deja de intentar ser legible en chico — eso la hacía enorme.
+   Es un atril de miniaturas con scroll nativo; tocas una y se abre la
+   carta grande de siempre (con ‹ › para hojear y su Jugar esta). */
+.selector{pointer-events:auto;display:flex;gap:6px;align-items:flex-end;
+  padding:7px 10px calc(7px + env(safe-area-inset-bottom,0px));
+  background:rgba(255,255,255,.95);border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  scrollbar-width:none}
+.selector::-webkit-scrollbar{display:none}
+.mini-c{position:relative;width:47px;height:61px;flex:none;border-radius:6px;
+  overflow:hidden;border:1.5px solid var(--line);background:var(--tinte,var(--cerca));
+  padding:0;scroll-snap-align:center;box-shadow:0 2px 6px rgba(22,36,46,.14);
+  transition:transform .15s ease, box-shadow .15s ease}
+.mini-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 18%;display:block}
+.mini-c .tp{position:absolute;top:0;left:0;right:0;height:4px;background:var(--tc);z-index:2}
+.mini-c .mini-ico{position:absolute;inset:0;display:grid;place-items:center;
+  font-size:19px}
+.mini-c .mini-nom{position:absolute;left:0;right:0;bottom:0;padding:2px 3px;
+  font-size:6.5px;font-weight:700;line-height:1.15;color:var(--ink);
+  background:linear-gradient(to top,rgba(255,255,255,.94) 55%,transparent);
+  text-align:center;max-height:26px;overflow:hidden}
+.mini-c.sel{transform:translateY(-7px);border-color:var(--acc);
+  box-shadow:0 0 0 2px var(--acc),0 8px 16px rgba(13,110,120,.3)}
+.mini-c.no{opacity:.45}
+.mini-c.nueva{animation:repartir .42s cubic-bezier(.22,1.2,.36,1) backwards;
+  animation-delay:calc(var(--i,0)*50ms)}
+
 /* ── el zócalo (v0.55): tu identidad al centro-abajo ─────────────────
    El retrato con el ANILLO de indicaciones alrededor: tres segmentos que
    se apagan al colocar — el contador vive sobre quien gasta, no escondido
@@ -2343,7 +2373,7 @@ function textoGuia(){
     return `<b>Fin de Guardia.</b> Toca cartas de tu mano hasta dejar ${limiteMano(j)}.`;
   if(G.fase===1){
     if(UI.sel) return "<b>Suéltala en una cama.</b> Las tuyas para tratar; las de arriba, para sabotear con una ⚠️.";
-    return "<b>Pase de Visita.</b> Arrastra una carta a una cama, o tócala para elegir destino.";
+    return "<b>Pase de Visita.</b> Toca una carta de tu mano, elige «Jugar esta» y toca la cama.";
   }
   return "";
 }
@@ -2451,7 +2481,8 @@ function tiraZona(j){
     const im = document.createElement("img");
     im.src = a.arte; im.alt = "Tu avatar: " + esc(a.nombre);
     aro.appendChild(im);
-  } else aro.appendChild(el("span","ini", a ? esc(a.nombre.replace(/^(El|La|Los|Las)\s+/i,"")[0]) : "?"));
+  } else aro.appendChild(el("span","ini",
+    a ? esc(a.nombre.replace(/^(el|la|los|las)\s+(de\s+la\s+|de\s+|del\s+)?/i,"")[0].toUpperCase()) : "?"));
   if(activo) aro.appendChild(el("span","ind",`${j.coloc} de ${INDICACIONES}`));
   aro.setAttribute("aria-label", a ? "Tu avatar: " + a.nombre : "Tu avatar");
   aro.onclick = ()=> verAvatarGrande(j);
@@ -2857,42 +2888,51 @@ function pie(){
   const mio = j === yo();              // ¿es mi turno? si no, la mano es inerte
   const f = el("div","pie");
   const descartando = G.pendiente && G.pendiente.tipo==="descartar";
-  // plegada: solo la pastilla para reabrir y la barra de fase
-  if(UI.manoOculta && !descartando){
-    const cc = el("div","mano-cerrada");
-    const btn = el("button",null,
-      `🂠 Tu mano · ${j.mano.length}` +
-      (G.fase===1 && !j.ia ? ` · ${j.coloc} coloc.` : "") + " ▲");
-    btn.onclick = ()=>{ UI.manoOculta = false; render(); };
-    cc.appendChild(btn);
-    f.appendChild(cc);
-    f.appendChild(barraAcciones());
-    const bf = botonFin(); if(bf) f.appendChild(bf);
-    return f;
-  }
+  // v0.55: el plegado murió con el abanico — la tira ya es bajita siempre.
+  // UI.manoOculta queda como bandera inerte para no romper guardias viejas.
   const sobra = j.mano.length - limiteMano(j);
   const rot = el("div","mano-rot");
   rot.innerHTML = `🂠 ${j.mano.length}`+
     (sobra>0 ? ` · <b style="color:var(--warn)">botas ${sobra}</b>` : "")+
     ` <span></span>`;
-  if(!j.ia && j.mano.length > 1 && !descartando){
-    const mb = el("button","mano-modo", manoAbanico()?"▦":"◗");
-    mb.title = manoAbanico() ? "Ver la mano en cuadrícula" : "Ver la mano en abanico";
-    mb.setAttribute("aria-label", mb.title);
-    mb.onclick = cambiarModoMano;
-    rot.appendChild(mb);
-  }
-  if(mio && !descartando){
-    const ob = el("button","btn-plegar","▼");
-    ob.title = "Plegar la mano para ver el tablero";
-    ob.setAttribute("aria-label", ob.title);
-    ob.onclick = ()=>{ UI.manoOculta = true; render(); };
-    f.appendChild(ob);
-  }
 
-  // el abanico estorba para marcar varios descartes: ahí manda la cuadrícula
-  const abanico = manoAbanico() && !descartando && j.mano.length > 1;
-  const mano = el("div","mano"+(abanico?" abanico":""));
+  // v0.55: la mano es un SELECTOR — miniaturas al filo, scroll nativo,
+  // y la lectura ocurre en la carta grande. La cuadrícula de abajo queda
+  // solo para marcar descartes, donde comparar todas a la vez sí importa.
+  if(!descartando){
+    const tira = el("div","selector");
+    j.mano.forEach((c,idx)=>{
+      let cl = "mini-c";
+      if(UI.sel===c) cl += " sel";
+      if(mio && G.fase===1){
+        const util = j.camas.some(x=>puedeColocarPropia(c,x)) ||
+                     (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x))));
+        if(!util) cl += " no";
+      }
+      if(UI.nuevas.has(c.uid)) cl += " nueva";
+      const b = el("button", cl);
+      b.style.setProperty("--i", idx);
+      b.style.setProperty("--tc", TCOL[c.tipo] || TCOL.COMODIN);
+      if(c.tinte) b.style.setProperty("--tinte", c.tinte);
+      b.dataset.uid = c.uid;
+      b.innerHTML = `<i class="tp"></i>` + (c.arte
+        ? `<img src="${c.arte}" alt="">`
+        : `<span class="mini-ico">${ico(c.tipo)}</span>`) +
+        `<span class="mini-nom">${esc(c.nombre)}</span>`;
+      b.setAttribute("aria-label", c.nombre);
+      b.onclick = ()=> verCartaGrande(idx, j);
+      tira.appendChild(b);
+    });
+    if(!j.mano.length) tira.appendChild(el("div","nota","Mano vacía."));
+    f.appendChild(barraAcciones());
+    f.appendChild(rot);
+    f.appendChild(tira);                       // la tira toca el filo
+    const bf = botonFin(); if(bf) f.appendChild(bf);
+    return f;
+  }
+  // aquí solo se llega descartando: la cuadrícula para marcar varias
+  const abanico = false;
+  const mano = el("div","mano");
   if(!j.mano.length) mano.appendChild(el("div","nota","Mano vacía."));
 
   if(abanico) UI.foco = Math.max(0, Math.min(UI.foco||0, j.mano.length-1));
@@ -3106,8 +3146,8 @@ function verAvatarGrande(j){
 }
 
 /* la carta en grande, con toda su letra chica y navegación por la mano */
-function verCartaGrande(idx){
-  const j = yo();
+function verCartaGrande(idx, jug){
+  const j = jug || yo();
   const c = j.mano[idx];
   if(!c) return;
   const velo = el("div","velo");
@@ -3159,9 +3199,9 @@ function verCartaGrande(idx){
 
   const nav = el("div","grande-nav");
   const ant = el("button","nav-btn","‹"); ant.disabled = idx<=0;
-  ant.onclick = ()=>{ UI.modal=null; UI.foco=idx-1; verCartaGrande(idx-1); };
+  ant.onclick = ()=>{ UI.modal=null; UI.foco=idx-1; verCartaGrande(idx-1, j); };
   const sig = el("button","nav-btn","›"); sig.disabled = idx>=j.mano.length-1;
-  sig.onclick = ()=>{ UI.modal=null; UI.foco=idx+1; verCartaGrande(idx+1); };
+  sig.onclick = ()=>{ UI.modal=null; UI.foco=idx+1; verCartaGrande(idx+1, j); };
   nav.appendChild(ant);
   nav.appendChild(el("div","cual",`${idx+1} / ${j.mano.length}`));
   nav.appendChild(sig);
@@ -3171,12 +3211,14 @@ function verCartaGrande(idx){
   const cerrar = el("button","btn","Cerrar");
   cerrar.onclick = ()=>{ UI.modal=null; render(); };
   fila.appendChild(cerrar);
-  const jugable = G.fase===1 && !j.ia && j.coloc>0 &&
+  const jugable = G.fase===1 && !j.ia && j===yo() && j.coloc>0 &&
     (j.camas.some(x=>puedeColocarPropia(c,x)) ||
      (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x)))));
   if(jugable){
     const jb = el("button","btn pri","Jugar esta");
-    jb.onclick = ()=>{ UI.modal=null; UI.sel=c; UI.foco=idx; render(); };
+    jb.onclick = ()=>{ UI.modal=null; UI.sel=c; UI.foco=idx; render();
+      // el siguiente paso se dice solo: la franja apunta a las camas
+      };
     fila.appendChild(jb);
   }
   m.appendChild(fila);
@@ -3448,14 +3490,14 @@ const TUTO = [
  {tit:"Tu unidad", sel:".zona.cerca .tres",
   txt:"Estos son tus pacientes. Cada uno pide recursos (los iconitos con puntos): complétalos y queda estabilizado ✅. Si sus ❤️ llegan a 0, fallece.",
   cuando: miTurno},
- {tit:"Tu mano", sel:".pie",
-  txt:"Tus cartas, en abanico: desliza a los lados para hojear y toca la del centro para verla en grande. ▼ pliega la mano y deja ver el tablero.",
+ {tit:"Tu mano", sel:".selector",
+  txt:"Tus cartas, en miniatura al filo: desliza para recorrerlas y toca una para leerla en grande. Desde ahí, ‹ › hojea y «Jugar esta» la deja lista.",
   cuando: miTurno},
  {tit:"Las 3 indicaciones", sel:"#indic-caja",
   txt:"El anillo dorado de tu retrato es tu moneda del turno: colocar, sabotear o des-escalar apaga un segmento. Se apagan los tres y se acabó tu jugada.",
   cuando: miTurno},
  {tit:"Coloca tu primer recurso", sel:".zona.cerca .tres",
-  txt:"Arrastra una carta que tu paciente pida hasta su cama (o tócala y luego toca la cama). Si comparten sistema, ¡vale doble!",
+  txt:"Toca una carta que tu paciente pida, elige «Jugar esta» y después toca su cama. Si comparten sistema, ¡vale doble!",
   cuando: miTurno,
   listo:()=> G.ronda>1 || (yo()===hum() && G.fase===1 && hum().coloc < INDICACIONES),
   haz:"coloca una carta para seguir"},
