@@ -1113,6 +1113,33 @@ body.con-portada .opciones .op{background:rgba(255,255,255,.80);
   color:var(--ink-2);background:var(--paper);border:1px solid var(--line);
   border-radius:999px;padding:4px 8px;box-shadow:var(--sombra)}
 
+/* los emotes: tocas tu retrato y aparecen las burbujas; eliges una o
+   tocas de nuevo y se van. La última es la frase de tu propio avatar. */
+.burb-em{position:absolute;z-index:44;background:var(--paper);
+  border:1px solid var(--line);border-radius:12px;padding:6px 10px;
+  font-size:11.5px;font-weight:600;box-shadow:0 6px 16px rgba(22,36,46,.22);
+  white-space:nowrap;cursor:pointer;font-family:inherit}
+.burb-em.fr{font-family:Petrona,Georgia,serif;font-style:italic;font-weight:400;
+  white-space:normal;max-width:150px;text-align:left;line-height:1.25}
+.burb-em::after{content:"";position:absolute;bottom:-5px;left:18px;width:9px;
+  height:9px;background:var(--paper);border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);transform:rotate(45deg)}
+/* la burbuja viva: lo que acabas de decir, o lo que contesta el rival */
+.burb-viva{position:absolute;z-index:46;background:var(--paper);
+  border:1px solid var(--line);border-radius:12px;padding:7px 11px;
+  font-size:12px;font-weight:600;box-shadow:0 8px 20px rgba(22,36,46,.26);
+  max-width:220px;line-height:1.3;animation:burb-entra .22s cubic-bezier(.2,1.1,.3,1)}
+.burb-viva::after{content:"";position:absolute;bottom:-5px;left:22px;width:9px;
+  height:9px;background:var(--paper);border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.burb-viva.rival{animation:none}
+.rival-chip{position:relative}
+.rival-chip .burb-viva{left:8px;top:calc(100% + 8px);bottom:auto}
+.rival-chip .burb-viva::after{bottom:auto;top:-5px;transform:rotate(225deg)}
+@keyframes burb-entra{0%{opacity:0;transform:translateY(8px) scale(.9)}
+  100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.burb-viva{animation:none}}
+
 /* Fin de Guardia: el botón redondo de la esquina opuesta al avatar */
 /* pointer-events:auto obligatorio: .pie es pointer-events:none y cada
    hijo tocable lo reactiva — sin esto el botón se dibuja pero no se toca */
@@ -2427,6 +2454,10 @@ function chipRival(j){
   else if(cerca) b.appendChild(el("span","peligro","⚠ cerca"));
   b.appendChild(el("span","abre","›"));
   b.onclick = ()=>{ UI.verRival = j.nombre; render(); };
+  if(UI.emoteRival && j.ia){
+    const bv = el("div","burb-viva rival",esc(UI.emoteRival));
+    b.appendChild(bv);
+  }
   return b;
 }
 
@@ -2485,8 +2516,37 @@ function tiraZona(j){
     a ? esc(a.nombre.replace(/^(el|la|los|las)\s+(de\s+la\s+|de\s+|del\s+)?/i,"")[0].toUpperCase()) : "?"));
   if(activo) aro.appendChild(el("span","ind",`${j.coloc} de ${INDICACIONES}`));
   aro.setAttribute("aria-label", a ? "Tu avatar: " + a.nombre : "Tu avatar");
-  aro.onclick = ()=> verAvatarGrande(j);
+  // tocar tu retrato abre los emotes (la carta vive en el ⚡ → Ver la carta)
+  aro.onclick = ()=>{
+    if(j !== yo() || j.ia) return;
+    if(UI.emoteCd && Date.now() - UI.emoteCd < 3500) return;   // anti-spam
+    UI.emotes = !UI.emotes; render();
+  };
   w.appendChild(aro);
+
+  if(UI.emotes && j === yo() && !j.ia){
+    const opciones = ["¡Buena jugada!", "Gracias a Dios 🙏", "¿En serio?"];
+    const pos = [[ "left:calc(50% - 172px)", "bottom:6px" ],
+                 [ "left:calc(50% - 148px)", "bottom:58px" ],
+                 [ "right:calc(50% - 148px)", "bottom:58px" ]];
+    opciones.forEach((t,k)=>{
+      const bu = el("button","burb-em",esc(t));
+      bu.style.cssText = pos[k][0] + ";" + pos[k][1];
+      bu.onclick = ev=>{ ev.stopPropagation(); decirEmote(t); };
+      w.appendChild(bu);
+    });
+    if(a && a.frase){
+      const bu = el("button","burb-em fr","“"+esc(a.frase)+"”");
+      bu.style.cssText = "right:calc(50% - 190px);bottom:-8px";
+      bu.onclick = ev=>{ ev.stopPropagation(); decirEmote("“"+a.frase+"”"); };
+      w.appendChild(bu);
+    }
+  }
+  if(UI.emoteVivo && j === yo()){
+    const bv = el("div","burb-viva",esc(UI.emoteVivo));
+    bv.style.cssText = "left:calc(50% - 30px);bottom:96px";
+    w.appendChild(bv);
+  }
 
   if(a){
     const freq = a.frecuencia || "";
@@ -2500,6 +2560,26 @@ function tiraZona(j){
     w.appendChild(pod);
   }
   return w;
+}
+
+/* Decir un emote: burbuja viva 2,6 s, y contra la IA el rival contesta
+   con la frase de su propio avatar — las frases ya estaban en el CSV. */
+function decirEmote(txt){
+  UI.emotes = false;
+  UI.emoteCd = Date.now();
+  UI.emoteVivo = txt;
+  clearTimeout(UI.emoteT);
+  UI.emoteT = setTimeout(()=>{ UI.emoteVivo = null; render(); }, 2600);
+  const rival = otros().find(r=>r.ia && r.avatar && r.avatar.frase);
+  if(rival && Math.random() < 0.65){
+    clearTimeout(UI.emoteRT);
+    UI.emoteRT = setTimeout(()=>{
+      UI.emoteRival = "“" + rival.avatar.frase + "”";
+      render();
+      UI.emoteRT = setTimeout(()=>{ UI.emoteRival = null; render(); }, 2600);
+    }, 1100);
+  }
+  render();
 }
 
 /* el poder en su hoja: qué hace, y el Usar si corresponde */
