@@ -121,6 +121,36 @@ comprable" tampoco puede ser un aro duro de 2 px: sobre el cromado se lee
 como un segundo marco turquesa encima del metal, así que es un resplandor
 difuso.
 
+**La carta va en maquetación B** desde v0.54: el arte entra a sangre por
+arriba y se **disuelve** en la ficha —no se corta, que una línea dura
+partiría la carta en dos—, y el nombre y los datos viven sobre papel. Está
+en las tres vistas: la cama, la mano y la carta grande. Detrás del arte va
+el **tinte de la propia ilustración**, la mediana de su borde, que calcula
+`generar_app.py` al cargarla; sirve para que los costados no se vean
+cuando la imagen no llena el hueco.
+
+Los **requerimientos son fichas redondas del color de su tipo**, no
+casilleros. Es la gramática del coste de energía de Pokémon —fichas,
+nombre, número— y se lee sin leer: cuentas los puntos de color de un
+vistazo. Es el cambio que más se nota a 132 px.
+
+**El avatar se agranda y se gira.** La habilidad va al FRENTE: al empezar
+se elige entre tres avatares, y con la habilidad al reverso habría que
+girar tres cartas para comparar, además de que en papel la carta queda a la
+vista toda la partida. Al reverso va la ilustración completa sin una
+palabra, con el lustre — full art como premio y no como problema. Se abre
+tocando el nombre en la tira; la ⓘ sigue siendo el vistazo rápido.
+
+**Cuánto de la escena se ve.** El hueco del arte es más ancho que alto, y
+con arte 9:16 solo entra la mitad del alto de la ilustración: por eso los
+personajes salen pegados a la cámara. Medido: 9:16 → 50 %, 3:4 → 67 %,
+1:1 → 89 %, 4:3 → 100 %. **El arreglo no es CSS, es la forma del archivo**;
+hay que generar en 1:1. Mientras tanto, las cartas con regla llevan la
+imagen metida al 78 % del ancho (`aire`), que sube el 50 % a un 64 %.
+
+Falta reescribir los 115 prompts con la forma 1:1, plano medio y el tinte
+fijado al color del sistema.
+
 **La pantalla de inicio tiene fondo vivo** (v0.52): el clip del auxiliar
 de aseo trapeando el pasillo, en bucle y con la unidad sonando. Sale de
 `arte/portada/` y se rehace con `tools/generar_portada_video.py clip.mp4`,

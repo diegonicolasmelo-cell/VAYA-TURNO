@@ -1,8 +1,8 @@
 /* ¡Vaya Turno! — service worker generado por tools/generar_app.py.
    No editar a mano: se rehace con `python3 tools/generar_app.py --pwa`. */
-const VERSION = "vt-47f9f241fc73";
+const VERSION = "vt-1f8c22d5af68";
 const NUCLEO = ["./", "index.html", "manifest.webmanifest", "iconos/icono-192.png", "iconos/icono-512.png", "iconos/icono-maskable-512.png", "iconos/apple-touch-icon.png", "tipos/ArchivoNarrow-500-latin-ext.woff2", "tipos/ArchivoNarrow-500-latin.woff2", "tipos/ArchivoNarrow-600-latin-ext.woff2", "tipos/ArchivoNarrow-600-latin.woff2", "tipos/ArchivoNarrow-700-latin-ext.woff2", "tipos/ArchivoNarrow-700-latin.woff2", "tipos/IBMPlexMono-400-latin-ext.woff2", "tipos/IBMPlexMono-400-latin.woff2", "tipos/IBMPlexMono-500-latin-ext.woff2", "tipos/IBMPlexMono-500-latin.woff2", "tipos/IBMPlexMono-600-latin-ext.woff2", "tipos/IBMPlexMono-600-latin.woff2", "tipos/Petrona-500-latin-ext.woff2", "tipos/Petrona-500-latin.woff2", "tipos/Petrona-500i-latin-ext.woff2", "tipos/Petrona-500i-latin.woff2", "tipos/Petrona-700-latin-ext.woff2", "tipos/Petrona-700-latin.woff2", "tipos/tipos.css"];
-const ARTE = ["portada/logo.webp", "portada/portada.jpg", "portada/portada.mp4"];
+const ARTE = ["arte/A01.webp", "arte/A19.webp", "arte/C01.webp", "arte/C17.webp", "arte/C19.webp", "arte/P02.webp", "arte/P04.webp", "arte/P11.webp", "arte/R07.webp", "arte/R50.webp", "portada/logo.webp", "portada/portada.jpg", "portada/portada.mp4"];
 
 self.addEventListener("install", ev => {
   ev.waitUntil((async () => {

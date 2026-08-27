@@ -51,6 +51,21 @@ def leer(*partes):
         return list(csv.DictReader(f))
 
 
+def tinte(im):
+    """El color de fondo de una ilustración: la mediana de su borde.
+
+    Sirve para rellenar los costados cuando la imagen no llena el hueco,
+    y con arte monocromo —que es lo que tiene este juego— el relleno no se
+    nota. Se mide del borde y no de la imagen entera porque el borde ES el
+    fondo: el personaje vive al centro."""
+    ch = im.convert("RGB").resize((40, 40))
+    px = list(ch.im)          # getdata() está deprecado en Pillow 14
+    borde = ([px[i] for i in range(40)] + [px[40 * 39 + i] for i in range(40)] +
+             [px[f * 40] for f in range(40)] + [px[f * 40 + 39] for f in range(40)])
+    med = [sorted(c[k] for c in borde)[len(borde) // 2] for k in range(3)]
+    return "#%02x%02x%02x" % tuple(med)
+
+
 def cargar_arte(destino=None):
     """cartas/arte/<id>.(png|jpg|webp) → la referencia que usará la carta.
 
@@ -59,13 +74,13 @@ def cargar_arte(destino=None):
     es el modo PWA, donde el service worker cachea cada archivo por separado.
     Sin `destino`, vuelve como data-URI incrustado (modo artefacto)."""
     carpeta = os.path.join(RAIZ, "cartas", "arte")
-    arte = {}
+    arte, tintes = {}, {}
     if destino:
         # una imagen retirada de cartas/arte/ no puede quedar de zombi
         shutil.rmtree(destino, ignore_errors=True)
         os.makedirs(destino, exist_ok=True)
     if not os.path.isdir(carpeta):
-        return arte
+        return arte, tintes
     try:
         from PIL import Image
     except ImportError:
@@ -79,6 +94,7 @@ def cargar_arte(destino=None):
         mime = "image/webp"
         if Image is not None:
             im = Image.open(io.BytesIO(datos_img)).convert("RGB")
+            tintes[raiz.upper()] = tinte(im)
             if im.width > 520:
                 im = im.resize((520, round(im.height * 520 / im.width)))
             buf = io.BytesIO()
@@ -101,7 +117,7 @@ def cargar_arte(destino=None):
         else:
             arte[raiz.upper()] = ("data:" + mime + ";base64,"
                                   + base64.b64encode(datos_img).decode())
-    return arte
+    return arte, tintes
 
 
 def cargar_portada(destino=None):
@@ -169,11 +185,13 @@ def datos(destino_arte=None):
         "habilidad": c["habilidad"], "frase": c["frase"],
     } for c in leer("cartas", "personajes.csv")]
 
-    arte = cargar_arte(destino_arte)
+    arte, tintes = cargar_arte(destino_arte)
     for lista in (pacientes, recursos, acciones, personajes):
         for c in lista:
             if c.get("id") and c["id"].upper() in arte:
                 c["arte"] = arte[c["id"].upper()]
+                if c["id"].upper() in tintes:
+                    c["tinte"] = tintes[c["id"].upper()]
     if arte:
         usados = {c["id"].upper() for l in (pacientes, recursos, acciones,
                   personajes) for c in l if c.get("arte")}

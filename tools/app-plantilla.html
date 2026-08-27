@@ -156,7 +156,20 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
   50%{box-shadow:0 0 0 4px rgba(13,110,120,.34),0 4px 14px rgba(13,110,120,.22)}}
 .cama.sobre{box-shadow:0 0 0 3px var(--acc),0 6px 18px rgba(13,110,120,.3);
             transform:translateY(-2px) scale(1.02);animation:none}
-.raya{position:absolute;left:0;top:0;bottom:0;width:3px}
+.raya{position:absolute;left:0;top:0;bottom:0;width:3px;z-index:2}
+/* ── maquetación B en la cama ──────────────────────────────────────
+   El arte entra a sangre por arriba —de ahí los márgenes negativos, que
+   anulan el padding de la carta— y se disuelve en la ficha. El fondo
+   lleva el tinte de la propia ilustración: si la imagen no llena el
+   hueco, los costados no se ven. */
+.cama{--fondo-carta:var(--paper)}
+.cama.est{--fondo-carta:#f4fbf8}
+.cama-arte{position:relative;margin:-6px -6px 4px -8px;aspect-ratio:4/3;
+           background:var(--tinte,var(--lejos));overflow:hidden}
+.cama-arte img{position:absolute;inset:0;width:100%;height:100%;
+               object-fit:cover;object-position:center 26%;display:block}
+.cama-arte .disuelve{position:absolute;inset:auto 0 0;height:30%;
+  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
 .cama-cab{display:flex;align-items:flex-start;gap:4px}
 .pnom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11.5px;
       line-height:1.12;flex:1;min-height:26px}
@@ -182,10 +195,16 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .reqs{display:flex;flex-direction:column;gap:2.5px}
 .req{display:flex;align-items:center;gap:3px;font-size:9px;line-height:1}
 .req .ico{font-size:12.5px}
-.casillas{display:flex;gap:1.5px;flex-wrap:wrap;flex:1}
-.cas{width:6px;height:6px;border-radius:1.5px;border:1px solid var(--ink-3);flex:none}
-.cas.full{background:var(--acc);border-color:var(--acc)}
-.cas.extra{background:var(--ink-3);border-color:var(--ink-3)}
+/* Los requerimientos son fichas redondas del color de su tipo, no
+   casilleros. Es la gramática del coste de energía de Pokémon —fichas,
+   nombre, número— y se lee sin leer: cuentas los puntos de color de un
+   vistazo. --tc lo pone el JS con el color del tipo de la fila. */
+.casillas{display:flex;gap:2px;flex-wrap:wrap;flex:1}
+.cas{width:7px;height:7px;border-radius:50%;flex:none;
+     border:1.2px solid var(--tc,var(--ink-3));background:transparent}
+.cas.full{background:var(--tc,var(--acc));border-color:var(--tc,var(--acc));
+          box-shadow:inset 0 -1px 1px rgba(0,0,0,.28)}
+.cas.extra{background:var(--ink-3);border-color:var(--ink-3);opacity:.55}
 .resta{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;
        color:var(--ink);min-width:9px;text-align:right;font-variant-numeric:tabular-nums}
 .resta.ok{color:var(--ok)}
@@ -497,12 +516,92 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   100%{opacity:1;transform:none}}
 .carta.no{opacity:.38}
 .carta.fantasmal{opacity:.25}
-/* arte de carta: aparece solo si cartas/arte/<id>.* existe */
-.carta .arte{height:44px;border-radius:5px;margin:-2px -2px 2px;
-             background-size:cover;background-position:center top;flex:none}
-.abanico .carta .arte{height:58px}
-.grande .g-arte{height:160px;border-radius:10px;margin-bottom:10px;
-                background-size:cover;background-position:center 25%}
+/* arte de carta: aparece solo si cartas/arte/<id>.* existe.
+   Maquetación B también aquí: a sangre por arriba, disolviéndose en la
+   ficha, con el tinte de la ilustración detrás. La mano se ve de reojo,
+   así que el hueco es más chato que en la carta grande. */
+.carta{--fondo-carta:var(--paper)}
+.carta .arte{position:relative;margin:-6px -6px 3px;aspect-ratio:3/2;flex:none;
+             background:var(--tinte,var(--lejos));overflow:hidden;
+             border-radius:7px 7px 0 0}
+.abanico .carta .arte{aspect-ratio:4/3}
+.carta .arte img{position:absolute;inset:0;width:100%;height:100%;
+                 object-fit:cover;object-position:center 26%;display:block}
+.carta .arte .disuelve{position:absolute;inset:auto 0 0;height:34%;
+  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
+/* ── maquetación B en la carta grande ──────────────────────────────
+   El arte entra a sangre por arriba y se DISUELVE en el cuerpo, no se
+   corta: una línea dura cruzando la carta la parte en dos. El fondo lleva
+   el tinte de la propia ilustración, medido de su borde en el generador,
+   para que los costados no se vean si la imagen no llena el hueco. */
+.grande.conarte{padding:0;overflow:hidden}
+.grande .g-arte{position:relative;aspect-ratio:5/4;background:var(--tinte,#0d1417);
+                overflow:hidden;margin:0}
+.grande .g-arte img{position:absolute;inset:0;width:100%;height:100%;
+                    object-fit:cover;object-position:center 30%;display:block}
+/* `aire`: la imagen se mete al 78 % del ancho en vez de llenar el hueco.
+   Con arte más alto que el hueco, llenarlo deja ver la mitad del alto y
+   los personajes quedan pegados a la cámara; así se ve bastante más y los
+   costados se rellenan con el tinte. Parche para el arte que no viene con
+   la forma del hueco; con arte 1:1 no hace falta. */
+.grande .g-arte.aire img{width:78%;left:11%}
+.grande .g-arte .disuelve{position:absolute;inset:auto 0 0;height:26%;
+  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.grande .g-cuerpo{padding:2px 14px 14px}
+
+/* ── el avatar se agranda y se gira ────────────────────────────────
+   La habilidad va al FRENTE, no al reverso: al empezar se elige entre tres
+   avatares, y con la habilidad escondida habría que girar tres cartas para
+   comparar. Lo que hay al reverso es la ilustración completa, sin una
+   palabra — full art de verdad, como premio y no como problema. */
+.av-esc{perspective:1300px;display:flex;justify-content:center;padding:4px 0 2px}
+.av-carta3{--w:min(258px,70vw);width:var(--w);height:calc(var(--w)*1.3968);
+           position:relative;font-size:calc(var(--w)*.0721)}
+.av-giro{position:absolute;inset:0;transform-style:preserve-3d;
+         transition:transform .62s cubic-bezier(.3,.9,.25,1)}
+.av-carta3.vuelta .av-giro{transform:rotateY(180deg)}
+.av-cara{position:absolute;inset:0;backface-visibility:hidden;
+         -webkit-backface-visibility:hidden;border-radius:calc(var(--w)*.045);
+         overflow:hidden;background:var(--paper);display:flex;flex-direction:column;
+         border:calc(var(--w)*.015) solid var(--acc);
+         box-shadow:0 16px 40px rgba(22,36,46,.34)}
+.av-cara.dorso{transform:rotateY(180deg);background:var(--tinte,var(--lejos))}
+.av-cara .zona{position:relative;height:calc(var(--w)*.727);flex:none;
+               background:var(--tinte,var(--lejos));overflow:hidden}
+.av-cara .zona img{position:absolute;inset:0;width:78%;left:11%;height:100%;
+                   object-fit:cover;object-position:center 22%;display:block}
+.av-cara .zona .disuelve{position:absolute;inset:auto 0 0;height:22%;
+  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.av-cara .zona .chips{position:absolute;top:.42em;left:.46em;display:flex;gap:.26em}
+.av-cara .chip{font-family:"IBM Plex Mono",monospace;font-size:.54em;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;font-style:normal;padding:.2em .48em;
+  border-radius:.38em;background:var(--acc);color:#fff;line-height:1.6}
+.av-cara .chip.hueco{background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.55)}
+.av-cara .panel{flex:1 1 0;padding:.14em .6em .5em;display:flex;flex-direction:column;
+                gap:.2em;min-height:0;overflow:hidden}
+.av-cara .panel h3{font-family:Petrona,Georgia,serif;font-weight:700;font-size:1em;
+                   margin:0;line-height:1.06}
+.av-cara .habtit{margin:0;font-family:"IBM Plex Mono",monospace;font-size:.5em;
+  font-weight:700;letter-spacing:.07em;color:var(--acc)}
+.av-cara .regla{margin:0;font-size:.57em;line-height:1.34;color:var(--ink-2)}
+.av-cara.dorso img{position:absolute;inset:0;width:100%;height:100%;
+                   object-fit:cover;object-position:center 22%;display:block}
+.av-cara.dorso .pieza{position:absolute;inset:auto 0 0;padding:1.2em .8em .8em;color:#fff;
+  background:linear-gradient(to top,rgba(6,14,18,.88),rgba(6,14,18,.5) 55%,transparent)}
+.av-cara.dorso .pieza h3{font-family:Petrona,Georgia,serif;font-weight:700;
+  font-size:1.1em;margin:0;line-height:1.06;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.av-cara.dorso .pieza .frase{margin:.3em 0 0;font-family:Petrona,Georgia,serif;
+  font-style:italic;font-size:.62em;line-height:1.28;text-shadow:0 1px 5px rgba(0,0,0,.85)}
+/* el lustre solo vive en el reverso: es el lado bonito */
+.av-cara.dorso .lustre{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(108deg, transparent 32%, rgba(255,255,255,.05) 42%,
+    rgba(255,255,255,.30) 48%, rgba(150,200,255,.16) 54%, transparent 64%);
+  background-size:260% 100%;background-position:130% 0}
+@media (prefers-reduced-motion: no-preference){
+  .av-carta3.vuelta .av-cara.dorso .lustre{animation:av-lustre 4.2s ease-in-out .35s infinite}}
+@keyframes av-lustre{0%,40%{background-position:135% 0}100%{background-position:-55% 0}}
+@media (prefers-reduced-motion: reduce){ .av-giro{transition:none} }
 
 /* ── el holograma de la carta grande (referencia: Pokémon TCG Pocket) ──
    La carta vive dentro de un escenario con perspectiva y se inclina
@@ -541,8 +640,6 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .grande.holo.iris.vivo .holo-arco, .grande.holo.iris.giro .holo-arco{opacity:.38}
 .av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
                    background-size:cover;background-position:center 20%}
-.pfoto{width:24px;height:24px;border-radius:6px;flex:none;
-       background-size:cover;background-position:center;margin-right:1px}
 .carta-cab{display:flex;align-items:center;gap:3px}
 .carta-tipo{font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:600;
             letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
@@ -2143,6 +2240,16 @@ function tiraZona(j){
   info.appendChild(el("div","activo-rol",
     "Tu avatar" + (freq ? " · " + esc(freq) : "")));
   info.appendChild(el("div","activo-nom", esc(j.avatar ? j.avatar.nombre : "…")));
+  // el nombre abre la carta en grande; la ⓘ sigue siendo el vistazo rápido
+  if(j.avatar){
+    info.style.cursor = "pointer";
+    info.setAttribute("role","button");
+    info.setAttribute("tabindex","0");
+    info.setAttribute("aria-label","Ver la carta de " + j.avatar.nombre);
+    const abre = ()=> verAvatarGrande(j);
+    info.onclick = abre;
+    info.onkeydown = ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); abre(); } };
+  }
   t.appendChild(info);
   if(j.sumarios)
     t.appendChild(el("span","ficha sum",`📋 <b>${j.sumarios}</b>`));
@@ -2305,12 +2412,16 @@ function vistaCama(c, i, duenio, propio){
   raya.style.background = SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)";
   d.appendChild(raya);
 
-  const cab = el("div","cama-cab");
   if(c.p.arte){
-    const ft = el("i","pfoto");
-    ft.style.backgroundImage = `url("${c.p.arte}")`;
-    cab.appendChild(ft);
+    const za = el("div","cama-arte");
+    if(c.p.tinte) za.style.setProperty("--tinte", c.p.tinte);
+    const im = document.createElement("img");
+    im.src = c.p.arte; im.alt = "";
+    za.appendChild(im);
+    za.appendChild(el("div","disuelve"));
+    d.appendChild(za);
   }
+  const cab = el("div","cama-cab");
   cab.appendChild(el("span","pnom",esc(c.p.nombre)));
   const total = faltanTotal(c);
   cab.appendChild(el("span","faltan"+(total===0?" cero":""), total===0?"✓":String(total)));
@@ -2352,6 +2463,7 @@ function vistaCama(c, i, duenio, propio){
     if(!c.pide[t] && !c.tiene[t]) return;
     const f = falta(c,t);
     const r = el("div","req");
+    r.style.setProperty("--tc", TCOL[t] || "var(--ink-3)");   // el color manda
     r.innerHTML = ico(t);
     const cas = el("span","casillas");
     const n = Math.max(c.pide[t], c.tiene[t]);
@@ -2601,6 +2713,60 @@ function abanicoVivoSnap(){
   UI.snapT = setTimeout(render, 240);   // el render fija botones y puntitos
 }
 
+/* El avatar en grande: se agranda, se centra y se gira sobre su eje.
+
+   Girarlo en la tira no serviría —una carta de 132 px con 250 caracteres
+   al reverso es ilegible—, así que primero crece y ahí el giro tiene
+   sentido. Al frente la habilidad, al reverso la ilustración completa. */
+function verAvatarGrande(j){
+  const a = j.avatar;
+  if(!a) return;
+  const velo = el("div","velo");
+  const m = el("div","modal");
+  m.appendChild(el("div","tirador"));
+
+  const par = a.habilidad.split(" — ");
+  const tit = par.length > 1 ? par.shift() : "";
+  const hab = par.join(" — ");
+  const tin = a.tinte ? ` style="--tinte:${a.tinte}"` : "";
+  const img = a.arte ? `<img src="${a.arte}" alt="">` : "";
+
+  const esc3 = el("div","av-esc");
+  const c3 = el("div","av-carta3");
+  c3.innerHTML =
+    `<div class="av-giro">` +
+      `<div class="av-cara frente"${tin}>` +
+        `<div class="zona">${img}<i class="disuelve"></i>` +
+          `<div class="chips"><i class="chip">avatar</i>` +
+          `<i class="chip hueco">${esc(a.frecuencia)}</i></div></div>` +
+        `<div class="panel"><h3>${esc(a.nombre)}</h3>` +
+          (tit ? `<p class="habtit">${esc(tit)}</p>` : "") +
+          `<p class="regla">${esc(hab)}</p></div>` +
+      `</div>` +
+      `<div class="av-cara dorso"${tin}>${img}<i class="lustre"></i>` +
+        `<div class="pieza"><h3>${esc(a.nombre)}</h3>` +
+        (a.frase ? `<p class="frase">“${esc(a.frase)}”</p>` : "") + `</div>` +
+      `</div>` +
+    `</div>`;
+  const gira = ()=> c3.classList.toggle("vuelta");
+  c3.onclick = gira;
+  esc3.appendChild(c3);
+  m.appendChild(esc3);
+
+  const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
+  const gb = el("button","btn", a.arte ? "Girar la carta" : "Ver el reverso");
+  gb.onclick = gira;
+  fila.appendChild(gb);
+  const cerrar = el("button","btn pri","Cerrar");
+  cerrar.onclick = ()=>{ UI.modal = null; render(); };
+  fila.appendChild(cerrar);
+  m.appendChild(fila);
+
+  velo.appendChild(m);
+  velo.onclick = e => { if(e.target === velo){ UI.modal = null; render(); } };
+  UI.modal = velo; render();
+}
+
 /* la carta en grande, con toda su letra chica y navegación por la mano */
 function verCartaGrande(idx){
   const j = yo();
@@ -2612,15 +2778,25 @@ function verCartaGrande(idx){
 
   const g = el("div","grande");
   g.style.borderLeftColor = TCOL[c.tipo] || TCOL.COMODIN;
+  // maquetación B: el arte a sangre arriba, y todo lo demás en un cuerpo
+  // aparte que se apoya sobre papel. Sin arte, la carta queda como antes.
+  let cuerpo = g;
   if(c.arte){
-    const ga = el("div","g-arte");
-    ga.style.backgroundImage = `url("${c.arte}")`;
+    g.classList.add("conarte");
+    const ga = el("div","g-arte" + (c.texto || c.warn ? " aire" : ""));
+    if(c.tinte) ga.style.setProperty("--tinte", c.tinte);
+    const im = document.createElement("img");
+    im.src = c.arte; im.alt = "";
+    ga.appendChild(im);
+    ga.appendChild(el("div","disuelve"));
     g.appendChild(ga);
+    cuerpo = el("div","g-cuerpo");
+    g.appendChild(cuerpo);
   }
   const cab = el("div","g-cab");
   cab.innerHTML = ico(c.tipo) + `<span>${TNOM[c.tipo]||c.tipo}</span>`;
-  g.appendChild(cab);
-  g.appendChild(el("h3",null,esc(c.nombre)));
+  cuerpo.appendChild(cab);
+  cuerpo.appendChild(el("h3",null,esc(c.nombre)));
   const et = el("div","g-etiqs");
   if(c.sistema && SIS[c.sistema])
     et.appendChild(el("span","etiq x2",`${SIS[c.sistema][0]} cuenta ×2`)).style.color = SIS[c.sistema][1];
@@ -2629,11 +2805,11 @@ function verCartaGrande(idx){
   if(c.restriccion==="PERSONAL") et.appendChild(el("span","etiq r","⚑ pide 🧑‍⚕️ ya puesto"));
   if(c.restriccion==="TURNO") et.appendChild(el("span","etiq r","⚑ cierra tu Pase de Visita"));
   if(c.comodin) et.appendChild(el("span","etiq x2","🃏 vale cualquier tipo"));
-  if(et.childNodes.length) g.appendChild(et);
-  if(c.texto) g.appendChild(el("div","g-txt",esc(c.texto)));
-  if(c.warn) g.appendChild(el("div","g-warn",
+  if(et.childNodes.length) cuerpo.appendChild(et);
+  if(c.texto) cuerpo.appendChild(el("div","g-txt",esc(c.texto)));
+  if(c.warn) cuerpo.appendChild(el("div","g-warn",
     `<b>⚠️ ${esc(c.compNombre)}</b> — ${esc(c.compTexto||"el paciente donde la coloques pierde 1 ❤️.")}`));
-  if(c.frase) g.appendChild(el("div","g-frase",`“${esc(c.frase)}”`));
+  if(c.frase) cuerpo.appendChild(el("div","g-frase",`“${esc(c.frase)}”`));
   g.classList.add("holo");
   if(c.sistema || c.comodin) g.classList.add("iris");
   if(c.sistema || c.comodin) g.appendChild(el("div","holo-arco"));
@@ -2734,7 +2910,10 @@ addEventListener("deviceorientation", ev=>{
 });
 
 function cuerpoCarta(c){
-  let h = c.arte ? `<i class="arte" style="background-image:url('${c.arte}')"></i>` : "";
+  let h = c.arte
+    ? `<i class="arte"${c.tinte ? ` style="--tinte:${c.tinte}"` : ""}>` +
+      `<img src="${c.arte}" alt=""><i class="disuelve"></i></i>`
+    : "";
   h += `<div class="carta-cab">${ico(c.tipo)}`+
        `<span class="carta-tipo">${TNOM[c.tipo]||c.tipo}</span></div>`+
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
