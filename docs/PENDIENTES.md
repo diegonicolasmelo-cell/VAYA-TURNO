@@ -226,6 +226,26 @@ probarlo:
 · **La carta lleva filete blanco**, proporcional al ancho de cada vista
   (≈2,8 %): el arte ya no sangra al filo, sangra al filete.
 
+· **Los tirones al hojear eran las variables CSS.** `ponRanB` escribía
+  `--x/--y/--a/--s/--z` en cada ranura por fotograma, y cambiar una custom
+  property invalida el estilo de **todo el subárbol** del elemento: ocho
+  cartas enteras recalculadas 60 veces por segundo. Ahora escribe el
+  `transform` inline directo (con `translate3d`, que lo manda al
+  compositor), toca `zIndex` y las clases `foco`/`lejos` sólo cuando
+  cambian de valor, y mientras dura el gesto el arco lleva `will-change` y
+  sombras baratas. Medido con la CPU a ¼ de velocidad, que es lo que se
+  parece a un teléfono: el p90 del fotograma baja de **33,4 a 16,8 ms** y
+  los fotogramas lentos de **32/102 a 3/90**. Cambiar de carta con un toque
+  tampoco redibuja ya la app entera: recoloca con `abanicoVivoSnap`.
+· **Pendiente relacionado:** el generador limita el arte a **520 px de
+  ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
+  El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son
+  1026: con 520 se ve blando. Lo correcto cuando llegue la tanda nueva son
+  **dos tamaños**: uno chico (≈380 px) para la mano y las camas, y uno
+  grande (≈900) sólo para el zoom. Subir el único tamaño a 900 a secas
+  encarece el peso de la app y el coste de decodificar ocho cartas en el
+  abanico — que es justo lo que acabamos de arreglar.
+
 **Cómo debe venir el arte** está medido y escrito en `docs/ARTE-CARTA.md`.
 El titular: el arte de hoy es **9:16 vertical** y los huecos son
 horizontales — por eso los personajes salen pegados a la cámara. La tanda

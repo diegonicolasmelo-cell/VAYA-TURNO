@@ -1326,10 +1326,15 @@ body[data-maq="b"] .velo-mano{position:absolute;inset:0;pointer-events:auto;
 body[data-maq="b"] .abanico-b .arco{position:absolute;inset:0;touch-action:none}
 body[data-maq="b"] .ran-b{position:absolute;left:50%;
   bottom:calc(40px + env(safe-area-inset-bottom,0px));pointer-events:auto;
-  transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
-            rotate(var(--a)) scale(var(--s));
-  transform-origin:50% 50%;z-index:var(--z);
+  transform:translateX(-50%);transform-origin:50% 50%;
   animation:abreMano .22s cubic-bezier(.22,1.1,.36,1) backwards}
+/* mientras el dedo hojea: sin animación de entrada, con capa propia y con
+   la sombra barata — ocho sombras de 24 px de difuminado repintándose cada
+   fotograma es lo que hacía tironear el gesto en un teléfono real */
+body[data-maq="b"] .arco.vivo .ran-b{animation:none;will-change:transform}
+body[data-maq="b"] .arco.vivo .ran-b .carta{box-shadow:0 4px 10px rgba(22,36,46,.3)}
+body[data-maq="b"] .arco.vivo .ran-b.foco .carta{box-shadow:0 0 0 2px var(--acc),
+  0 6px 14px rgba(22,36,46,.34)}
 @keyframes abreMano{from{transform:translateX(-50%) translateY(46px) scale(.7);opacity:0}}
 @media (prefers-reduced-motion: reduce){
   body[data-maq="b"] .ran-b{animation:none}}
@@ -3559,12 +3564,18 @@ function ponRanB(r, d, n){
   const ad = Math.abs(d);
   const cerca = Math.max(0, 1 - ad);
   const hueco = 20 * Math.max(-1, Math.min(1, d));
-  r.style.setProperty("--x", (d*pasoB(n) + hueco) + "px");
-  r.style.setProperty("--y", (ad*6 - 20*cerca) + "px");
-  r.style.setProperty("--a", (d*3.5) + "deg");
-  r.style.setProperty("--s", String(0.90 + 0.22*cerca));
-  r.style.setProperty("--z", String(30 - Math.round(ad)));
-  r.classList.toggle("lejos", ad > 2.6);
+  const x = d*pasoB(n) + hueco, y = ad*6 - 20*cerca;
+  // transform DIRECTO, no variables CSS: cambiar una custom property
+  // invalida el estilo de todo el subárbol de la carta, y ocho subárboles
+  // por fotograma era justo lo que daba los tirones al hojear. Un transform
+  // inline no toca el estilo de los hijos y lo resuelve el compositor.
+  r.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), ` +
+    `${y.toFixed(1)}px, 0) rotate(${(d*3.5).toFixed(2)}deg) ` +
+    `scale(${(0.90 + 0.22*cerca).toFixed(3)})`;
+  const z = String(30 - Math.round(ad));
+  if(r.style.zIndex !== z) r.style.zIndex = z;
+  const lejos = ad > 2.6;                     // tocar la clase solo si cambia
+  if(lejos !== r.__lejos){ r.classList.toggle("lejos", lejos); r.__lejos = lejos; }
 }
 
 function abanicoB(j, mio){
@@ -3594,7 +3605,7 @@ function abanicoB(j, mio){
     b.onclick = ()=>{
       if(arrastre.huboArrastre){ arrastre.huboArrastre=false; return; }
       if(UI.lupa){ UI.lupa=false; return; }        // fue mantener presionado
-      if(!esFoco){ UI.foco = idx; render(); return; }   // traerla al centro
+      if(!esFoco){ UI.foco = idx; abanicoVivoSnap(); return; }  // recolocar, no redibujar
       if(!jugable){ verCartaGrande(idx, j); return; }
       UI.sel = (UI.sel===c) ? null : c;            // respaldo: elige y cierra
       UI.manoAbierta = false;
@@ -3659,13 +3670,18 @@ function abanicoVivo(pos){
   cont.classList.add("vivo");
   const rs = ranurasAbanico(), n = rs.length || 1;
   const bb = !!document.querySelector(".abanico-b");
+  const foc = Math.round(pos);
   rs.forEach(r=>{
     const idx = +r.dataset.idx;
     if(bb) ponRanB(r, idx - pos, n); else ponRanura(r, idx - pos);
-    r.classList.toggle("foco", Math.round(pos) === idx);
+    const f = idx === foc;
+    if(f !== r.__foco){ r.classList.toggle("foco", f); r.__foco = f; }
   });
-  document.querySelectorAll(".puntos-b i, .puntos-mano i")
-    .forEach((p,i)=>p.classList.toggle("on", i === Math.round(pos)));
+  if(abanicoVivo.__foc !== foc){
+    abanicoVivo.__foc = foc;
+    document.querySelectorAll(".puntos-b i, .puntos-mano i")
+      .forEach((p,i)=>p.classList.toggle("on", i === foc));
+  }
 }
 
 /* ¿abanico o cuadrícula? Se recuerda entre partidas. */
