@@ -155,6 +155,45 @@ con la ropa de la unidad — el mockup vive en el artifact del campo):
   del avatar, display:flex) y bautizar igual el modo de la cama la
   colapsaba a 35 px — por eso el modo se llama `pficha`.
 
+**El campo B convive con el A** (v0.56). No reemplaza nada: se elige en
+el Panel de guardia y se recuerda en `localStorage` (`vt-maqueta`), la
+partida guardada es la misma y se puede volver a **A** en cualquier
+momento. Todo el CSS cuelga de `body[data-maq="b"]`, así que la maqueta A
+no cambia ni un píxel. Qué hace B:
+
+· **La Pizarra parte la pantalla en dos mitades iguales** (`flex:1 1 0`
+  en las dos zonas, así que miden lo mismo pase lo que pase). Arriba su
+  unidad, abajo la tuya, y cada mitad es el espejo de la otra: repisa /
+  zócalo en los bordes exteriores y las camas contra la Pizarra.
+· **Sus camas son la misma pieza y el mismo tamaño que las tuyas**, sólo
+  que espejadas (`flex-direction:column-reverse`): corazones y
+  requerimientos quedan del lado de la Pizarra, mirando a los tuyos. Con
+  eso `chipRival`/`modalRival` dejan de hacer falta en B — la unidad del
+  rival ya está en pantalla.
+· **La cama baja de perfil**: la ventana de arte pasa de 1:1 a 4:3. No es
+  un sacrificio: por la medición de más abajo, 1:1 muestra el 89 % de la
+  escena y 4:3 el 100 %. Más baja *y* con más ilustración.
+· **La repisa del rival** es el espejo del zócalo: retrato con su anillo
+  de indicaciones, su pasiva, el badge ✅/⚠ y su mano como dorsos.
+· **La mano vuelve a abrirse**: mazo compacto al filo → se despliega en
+  abanico sobre TU zócalo (nunca sobre las camas) con las cartas a 106 px,
+  que es donde se leen. Tocarla la elige y cierra el abanico (respaldo, 2
+  toques); mantenerla presionada abre la carta grande; **arrastrarla la
+  juega**, hacia abajo tratas y hacia arriba saboteas.
+· **El arrastre no estaba muerto, estaba durmiendo**: el código de
+  `arrastre`/`tomarCarta`/`moverCarta`/`soltarCarta` seguía entero desde
+  v0.55 sin llamadas. B lo vuelve a enganchar sin tocarlo, y como
+  `vistaCama` ya resolvía el destino rival (`puedeSabotear` + `__soltar`),
+  el sabotaje por arrastre salió gratis. **Corrección al punto de arriba:
+  ese bloque ya no es código muerto por purgar.**
+· Dos trampas del arrastre en B: el velo del abanico declara
+  `pointer-events:auto` para poder cerrarse al tocarlo, y hay que
+  apagarlo explícitamente con `body.arrastrando` o se come el
+  `elementFromPoint` y la cama nunca recibe la carta. Y
+  `transform-origin:50% 130%` en las ranuras del abanico empuja las
+  cartas de los extremos fuera de la pantalla al escalarlas (`s<1` las
+  aleja del origen): con origen al centro el arco es predecible.
+
 **La carta va en maquetación B** desde v0.54: el arte entra a sangre por
 arriba y se **disuelve** en la ficha —no se corta, que una línea dura
 partiría la carta en dos—, y el nombre y los datos viven sobre papel. Está

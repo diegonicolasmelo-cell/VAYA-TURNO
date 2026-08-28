@@ -1179,6 +1179,170 @@ body.con-portada .opciones .op{background:rgba(255,255,255,.80);
 .riel-lat .cala{margin-top:auto;font-size:10px;opacity:.6;padding-bottom:150px;
   writing-mode:vertical-rl;font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
 
+/* ══ maqueta B · campo partido y mano desplegable ═══════════════════
+   Todo cuelga de body[data-maq="b"]: la maqueta A no se toca ni un px.
+   La Pizarra es el eje — las dos mitades son flex:1 1 0, así que miden
+   exactamente lo mismo pase lo que pase con el contenido. */
+body[data-maq="b"] .app{padding-bottom:0}
+body[data-maq="b"] .app.partida{height:100vh;height:100dvh;overflow:hidden}
+
+/* su mitad: repisa arriba del todo, camas contra la Pizarra */
+body[data-maq="b"] .zona.suya{flex:1 1 0;min-height:0;display:flex;
+  flex-direction:column;padding:0 10px 5px;
+  background:linear-gradient(180deg,rgba(205,217,222,.92),rgba(213,224,228,.45) 66%);
+  border-bottom:1px solid var(--line);
+  box-shadow:inset 0 -10px 16px -14px rgba(22,36,46,.35)}
+body[data-maq="b"] .zona.suya .grupo-suyo{margin-top:auto}
+body[data-maq="b"] .rot-lado{font-family:"IBM Plex Mono",monospace;font-size:7.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+body[data-maq="b"] .rot-lado b{color:var(--ink-2)}
+
+/* la repisa: el espejo de tu zócalo */
+body[data-maq="b"] .repisa{position:relative;flex:none;display:flex;
+  align-items:center;gap:7px;padding:8px 0 2px}
+body[data-maq="b"] .aro-suyo{position:relative;width:46px;height:46px;flex:none}
+body[data-maq="b"] .aro-suyo::before{content:"";position:absolute;inset:-5px;
+  border-radius:50%;
+  background:conic-gradient(from -84deg,
+    var(--seg1) 0deg 108deg, transparent 108deg 120deg,
+    var(--seg2) 120deg 228deg, transparent 228deg 240deg,
+    var(--seg3) 240deg 348deg, transparent 348deg 360deg);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px))}
+body[data-maq="b"] .aro-suyo img{width:100%;height:100%;border-radius:50%;
+  object-fit:cover;object-position:center 12%;border:2.5px solid var(--paper);
+  display:block;box-shadow:0 4px 12px rgba(22,36,46,.26)}
+body[data-maq="b"] .aro-suyo .ini{width:100%;height:100%;border-radius:50%;
+  display:grid;place-items:center;background:var(--cerca);
+  border:2.5px solid var(--paper);font-family:Petrona,Georgia,serif;
+  font-size:19px;font-weight:700;color:var(--ink-2)}
+body[data-maq="b"] .repisa .qn{min-width:0;line-height:1.14}
+body[data-maq="b"] .repisa .qn b{font-family:Petrona,Georgia,serif;font-size:13px;
+  display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body[data-maq="b"] .repisa .qn span{font-family:"IBM Plex Mono",monospace;
+  font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+body[data-maq="b"] .repisa .poder-suyo{width:26px;height:26px;border-radius:50%;
+  background:var(--cerca);border:2px solid var(--paper);display:grid;
+  place-items:center;font-size:12px;flex:none;opacity:.75;
+  box-shadow:0 3px 8px rgba(22,36,46,.2)}
+body[data-maq="b"] .repisa .peligro{font-family:"IBM Plex Mono",monospace;
+  font-size:8.5px;font-weight:700;color:#fff;background:var(--vida);
+  border-radius:6px;padding:3px 6px;flex:none}
+body[data-maq="b"] .repisa .dato{font-family:"IBM Plex Mono",monospace;
+  font-size:9px;color:var(--ink-2);background:var(--paper);
+  border:1px solid var(--line);border-radius:6px;padding:2px 5px;flex:none}
+body[data-maq="b"] .repisa .burb-viva{left:8px;top:calc(100% + 4px);bottom:auto}
+body[data-maq="b"] .repisa .burb-viva::after{bottom:auto;top:-5px;transform:rotate(225deg)}
+/* su mano: dorsos, arriba a la derecha — el espejo de tu mazo */
+body[data-maq="b"] .mano-suya{margin-left:auto;position:relative;
+  width:62px;height:34px;flex:none}
+body[data-maq="b"] .mano-suya i{position:absolute;top:0;width:23px;height:31px;
+  border-radius:4px;background:linear-gradient(150deg,#3f6b74,#20454d);
+  border:1.2px solid var(--paper);box-shadow:0 3px 8px rgba(22,36,46,.24);
+  transform-origin:50% 130%}
+body[data-maq="b"] .mano-suya i:nth-child(1){left:0;transform:rotate(10deg)}
+body[data-maq="b"] .mano-suya i:nth-child(2){left:9px;transform:rotate(5deg)}
+body[data-maq="b"] .mano-suya i:nth-child(3){left:18px;transform:rotate(0deg)}
+body[data-maq="b"] .mano-suya i:nth-child(4){left:27px;transform:rotate(-5deg)}
+body[data-maq="b"] .mano-suya i:nth-child(5){left:36px;transform:rotate(-10deg)}
+body[data-maq="b"] .mano-suya .n{position:absolute;right:-5px;bottom:-6px;z-index:3;
+  min-width:18px;height:18px;border-radius:99px;background:var(--paper);
+  border:1.5px solid var(--ink-3);color:var(--ink-2);
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+  display:grid;place-items:center}
+
+/* tu mitad: camas contra la Pizarra, zócalo abajo del todo */
+body[data-maq="b"] .zona.cerca{flex:1 1 0;min-height:0;padding:4px 10px 0}
+body[data-maq="b"] .zona.cerca .jugador-linea{margin-bottom:3px;font-size:10px}
+body[data-maq="b"] .zona.cerca .zocalo{margin-top:auto}
+
+/* la banda central se aprieta: es una línea, no un panel */
+body[data-maq="b"] .guia{font-size:11px;padding:5px 10px;line-height:1.25}
+body[data-maq="b"] .centro{padding:5px 10px 6px}
+body[data-maq="b"] .centro-info{margin-bottom:4px;font-size:8.5px}
+
+/* la cama baja de perfil: 4:3 muestra la escena entera (1:1 mostraba
+   el 89 %), así que es más baja Y se ve más ilustración */
+body[data-maq="b"] .cama.pficha .cama-arte{aspect-ratio:4/3}
+/* su cama, espejada: los datos quedan del lado de la Pizarra */
+body[data-maq="b"] .cama.suya{display:flex;flex-direction:column-reverse}
+body[data-maq="b"] .cama.suya .cama-arte{margin:4px 0 0}
+body[data-maq="b"] .cama.suya .cama-arte .disuelve{inset:0 0 auto;
+  background:linear-gradient(180deg,var(--fondo-carta),rgba(255,255,255,0))}
+body[data-maq="b"] .cama.suya .f-grav{top:auto;bottom:4px}
+body[data-maq="b"] .cama.suya .f-faltan{top:auto;bottom:2px}
+body[data-maq="b"] .cama.suya .cuerpo-f{padding-top:4px}
+/* el destino rival se enciende en rojo: sabotear no es tratar */
+body[data-maq="b"] .cama.suya.blanco{border-color:var(--vida);
+  box-shadow:0 0 0 3px rgba(192,73,47,.4),0 8px 20px rgba(192,73,47,.28)}
+body[data-maq="b"] .cama.suya.blanco .cama-btn{background:var(--vida);color:#fff}
+body[data-maq="b"] .cama.suya.sobre{box-shadow:0 0 0 4px var(--vida),
+  0 8px 22px rgba(192,73,47,.4)}
+
+/* ── el mazo compacto y su abanico ──────────────────────────────── */
+body[data-maq="b"] .mazo-mano{position:fixed;z-index:46;pointer-events:none;
+  right:max(8px,calc(50% - 292px));
+  bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+body[data-maq="b"] .mazo-btn{pointer-events:auto;position:relative;
+  width:70px;height:58px;border:0;background:none;padding:0;font:inherit;
+  cursor:pointer}
+body[data-maq="b"] .mazo-btn i{position:absolute;bottom:0;width:44px;height:58px;
+  border-radius:6px;background:linear-gradient(150deg,#3f6b74,#20454d);
+  border:1.5px solid var(--paper);box-shadow:0 3px 10px rgba(22,36,46,.3)}
+body[data-maq="b"] .mazo-btn i:nth-child(1){right:18px;transform:rotate(-9deg)}
+body[data-maq="b"] .mazo-btn i:nth-child(2){right:9px;transform:rotate(-4deg)}
+body[data-maq="b"] .mazo-btn i:nth-child(3){right:0}
+body[data-maq="b"] .mazo-btn .n{position:absolute;right:-4px;top:-9px;z-index:3;
+  min-width:24px;height:24px;border-radius:99px;background:var(--paper);
+  border:2px solid var(--acc);color:var(--acc);
+  font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:700;
+  display:grid;place-items:center;box-shadow:0 2px 7px rgba(22,36,46,.22)}
+body[data-maq="b"] .mazo-btn .lab{display:none}
+body[data-maq="b"] .mazo-mano.abierta .mazo-btn{opacity:.35}
+@media (prefers-reduced-motion: no-preference){
+  body[data-maq="b"] .mazo-btn.late .n{animation:pulsoMazo 2s ease-in-out infinite}}
+@keyframes pulsoMazo{
+  0%,100%{box-shadow:0 2px 7px rgba(22,36,46,.22),0 0 0 0 rgba(17,132,145,.45)}
+  70%{box-shadow:0 2px 7px rgba(22,36,46,.22),0 0 0 10px rgba(17,132,145,0)}}
+
+body[data-maq="b"] .abanico-b{position:fixed;left:0;right:0;bottom:0;
+  height:34%;min-height:212px;z-index:47;pointer-events:none}
+body[data-maq="b"] .velo-mano{position:absolute;inset:0;pointer-events:auto;
+  background:linear-gradient(180deg,transparent,rgba(9,18,22,.28) 42%,rgba(9,18,22,.6))}
+body[data-maq="b"] .abanico-b .arco{position:absolute;inset:0}
+body[data-maq="b"] .ran-b{position:absolute;left:50%;
+  bottom:calc(40px + env(safe-area-inset-bottom,0px));pointer-events:auto;
+  transform:translateX(calc(-50% + var(--x))) translateY(var(--y))
+            rotate(var(--a)) scale(var(--s));
+  transform-origin:50% 50%;z-index:var(--z);
+  animation:abreMano .22s cubic-bezier(.22,1.1,.36,1) backwards}
+@keyframes abreMano{from{transform:translateX(-50%) translateY(46px) scale(.7);opacity:0}}
+@media (prefers-reduced-motion: reduce){
+  body[data-maq="b"] .ran-b{animation:none}}
+body[data-maq="b"] .ran-b .carta{width:106px;height:150px;overflow:hidden;
+  touch-action:none;box-shadow:0 10px 24px rgba(22,36,46,.38)}
+body[data-maq="b"] .ran-b .carta .arte{aspect-ratio:3/2}
+body[data-maq="b"] .ran-b .carta .carta-pie{font-size:7.5px;
+  max-height:20px;overflow:hidden}
+body[data-maq="b"] .cerrar-mano{position:absolute;left:50%;top:6px;
+  transform:translateX(-50%);pointer-events:none;
+  font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);
+  background:rgba(255,255,255,.9);white-space:nowrap;padding:3px 10px;
+  border-radius:99px;box-shadow:0 2px 7px rgba(22,36,46,.2)}
+
+/* al arrastrar, el abanico se aparta para que las camas reciban el dedo */
+/* el velo declara pointer-events:auto para poder cerrarse al tocarlo, así
+   que hay que apagarlo explícitamente: si no, se come el elementFromPoint
+   del arrastre y la cama de abajo nunca recibe la carta */
+body[data-maq="b"].arrastrando .abanico-b,
+body[data-maq="b"].arrastrando .velo-mano{opacity:.16;pointer-events:none;
+  transition:opacity .15s ease}
+body[data-maq="b"].arrastrando .mazo-mano{opacity:0}
+/* en B el Fin de Guardia sube por encima del mazo */
+body[data-maq="b"] .btn-fin{bottom:calc(78px + env(safe-area-inset-bottom,0px));
+  width:60px;height:60px;font-size:10.5px}
+
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
 .tuto-anillo{position:fixed;border:2.5px solid var(--acc);border-radius:14px;
@@ -1224,6 +1388,26 @@ if(!document.querySelector('meta[name="viewport"]')){
 /* En el artefacto esto queda en false; generar_app.py --pwa lo pone en
    true al compilar la app instalable (que sí trae sw.js y manifest). */
 const PWA = /*__PWA__*/true;
+
+/* ══ maqueta del campo: A y B conviven ══════════════════════════════
+   "a" es la v0.55 que ya funciona y sigue siendo la de por defecto.
+   "b" es el campo partido en dos mitades iguales por la Pizarra, con
+   las camas del rival del mismo tamaño que las tuyas y la mano como
+   mazo desplegable. Se cambia en el Panel de guardia y se recuerda,
+   así se puede probar en paralelo sin tocar lo que ya está. */
+const CLAVE_MAQ = "vt-maqueta";
+function maqueta(){
+  try{ return localStorage.getItem(CLAVE_MAQ)==="b" ? "b" : "a"; }
+  catch(e){ return "a"; }
+}
+const esB = ()=> maqueta()==="b";
+function aplicarMaqueta(){ document.body.dataset.maq = maqueta(); }
+function cambiarMaqueta(m){
+  try{ localStorage.setItem(CLAVE_MAQ, m==="b" ? "b" : "a"); }catch(e){}
+  aplicarMaqueta();
+  if(typeof UI==="object"){ UI.manoAbierta=false; UI.modal=null; UI.verRival=null; }
+  render();
+}
 if(PWA && "serviceWorker" in navigator){
   addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
@@ -1270,7 +1454,7 @@ let G = null;          // partida
 let UI = {sel:null, selProt:null, modal:null, marcarDescartes:[],
           // pulso de juego: diffs entre renders para animar solo lo que cambió
           nuevas:new Set(), vidaPrev:{}, okPrev:{}, reqPrev:{}, colocPrev:null,
-          foco:0};
+          foco:0, manoAbierta:false};
 
 /* aviso flotante — vive fuera de #app, sobrevive a los re-render */
 function aviso(cls, html){
@@ -2414,6 +2598,7 @@ function textoGuia(){
     return `<b>Fin de Guardia.</b> Toca cartas de tu mano hasta dejar ${limiteMano(j)}.`;
   if(G.fase===1){
     if(UI.sel) return "<b>Suéltala en una cama.</b> Las tuyas para tratar; las de arriba, para sabotear con una ⚠️.";
+    if(esB()) return "<b>Pase de Visita.</b> Abre tu mano y arrastra: abajo tratas, arriba saboteas.";
     return "<b>Pase de Visita.</b> Toca una carta de tu mano, elige «Jugar esta» y toca la cama.";
   }
   return "";
@@ -2423,7 +2608,7 @@ function zonaJugador(j, propio){
   // v0.55: el rival ya no ocupa media pantalla — es una ficha consultable
   // (estilo riel de Battlegrounds, adaptado a UN rival). Sus camas se abren
   // tocándola, y el badge avisa lo único urgente: que está por dar de alta.
-  if(!propio) return chipRival(j);
+  if(!propio) return esB() ? zonaRivalB(j) : chipRival(j);
   const z = el("div","zona cerca");
   const linea = el("div","jugador-linea");
   linea.appendChild(el("b",null,esc(j.nombre)));
@@ -2438,6 +2623,72 @@ function zonaJugador(j, propio){
   z.appendChild(tres);
   if(j.protocolos.length) z.appendChild(protMios(j));
   z.appendChild(tiraZona(j));
+  return z;
+}
+
+/* ══ maqueta B · la mitad del rival ═════════════════════════════════
+   Su unidad deja de ser una ficha que abre un cajón: ocupa la mitad de
+   arriba, con la Pizarra de eje. Arriba del todo su repisa (el espejo
+   de tu zócalo: retrato con anillo, pasiva, su mano en dorsos) y contra
+   la Pizarra sus tres camas — la misma pieza que las tuyas, espejada,
+   así los corazones y los requerimientos de los dos lados se miran a
+   la misma altura. Con eso el sabotaje es el mismo arrastre, hacia
+   arriba, y ya no hace falta entrar a ningún modal. */
+function zonaRivalB(j){
+  const z = el("div","zona suya");
+
+  const rep = el("div","repisa");
+  const aro = el("div","aro-suyo");
+  const suTurno = G.fase===1 && yo()===j;
+  for(let k=1;k<=3;k++)
+    aro.style.setProperty("--seg"+k,
+      (suTurno && j.coloc>=k) ? "var(--warn, #e0af3c)" : "var(--line)");
+  if(j.avatar && j.avatar.arte){
+    const im = document.createElement("img");
+    im.src = j.avatar.arte; im.alt = ""; aro.appendChild(im);
+  } else aro.appendChild(el("span","ini",esc((j.nombre||"?")[0])));
+  rep.appendChild(aro);
+
+  const qn = el("span","qn");
+  qn.appendChild(el("b",null,esc(j.nombre)+(j.ia?" · IA":"")));
+  qn.appendChild(el("span",null,
+    (suTurno ? `${j.coloc} de ${INDICACIONES} · ` : "") +
+    (j.avatar ? esc(j.avatar.nombre) : "sin avatar")));
+  rep.appendChild(qn);
+
+  if(j.avatar){
+    const pod = el("span","poder-suyo","⚡");
+    pod.title = j.avatar.nombre + " · " + (j.avatar.frecuencia||"");
+    rep.appendChild(pod);
+  }
+  // el mismo aviso del chip: lo único que no puede perderse de vista
+  const listas = j.camas.filter(c=>c && c.estable).length;
+  const cerca  = j.camas.some(c=>c && !c.estable && faltanTotal(c)===1);
+  if(listas) rep.appendChild(el("span","peligro",`✅ alta ×${listas}`));
+  else if(cerca) rep.appendChild(el("span","peligro","⚠ cerca"));
+  if(j.sumarios) rep.appendChild(el("span","dato",`📋 ${j.sumarios}`));
+
+  const dor = el("div","mano-suya");
+  for(let k=0;k<Math.min(5, j.mano.length);k++) dor.appendChild(el("i"));
+  dor.appendChild(el("span","n",String(j.mano.length)));
+  rep.appendChild(dor);
+  z.appendChild(rep);
+
+  if(UI.emoteRival && j.ia) rep.appendChild(el("div","burb-viva rival",esc(UI.emoteRival)));
+
+  const grupo = el("div","grupo-suyo");
+  const tres = el("div","tres");
+  j.camas.forEach((c,i)=>{
+    const n = vistaCama(c,i,j,false);
+    n.classList.add("suya");
+    tres.appendChild(n);
+  });
+  grupo.appendChild(tres);
+  const rot = el("div","rot-lado");
+  rot.innerHTML = `su unidad · <b>${j.altas.length}</b> altas` +
+                  (j.muertos.length ? ` · ${j.muertos.length} ✝️` : "");
+  grupo.appendChild(rot);
+  z.appendChild(grupo);
   return z;
 }
 
@@ -2888,7 +3139,8 @@ function vistaCama(c, i, duenio, propio){
 
   if(objetivo){
     const soltar = ()=>{ volarIndic(d);
-      colocar(sel, c, duenio, !propio); UI.sel=null; guardar(); render(); };
+      colocar(sel, c, duenio, !propio);
+      UI.sel=null; UI.manoAbierta=false; guardar(); render(); };
     d.appendChild(el("span","cama-btn",
       (propio ? "Tratar" : (leSirve(sel,c) ? "Le sirve ⚠️" : "Sabotear")) +
       '<i class="precio"></i>'));
@@ -2994,6 +3246,16 @@ function pie(){
   // v0.55: la mano es un SELECTOR — miniaturas al filo, scroll nativo,
   // y la lectura ocurre en la carta grande. La cuadrícula de abajo queda
   // solo para marcar descartes, donde comparar todas a la vez sí importa.
+  // maqueta B: la mano es un mazo compacto al filo que se despliega en
+  // abanico sobre TU zócalo. El tablero entero sigue arriba, así que
+  // eliges la carta mirando a quién se la vas a poner, y la arrastras.
+  if(esB() && !descartando){
+    f.appendChild(barraAcciones());
+    const bf = botonFin(); if(bf) f.appendChild(bf);
+    f.appendChild(mazoMano(j, mio));
+    if(UI.manoAbierta && j.mano.length) f.appendChild(abanicoB(j, mio));
+    return f;
+  }
   if(!descartando){
     const tira = el("div","selector");
     j.mano.forEach((c,idx)=>{
@@ -3085,6 +3347,97 @@ function pie(){
   f.appendChild(barraAcciones());
   const bf = botonFin(); if(bf) f.appendChild(bf);
   return f;
+}
+
+/* ══ maqueta B · la mano que se abre sobre ti ═══════════════════════
+   El problema de la v0.55 no era el tamaño de las miniaturas: era que
+   leer una carta te sacaba del tablero (mini → modal → Jugar → cama).
+   Aquí la mano es un mazo compacto en la esquina; al tocarlo se abre en
+   abanico SOBRE tu zócalo — nunca sobre las camas — con las cartas al
+   tamaño en que se leen. Desde ahí se arrastra directo al destino, que
+   puede ser tu cama o la del rival. Tocarla la elige y cierra el
+   abanico (camino de respaldo, dos toques); mantenerla presionada abre
+   la carta grande de siempre, que pasa a ser el "quiero leerla toda". */
+function mazoMano(j, mio){
+  const w = el("div","mazo-mano"+(UI.manoAbierta?" abierta":""));
+  const b = el("button","mazo-btn");
+  b.setAttribute("aria-label", UI.manoAbierta ? "Cerrar la mano" : `Abrir tu mano · ${j.mano.length} cartas`);
+  b.innerHTML = `<i></i><i></i><i></i><span class="n">${j.mano.length}</span>` +
+                `<span class="lab">tu mano</span>`;
+  // late solo si hay algo que jugar: el aviso vive donde vas a tocar
+  const hay = mio && G.fase===1 && !j.ia && j.coloc>0 && !G.pendiente &&
+    j.mano.some(c=> j.camas.some(x=>puedeColocarPropia(c,x)) ||
+      (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x)))));
+  if(hay && !UI.manoAbierta) b.classList.add("late");
+  b.onclick = ()=>{ UI.manoAbierta = !UI.manoAbierta; UI.sel = null; render(); };
+  w.appendChild(b);
+  return w;
+}
+
+/* La geometría del abanico: arco plano y centrado, con el paso acotado
+   para que ni la primera ni la última se salgan de la pantalla. */
+function ranB(i, n){
+  if(n<=1) return {x:0,y:0,a:0,s:1.04,z:10};
+  const d = i - (n-1)/2;
+  const paso = Math.min(56, 204/(n-1));
+  const ad = Math.abs(d);
+  return {x:d*paso, y:ad*7, a:d*4, s:1.04 - ad*0.035, z:20-Math.round(ad*2)};
+}
+
+function abanicoB(j, mio){
+  const w = el("div","abanico-b");
+  const velo = el("div","velo-mano");
+  velo.onclick = ()=>{ UI.manoAbierta = false; render(); };
+  w.appendChild(velo);
+  const arco = el("div","arco");
+  const jugable = mio && G.fase===1 && !j.ia && j.coloc>0 && !G.pendiente;
+  j.mano.forEach((c,idx)=>{
+    const g = ranB(idx, j.mano.length);
+    const r = el("div","ran-b");
+    r.style.setProperty("--x", g.x+"px");
+    r.style.setProperty("--y", g.y+"px");
+    r.style.setProperty("--a", g.a+"deg");
+    r.style.setProperty("--s", String(g.s));
+    r.style.setProperty("--z", String(g.z));
+    let cl = "carta";
+    if(UI.sel===c) cl += " sel";
+    if(jugable){
+      const util = j.camas.some(x=>puedeColocarPropia(c,x)) ||
+                   (c.warn && otros().some(x=>puedeSabotear(c,x)));
+      if(!util) cl += " no";
+    }
+    const b = el("button", cl);
+    b.dataset.uid = c.uid;
+    b.style.borderLeftColor = TCOL[c.tipo] || TCOL.COMODIN;
+    b.innerHTML = cuerpoCarta(c);
+    b.onclick = ()=>{
+      if(arrastre.huboArrastre){ arrastre.huboArrastre=false; return; }
+      if(UI.lupa){ UI.lupa=false; return; }        // fue mantener presionado
+      if(!jugable){ verCartaGrande(idx, j); return; }
+      UI.sel = (UI.sel===c) ? null : c;            // respaldo: elige y cierra
+      UI.manoAbierta = false;
+      render();
+    };
+    // mantener presionado = leerla entera; el arrastre cancela la lupa
+    b.addEventListener("pointerdown", ev=>{
+      clearTimeout(UI.lupaT); UI.lupa = false;
+      UI.lupaT = setTimeout(()=>{
+        if(arrastre.activo) return;
+        UI.lupa = true; sanearGestos(); verCartaGrande(idx, j);
+      }, 480);
+      if(jugable) tomarCarta(ev, c, b);
+    });
+    const cancela = ()=> clearTimeout(UI.lupaT);
+    b.addEventListener("pointerup", cancela);
+    b.addEventListener("pointercancel", cancela);
+    b.addEventListener("pointermove", ev=>{ if(arrastre.activo) cancela(); });
+    r.appendChild(b);
+    arco.appendChild(r);
+  });
+  w.appendChild(arco);
+  const av = el("div","cerrar-mano","toca fuera para cerrar");
+  w.appendChild(av);
+  return w;
 }
 
 /* La geometría del abanico con d CONTINUO: el hueco junto al foco, el
@@ -3871,6 +4224,18 @@ function abrirPanel(){
       m.appendChild(av);
     }
 
+    const mq = el("div","bloque");
+    mq.appendChild(el("h3",null,"Maqueta del campo (en pruebas)"));
+    const fm = el("div"); fm.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
+    [["a","A · la de siempre"],["b","B · campo partido"]].forEach(([k,t])=>{
+      const b = el("button","btn chico"+(maqueta()===k?" pri":""), t);
+      b.onclick = ()=>{ UI.modal=null; cambiarMaqueta(k); abrirPanel(); };
+      fm.appendChild(b);
+    });
+    mq.appendChild(fm);
+    mq.appendChild(el("div","nota","<b>B</b> parte la pantalla en dos mitades iguales con la Pizarra de eje: las camas del rival quedan a la vista, del mismo tamaño que las tuyas, y se sabotea arrastrando hacia arriba. La mano es un mazo que se abre en abanico sobre tu zócalo. La partida es la misma — solo cambia cómo se ve, y puedes volver a <b>A</b> cuando quieras."));
+    m.appendChild(mq);
+
     const bl2 = el("div","bloque");
     bl2.appendChild(el("h3",null,`Bitácora · ${G.log.length}`));
     const l = el("div","log");
@@ -4126,13 +4491,15 @@ function pantallaFinal(){
   const b = el("button","btn pri","Nueva guardia"); b.style.marginTop="12px";
   b.onclick = ()=>{ borrar(); G=null;
     UI={sel:null,selProt:null,modal:null,marcarDescartes:[],
-        nuevas:new Set(),vidaPrev:{},okPrev:{},reqPrev:{},colocPrev:null,foco:0};
+        nuevas:new Set(),vidaPrev:{},okPrev:{},reqPrev:{},colocPrev:null,foco:0,
+        manoAbierta:false};
     render(); };
   s.appendChild(b);
   w.appendChild(s);
   return w;
 }
 
+aplicarMaqueta();
 render();
 </script>
 
