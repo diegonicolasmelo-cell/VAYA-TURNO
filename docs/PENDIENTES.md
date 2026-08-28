@@ -313,6 +313,25 @@ probarlo:
   `docs/PROMPTS-TABLERO.md`: tres, uno por banda, con las posiciones en
   porcentaje leídas del propio generador para que el dibujo caiga donde ya
   cae el vector. Una generación por banda: la del rival es la misma girada.
+· **Y las ilustraciones ya están puestas** (`cartas/tablero/{meson,camas,
+  suelo}.png`). `generar_ambiente_app.py` las prefiere al vector cuando
+  existen, banda por banda, y hace cuatro cosas con cada una: recorta a la
+  proporción exacta de su franja —así se pinta con `100% 100%` sin
+  deformar—, lava un 62 % hacia el papel (más que la sala, porque estas
+  llevan cartas encima todo el rato), **alinea el piso** y sale a WebP.
+  Tres cosas que hubo que arreglar y conviene no repetir:
+  · **el generador de imágenes puso las camas en 16/50/83 %** y las columnas
+    de la app caen en 20,3/50/79,7. En vez de pedirlo otra vez, el script
+    recorta la plaza del centro y la pega tres veces en su sitio.
+  · **las tres ilustraciones traían tonos de fondo distintos** y, una debajo
+    de otra, se leían como tres paneles y no como una sala. `alinear()`
+    muestrea la esquina —que en las tres es piso— y desplaza la imagen
+    entera hasta que ese piso es exactamente `--mesa`. El contraste interno
+    no se toca.
+  · el suelo venía con **marco de pared** por los cuatro lados; se recorta,
+    porque una pared entre las camas y el piso no tiene dónde ir.
+  Los rótulos llevan halo de papel: el dibujo pasa por detrás y el texto
+  tiene que ganar caiga donde caiga del mostrador.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son

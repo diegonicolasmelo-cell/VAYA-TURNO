@@ -23,9 +23,13 @@ detrás van CARTAS. Es ambiente, no ilustración. Si compite, sobra.
 Reescribe los data-URI dentro de tools/app-plantilla.html, así que
 después hay que regenerar la app y la PWA.
 """
+import base64
+import io as _io
 import os
 import re
 import urllib.parse
+
+from PIL import Image
 
 W_MES, H_MES = 390, 84       # la franja del mesón, en px CSS
 W_SUE, H_SUE = 390, 168      # la franja de aire (flexible; se recorta)
@@ -164,7 +168,104 @@ def uri(svg):
     return "data:image/svg+xml," + urllib.parse.quote(svg, safe="")
 
 
+# ══ las ilustraciones, cuando existen ═════════════════════════════════
+# El vector de arriba es la maqueta: dice dónde va cada cosa. Si en
+# cartas/tablero/ hay una ilustración de esa banda, manda la ilustración y
+# el vector queda de respaldo.
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TABLERO = os.path.join(RAIZ, "cartas", "tablero")
+
+PAPEL = (223, 231, 234)   # --mesa: el papel del tablero
+LAVADO = 0.62             # cuánto se mezcla hacia el papel; más que la sala
+                          # porque estas bandas llevan cartas encima todo el rato
+ANCHO = 1000              # el tablero no pasa de 600 CSS px; sobra para retina
+
+# Cada banda: archivo, recorte en el original y proporción de destino.
+# Los recortes salen de medir la imagen, no de mirarla:
+#  · el mesón se corta 48 px arriba (una pizca de piso sobre la curva del
+#    mostrador) y 434 abajo — el teclado queda cortado por el filo, que es
+#    justo lo que hace un mostrador que se sale de la pantalla;
+#  · el suelo pierde el marco de pared (15 px arriba, 19 a los lados) para
+#    que la barra del cabecero quede a ras de la fila de camas;
+#  · las camas se RECOMPONEN: el generador venía con las tres en 16/50/83 %
+#    y las columnas de la app caen en 20,3/50/79,7 %, así que se recorta una
+#    plaza y se pega tres veces en su sitio.
+BANDAS = {
+    "meson": dict(archivo="meson.png", caja=(0, 48, 1792, 434), destino=390/84),
+    "suelo": dict(archivo="suelo.png", caja=(62, 44, 1522, 664), destino=390/168),
+    "camas": dict(archivo="camas.png", caja=None, destino=390/132),
+}
+CENTROS_PC = (0.203, 0.5, 0.797)   # los centros de las tres columnas
+
+
+def lavar(im):
+    """Mezcla hacia el papel del tablero. Detrás van CARTAS: si el ambiente
+    compite con ellas deja de ser tablero y pasa a ser ruido."""
+    fondo = Image.new("RGB", im.size, PAPEL)
+    return Image.blend(im.convert("RGB"), fondo, LAVADO)
+
+
+def alinear(im):
+    """Cuadra el PISO de cada banda con el papel del tablero. Las tres
+    ilustraciones salieron con tonos de fondo distintos y, puestas una
+    debajo de otra, se leían como tres paneles y no como una sala. Se
+    muestrea la esquina —que en las tres es piso— y se desplaza la imagen
+    entera hasta que ese piso es exactamente el papel. El contraste interno
+    de cada banda no se toca: solo se mueve el punto de partida."""
+    import numpy as np
+    a = np.asarray(im).astype(int)
+    piso = a[4, 4]
+    a = np.clip(a + (np.array(PAPEL) - piso), 0, 255).astype("uint8")
+    return Image.fromarray(a)
+
+
+def recomponer_camas(im):
+    """Recorta la plaza del centro y la pega en los tres centros de columna,
+    sobre un lienzo del color de fondo de la propia imagen."""
+    W, H = im.size
+    alto = H
+    ancho = round(alto * BANDAS["camas"]["destino"])
+    fondo = im.getpixel((4, 4))
+    lienzo = Image.new("RGB", (ancho, alto), fondo)
+    # la plaza del centro, con aire de sobra para no cortarle la sombra
+    media = im.crop((W//2 - 160, 0, W//2 + 160, H))
+    for pc in CENTROS_PC:
+        lienzo.paste(media, (round(ancho*pc) - media.width//2, 0))
+    return lienzo
+
+
+def encajar(im, destino):
+    """Recorta al centro hasta dar exactamente con la proporción de la banda,
+    para poder pintarla con 100% 100% sin deformar nada."""
+    W, H = im.size
+    if W/H > destino:
+        w = round(H*destino); x = (W-w)//2
+        im = im.crop((x, 0, x+w, H))
+    else:
+        h = round(W/destino); y = (H-h)//2
+        im = im.crop((0, y, W, y+h))
+    return im
+
+
+def a_uri(im):
+    if im.width > ANCHO:
+        im = im.resize((ANCHO, round(im.height*ANCHO/im.width)), Image.LANCZOS)
+    buf = _io.BytesIO()
+    im.save(buf, "WEBP", quality=82, method=6)
+    return "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def ilustracion(nombre):
+    cfg = BANDAS[nombre]
+    ruta = os.path.join(TABLERO, cfg["archivo"])
+    if not os.path.isfile(ruta):
+        return None
+    im = Image.open(ruta).convert("RGB")
+    im = recomponer_camas(im) if nombre == "camas" else im.crop(cfg["caja"])
+    im = alinear(lavar(encajar(im, cfg["destino"])))
+    return im
+
+
 piezas = {
     "meson-mio":    envolver(meson(), W_MES, H_MES),
     "meson-suyo":   envolver(meson(), W_MES, H_MES, girado=True),
@@ -174,7 +275,21 @@ piezas = {
     "camas-suyo":   envolver(camas(), W_CAM, H_CAM, girado=True),
 }
 
-bloque = "\n".join(f'  --{k}:url("{uri(v)}");' for k, v in piezas.items())
+# la ilustración pisa al vector, banda por banda
+fuente = {}
+for nombre in BANDAS:
+    im = ilustracion(nombre)
+    if im is None:
+        fuente[nombre] = "vector"
+        continue
+    fuente[nombre] = f"dibujo {im.width}x{im.height}"
+    piezas[f"{nombre}-mio"] = a_uri(im)
+    piezas[f"{nombre}-suyo"] = a_uri(im.rotate(180))
+
+def envolver_uri(v):
+    return v if v.startswith("data:") else uri(v)
+
+bloque = "\n".join(f'  --{k}:url("{envolver_uri(v)}");' for k, v in piezas.items())
 nuevo_css = ":root{\n" + bloque + "\n}"
 
 plantilla = os.path.join(RAIZ, "tools", "app-plantilla.html")
@@ -190,7 +305,10 @@ if html2 != html:
     open(plantilla, "w", encoding="utf-8").write(html2)
 os.makedirs(os.path.join(RAIZ, "docs"), exist_ok=True)
 for k, v in piezas.items():
-    open(os.path.join(RAIZ, "docs", f"amb-{k}.svg"), "w").write(v)
+    if not v.startswith("data:"):
+        open(os.path.join(RAIZ, "docs", f"amb-{k}.svg"), "w").write(v)
 print("✔ ambiente de la UCI · " +
-      " · ".join(f"{k} {len(uri(v))//1024} KB" for k, v in piezas.items()))
+      " · ".join(f"{k}: {f}" for k, f in fuente.items()))
+print("  peso · " + " · ".join(
+    f"{k} {len(envolver_uri(v))//1024} KB" for k, v in piezas.items()))
 print("  plantilla parcheada — ahora: generar_app.py y generar_app.py --pwa")
