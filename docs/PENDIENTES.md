@@ -251,6 +251,20 @@ probarlo:
   que para entonces `hojearFin` ya había puesto en false. Ahora el
   temporizador se cancela en cuanto hay movimiento. Medido: de 16 relanzos
   al soltar a 0, y la pulsación larga quieta sigue abriendo el zoom.
+· **La mano se queda abierta después de jugar.** Plegarla obligaba a
+  reabrirla para la segunda colocación del turno, que son tres por ronda.
+  Ahora sólo la cierra tocar fuera: el velo pasó de cubrir el 34 % de abajo
+  a cubrir la pantalla entera (`position:fixed;inset:0`, con el degradado
+  sólo en la franja de abajo), y las camas suben a `z-index:44` para
+  quedarse por encima y seguir recibiendo el toque. El velo tuvo que salir
+  de `.pie`: `.pie` es un contexto de apilamiento (fixed + z-index), así
+  que nada dentro de él puede quedar por debajo de las camas.
+· **El arco del abanico va centrado en la pantalla, no en el foco.** Se
+  centraba en la carta enfocada, así que con el foco en un extremo la mano
+  entera se corría hacia un lado y las últimas cartas se salían (medido:
+  hasta `right: 460` en una pantalla de 390). Como la mano nunca pasa de
+  ocho y entera cabe, ahora el arco es fijo y lo que se mueve es el
+  levante: la del foco sube y crece en su sitio, las vecinas se apartan.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son

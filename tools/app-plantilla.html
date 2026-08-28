@@ -1309,8 +1309,12 @@ body[data-maq="b"] .mazo-mano.abierta .mazo-btn{opacity:.35}
 
 body[data-maq="b"] .abanico-b{position:fixed;left:0;right:0;bottom:0;
   height:34%;min-height:212px;z-index:47;pointer-events:none}
-body[data-maq="b"] .velo-mano{position:absolute;inset:0;pointer-events:auto;
-  background:linear-gradient(180deg,transparent,rgba(9,18,22,.28) 42%,rgba(9,18,22,.6))}
+body[data-maq="b"] .velo-mano{position:fixed;inset:0;z-index:43;pointer-events:auto;
+  background:linear-gradient(to top,rgba(9,18,22,.6) 0,rgba(9,18,22,.26) 22%,
+             transparent 34%)}
+/* las camas quedan por encima del velo: con la mano abierta se sigue
+   pudiendo tocar una para jugar la carta elegida, y todo lo demás cierra */
+body[data-maq="b"] .cama{position:relative;z-index:44}
 body[data-maq="b"] .abanico-b .arco{position:absolute;inset:0;touch-action:none}
 body[data-maq="b"] .ran-b{position:absolute;left:50%;
   bottom:calc(40px + env(safe-area-inset-bottom,0px));pointer-events:auto;
@@ -2652,6 +2656,12 @@ function render(){
   app.appendChild(bandaCentral());     // la Pizarra vive aquí, siempre visible
   app.appendChild(zonaJugador(v,true));
   app.appendChild(pie());
+  if(esB() && UI.manoAbierta && !G.pendiente){
+    // tocar cualquier hueco fuera de las cartas y las camas cierra la mano
+    const velo = el("div","velo-mano");
+    velo.onclick = ()=>{ UI.manoAbierta = false; UI.sel = null; render(); };
+    app.appendChild(velo);
+  }
   if(esB() && UI.sel && !G.pendiente)
     app.appendChild(el("div","pista","suéltala en una cama"));
   if(UI.franja){
@@ -3299,7 +3309,7 @@ function vistaCama(c, i, duenio, propio){
   if(objetivo){
     const soltar = ()=>{ volarIndic(d);
       colocar(sel, c, duenio, !propio);
-      UI.sel=null; UI.manoAbierta=false; guardar(); render(); };
+      UI.sel=null; guardar(); render(); };   // la mano se queda abierta
     d.appendChild(el("span","cama-btn",
       (propio ? "Tratar" : (leSirve(sel,c) ? "Le sirve ⚠️" : "Sabotear")) +
       '<i class="precio"></i>'));
@@ -3547,11 +3557,17 @@ function mazoMano(j, mio){
    dejarle sitio. El paso va acotado por arriba y por el ancho total, así
    ni con ocho cartas se sale ninguna de la pantalla. */
 function pasoB(n){ return n > 1 ? Math.min(46, 176/(n-1)) : 0; }
-function ponRanB(r, d, n){
+/* El arco va SIEMPRE centrado en la pantalla y lo que se mueve es el foco,
+   que se levanta y crece en su sitio. Antes el arco se centraba en la carta
+   del foco, y con el foco en un extremo la mano entera se corría hacia un
+   lado y las últimas cartas se salían de la pantalla. Como la mano nunca
+   pasa de ocho, entera cabe: no hace falta desplazarla, solo señalar. */
+function ponRanB(r, i, foco, n){
+  const d = i - foco;
   const ad = Math.abs(d);
   const cerca = Math.max(0, 1 - ad);
-  const hueco = 20 * Math.max(-1, Math.min(1, d));
-  const x = d*pasoB(n) + hueco, y = ad*6 - 20*cerca;
+  const hueco = 16 * Math.max(-1, Math.min(1, d));   // las vecinas se apartan
+  const x = (i - (n-1)/2)*pasoB(n) + hueco, y = ad*6 - 20*cerca;
   // transform DIRECTO, no variables CSS: cambiar una custom property
   // invalida el estilo de todo el subárbol de la carta, y ocho subárboles
   // por fotograma era justo lo que daba los tirones al hojear. Un transform
@@ -3568,16 +3584,13 @@ function ponRanB(r, d, n){
 function abanicoB(j, mio){
   UI.foco = Math.max(0, Math.min(UI.foco||0, j.mano.length-1));
   const w = el("div","abanico-b");
-  const velo = el("div","velo-mano");
-  velo.onclick = ()=>{ UI.manoAbierta = false; render(); };
-  w.appendChild(velo);
   const arco = el("div","arco");
   const jugable = mio && G.fase===1 && !j.ia && j.coloc>0 && !G.pendiente;
   j.mano.forEach((c,idx)=>{
     const esFoco = idx === UI.foco;
     const r = el("div","ran-b"+(esFoco?" foco":"")+(UI.abreMano?" abre":""));
     r.dataset.idx = idx;
-    ponRanB(r, idx - UI.foco, j.mano.length);
+    ponRanB(r, idx, UI.foco, j.mano.length);
     let cl = "carta";
     if(UI.sel===c) cl += " sel";
     if(jugable){
@@ -3594,8 +3607,7 @@ function abanicoB(j, mio){
       if(UI.lupa){ UI.lupa=false; return; }        // fue mantener presionado
       if(!esFoco){ UI.foco = idx; abanicoVivoSnap(); return; }  // recolocar, no redibujar
       if(!jugable){ verCartaGrande(idx, j); return; }
-      UI.sel = (UI.sel===c) ? null : c;            // respaldo: elige y cierra
-      UI.manoAbierta = false;
+      UI.sel = (UI.sel===c) ? null : c;   // respaldo: la elige y espera la cama
       render();
     };
     // mantener presionado = leerla entera; navegar o arrastrar la cancelan
@@ -3663,7 +3675,7 @@ function abanicoVivo(pos){
   const foc = Math.round(pos);
   rs.forEach(r=>{
     const idx = +r.dataset.idx;
-    if(bb) ponRanB(r, idx - pos, n); else ponRanura(r, idx - pos);
+    if(bb) ponRanB(r, idx, pos, n); else ponRanura(r, idx - pos);
     const f = idx === foc;
     if(f !== r.__foco){ r.classList.toggle("foco", f); r.__foco = f; }
   });
@@ -3744,7 +3756,7 @@ function abanicoVivoSnap(){
   const bb = !!document.querySelector(".abanico-b");
   rs.forEach(r=>{
     const idx = +r.dataset.idx;
-    if(bb) ponRanB(r, idx - UI.foco, n); else ponRanura(r, idx - UI.foco);
+    if(bb) ponRanB(r, idx, UI.foco, n); else ponRanura(r, idx - UI.foco);
     r.classList.toggle("foco", idx === UI.foco);
   });
   clearTimeout(UI.snapT);
