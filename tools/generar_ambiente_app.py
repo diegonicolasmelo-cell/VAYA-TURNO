@@ -29,6 +29,11 @@ import urllib.parse
 
 W_MES, H_MES = 390, 84       # la franja del mesón, en px CSS
 W_SUE, H_SUE = 390, 168      # la franja de aire (flexible; se recorta)
+W_CAM, H_CAM = 390, 132      # la franja de las tres camas
+# los tres huecos de cama: .centro deja 24 px por lado y la rejilla 6 de
+# separación, así que en un teléfono de 390 cada columna cae en estos centros
+CENTROS = (79, 195, 311)
+ANCHO_BOX = 110
 
 TRAZO = "#5f8496"            # el gris-celeste de la sala, no el de la tinta
 
@@ -122,6 +127,31 @@ def suelo():
     return piso + cab + cosas
 
 
+# ── las tres plazas ───────────────────────────────────────────────────
+def camas():
+    """En planta, con la cabecera hacia AFUERA (hacia el mesón): las dos
+    unidades se miran de pies a través de la Pizarra. Casi siempre va
+    tapada por las cartas; lo que se ve de verdad es la plaza vacía, que
+    tiene que leerse como una cama hecha esperando paciente."""
+    o = []
+    for cx in CENTROS:
+        # el colchón
+        o.append(f'<rect x="{cx-38}" y="14" width="76" height="104" rx="9"/>')
+        # las dos costuras de la sábana
+        o.append(f'<path d="M{cx-38} 52 L{cx+38} 52"/>')
+        o.append(f'<path d="M{cx-38} 70 L{cx+38} 70"/>')
+        # la almohada, en la cabecera: abajo, hacia el mesón
+        o.append(f'<rect x="{cx-28}" y="94" width="56" height="20" rx="7"/>')
+        # las barandas
+        o.append(f'<path d="M{cx-42} 44 L{cx-42} 88"/>')
+        o.append(f'<path d="M{cx+42} 44 L{cx+42} 88"/>')
+        # las cuatro ruedas
+        for dx in (-31, 31):
+            for cy in (22, 110):
+                o.append(f'<circle cx="{cx+dx}" cy="{cy}" r="3.4"/>')
+    return g("".join(o), op=".26")
+
+
 def envolver(cuerpo, w, h, girado=False):
     giro = (f'<g transform="translate(0,{h}) scale(1,-1)">{cuerpo}</g>'
             if girado else cuerpo)
@@ -140,6 +170,8 @@ piezas = {
     "meson-suyo":   envolver(meson(), W_MES, H_MES, girado=True),
     "suelo-mio":    envolver(suelo(), W_SUE, H_SUE),
     "suelo-suyo":   envolver(suelo(), W_SUE, H_SUE, girado=True),
+    "camas-mio":    envolver(camas(), W_CAM, H_CAM),
+    "camas-suyo":   envolver(camas(), W_CAM, H_CAM, girado=True),
 }
 
 bloque = "\n".join(f'  --{k}:url("{uri(v)}");' for k, v in piezas.items())

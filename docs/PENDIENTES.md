@@ -304,7 +304,15 @@ probarlo:
   de la fila de camas (`--sala-mia`), porque mezclar foto lavada con línea
   vectorial se notaba. Ojo con la especificidad al retirarla:
   `.zona.cerca .tres` son tres clases y `body[data-maq="b"] .tres` solo
-  gana con `.zona` de por medio.
+  gana con `.zona` de por medio. En su lugar va la tercera banda: **las tres
+  plazas**, con la cabecera hacia afuera —las dos unidades se miran de pies
+  a través de la Pizarra— y dibujadas para que la plaza VACÍA se lea como
+  una cama hecha esperando paciente, que es lo único que se ve cuando la
+  carta no está.
+· **Los prompts para llevarlo a ilustración** están en
+  `docs/PROMPTS-TABLERO.md`: tres, uno por banda, con las posiciones en
+  porcentaje leídas del propio generador para que el dibujo caiga donde ya
+  cae el vector. Una generación por banda: la del rival es la misma girada.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son

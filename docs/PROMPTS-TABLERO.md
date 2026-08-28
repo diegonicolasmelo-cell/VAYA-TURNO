@@ -151,11 +151,78 @@ FORMAT: wide horizontal banner, aspect ratio 7:3 (1568 x 672 px).
 
 ---
 
+## C · Las tres plazas
+
+La franja de las camas. Casi siempre va tapada por las cartas de paciente:
+lo que se ve de verdad es **la plaza vacía**, así que tiene que leerse como
+una cama hecha esperando paciente. Franja de **390 × 132 px CSS**; pide
+**3:1 (1560 × 528)**.
+
+Ojo con una cosa: la cabecera va **hacia abajo**, hacia el mesón. Las dos
+unidades se miran de pies a través de la Pizarra, y por eso al girar la
+imagen para el rival las almohadas quedan arriba, en su lado. Si dibujas la
+cabecera al revés, las dos unidades quedan mirando para el mismo lado.
+
+```
+Modern flat-vector cartoon illustration in the style of a contemporary
+animated TV series. Clean digital finish: smooth flat color fills with soft
+two-step cel shading. No visible brush texture, no grain, no photorealism.
+
+LINE: medium-weight outline in desaturated dark brown or deep teal, never
+pure black; even and confident. Interior detail lines noticeably thinner
+than the silhouette.
+
+VIEW — THIS IS THE HARD PART, READ IT TWICE: strict orthographic TOP-DOWN
+view, as if a camera bolted to the ceiling were looking straight down at the
+floor. A floor plan that happens to be drawn, like the map of a board game.
+There is NO horizon, NO vanishing point, NO wall seen from the side, NO
+perspective depth. Every single object is seen from directly above.
+
+SCENE: three empty ICU bays side by side, seen from straight above. Each bay
+holds one hospital bed, freshly made and waiting for a patient — the sheet
+pulled flat and tucked, one plump pillow, the side rails raised.
+
+LAYOUT — three identical beds, evenly spaced, each one centered at 20%, 50%
+and 80% of the width. Each bed is about 20% of the width wide and runs from
+11% to 89% of the height, so the beds are TALLER than they are wide,
+standing upright in the frame. Between them, plain floor.
+
+EACH BED, seen from above:
+- a rounded-rectangle mattress with a crisp white sheet;
+- two horizontal seams across the sheet, at about 30% and 43% of the frame
+  height, where the top sheet is folded back;
+- THE PILLOW IS AT THE BOTTOM END of the bed, near the lower edge of the
+  frame: a soft rounded rectangle lying across the mattress. The head of the
+  bed points DOWN in this image. This matters — do not put the pillow at
+  the top;
+- a raised side rail running along each long side, a thin bar at mid-height;
+- four caster wheels, one at each corner, small circles peeking out beyond
+  the mattress.
+
+NO PEOPLE, no patients, no blankets in disarray, no monitors, no IV poles,
+no bedside tables — those live in a separate image. No text of any kind: no
+bed numbers, no signs, no labels on the floor.
+
+COLOR: the same single cool hospital palette as the other two banners —
+pale blue-grey floor (#dfe7ea), bedding in the palest warm white, frames and
+rails in muted teal (#4a8a96), everything in one family. Low overall
+contrast, calm and clean. Full-bleed, never white paper.
+
+FORMAT: wide horizontal banner, aspect ratio 3:1 (1560 x 528 px).
+```
+
+---
+
 ## Cuando lleguen
 
-Van a `cartas/tablero/` como `meson.png` y `suelo.png`. El paso siguiente es
-un lavado hacia el papel del tablero (la sala usa 0,45 de mezcla con blanco)
-y meterlas por las mismas variables CSS que hoy llenan los SVG:
-`--meson-mio`, `--meson-suyo`, `--suelo-mio`, `--suelo-suyo`. Las versiones
-"suyo" son la misma imagen girada 180°, así que sale una sola generación por
-banda.
+Van a `cartas/tablero/` como `meson.png`, `suelo.png` y `camas.png`. El paso
+siguiente es un lavado hacia el papel del tablero (la sala usa 0,45 de mezcla
+con blanco) y meterlas por las mismas variables CSS que hoy llenan los SVG:
+`--meson-mio`, `--meson-suyo`, `--suelo-mio`, `--suelo-suyo`, `--camas-mio` y
+`--camas-suyo`. Las versiones "suyo" son la misma imagen girada 180°, así que
+sale **una sola generación por banda**: tres imágenes en total.
+
+Las tres tienen que compartir paleta y grosor de línea. Si el generador lo
+permite, hazlas en la misma sesión y usa la primera como referencia de estilo
+para las otras dos: se ven juntas en la misma pantalla y cualquier salto de
+tono o de trazo se nota de inmediato.
