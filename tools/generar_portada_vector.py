@@ -19,25 +19,32 @@ import os
 
 L = "#4a3a2e"        # el delineado café de la casa
 W, H = 390, 844
+# La escena entera baja BAJA px. Arriba hay sitio de sobra —el pasillo se ve
+# vacío— y el logotipo se topaba con las salas de vidrio: bajando el dibujo
+# las letras quedan solas contra el cielo raso y no tapan nada.
+#
+# 66 es lo que deja el menú de tres fichas: con los cuatro botones altos de
+# antes el dibujo no podía bajar de 40 sin que le cortaran los pies al
+# auxiliar. Aquí el logotipo queda solo contra el cielo raso.
+BAJA = 66
 
 def svg():
     p = []
     a = p.append
 
     # ── fondo: cielo raso, muro y piso ────────────────────────────────
-    a(f'<rect width="{W}" height="252" fill="#d7e1e5"/>')
-    a(f'<rect width="{W}" height="96" fill="#e9eff1"/>')
-    a(f'<rect y="252" width="{W}" height="{H-252}" fill="#e4ecef"/>')
-    # luces del techo, y su resplandor
-    for x in (58, 232):
-        a(f'<rect x="{x}" y="30" width="100" height="11" rx="5" fill="#fbfdfd" '
-          f'stroke="{L}" stroke-width="2"/>')
-        a(f'<ellipse cx="{x+50}" cy="46" rx="58" ry="9" fill="#ffffff" opacity=".35"/>')
+    # va FUERA del grupo que baja, y estirado hacia arriba, para que el
+    # corrimiento no deje una franja hueca sobre el cielo raso
+    fondo = (f'<rect y="{-BAJA}" width="{W}" height="{252+BAJA*2}" fill="#d7e1e5"/>'
+             f'<rect y="{-BAJA}" width="{W}" height="{96+BAJA*2}" fill="#e9eff1"/>'
+             f'<rect y="{252+BAJA}" width="{W}" height="{H-252}" fill="#e4ecef"/>')
+    # El cielo raso queda LIMPIO: ahí se apoya el logotipo y cualquier cosa
+    # que se dibuje se le cruza por las letras. Las luminarias se quedan solo
+    # como charco de luz en el piso, más abajo.
     a(f'<path d="M0 96 L{W} 96" stroke="{L}" stroke-width="2" opacity=".5"/>')
-
-    # el reloj de la sala: siete y diez de la mañana
-    a(f'<circle cx="195" cy="76" r="13" fill="#fbfdfd" stroke="{L}" stroke-width="2.2"/>')
-    a(f'<path d="M195 76 L195 67 M195 76 L202 78" stroke="{L}" stroke-width="2" '
+    # el reloj se muda del techo al muro, junto al letrero: siete y diez
+    a(f'<circle cx="132" cy="109" r="9" fill="#fbfdfd" stroke="{L}" stroke-width="2"/>')
+    a(f'<path d="M132 109 L132 103 M132 109 L137 110" stroke="{L}" stroke-width="1.8" '
       f'stroke-linecap="round"/>')
 
     # el letrero de la unidad
@@ -121,11 +128,12 @@ def svg():
     a('<text x="362" y="344" font-family="Arial,sans-serif" font-size="12" fill="#4a8a96" opacity=".8">♪</text>')
 
     # ── el auxiliar, de espaldas en tres cuartos ──────────────────────
-    # El grupo sube 24 px. El menú se apoya en el filo de abajo y empieza
-    # alrededor de y=485; con este corrimiento el auxiliar entero —incluida
-    # la cabeza del trapero, que es lo último que baja— cae por encima del
-    # primer botón, y la cabeza queda justo bajo el logotipo.
-    a('<g transform="translate(0,-24)">')
+    # El auxiliar sube 54 px DENTRO de la escena, que a su vez baja 40: neto
+    # queda 14 px más arriba que antes. Es lo que hace falta para que el
+    # dibujo pueda bajar —y despejar el logotipo— sin que el menú, que
+    # arranca en y=470, le corte la cabeza del trapero. Queda de pie delante
+    # de las salas, que es donde va: él está en el pasillo.
+    a('<g transform="translate(0,-34)">')
     a('<ellipse cx="152" cy="472" rx="42" ry="9" fill="#b9c9cf" opacity=".8"/>')
     # las piernas en zancada corta, con los zuecos
     a(f'<path d="M138 400 L132 452 Q131 460 138 460 L148 460 L150 402 Z" '
@@ -187,7 +195,7 @@ def svg():
 
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
             f'width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice">'
-            + "".join(p) + '</svg>')
+            + fondo + f'<g transform="translate(0,{BAJA})">' + "".join(p) + '</g></svg>')
 
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

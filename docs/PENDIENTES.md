@@ -403,11 +403,19 @@ Para que la escena y el menú convivan, el inicio pasó a ser una **columna
 de alto completo**: logotipo arriba, un `aire-inicio` flexible en medio
 —que es donde se luce el dibujo— y el menú apoyado en el filo de abajo.
 Antes el menú arrancaba a `8vh` fijos y en pantalla corta le caía encima al
-auxiliar. Se fueron el subtítulo «Guardia virtual · reglas» y la nota de
-las tres fases y las Acciones —no aplican a quien va a jugar—, el logotipo
-bajó de 310 a 252 px para no tapar las salas, y el velo dejó de borrar el
-piso (llegaba a 0,97 de blanco): ahora los botones son vidrio esmerilado
-sobre el suelo recién trapeado.
+auxiliar. Se fueron el subtítulo «Guardia virtual · reglas», la nota de las
+tres fases y las Acciones, y el pie del «árbitro digital» —ninguno le habla
+a quien va a jugar—, y el velo dejó de borrar el piso (llegaba a 0,97 de
+blanco): los botones son vidrio esmerilado sobre el suelo recién trapeado.
+
+**Y el menú son tres fichas.** Las modalidades son tres, no cuatro: la
+Primera guardia **no es una modalidad**, es la partida contra la IA con el
+coach encendido —en el código, la misma llamada con una bandera de más—.
+Así que baja a una **casilla** bajo las fichas: la marcas y «Contra la IA»
+arranca con la guía; quien ya jugó no vuelve a leerla nunca. Con el menú
+compacto la escena pudo bajar 66 px enteros y el logotipo quedó solo contra
+el cielo raso, que además se despejó: las luminarias se fueron y el reloj se
+mudó del techo al muro, junto al letrero de UCI.
 
 **La pantalla de inicio tiene fondo vivo** (v0.52): el clip del auxiliar
 de aseo trapeando el pasillo, en bucle y con la unidad sonando. Sale de

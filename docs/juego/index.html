@@ -1051,8 +1051,9 @@ body.con-portada .app{background:none;position:relative;z-index:1}
    vidrio esmerilado, para que el pasillo se siga viendo por detrás. */
 body.con-portada .portada{padding-top:18px}
 /* con el dibujo detrás, el logotipo se achica: a 310 px tapaba las tres
-   salas de vidrio, que son la mitad de la escena */
-body.con-portada .portada h1 .logo{max-width:252px}
+   salas de vidrio, que son la mitad de la escena, y a 252 seguía cayendo
+   sobre el letrero de UCI */
+body.con-portada .portada h1 .logo{max-width:222px}
 /* Bajo un logotipo tan grande el texto queda sobre el pasillo y no se lee.
    El subtítulo y el párrafo se juntan en una sola placa esmerilada —la
    misma de los botones— para que sigan siendo legibles sin taparlo todo. */
@@ -1072,6 +1073,7 @@ body.con-portada .inicio{display:flex;flex-direction:column;
 body.con-portada .inicio .aire-inicio{flex:1 1 0;min-height:70px}
 body.con-portada .inicio .portada:first-child{padding-bottom:0}
 body.con-portada .opciones{margin-bottom:6px}
+body.con-portada .fichas{margin-bottom:9px}
 body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    backdrop-filter:blur(9px) saturate(1.15);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
@@ -1571,6 +1573,45 @@ body[data-maq="b"] .zocalo{background:var(--meson-mio) center/100% 100% no-repea
 body[data-maq="b"] .repisa{background:var(--meson-suyo) center/100% 100% no-repeat}
 body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat}
 body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/100% auto no-repeat}
+
+/* ── el menú de inicio: tres fichas y una casilla ───────────────────
+   Antes eran cuatro botones anchos con una frase cada uno, y ocupaban de
+   la mitad de la pantalla para abajo. Las modalidades son tres; la Primera
+   guardia no es una modalidad —es la partida contra la IA con el coach— y
+   por eso baja a casilla. Lo que se gana en alto es lo que deja ver el
+   dibujo del pasillo. */
+.fichas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
+.ficha{aspect-ratio:1/1;border-radius:14px;border:1px solid var(--line);
+  background:var(--cerca);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:5px;padding:6px;text-align:center;font:inherit;
+  color:var(--ink);cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
+.ficha .ic{width:32px;height:32px;display:block;color:var(--acc)}
+.ficha b{font-family:Petrona,Georgia,serif;font-size:12.5px;line-height:1.1}
+.ficha small{font-family:"IBM Plex Mono",monospace;font-size:7.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);line-height:1.2}
+.ficha:active{transform:scale(.97)}
+@media (hover:hover){.ficha:hover{border-color:var(--acc);
+  box-shadow:0 4px 14px rgba(13,110,120,.18);transform:translateY(-2px)}}
+.tuto{display:flex;align-items:center;gap:9px;width:100%;text-align:left;
+  padding:9px 11px;border-radius:12px;border:1px solid var(--line);
+  background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer}
+.tuto .marca{width:19px;height:19px;border-radius:6px;flex:none;display:grid;
+  place-items:center;font-size:11px;line-height:1;color:#fff;
+  border:2px solid var(--ink-3);background:transparent}
+.tuto.on{border-color:var(--acc);box-shadow:0 0 0 1.5px var(--acc)}
+.tuto.on .marca{border-color:var(--acc);background:var(--acc)}
+.tuto .tx{font-size:11.5px;line-height:1.25}
+.tuto .tx b{font-family:Petrona,Georgia,serif;font-size:12.5px;display:block}
+@media (prefers-reduced-motion: no-preference){
+  .fichas .ficha{animation:subir .34s cubic-bezier(.2,.9,.3,1) backwards}
+  .fichas .ficha:nth-child(2){animation-delay:70ms}
+  .fichas .ficha:nth-child(3){animation-delay:140ms}}
+/* con portada, las fichas y la casilla se vuelven vidrio esmerilado */
+body.con-portada .ficha,body.con-portada .tuto{background:rgba(255,255,255,.82);
+  backdrop-filter:blur(9px) saturate(1.15);
+  -webkit-backdrop-filter:blur(9px) saturate(1.15);
+  border-color:rgba(60,78,88,.16);box-shadow:0 3px 12px rgba(22,36,46,.13)}
 
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
@@ -2750,6 +2791,12 @@ function borrar(){ try{ localStorage.removeItem(CLAVE); }catch(e){} }
    Dibujados a mano en SVG: el emoji de radiografía (🩻, Unicode 14) y el de
    personal sanitario (secuencia ZWJ) no existen en muchos teléfonos y salían
    como cuadrado vacío o como un muñeco sin cruz. */
+const SVG_MODO = {
+ ia:'<svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="20" height="15" rx="4"/><circle cx="12" cy="16" r="1.6" fill="currentColor"/><circle cx="20" cy="16" r="1.6" fill="currentColor"/><path d="M13 20h6M16 9V5M13 5h6"/></svg>',
+ dos:'<svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="4"/><circle cx="22" cy="13" r="3.4"/><path d="M4 25q0-6 7-6t7 6M18 25q.4-4.6 5-4.6T28 25"/></svg>',
+ solo:'<svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="12" width="10" height="14" rx="2.5"/><rect x="18" y="12" width="10" height="14" rx="2.5"/><path d="M9 8v2M23 8v2"/></svg>',
+};
+
 const SVG = {
   IMAGEN:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">'+
            '<rect x="2.2" y="1.6" width="11.6" height="12.8" rx="1.7"/>'+
@@ -4793,38 +4840,42 @@ function pantallaInicio(){
   // menú al filo de abajo, así ninguno de los dos le come sitio al otro
   w.appendChild(el("div","aire-inicio"));
   const s = el("div","portada"); s.style.paddingTop="14px";
-  const ops = el("div","opciones");
-  const mk = (tit, sub, fn)=>{
-    const b = el("button","op");
-    b.innerHTML = `<b>${tit}</b><small>${sub}</small>`;
+  // Tres modalidades, tres fichas. La cuarta entrada de antes —Primera
+  // guardia— NO es una modalidad: es la partida contra la IA con el coach
+  // encendido, la misma llamada con una bandera de más. Así que baja a una
+  // casilla: la marcas y «Contra la IA» arranca con la guía. Quien ya jugó
+  // no vuelve a leerla y el menú son tres fichas y nada más.
+  const ops = el("div","fichas");
+  const mk = (icono, tit, sub, fn)=>{
+    const b = el("button","ficha");
+    b.innerHTML = icono + `<b>${tit}</b><small>${sub}</small>`;
     b.onclick = fn; ops.appendChild(b);
   };
-  mk("📖 Primera guardia (tutorial)",
-     "¿Primera vez? Partida guiada contra la IA: el coach te muestra cada paso.",
-     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], true));
-  mk("Solo contra la IA",
-     "La IA usa la heurística medida en el simulador. Para probar en cualquier parte.",
-     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"]));
-  mk("Dos jugadores, un teléfono",
-     "Por turnos, con cortina de traspaso entre uno y otro.",
+  mk(SVG_MODO.ia, "Contra la IA", "1 jugador",
+     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], !!UI.conTuto));
+  mk(SVG_MODO.dos, "Dos jugadores", "un teléfono",
      ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
-  mk("Solitario a dos manos",
-     "Juegas los dos lados sin cortina, como probaste en papel.",
+  mk(SVG_MODO.solo, "Solitario", "dos manos",
      ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
   s.appendChild(ops);
+
+  const tu = el("button","tuto"+(UI.conTuto?" on":""));
+  tu.innerHTML = `<span class="marca">${UI.conTuto?"✓":""}</span>` +
+    `<span class="tx"><b>Primera guardia</b>` +
+    `La IA con el coach: te muestra cada paso.</span>`;
+  tu.setAttribute("aria-pressed", UI.conTuto ? "true" : "false");
+  tu.onclick = ()=>{ UI.conTuto = !UI.conTuto; render(); };
+  s.appendChild(tu);
+
   if(localStorage.getItem(CLAVE)){
     const b = el("button","btn pri","Retomar la guardia guardada");
+    b.style.marginTop = "9px";
     b.onclick = ()=>{ if(cargar()) render(); };
     s.appendChild(b);
   }
   const inst = bloqueInstalar();
   if(inst) s.appendChild(inst);
   w.appendChild(s);
-  // lo que era el subtítulo y el párrafo se juntan en una sola línea al
-  // pie: son la letra chica del proyecto, no la portada
-  w.appendChild(el("div","pie-app",
-    "Árbitro digital para probar el juego donde no puedas llevar las cartas. "+
-    "El formato final es físico."));
   return w;
 }
 
