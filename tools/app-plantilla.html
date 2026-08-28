@@ -1315,20 +1315,17 @@ body[data-maq="b"] .abanico-b .arco{position:absolute;inset:0;touch-action:none}
 body[data-maq="b"] .ran-b{position:absolute;left:50%;
   bottom:calc(40px + env(safe-area-inset-bottom,0px));pointer-events:auto;
   transform:translateX(-50%);transform-origin:50% 50%;
-  animation:abreMano .22s cubic-bezier(.22,1.1,.36,1) backwards}
-/* mientras el dedo hojea: sin animación de entrada, con capa propia y con
-   la sombra barata — ocho sombras de 24 px de difuminado repintándose cada
-   fotograma es lo que hacía tironear el gesto en un teléfono real */
-body[data-maq="b"] .arco.vivo .ran-b{animation:none;will-change:transform}
-body[data-maq="b"] .arco.vivo .ran-b .carta{box-shadow:0 4px 10px rgba(22,36,46,.3)}
-body[data-maq="b"] .arco.vivo .ran-b.foco .carta{box-shadow:0 0 0 2px var(--acc),
-  0 6px 14px rgba(22,36,46,.34)}
+  will-change:transform}
+/* La animación de entrada cuelga de .abre y sólo se pone al abrir la mano.
+   Estaba en .ran-b a secas y se relanzaba dos veces cada vez que soltabas
+   el hojeo —una al quitar .vivo, que devolvía el animation-name, y otra al
+   redibujar—: ocho cartas parpadeando dos veces al detenerte. */
+body[data-maq="b"] .ran-b.abre{animation:abreMano .22s cubic-bezier(.22,1.1,.36,1) backwards}
 @keyframes abreMano{from{transform:translateX(-50%) translateY(46px) scale(.7);opacity:0}}
 @media (prefers-reduced-motion: reduce){
-  body[data-maq="b"] .ran-b{animation:none}}
+  body[data-maq="b"] .ran-b.abre{animation:none}}
 body[data-maq="b"] .ran-b .carta{width:106px;height:150px;overflow:hidden;
-  touch-action:none;box-shadow:0 8px 20px rgba(22,36,46,.34);
-  transition:box-shadow .18s ease}
+  touch-action:none;box-shadow:0 6px 14px rgba(22,36,46,.32)}
 body[data-maq="b"] .ran-b.foco{z-index:40 !important}
 body[data-maq="b"] .ran-b.foco .carta.no{opacity:.72}
 body[data-maq="b"] .ran-b.foco .carta{border-color:var(--acc);
@@ -3535,7 +3532,11 @@ function mazoMano(j, mio){
     j.mano.some(c=> j.camas.some(x=>puedeColocarPropia(c,x)) ||
       (c.warn && otros().some(r=>r.camas.some(x=>puedeSabotear(c,x)))));
   if(hay && !UI.manoAbierta) b.classList.add("late");
-  b.onclick = ()=>{ UI.manoAbierta = !UI.manoAbierta; UI.sel = null; render(); };
+  b.onclick = ()=>{
+    UI.manoAbierta = !UI.manoAbierta;
+    UI.abreMano = UI.manoAbierta;   // la animación de entrada va una sola vez
+    UI.sel = null; render();
+  };
   w.appendChild(b);
   return w;
 }
@@ -3574,7 +3575,7 @@ function abanicoB(j, mio){
   const jugable = mio && G.fase===1 && !j.ia && j.coloc>0 && !G.pendiente;
   j.mano.forEach((c,idx)=>{
     const esFoco = idx === UI.foco;
-    const r = el("div","ran-b"+(esFoco?" foco":""));
+    const r = el("div","ran-b"+(esFoco?" foco":"")+(UI.abreMano?" abre":""));
     r.dataset.idx = idx;
     ponRanB(r, idx - UI.foco, j.mano.length);
     let cl = "carta";
@@ -3611,6 +3612,8 @@ function abanicoB(j, mio){
     b.addEventListener("pointerup", cancela);
     b.addEventListener("pointercancel", cancela);
     b.addEventListener("pointermove", ()=>{ if(arrastre.activo||hojeo.movio) cancela(); });
+    if(UI.abreMano) r.addEventListener("animationend",
+      ()=>r.classList.remove("abre"), {once:true});
     r.appendChild(b);
     arco.appendChild(r);
   });
@@ -3619,6 +3622,7 @@ function abanicoB(j, mio){
   j.mano.forEach((_,i)=>pts.appendChild(el("i", i===UI.foco ? "on" : "")));
   w.appendChild(pts);
   w.appendChild(el("div","cerrar-mano","desliza para elegir"));
+  UI.abreMano = false;   // los renders siguientes ya no reabren el abanico
   return w;
 }
 
@@ -3707,6 +3711,7 @@ function hojearMover(ev){
     if(Math.abs(dx) < 9) return;
     if(Math.abs(dy) > Math.abs(dx)){ hojearFin(); return; }  // era vertical
     hojeo.movio = true; arrastre.huboArrastre = true;
+    clearTimeout(UI.lupaT);          // esto es un hojeo, no una pulsación larga
     try{ document.body.setPointerCapture(ev.pointerId); }catch(e){}
   }
   const n = ranurasAbanico().length || 1;
@@ -4028,6 +4033,7 @@ function moverCarta(ev){
     // en el abanico manda la dirección: de lado navegas, hacia arriba juegas.
     // El empate favorece navegar — equivocarse hojeando es gratis,
     // equivocarse jugando saca el naipe fantasma y enciende camas.
+    clearTimeout(UI.lupaT);          // hubo movimiento: ya no es pulsación larga
     if(arrastre.abanico && Math.abs(dx) >= Math.abs(dy)*0.9){
       hojeo.x0 = arrastre.x0; hojeo.y0 = arrastre.y0;
       hojeo.base = UI.foco; hojeo.movio = true; hojeo.pos = UI.foco;

@@ -237,6 +237,20 @@ probarlo:
   parece a un teléfono: el p90 del fotograma baja de **33,4 a 16,8 ms** y
   los fotogramas lentos de **32/102 a 3/90**. Cambiar de carta con un toque
   tampoco redibuja ya la app entera: recoloca con `abanicoVivoSnap`.
+· **El parpadeo doble al detenerte** eran dos bichos distintos, medidos
+  contando eventos `animationstart` en las ranuras. Uno: la animación de
+  entrada colgaba de `.ran-b` a secas, así que al soltar el hojeo se
+  relanzaba dos veces —una al quitar `.vivo`, que devolvía el
+  `animation-name`, y otra al redibujar—. Ahora cuelga de `.abre`, que solo
+  se pone al abrir la mano y se quita en el `animationend`: con keyframes
+  implícitos (solo hay `from`), dejar la clase puesta hace que cambiar el
+  transform por debajo reconstruya el modelo y Chrome relance la animación.
+  Dos: **el temporizador de la lupa se disparaba después de hojear** — la
+  pulsación larga son 480 ms y un deslizamiento tranquilo dura más, así que
+  al soltar se abría sola la carta grande; la guardia miraba `hojeo.movio`,
+  que para entonces `hojearFin` ya había puesto en false. Ahora el
+  temporizador se cancela en cuanto hay movimiento. Medido: de 16 relanzos
+  al soltar a 0, y la pulsación larga quieta sigue abriendo el zoom.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son
