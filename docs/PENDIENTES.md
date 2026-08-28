@@ -265,6 +265,25 @@ probarlo:
   hasta `right: 460` en una pantalla de 390). Como la mano nunca pasa de
   ocho y entera cabe, ahora el arco es fijo y lo que se mueve es el
   levante: la del foco sube y crece en su sitio, las vecinas se apartan.
+· **Ajustes de talla en B** (a pedido del autor): la ranura de camas sube
+  de 118 a 132 px y los puntos de requerimiento de 7,5 a 9,5 —son lo que
+  más se mira de la cama y a 7,5 se contaban mal—; el retrato propio pasa
+  de 82 a 94 px y se despega 10 px del filo, y el del rival crece a 54 con
+  la repisa igual de separada de su borde, para que las dos sigan siendo la
+  misma pieza vista al revés. La ranura crece en las dos mitades a la vez,
+  así que el aire se reparte solo (158/158) y el espejo sigue cuadrando.
+· **La forma del arco no depende del foco.** Al agrandar las cartas salió
+  el mismo error dos veces: la caída y el giro se calculaban desde la
+  distancia al foco, así que con el foco en un extremo la última carta
+  bajaba 42 px y se salía por abajo (antes ya había pasado en horizontal).
+  Ahora la posición, la caída y el giro salen del sitio de la carta en la
+  mano —arco fijo— y el foco solo levanta, agranda y abre hueco.
+· **Los Protocolos guardados** llevaban el rótulo escondido: la regla que
+  ocultaba la línea de datos de la zona (`.zona.cerca .jugador-linea`) se
+  llevaba por delante el «Tus Protocolos», que usa la misma clase, y la
+  rejilla quedaba pegada al filo de la última cama. Con el rótulo de vuelta
+  hay 12 px de aire, y la tarjeta se aprieta (texto a dos líneas, bloque a
+  94 px con scroll) porque entera se metía debajo del avatar.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son

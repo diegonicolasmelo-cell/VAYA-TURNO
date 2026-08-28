@@ -1247,7 +1247,6 @@ body[data-maq="b"] .mano-suya .n{position:absolute;right:-5px;bottom:-6px;z-inde
 
 /* tu mitad: camas contra la Pizarra, zócalo abajo del todo */
 body[data-maq="b"] .zona.cerca{flex:1 1 0;min-height:0;padding:4px 10px 0}
-body[data-maq="b"] .zona.cerca .jugador-linea{display:none}
 body[data-maq="b"] .zona.cerca .zocalo{margin:0;height:84px;flex:none}
 
 /* la banda central se aprieta: es una línea, no un panel */
@@ -1443,6 +1442,46 @@ body[data-maq="b"] .cama.pficha .cama-btn{width:100%;margin:4px 0 0}
 body[data-maq="b"] .grande.conarte{--marco:7px;padding:var(--marco)}
 body[data-maq="b"] .grande.conarte .g-arte{border-radius:9px;overflow:hidden}
 body[data-maq="b"] .grande.conarte .g-cuerpo{padding:4px 8px 8px}
+
+/* ── la cama respira: ranura más alta y requerimientos más grandes ──
+   Los puntos de color son lo que más se mira de la cama —dicen qué le
+   falta— y a 7,5 px se contaban mal de un vistazo. La ranura crece lo
+   justo para que quepan sin apretar, y crece en las DOS mitades a la vez:
+   el aire se reparte solo y el espejo sigue cuadrando. */
+body[data-maq="b"] .tres{height:132px}
+body[data-maq="b"] .cama.pficha .pips{gap:3.5px;margin:0 0 2px}
+body[data-maq="b"] .cama.pficha .pip{width:9.5px;height:9.5px;border-width:1.5px}
+body[data-maq="b"] .cama.pficha .corazones{margin:0 0 4px}
+body[data-maq="b"] .cama.pficha .cz{width:12px;height:12px}
+body[data-maq="b"] .cama.pficha .num{font-size:11px}
+body[data-maq="b"] .cama.pficha .f-faltan{font-size:15px}
+
+/* ── el avatar, más grande y despegado del filo ─────────────────────
+   Pegado al borde se leía como que se caía de la pantalla. Sube 10 px y
+   el retrato del rival baja otros tantos desde su borde, para que las dos
+   repisas sigan siendo la misma pieza vista al revés. */
+body[data-maq="b"] .aro-av{width:94px;height:94px;bottom:10px}
+body[data-maq="b"] .aro-av .ind{top:-15px;font-size:9px;padding:2px 8px}
+body[data-maq="b"] .poder-av{left:calc(50% + 40px);bottom:64px;
+  width:38px;height:38px;font-size:16px}
+body[data-maq="b"] .repisa{padding-top:15px}
+body[data-maq="b"] .aroS{width:54px;height:54px}
+
+/* ── aire entre las camas y los Protocolos guardados ────────────────
+   Los Protocolos entran justo debajo de la fila de camas y quedaban
+   pegados al filo de la última: una carta apoyada en otra. Un respiro
+   fino los separa sin comerse el aire de la mitad, que es flexible. */
+body[data-maq="b"] .zona.cerca .jugador-linea{margin:10px 0 4px}
+body[data-maq="b"] .zona.cerca .prot-mios{margin-top:6px;max-height:94px;
+  overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+body[data-maq="b"] .zona.cerca .prot-mios::-webkit-scrollbar{display:none}
+/* el Protocolo guardado se aprieta: en B la mitad está repartida al
+   milímetro y la tarjeta entera se metía debajo del avatar */
+body[data-maq="b"] .zona.cerca .prot{padding:6px}
+body[data-maq="b"] .zona.cerca .prot-nom{font-size:10.5px}
+body[data-maq="b"] .zona.cerca .prot-txt{font-size:9.5px;line-height:1.3;
+  max-height:25px;overflow:hidden}
+body[data-maq="b"] .zona.cerca .prot-btn{padding:4px;font-size:9px}
 
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
@@ -3033,7 +3072,7 @@ function botonFin(){
 function protMios(j){
   const w = el("div");
   const rot = el("div","jugador-linea");
-  rot.style.marginTop = "9px";
+  rot.style.marginTop = esB() ? "12px" : "9px";   // en B las camas quedaban pegadas
   rot.innerHTML = `<b>Tus Protocolos</b><span class="marca">${j.accionHecha?"ya jugaste 1 este turno":"máx. 1 por turno"}</span>`;
   w.appendChild(rot);
   const g = el("div","prot-mios");
@@ -3563,17 +3602,22 @@ function pasoB(n){ return n > 1 ? Math.min(46, 176/(n-1)) : 0; }
    lado y las últimas cartas se salían de la pantalla. Como la mano nunca
    pasa de ocho, entera cabe: no hace falta desplazarla, solo señalar. */
 function ponRanB(r, i, foco, n){
+  // La FORMA del arco (posición, caída y giro) sale del sitio de la carta
+  // en la mano y no cambia nunca; el foco solo levanta, agranda y abre
+  // hueco. Cuando la caída dependía del foco, con el foco en un extremo la
+  // última carta bajaba 42 px y se salía por abajo.
+  const p = i - (n-1)/2;
   const d = i - foco;
   const ad = Math.abs(d);
   const cerca = Math.max(0, 1 - ad);
   const hueco = 16 * Math.max(-1, Math.min(1, d));   // las vecinas se apartan
-  const x = (i - (n-1)/2)*pasoB(n) + hueco, y = ad*6 - 20*cerca;
+  const x = p*pasoB(n) + hueco, y = Math.abs(p)*5 - 20*cerca;
   // transform DIRECTO, no variables CSS: cambiar una custom property
   // invalida el estilo de todo el subárbol de la carta, y ocho subárboles
   // por fotograma era justo lo que daba los tirones al hojear. Un transform
   // inline no toca el estilo de los hijos y lo resuelve el compositor.
   r.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), ` +
-    `${y.toFixed(1)}px, 0) rotate(${(d*3.5).toFixed(2)}deg) ` +
+    `${y.toFixed(1)}px, 0) rotate(${(p*3.5).toFixed(2)}deg) ` +
     `scale(${(0.90 + 0.22*cerca).toFixed(3)})`;
   const z = String(30 - Math.round(ad));
   if(r.style.zIndex !== z) r.style.zIndex = z;
