@@ -194,6 +194,46 @@ no cambia ni un píxel. Qué hace B:
   cartas de los extremos fuera de la pantalla al escalarlas (`s<1` las
   aleja del origen): con origen al centro el arco es predecible.
 
+**El campo B, segunda pasada** (v0.57), con las tres cosas que salieron de
+probarlo:
+
+· **La mano se navega.** El hojeo de v0.55 seguía escrito pero apuntaba a
+  `.mano.abanico`; B lo enganchó al arrastre y no al hojeo, así que
+  cualquier dirección arrancaba un arrastre y con seis cartas apiladas la
+  mano era ilegible. Ahora `abanicoVivo`/`hojearMover`/`abanicoVivoSnap`
+  sirven a las dos maquetas (`contAbanico()` resuelve cuál) y la geometría
+  de B es continua (`ponRanB`), igual que la de A. Vale la regla vieja: de
+  lado navegas, hacia arriba juegas, y el empate favorece navegar.
+· **Las mitades son espejo exacto**, no sólo del mismo alto. Antes medían
+  igual (342 y 340) pero por dentro no: repisa 56 vs zócalo 92, aire 130 vs
+  65, camas 136 vs 158. Ahora las dos mitades llevan la MISMA estructura
+  —rótulo · camas · aire · repisa— y la de arriba va en `column-reverse`;
+  con la repisa y el zócalo en 84 y la fila de camas en 118 fijos, el aire
+  sale igual por construcción. Medido: 84/84, 172/172, 118/118.
+· **En B toda cama es ficha**, tenga arte o no: sin ilustración va el ícono
+  del sistema sobre un tinte de reserva (`TINSIS`). Sin eso la fila no puede
+  tener alto fijo, porque la carta clásica crece con su contenido.
+· **Se van la barra de estado y la franja de guía**: 86 px, el 10 % de la
+  pantalla, y rompían la simetría por definición (había franja arriba y
+  ninguna abajo). La ronda y la fase se mudan al reloj, el ☰ al lado de la
+  Pizarra, y el aviso pasa a ser una pastilla que sale sólo con la carta en
+  el aire.
+· **El reloj control de asistencia ES el Fin de Guardia** (idea del autor):
+  fichas la salida. Se lleva la ronda encima —que es lo que marca un reloj
+  de turno— y saca el botón de la esquina donde convivía con el mazo, que
+  era donde más fácil se tocaba sin querer. Mismo cromado que la Pizarra.
+  La banda entera queda en 59 px, menos que los 77 de la Pizarra sola.
+· **La carta lleva filete blanco**, proporcional al ancho de cada vista
+  (≈2,8 %): el arte ya no sangra al filo, sangra al filete.
+
+**Cómo debe venir el arte** está medido y escrito en `docs/ARTE-CARTA.md`.
+El titular: el arte de hoy es **9:16 vertical** y los huecos son
+horizontales — por eso los personajes salen pegados a la cámara. La tanda
+nueva va en **4:3, 1600×1200**, con la cara en los dos tercios de arriba
+(el tercio de abajo se funde en el papel de la carta) y, en los avatares, la
+cabeza dentro del 75 % central del ancho, que es lo que deja pasar el
+recorte circular del retrato.
+
 **La carta va en maquetación B** desde v0.54: el arte entra a sangre por
 arriba y se **disuelve** en la ficha —no se corta, que una línea dura
 partiría la carta en dos—, y el nombre y los datos viven sobre papel. Está
