@@ -284,6 +284,27 @@ probarlo:
   rejilla quedaba pegada al filo de la última cama. Con el rótulo de vuelta
   hay 12 px de aire, y la tarjeta se aprieta (texto a dos líneas, bloque a
   94 px con scroll) porque entera se metía debajo del avatar.
+· **El reloj control, corregido:** la pantalla lleva SOLO la ronda sobre el
+  negro y el lector de huella salió de ella a su propio rebaje en la chapa
+  —biselado con sombras interiores— porque en el aparato de verdad el
+  lector no es parte del visor. La huella se enciende en turquesa cuando
+  puedes fichar y queda gris cuando no.
+· **El ambiente de la UCI, vectorizado** (`tools/generar_ambiente_app.py`,
+  cuatro data-URI SVG de ~2 KB entre las marcas `__AMBIENTE_*__`). El
+  tablero se lee **en planta**, que es lo que ya hacía la camilla de la
+  cama vacía: **mesón de enfermería** en los dos bordes exteriores —un
+  mostrador curvo con monitor, teclado, taza, carpetas y teléfono; el
+  retrato queda dentro de su curva, como quien está de pie en el control—
+  y el **suelo de la unidad** en las franjas de aire, con la barra de gases
+  del cabecero y el riel de la cortina pegados a la fila de camas y, hacia
+  el mesón, camilla parada, portasueros, carro de ropa y dispensador.
+  Dos decisiones que costaron una pasada: el suelo **no** lleva baldosas
+  —el fondo de `.app` ya trae su rejilla de barril y dos rejillas
+  superpuestas eran ruido— y en B se retira la sala fotográfica de detrás
+  de la fila de camas (`--sala-mia`), porque mezclar foto lavada con línea
+  vectorial se notaba. Ojo con la especificidad al retirarla:
+  `.zona.cerca .tres` son tres clases y `body[data-maq="b"] .tres` solo
+  gana con `.zona` de por medio.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son

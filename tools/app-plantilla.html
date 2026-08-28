@@ -1388,18 +1388,30 @@ body[data-maq="b"] .reloj-g{width:80px;height:46px;flex:none;position:relative;
 body[data-maq="b"] .reloj-g .marca{flex:none;font-family:"IBM Plex Mono",monospace;
   font-size:5.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   color:#5c6b73;line-height:1;margin-bottom:2px}
-body[data-maq="b"] .reloj-g .pantalla{width:100%;flex:1 1 0;min-height:0;border-radius:4px;
-  background:#12201d;box-shadow:inset 0 1px 3px rgba(0,0,0,.7);
-  display:flex;align-items:center;justify-content:center;gap:4px;padding:0 3px}
+body[data-maq="b"] .reloj-g .fila{width:100%;flex:1 1 0;min-height:0;
+  display:flex;align-items:stretch;gap:4px}
+body[data-maq="b"] .reloj-g .pantalla{flex:1 1 0;min-width:0;border-radius:3px;
+  background:#12201d;box-shadow:inset 0 1px 3px rgba(0,0,0,.75);
+  display:flex;align-items:center;justify-content:center;padding:0 3px}
+/* el lector: un rebaje en la chapa, no una parte de la pantalla */
+body[data-maq="b"] .reloj-g .lector{width:20px;flex:none;border-radius:4px;
+  display:grid;place-items:center;
+  background:linear-gradient(160deg,#9caab2,#cdd7dc 45%,#93a2aa);
+  box-shadow:inset 0 1.5px 2px rgba(0,0,0,.42),
+             inset 0 -1px 0 rgba(255,255,255,.6),
+             0 .5px 0 rgba(255,255,255,.7)}
 body[data-maq="b"] .reloj-g .cifra{font-family:"IBM Plex Mono",monospace;
-  font-size:14px;font-weight:700;color:#7ee0b8;line-height:1;
+  font-size:15px;font-weight:700;color:#7ee0b8;line-height:1;
   font-variant-numeric:tabular-nums;text-shadow:0 0 6px rgba(126,224,184,.55)}
 body[data-maq="b"] .reloj-g .cifra small{font-size:8px;opacity:.65}
-body[data-maq="b"] .reloj-g .huella{width:13px;height:16px;border-radius:7px/8px;
+body[data-maq="b"] .reloj-g .huella{width:12px;height:15px;border-radius:6px/7.5px;
   flex:none;background:radial-gradient(ellipse at 50% 55%,
-    transparent 0 1.5px,#7ee0b8 1.5px 2.4px,transparent 2.4px 4px,
-    #7ee0b8 4px 4.9px,transparent 4.9px 6.5px,#7ee0b8 6.5px 7.4px,transparent 7.4px);
-  opacity:.85}
+    transparent 0 1.3px,#5c6f78 1.3px 2.1px,transparent 2.1px 3.5px,
+    #5c6f78 3.5px 4.3px,transparent 4.3px 5.7px,#5c6f78 5.7px 6.5px,transparent 6.5px);
+  opacity:.8}
+body[data-maq="b"] .reloj-g.viva .huella{background:radial-gradient(ellipse at 50% 55%,
+    transparent 0 1.3px,#0d6e78 1.3px 2.1px,transparent 2.1px 3.5px,
+    #0d6e78 3.5px 4.3px,transparent 4.3px 5.7px,#0d6e78 5.7px 6.5px,transparent 6.5px)}
 body[data-maq="b"] .reloj-g .fase{flex:none;font-family:"IBM Plex Mono",monospace;
   font-size:6.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
   color:#5c6b73;line-height:1;margin-top:2px;white-space:nowrap;
@@ -1482,6 +1494,29 @@ body[data-maq="b"] .zona.cerca .prot-nom{font-size:10.5px}
 body[data-maq="b"] .zona.cerca .prot-txt{font-size:9.5px;line-height:1.3;
   max-height:25px;overflow:hidden}
 body[data-maq="b"] .zona.cerca .prot-btn{padding:4px;font-size:9px}
+
+/* ── el ambiente de la UCI, vectorizado ─────────────────────────────
+   Lo dibuja tools/generar_ambiente_app.py y entra como data-URI entre las
+   marcas de abajo. El tablero se lee en planta, desde arriba —igual que
+   la camilla de la cama vacía—: mesón de enfermería en los dos bordes
+   exteriores, con el retrato apoyado dentro de su curva, y el suelo de la
+   unidad en las franjas de aire, con el cabecero pegado a las camas. Muy
+   tenue a propósito: encima van cartas. */
+/*__AMBIENTE_INICIO__*/
+:root{
+  --meson-mio:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20390%2084%22%20width%3D%22390%22%20height%3D%2284%22%20preserveAspectRatio%3D%22xMidYMax%20slice%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.30%22%3E%3Cpath%20d%3D%22M-40%2084%20L-40%2046%20Q-40%2026%20-10%2026%20L400%2026%20Q430%2026%20430%2046%20L430%2084%20Z%22%2F%3E%3Cpath%20d%3D%22M-40%2038%20L430%2038%22%2F%3E%3Cpath%20d%3D%22M-40%2043%20L430%2043%22%20stroke-dasharray%3D%222%205%22%2F%3E%3Cpath%20d%3D%22M72%2046%20L72%2084%22%2F%3E%3Cpath%20d%3D%22M168%2046%20L168%2084%22%2F%3E%3Cpath%20d%3D%22M240%2046%20L240%2084%22%2F%3E%3Cpath%20d%3D%22M318%2046%20L318%2084%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.38%22%3E%3Crect%20x%3D%2226%22%20y%3D%2250%22%20width%3D%2234%22%20height%3D%2221%22%20rx%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M34%2071%20L52%2071%22%2F%3E%3Cpath%20d%3D%22M43%2071%20L43%2076%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2276%22%20width%3D%2242%22%20height%3D%227%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%2288%22%20cy%3D%2260%22%20r%3D%226%22%2F%3E%3Cpath%20d%3D%22M94%2060%20q5%200%205%204%22%2F%3E%3Crect%20x%3D%22104%22%20y%3D%2252%22%20width%3D%2211%22%20height%3D%2213%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M107%2052%20L106%2045%22%2F%3E%3Cpath%20d%3D%22M111%2052%20L112%2044%22%2F%3E%3Crect%20x%3D%22262%22%20y%3D%2254%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22266%22%20y%3D%2260%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22270%22%20y%3D%2266%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22326%22%20y%3D%2252%22%20width%3D%2226%22%20height%3D%2218%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M330%2056%20L348%2056%22%2F%3E%3Cpath%20d%3D%22M330%2061%20L344%2061%22%2F%3E%3Cpath%20d%3D%22M356%2050%20q8%202%208%2012%20q0%2010%20-8%2012%22%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%22162%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%22174%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --meson-suyo:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20390%2084%22%20width%3D%22390%22%20height%3D%2284%22%20preserveAspectRatio%3D%22xMidYMax%20slice%22%3E%3Cg%20transform%3D%22translate%280%2C84%29%20scale%281%2C-1%29%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.30%22%3E%3Cpath%20d%3D%22M-40%2084%20L-40%2046%20Q-40%2026%20-10%2026%20L400%2026%20Q430%2026%20430%2046%20L430%2084%20Z%22%2F%3E%3Cpath%20d%3D%22M-40%2038%20L430%2038%22%2F%3E%3Cpath%20d%3D%22M-40%2043%20L430%2043%22%20stroke-dasharray%3D%222%205%22%2F%3E%3Cpath%20d%3D%22M72%2046%20L72%2084%22%2F%3E%3Cpath%20d%3D%22M168%2046%20L168%2084%22%2F%3E%3Cpath%20d%3D%22M240%2046%20L240%2084%22%2F%3E%3Cpath%20d%3D%22M318%2046%20L318%2084%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.38%22%3E%3Crect%20x%3D%2226%22%20y%3D%2250%22%20width%3D%2234%22%20height%3D%2221%22%20rx%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M34%2071%20L52%2071%22%2F%3E%3Cpath%20d%3D%22M43%2071%20L43%2076%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2276%22%20width%3D%2242%22%20height%3D%227%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%2288%22%20cy%3D%2260%22%20r%3D%226%22%2F%3E%3Cpath%20d%3D%22M94%2060%20q5%200%205%204%22%2F%3E%3Crect%20x%3D%22104%22%20y%3D%2252%22%20width%3D%2211%22%20height%3D%2213%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M107%2052%20L106%2045%22%2F%3E%3Cpath%20d%3D%22M111%2052%20L112%2044%22%2F%3E%3Crect%20x%3D%22262%22%20y%3D%2254%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22266%22%20y%3D%2260%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22270%22%20y%3D%2266%22%20width%3D%2238%22%20height%3D%2212%22%20rx%3D%221.5%22%2F%3E%3Crect%20x%3D%22326%22%20y%3D%2252%22%20width%3D%2226%22%20height%3D%2218%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M330%2056%20L348%2056%22%2F%3E%3Cpath%20d%3D%22M330%2061%20L344%2061%22%2F%3E%3Cpath%20d%3D%22M356%2050%20q8%202%208%2012%20q0%2010%20-8%2012%22%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%22162%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%22174%22%20cy%3D%2234%22%20r%3D%222.6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --suelo-mio:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20390%20168%22%20width%3D%22390%22%20height%3D%22168%22%20preserveAspectRatio%3D%22xMidYMax%20slice%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.34%22%3E%3Crect%20x%3D%228%22%20y%3D%223%22%20width%3D%22374%22%20height%3D%229%22%20rx%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2226%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2294%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22128%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22162%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22196%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22230%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22264%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22298%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22332%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22366%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Cpath%20d%3D%22M0%2017%20L390%2017%22%20stroke-dasharray%3D%229%206%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.30%22%3E%3Crect%20x%3D%2214%22%20y%3D%2246%22%20width%3D%2230%22%20height%3D%2274%22%20rx%3D%227%22%2F%3E%3Cpath%20d%3D%22M14%2062%20L44%2062%22%2F%3E%3Cpath%20d%3D%22M14%20104%20L44%20104%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2252%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2252%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%22114%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%22114%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%22352%22%20cy%3D%2258%22%20r%3D%224%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l13.0%200.0%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l4.0%2012.4%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l-10.5%207.6%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l-10.5%20-7.6%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l4.0%20-12.4%22%2F%3E%3Crect%20x%3D%22330%22%20y%3D%2292%22%20width%3D%2246%22%20height%3D%2230%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M330%20102%20L376%20102%22%2F%3E%3Cpath%20d%3D%22M353%20102%20L353%20122%22%2F%3E%3Crect%20x%3D%22292%22%20y%3D%2224%22%20width%3D%2214%22%20height%3D%2210%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M299%2034%20L299%2039%22%2F%3E%3Crect%20x%3D%2260%22%20y%3D%2226%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M64%2026%20L64%2022%20L72%2022%20L72%2026%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --suelo-suyo:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20390%20168%22%20width%3D%22390%22%20height%3D%22168%22%20preserveAspectRatio%3D%22xMidYMax%20slice%22%3E%3Cg%20transform%3D%22translate%280%2C168%29%20scale%281%2C-1%29%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.34%22%3E%3Crect%20x%3D%228%22%20y%3D%223%22%20width%3D%22374%22%20height%3D%229%22%20rx%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2226%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2294%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22128%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22162%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22196%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22230%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22264%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22298%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22332%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22366%22%20cy%3D%227.5%22%20r%3D%222.2%22%2F%3E%3Cpath%20d%3D%22M0%2017%20L390%2017%22%20stroke-dasharray%3D%229%206%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235f8496%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.30%22%3E%3Crect%20x%3D%2214%22%20y%3D%2246%22%20width%3D%2230%22%20height%3D%2274%22%20rx%3D%227%22%2F%3E%3Cpath%20d%3D%22M14%2062%20L44%2062%22%2F%3E%3Cpath%20d%3D%22M14%20104%20L44%20104%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2252%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2252%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%22114%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%22114%22%20r%3D%223.2%22%2F%3E%3Ccircle%20cx%3D%22352%22%20cy%3D%2258%22%20r%3D%224%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l13.0%200.0%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l4.0%2012.4%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l-10.5%207.6%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l-10.5%20-7.6%22%2F%3E%3Cpath%20d%3D%22M352%2058%20l4.0%20-12.4%22%2F%3E%3Crect%20x%3D%22330%22%20y%3D%2292%22%20width%3D%2246%22%20height%3D%2230%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M330%20102%20L376%20102%22%2F%3E%3Cpath%20d%3D%22M353%20102%20L353%20122%22%2F%3E%3Crect%20x%3D%22292%22%20y%3D%2224%22%20width%3D%2214%22%20height%3D%2210%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M299%2034%20L299%2039%22%2F%3E%3Crect%20x%3D%2260%22%20y%3D%2226%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M64%2026%20L64%2022%20L72%2022%20L72%2026%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+/*__AMBIENTE_FIN__*/
+/* la sala fotográfica del fondo de la fila de camas se retira en B: ahora
+   el ambiente es vectorial y mezclar los dos lenguajes se notaba */
+body[data-maq="b"] .zona .tres{background-image:none}
+body[data-maq="b"] .zocalo{background:var(--meson-mio) center/100% 100% no-repeat}
+body[data-maq="b"] .repisa{background:var(--meson-suyo) center/100% 100% no-repeat}
+body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat}
+body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/100% auto no-repeat}
 
 /* ── el coach del tutorial ─────────────────────────────────────────── */
 #tuto{position:fixed;inset:0;z-index:400;pointer-events:none}
@@ -3112,9 +3147,14 @@ function relojGuardia(){
   const puede = G.fase===1 && !j.ia && vista()===j && !G.pendiente;
   const b = el("button","reloj-g"+(puede?" viva":" gris"));
   b.id = "btn-fin";
+  // la pantalla es SOLO la ronda; el lector de huella va aparte, en su
+  // propio hueco rebajado en el metal, como en el reloj de verdad
   b.innerHTML = `<span class="marca">Guardia</span>` +
-    `<span class="pantalla"><span class="cifra">${G.ronda}<small>/${RONDAS}</small></span>` +
-    `<i class="huella"></i></span>` +
+    `<span class="fila">` +
+      `<span class="pantalla"><span class="cifra">${G.ronda}` +
+        `<small>/${RONDAS}</small></span></span>` +
+      `<span class="lector"><i class="huella"></i></span>` +
+    `</span>` +
     `<span class="fase">${esc(puede ? "fichar salida" : FASES[G.fase][1])}</span>`;
   b.setAttribute("aria-label", puede
     ? `Fin de Guardia · ronda ${G.ronda} de ${RONDAS}`
