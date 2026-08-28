@@ -128,9 +128,10 @@ def cargar_portada(destino=None):
     sea un archivo propio y no parte del HTML: el service worker lo cachea
     solo, y una corrección de reglas no obliga a bajarlo de nuevo."""
     carpeta = os.path.join(RAIZ, "arte", "portada")
-    out = {"video": "", "cuadro": "", "logo": ""}
+    out = {"video": "", "cuadro": "", "dibujo": "", "logo": ""}
     for clave, nombre, mime in (("video", "portada.mp4", "video/mp4"),
                                 ("cuadro", "portada.jpg", "image/jpeg"),
+                                ("dibujo", "dibujo.svg", "image/svg+xml"),
                                 ("logo", "logo.webp", "image/webp")):
         ruta = os.path.join(carpeta, nombre)
         if not os.path.isfile(ruta):
@@ -215,6 +216,7 @@ def armar(d, pwa=False, css_local=None, portada=None):
                                                separators=(",", ":")))
     for clave, hueco in (("video", '/*__PORTADA_VIDEO__*/""'),
                          ("cuadro", '/*__PORTADA_CUADRO__*/""'),
+                         ("dibujo", '/*__PORTADA_DIBUJO__*/""'),
                          ("logo", '/*__PORTADA_LOGO__*/""')):
         if hueco not in html:
             raise SystemExit("La plantilla no tiene el marcador " + hueco)

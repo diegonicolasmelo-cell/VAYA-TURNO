@@ -958,6 +958,22 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 
 .indic-caja.gasto{animation:gasto .4s ease}
 @keyframes gasto{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+/* el golpe al marcador cuando aterriza la moneda: crece de verdad y deja
+   un destello dorado — inline-block obligatorio, un transform sobre un
+   elemento inline se descarta en silencio */
+.pop-alta{display:inline-block;animation:popAlta .74s cubic-bezier(.2,1.35,.4,1)}
+@keyframes popAlta{
+  0%{transform:scale(1)}
+  28%{transform:scale(2);color:#a8770a;
+      text-shadow:0 0 4px #ffe9a8,0 0 18px rgba(244,197,66,.95)}
+  60%{transform:scale(1.15)}
+  100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.pop-alta{animation:none}}
+/* el Sumario que deja el alta celestial, viajando a tu contador */
+.vuelo-sum{position:fixed;left:50%;top:72%;z-index:83;margin:-17px 0 0 -17px;
+  font-size:34px;filter:drop-shadow(0 4px 8px rgba(9,25,32,.4));
+  transition:transform .58s cubic-bezier(.45,.05,.75,.4), opacity .58s ease;
+  animation:monedaNace .26s cubic-bezier(.2,1.5,.4,1)}
 
 .mtile.gana{border-color:var(--acc);background:linear-gradient(180deg,#eef8f7,var(--cerca));
             box-shadow:0 0 0 1.5px var(--acc), 0 4px 14px rgba(13,110,120,.18)}
@@ -1014,10 +1030,10 @@ body.con-portada .portada h1 + .sub{text-align:center}
    linear-gradient(to bottom, rgba(242,247,248,.34) 0%,
                               rgba(242,247,248,0) 16%),
    linear-gradient(to bottom, rgba(223,231,234,0) 0%,
-                              rgba(223,231,234,0) 44%,
-                              rgba(223,231,234,.45) 58%,
-                              rgba(223,231,234,.82) 72%,
-                              rgba(223,231,234,.97) 84%, var(--mesa) 93%)}
+                              rgba(223,231,234,0) 52%,
+                              rgba(223,231,234,.22) 68%,
+                              rgba(223,231,234,.40) 82%,
+                              rgba(223,231,234,.52) 100%)}
 /* Cuelga de <body>, no de #portada: `position:fixed` crea contexto de
    apilado, así que un hijo de #portada no puede subir sobre .app por más
    z-index que le pongas — quedaba dibujado pero intocable. */
@@ -1033,7 +1049,10 @@ body.con-portada .app{background:none;position:relative;z-index:1}
 /* Con portada, el menú baja: el auxiliar está en el tercio de arriba y si
    los botones empiezan donde empezaban le tapan la cara. Y se vuelven
    vidrio esmerilado, para que el pasillo se siga viendo por detrás. */
-body.con-portada .portada{padding-top:22px}
+body.con-portada .portada{padding-top:18px}
+/* con el dibujo detrás, el logotipo se achica: a 310 px tapaba las tres
+   salas de vidrio, que son la mitad de la escena */
+body.con-portada .portada h1 .logo{max-width:252px}
 /* Bajo un logotipo tan grande el texto queda sobre el pasillo y no se lee.
    El subtítulo y el párrafo se juntan en una sola placa esmerilada —la
    misma de los botones— para que sigan siendo legibles sin taparlo todo. */
@@ -1044,7 +1063,15 @@ body.con-portada .portada p{background:rgba(255,255,255,.74);
    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
    margin:0 -4px;padding:4px 12px 11px;border-radius:0 0 13px 13px;
    color:var(--ink);text-align:center}
-body.con-portada .opciones{margin-top:8vh}
+/* Sin partida el inicio es una columna de alto completo: el logotipo
+   arriba, el aire —donde se ve el dibujo— estirándose en medio, y el menú
+   apoyado en el filo de abajo. Antes el menú arrancaba a 8vh fijos y en
+   una pantalla corta le caía encima al auxiliar. */
+body.con-portada .inicio{display:flex;flex-direction:column;
+   min-height:100vh;min-height:100dvh}
+body.con-portada .inicio .aire-inicio{flex:1 1 0;min-height:70px}
+body.con-portada .inicio .portada:first-child{padding-bottom:0}
+body.con-portada .opciones{margin-bottom:6px}
 body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    backdrop-filter:blur(9px) saturate(1.15);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
@@ -2558,8 +2585,11 @@ function celebrarAlta(fx, luego){
     const m = el("div","moneda"+(celestial?" gris":""),
                  (fx.pts>0?"+":"")+fx.pts);
     document.body.appendChild(m);
-    const destino = celestial ? null : document.querySelector(
-      (fx.propio ? ".zona.cerca" : ".zona.lejos") + " .marca.al");
+    // el ancla cambia con la maqueta: en A es la línea de datos (o el chip
+    // del rival); en B, el número de altas del rótulo de cada unidad
+    const destino = celestial ? null : document.querySelector(fx.propio
+      ? ".zona.cerca .marca.al"
+      : ".zona.lejos .marca.al, .zona.suya .marca.al, .rival-chip");
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
       if(celestial){
         m.style.transform = "translateY(46vh) rotate(24deg) scale(.55)";
@@ -2574,8 +2604,30 @@ function celebrarAlta(fx, luego){
     }));
     setTimeout(()=>{
       m.remove();
-      if(destino){ destino.classList.add("pop-marca");
-                   setTimeout(()=>destino.classList.remove("pop-marca"), 520); }
+      if(destino){ destino.classList.add("pop-alta");
+                   setTimeout(()=>destino.classList.remove("pop-alta"), 760); }
+      // la ceremonia celestial no termina en la moneda gris: el Sumario que
+      // deja viaja hasta tu contador 📋, para que se VEA de dónde salió el
+      // castigo — antes el contador subía en silencio en la otra punta
+      if(celestial){
+        const chip = document.querySelector(fx.propio
+          ? ".zona.cerca .suml"
+          : ".zona.suya .su-sum, .rival-chip");
+        const v = el("div","vuelo-sum","📋");
+        document.body.appendChild(v);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{
+          if(chip){
+            const r = chip.getBoundingClientRect();
+            v.style.transform = `translate(${r.x + r.width/2 - innerWidth/2}px,` +
+                                `${r.y + r.height/2 - innerHeight*0.72}px) scale(.5)`;
+          } else v.style.transform = "translateY(12vh) scale(.4)";
+          v.style.opacity = "0.15";
+        }));
+        setTimeout(()=>{ v.remove();
+          if(chip){ chip.classList.add("pop-alta");
+                    setTimeout(()=>chip.classList.remove("pop-alta"), 760); }
+        }, 640);
+      }
     }, Math.round(FX_ALTA*0.34));
   }, Math.round(FX_ALTA*0.42));
   const tm = setTimeout(irse, FX_ALTA);
@@ -2825,7 +2877,7 @@ function zonaJugador(j, propio){
   const z = el("div","zona cerca");
   if(esB()){
     const rot = el("div","rot-lado");
-    rot.innerHTML = `tu unidad · <b>${j.altas.length}</b> altas` +
+    rot.innerHTML = `tu unidad · <b class="marca al">${j.altas.length}</b> altas` +
                     (j.muertos.length ? ` · ${j.muertos.length} ✝️` : "") +
                     (j.sumarios ? ` · ${j.sumarios} 📋` : "");
     z.appendChild(rot);
@@ -2893,7 +2945,7 @@ function zonaRivalB(j){
   const cerca  = j.camas.some(c=>c && !c.estable && faltanTotal(c)===1);
   if(listas) rep.appendChild(el("span","peligro",`✅ alta ×${listas}`));
   else if(cerca) rep.appendChild(el("span","peligro","⚠ cerca"));
-  if(j.sumarios) rep.appendChild(el("span","dato",`📋 ${j.sumarios}`));
+  if(j.sumarios) rep.appendChild(el("span","dato su-sum",`📋 ${j.sumarios}`));
 
   const dor = el("div","mano-suya");
   for(let k=0;k<Math.min(5, j.mano.length);k++) dor.appendChild(el("i"));
@@ -2908,7 +2960,7 @@ function zonaRivalB(j){
     tres.appendChild(n);
   });
   const rot = el("div","rot-lado");
-  rot.innerHTML = `su unidad · <b>${j.altas.length}</b> altas` +
+  rot.innerHTML = `su unidad · <b class="marca al">${j.altas.length}</b> altas` +
                   (j.muertos.length ? ` · ${j.muertos.length} ✝️` : "");
   // column-reverse: se emite en el MISMO orden que tu mitad y se pinta al revés
   grupo.appendChild(rot);
@@ -4659,13 +4711,13 @@ function alertaAccion(a){
    service worker pueda cachearlos por separado. Vacíos = sin portada, y
    la pantalla de inicio queda como estaba. */
 const PORTADA = {video:"portada/portada.mp4", cuadro:"portada/portada.jpg",
-                 logo:"portada/logo.webp"};
+                 dibujo:"portada/dibujo.svg", logo:"portada/logo.webp"};
 const CLAVE_SON = "vt-portada-sonido";
 
 function pintarPortada(){
   const cont = document.getElementById("portada");
   if(!cont) return;
-  const toca = !G && (PORTADA.video || PORTADA.cuadro);
+  const toca = !G && (PORTADA.dibujo || PORTADA.video || PORTADA.cuadro);
   document.body.classList.toggle("con-portada", !!toca);
   const viejo = document.querySelector(".son-portada");
   if(!toca){ cont.hidden = true; cont.innerHTML = "";
@@ -4674,12 +4726,16 @@ function pintarPortada(){
   cont.hidden = false;
   if(cont.firstChild) return;          // ya está puesta: no la reinicies
 
-  if(PORTADA.cuadro) cont.style.backgroundImage = `url("${PORTADA.cuadro}")`;
+  // la portada dibujada manda: mientras exista arte/portada/dibujo.svg la
+  // pantalla de inicio es la escena vectorial y el video queda guardado
+  // (borrar ese archivo lo devuelve — el código del clip sigue intacto)
+  const fondo = PORTADA.dibujo || PORTADA.cuadro;
+  if(fondo) cont.style.backgroundImage = `url("${fondo}")`;
   // si el teléfono pide menos animación, se queda el cuadro fijo y ya
   const quieto = window.matchMedia &&
                  matchMedia("(prefers-reduced-motion: reduce)").matches;
   let vid = null;
-  if(PORTADA.video && !quieto){
+  if(PORTADA.video && !quieto && !PORTADA.dibujo){
     vid = document.createElement("video");
     vid.poster = PORTADA.cuadro || "";
     vid.loop = true; vid.playsInline = true; vid.preload = "auto";
@@ -4719,7 +4775,7 @@ function pintarPortada(){
 
 /* ══ pantallas ══════════════════════════════════════════════════════ */
 function pantallaInicio(){
-  const w = el("div");
+  const w = el("div","inicio");
   const h = el("div","portada");
   const t = el("h1");
   if(PORTADA.logo){
@@ -4732,11 +4788,10 @@ function pantallaInicio(){
     t.appendChild(img);
   } else t.textContent = "¡Vaya Turno!";
   h.appendChild(t);
-  h.appendChild(el("div","sub","Guardia virtual · reglas v0.33"));
-  h.appendChild(el("p",null,
-    "Árbitro digital para probar el juego donde no puedas llevar las cartas. "+
-    "Lleva el reloj, los ✅, la basura clínica y los Sumarios por ti."));
   w.appendChild(h);
+  // el hueco donde se luce el dibujo: crece con la pantalla y empuja el
+  // menú al filo de abajo, así ninguno de los dos le come sitio al otro
+  w.appendChild(el("div","aire-inicio"));
   const s = el("div","portada"); s.style.paddingTop="14px";
   const ops = el("div","opciones");
   const mk = (tit, sub, fn)=>{
@@ -4764,14 +4819,12 @@ function pantallaInicio(){
   }
   const inst = bloqueInstalar();
   if(inst) s.appendChild(inst);
-  s.appendChild(el("div","nota",
-    "<br><b>Tres fases por turno:</b> Entrega de Turno (altas, admisión y robo), "+
-    "Pase de Visita (colocas recursos y usas la Pizarra) y Fin de Guardia "+
-    "(deterioro y descarte).<br><br>"+
-    "Las <b>Acciones</b> se juegan solas desde la Pizarra; las "+
-    "<b>habilidades de avatar</b> se aplican a mano y la app las anota."));
   w.appendChild(s);
-  w.appendChild(el("div","pie-app","El formato final del juego es físico. Esto existe para probar."));
+  // lo que era el subtítulo y el párrafo se juntan en una sola línea al
+  // pie: son la letra chica del proyecto, no la portada
+  w.appendChild(el("div","pie-app",
+    "Árbitro digital para probar el juego donde no puedas llevar las cartas. "+
+    "El formato final es físico."));
   return w;
 }
 

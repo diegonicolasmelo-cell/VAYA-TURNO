@@ -332,6 +332,17 @@ probarlo:
     porque una pared entre las camas y el piso no tiene dónde ir.
   Los rótulos llevan halo de papel: el dibujo pasa por detrás y el texto
   tiene que ganar caiga donde caiga del mostrador.
+· **El alta y el Sumario ahora se ven.** La moneda dorada ya encontraba su
+  ancla solo en la maqueta A (buscaba `.zona.lejos .marca.al`, que en B no
+  existe): ahora el número de altas del rótulo de cada unidad lleva
+  `.marca.al` y el selector cubre las dos maquetas más el chip del rival.
+  El golpe pasó de un `scale(1.12)` de medio segundo a un `popAlta` que
+  crece al doble con destello dorado — ojo, hay que declarar
+  `display:inline-block`, que un `transform` sobre un elemento inline se
+  descarta en silencio. Y el **alta celestial ya no sube el contador de
+  Sumarios en silencio al otro extremo**: el 📋 vuela desde la ceremonia
+  hasta tu contador y lo golpea, que es lo que hace ver de dónde salió el
+  castigo.
 · **Pendiente relacionado:** el generador limita el arte a **520 px de
   ancho** (`generar_app.py`), medida heredada de cuando el arte era 9:16.
   El hueco más grande —la carta en zoom— pide 342 CSS px, que a 3× son
@@ -378,6 +389,25 @@ imagen metida al 78 % del ancho (`aire`), que sube el 50 % a un 64 %.
 
 Falta reescribir los 115 prompts con la forma 1:1, plano medio y el tinte
 fijado al color del sistema.
+
+**La pantalla de inicio también está dibujada** (v0.58). La escena A de
+`PROMPTS-PORTADA.md` —la calma antes del turno— vectorizada en
+`tools/generar_portada_vector.py`: el auxiliar de aseo trapeando de
+espaldas, con su audífono de orejera, el carro amarillo con la radio
+sonando, el cono de piso mojado y las tres salas de vidrio con las camas
+hechas. Sale a `arte/portada/dibujo.svg` (la app lo prefiere al clip; se
+borra el archivo y vuelve el video, el código sigue entero) y a
+`docs/portada-vector.svg` para mandarlo a editar.
+
+Para que la escena y el menú convivan, el inicio pasó a ser una **columna
+de alto completo**: logotipo arriba, un `aire-inicio` flexible en medio
+—que es donde se luce el dibujo— y el menú apoyado en el filo de abajo.
+Antes el menú arrancaba a `8vh` fijos y en pantalla corta le caía encima al
+auxiliar. Se fueron el subtítulo «Guardia virtual · reglas» y la nota de
+las tres fases y las Acciones —no aplican a quien va a jugar—, el logotipo
+bajó de 310 a 252 px para no tapar las salas, y el velo dejó de borrar el
+piso (llegaba a 0,97 de blanco): ahora los botones son vidrio esmerilado
+sobre el suelo recién trapeado.
 
 **La pantalla de inicio tiene fondo vivo** (v0.52): el clip del auxiliar
 de aseo trapeando el pasillo, en bucle y con la unidad sonando. Sale de
