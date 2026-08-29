@@ -1,89 +1,178 @@
 # La arquitectura de la carta y cómo debe venir el arte
 
-Medido sobre la app de verdad a 390×844 (no estimado): se metió una rejilla
-de 10×10 celdas en cada hueco de ilustración y se leyó qué franja del
-original sobrevive. Todo lo de abajo sale de esa medición.
+**v0.57 — la ventana enmarcada.** Hasta ahora la ilustración entraba a
+sangre y se disolvía en el papel de la carta: el tercio de abajo se perdía
+y había que dibujar contra un degradado. Se acabó. Ahora el arte vive en
+una **ventana con marco, y se ve entera**.
 
-## Lo primero, porque es lo que más cambia
+Todo lo de abajo está medido sobre la app de verdad a 390×844, metiendo una
+rejilla de 10×10 celdas en **todas** las ranuras a la vez y comprobando que
+el filete rojo del borde de la rejilla sobrevive en las cuatro esquinas. No
+hay nada estimado.
 
-El arte de hoy viene en **1536×2752 — vertical 9:16**. Los huecos de la app
-son **horizontales**. Por eso los personajes salen pegados a la cámara: no
-es el CSS, es la forma del archivo. Toda la tanda nueva va en **4:3
-horizontal**.
+---
 
-- **Formato:** 4:3 horizontal · **1600×1200 px** (mínimo 1200×900).
-- **Archivo:** PNG o JPG de origen; el generador lo pasa a WebP y calcula
-  solo el tinte del borde.
-- El hueco más grande de la app es la carta en zoom: 342×274 CSS px, que a
-  3× de densidad son 1026×822 reales. 1600×1200 deja margen de sobra y no
-  pesa de más una vez convertido.
+## La regla, en una línea
 
-## Qué se ve de la imagen en cada vista
+> **Una sola imagen por carta, 4:3 horizontal, 1600×1200 px.
+> Se ve completa en todas las vistas rectangulares. No se recorta nada.**
 
-Con un original 4:3, esto es exactamente lo que entra en pantalla:
+Eso es todo lo que hay que saber para dibujar. El resto de este documento
+es el detalle, y solo hace falta para los dos casos con recorte redondo y
+para saber qué esquinas quedan bajo una insignia.
 
-| Vista | Hueco | Aspecto | Se ve de ancho | Se ve de alto |
-|---|---|---|---|---|
-| Cama del tablero | 93×79 | 1,18 | 5,7 % – 94,3 % | todo |
-| Carta en la mano | 108×72 | 1,50 | todo | 2,9 % – 91,8 % |
-| Carta en zoom | 342×274 | 1,25 | 3,1 % – 96,9 % | todo |
-| Retrato del avatar (círculo) | 82×82 | 1,00 | 12,5 % – 87,5 % | todo |
+---
 
-## La zona segura
+## Formato del archivo
 
-Cruzando las cuatro filas:
+- **Proporción:** 4:3 horizontal, exacta. No 3:2, no 16:9, no vertical.
+- **Tamaño:** **1600×1200 px**. Mínimo aceptable 1200×900.
+- **Archivo:** PNG o JPG. El generador lo convierte a WebP, lo baja a
+  800 px de ancho y calcula solo el tinte de su borde.
+- Los originales grandes viven en `cartas/arte-full/`; los que entran al
+  juego, en `cartas/arte/<ID>.jpg` — el nombre es el id de la carta
+  (`P02`, `R07`, `A19`, `C17`…).
 
-- **Recursos, acciones y pacientes:** deja libre un **6 % por cada costado**
-  y un **3 % arriba / 8 % abajo**. Todo lo que importe, dentro de ese marco.
-- **Avatares y personajes:** el recorte circular es más duro. La cara y la
-  cabeza tienen que caber en el **75 % central del ancho** (del 12,5 % al
-  87,5 %) y el centro de la cara alrededor del **35 % desde arriba**, que es
-  donde apunta el encuadre del círculo.
+### Por qué 4:3 y no lo de antes
 
-## El degradado: el tercio de abajo se disuelve
+El arte actual viene en **1536×2752 — vertical 9:16**, y las ranuras son
+horizontales: dos tercios de cada archivo se tiraban en el recorte. Con
+4:3 no se tira nada, y eso paga solo una subida de calidad. Medido sobre
+las diez ilustraciones que hay:
 
-La ilustración no se corta con una línea: **se funde en el papel de la
-carta**. El degradado ocupa el 26 % de abajo en el zoom, el 30 % en la cama
-y el 34 % en la mano. Traducido al original:
+| fuente | tope de ancho | peso por carta | 115 cartas |
+|---|---|---|---|
+| 9:16 (hoy) | 520 px | 42,5 KB | ≈ 4,8 MB |
+| **4:3 (nuevo)** | **800 px** | **46,1 KB** | **≈ 5,2 MB** |
 
-- **De un 60 % de alto para abajo, la imagen empieza a lavarse.**
-- **El último 8 % se pierde entero.**
+Mismo peso, **54 % más de resolución visible**. El tope del generador ya
+subió a 800 px por eso.
 
-Regla práctica: **cara, manos y silueta en los dos tercios de arriba.** Lo
-de abajo es suelo, camilla, sombra, mesa — cosas que pueden desaparecer sin
-que se note. Es lo mismo que hace una carta impresa cuando el arte entra a
-sangre por arriba y muere bajo el textbox.
+---
 
-## El marco blanco
+## Qué se ve en cada vista
 
-La carta lleva un **filete blanco fino** alrededor del arte, proporcional al
-ancho de cada vista (≈2,8 %): 3 px en la mano y en la cama, 7 px en el zoom.
-El arte **no sangra al filo de la carta, sangra al filete**. Para el arte
-esto no cambia nada —el recorte ya está contado en la tabla— pero sí importa
-saberlo: la ilustración nunca toca el borde exterior, así que un detalle
-pegado al canto siempre queda escondido bajo el marco.
+Con un original 4:3 se ve **el 100 %** en todas las ranuras rectangulares.
+Las medidas son píxeles CSS en un teléfono de 390 de ancho; multiplica por
+la densidad de pantalla (×3 en un teléfono bueno) para saber la resolución
+real que se le pide al archivo.
+
+| Vista | Ranura CSS | En pantalla a 3× | Se ve |
+|---|---|---|---|
+| Carta en la mano (abanico) | 90 × 67,5 | 270 × 202 | **todo** |
+| Cama del tablero (ficha) | 93 × 70 | 279 × 210 | **todo** |
+| Protocolo guardado | 144 × 108 | 432 × 324 | **todo** |
+| Elegir personaje (pantalla completa) | 244 × 183 | 732 × 549 | **todo** |
+| Carta de avatar (la que gira) | 252 × 189 | 756 × 567 | **todo** |
+| **Carta o paciente en zoom** | **342 × 256,5** | **1026 × 770** | **todo** |
+| Retrato del mesón (círculo) | 94 × 94 | 282 × 282 | recorte, ver abajo |
+| Miniatura de lo puesto (círculo) | 22 × 22 | 66 × 66 | recorte, ver abajo |
+
+**La ranura que manda es el zoom: 1026 px reales de ancho.** Por eso el
+original quiere 1600 y el generador guarda 800.
+
+---
+
+## Los dos recortes redondos
+
+Son los únicos sitios donde se pierde imagen, y los dos recortan igual:
+**el cuadrado central**, y de ese cuadrado, el círculo inscrito.
+
+- Se conserva el **75 % central del ancho** (del 12,5 % al 87,5 %) y **todo
+  el alto**.
+- De ese cuadrado, el círculo se come las esquinas.
+
+Traducido a lo que hay que dibujar: **la cabeza y la cara dentro del 75 %
+central del ancho, y el centro de la cara alrededor del 45 % desde
+arriba.** Un personaje descentrado sobrevive en la carta y se decapita en
+el círculo.
+
+Esto aplica a **avatares y personajes** (`C##`), que son los que salen en
+el mesón. Recursos, acciones y pacientes no pasan nunca por un círculo
+grande — solo por la miniatura de 22 px de «lo puesto en este paciente»,
+donde no se distingue una cara de todos modos.
+
+---
+
+## Las esquinas que quedan tapadas
+
+La imagen se ve entera, pero encima suyo van insignias. Nada importante
+debe caer bajo ellas.
+
+**Carta (mano, zoom, protocolo)** — el índice del naipe: el símbolo del
+recurso **en diagonal**, arriba a la izquierda y abajo a la derecha, como
+en una carta de baraja. Cada sello tapa **22 % × 27 %** de la imagen en la
+mano (menos en el zoom, porque el sello es fijo y la imagen crece).
+
+**Cama del tablero** — tres insignias, y la del escudo va al medio:
+
+- **esquina interior izquierda** (la que mira a la Pizarra): la gravedad,
+  `G·II` o `★ROJO`, **27 % × 21 %**.
+- **esquina interior derecha:** el número de lo que falta, **10 % × 29 %**.
+- **centro, solo cuando el paciente está protegido:** el escudo 🛡️,
+  **32 % × 46 %**. Es transitorio y no hay que componer para él, pero por
+  eso conviene que el centro exacto no lleve el único detalle que importe.
+
+**Elegir personaje y carta de avatar:**
+
+- **arriba a la izquierda:** la etiqueta de frecuencia (`1×PARTIDA`,
+  `PASIVA`, `1×RONDA`), un **28 % × 11 %** aproximado según el largo de la
+  palabra.
+
+Regla práctica que cubre todas: **deja libres las dos esquinas de la
+diagonal —arriba-izquierda y abajo-derecha— y no pongas la cara pegada a
+un costado.**
+
+---
+
+## El marco
+
+La ilustración ya no sangra al filo: es una **ventana** dentro de la
+carta, con el papel alrededor y un filete de 1 px. El arte no toca nunca
+el borde exterior de la carta.
+
+Para quien dibuja esto es una buena noticia y hay que aprovecharla: **el
+borde de la imagen se ve**. Un fondo que muere en un degradado sucio
+justo en el canto ahora se nota. Cierra la escena.
+
+---
 
 ## Encuadre y estilo
 
-- **Plano medio.** Ni primer plano ni cuerpo entero: de la cintura para
-  arriba, con aire alrededor. Un primerísimo plano en 4:3 se ve peor que en
-  9:16, porque ahora entra más escena y la cara queda enorme.
-- **Personaje centrado horizontalmente.** Los recortes laterales son
-  simétricos en todas las vistas menos el círculo del avatar, que también es
-  simétrico. Nada descentrado sobrevive igual en las cuatro.
-- **Fondo que aguante el degradado.** Como el tercio de abajo se funde en
-  blanco, conviene que ahí haya tono medio o claro; un negro plano abajo
-  hace una banda sucia al fundirse.
-- **Tinte del sistema.** El generador saca de la propia imagen la mediana de
-  su borde y la usa de fondo del hueco, para cuando la imagen no lo llena.
-  Si el borde de la ilustración es del color de su sistema (respiratorio,
-  cardíaco, neuro, metabólico, quirúrgico), el hueco y la carta combinan
-  solos.
+- **Plano medio.** De la cintura para arriba, con aire alrededor. En 4:3
+  entra más escena que en 9:16: un primerísimo plano queda enorme.
+- **Personaje centrado horizontalmente.** Todos los recortes que quedan
+  son simétricos; nada descentrado sobrevive igual en las ocho vistas.
+- **El fondo ya no se funde en blanco.** Antes el tercio de abajo se
+  lavaba y convenía dejarlo neutro. Ya no: **abajo se ve tanto como
+  arriba**, así que ahí puede ir escena de verdad — camilla, suelo,
+  monitores, lo que sea.
+- **Tinte del borde.** El generador saca la mediana del borde de la propia
+  imagen y la usa de fondo de la ranura, por si el redondeo deja ver un
+  pelo de costado. Si el borde de la ilustración es del color de su
+  sistema (respiratorio, cardíaco, neuro, metabólico, quirúrgico), carta y
+  ranura combinan solas.
+
+---
 
 ## Checklist antes de dar una imagen por buena
 
-1. ¿Es 4:3 horizontal, 1600×1200?
-2. ¿La cara está en los dos tercios de arriba?
-3. ¿Cabe todo lo importante dejando 6 % de margen a los lados?
-4. Si es avatar: ¿la cabeza está dentro del 75 % central del ancho?
-5. ¿El tercio de abajo puede desaparecer sin que la carta pierda sentido?
+1. ¿Es **4:3 horizontal, 1600×1200**?
+2. ¿El 20 % de arriba está libre de lo imprescindible? (van las insignias)
+3. ¿El personaje está centrado a lo ancho?
+4. Si es **avatar o personaje** (`C##`): ¿la cabeza cabe en el **75 %
+   central del ancho**, con la cara a un **45 % desde arriba**?
+5. ¿La escena cierra en los cuatro bordes? Ya no hay degradado que tape.
+6. ¿El nombre del archivo es el id de la carta?
+
+---
+
+## Pendiente conocido
+
+El zoom pide 1026 px reales y el generador guarda 800: se ve un pelo
+blando si lo buscas. Subir a 1024 pondría las 115 cartas en ≈ 7 MB, y el
+artefacto de un solo archivo tiene tope de 16 MB contando el tablero, la
+portada y el resto. La salida limpia es guardar **dos tamaños** —uno de
+~420 px para mano y camas, otro de ~1024 px solo para el zoom— y que el
+zoom cargue el suyo. Está anotado en `PENDIENTES.md`; no cambia nada de lo
+que hay que dibujar, porque los dos salen del mismo original de 1600.

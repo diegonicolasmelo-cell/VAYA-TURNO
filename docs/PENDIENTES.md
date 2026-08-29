@@ -819,3 +819,72 @@ efecto que toque vida, requisitos o robo queda **fuera del balance validado**.
 3. Generar los 6 avatares de arte (fija el estilo del resto).
 4. El resto del arte, por tandas.
 5. Recién ahí: mirar el §4.
+
+---
+
+## 7. Deuda de la app · v0.57 (la tanda de los ocho arreglos)
+
+### Podar la maqueta A ⬜
+
+`maqueta()` devuelve `"b"` siempre desde la v0.57 —el autor se quedó con el
+campo partido— pero las ramas `if(esB())` siguen todas en pie, y con ellas
+las funciones que solo servían a A: `chipRival()`, `modalRival()`,
+`barraEstado()`, la franja de guía, la tira `.selector`, el abanico viejo
+de `.ranura`, y unas 200 líneas de CSS bajo selectores sin
+`body[data-maq="b"]`. Podarlo es mecánico y grande a la vez; se dejó fuera
+de esta tanda para no mezclar un borrado masivo con ocho arreglos que sí
+había que revisar uno por uno. **Antes de podar:** las pruebas de
+`scratchpad/app/etapa1.py` y `etapa3.py` afirman sobre `.rival-chip` y
+`.selector`, así que hay que reescribirlas o borrarlas en el mismo commit.
+
+### Dos tamaños de arte ⬜
+
+El hueco más grande es el zoom: 342 px de CSS, o sea **1026 px reales** en
+un teléfono 3×. El generador guarda a 800 px (subió de 520 en la v0.57,
+gratis, porque el arte 4:3 ya no desperdicia píxeles en el recorte). Subir
+a 1024 pondría las 115 cartas en ≈ 7 MB y el artefacto de un archivo tiene
+tope de 16 MB contando tablero, portada y clip. La salida limpia es
+guardar **dos tamaños** —≈420 px para mano y camas, ≈1024 px solo para el
+zoom— y que `verCartaGrande`/`verPacienteGrande` pidan el suyo. No cambia
+nada de lo que hay que dibujar: los dos salen del mismo original de 1600.
+
+### Trampas nuevas encontradas en esta tanda
+
+- **Las animaciones infinitas se relanzan en cada render.** `#app` se
+  reconstruye entero, así que toda `animation: … infinite` que viva adentro
+  vuelve al fotograma 0. Medido: 235 relanzamientos por partida y un salto
+  de 0,0102 de escala en el retrato —media amplitud— en cada uno. Se
+  arregla con `animation-delay` negativo igual a `performance.now() % dur`,
+  repuesto en cada render (`continuarAnimaciones()`, lista `LATIDOS`).
+  Cualquier animación infinita nueva dentro de `#app` hay que apuntarla ahí.
+- **Colisión de clases: `.moneda`.** El menú de inicio estrenó una
+  `.moneda` para el ícono, y ya existía `.moneda` —la del alta, que es
+  `position:fixed`—. El botón salió con el ícono flotando sobre el texto y
+  no se veía en el CSS: había que mirar el `getComputedStyle`. Antes de
+  estrenar una clase, `grep`.
+- **`z-index` negativo no sirve de fondo.** `.final-fondo` con `z-index:-2`
+  quedaba TAPADO por el papel del tablero: los hijos con z negativo se
+  pintan antes que los fondos de los bloques del documento. Fondo en 0,
+  contenido en 1, y `isolation:isolate` en el contenedor.
+- **`getBoundingClientRect` de un elemento rotado miente.** Devuelve la caja
+  alineada a los ejes de la caja rotada, así que una carta del abanico con
+  `rotate(3.5deg)` mide 115×95 cuando en realidad es 90×67,5. Para medir
+  proporciones dentro del abanico, `getComputedStyle().width/height`.
+- **La opacidad no es distancia.** Las cartas lejanas del abanico estaban a
+  `opacity:.55` y el papel dejaba pasar el texto de las de atrás: la mano
+  entera se veía como una nube de letras —lo que el autor llamó «la mano
+  invisible»—. La lejanía se da con `filter:saturate()`, que no vuelve
+  translúcido el papel.
+
+### El clip de portada ✅ y lo que queda
+
+`arte/portada/portada.mp4` es el clip nuevo (2,29 MB, ida y vuelta, 16 s).
+Entra **por ancho y anclado arriba**, no a sangre: el clip es 9:16 y el
+teléfono 9:19,5, así que llenar la pantalla se comía el 18 % de cada
+costado. Debajo del clip sobran ~150 px que rellena el papel de la mesa, y
+ahí caen los tres cuadrados del menú. `dibujo.svg` pasa a ser el respaldo
+de última hora, debajo del cuadro fijo.
+
+- ⬜ Las tres salas del fondo se animan dentro del clip, no en CSS: si
+  alguna vez hay que retocar una (el ritmo de las compresiones, por
+  ejemplo) hay que volver a Flow, no al código.

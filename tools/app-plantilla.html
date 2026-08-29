@@ -126,13 +126,11 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
       padding:6px;text-align:left;box-shadow:var(--sombra);display:flex;
       flex-direction:column;gap:3px;min-height:92px;position:relative}
 .prot.no{opacity:.5}
-.prot .p-arte{position:relative;display:block;margin:-6px -6px 3px;
-  aspect-ratio:3/2;flex:none;background:var(--tinte,var(--lejos));
-  overflow:hidden;border-radius:7px 7px 0 0}
+.prot .p-arte{position:relative;display:block;margin:0 0 4px;
+  aspect-ratio:4/3;flex:none;background:var(--tinte,var(--lejos));
+  overflow:hidden;border:1px solid rgba(22,36,46,.20);border-radius:5px}
 .prot .p-arte img{position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 26%;display:block}
-.prot .p-arte .disuelve{position:absolute;inset:auto 0 0;height:34%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+  object-fit:cover;object-position:center;display:block}
 .prot.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
 @keyframes compable{
   0%,100%{box-shadow:0 0 0 0 rgba(13,110,120,0),var(--sombra)}
@@ -166,19 +164,18 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .cama.sobre{box-shadow:0 0 0 3px var(--acc),0 6px 18px rgba(13,110,120,.3);
             transform:translateY(-2px) scale(1.02);animation:none}
 .raya{position:absolute;left:0;top:0;bottom:0;width:3px;z-index:2}
-/* ── maquetación B en la cama ──────────────────────────────────────
-   El arte entra a sangre por arriba —de ahí los márgenes negativos, que
-   anulan el padding de la carta— y se disuelve en la ficha. El fondo
-   lleva el tinte de la propia ilustración: si la imagen no llena el
-   hueco, los costados no se ven. */
+/* ── el arte de la cama: la misma ventana enmarcada ─────────────────
+   Entraba a sangre y se disolvía en la ficha; ahora es la misma ventana
+   4:3 con filete que en la carta de mano, para que una sola ilustración
+   sirva en las dos sin recortar nada. El fondo lleva el tinte de la
+   propia imagen por si el redondeo deja ver un pelo de costado. */
 .cama{--fondo-carta:var(--paper)}
 .cama.est{--fondo-carta:#f4fbf8}
-.cama-arte{position:relative;margin:-6px -6px 4px -8px;aspect-ratio:4/3;
-           background:var(--tinte,var(--lejos));overflow:hidden}
+.cama-arte{position:relative;margin:0 0 4px;aspect-ratio:4/3;
+           background:var(--tinte,var(--lejos));overflow:hidden;
+           border:1px solid rgba(22,36,46,.20);border-radius:4px}
 .cama-arte img{position:absolute;inset:0;width:100%;height:100%;
-               object-fit:cover;object-position:center 26%;display:block}
-.cama-arte .disuelve{position:absolute;inset:auto 0 0;height:30%;
-  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
+               object-fit:cover;object-position:center;display:block}
 .cama-cab{display:flex;align-items:flex-start;gap:4px}
 .pnom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11.5px;
       line-height:1.12;flex:1;min-height:26px}
@@ -191,7 +188,7 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
    Solo cuando el paciente TIENE arte — sin arte se queda la carta clásica,
    que es transitorio mientras llegan las 115 ilustraciones. */
 .cama.pficha{padding:0 0 5px;border-width:2px;border-color:var(--gravc,var(--line))}
-.cama.pficha .cama-arte{margin:0 0 4px;aspect-ratio:1/1}
+.cama.pficha .cama-arte{margin:0 0 4px;aspect-ratio:4/3}
 .cama.pficha .f-grav{position:absolute;top:4px;left:4px;z-index:2;
   font-family:"IBM Plex Mono",monospace;font-size:8px;font-weight:700;
   letter-spacing:.04em;color:#fff;background:var(--gravc);padding:2px 5px;
@@ -567,7 +564,8 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   font-weight:700;line-height:1.2;text-wrap:balance;color:#fff}
 .rueda{position:relative;flex:1 1 auto;min-height:0;margin:6px 0 8px;
        perspective:900px;touch-action:none;overflow:hidden}
-.rueda .op.av-carta{position:absolute;left:50%;top:0;bottom:0;width:266px;
+.rueda .op.av-carta{position:absolute;left:50%;top:50%;width:266px;
+       max-height:100%;
        margin-left:-133px;padding:0;text-align:left;overflow:hidden;
        display:flex;flex-direction:column;
        background:var(--paper);border:1px solid rgba(255,255,255,.14);
@@ -575,22 +573,26 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
        transition:transform .28s cubic-bezier(.2,.9,.3,1), opacity .28s ease;
        will-change:transform}
 .rueda.viva .op.av-carta{transition:none}
-.av-retrato{position:relative;flex:1 1 auto;min-height:0;
+/* también 4:3: el retrato del personaje es la MISMA ilustración que la
+   carta, y si aquí se estirara a lo alto habría que dibujar dos */
+.av-retrato{position:relative;flex:none;aspect-ratio:4/3;margin:0;
+  border-radius:17px 17px 0 0;
   background:linear-gradient(165deg,var(--tinte,#5d818b),#2c4149);
-  display:flex;align-items:flex-start;justify-content:center;
-  padding-top:16%;overflow:hidden}
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
 .av-retrato img{position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:center 22%;display:block}
 .av-inicial{font-family:Petrona,Georgia,serif;font-size:118px;font-weight:700;
   color:rgba(255,255,255,.42);line-height:.9;user-select:none;
   text-shadow:0 6px 22px rgba(0,0,0,.28)}
-.av-vela{position:absolute;inset:auto 0 0;height:38%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
-.av-rol{position:absolute;left:12px;top:12px;z-index:2;
+
+.av-rol{position:absolute;left:8px;top:8px;z-index:2;
         font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;
         letter-spacing:.11em;text-transform:uppercase;color:#fff;
         background:rgba(13,110,120,.9);padding:3px 8px;border-radius:99px}
-.av-ficha{flex:none;padding:0 16px 16px}
+/* el cuadro de texto: caja propia bajo el retrato, con su filete */
+.av-ficha{flex:0 1 auto;min-height:0;overflow:auto;padding:12px 16px 15px;
+  background:var(--paper);border-top:1px solid var(--line-2);
+  -webkit-overflow-scrolling:touch}
 .av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:23px;
         line-height:1.08;margin:0 0 6px;color:var(--ink)}
 .av-habtit{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
@@ -661,13 +663,16 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
        border-radius:8px;padding:6px;text-align:left;box-shadow:var(--sombra);
        display:flex;flex-direction:column;gap:2px;min-height:104px;
        transition:transform .14s ease, box-shadow .14s ease;touch-action:none}
-/* el índice del naipe: mismo símbolo en las dos esquinas de arriba */
-.esq{position:absolute;top:-1px;z-index:7;width:19px;height:19px;
+/* el índice del naipe: el símbolo del recurso en diagonal —arriba a la
+   izquierda y abajo a la derecha, girado, como en una carta de baraja—
+   para que asome sea cual sea el lado que tape la carta vecina */
+.esq{position:absolute;z-index:7;width:19px;height:19px;
      display:grid;place-items:center;color:#fff;background:var(--tc);
      pointer-events:none}
 .esq svg{width:11.5px;height:11.5px;display:block}
-.esq:not(.izq){right:-1px;border-radius:0 8px 0 9px}
-.esq.izq{left:-3px;border-radius:8px 0 9px 0}
+.esq.ai{top:-1px;left:-3px;border-radius:8px 0 9px 0}
+.esq.bd{bottom:-1px;right:-1px;border-radius:9px 0 8px 0}
+.esq.bd svg{transform:rotate(180deg)}
 @media (hover:hover){
   .carta:not(.no):not(.sel):hover{transform:translateY(-4px);
     box-shadow:0 6px 16px rgba(22,36,46,.16), 0 2px 5px rgba(22,36,46,.1)}}
@@ -686,32 +691,29 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
    ficha, con el tinte de la ilustración detrás. La mano se ve de reojo,
    así que el hueco es más chato que en la carta grande. */
 .carta{--fondo-carta:var(--paper)}
-.carta .arte{position:relative;margin:-6px -6px 3px;aspect-ratio:3/2;flex:none;
+/* ── la ventana del arte: enmarcada, entera y sin difuminar ─────────
+   Hasta la v0.57 el arte entraba a sangre y se disolvía en el cuerpo de
+   la carta. Se veía bonito con las diez ilustraciones que hay, pero
+   escondía el tercio de abajo de todas y obligaba a componer las nuevas
+   contra un degradado. Ahora es una ventana con marco: 4:3, la misma
+   proporción en TODAS las ranuras, la imagen completa y un filete que
+   la separa del papel. Quien dibuje sabe exactamente qué se ve: todo. */
+.carta .arte{position:relative;margin:0 0 4px;aspect-ratio:4/3;flex:none;
              background:var(--tinte,var(--lejos));overflow:hidden;
-             border-radius:7px 7px 0 0}
-.abanico .carta .arte{aspect-ratio:4/3}
+             border:1px solid rgba(22,36,46,.20);border-radius:5px}
 .carta .arte img{position:absolute;inset:0;width:100%;height:100%;
-                 object-fit:cover;object-position:center 26%;display:block}
-.carta .arte .disuelve{position:absolute;inset:auto 0 0;height:34%;
-  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
+                 object-fit:cover;object-position:center;display:block}
 /* ── maquetación B en la carta grande ──────────────────────────────
    El arte entra a sangre por arriba y se DISUELVE en el cuerpo, no se
    corta: una línea dura cruzando la carta la parte en dos. El fondo lleva
    el tinte de la propia ilustración, medido de su borde en el generador,
    para que los costados no se vean si la imagen no llena el hueco. */
 .grande.conarte{padding:0;overflow:hidden}
-.grande .g-arte{position:relative;aspect-ratio:5/4;background:var(--tinte,#0d1417);
-                overflow:hidden;margin:0}
+.grande .g-arte{position:relative;aspect-ratio:4/3;background:var(--tinte,#0d1417);
+                overflow:hidden;margin:0;
+                border:1px solid rgba(22,36,46,.20);border-radius:6px}
 .grande .g-arte img{position:absolute;inset:0;width:100%;height:100%;
-                    object-fit:cover;object-position:center 30%;display:block}
-/* `aire`: la imagen se mete al 78 % del ancho en vez de llenar el hueco.
-   Con arte más alto que el hueco, llenarlo deja ver la mitad del alto y
-   los personajes quedan pegados a la cámara; así se ve bastante más y los
-   costados se rellenan con el tinte. Parche para el arte que no viene con
-   la forma del hueco; con arte 1:1 no hace falta. */
-.grande .g-arte.aire img{width:78%;left:11%}
-.grande .g-arte .disuelve{position:absolute;inset:auto 0 0;height:26%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+                    object-fit:cover;object-position:center;display:block}
 .grande .g-cuerpo{padding:2px 14px 14px}
 
 /* ── el avatar se agranda y se gira ────────────────────────────────
@@ -731,12 +733,10 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
          border:calc(var(--w)*.015) solid var(--acc);
          box-shadow:0 16px 40px rgba(22,36,46,.34)}
 .av-cara.dorso{transform:rotateY(180deg);background:var(--tinte,var(--lejos))}
-.av-cara .zona{position:relative;height:calc(var(--w)*.727);flex:none;
+.av-cara .zona{position:relative;aspect-ratio:4/3;flex:none;
                background:var(--tinte,var(--lejos));overflow:hidden}
-.av-cara .zona img{position:absolute;inset:0;width:78%;left:11%;height:100%;
-                   object-fit:cover;object-position:center 22%;display:block}
-.av-cara .zona .disuelve{position:absolute;inset:auto 0 0;height:22%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.av-cara .zona img{position:absolute;inset:0;width:100%;height:100%;
+                   object-fit:cover;object-position:center;display:block}
 .av-cara .zona .chips{position:absolute;top:.42em;left:.46em;display:flex;gap:.26em}
 .av-cara .chip{font-family:"IBM Plex Mono",monospace;font-size:.54em;font-weight:600;
   letter-spacing:.05em;text-transform:uppercase;font-style:normal;padding:.2em .48em;
@@ -806,7 +806,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
                    background-size:cover;background-position:center 20%}
 .carta-cab{display:flex;align-items:center;gap:3px}
-.carta-cab.libre{min-height:15px;padding:1px 19px 0 15px}
+.carta-cab.libre{min-height:15px;padding:1px 2px 0 15px}
 .carta-tipo{font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:600;
             letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
 .carta-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11px;line-height:1.15}
@@ -815,7 +815,8 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
       border:1px solid currentColor;align-self:flex-start;white-space:nowrap}
 .etiq.w{color:var(--warn)} .etiq.s{color:var(--ok)}
 .etiq.x2{color:var(--acc)} .etiq.r{color:var(--quir)}
-.carta-pie{margin-top:auto;font-size:8.5px;color:var(--ink-3);line-height:1.2}
+.carta-pie{margin-top:auto;font-size:8.5px;color:var(--ink-3);line-height:1.2;
+  padding-right:15px}   /* el sello de abajo a la derecha */
 
 /* el naipe que sigue al dedo */
 .fantasma{position:fixed;left:0;top:0;z-index:90;pointer-events:none;
@@ -857,6 +858,31 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .op b{display:block;font-family:Petrona,Georgia,serif;font-size:14.5px}
 .op small{color:var(--ink-2);font-size:11px;display:block;margin-top:2px}
 .op.sel{border-color:var(--acc);box-shadow:0 0 0 1.5px var(--acc)}
+/* ── el marcador final, en el pasillo de salida ─────────────────────
+   La guardia termina cuando cruzas la puerta, así que ahí se cuentan los
+   puntos. El dibujo va fijo detrás —la bitácora se desplaza por encima—
+   con un velo que se aclara arriba, donde está el cartel EXIT, y se
+   cierra abajo, donde van las cifras y el registro. */
+/* nada de z-index negativo: los hijos con z negativo se pintan ANTES
+   que los fondos de los bloques del documento, y el papel del tablero
+   los tapaba. Fondo en 0, contenido en 1. */
+.final{position:relative;min-height:100%;isolation:isolate}
+.final > .portada{position:relative;z-index:2}
+.final-fondo{position:fixed;inset:0;z-index:0;background-size:cover;
+  background-position:center 28%;background-repeat:no-repeat}
+/* el velo respeta la mitad de arriba —ahí está la puerta con el cartel
+   EXIT, que es la imagen— y se cierra sobre el suelo, que es donde caen
+   las cifras y la bitácora */
+.final-velo{position:fixed;inset:0;z-index:1;background:
+  linear-gradient(180deg, rgba(236,243,245,0) 0%, rgba(236,243,245,.05) 34%,
+                  rgba(238,244,246,.42) 46%, rgba(240,246,247,.72) 58%,
+                  rgba(240,246,247,.55) 76%, var(--mesa) 96%)}
+/* el hueco que deja ver la puerta: el marcador empieza bajo el dintel */
+.final .final-aire{min-height:31vh}
+.final.con-salida .portada h1{text-shadow:0 2px 14px rgba(255,255,255,.9)}
+.final.con-salida .mtile{background:rgba(255,255,255,.9);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+
 .marcador{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:12px}
 .mtile{background:var(--cerca);border:1px solid var(--line);border-radius:9px;padding:8px}
 .mtile .n{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;
@@ -1110,27 +1136,35 @@ body.con-portada .portada h1 + .sub{text-align:center}
 /* Sin z-index a propósito: con uno, #portada crearía contexto de apilado
    y el botón de sonido quedaría atrapado bajo .app, invisible al dedo.
    Queda detrás por orden en el documento, que basta. */
+/* v0.57 · el clip entra por ANCHO, no a sangre.
+   El clip es 9:16 y la pantalla del teléfono es 9:19,5: llenándola con
+   `cover` se perdía el 18 % de cada costado —el cartel de piso mojado y
+   el carro del trapero quedaban cortados por la mitad— y la escena se
+   veía con lupa. Anclado arriba y escalado al ancho se ve la escena
+   entera; abajo sobran unos 150 px que rellena el papel de la mesa, y ahí
+   caen justo los tres cuadrados del menú. */
 #portada{position:fixed;inset:0;pointer-events:none;
-         background:var(--mesa) center/cover no-repeat}
+         background:var(--mesa) center top/100% auto no-repeat}
 /* Sin partida se vacía, PERO hay que esconderlo entero: es fijo y opaco,
    y `.app` no está posicionada, así que su piso y las camas se pintan por
    DEBAJO. Vaciar los hijos no basta — el contenedor seguía tapando. */
 #portada[hidden]{display:none}
-#portada video{position:absolute;inset:0;width:100%;height:100%;
-               object-fit:cover;display:block}
+#portada video{position:absolute;left:0;top:0;right:0;bottom:auto;
+               width:100%;height:auto;display:block}
 /* El clip deja el 40% de abajo vacío a propósito, pero el piso mojado es
    lo más claro del cuadro y el menú igual necesita apagarlo hacia el
    papel para leerse. */
+/* El velo hace dos cosas: aclara apenas el techo, donde va el logotipo, y
+   cierra el canto de abajo del clip contra el papel de la mesa para que
+   el corte no se vea como una línea. */
 #portada .velo{position:absolute;inset:0;background:
-   /* apenas un aclarado arriba: el logotipo trae su propio contorno y no
-      necesita más, pero el techo del pasillo se agradece un punto suave */
-   linear-gradient(to bottom, rgba(242,247,248,.34) 0%,
-                              rgba(242,247,248,0) 16%),
+   linear-gradient(to bottom, rgba(242,247,248,.40) 0%,
+                              rgba(242,247,248,0) 17%),
    linear-gradient(to bottom, rgba(223,231,234,0) 0%,
-                              rgba(223,231,234,0) 52%,
-                              rgba(223,231,234,.22) 68%,
-                              rgba(223,231,234,.40) 82%,
-                              rgba(223,231,234,.52) 100%)}
+                              rgba(223,231,234,0) 62%,
+                              rgba(223,231,234,.30) 74%,
+                              rgba(223,231,234,.72) 82%,
+                              var(--mesa) 88%)}
 /* Cuelga de <body>, no de #portada: `position:fixed` crea contexto de
    apilado, así que un hijo de #portada no puede subir sobre .app por más
    z-index que le pongas — quedaba dibujado pero intocable. */
@@ -1405,17 +1439,15 @@ body[data-maq="b"] .centro-info{margin-bottom:4px;font-size:8.5px}
 body[data-maq="b"] .tres{flex:none;height:118px;align-items:stretch}
 body[data-maq="b"] .cama{height:100%;overflow:hidden}
 body[data-maq="b"] .cama.pficha{display:flex;flex-direction:column}
-body[data-maq="b"] .cama.pficha .cama-arte{flex:1 1 0;min-height:0;
-  aspect-ratio:auto;margin:0 0 3px}
+body[data-maq="b"] .cama.pficha .cama-arte{flex:none;aspect-ratio:4/3;
+  margin:0 0 3px}
 body[data-maq="b"] .cama.pficha .cuerpo-f{flex:none}
 body[data-maq="b"] .cama-arte .sinarte{position:absolute;inset:0;display:grid;
   place-items:center;font-size:30px;opacity:.6;
   filter:drop-shadow(0 2px 4px rgba(22,36,46,.2))}
 /* su cama, espejada: los datos quedan del lado de la Pizarra */
 body[data-maq="b"] .cama.suya{display:flex;flex-direction:column-reverse}
-body[data-maq="b"] .cama.suya .cama-arte{margin:3px 0 0}
-body[data-maq="b"] .cama.suya .cama-arte .disuelve{inset:0 0 auto;
-  background:linear-gradient(180deg,var(--fondo-carta),rgba(255,255,255,0))}
+body[data-maq="b"] .cama.suya .cama-arte{margin:4px 0 0}
 body[data-maq="b"] .cama.suya .f-grav{top:auto;bottom:4px}
 body[data-maq="b"] .cama.suya .f-faltan{top:auto;bottom:2px}
 body[data-maq="b"] .cama.suya .cuerpo-f{padding-top:4px}
@@ -1494,7 +1526,6 @@ body[data-maq="b"] .puntos-b i{width:5px;height:5px;border-radius:50%;
   background:rgba(255,255,255,.42);transition:background .15s ease}
 body[data-maq="b"] .puntos-b i.on{background:#fff;
   box-shadow:0 0 0 2px rgba(255,255,255,.28)}
-body[data-maq="b"] .ran-b .carta .arte{aspect-ratio:3/2}
 body[data-maq="b"] .ran-b .carta .carta-pie{font-size:7.5px;
   max-height:20px;overflow:hidden}
 body[data-maq="b"] .cerrar-mano{position:absolute;left:50%;top:auto;
@@ -1593,11 +1624,8 @@ body[data-maq="b"].arrastrando .pista{opacity:0;transition:opacity .15s ease}
    un valor fijo, para que la carta se vea igual en la mano, en la cama y
    en el zoom. El arte NO sangra al filo: sangra al filete. */
 body[data-maq="b"] .carta{--marco:3px}
-body[data-maq="b"] .carta .arte{margin:calc(-6px + var(--marco))
-  calc(-6px + var(--marco)) 3px;border-radius:5px}
 body[data-maq="b"] .cama.pficha{--marco:3px;padding:var(--marco)}
-body[data-maq="b"] .cama.pficha .cama-arte{margin:0 0 3px;border-radius:6px;
-  overflow:hidden}
+body[data-maq="b"] .cama.pficha .cama-arte{margin:0 0 3px}
 body[data-maq="b"] .cama.suya .cama-arte{margin:3px 0 0}
 body[data-maq="b"] .cama.pficha .cuerpo-f{padding:0 3px}
 body[data-maq="b"] .cama.pficha .sellos{padding:0 3px}
@@ -1699,25 +1727,36 @@ body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100%
 .salida.suelto .sal-cadena{display:none}
 body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/100% auto no-repeat}
 
-/* ── el menú de inicio: tres fichas y una casilla ───────────────────
-   Antes eran cuatro botones anchos con una frase cada uno, y ocupaban de
-   la mitad de la pantalla para abajo. Las modalidades son tres; la Primera
-   guardia no es una modalidad —es la partida contra la IA con el coach— y
-   por eso baja a casilla. Lo que se gana en alto es lo que deja ver el
-   dibujo del pasillo. */
-.pastillas{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
-.pastilla{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
-  padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+/* ── el menú de inicio: tres cuadrados con su moneda ────────────────
+   Eran cuatro botones anchos con una frase cada uno y se comían media
+   pantalla; luego tres fichas en fila vertical, que seguían tapando al
+   auxiliar. Ahora son tres cuadrados en una sola fila —el ícono en una
+   moneda de metal y una palabra— y ocupan 14 % del alto en vez de 40 %.
+   Todo lo que se ahorra aquí lo gana el clip que corre detrás. */
+.pastillas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  margin-bottom:9px}
+.pastilla{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:6px;width:100%;aspect-ratio:1/1;text-align:center;
+  padding:8px 4px;border-radius:15px;border:1px solid var(--line);
   background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer;
   transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
+/* la medalla: el mismo cromado que la Pizarra y el reloj de asistencia.
+   No se llama .moneda porque esa clase ya es la del alta, y es fija. */
+.pastilla .medalla{width:46px;height:46px;border-radius:50%;flex:none;
+  display:grid;place-items:center;color:var(--acc);
+  background:radial-gradient(120% 120% at 32% 22%, #ffffff 0%, #eef4f6 42%, #cfdde1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -1.5px 3px rgba(60,78,88,.24),
+             0 0 0 1.5px rgba(60,78,88,.20), 0 2px 6px rgba(22,36,46,.16)}
 .pastilla .ic{width:25px;height:25px;flex:none;display:block;color:var(--acc)}
-.pastilla b{font-family:Petrona,Georgia,serif;font-size:14px;line-height:1.1}
-.pastilla small{font-family:"IBM Plex Mono",monospace;font-size:8.5px;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
-  margin-left:auto;white-space:nowrap}
-.pastilla:active{transform:scale(.99)}
+.pastilla b{font-family:Petrona,Georgia,serif;font-size:14.5px;line-height:1}
+.pastilla small{font-family:"IBM Plex Mono",monospace;font-size:7.5px;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);
+  white-space:nowrap;line-height:1;margin-top:-3px}
+.pastilla:active{transform:scale(.97)}
 @media (hover:hover){.pastilla:hover{border-color:var(--acc);
-  box-shadow:0 4px 14px rgba(13,110,120,.18)}}
+  box-shadow:0 4px 14px rgba(13,110,120,.18)}
+  .pastilla:hover .medalla{color:var(--acc)}}
 .tuto{display:flex;align-items:center;gap:9px;width:100%;text-align:left;
   padding:9px 11px;border-radius:12px;border:1px solid var(--line);
   background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer}
@@ -2823,7 +2862,7 @@ function revCarta(c){
 function revProt(a){
   return `<div class="prot rev">`+
     (a.arte ? `<i class="p-arte"${a.tinte?` style="--tinte:${a.tinte}"`:""}>`+
-              `<img src="${a.arte}" alt=""><i class="disuelve"></i></i>` : "")+
+              `<img src="${a.arte}" alt=""></i>` : "")+
     `<div class="prot-cab">`+
     `<span class="coste">${a.coste}</span><span class="prot-tipo">${esc(a.tipo)}</span></div>`+
     `<div class="prot-nom">${esc(a.nombre)}</div>`+
@@ -3392,7 +3431,6 @@ function arteProt(a){
   const im = document.createElement("img");
   im.src = a.arte; im.alt = "";
   z.appendChild(im);
-  z.appendChild(el("i","disuelve"));
   return z;
 }
 
@@ -3652,7 +3690,6 @@ function vistaCama(c, i, duenio, propio){
       ic.title = esc(c.p.nombre);
       za.appendChild(ic);
     }
-    za.appendChild(el("div","disuelve"));
     za.appendChild(el("span","f-grav",
       c.p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(c.p.gravedad)));
     za.appendChild(el("span","f-faltan"+(total===0?" cero":""),
@@ -3811,7 +3848,6 @@ function verPacienteGrande(c){
       const im = document.createElement("img");
       im.src = c.p.arte; im.alt = "";
       ga.appendChild(im);
-      ga.appendChild(el("div","disuelve"));
       g.appendChild(ga);
       cuerpo = el("div","g-cuerpo");
       g.appendChild(cuerpo);
@@ -4269,7 +4305,7 @@ function verAvatarGrande(j){
   c3.innerHTML =
     `<div class="av-giro">` +
       `<div class="av-cara frente"${tin}>` +
-        `<div class="zona">${img}<i class="disuelve"></i>` +
+        `<div class="zona">${img}` +
           `<div class="chips"><i class="chip">avatar</i>` +
           `<i class="chip hueco">${esc(a.frecuencia)}</i></div></div>` +
         `<div class="panel"><h3>${esc(a.nombre)}</h3>` +
@@ -4316,12 +4352,11 @@ function verCartaGrande(idx, jug){
   let cuerpo = g;
   if(c.arte){
     g.classList.add("conarte");
-    const ga = el("div","g-arte" + (c.texto || c.warn ? " aire" : ""));
+    const ga = el("div","g-arte");
     if(c.tinte) ga.style.setProperty("--tinte", c.tinte);
     const im = document.createElement("img");
     im.src = c.arte; im.alt = "";
     ga.appendChild(im);
-    ga.appendChild(el("div","disuelve"));
     g.appendChild(ga);
     cuerpo = el("div","g-cuerpo");
     g.appendChild(cuerpo);
@@ -4451,11 +4486,11 @@ function cuerpoCarta(c){
   // como el índice de un naipe, así que sea cual sea el trozo que asoma,
   // dice de qué es la carta.
   const tc = TCOL[c.tipo] || TCOL.COMODIN;
-  let h = `<i class="esq" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`+
-          `<i class="esq izq" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`;
+  let h = `<i class="esq ai" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`+
+          `<i class="esq bd" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`;
   h += c.arte
     ? `<i class="arte"${c.tinte ? ` style="--tinte:${c.tinte}"` : ""}>` +
-      `<img src="${c.arte}" alt=""><i class="disuelve"></i></i>`
+      `<img src="${c.arte}" alt=""></i>`
     : "";
   // el ícono ya lo dan los sellos de esquina: aquí queda solo la palabra,
   // apartada a los lados para no meterse debajo de ellos
@@ -4773,7 +4808,9 @@ function pintarRueda(pos, donde){
     // más grandes y con 132 px fijos las vecinas quedaban debajo del centro
     const x = Math.sin(th) * Math.min(168, (cont.clientWidth||390)*0.40);
     const cerca = (Math.cos(th)+1)/2;             // 1 al frente, 0 atrás
-    c.style.transform = `translateX(${x}px) rotateY(${(-th*32).toFixed(1)}deg)`+
+    // translateY(-50%): la carta se centra vertical y crece con su
+    // contenido, en vez de estirarse hasta el borde de la rueda
+    c.style.transform = `translate(${x}px,-50%) rotateY(${(-th*32).toFixed(1)}deg)`+
                         ` scale(${(0.68+0.34*cerca).toFixed(3)})`;
     c.style.opacity = (0.2+0.8*cerca).toFixed(2);
     c.style.zIndex = String(Math.round(10+20*cerca));
@@ -4850,7 +4887,6 @@ function modalAvatar(){
       `<div class="av-retrato"${o.tinte?` style="--tinte:${o.tinte}"`:""}>`+
         (o.arte ? `<img src="${o.arte}" alt="">`
                 : `<span class="av-inicial">${esc((o.nombre||"?").replace(/^(El|La|Los|Las) /,"")[0])}</span>`)+
-        `<i class="av-vela"></i>`+
         `<div class="av-rol">${esc(o.frecuencia)}</div>`+
       `</div>`+
       `<div class="av-ficha">`+
@@ -5068,7 +5104,8 @@ function alertaAccion(a){
    service worker pueda cachearlos por separado. Vacíos = sin portada, y
    la pantalla de inicio queda como estaba. */
 const PORTADA = {video:/*__PORTADA_VIDEO__*/"", cuadro:/*__PORTADA_CUADRO__*/"",
-                 dibujo:/*__PORTADA_DIBUJO__*/"", logo:/*__PORTADA_LOGO__*/""};
+                 dibujo:/*__PORTADA_DIBUJO__*/"", logo:/*__PORTADA_LOGO__*/"",
+                 salida:/*__PORTADA_SALIDA__*/""};
 const CLAVE_SON = "vt-portada-sonido";
 
 function pintarPortada(){
@@ -5083,16 +5120,17 @@ function pintarPortada(){
   cont.hidden = false;
   if(cont.firstChild) return;          // ya está puesta: no la reinicies
 
-  // la portada dibujada manda: mientras exista arte/portada/dibujo.svg la
-  // pantalla de inicio es la escena vectorial y el video queda guardado
-  // (borrar ese archivo lo devuelve — el código del clip sigue intacto)
-  const fondo = PORTADA.dibujo || PORTADA.cuadro;
+  // v0.57: manda el CLIP. El vector de dibujo.svg fue el boceto que se
+  // mandó a dibujar y a animar; ahora que el video existe, el vector pasa
+  // a ser el respaldo de última hora —debajo del cuadro fijo— y solo se
+  // ve si el clip no está o el teléfono pide menos animación.
+  const fondo = PORTADA.cuadro || PORTADA.dibujo;
   if(fondo) cont.style.backgroundImage = `url("${fondo}")`;
   // si el teléfono pide menos animación, se queda el cuadro fijo y ya
   const quieto = window.matchMedia &&
                  matchMedia("(prefers-reduced-motion: reduce)").matches;
   let vid = null;
-  if(PORTADA.video && !quieto && !PORTADA.dibujo){
+  if(PORTADA.video && !quieto){
     vid = document.createElement("video");
     vid.poster = PORTADA.cuadro || "";
     vid.loop = true; vid.playsInline = true; vid.preload = "auto";
@@ -5156,16 +5194,18 @@ function pantallaInicio(){
   // casilla: la marcas y «Contra la IA» arranca con la guía. Quien ya jugó
   // no vuelve a leerla y el menú son tres fichas y nada más.
   const ops = el("div","pastillas");
-  const mk = (icono, tit, sub, fn)=>{
+  const mk = (icono, tit, sub, largo, fn)=>{
     const b = el("button","pastilla");
-    b.innerHTML = icono + `<b>${tit}</b><small>${sub}</small>`;
+    b.innerHTML = `<span class="medalla">${icono}</span>`+
+                  `<b>${tit}</b><small>${sub}</small>`;
+    b.setAttribute("aria-label", largo);
     b.onclick = fn; ops.appendChild(b);
   };
-  mk(SVG_MODO.ia, "Contra la IA", "1 jugador",
+  mk(SVG_MODO.ia, "IA", "1 jugador", "Jugar contra la IA, 1 jugador",
      ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], !!UI.conTuto));
-  mk(SVG_MODO.dos, "Dos jugadores", "1 teléfono",
+  mk(SVG_MODO.dos, "Dúo", "1 teléfono", "Dos jugadores en un teléfono",
      ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
-  mk(SVG_MODO.solo, "Solitario", "2 manos",
+  mk(SVG_MODO.solo, "Solo", "2 manos", "Solitario, las dos manos a la vista",
      ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
   s.appendChild(ops);
 
@@ -5216,8 +5256,19 @@ function bloqueInstalar(){
   return w;
 }
 
+/* El marcador final se contaba sobre el fondo liso de la mesa, que es
+   donde menos sentido tenía: la guardia termina cuando cruzas la puerta.
+   Ahora se cuenta en el pasillo de salida, al atardecer, con el cartel
+   verde encendido al fondo. El dibujo va detrás y fijo —no se desplaza
+   con la bitácora— y lleva su velo para que los números se lean. */
 function pantallaFinal(){
-  const w = el("div");
+  const w = el("div","final"+(PORTADA.salida?" con-salida":""));
+  if(PORTADA.salida){
+    const f = el("div","final-fondo");
+    f.style.backgroundImage = `url("${PORTADA.salida}")`;
+    w.appendChild(f);
+    w.appendChild(el("div","final-velo"));
+  }
   const s = el("div","portada");
   const orden = G.jug.map(j=>({j, p:puntos(j)})).sort((a,b)=>b.p-a.p);
   s.appendChild(el("h1",null,"Fin de la guardia"));
@@ -5226,6 +5277,8 @@ function pantallaFinal(){
       ? `Cerrada en la ronda ${G.ronda} de ${RONDAS}. `
       : "Ocho rondas. ") +
     `Gana <b>${esc(orden[0].j.nombre)}</b> con ${orden[0].p} puntos.`));
+  // deja respirar la puerta antes de las cifras
+  if(PORTADA.salida) s.appendChild(el("div","final-aire"));
   const g = el("div","marcador"); g.style.marginTop="14px";
   orden.forEach(({j,p},oi)=>{
     const t = el("div","mtile"+(oi===0?" gana":""));
@@ -5237,9 +5290,10 @@ function pantallaFinal(){
     g.appendChild(t);
   });
   s.appendChild(g);
-  const l = el("div","log"); l.style.marginTop="14px";
-  G.log.slice(-140).reverse().forEach(x=> l.appendChild(el("div",x.cls,esc(x.txt))));
-  s.appendChild(l);
+  // La bitácora se va del marcador: cien líneas de registro tapaban el
+  // pasillo y el que gana no quiere leer el turno otra vez. El botón se
+  // queda —sirve para mandar la partida— y el registro completo sigue
+  // entero en el Panel mientras la guardia esté abierta.
   const bc = el("button","btn chico","Copiar bitácora"); bc.style.marginTop="8px";
   bc.onclick = ()=>{ const txt=G.log.map(x=>`R${x.r} · ${x.txt}`).join("\n");
     if(navigator.clipboard) navigator.clipboard.writeText(txt); bc.textContent="Copiada ✓"; };

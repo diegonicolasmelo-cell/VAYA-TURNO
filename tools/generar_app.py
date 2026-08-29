@@ -95,8 +95,16 @@ def cargar_arte(destino=None):
         if Image is not None:
             im = Image.open(io.BytesIO(datos_img)).convert("RGB")
             tintes[raiz.upper()] = tinte(im)
-            if im.width > 520:
-                im = im.resize((520, round(im.height * 520 / im.width)))
+            # 800 px de ancho: el hueco más grande del juego es el zoom
+            # (342 px de CSS → 1026 px reales en un teléfono 3×), así que
+            # 520 se veía blando. Con el arte en 4:3 subir a 800 sale
+            # gratis: la fuente 9:16 de antes gastaba dos tercios de sus
+            # píxeles en la parte que el recorte tiraba, y a 800 el 4:3
+            # pesa lo mismo (46 KB por carta contra 42) mostrando un 54 %
+            # más de resolución. Medido sobre las diez ilustraciones que
+            # hay: 115 cartas ≈ 5,2 MB, igual que hoy.
+            if im.width > 800:
+                im = im.resize((800, round(im.height * 800 / im.width)))
             buf = io.BytesIO()
             im.save(buf, "WEBP", quality=80)
             if buf.tell() < len(datos_img):
@@ -128,11 +136,14 @@ def cargar_portada(destino=None):
     sea un archivo propio y no parte del HTML: el service worker lo cachea
     solo, y una corrección de reglas no obliga a bajarlo de nuevo."""
     carpeta = os.path.join(RAIZ, "arte", "portada")
-    out = {"video": "", "cuadro": "", "dibujo": "", "logo": ""}
+    out = {"video": "", "cuadro": "", "dibujo": "", "logo": "", "salida": ""}
     for clave, nombre, mime in (("video", "portada.mp4", "video/mp4"),
                                 ("cuadro", "portada.jpg", "image/jpeg"),
                                 ("dibujo", "dibujo.svg", "image/svg+xml"),
-                                ("logo", "logo.webp", "image/webp")):
+                                ("logo", "logo.webp", "image/webp"),
+                                # el pasillo de salida: fondo del marcador
+                                # final, cuando se cuentan los puntos
+                                ("salida", "salida.webp", "image/webp")):
         ruta = os.path.join(carpeta, nombre)
         if not os.path.isfile(ruta):
             continue
@@ -217,7 +228,8 @@ def armar(d, pwa=False, css_local=None, portada=None):
     for clave, hueco in (("video", '/*__PORTADA_VIDEO__*/""'),
                          ("cuadro", '/*__PORTADA_CUADRO__*/""'),
                          ("dibujo", '/*__PORTADA_DIBUJO__*/""'),
-                         ("logo", '/*__PORTADA_LOGO__*/""')):
+                         ("logo", '/*__PORTADA_LOGO__*/""'),
+                         ("salida", '/*__PORTADA_SALIDA__*/""')):
         if hueco not in html:
             raise SystemExit("La plantilla no tiene el marcador " + hueco)
         html = html.replace(hueco, json.dumps((portada or {}).get(clave, "")), 1)
