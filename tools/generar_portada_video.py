@@ -43,7 +43,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ANCHO, ALTO, CRF = 720, 1280, 30
 SR = 48000
 CRUCE = 0.45         # segundos de disolvencia en cada empalme del audio
-APLANAR = True       # nivelar el crescendo del clip (ver aplanar())
+APLANAR = False      # nivelar el crescendo del clip (ver aplanar())
 VENTANA = 1.6        # segundos de la ventana con que se mide ese nivel
 DESTINO = os.path.join(RAIZ, "arte", "portada")
 

@@ -919,13 +919,13 @@ adelante hasta cubrir el ciclo, con 0,45 s de disolvencia en cada empalme y
 otra que envuelve el final sobre el principio. Comprobado midiendo el pulso
 por mitades: 125 en las dos.
 
-**Y se nivela.** El clip es un crescendo de ocho segundos: en bucle eso se
-oye como un vaivén de volumen que ninguna disolvencia arregla —una
-disolvencia mezcla, no inventa el crescendo que falta—. `aplanar()` divide
-por el RMS corrido con ventana de 1,6 s (mucho más larga que un compás, para
-no tocar el pulso) con la ganancia acotada. La desviación de nivel a lo
-largo del ciclo baja del 45 % al 10 %, sin recorte (pico 0,49). Con
-`APLANAR = False` se deja el clip como viene.
+**El crescendo se queda.** El clip sube de volumen de principio a fin y en
+bucle eso se oye como un vaivén. Se probó nivelarlo —`aplanar()` divide por
+el RMS corrido con ventana de 1,6 s, mucho más larga que un compás para no
+tocar el pulso, con la ganancia acotada— y funciona: la desviación de nivel
+a lo largo del ciclo baja del 32 % al 10 % sin recorte. **Pero el autor
+prefirió su música tal cual**, así que queda `APLANAR = False`. La función
+sigue ahí y se enciende con esa línea.
 
 Tres trampas encontradas en el camino, por si vuelve el tema:
 
