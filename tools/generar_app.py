@@ -383,17 +383,25 @@ def construir_pwa():
     # el fondo de la portada va con el arte: caché primero, y si falla la
     # descarga la app igual instala y la portada queda en el cuadro fijo
     urls += [u for u in portada.values() if u]
-    # la versión de la caché sale del contenido: si nada cambió, el
-    # teléfono no vuelve a descargar; si algo cambió, se entera solo.
-    # Los ÍCONOS cuentan por su contenido, no por su nombre: están en el
-    # núcleo de la caché, así que cambiar el dibujo sin cambiar el sello
-    # dejaba a los teléfonos ya instalados con el ícono viejo para siempre.
-    huellas = "".join(
-        hashlib.sha256(open(os.path.join(SALIDA_PWA, "iconos", n), "rb")
-                       .read()).hexdigest()
-        for n in sorted(os.listdir(os.path.join(SALIDA_PWA, "iconos"))))
-    sello = hashlib.sha256((html + man + huellas + "".join(urls + (tipos or []))
-                            ).encode()).hexdigest()[:12]
+    # La versión de la caché sale del CONTENIDO de todo lo que se cachea.
+    # Antes solo los íconos contaban por su contenido y el resto por su
+    # nombre, y eso dejaba un agujero real: reemplazar portada.mp4 por otro
+    # clip con el mismo nombre no movía el sello, así que los teléfonos ya
+    # instalados se quedaban con el video viejo para siempre. Ahora se
+    # calcula la huella de cada archivo que entra a la caché —íconos,
+    # tipografías, arte y portada—: si cambia un byte, cambia el sello y el
+    # `activate` del worker borra la caché anterior.
+    def huella(rel):
+        ruta = os.path.join(SALIDA_PWA, rel)
+        if not os.path.isfile(ruta):
+            return rel                      # no está: cuenta por su nombre
+        with open(ruta, "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()
+
+    cacheados = sorted(set(urls) | set(tipos or []) | {
+        "iconos/" + n for n in os.listdir(os.path.join(SALIDA_PWA, "iconos"))})
+    huellas = "".join(r + huella(r) for r in cacheados)
+    sello = hashlib.sha256((html + man + huellas).encode()).hexdigest()[:12]
 
     with open(os.path.join(SALIDA_PWA, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)

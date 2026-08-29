@@ -888,3 +888,41 @@ de última hora, debajo del cuadro fijo.
 - ⬜ Las tres salas del fondo se animan dentro del clip, no en CSS: si
   alguna vez hay que retocar una (el ritmo de las compresiones, por
   ejemplo) hay que volver a Flow, no al código.
+
+### El sello de la caché contaba los nombres, no los bytes ✅ (v0.57)
+
+`generar_app.py --pwa` calculaba la versión del service worker con el HTML,
+el manifiesto, la huella de los **íconos** y la **lista de nombres** del
+resto. O sea: reemplazar `portada/portada.mp4` por otro clip con el mismo
+nombre **no movía el sello**, y los teléfonos ya instalados se quedaban con
+el video viejo para siempre — que es exactamente el bicho que el comentario
+del código decía haber arreglado, pero solo para los íconos. Ahora la
+huella se calcula sobre el contenido de **todo** lo que entra a la caché:
+íconos, tipografías, arte y portada. Comprobado: cambiar un byte de
+`salida.webp` mueve el sello de `89b5b1cf7bbb` a `b1d31d2f02a7`, y
+restaurarlo lo devuelve.
+
+Regla para el futuro: **cualquier archivo nuevo que se sume a la caché
+tiene que entrar en `cacheados`**, o volvemos al mismo agujero.
+
+### El audio de la portada ✅ (v0.57)
+
+El clip trae su propia música y es la que se queda. `sonido_portada.py`
+—que sintetizaba monitores, alarmas y las pasadas del trapero— deja de
+usarse; el módulo se queda en el repo por si vuelve a llegar un clip mudo.
+
+Con eso el bucle ya no puede ser de ida y vuelta: la música son 125 pulsos
+por minuto y al revés se nota a la primera. El ciclo se cierra disolviendo
+la cola sobre la cabeza —medio segundo—, así que el clip pasa de 16 s a
+7,5 s y de 2,29 MB a 1,16 MB.
+
+Dos trampas de `ffmpeg` que costaron el rato:
+
+- **`xfade` no sirve para cerrar un bucle sobre sí mismo.** Exige que su
+  primera entrada dure más que `offset+duration`, y la cola mide justo la
+  disolvencia. Sale con `overlay` y un `fade=alpha=1` sobre la cabeza.
+- **`acrossfade` devuelve cero muestras** con entradas de esa misma
+  largura, y el error que da es `Could not open encoder before EOF`, que no
+  apunta a nada. Sale con dos `afade` complementarios sumados con
+  `amix=normalize=0`. Y el `aformat` de entrada no sobra: sin él el
+  `concat` de audio no arranca.
