@@ -1061,7 +1061,7 @@ body.con-portada .inicio{display:flex;flex-direction:column;
 body.con-portada .inicio .aire-inicio{flex:1 1 0;min-height:70px}
 body.con-portada .inicio .portada:first-child{padding-bottom:0}
 body.con-portada .opciones{margin-bottom:6px}
-body.con-portada .fichas{margin-bottom:9px}
+body.con-portada .pastillas{margin-bottom:9px}
 body.con-portada .opciones .op{background:rgba(255,255,255,.80);
    backdrop-filter:blur(9px) saturate(1.15);
    -webkit-backdrop-filter:blur(9px) saturate(1.15);
@@ -1568,19 +1568,19 @@ body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/1
    guardia no es una modalidad —es la partida contra la IA con el coach— y
    por eso baja a casilla. Lo que se gana en alto es lo que deja ver el
    dibujo del pasillo. */
-.fichas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
-.ficha{aspect-ratio:1/1;border-radius:14px;border:1px solid var(--line);
-  background:var(--cerca);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:5px;padding:6px;text-align:center;font:inherit;
-  color:var(--ink);cursor:pointer;
+.pastillas{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
+.pastilla{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+  background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer;
   transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
-.ficha .ic{width:32px;height:32px;display:block;color:var(--acc)}
-.ficha b{font-family:Petrona,Georgia,serif;font-size:12.5px;line-height:1.1}
-.ficha small{font-family:"IBM Plex Mono",monospace;font-size:7.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-3);line-height:1.2}
-.ficha:active{transform:scale(.97)}
-@media (hover:hover){.ficha:hover{border-color:var(--acc);
-  box-shadow:0 4px 14px rgba(13,110,120,.18);transform:translateY(-2px)}}
+.pastilla .ic{width:25px;height:25px;flex:none;display:block;color:var(--acc)}
+.pastilla b{font-family:Petrona,Georgia,serif;font-size:14px;line-height:1.1}
+.pastilla small{font-family:"IBM Plex Mono",monospace;font-size:8.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  margin-left:auto;white-space:nowrap}
+.pastilla:active{transform:scale(.99)}
+@media (hover:hover){.pastilla:hover{border-color:var(--acc);
+  box-shadow:0 4px 14px rgba(13,110,120,.18)}}
 .tuto{display:flex;align-items:center;gap:9px;width:100%;text-align:left;
   padding:9px 11px;border-radius:12px;border:1px solid var(--line);
   background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer}
@@ -1592,11 +1592,11 @@ body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/1
 .tuto .tx{font-size:11.5px;line-height:1.25}
 .tuto .tx b{font-family:Petrona,Georgia,serif;font-size:12.5px;display:block}
 @media (prefers-reduced-motion: no-preference){
-  .fichas .ficha{animation:subir .34s cubic-bezier(.2,.9,.3,1) backwards}
-  .fichas .ficha:nth-child(2){animation-delay:70ms}
-  .fichas .ficha:nth-child(3){animation-delay:140ms}}
+  .pastillas .pastilla{animation:subir .34s cubic-bezier(.2,.9,.3,1) backwards}
+  .pastillas .pastilla:nth-child(2){animation-delay:70ms}
+  .pastillas .pastilla:nth-child(3){animation-delay:140ms}}
 /* con portada, las fichas y la casilla se vuelven vidrio esmerilado */
-body.con-portada .ficha,body.con-portada .tuto{background:rgba(255,255,255,.82);
+body.con-portada .pastilla,body.con-portada .tuto{background:rgba(255,255,255,.82);
   backdrop-filter:blur(9px) saturate(1.15);
   -webkit-backdrop-filter:blur(9px) saturate(1.15);
   border-color:rgba(60,78,88,.16);box-shadow:0 3px 12px rgba(22,36,46,.13)}
@@ -4831,17 +4831,17 @@ function pantallaInicio(){
   // encendido, la misma llamada con una bandera de más. Así que baja a una
   // casilla: la marcas y «Contra la IA» arranca con la guía. Quien ya jugó
   // no vuelve a leerla y el menú son tres fichas y nada más.
-  const ops = el("div","fichas");
+  const ops = el("div","pastillas");
   const mk = (icono, tit, sub, fn)=>{
-    const b = el("button","ficha");
+    const b = el("button","pastilla");
     b.innerHTML = icono + `<b>${tit}</b><small>${sub}</small>`;
     b.onclick = fn; ops.appendChild(b);
   };
   mk(SVG_MODO.ia, "Contra la IA", "1 jugador",
      ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], !!UI.conTuto));
-  mk(SVG_MODO.dos, "Dos jugadores", "un teléfono",
+  mk(SVG_MODO.dos, "Dos jugadores", "1 teléfono",
      ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
-  mk(SVG_MODO.solo, "Solitario", "dos manos",
+  mk(SVG_MODO.solo, "Solitario", "2 manos",
      ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
   s.appendChild(ops);
 

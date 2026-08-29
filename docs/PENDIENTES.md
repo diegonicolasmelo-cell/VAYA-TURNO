@@ -408,10 +408,12 @@ tres fases y las Acciones, y el pie del «árbitro digital» —ninguno le habla
 a quien va a jugar—, y el velo dejó de borrar el piso (llegaba a 0,97 de
 blanco): los botones son vidrio esmerilado sobre el suelo recién trapeado.
 
-**Y el menú son tres fichas.** Las modalidades son tres, no cuatro: la
+**Y el menú son tres pastillas** (el autor eligió la variante B del
+mockup: bajas, con el nombre completo y la pista a la derecha, en vez de las
+fichas cuadradas). Las modalidades son tres, no cuatro: la
 Primera guardia **no es una modalidad**, es la partida contra la IA con el
 coach encendido —en el código, la misma llamada con una bandera de más—.
-Así que baja a una **casilla** bajo las fichas: la marcas y «Contra la IA»
+Así que baja a una **casilla** bajo las pastillas: la marcas y «Contra la IA»
 arranca con la guía; quien ya jugó no vuelve a leerla nunca. Con el menú
 compacto la escena pudo bajar 66 px enteros y el logotipo quedó solo contra
 el cielo raso, que además se despejó: las luminarias se fueron y el reloj se
