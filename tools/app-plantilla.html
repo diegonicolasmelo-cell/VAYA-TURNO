@@ -550,27 +550,63 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
                               0 3px 14px rgba(13,110,120,.26)}
 .btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
 
-/* ── la rueda de personajes: carrusel circular sin tope ──────────────
+/* ── elegir personaje: la pantalla entera ────────────────────────────
+   Era una hoja de abajo con tres tarjetitas y el tablero asomando por
+   detrás. La primera decisión de la partida se merece la pantalla: la
+   ilustración manda y debajo va la habilidad al tamaño en que se lee.
    Los 3 giran sobre un eje vertical; deslizas y da la vuelta completa. */
-.rueda{position:relative;height:270px;margin:4px 0 10px;perspective:800px;
-       touch-action:none;overflow:hidden}
-.rueda .op.av-carta{position:absolute;left:50%;top:6px;width:232px;
-       margin-left:-116px;padding:14px 14px 12px;text-align:left;
-       background:var(--paper);border:1px solid var(--line);border-radius:13px;
-       box-shadow:0 8px 24px rgba(22,36,46,.16);
+.elige-av{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  background:radial-gradient(120% 78% at 50% 0%, #22333c 0%, #101a20 62%, #070d11 100%);
+  color:#eaf1f3;padding:calc(18px + env(safe-area-inset-top,0px)) 0
+                        calc(14px + env(safe-area-inset-bottom,0px));
+  animation:aparecer .24s ease}
+.ea-cab{flex:none;padding:0 22px 10px;text-align:center}
+.ea-rot{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:#7fb9c1}
+.ea-cab h2{margin:6px 0 0;font-family:Petrona,Georgia,serif;font-size:19px;
+  font-weight:700;line-height:1.2;text-wrap:balance;color:#fff}
+.rueda{position:relative;flex:1 1 auto;min-height:0;margin:6px 0 8px;
+       perspective:900px;touch-action:none;overflow:hidden}
+.rueda .op.av-carta{position:absolute;left:50%;top:0;bottom:0;width:266px;
+       margin-left:-133px;padding:0;text-align:left;overflow:hidden;
+       display:flex;flex-direction:column;
+       background:var(--paper);border:1px solid rgba(255,255,255,.14);
+       border-radius:18px;box-shadow:0 22px 54px rgba(0,0,0,.5);
        transition:transform .28s cubic-bezier(.2,.9,.3,1), opacity .28s ease;
        will-change:transform}
 .rueda.viva .op.av-carta{transition:none}
-.av-rol{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
-        letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
-.av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
-        line-height:1.1;margin:4px 0 7px}
-.av-hab{font-size:12px;line-height:1.4;color:var(--ink-2)}
-.av-frase{font-family:Petrona,Georgia,serif;font-style:italic;font-size:11.5px;
-          color:var(--ink-3);margin-top:8px;line-height:1.35}
-.rueda-pista{display:flex;gap:5px;justify-content:center;margin:0 0 10px}
-.rueda-pista i{width:6px;height:6px;border-radius:99px;background:var(--line)}
-.rueda-pista i.on{background:var(--acc);width:16px}
+.av-retrato{position:relative;flex:1 1 auto;min-height:0;
+  background:linear-gradient(165deg,var(--tinte,#5d818b),#2c4149);
+  display:flex;align-items:flex-start;justify-content:center;
+  padding-top:16%;overflow:hidden}
+.av-retrato img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 22%;display:block}
+.av-inicial{font-family:Petrona,Georgia,serif;font-size:118px;font-weight:700;
+  color:rgba(255,255,255,.42);line-height:.9;user-select:none;
+  text-shadow:0 6px 22px rgba(0,0,0,.28)}
+.av-vela{position:absolute;inset:auto 0 0;height:38%;
+  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.av-rol{position:absolute;left:12px;top:12px;z-index:2;
+        font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;
+        letter-spacing:.11em;text-transform:uppercase;color:#fff;
+        background:rgba(13,110,120,.9);padding:3px 8px;border-radius:99px}
+.av-ficha{flex:none;padding:0 16px 16px}
+.av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:23px;
+        line-height:1.08;margin:0 0 6px;color:var(--ink)}
+.av-habtit{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+        letter-spacing:.1em;text-transform:uppercase;color:var(--acc);
+        margin:0 0 4px}
+.av-hab{font-size:13.5px;line-height:1.4;color:var(--ink-2)}
+.av-frase{font-family:Petrona,Georgia,serif;font-style:italic;font-size:12px;
+          color:var(--ink-3);margin-top:9px;line-height:1.35}
+.ea-pie{flex:none;padding:0 22px;display:flex;flex-direction:column;
+  align-items:center;gap:8px}
+.ea-pista{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:#6f8f99}
+.ea-pie .btn.pri{width:100%;max-width:320px;margin:2px 0 0}
+.rueda-pista{display:flex;gap:5px;justify-content:center;margin:0}
+.rueda-pista i{width:6px;height:6px;border-radius:99px;background:rgba(255,255,255,.28)}
+.rueda-pista i.on{background:#5fc0cb;width:18px}
 
 /* plegar la mano vive APARTE de la mano: botón redondo, arriba a la
    derecha del abanico, lejos de las cartas y de los otros controles */
@@ -1637,7 +1673,30 @@ body[data-maq="b"] .zona.suya .tres{
   background:var(--camas-suyo) center/100% 100% no-repeat}
 body[data-maq="b"] .zocalo{background:var(--meson-mio) center/100% 100% no-repeat}
 body[data-maq="b"] .repisa{background:var(--meson-suyo) center/100% 100% no-repeat}
-body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat}
+body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat;
+  position:relative}
+/* ── el cartel de SALIDA, colgado del techo del pasillo ─────────────
+   Es la puerta de la guardia: no había ninguna. Va donde iría en la UCI
+   de verdad —al fondo del pasillo, sobre la salida— y con el mismo verde
+   ISO. Pequeño y quieto: es un mueble, no un botón de la interfaz. */
+.salida{position:absolute;right:9px;top:0;z-index:4;width:62px;
+  padding-top:11px;display:block;line-height:0;
+  filter:drop-shadow(0 3px 6px rgba(9,25,32,.28))}
+.salida .sal-cadena{position:absolute;top:0;height:11px;width:1px;
+  background:rgba(60,78,88,.55)}
+.salida .sal-cadena{left:13px}
+.salida .sal-cadena.der{left:auto;right:13px}
+.salida .sal-placa{display:block;position:relative;border-radius:3px;
+  overflow:hidden;background:#1a7a44}
+.salida .sal-placa svg{width:100%;height:auto;display:block}
+.salida .sal-txt{display:block;font-family:"IBM Plex Mono",monospace;
+  font-size:7.5px;font-weight:700;letter-spacing:.18em;color:#fff;
+  text-align:center;line-height:1;padding:0 0 3px;background:#1a7a44}
+@media (hover:hover){ .salida:hover{filter:drop-shadow(0 4px 10px rgba(26,122,68,.55))} }
+.salida:active{transform:translateY(1px)}
+/* el mismo cartel, descolgado, dentro del Panel */
+.salida.suelto{position:static;width:84px;padding-top:0;margin:2px 0 8px}
+.salida.suelto .sal-cadena{display:none}
 body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/100% auto no-repeat}
 
 /* ── el menú de inicio: tres fichas y una casilla ───────────────────
@@ -1723,25 +1782,25 @@ if(!document.querySelector('meta[name="viewport"]')){
    true al compilar la app instalable (que sí trae sw.js y manifest). */
 const PWA = /*__PWA__*/false;
 
-/* ══ maqueta del campo: A y B conviven ══════════════════════════════
-   "a" es la v0.55 que ya funciona y sigue siendo la de por defecto.
-   "b" es el campo partido en dos mitades iguales por la Pizarra, con
-   las camas del rival del mismo tamaño que las tuyas y la mano como
-   mazo desplegable. Se cambia en el Panel de guardia y se recuerda,
-   así se puede probar en paralelo sin tocar lo que ya está. */
+/* ══ maqueta del campo ══════════════════════════════════════════════
+   A y B convivieron mientras B estaba en pruebas. Desde la v0.57 el
+   autor se queda con B —el campo partido en dos mitades iguales por la
+   Pizarra, las camas del rival del mismo tamaño que las tuyas y la mano
+   como mazo desplegable— y A queda retirada.
+
+   maqueta() devuelve "b" siempre y a propósito: el interruptor del Panel
+   se fue, pero las ramas `if(esB())` siguen en pie por ahora. Podarlas es
+   un cambio grande y mecánico, y mezclarlo con los arreglos de esta
+   tanda sería pedir un error tonto. Va en PENDIENTES. Mientras tanto,
+   partidas guardadas y enlaces viejos entran en B aunque su
+   localStorage diga otra cosa. */
 const CLAVE_MAQ = "vt-maqueta";
-function maqueta(){
-  try{ return localStorage.getItem(CLAVE_MAQ)==="b" ? "b" : "a"; }
-  catch(e){ return "a"; }
-}
+function maqueta(){ return "b"; }
 const esB = ()=> maqueta()==="b";
 function aplicarMaqueta(){ document.body.dataset.maq = maqueta(); }
-function cambiarMaqueta(m){
-  try{ localStorage.setItem(CLAVE_MAQ, m==="b" ? "b" : "a"); }catch(e){}
-  aplicarMaqueta();
-  if(typeof UI==="object"){ UI.manoAbierta=false; UI.modal=null; UI.verRival=null; }
-  render();
-}
+// el interruptor se retiró con la maqueta A; queda la limpieza por si
+// alguna guardia guardada trae la marca vieja
+try{ localStorage.removeItem(CLAVE_MAQ); }catch(e){}
 if(PWA && "serviceWorker" in navigator){
   addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
@@ -1845,7 +1904,8 @@ function siguienteAvatar(){
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
   UI.avPos = 0;
-  if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE", 3400);
+  // la franja "SELECCIONA TU PERSONAJE" sobraba desde que la elección
+  // ocupa la pantalla entera y ya lleva su título: cruzaba por encima
   guardar(); render();
 }
 function resolverAvatar(elegido){
@@ -3021,7 +3081,9 @@ function zonaJugador(j, propio){
     j.camas.forEach((c,i)=>tres.appendChild(vistaCama(c,i,j,propio)));
     z.appendChild(tres);
     if(j.protocolos.length) z.appendChild(protMios(j));
-    z.appendChild(el("div","aire"));
+    const aire = el("div","aire");
+    aire.appendChild(carteSalida());   // el cartel verde del pasillo
+    z.appendChild(aire);
     z.appendChild(tiraZona(j));
     return z;
   }
@@ -3392,6 +3454,69 @@ function relojGuardia(){
     : `Ronda ${G.ronda} de ${RONDAS} · ${FASES[G.fase][1]}`);
   if(puede) b.onclick = ()=>{ UI.sel = null; UI.manoAbierta = false; entrarFase(2); };
   return b;
+}
+
+/* ══ el cartel de SALIDA ════════════════════════════════════════════
+   Hasta ahora no había forma de terminar una guardia: o llegabas a la
+   ronda 8 o cerrabas la pestaña. El cartel verde de emergencia —el que
+   cuelga en todos los pasillos de todos los hospitales— es la puerta.
+   Vive en el pasillo de tu mitad, colgado del techo como el de verdad,
+   y al tocarlo pregunta antes de nada: cerrar el turno y contar los
+   puntos, o irse sin contarlos. */
+const SVG_SALIDA =
+  '<svg viewBox="0 0 64 26" aria-hidden="true">'+
+    '<rect x="0" y="0" width="64" height="26" rx="2.5" fill="#1a7a44"/>'+
+    '<rect x="1" y="1" width="62" height="24" rx="2" fill="none" '+
+      'stroke="rgba(255,255,255,.28)" stroke-width=".8"/>'+
+    /* la puerta */
+    '<path d="M39.5 5.5h9.5v15h-9.5" fill="none" stroke="#fff" '+
+      'stroke-width="1.6" stroke-linejoin="round"/>'+
+    /* el hombrecito corriendo */
+    '<g fill="#fff">'+
+      '<circle cx="20.4" cy="6.6" r="2.3"/>'+
+      '<path d="M18.6 10.1c1.6-.9 3.4-.6 4.4.6l3.1 3.7 3.3 1.1-.8 2.3-4.2-1.4-1.6-1.9-.9 3.6 3.1 3.3-1.7 1.6-3.9-4.1c-.4-.5-.6-1.1-.4-1.7l.6-2.5-2 1.9-2.9 3.1-1.8-1.7 3.3-3.5z"/>'+
+    '</g>'+
+    /* la flecha hacia la puerta */
+    '<path d="M31.5 13h5.4m-2-2.2 2.2 2.2-2.2 2.2" fill="none" stroke="#fff" '+
+      'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'+
+  '</svg>';
+
+function carteSalida(){
+  const b = el("button","salida");
+  b.setAttribute("aria-label","Salida · terminar la guardia");
+  b.innerHTML = `<i class="sal-cadena"></i><i class="sal-cadena der"></i>`+
+                `<span class="sal-placa">${SVG_SALIDA}`+
+                `<span class="sal-txt">SALIDA</span></span>`;
+  b.onclick = ev=>{ ev.stopPropagation(); hojaSalida(); };
+  return b;
+}
+
+function hojaSalida(){
+  hoja("Salida", (m, cerrar)=>{
+    m.appendChild(el("p",null,
+      `Vas por la <b>ronda ${G.ronda} de ${RONDAS}</b>. Puedes cerrar la guardia `+
+      `aquí mismo y contar los puntos como están, o irte sin contarlos.`));
+    const fila = el("div","acciones");
+    const cerrarYa = el("button","btn pri","Cerrar la guardia y contar");
+    cerrarYa.onclick = ()=>{
+      anota("", `Se cierra la guardia en la ronda ${G.ronda}.`);
+      G.fin = true; G.finAnticipado = true;
+      UI.modal = null; guardar(); render();
+    };
+    fila.appendChild(cerrarYa);
+    const irse = el("button","btn","Irme sin contar");
+    irse.onclick = ()=>{
+      borrar(); G = null; UI.modal = null;
+      UI = {sel:null, selProt:null, modal:null, marcarDescartes:[],
+            nuevas:new Set(), vidaPrev:{}, okPrev:{}, reqPrev:{}, colocPrev:null,
+            foco:0, manoAbierta:false};
+      render();
+    };
+    fila.appendChild(irse);
+    const q = el("button","btn","Seguir en la guardia"); q.onclick = cerrar;
+    fila.appendChild(q);
+    m.appendChild(fila);
+  });
 }
 
 function bandaCentral(){
@@ -4644,7 +4769,9 @@ function pintarRueda(pos, donde){
     let d = ((+c.dataset.i - pos) % n + n) % n;   // distancia circular
     if(d > n/2) d -= n;
     const th = d * 2*Math.PI/n;
-    const x = Math.sin(th) * 132;
+    // el radio se ajusta al ancho: en la pantalla completa las cartas son
+    // más grandes y con 132 px fijos las vecinas quedaban debajo del centro
+    const x = Math.sin(th) * Math.min(168, (cont.clientWidth||390)*0.40);
     const cerca = (Math.cos(th)+1)/2;             // 1 al frente, 0 atrás
     c.style.transform = `translateX(${x}px) rotateY(${(-th*32).toFixed(1)}deg)`+
                         ` scale(${(0.68+0.34*cerca).toFixed(3)})`;
@@ -4695,23 +4822,43 @@ function ruedaFin(){
   if(m) setTimeout(()=>{ rueda.hubo = false; }, 80);
 }
 
+/* Elegir personaje era una hoja de abajo con tres tarjetitas de 232 px y
+   el tablero asomando por detrás: la decisión que abre la partida se
+   tomaba de reojo. Ahora ocupa la pantalla entera. La ilustración manda
+   —arriba, a sangre— y debajo van el rol, el nombre y la habilidad al
+   tamaño en que se lee. La rueda es la misma: se desliza, no tiene tope
+   y las dos vecinas asoman por los costados para que se sepa que hay
+   más. Sin ilustración, el hueco lo llena la inicial sobre el tinte de
+   la casa: un retrato ausente, no un rectángulo gris. */
 function modalAvatar(){
   const p = G.pendiente;
   const n = p.ops.length;
-  const velo = el("div","velo");
-  const m = el("div","modal");
-  m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",null,`${esc(G.jug[p.jugador].nombre)}: elige tu personaje`));
-  m.appendChild(el("p",null,"Gira la rueda — no tiene tope — y toca al del centro para quedártelo."));
+  const cap = el("div","elige-av");
+  const cab = el("div","ea-cab");
+  cab.appendChild(el("div","ea-rot","Tu personaje"));
+  cab.appendChild(el("h2",null,`${esc(G.jug[p.jugador].nombre)}, elige con quién entras al turno`));
+  cap.appendChild(cab);
+
   const cont = el("div","rueda");
   p.ops.forEach((o,i)=>{
     const c = el("button","op av-carta");
     c.dataset.i = i;
-    c.innerHTML = (o.arte ? `<div class="av-arte" style="background-image:url('${o.arte}')"></div>` : "")+
-      `<div class="av-rol">${esc(o.frecuencia)}</div>`+
-      `<div class="av-nom">${esc(o.nombre)}</div>`+
-      `<div class="av-hab">${esc(o.habilidad)}</div>`+
-      `<div class="av-frase">“${esc(o.frase)}”</div>`;
+    const par = (o.habilidad||"").split(" — ");
+    const tit = par.length > 1 ? par.shift() : "";
+    const hab = par.join(" — ");
+    c.innerHTML =
+      `<div class="av-retrato"${o.tinte?` style="--tinte:${o.tinte}"`:""}>`+
+        (o.arte ? `<img src="${o.arte}" alt="">`
+                : `<span class="av-inicial">${esc((o.nombre||"?").replace(/^(El|La|Los|Las) /,"")[0])}</span>`)+
+        `<i class="av-vela"></i>`+
+        `<div class="av-rol">${esc(o.frecuencia)}</div>`+
+      `</div>`+
+      `<div class="av-ficha">`+
+        `<div class="av-nom">${esc(o.nombre)}</div>`+
+        (tit ? `<div class="av-habtit">${esc(tit)}</div>` : "")+
+        `<div class="av-hab">${esc(hab)}</div>`+
+        `<div class="av-frase">“${esc(o.frase)}”</div>`+
+      `</div>`;
     c.onclick = ()=>{
       if(rueda.hubo){ rueda.hubo = false; return; }
       const f = focoRueda(n);
@@ -4723,17 +4870,21 @@ function modalAvatar(){
     };
     cont.appendChild(c);
   });
-  m.appendChild(cont);
+  cap.appendChild(cont);
+
+  const pie2 = el("div","ea-pie");
   const pista = el("div","rueda-pista");
   p.ops.forEach(()=>pista.appendChild(el("i")));
-  m.appendChild(pista);
+  pie2.appendChild(pista);
+  pie2.appendChild(el("div","ea-pista","desliza para ver los otros"));
   const be = el("button","btn pri","Quedarme con este");
   be.onclick = ()=> resolverAvatar(p.ops[focoRueda(n)]);
-  m.appendChild(be);
-  velo.appendChild(m);
+  pie2.appendChild(be);
+  cap.appendChild(pie2);
+
   armarRueda(cont);
   pintarRueda(UI.avPos||0, cont);   // ya colocadas al nacer, sin parpadeo
-  return velo;
+  return cap;
 }
 
 function cortina(){
@@ -4821,18 +4972,6 @@ function abrirPanel(){
       m.appendChild(av);
     }
 
-    const mq = el("div","bloque");
-    mq.appendChild(el("h3",null,"Maqueta del campo (en pruebas)"));
-    const fm = el("div"); fm.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
-    [["a","A · la de siempre"],["b","B · campo partido"]].forEach(([k,t])=>{
-      const b = el("button","btn chico"+(maqueta()===k?" pri":""), t);
-      b.onclick = ()=>{ UI.modal=null; cambiarMaqueta(k); abrirPanel(); };
-      fm.appendChild(b);
-    });
-    mq.appendChild(fm);
-    mq.appendChild(el("div","nota","<b>B</b> parte la pantalla en dos mitades iguales con la Pizarra de eje: las camas del rival quedan a la vista, del mismo tamaño que las tuyas, y se sabotea arrastrando hacia arriba. La mano es un mazo que se abre en abanico sobre tu zócalo. La partida es la misma — solo cambia cómo se ve, y puedes volver a <b>A</b> cuando quieras."));
-    m.appendChild(mq);
-
     const bl2 = el("div","bloque");
     bl2.appendChild(el("h3",null,`Bitácora · ${G.log.length}`));
     const l = el("div","log");
@@ -4847,6 +4986,18 @@ function abrirPanel(){
     };
     bl2.appendChild(bc);
     m.appendChild(bl2);
+
+    // el cartel cuelga del pasillo, pero el pasillo se encoge en las
+    // pantallas cortas: la misma puerta, descolgada, vive también aquí
+    const sal = el("div","bloque bloque-salida");
+    sal.appendChild(el("h3",null,"Salida"));
+    const cs = carteSalida();
+    cs.classList.add("suelto");
+    cs.onclick = ()=>{ UI.modal = null; render(); hojaSalida(); };
+    sal.appendChild(cs);
+    sal.appendChild(el("div","nota","Cierra la guardia antes de la ronda "+RONDAS+
+      " y cuenta los puntos como están, o vete sin contarlos."));
+    m.appendChild(sal);
 
     const cb = el("button","btn pri","Cerrar"); cb.onclick = cerrar;
     m.appendChild(cb);
@@ -5071,7 +5222,10 @@ function pantallaFinal(){
   const orden = G.jug.map(j=>({j, p:puntos(j)})).sort((a,b)=>b.p-a.p);
   s.appendChild(el("h1",null,"Fin de la guardia"));
   s.appendChild(el("p",null,
-    `Ocho rondas. Gana <b>${esc(orden[0].j.nombre)}</b> con ${orden[0].p} puntos.`));
+    (G.finAnticipado
+      ? `Cerrada en la ronda ${G.ronda} de ${RONDAS}. `
+      : "Ocho rondas. ") +
+    `Gana <b>${esc(orden[0].j.nombre)}</b> con ${orden[0].p} puntos.`));
   const g = el("div","marcador"); g.style.marginTop="14px";
   orden.forEach(({j,p},oi)=>{
     const t = el("div","mtile"+(oi===0?" gana":""));
