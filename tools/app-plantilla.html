@@ -14,6 +14,8 @@
   --vida:#c0492f; --ok:#237a5b; --warn:#96660d; --basura:#7f52bb;
   --resp:#3d7ea6; --card:#b03d29; --neuro:#7a5ba6; --metab:#2f8f6b; --quir:#8a6a2f;
   --sombra:0 1px 2px rgba(22,36,46,.08), 0 3px 10px rgba(22,36,46,.07);
+  /* la silueta del corazón, para vaciarlo con un degradado enmascarado */
+  --m-cz:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 13.6S2.2 10 2.2 6.2C2.2 4.1 3.8 2.7 5.5 2.7c1 0 1.9.5 2.5 1.3.6-.8 1.5-1.3 2.5-1.3 1.7 0 3.3 1.4 3.3 3.5 0 3.8-5.8 7.4-5.8 7.4z"/></svg>');
   /* La sala ilustrada, recortada a la banda de las tres camas. La tuya y
      la del rival girada 180°, como si estuviera al otro lado de la mesa.
      Las rellena tools/generar_sala_app.py — no editar a mano. */
@@ -124,6 +126,13 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
       padding:6px;text-align:left;box-shadow:var(--sombra);display:flex;
       flex-direction:column;gap:3px;min-height:92px;position:relative}
 .prot.no{opacity:.5}
+.prot .p-arte{position:relative;display:block;margin:-6px -6px 3px;
+  aspect-ratio:3/2;flex:none;background:var(--tinte,var(--lejos));
+  overflow:hidden;border-radius:7px 7px 0 0}
+.prot .p-arte img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 26%;display:block}
+.prot .p-arte .disuelve{position:absolute;inset:auto 0 0;height:34%;
+  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
 .prot.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
 @keyframes compable{
   0%,100%{box-shadow:0 0 0 0 rgba(13,110,120,0),var(--sombra)}
@@ -191,14 +200,29 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
   font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:700;
   color:var(--acc);text-shadow:0 1px 0 var(--paper),0 0 6px var(--paper)}
 .cama.pficha .f-faltan.cero{color:var(--ok)}
+/* el escudo no se activa: lo pone la carta. Solo hay que verlo */
+.cama.pficha .f-escudo{position:absolute;left:50%;top:50%;z-index:3;
+  transform:translate(-50%,-50%);font-size:24px;
+  filter:drop-shadow(0 2px 5px rgba(9,25,32,.45))}
+.cama.escudado{box-shadow:0 0 0 2px rgba(13,110,120,.55),var(--sombra)}
+.cama.escudado .cama-arte{filter:saturate(.7) brightness(1.06)}
 .cama.pficha .cuerpo-f{padding:0 6px}
 .cama.pficha .corazones{margin:0 0 3px}
-.cama.pficha .pips{display:flex;gap:2.5px;flex-wrap:wrap;margin:0 0 2px}
-.cama.pficha .pip{width:7.5px;height:7.5px;border-radius:50%;flex:none;
-  border:1.3px solid var(--pc);background:transparent}
-.cama.pficha .pip.ll{background:var(--pc);border-color:var(--pc);
-  box-shadow:inset 0 -1px 1px rgba(0,0,0,.3)}
-.cama.pficha .pip.extra{background:var(--ink-3);border-color:var(--ink-3);opacity:.55}
+
+/* ── los requerimientos, en su propio símbolo repetido ───────────────
+   Cinco círculos de colores obligaban a traducir color→recurso cada vez
+   que mirabas una cama. Ahora se dibuja el símbolo tantas veces como
+   unidades pide: 💊💊 son dos fármacos y se acabó. Lo ya cubierto se
+   apaga y lo que falta queda a todo color, así que la cama se lee por
+   lo que le falta, que es la única pregunta que uno le hace. */
+.cama.pficha .pips{display:flex;flex-wrap:wrap;gap:2px 5px;margin:0 0 2px;
+  align-items:center}
+.cama.pficha .gr{display:flex;gap:1.5px;flex:none}
+.cama.pficha .uni{width:11px;height:11px;flex:none;color:var(--pc);
+  display:block}
+.cama.pficha .uni svg{width:100%;height:100%;display:block}
+.cama.pficha .uni.ya{opacity:.24}
+.cama.pficha .uni.extra{color:var(--ink-3);opacity:.5}
 .cama.pficha .sellos{margin-top:3px;padding:0 6px}
 .cama.pficha .cama-btn{width:calc(100% - 12px);margin:5px 6px 0}
 
@@ -244,6 +268,29 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .corazones{display:flex;gap:1px;align-items:center;margin:4px 0 5px;flex-wrap:wrap}
 .cz{display:inline-flex;width:11px;height:11px;color:var(--vida);flex:none}
 .cz svg{width:100%;height:100%;display:block}
+
+/* ── un corazón, no siete ────────────────────────────────────────────
+   Siete corazones en fila ocupaban el ancho entero de la cama y,
+   contados de reojo, se confundían con los requerimientos. Queda uno
+   solo que se vacía por abajo —la vida se ve, no se cuenta— con la
+   cifra al lado para el dato exacto. El hueco que deja es justo el que
+   necesitan los símbolos de recurso. */
+.cz-uno{position:relative;width:17px;height:16px;flex:none;
+  -webkit-mask:var(--m-cz) no-repeat center/contain;
+          mask:var(--m-cz) no-repeat center/contain;
+  background:linear-gradient(to top,
+    var(--vida) 0 calc(var(--llen) * 100%),
+    rgba(120,132,140,.34) calc(var(--llen) * 100%) 100%)}
+.cz-uno.bajo{background:linear-gradient(to top,
+    #c0392b 0 calc(var(--llen) * 100%),
+    rgba(192,57,43,.22) calc(var(--llen) * 100%) 100%)}
+@media (prefers-reduced-motion: no-preference){
+  .cz-uno.bajo{animation:czLate 1.4s ease-in-out infinite}}
+@keyframes czLate{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.corazones .vnum{font-family:"IBM Plex Mono",monospace;font-size:12px;
+  font-weight:700;color:var(--ink);margin-left:3px;font-variant-numeric:tabular-nums;
+  line-height:1}
+.corazones .vnum small{font-size:8.5px;font-weight:600;color:var(--ink-3)}
 .cong{display:inline-flex;align-items:center;gap:2px;font-size:7.5px;font-weight:700;
       letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-left:4px}
 .cong svg{width:7px;height:7px;flex:none}
@@ -544,6 +591,24 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .grande .g-etiqs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .grande .g-etiqs .etiq{font-size:10px;padding:3px 8px}
 .grande .g-txt{font-size:13px;line-height:1.45;color:var(--ink-2)}
+/* el expediente: las cartas que le pusiste, con su ilustración */
+.grande .g-rot{margin:12px 0 5px;font-family:"IBM Plex Mono",monospace;
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3)}
+.grande .puestas{display:flex;flex-wrap:wrap;gap:5px}
+.grande .puesta{display:flex;align-items:center;gap:5px;padding:3px 8px 3px 3px;
+  border:1px solid var(--line);border-left:3px solid var(--tc,var(--ink-3));
+  border-radius:999px;background:var(--cerca);max-width:100%}
+.grande .puesta .pu-arte{width:22px;height:22px;border-radius:50%;overflow:hidden;
+  flex:none;background:var(--line-2)}
+.grande .puesta .pu-arte img{width:100%;height:100%;object-fit:cover;display:block}
+.grande .puesta .pu-ico{width:22px;height:22px;border-radius:50%;flex:none;
+  display:grid;place-items:center;color:#fff;background:var(--tc,var(--ink-3))}
+.grande .puesta .pu-ico svg{width:13px;height:13px;display:block}
+.grande .puesta .pu-nom{font-size:11px;font-weight:600;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grande .puesta.basura{--tc:var(--basura)}
+.grande .puesta.basura .pu-ico{background:var(--basura);font-weight:700}
 .grande .g-warn{margin-top:10px;padding:9px 11px;border-radius:9px;
                 background:#fdf4e3;border:1px solid #e6d3a8;font-size:12.5px;
                 line-height:1.4;color:#6b4a09}
@@ -556,10 +621,17 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
          background:var(--cerca);font-size:17px;line-height:1;flex:none}
 .nav-btn:disabled{opacity:.35}
 .carta{width:auto;background:var(--paper);border:1px solid var(--line);
-       border-left-width:3px;
+       border-left-width:3px;position:relative;
        border-radius:8px;padding:6px;text-align:left;box-shadow:var(--sombra);
        display:flex;flex-direction:column;gap:2px;min-height:104px;
        transition:transform .14s ease, box-shadow .14s ease;touch-action:none}
+/* el índice del naipe: mismo símbolo en las dos esquinas de arriba */
+.esq{position:absolute;top:-1px;z-index:7;width:19px;height:19px;
+     display:grid;place-items:center;color:#fff;background:var(--tc);
+     pointer-events:none}
+.esq svg{width:11.5px;height:11.5px;display:block}
+.esq:not(.izq){right:-1px;border-radius:0 8px 0 9px}
+.esq.izq{left:-3px;border-radius:8px 0 9px 0}
 @media (hover:hover){
   .carta:not(.no):not(.sel):hover{transform:translateY(-4px);
     box-shadow:0 6px 16px rgba(22,36,46,.16), 0 2px 5px rgba(22,36,46,.1)}}
@@ -698,6 +770,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
                    background-size:cover;background-position:center 20%}
 .carta-cab{display:flex;align-items:center;gap:3px}
+.carta-cab.libre{min-height:15px;padding:1px 19px 0 15px}
 .carta-tipo{font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:600;
             letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
 .carta-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11px;line-height:1.15}
@@ -1370,7 +1443,12 @@ body[data-maq="b"] .ran-b.foco{z-index:40 !important}
 body[data-maq="b"] .ran-b.foco .carta.no{opacity:.72}
 body[data-maq="b"] .ran-b.foco .carta{border-color:var(--acc);
   box-shadow:0 0 0 2px var(--acc),0 16px 30px rgba(22,36,46,.45)}
-body[data-maq="b"] .ran-b.lejos{opacity:.55}
+/* Las de los extremos se alejan, no se desvanecen: con opacidad .55 el
+   papel dejaba pasar el texto de las de atrás y la mano entera se veía
+   como una nube de letras. Ahora la carta es opaca —así se lee su sello
+   de esquina— y la lejanía la da el color, que se apaga. */
+body[data-maq="b"] .ran-b.lejos .carta{filter:saturate(.62) brightness(.99)}
+body[data-maq="b"] .ran-b.lejos .carta-pie{opacity:.5}
 /* mientras el dedo hojea, las ranuras siguen al dedo sin transición */
 body[data-maq="b"] .arco.vivo .ran-b{animation:none}
 body[data-maq="b"] .puntos-b{position:absolute;left:50%;transform:translateX(-50%);
@@ -1498,11 +1576,11 @@ body[data-maq="b"] .grande.conarte .g-cuerpo{padding:4px 8px 8px}
    justo para que quepan sin apretar, y crece en las DOS mitades a la vez:
    el aire se reparte solo y el espejo sigue cuadrando. */
 body[data-maq="b"] .tres{height:132px}
-body[data-maq="b"] .cama.pficha .pips{gap:3.5px;margin:0 0 2px}
-body[data-maq="b"] .cama.pficha .pip{width:9.5px;height:9.5px;border-width:1.5px}
-body[data-maq="b"] .cama.pficha .corazones{margin:0 0 4px}
-body[data-maq="b"] .cama.pficha .cz{width:12px;height:12px}
-body[data-maq="b"] .cama.pficha .num{font-size:11px}
+body[data-maq="b"] .cama.pficha .pips{gap:2px 5px;margin:0 0 2px}
+body[data-maq="b"] .cama.pficha .uni{width:12.5px;height:12.5px}
+body[data-maq="b"] .cama.pficha .corazones{margin:0 0 3px}
+body[data-maq="b"] .cama.pficha .cz-uno{width:18px;height:17px}
+body[data-maq="b"] .cama.pficha .vnum{font-size:12.5px}
 body[data-maq="b"] .cama.pficha .f-faltan{font-size:15px}
 
 /* ── el avatar, más grande y despegado del filo ─────────────────────
@@ -2683,7 +2761,10 @@ function revCarta(c){
   return `<div class="carta rev" style="border-left-color:${TCOL[c.tipo]||TCOL.COMODIN}">${cuerpoCarta(c)}</div>`;
 }
 function revProt(a){
-  return `<div class="prot rev"><div class="prot-cab">`+
+  return `<div class="prot rev">`+
+    (a.arte ? `<i class="p-arte"${a.tinte?` style="--tinte:${a.tinte}"`:""}>`+
+              `<img src="${a.arte}" alt=""><i class="disuelve"></i></i>` : "")+
+    `<div class="prot-cab">`+
     `<span class="coste">${a.coste}</span><span class="prot-tipo">${esc(a.tipo)}</span></div>`+
     `<div class="prot-nom">${esc(a.nombre)}</div>`+
     `<div class="prot-txt">${esc(a.texto)}</div></div>`;
@@ -2820,6 +2901,27 @@ const el = (t,c,h)=>{ const e=document.createElement(t); if(c) e.className=c;
                       if(h!==undefined) e.innerHTML=h; return e; };
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 
+/* ── el parpadeo que quedaba ─────────────────────────────────────────
+   #app se reconstruye entero en cada render, así que toda animación
+   infinita que viva dentro vuelve al fotograma 0: el retrato pega un
+   respingo, el rayo del poder rebota y un brillo cruza la Pizarra. En
+   una partida medida eso pasaba 235 veces. Con un animation-delay
+   negativo igual al tiempo ya transcurrido, la animación entra por donde
+   iba y el re-render deja de verse. El elemento es nuevo cada vez, así
+   que el retardo hay que reponerlo cada vez: es una línea por elemento
+   y solo sobre los cuatro que laten. */
+const LATIDOS = [[".aro-av img, .aro-av .ini", 5200],
+                 [".poder-av.vivo", 2400],
+                 [".btn-pizarra", 6500],
+                 [".cz-uno.bajo", 1400]];
+function continuarAnimaciones(){
+  const t = performance.now();
+  LATIDOS.forEach(([sel, dur])=>{
+    const d = (-(t % dur)).toFixed(0) + "ms";
+    document.querySelectorAll(sel).forEach(e=>{ e.style.animationDelay = d; });
+  });
+}
+
 function render(){
   document.querySelectorAll(".fantasma").forEach(f=>{
     if(f !== arrastre.fantasma) f.remove();   // huérfanos de gestos muertos
@@ -2867,6 +2969,7 @@ function render(){
     if(!r) UI.verRival = null;
   }
   pintarCapa(); pintarTuto(); pintarPortada();
+  continuarAnimaciones();              // que el re-render no las devuelva al 0
   colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
   // veces en la misma pasada síncrona (0→1 anidado), así que la limpieza va
@@ -3218,6 +3321,19 @@ function botonFin(){
 }
 
 /* Tus Protocolos comprados: zona propia con su botón de jugar. */
+/* El Protocolo también tiene ilustración —A01 y A19 ya la traen— y no se
+   pintaba en ninguna parte: la carta se compraba y su imagen desaparecía.
+   Mismo trato que la carta de recurso: a sangre arriba y disolviéndose. */
+function arteProt(a){
+  const z = el("i","p-arte");
+  if(a.tinte) z.style.setProperty("--tinte", a.tinte);
+  const im = document.createElement("img");
+  im.src = a.arte; im.alt = "";
+  z.appendChild(im);
+  z.appendChild(el("i","disuelve"));
+  return z;
+}
+
 function protMios(j){
   const w = el("div");
   const rot = el("div","jugador-linea");
@@ -3228,6 +3344,7 @@ function protMios(j){
   g.style.marginTop = "0";
   j.protocolos.forEach((a,idx)=>{
     const c = el("div","prot");
+    if(a.arte) c.appendChild(arteProt(a));
     const cab = el("div","prot-cab");
     cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
     c.appendChild(cab);
@@ -3334,6 +3451,7 @@ function hojaPizarra(){
     G.pizarra.forEach((a,idx)=>{
       const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
       const b = el("button","prot "+(puede?"puede":"no"));
+      if(a.arte) b.appendChild(arteProt(a));
       const cab = el("div","prot-cab");
       cab.appendChild(el("span","coste",`${a.coste}`));
       cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
@@ -3414,6 +3532,13 @@ function vistaCama(c, i, duenio, propio){
       c.p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(c.p.gravedad)));
     za.appendChild(el("span","f-faltan"+(total===0?" cero":""),
       total===0 ? "✓" : String(total)));
+    // el escudo se pone solo; que al menos se vea a quién cubre
+    if(c.escudo){
+      d.classList.add("escudado");
+      const sc = el("span","f-escudo","🛡️");
+      sc.title = "Protegido: nadie puede tocar sus recursos hasta tu próximo turno";
+      za.appendChild(sc);
+    }
     d.appendChild(za);
   } else {
     const raya = el("i","raya");
@@ -3434,26 +3559,36 @@ function vistaCama(c, i, duenio, propio){
   const cuerpoF = ficha ? el("div","cuerpo-f") : d;
   if(ficha) d.appendChild(cuerpoF);
 
+  // un corazón que se vacía + la cifra: se ve de un vistazo y deja sitio
+  // a los símbolos de recurso, que es lo que de verdad hay que contar
   const hp = el("div","corazones");
-  for(let k=0;k<c.vidaMax;k++)
-    hp.appendChild(el("i","cz", k<c.vida ? CZ_LLENO : CZ_VACIO));
-  hp.appendChild(el("span","num",String(c.vida)));
+  const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida / c.vidaMax)) : 0;
+  const uno = el("i","cz-uno"+(c.vida<=2 ? " bajo" : ""));
+  uno.style.setProperty("--llen", rr.toFixed(3));
+  uno.title = `${c.vida} de ${c.vidaMax} ❤️`;
+  hp.appendChild(uno);
+  hp.appendChild(el("span","vnum",`${c.vida}<small>/${c.vidaMax}</small>`));
   // el ✅ detiene el reloj: que se vea, no solo que sea verdad
   if(c.estable) hp.appendChild(el("span","cong",
     '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
   cuerpoF.appendChild(hp);
 
   if(ficha){
-    // los requerimientos, aplanados: una fila de fichas de color. Vacía =
-    // pide, llena = tiene, gris = de más. El desglose por tipo va en el zoom.
+    // los requerimientos: el símbolo del recurso, repetido una vez por
+    // unidad. Apagado = ya está puesto; a color = todavía falta.
     const fila = el("div","pips");
     TIPOS.forEach(t=>{
       const nn = Math.max(c.pide[t], c.tiene[t]);
+      if(!nn) return;
+      const g = el("span","gr");
+      g.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
       for(let k=0;k<nn;k++){
-        const pp = el("i","pip"+(k<c.tiene[t] ? (k<c.pide[t] ? " ll":" extra") : ""));
-        pp.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
-        fila.appendChild(pp);
+        const u = el("i","uni"+(k<c.tiene[t] ? (k<c.pide[t] ? " ya":" extra") : ""));
+        u.innerHTML = SVG[t] || SVG.COMODIN;
+        u.title = TNOM[t] || t;
+        g.appendChild(u);
       }
+      fila.appendChild(g);
     });
     cuerpoF.appendChild(fila);
   }
@@ -3495,7 +3630,7 @@ function vistaCama(c, i, duenio, propio){
   const sellos = el("div","sellos");
   if(c.estable) sellos.appendChild(el("span","sello ok","✅ estable · no se deteriora"));
   if(c.basura.length) sellos.appendChild(el("span","sello bas",`↯${c.basura.length} retiene alta`));
-  if(c.escudo) sellos.appendChild(el("span","sello esc","🛡️"));
+  if(c.escudo && !ficha) sellos.appendChild(el("span","sello esc","🛡️"));
   c.protege.forEach(p=>sellos.appendChild(el("span","sello pro",`🛡️ ${esc(p.split(" ")[0])}`)));
   if(sellos.childNodes.length) d.appendChild(sellos);
 
@@ -3508,6 +3643,11 @@ function vistaCama(c, i, duenio, propio){
       '<i class="precio"></i>'));
     d.onclick = soltar;
     d.__soltar = soltar;          // lo usa el arrastre
+  } else if(sel && activo && !propio && c.escudo && sel.warn){
+    // el escudo del rival bloquea en silencio; que se sepa por qué no se puede
+    const b = el("span","cama-btn sec","🛡️ protegido");
+    b.style.opacity = ".8";
+    d.appendChild(b);
   } else if(activo && propio && !sel && c.basura.length){
     // retirar basura ocupa una indicación: en vez de poner, retiras
     const b = el("button","cama-btn sec",'Des-escalar<i class="precio"></i>');
@@ -3581,9 +3721,29 @@ function verPacienteGrande(c){
       rq.appendChild(r);
     });
     cuerpo.appendChild(rq);
-    if(c.puestos.length)
-      cuerpo.appendChild(el("div","g-txt",
-        "Puesto: " + c.puestos.map(x=>esc(x.nombre)).join(", ") + "."));
+    // Lo que le pusiste NO desaparece: aquí está, carta por carta y con su
+    // ilustración. En la ficha de la cama solo cabe el símbolo apagado;
+    // el expediente del paciente guarda el original.
+    if(c.puestos.length){
+      cuerpo.appendChild(el("div","g-rot","Puesto en este paciente"));
+      const tira = el("div","puestas");
+      c.puestos.forEach(x=>{
+        const t = x.puestoTipo || x.tipo;
+        const p = el("div","puesta");
+        p.style.setProperty("--tc", TCOL[t] || TCOL.COMODIN);
+        p.innerHTML = (x.arte
+            ? `<i class="pu-arte"><img src="${x.arte}" alt=""></i>`
+            : `<i class="pu-ico">${SVG[t]||SVG.COMODIN}</i>`) +
+          `<span class="pu-nom">${esc(x.nombre)}</span>`;
+        tira.appendChild(p);
+      });
+      c.basura.forEach(x=>{
+        const p = el("div","puesta basura");
+        p.innerHTML = `<i class="pu-ico">↯</i><span class="pu-nom">${esc(x.nombre)}</span>`;
+        tira.appendChild(p);
+      });
+      cuerpo.appendChild(tira);
+    }
     if(c.basura.length)
       cuerpo.appendChild(el("div","g-warn",
         `↯ ${c.basura.length} basura clínica — retiene el alta hasta des-escalar.`));
@@ -4160,11 +4320,21 @@ addEventListener("deviceorientation", ev=>{
 });
 
 function cuerpoCarta(c){
-  let h = c.arte
+  // El sello de esquina: en el abanico las cartas se tapan unas a otras y
+  // de la mayoría solo asoma una franja de papel blanco —la mano se veía
+  // "invisible"—. El símbolo del recurso va en las DOS esquinas de arriba,
+  // como el índice de un naipe, así que sea cual sea el trozo que asoma,
+  // dice de qué es la carta.
+  const tc = TCOL[c.tipo] || TCOL.COMODIN;
+  let h = `<i class="esq" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`+
+          `<i class="esq izq" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`;
+  h += c.arte
     ? `<i class="arte"${c.tinte ? ` style="--tinte:${c.tinte}"` : ""}>` +
       `<img src="${c.arte}" alt=""><i class="disuelve"></i></i>`
     : "";
-  h += `<div class="carta-cab">${ico(c.tipo)}`+
+  // el ícono ya lo dan los sellos de esquina: aquí queda solo la palabra,
+  // apartada a los lados para no meterse debajo de ellos
+  h += `<div class="carta-cab${c.arte ? "" : " libre"}">`+
        `<span class="carta-tipo">${TNOM[c.tipo]||c.tipo}</span></div>`+
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
@@ -4623,22 +4793,25 @@ function abrirPanel(){
     });
     m.appendChild(g);
 
+    // El interruptor manual de escudos se retiró en v0.57: nadie sabía
+    // para qué era y el escudo ya lo pone la carta sola. Aquí queda el
+    // estado, de solo lectura, para saber quién está cubierto.
     const es = el("div","bloque");
-    es.appendChild(el("h3",null,"Escudos 🛡️ (se ponen a mano)"));
+    es.appendChild(el("h3",null,"Escudos 🛡️"));
     const fil = el("div"); fil.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
-    let hay = false;
+    let hay = false, cubiertos = 0;
     yo().camas.forEach(c=>{
       if(!c) return; hay = true;
-      const b = el("button","btn chico",(c.escudo?"🛡️ ":"")+c.p.nombre.split(" ")[0]);
-      if(c.escudo) b.classList.add("pri");
-      b.onclick = ()=>{ c.escudo=!c.escudo;
-        anota("a",`${c.escudo?"Escudo sobre":"Escudo fuera de"} ${c.p.nombre}.`);
-        guardar(); UI.modal=null; render(); abrirPanel(); };
-      fil.appendChild(b);
+      if(c.escudo) cubiertos++;
+      const t = el("span","marca"+(c.escudo?" al":""),
+        (c.escudo?"🛡️ ":"")+esc(c.p.nombre.split(" ")[0]));
+      fil.appendChild(t);
     });
     if(!hay) fil.appendChild(el("span","nota","No tienes pacientes en cama."));
     es.appendChild(fil);
-    es.appendChild(el("div","nota","<i>El Que Guarda Siempre Tiene</i> ya lo pone sola. Este interruptor queda para arbitrar a mano (habilidades de avatar, o si juegas con las cartas físicas al lado)."));
+    es.appendChild(el("div","nota", cubiertos
+      ? `Nadie puede tocar los recursos de ${cubiertos===1?"ese paciente":"esos pacientes"} hasta tu próximo turno.`
+      : "Los pone la carta sola —<i>El Que Guarda Siempre Tiene</i>— y duran hasta tu próximo turno. No hay nada que activar a mano."));
     m.appendChild(es);
 
     if(yo().avatar){
