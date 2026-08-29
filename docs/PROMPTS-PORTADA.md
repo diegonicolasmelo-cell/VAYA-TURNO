@@ -213,6 +213,16 @@ and never landscape.
 
 ---
 
+## D · La que está en la app 🥇
+
+Las tres de arriba eran ideas para elegir. La que quedó es la **A**, y ya
+está dibujada y en pantalla. Su prompt —con las posiciones exactas del
+vector, el auxiliar con audífonos de orejera bailando y las tres salas en
+caos— vive aparte, en **`PROMPTS-PORTADA-D.md`**. Es el que hay que usar
+para mandarla a dibujar en serio.
+
+---
+
 ## Cómo se monta después
 
 La imagen entra como fondo de `pantallaInicio()` en
