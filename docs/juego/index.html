@@ -209,6 +209,36 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
   font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:700;
   color:var(--acc);text-shadow:0 1px 0 var(--paper),0 0 6px var(--paper)}
 .cama.pficha .f-faltan.cero{color:var(--ok)}
+/* ── el aura de la cama ──────────────────────────────────────────────
+   Dos cosas que el jugador tenía que calcular de cabeza mirando corazones
+   y símbolos: si este paciente se va de alta en su próxima Entrega, y si
+   no llega vivo al cierre del turno. Ahora lo dice el marco. Va en un
+   ::after con sombra INTERIOR porque la ficha recorta —una sombra por
+   fuera no se vería— y así tampoco pelea con el borde de gravedad ni con
+   el aro del escudo, que son box-shadow del propio elemento. */
+.cama.pficha{position:relative}
+.cama.por-alta::after,.cama.al-filo::after{content:"";position:absolute;
+  inset:0;border-radius:inherit;pointer-events:none;z-index:7}
+.cama.por-alta::after{box-shadow:inset 0 0 0 2.5px var(--ok),
+  inset 0 0 16px rgba(35,122,91,.45)}
+.cama.al-filo::after{box-shadow:inset 0 0 0 2.5px var(--vida),
+  inset 0 0 18px rgba(192,73,47,.5)}
+@media (prefers-reduced-motion: no-preference){
+  .cama.al-filo::after{animation:auraFilo 1.05s ease-in-out infinite;
+    animation-delay:var(--fase,0s)}}
+@keyframes auraFilo{
+  0%,100%{box-shadow:inset 0 0 0 2.5px var(--vida), inset 0 0 10px rgba(192,73,47,.32)}
+  50%{box-shadow:inset 0 0 0 3.5px var(--vida), inset 0 0 26px rgba(192,73,47,.72)}}
+/* la basura clínica: ↯ morado sobre el arte, del lado del corazón */
+.cama.pficha .f-basura{position:absolute;z-index:4;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;
+  line-height:1;color:#fff;background:var(--basura);padding:3px 5px;
+  border-radius:5px;box-shadow:0 1px 4px rgba(9,25,32,.4);
+  top:22px;right:5px}
+/* la banda del botón vive en el filo de abajo del arte, así que el ↯ va
+   arriba, bajo el número de lo que falta; espejado en la mitad del rival */
+body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
+
 /* el escudo no se activa: lo pone la carta. Solo hay que verlo */
 .cama.pficha .f-escudo{position:absolute;left:50%;top:50%;z-index:3;
   transform:translate(-50%,-50%);font-size:24px;
@@ -1641,7 +1671,18 @@ body[data-maq="b"] .cama.pficha .cama-arte{margin:0 0 3px}
 body[data-maq="b"] .cama.suya .cama-arte{margin:3px 0 0}
 body[data-maq="b"] .cama.pficha .cuerpo-f{padding:0 3px}
 body[data-maq="b"] .cama.pficha .sellos{padding:0 3px}
-body[data-maq="b"] .cama.pficha .cama-btn{width:100%;margin:4px 0 0}
+/* ── el botón de la cama, encima y no debajo ─────────────────────────
+   La ficha tiene alto fijo —las dos mitades del campo miden igual— y el
+   botón se añadía DESPUÉS del contenido: caía 17 px por fuera y la cama
+   recorta. O sea que «Tratar», «Sabotear», «🛡️ protegido» y sobre todo
+   «Des-escalar» existían en el DOM y no se veían ni se podían tocar; el
+   autor no encontraba cómo sacarse una basura clínica de encima porque
+   literalmente no estaba en pantalla. Ahora es una banda flotante sobre
+   el filo del arte: no ocupa alto, así que no descuadra el espejo. */
+body[data-maq="b"] .cama.pficha .cama-btn{position:absolute;z-index:6;
+  left:3px;right:3px;bottom:3px;width:auto;margin:0;
+  padding:4px 3px;font-size:9.5px;line-height:1.15;
+  box-shadow:0 -3px 10px rgba(9,25,32,.35)}
 body[data-maq="b"] .grande.conarte{--marco:7px;padding:var(--marco)}
 body[data-maq="b"] .grande.conarte .g-arte{border-radius:9px;overflow:hidden}
 body[data-maq="b"] .grande.conarte .g-cuerpo{padding:4px 8px 8px}
@@ -1999,6 +2040,19 @@ const vista = ()=> (G.modo==="ia" && yo().ia) ? G.jug.find(j=>!j.ia) : yo();
 function falta(c,t){ return Math.max(0, c.pide[t]-c.tiene[t]); }
 function faltanTotal(c){ return TIPOS.reduce((s,t)=>s+falta(c,t),0); }
 function limiteMano(j){ return Math.max(1, MANO_MAX - j.sumarios); }
+
+/* Dos preguntas que el jugador se hace mirando la cama, y que hasta ahora
+   tenía que calcular de cabeza. Las contesta el marco: verde si se va,
+   rojo si se muere. */
+function saldraDeAlta(c){
+  // el alta se cobra en tu Entrega, y la basura clínica la retiene
+  return !!(c && c.estable && !c.basura.length);
+}
+function alFilo(c){
+  if(!c) return false;
+  if(c.estable && !c.basura.length) return false;   // congelado: no baja
+  return c.vida - (1 + (c.extraDeterioro||0)) <= 0;
+}
 
 function revisar(c, ronda){
   const completo = faltanTotal(c)===0;
@@ -2694,9 +2748,17 @@ function faseFin(){
   const j = yo();
   j.camas.forEach((c,i)=>{
     if(!c) return;
-    if(!c.estable){
+    // El ✅ congela el reloj, PERO la basura clínica lo vuelve a soltar.
+    // Sin esto un paciente estabilizado con basura encima quedaba inmune
+    // para siempre: no se moría porque estaba ✅ y no se iba de alta
+    // porque la basura la retiene. O sea que dejar la basura salía gratis.
+    // Ahora muerde: o gastas la indicación en des-escalar, o se desangra.
+    if(!c.estable || c.basura.length){
       c.vida -= 1 + (c.extraDeterioro||0);
       c.extraDeterioro = 0;
+      if(c.estable && c.basura.length && c.vida > 0)
+        anota("m", `${c.p.nombre} está ✅ pero la basura clínica no lo deja `+
+                   `descansar: −1 ❤️ (le quedan ${c.vida}).`);
     }
     if(c.vida<=0){
       j.muertos.push(c.p);
@@ -3022,16 +3084,23 @@ const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&l
    negativo igual al tiempo ya transcurrido, la animación entra por donde
    iba y el re-render deja de verse. El elemento es nuevo cada vez, así
    que el retardo hay que reponerlo cada vez: es una línea por elemento
-   y solo sobre los cuatro que laten. */
+   y solo sobre los cinco que laten.
+
+   El tercer campo, cuando está, es una propiedad personalizada: el aura
+   de la cama late en un ::after, y a un pseudo-elemento no se le puede
+   escribir el estilo desde JS — hay que pasarle el retardo por variable. */
 const LATIDOS = [[".aro-av img, .aro-av .ini", 5200],
                  [".poder-av.vivo", 2400],
                  [".btn-pizarra", 6500],
-                 [".cz-uno.bajo", 1400]];
+                 [".cz-uno.bajo", 1400],
+                 [".cama.al-filo", 1050, "--fase"]];
 function continuarAnimaciones(){
   const t = performance.now();
-  LATIDOS.forEach(([sel, dur])=>{
+  LATIDOS.forEach(([sel, dur, prop])=>{
     const d = (-(t % dur)).toFixed(0) + "ms";
-    document.querySelectorAll(sel).forEach(e=>{ e.style.animationDelay = d; });
+    document.querySelectorAll(sel).forEach(e=>{
+      if(prop) e.style.setProperty(prop, d); else e.style.animationDelay = d;
+    });
   });
 }
 
@@ -3657,6 +3726,12 @@ function hojaPizarra(){
   });
 }
 
+/* La banda del botón va sobre la ILUSTRACIÓN, no sobre el pie de la
+   ficha: abajo están los símbolos de recurso, que son justo lo que hay
+   que leer para decidir dónde sueltas la carta. Tapar el dibujo no cuesta
+   nada; tapar el dato, sí. */
+function ponBanda(d, b){ (d.__ventana || d).appendChild(b); return b; }
+
 function vistaCama(c, i, duenio, propio){
   if(!c) return el("div","cama vacia","cama vacía");
   const sel = UI.sel;
@@ -3708,6 +3783,17 @@ function vistaCama(c, i, duenio, propio){
       c.p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(c.p.gravedad)));
     za.appendChild(el("span","f-faltan"+(total===0?" cero":""),
       total===0 ? "✓" : String(total)));
+    // el aura: verde si se va de alta en tu Entrega, roja y latiendo si
+    // no llega al cierre del turno. La roja manda sobre la verde.
+    if(alFilo(c)) d.classList.add("al-filo");
+    else if(saldraDeAlta(c)) d.classList.add("por-alta");
+    // la basura clínica se veía solo en un sello que la ficha recortaba
+    if(c.basura.length){
+      const bs = el("span","f-basura", `↯${c.basura.length>1?c.basura.length:""}`);
+      bs.title = `${c.basura.length} basura clínica — retiene el alta y `+
+                 `le cuesta 1 ❤️ por turno`;
+      za.appendChild(bs);
+    }
     // el escudo se pone solo; que al menos se vea a quién cubre
     if(c.escudo){
       d.classList.add("escudado");
@@ -3716,6 +3802,7 @@ function vistaCama(c, i, duenio, propio){
       za.appendChild(sc);
     }
     d.appendChild(za);
+    d.__ventana = za;   // la banda del botón cuelga del arte, no del pie
   } else {
     const raya = el("i","raya");
     raya.style.background = SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)";
@@ -3814,7 +3901,7 @@ function vistaCama(c, i, duenio, propio){
     const soltar = ()=>{ volarIndic(d);
       colocar(sel, c, duenio, !propio);
       UI.sel=null; guardar(); render(); };   // la mano se queda abierta
-    d.appendChild(el("span","cama-btn",
+    ponBanda(d, el("span","cama-btn",
       (propio ? "Tratar" : (leSirve(sel,c) ? "Le sirve ⚠️" : "Sabotear")) +
       '<i class="precio"></i>'));
     d.onclick = soltar;
@@ -3822,8 +3909,8 @@ function vistaCama(c, i, duenio, propio){
   } else if(sel && activo && !propio && c.escudo && sel.warn){
     // el escudo del rival bloquea en silencio; que se sepa por qué no se puede
     const b = el("span","cama-btn sec","🛡️ protegido");
-    b.style.opacity = ".8";
-    d.appendChild(b);
+    b.style.opacity = ".85";
+    ponBanda(d, b);
   } else if(activo && propio && !sel && c.basura.length){
     // retirar basura ocupa una indicación: en vez de poner, retiras
     const b = el("button","cama-btn sec",'Des-escalar<i class="precio"></i>');
@@ -3831,7 +3918,7 @@ function vistaCama(c, i, duenio, propio){
       G.descG.push(c.basura.pop()); yo().coloc--;
       anota("",`Des-escalada en ${c.p.nombre} (gasta 1 indicación).`);
       revisar(c,G.ronda); guardar(); render(); };
-    d.appendChild(b);
+    ponBanda(d, b);
   }
   if(!objetivo){
     // tocar la cama abre al paciente en grande: ahí están el nombre, el
@@ -3921,11 +4008,28 @@ function verPacienteGrande(c){
     }
     if(c.basura.length)
       cuerpo.appendChild(el("div","g-warn",
-        `↯ ${c.basura.length} basura clínica — retiene el alta hasta des-escalar.`));
+        `↯ ${c.basura.length} basura clínica — retiene el alta, y mientras esté `+
+        `encima el ✅ no lo protege: pierde 1 ❤️ al cierre de cada turno.`));
     if(c.p.frase) cuerpo.appendChild(el("div","g-frase",`“${esc(c.p.frase)}”`));
     m.appendChild(g);
     const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
-    const cb = el("button","btn pri","Cerrar"); cb.onclick = cerrar;
+    // Des-escalar desde aquí: en la cama el botón es una banda estrecha y
+    // aquí hay sitio para decir lo que cuesta. Mismo efecto, dos caminos.
+    const j = yo();
+    const mia = j.camas.includes(c);
+    if(mia && c.basura.length && G.fase===1 && !j.ia && !G.pendiente){
+      const de = el("button","btn"+(j.coloc>0 ? " pri" : ""),
+        j.coloc>0 ? "Des-escalar · 1 indicación" : "Sin indicaciones");
+      if(j.coloc>0) de.onclick = ()=>{
+        G.descG.push(c.basura.pop()); j.coloc--;
+        anota("", `Des-escalada en ${c.p.nombre} (gasta 1 indicación).`);
+        aviso("ok", `↯ fuera de ${esc(c.p.nombre)}`);
+        revisar(c, G.ronda); guardar(); UI.modal = null; render();
+      }; else de.disabled = true;
+      fila.appendChild(de);
+    }
+    const cb = el("button","btn"+(fila.childNodes.length?"":" pri"),"Cerrar");
+    cb.onclick = cerrar;
     fila.appendChild(cb);
     m.appendChild(fila);
   });

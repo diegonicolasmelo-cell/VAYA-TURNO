@@ -765,6 +765,7 @@ Decisiones que la mesa va a preguntar y el reglamento aún no responde:
 | ⬜ 5 | **Eliminación de jugador** por acumular decesos | Material Gemini | Descartada en v0.12 (nadie queda fuera mirando 40 min). Rescatable como variante dura tipo "Modo Cruel". |
 | ⬜ 6 | **Tablero doble capa con hendiduras** para dados/fichas | Material Gemini | Decisión de producción, no de reglas. Para la versión deluxe, si algún día existe. |
 | ✅ 8 | **Personal protector (pasivas de prevención)** — IMPLEMENTADO en v0.20 (`REGLAMENTO.md` §7.3): TENS→NAVM (30° y aseo de cavidades), Enfermera→Bacteriemia (manejo estéril), Kine→Delirium (movilización precoz, la E del bundle ABCDEF) — reasignados en v0.20.1 por precisión clínica; prospectivas, en las copias sin ⚠️. En simulación previenen 1,1% de complicaciones (piso: la IA no secuencia). Vigilar en mesa si el jugador siente que la secuencia protector-primero vale la pena. Resto de la fila, histórico: — el recurso 🧑‍⚕️ protege al paciente donde está de UNA complicación con nombre: Kinesiólogo / *movilización precoz* → previene la debilidad adquirida en UCI; TENS / *posicionamiento y aseo de cavidades* → previene la NAVM; Enfermera / *omnipresencia* → previene la autoextubación. Unas cartas dañan, otras blindan: cada rol se reconoce en lo que hace bien. | Idea del autor (2026-08-20) | **Regla de tiempo ya decidida (2026-08-21): la prevención es solo prospectiva.** El protector debe estar sobre el paciente ANTES de que la complicación se resuelva; entonces "no ocurre" (misma jurisprudencia del §7: no se sustituye ni se busca otro objetivo). Jugarlo después no revierte nada — la complicación ya resuelta es historia, coherente con el disparo instantáneo de v0.17. Contrajuego emergente: robar al protector (*Vacaciones*) pasa a ser desmantelar un blindaje. Falta definir el resto — depende de qué complicaciones existan tras el playtest. Encaja en la columna `texto` de `recursos.csv` (§5b) y gana sentido con 🎯 ESTE PACIENTE: proteger ANTES de instalar el ⚠️ es una secuencia clínica real (§4g de `DISENO.md`). |
+| ⬜ 9 | **La Virgen Negra de Fátima** — la estampita que alarga la vida del paciente. Idea del autor (2026-08-29): en el hospital chileno la estampita pegada al velador es folclore de verdad, y el chiste es que en un juego de recursos clínicos la carta que evita la muerte no sea un fármaco. Forma candidata: **Protocolo de tipo RESPUESTA**, se juega sobre un paciente propio y **la primera vez que llegaría a 0 ❤️ se queda en 1** en lugar de morir; se descarta al usarse. Una copia, o dos como mucho: es un indulto, no una estrategia. | Idea del autor (2026-08-29) | Sin documentar como carta todavía. **Antes de escribirla hay que decidir dos cosas:** si el indulto también aplica a la muerte por basura clínica —la regla nueva de la v0.57— y si consume indicación. Y **no entra al balance validado**: `simular.py` no modela Acciones, así que una carta que evita muertes toca justo la métrica que el simulador sí mide (61 % de salvamento, 8 % de guardias limpias). Habría que medirla en mesa antes de darla por buena. |
 | ❌ 7 | **Rescatar del descarte como regla libre** | Propuesta del autor (2026-08-18) | **Evaluada por simulación y descartada como regla base.** 2.000 partidas por variante (3 jug., config estándar): rescate 1:1 sube el salvamento de 61%→65% y **duplica las Guardias Limpias (8%→14%)** — mata la hazaña; rescate 2:1 resulta una trampa (la IA que lo usa siempre cae a 46% de salvamento: pagar 2 por 1 desangra la mano). El acceso al descarte queda como **efecto de carta** (*A04 Interconsulta* ya lo hace) y candidato a 1–2 cartas más en expansiones. La variante 1:1 podría rescatarse como "modo suave" para mesas nuevas. |
 
 ---
@@ -904,6 +905,45 @@ restaurarlo lo devuelve.
 
 Regla para el futuro: **cualquier archivo nuevo que se sume a la caché
 tiene que entrar en `cacheados`**, o volvemos al mismo agujero.
+
+### La basura clínica ya muerde ✅ (v0.57)
+
+Dos cosas, una de interfaz y una de reglas.
+
+**No se podía des-escalar porque el botón no estaba en pantalla.** La
+ficha de la cama tiene alto fijo —las dos mitades del campo miden igual— y
+`cama-btn` se añadía DESPUÉS del contenido: caía 17 px por fuera y la cama
+recorta con `overflow:hidden`. Medido: cama en 474–606, botón en 623–649.
+Y no era solo «Des-escalar»: «Tratar», «Sabotear» y «🛡️ protegido»
+llevaban invisibles desde que la ficha tiene alto fijo. Ahora la banda es
+absoluta **sobre la ilustración** —no sobre el pie, donde están los
+símbolos de recurso, que es justo lo que hay que leer para decidir— y no
+ocupa alto, así que el espejo sigue cuadrando. La des-escalada está además
+en la ficha del paciente, que es donde hay sitio para decir lo que cuesta.
+
+**Y el ✅ ya no protege con basura encima.** Antes un paciente
+estabilizado con basura era inmune para siempre: no moría porque el ✅
+congela el reloj, y no se iba de alta porque la basura la retiene. Dejar
+la basura salía gratis. Ahora la basura descongela: pierde 1 ❤️ al cierre
+de cada turno hasta que la saques. **Esto NO está en el balance validado**
+—`simular.py` no modela Acciones ni basura—, así que es candidato número
+uno a revisar en la primera mesa: si el sabotaje con ⚠️ resulta demasiado
+letal, la palanca es hacer que muerda solo al paciente ✅ y no al que ya
+se estaba deteriorando.
+
+### El aura de la cama ✅ (v0.57)
+
+Verde fija en el que se va de alta en tu próxima Entrega (`estable` y sin
+basura), roja latiendo en el que no llega vivo al cierre del turno
+(`vida − deterioro ≤ 0`). Va en un `::after` con sombra **interior**: la
+ficha recorta, así que una sombra por fuera no se vería, y así tampoco
+pelea con el borde de gravedad ni con el aro del escudo, que son
+box-shadow del propio elemento.
+
+El aura roja late, y late dentro de `#app`: entra en `LATIDOS`. Pero es un
+pseudo-elemento y a un `::after` no se le escribe el estilo desde JS, así
+que el retardo se le pasa por variable (`--fase`) — de ahí el tercer campo
+de la lista.
 
 ### El audio de la portada ✅ (v0.57)
 
