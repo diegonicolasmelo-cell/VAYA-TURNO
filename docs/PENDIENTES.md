@@ -911,18 +911,32 @@ El clip trae su propia música y es la que se queda. `sonido_portada.py`
 —que sintetizaba monitores, alarmas y las pasadas del trapero— deja de
 usarse; el módulo se queda en el repo por si vuelve a llegar un clip mudo.
 
-Con eso el bucle ya no puede ser de ida y vuelta: la música son 125 pulsos
-por minuto y al revés se nota a la primera. El ciclo se cierra disolviendo
-la cola sobre la cabeza —medio segundo—, así que el clip pasa de 16 s a
-7,5 s y de 2,29 MB a 1,16 MB.
+**La imagen va y vuelve; el audio no.** El autor quiso el vaivén de vuelta
+—cierra el ciclo sin corte y a un tipo trapeando le calza—, pero la música
+son 125 pulsos por minuto y al revés se nota a la primera. Así que el video
+es ida y vuelta y el audio se construye aparte: el original repetido hacia
+adelante hasta cubrir el ciclo, con 0,45 s de disolvencia en cada empalme y
+otra que envuelve el final sobre el principio. Comprobado midiendo el pulso
+por mitades: 125 en las dos.
 
-Dos trampas de `ffmpeg` que costaron el rato:
+**Y se nivela.** El clip es un crescendo de ocho segundos: en bucle eso se
+oye como un vaivén de volumen que ninguna disolvencia arregla —una
+disolvencia mezcla, no inventa el crescendo que falta—. `aplanar()` divide
+por el RMS corrido con ventana de 1,6 s (mucho más larga que un compás, para
+no tocar el pulso) con la ganancia acotada. La desviación de nivel a lo
+largo del ciclo baja del 45 % al 10 %, sin recorte (pico 0,49). Con
+`APLANAR = False` se deja el clip como viene.
+
+Tres trampas encontradas en el camino, por si vuelve el tema:
 
 - **`xfade` no sirve para cerrar un bucle sobre sí mismo.** Exige que su
   primera entrada dure más que `offset+duration`, y la cola mide justo la
   disolvencia. Sale con `overlay` y un `fade=alpha=1` sobre la cabeza.
-- **`acrossfade` devuelve cero muestras** con entradas de esa misma
-  largura, y el error que da es `Could not open encoder before EOF`, que no
-  apunta a nada. Sale con dos `afade` complementarios sumados con
-  `amix=normalize=0`. Y el `aformat` de entrada no sobra: sin él el
-  `concat` de audio no arranca.
+- **`acrossfade` devuelve cero muestras** con entradas de esa largura, y el
+  error que da es `Could not open encoder before EOF`, que no apunta a
+  nada. Y el `aformat` de entrada no sobra: sin él el `concat` de audio no
+  arranca. Por las dos cosas el montaje del audio se hace en numpy, donde
+  se ve lo que pasa y se puede medir.
+- **El nivel por segundo engaña.** Esta música son ráfagas de 0,17 con
+  huecos de 0,03 entre medio: un RMS por segundo da 0,10 planito y esconde
+  el patrón. Para juzgar una costura hay que mirar la envolvente a 50 ms.
