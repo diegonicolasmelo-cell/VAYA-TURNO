@@ -26,6 +26,8 @@
   --vida:#c0492f; --ok:#237a5b; --warn:#96660d; --basura:#7f52bb;
   --resp:#3d7ea6; --card:#b03d29; --neuro:#7a5ba6; --metab:#2f8f6b; --quir:#8a6a2f;
   --sombra:0 1px 2px rgba(22,36,46,.08), 0 3px 10px rgba(22,36,46,.07);
+  /* la silueta del corazón, para vaciarlo con un degradado enmascarado */
+  --m-cz:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 13.6S2.2 10 2.2 6.2C2.2 4.1 3.8 2.7 5.5 2.7c1 0 1.9.5 2.5 1.3.6-.8 1.5-1.3 2.5-1.3 1.7 0 3.3 1.4 3.3 3.5 0 3.8-5.8 7.4-5.8 7.4z"/></svg>');
   /* La sala ilustrada, recortada a la banda de las tres camas. La tuya y
      la del rival girada 180°, como si estuviera al otro lado de la mesa.
      Las rellena tools/generar_sala_app.py — no editar a mano. */
@@ -136,6 +138,11 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
       padding:6px;text-align:left;box-shadow:var(--sombra);display:flex;
       flex-direction:column;gap:3px;min-height:92px;position:relative}
 .prot.no{opacity:.5}
+.prot .p-arte{position:relative;display:block;margin:0 0 4px;
+  aspect-ratio:4/3;flex:none;background:var(--tinte,var(--lejos));
+  overflow:hidden;border:1px solid rgba(22,36,46,.20);border-radius:5px}
+.prot .p-arte img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;display:block}
 .prot.puede{border-color:var(--acc);animation:compable 2.4s ease-in-out infinite}
 @keyframes compable{
   0%,100%{box-shadow:0 0 0 0 rgba(13,110,120,0),var(--sombra)}
@@ -169,19 +176,18 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .cama.sobre{box-shadow:0 0 0 3px var(--acc),0 6px 18px rgba(13,110,120,.3);
             transform:translateY(-2px) scale(1.02);animation:none}
 .raya{position:absolute;left:0;top:0;bottom:0;width:3px;z-index:2}
-/* ── maquetación B en la cama ──────────────────────────────────────
-   El arte entra a sangre por arriba —de ahí los márgenes negativos, que
-   anulan el padding de la carta— y se disuelve en la ficha. El fondo
-   lleva el tinte de la propia ilustración: si la imagen no llena el
-   hueco, los costados no se ven. */
+/* ── el arte de la cama: la misma ventana enmarcada ─────────────────
+   Entraba a sangre y se disolvía en la ficha; ahora es la misma ventana
+   4:3 con filete que en la carta de mano, para que una sola ilustración
+   sirva en las dos sin recortar nada. El fondo lleva el tinte de la
+   propia imagen por si el redondeo deja ver un pelo de costado. */
 .cama{--fondo-carta:var(--paper)}
 .cama.est{--fondo-carta:#f4fbf8}
-.cama-arte{position:relative;margin:-6px -6px 4px -8px;aspect-ratio:4/3;
-           background:var(--tinte,var(--lejos));overflow:hidden}
+.cama-arte{position:relative;margin:0 0 4px;aspect-ratio:4/3;
+           background:var(--tinte,var(--lejos));overflow:hidden;
+           border:1px solid rgba(22,36,46,.20);border-radius:4px}
 .cama-arte img{position:absolute;inset:0;width:100%;height:100%;
-               object-fit:cover;object-position:center 26%;display:block}
-.cama-arte .disuelve{position:absolute;inset:auto 0 0;height:30%;
-  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
+               object-fit:cover;object-position:center;display:block}
 .cama-cab{display:flex;align-items:flex-start;gap:4px}
 .pnom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11.5px;
       line-height:1.12;flex:1;min-height:26px}
@@ -194,7 +200,7 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
    Solo cuando el paciente TIENE arte — sin arte se queda la carta clásica,
    que es transitorio mientras llegan las 115 ilustraciones. */
 .cama.pficha{padding:0 0 5px;border-width:2px;border-color:var(--gravc,var(--line))}
-.cama.pficha .cama-arte{margin:0 0 4px;aspect-ratio:1/1}
+.cama.pficha .cama-arte{margin:0 0 4px;aspect-ratio:4/3}
 .cama.pficha .f-grav{position:absolute;top:4px;left:4px;z-index:2;
   font-family:"IBM Plex Mono",monospace;font-size:8px;font-weight:700;
   letter-spacing:.04em;color:#fff;background:var(--gravc);padding:2px 5px;
@@ -203,14 +209,29 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
   font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:700;
   color:var(--acc);text-shadow:0 1px 0 var(--paper),0 0 6px var(--paper)}
 .cama.pficha .f-faltan.cero{color:var(--ok)}
+/* el escudo no se activa: lo pone la carta. Solo hay que verlo */
+.cama.pficha .f-escudo{position:absolute;left:50%;top:50%;z-index:3;
+  transform:translate(-50%,-50%);font-size:24px;
+  filter:drop-shadow(0 2px 5px rgba(9,25,32,.45))}
+.cama.escudado{box-shadow:0 0 0 2px rgba(13,110,120,.55),var(--sombra)}
+.cama.escudado .cama-arte{filter:saturate(.7) brightness(1.06)}
 .cama.pficha .cuerpo-f{padding:0 6px}
 .cama.pficha .corazones{margin:0 0 3px}
-.cama.pficha .pips{display:flex;gap:2.5px;flex-wrap:wrap;margin:0 0 2px}
-.cama.pficha .pip{width:7.5px;height:7.5px;border-radius:50%;flex:none;
-  border:1.3px solid var(--pc);background:transparent}
-.cama.pficha .pip.ll{background:var(--pc);border-color:var(--pc);
-  box-shadow:inset 0 -1px 1px rgba(0,0,0,.3)}
-.cama.pficha .pip.extra{background:var(--ink-3);border-color:var(--ink-3);opacity:.55}
+
+/* ── los requerimientos, en su propio símbolo repetido ───────────────
+   Cinco círculos de colores obligaban a traducir color→recurso cada vez
+   que mirabas una cama. Ahora se dibuja el símbolo tantas veces como
+   unidades pide: 💊💊 son dos fármacos y se acabó. Lo ya cubierto se
+   apaga y lo que falta queda a todo color, así que la cama se lee por
+   lo que le falta, que es la única pregunta que uno le hace. */
+.cama.pficha .pips{display:flex;flex-wrap:wrap;gap:2px 5px;margin:0 0 2px;
+  align-items:center}
+.cama.pficha .gr{display:flex;gap:1.5px;flex:none}
+.cama.pficha .uni{width:11px;height:11px;flex:none;color:var(--pc);
+  display:block}
+.cama.pficha .uni svg{width:100%;height:100%;display:block}
+.cama.pficha .uni.ya{opacity:.24}
+.cama.pficha .uni.extra{color:var(--ink-3);opacity:.5}
 .cama.pficha .sellos{margin-top:3px;padding:0 6px}
 .cama.pficha .cama-btn{width:calc(100% - 12px);margin:5px 6px 0}
 
@@ -256,6 +277,29 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .corazones{display:flex;gap:1px;align-items:center;margin:4px 0 5px;flex-wrap:wrap}
 .cz{display:inline-flex;width:11px;height:11px;color:var(--vida);flex:none}
 .cz svg{width:100%;height:100%;display:block}
+
+/* ── un corazón, no siete ────────────────────────────────────────────
+   Siete corazones en fila ocupaban el ancho entero de la cama y,
+   contados de reojo, se confundían con los requerimientos. Queda uno
+   solo que se vacía por abajo —la vida se ve, no se cuenta— con la
+   cifra al lado para el dato exacto. El hueco que deja es justo el que
+   necesitan los símbolos de recurso. */
+.cz-uno{position:relative;width:17px;height:16px;flex:none;
+  -webkit-mask:var(--m-cz) no-repeat center/contain;
+          mask:var(--m-cz) no-repeat center/contain;
+  background:linear-gradient(to top,
+    var(--vida) 0 calc(var(--llen) * 100%),
+    rgba(120,132,140,.34) calc(var(--llen) * 100%) 100%)}
+.cz-uno.bajo{background:linear-gradient(to top,
+    #c0392b 0 calc(var(--llen) * 100%),
+    rgba(192,57,43,.22) calc(var(--llen) * 100%) 100%)}
+@media (prefers-reduced-motion: no-preference){
+  .cz-uno.bajo{animation:czLate 1.4s ease-in-out infinite}}
+@keyframes czLate{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.corazones .vnum{font-family:"IBM Plex Mono",monospace;font-size:12px;
+  font-weight:700;color:var(--ink);margin-left:3px;font-variant-numeric:tabular-nums;
+  line-height:1}
+.corazones .vnum small{font-size:8.5px;font-weight:600;color:var(--ink-3)}
 .cong{display:inline-flex;align-items:center;gap:2px;font-size:7.5px;font-weight:700;
       letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-left:4px}
 .cong svg{width:7px;height:7px;flex:none}
@@ -515,27 +559,68 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
                               0 3px 14px rgba(13,110,120,.26)}
 .btn-pizarra .flecha{color:var(--ink-3);font-size:14px}
 
-/* ── la rueda de personajes: carrusel circular sin tope ──────────────
+/* ── elegir personaje: la pantalla entera ────────────────────────────
+   Era una hoja de abajo con tres tarjetitas y el tablero asomando por
+   detrás. La primera decisión de la partida se merece la pantalla: la
+   ilustración manda y debajo va la habilidad al tamaño en que se lee.
    Los 3 giran sobre un eje vertical; deslizas y da la vuelta completa. */
-.rueda{position:relative;height:270px;margin:4px 0 10px;perspective:800px;
-       touch-action:none;overflow:hidden}
-.rueda .op.av-carta{position:absolute;left:50%;top:6px;width:232px;
-       margin-left:-116px;padding:14px 14px 12px;text-align:left;
-       background:var(--paper);border:1px solid var(--line);border-radius:13px;
-       box-shadow:0 8px 24px rgba(22,36,46,.16);
+.elige-av{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  background:radial-gradient(120% 78% at 50% 0%, #22333c 0%, #101a20 62%, #070d11 100%);
+  color:#eaf1f3;padding:calc(18px + env(safe-area-inset-top,0px)) 0
+                        calc(14px + env(safe-area-inset-bottom,0px));
+  animation:aparecer .24s ease}
+.ea-cab{flex:none;padding:0 22px 10px;text-align:center}
+.ea-rot{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:#7fb9c1}
+.ea-cab h2{margin:6px 0 0;font-family:Petrona,Georgia,serif;font-size:19px;
+  font-weight:700;line-height:1.2;text-wrap:balance;color:#fff}
+.rueda{position:relative;flex:1 1 auto;min-height:0;margin:6px 0 8px;
+       perspective:900px;touch-action:none;overflow:hidden}
+.rueda .op.av-carta{position:absolute;left:50%;top:50%;width:266px;
+       max-height:100%;
+       margin-left:-133px;padding:0;text-align:left;overflow:hidden;
+       display:flex;flex-direction:column;
+       background:var(--paper);border:1px solid rgba(255,255,255,.14);
+       border-radius:18px;box-shadow:0 22px 54px rgba(0,0,0,.5);
        transition:transform .28s cubic-bezier(.2,.9,.3,1), opacity .28s ease;
        will-change:transform}
 .rueda.viva .op.av-carta{transition:none}
-.av-rol{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
-        letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
-.av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
-        line-height:1.1;margin:4px 0 7px}
-.av-hab{font-size:12px;line-height:1.4;color:var(--ink-2)}
-.av-frase{font-family:Petrona,Georgia,serif;font-style:italic;font-size:11.5px;
-          color:var(--ink-3);margin-top:8px;line-height:1.35}
-.rueda-pista{display:flex;gap:5px;justify-content:center;margin:0 0 10px}
-.rueda-pista i{width:6px;height:6px;border-radius:99px;background:var(--line)}
-.rueda-pista i.on{background:var(--acc);width:16px}
+/* también 4:3: el retrato del personaje es la MISMA ilustración que la
+   carta, y si aquí se estirara a lo alto habría que dibujar dos */
+.av-retrato{position:relative;flex:none;aspect-ratio:4/3;margin:0;
+  border-radius:17px 17px 0 0;
+  background:linear-gradient(165deg,var(--tinte,#5d818b),#2c4149);
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.av-retrato img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 22%;display:block}
+.av-inicial{font-family:Petrona,Georgia,serif;font-size:118px;font-weight:700;
+  color:rgba(255,255,255,.42);line-height:.9;user-select:none;
+  text-shadow:0 6px 22px rgba(0,0,0,.28)}
+
+.av-rol{position:absolute;left:8px;top:8px;z-index:2;
+        font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;
+        letter-spacing:.11em;text-transform:uppercase;color:#fff;
+        background:rgba(13,110,120,.9);padding:3px 8px;border-radius:99px}
+/* el cuadro de texto: caja propia bajo el retrato, con su filete */
+.av-ficha{flex:0 1 auto;min-height:0;overflow:auto;padding:12px 16px 15px;
+  background:var(--paper);border-top:1px solid var(--line-2);
+  -webkit-overflow-scrolling:touch}
+.av-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:23px;
+        line-height:1.08;margin:0 0 6px;color:var(--ink)}
+.av-habtit{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;
+        letter-spacing:.1em;text-transform:uppercase;color:var(--acc);
+        margin:0 0 4px}
+.av-hab{font-size:13.5px;line-height:1.4;color:var(--ink-2)}
+.av-frase{font-family:Petrona,Georgia,serif;font-style:italic;font-size:12px;
+          color:var(--ink-3);margin-top:9px;line-height:1.35}
+.ea-pie{flex:none;padding:0 22px;display:flex;flex-direction:column;
+  align-items:center;gap:8px}
+.ea-pista{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:#6f8f99}
+.ea-pie .btn.pri{width:100%;max-width:320px;margin:2px 0 0}
+.rueda-pista{display:flex;gap:5px;justify-content:center;margin:0}
+.rueda-pista i{width:6px;height:6px;border-radius:99px;background:rgba(255,255,255,.28)}
+.rueda-pista i.on{background:#5fc0cb;width:18px}
 
 /* plegar la mano vive APARTE de la mano: botón redondo, arriba a la
    derecha del abanico, lejos de las cartas y de los otros controles */
@@ -556,6 +641,24 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .grande .g-etiqs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .grande .g-etiqs .etiq{font-size:10px;padding:3px 8px}
 .grande .g-txt{font-size:13px;line-height:1.45;color:var(--ink-2)}
+/* el expediente: las cartas que le pusiste, con su ilustración */
+.grande .g-rot{margin:12px 0 5px;font-family:"IBM Plex Mono",monospace;
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3)}
+.grande .puestas{display:flex;flex-wrap:wrap;gap:5px}
+.grande .puesta{display:flex;align-items:center;gap:5px;padding:3px 8px 3px 3px;
+  border:1px solid var(--line);border-left:3px solid var(--tc,var(--ink-3));
+  border-radius:999px;background:var(--cerca);max-width:100%}
+.grande .puesta .pu-arte{width:22px;height:22px;border-radius:50%;overflow:hidden;
+  flex:none;background:var(--line-2)}
+.grande .puesta .pu-arte img{width:100%;height:100%;object-fit:cover;display:block}
+.grande .puesta .pu-ico{width:22px;height:22px;border-radius:50%;flex:none;
+  display:grid;place-items:center;color:#fff;background:var(--tc,var(--ink-3))}
+.grande .puesta .pu-ico svg{width:13px;height:13px;display:block}
+.grande .puesta .pu-nom{font-size:11px;font-weight:600;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grande .puesta.basura{--tc:var(--basura)}
+.grande .puesta.basura .pu-ico{background:var(--basura);font-weight:700}
 .grande .g-warn{margin-top:10px;padding:9px 11px;border-radius:9px;
                 background:#fdf4e3;border:1px solid #e6d3a8;font-size:12.5px;
                 line-height:1.4;color:#6b4a09}
@@ -568,10 +671,20 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
          background:var(--cerca);font-size:17px;line-height:1;flex:none}
 .nav-btn:disabled{opacity:.35}
 .carta{width:auto;background:var(--paper);border:1px solid var(--line);
-       border-left-width:3px;
+       border-left-width:3px;position:relative;
        border-radius:8px;padding:6px;text-align:left;box-shadow:var(--sombra);
        display:flex;flex-direction:column;gap:2px;min-height:104px;
        transition:transform .14s ease, box-shadow .14s ease;touch-action:none}
+/* el índice del naipe: el símbolo del recurso en diagonal —arriba a la
+   izquierda y abajo a la derecha, girado, como en una carta de baraja—
+   para que asome sea cual sea el lado que tape la carta vecina */
+.esq{position:absolute;z-index:7;width:19px;height:19px;
+     display:grid;place-items:center;color:#fff;background:var(--tc);
+     pointer-events:none}
+.esq svg{width:11.5px;height:11.5px;display:block}
+.esq.ai{top:-1px;left:-3px;border-radius:8px 0 9px 0}
+.esq.bd{bottom:-1px;right:-1px;border-radius:9px 0 8px 0}
+.esq.bd svg{transform:rotate(180deg)}
 @media (hover:hover){
   .carta:not(.no):not(.sel):hover{transform:translateY(-4px);
     box-shadow:0 6px 16px rgba(22,36,46,.16), 0 2px 5px rgba(22,36,46,.1)}}
@@ -590,32 +703,29 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
    ficha, con el tinte de la ilustración detrás. La mano se ve de reojo,
    así que el hueco es más chato que en la carta grande. */
 .carta{--fondo-carta:var(--paper)}
-.carta .arte{position:relative;margin:-6px -6px 3px;aspect-ratio:3/2;flex:none;
+/* ── la ventana del arte: enmarcada, entera y sin difuminar ─────────
+   Hasta la v0.57 el arte entraba a sangre y se disolvía en el cuerpo de
+   la carta. Se veía bonito con las diez ilustraciones que hay, pero
+   escondía el tercio de abajo de todas y obligaba a componer las nuevas
+   contra un degradado. Ahora es una ventana con marco: 4:3, la misma
+   proporción en TODAS las ranuras, la imagen completa y un filete que
+   la separa del papel. Quien dibuje sabe exactamente qué se ve: todo. */
+.carta .arte{position:relative;margin:0 0 4px;aspect-ratio:4/3;flex:none;
              background:var(--tinte,var(--lejos));overflow:hidden;
-             border-radius:7px 7px 0 0}
-.abanico .carta .arte{aspect-ratio:4/3}
+             border:1px solid rgba(22,36,46,.20);border-radius:5px}
 .carta .arte img{position:absolute;inset:0;width:100%;height:100%;
-                 object-fit:cover;object-position:center 26%;display:block}
-.carta .arte .disuelve{position:absolute;inset:auto 0 0;height:34%;
-  background:linear-gradient(to top,var(--fondo-carta),rgba(255,255,255,0))}
+                 object-fit:cover;object-position:center;display:block}
 /* ── maquetación B en la carta grande ──────────────────────────────
    El arte entra a sangre por arriba y se DISUELVE en el cuerpo, no se
    corta: una línea dura cruzando la carta la parte en dos. El fondo lleva
    el tinte de la propia ilustración, medido de su borde en el generador,
    para que los costados no se vean si la imagen no llena el hueco. */
 .grande.conarte{padding:0;overflow:hidden}
-.grande .g-arte{position:relative;aspect-ratio:5/4;background:var(--tinte,#0d1417);
-                overflow:hidden;margin:0}
+.grande .g-arte{position:relative;aspect-ratio:4/3;background:var(--tinte,#0d1417);
+                overflow:hidden;margin:0;
+                border:1px solid rgba(22,36,46,.20);border-radius:6px}
 .grande .g-arte img{position:absolute;inset:0;width:100%;height:100%;
-                    object-fit:cover;object-position:center 30%;display:block}
-/* `aire`: la imagen se mete al 78 % del ancho en vez de llenar el hueco.
-   Con arte más alto que el hueco, llenarlo deja ver la mitad del alto y
-   los personajes quedan pegados a la cámara; así se ve bastante más y los
-   costados se rellenan con el tinte. Parche para el arte que no viene con
-   la forma del hueco; con arte 1:1 no hace falta. */
-.grande .g-arte.aire img{width:78%;left:11%}
-.grande .g-arte .disuelve{position:absolute;inset:auto 0 0;height:26%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+                    object-fit:cover;object-position:center;display:block}
 .grande .g-cuerpo{padding:2px 14px 14px}
 
 /* ── el avatar se agranda y se gira ────────────────────────────────
@@ -635,12 +745,10 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
          border:calc(var(--w)*.015) solid var(--acc);
          box-shadow:0 16px 40px rgba(22,36,46,.34)}
 .av-cara.dorso{transform:rotateY(180deg);background:var(--tinte,var(--lejos))}
-.av-cara .zona{position:relative;height:calc(var(--w)*.727);flex:none;
+.av-cara .zona{position:relative;aspect-ratio:4/3;flex:none;
                background:var(--tinte,var(--lejos));overflow:hidden}
-.av-cara .zona img{position:absolute;inset:0;width:78%;left:11%;height:100%;
-                   object-fit:cover;object-position:center 22%;display:block}
-.av-cara .zona .disuelve{position:absolute;inset:auto 0 0;height:22%;
-  background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.av-cara .zona img{position:absolute;inset:0;width:100%;height:100%;
+                   object-fit:cover;object-position:center;display:block}
 .av-cara .zona .chips{position:absolute;top:.42em;left:.46em;display:flex;gap:.26em}
 .av-cara .chip{font-family:"IBM Plex Mono",monospace;font-size:.54em;font-weight:600;
   letter-spacing:.05em;text-transform:uppercase;font-style:normal;padding:.2em .48em;
@@ -710,6 +818,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .av-carta .av-arte{height:92px;border-radius:9px;margin:-4px -4px 8px;
                    background-size:cover;background-position:center 20%}
 .carta-cab{display:flex;align-items:center;gap:3px}
+.carta-cab.libre{min-height:15px;padding:1px 2px 0 15px}
 .carta-tipo{font-family:"IBM Plex Mono",monospace;font-size:7.5px;font-weight:600;
             letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
 .carta-nom{font-family:Petrona,Georgia,serif;font-weight:700;font-size:11px;line-height:1.15}
@@ -718,7 +827,8 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
       border:1px solid currentColor;align-self:flex-start;white-space:nowrap}
 .etiq.w{color:var(--warn)} .etiq.s{color:var(--ok)}
 .etiq.x2{color:var(--acc)} .etiq.r{color:var(--quir)}
-.carta-pie{margin-top:auto;font-size:8.5px;color:var(--ink-3);line-height:1.2}
+.carta-pie{margin-top:auto;font-size:8.5px;color:var(--ink-3);line-height:1.2;
+  padding-right:15px}   /* el sello de abajo a la derecha */
 
 /* el naipe que sigue al dedo */
 .fantasma{position:fixed;left:0;top:0;z-index:90;pointer-events:none;
@@ -760,6 +870,31 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
 .op b{display:block;font-family:Petrona,Georgia,serif;font-size:14.5px}
 .op small{color:var(--ink-2);font-size:11px;display:block;margin-top:2px}
 .op.sel{border-color:var(--acc);box-shadow:0 0 0 1.5px var(--acc)}
+/* ── el marcador final, en el pasillo de salida ─────────────────────
+   La guardia termina cuando cruzas la puerta, así que ahí se cuentan los
+   puntos. El dibujo va fijo detrás —la bitácora se desplaza por encima—
+   con un velo que se aclara arriba, donde está el cartel EXIT, y se
+   cierra abajo, donde van las cifras y el registro. */
+/* nada de z-index negativo: los hijos con z negativo se pintan ANTES
+   que los fondos de los bloques del documento, y el papel del tablero
+   los tapaba. Fondo en 0, contenido en 1. */
+.final{position:relative;min-height:100%;isolation:isolate}
+.final > .portada{position:relative;z-index:2}
+.final-fondo{position:fixed;inset:0;z-index:0;background-size:cover;
+  background-position:center 28%;background-repeat:no-repeat}
+/* el velo respeta la mitad de arriba —ahí está la puerta con el cartel
+   EXIT, que es la imagen— y se cierra sobre el suelo, que es donde caen
+   las cifras y la bitácora */
+.final-velo{position:fixed;inset:0;z-index:1;background:
+  linear-gradient(180deg, rgba(236,243,245,0) 0%, rgba(236,243,245,.05) 34%,
+                  rgba(238,244,246,.42) 46%, rgba(240,246,247,.72) 58%,
+                  rgba(240,246,247,.55) 76%, var(--mesa) 96%)}
+/* el hueco que deja ver la puerta: el marcador empieza bajo el dintel */
+.final .final-aire{min-height:31vh}
+.final.con-salida .portada h1{text-shadow:0 2px 14px rgba(255,255,255,.9)}
+.final.con-salida .mtile{background:rgba(255,255,255,.9);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+
 .marcador{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:12px}
 .mtile{background:var(--cerca);border:1px solid var(--line);border-radius:9px;padding:8px}
 .mtile .n{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;
@@ -1013,27 +1148,35 @@ body.con-portada .portada h1 + .sub{text-align:center}
 /* Sin z-index a propósito: con uno, #portada crearía contexto de apilado
    y el botón de sonido quedaría atrapado bajo .app, invisible al dedo.
    Queda detrás por orden en el documento, que basta. */
+/* v0.57 · el clip entra por ANCHO, no a sangre.
+   El clip es 9:16 y la pantalla del teléfono es 9:19,5: llenándola con
+   `cover` se perdía el 18 % de cada costado —el cartel de piso mojado y
+   el carro del trapero quedaban cortados por la mitad— y la escena se
+   veía con lupa. Anclado arriba y escalado al ancho se ve la escena
+   entera; abajo sobran unos 150 px que rellena el papel de la mesa, y ahí
+   caen justo los tres cuadrados del menú. */
 #portada{position:fixed;inset:0;pointer-events:none;
-         background:var(--mesa) center/cover no-repeat}
+         background:var(--mesa) center top/100% auto no-repeat}
 /* Sin partida se vacía, PERO hay que esconderlo entero: es fijo y opaco,
    y `.app` no está posicionada, así que su piso y las camas se pintan por
    DEBAJO. Vaciar los hijos no basta — el contenedor seguía tapando. */
 #portada[hidden]{display:none}
-#portada video{position:absolute;inset:0;width:100%;height:100%;
-               object-fit:cover;display:block}
+#portada video{position:absolute;left:0;top:0;right:0;bottom:auto;
+               width:100%;height:auto;display:block}
 /* El clip deja el 40% de abajo vacío a propósito, pero el piso mojado es
    lo más claro del cuadro y el menú igual necesita apagarlo hacia el
    papel para leerse. */
+/* El velo hace dos cosas: aclara apenas el techo, donde va el logotipo, y
+   cierra el canto de abajo del clip contra el papel de la mesa para que
+   el corte no se vea como una línea. */
 #portada .velo{position:absolute;inset:0;background:
-   /* apenas un aclarado arriba: el logotipo trae su propio contorno y no
-      necesita más, pero el techo del pasillo se agradece un punto suave */
-   linear-gradient(to bottom, rgba(242,247,248,.34) 0%,
-                              rgba(242,247,248,0) 16%),
+   linear-gradient(to bottom, rgba(242,247,248,.40) 0%,
+                              rgba(242,247,248,0) 17%),
    linear-gradient(to bottom, rgba(223,231,234,0) 0%,
-                              rgba(223,231,234,0) 52%,
-                              rgba(223,231,234,.22) 68%,
-                              rgba(223,231,234,.40) 82%,
-                              rgba(223,231,234,.52) 100%)}
+                              rgba(223,231,234,0) 62%,
+                              rgba(223,231,234,.30) 74%,
+                              rgba(223,231,234,.72) 82%,
+                              var(--mesa) 88%)}
 /* Cuelga de <body>, no de #portada: `position:fixed` crea contexto de
    apilado, así que un hijo de #portada no puede subir sobre .app por más
    z-index que le pongas — quedaba dibujado pero intocable. */
@@ -1308,17 +1451,15 @@ body[data-maq="b"] .centro-info{margin-bottom:4px;font-size:8.5px}
 body[data-maq="b"] .tres{flex:none;height:118px;align-items:stretch}
 body[data-maq="b"] .cama{height:100%;overflow:hidden}
 body[data-maq="b"] .cama.pficha{display:flex;flex-direction:column}
-body[data-maq="b"] .cama.pficha .cama-arte{flex:1 1 0;min-height:0;
-  aspect-ratio:auto;margin:0 0 3px}
+body[data-maq="b"] .cama.pficha .cama-arte{flex:none;aspect-ratio:4/3;
+  margin:0 0 3px}
 body[data-maq="b"] .cama.pficha .cuerpo-f{flex:none}
 body[data-maq="b"] .cama-arte .sinarte{position:absolute;inset:0;display:grid;
   place-items:center;font-size:30px;opacity:.6;
   filter:drop-shadow(0 2px 4px rgba(22,36,46,.2))}
 /* su cama, espejada: los datos quedan del lado de la Pizarra */
 body[data-maq="b"] .cama.suya{display:flex;flex-direction:column-reverse}
-body[data-maq="b"] .cama.suya .cama-arte{margin:3px 0 0}
-body[data-maq="b"] .cama.suya .cama-arte .disuelve{inset:0 0 auto;
-  background:linear-gradient(180deg,var(--fondo-carta),rgba(255,255,255,0))}
+body[data-maq="b"] .cama.suya .cama-arte{margin:4px 0 0}
 body[data-maq="b"] .cama.suya .f-grav{top:auto;bottom:4px}
 body[data-maq="b"] .cama.suya .f-faltan{top:auto;bottom:2px}
 body[data-maq="b"] .cama.suya .cuerpo-f{padding-top:4px}
@@ -1382,7 +1523,12 @@ body[data-maq="b"] .ran-b.foco{z-index:40 !important}
 body[data-maq="b"] .ran-b.foco .carta.no{opacity:.72}
 body[data-maq="b"] .ran-b.foco .carta{border-color:var(--acc);
   box-shadow:0 0 0 2px var(--acc),0 16px 30px rgba(22,36,46,.45)}
-body[data-maq="b"] .ran-b.lejos{opacity:.55}
+/* Las de los extremos se alejan, no se desvanecen: con opacidad .55 el
+   papel dejaba pasar el texto de las de atrás y la mano entera se veía
+   como una nube de letras. Ahora la carta es opaca —así se lee su sello
+   de esquina— y la lejanía la da el color, que se apaga. */
+body[data-maq="b"] .ran-b.lejos .carta{filter:saturate(.62) brightness(.99)}
+body[data-maq="b"] .ran-b.lejos .carta-pie{opacity:.5}
 /* mientras el dedo hojea, las ranuras siguen al dedo sin transición */
 body[data-maq="b"] .arco.vivo .ran-b{animation:none}
 body[data-maq="b"] .puntos-b{position:absolute;left:50%;transform:translateX(-50%);
@@ -1392,7 +1538,6 @@ body[data-maq="b"] .puntos-b i{width:5px;height:5px;border-radius:50%;
   background:rgba(255,255,255,.42);transition:background .15s ease}
 body[data-maq="b"] .puntos-b i.on{background:#fff;
   box-shadow:0 0 0 2px rgba(255,255,255,.28)}
-body[data-maq="b"] .ran-b .carta .arte{aspect-ratio:3/2}
 body[data-maq="b"] .ran-b .carta .carta-pie{font-size:7.5px;
   max-height:20px;overflow:hidden}
 body[data-maq="b"] .cerrar-mano{position:absolute;left:50%;top:auto;
@@ -1491,11 +1636,8 @@ body[data-maq="b"].arrastrando .pista{opacity:0;transition:opacity .15s ease}
    un valor fijo, para que la carta se vea igual en la mano, en la cama y
    en el zoom. El arte NO sangra al filo: sangra al filete. */
 body[data-maq="b"] .carta{--marco:3px}
-body[data-maq="b"] .carta .arte{margin:calc(-6px + var(--marco))
-  calc(-6px + var(--marco)) 3px;border-radius:5px}
 body[data-maq="b"] .cama.pficha{--marco:3px;padding:var(--marco)}
-body[data-maq="b"] .cama.pficha .cama-arte{margin:0 0 3px;border-radius:6px;
-  overflow:hidden}
+body[data-maq="b"] .cama.pficha .cama-arte{margin:0 0 3px}
 body[data-maq="b"] .cama.suya .cama-arte{margin:3px 0 0}
 body[data-maq="b"] .cama.pficha .cuerpo-f{padding:0 3px}
 body[data-maq="b"] .cama.pficha .sellos{padding:0 3px}
@@ -1510,11 +1652,11 @@ body[data-maq="b"] .grande.conarte .g-cuerpo{padding:4px 8px 8px}
    justo para que quepan sin apretar, y crece en las DOS mitades a la vez:
    el aire se reparte solo y el espejo sigue cuadrando. */
 body[data-maq="b"] .tres{height:132px}
-body[data-maq="b"] .cama.pficha .pips{gap:3.5px;margin:0 0 2px}
-body[data-maq="b"] .cama.pficha .pip{width:9.5px;height:9.5px;border-width:1.5px}
-body[data-maq="b"] .cama.pficha .corazones{margin:0 0 4px}
-body[data-maq="b"] .cama.pficha .cz{width:12px;height:12px}
-body[data-maq="b"] .cama.pficha .num{font-size:11px}
+body[data-maq="b"] .cama.pficha .pips{gap:2px 5px;margin:0 0 2px}
+body[data-maq="b"] .cama.pficha .uni{width:12.5px;height:12.5px}
+body[data-maq="b"] .cama.pficha .corazones{margin:0 0 3px}
+body[data-maq="b"] .cama.pficha .cz-uno{width:18px;height:17px}
+body[data-maq="b"] .cama.pficha .vnum{font-size:12.5px}
 body[data-maq="b"] .cama.pficha .f-faltan{font-size:15px}
 
 /* ── el avatar, más grande y despegado del filo ─────────────────────
@@ -1571,28 +1713,62 @@ body[data-maq="b"] .zona.suya .tres{
   background:var(--camas-suyo) center/100% 100% no-repeat}
 body[data-maq="b"] .zocalo{background:var(--meson-mio) center/100% 100% no-repeat}
 body[data-maq="b"] .repisa{background:var(--meson-suyo) center/100% 100% no-repeat}
-body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat}
+body[data-maq="b"] .zona.cerca .aire{background:var(--suelo-mio) center top/100% auto no-repeat;
+  position:relative}
+/* ── el cartel de SALIDA, colgado del techo del pasillo ─────────────
+   Es la puerta de la guardia: no había ninguna. Va donde iría en la UCI
+   de verdad —al fondo del pasillo, sobre la salida— y con el mismo verde
+   ISO. Pequeño y quieto: es un mueble, no un botón de la interfaz. */
+.salida{position:absolute;right:9px;top:0;z-index:4;width:62px;
+  padding-top:11px;display:block;line-height:0;
+  filter:drop-shadow(0 3px 6px rgba(9,25,32,.28))}
+.salida .sal-cadena{position:absolute;top:0;height:11px;width:1px;
+  background:rgba(60,78,88,.55)}
+.salida .sal-cadena{left:13px}
+.salida .sal-cadena.der{left:auto;right:13px}
+.salida .sal-placa{display:block;position:relative;border-radius:3px;
+  overflow:hidden;background:#1a7a44}
+.salida .sal-placa svg{width:100%;height:auto;display:block}
+.salida .sal-txt{display:block;font-family:"IBM Plex Mono",monospace;
+  font-size:7.5px;font-weight:700;letter-spacing:.18em;color:#fff;
+  text-align:center;line-height:1;padding:0 0 3px;background:#1a7a44}
+@media (hover:hover){ .salida:hover{filter:drop-shadow(0 4px 10px rgba(26,122,68,.55))} }
+.salida:active{transform:translateY(1px)}
+/* el mismo cartel, descolgado, dentro del Panel */
+.salida.suelto{position:static;width:84px;padding-top:0;margin:2px 0 8px}
+.salida.suelto .sal-cadena{display:none}
 body[data-maq="b"] .zona.suya .aire{background:var(--suelo-suyo) center bottom/100% auto no-repeat}
 
-/* ── el menú de inicio: tres fichas y una casilla ───────────────────
-   Antes eran cuatro botones anchos con una frase cada uno, y ocupaban de
-   la mitad de la pantalla para abajo. Las modalidades son tres; la Primera
-   guardia no es una modalidad —es la partida contra la IA con el coach— y
-   por eso baja a casilla. Lo que se gana en alto es lo que deja ver el
-   dibujo del pasillo. */
-.pastillas{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
-.pastilla{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
-  padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+/* ── el menú de inicio: tres cuadrados con su moneda ────────────────
+   Eran cuatro botones anchos con una frase cada uno y se comían media
+   pantalla; luego tres fichas en fila vertical, que seguían tapando al
+   auxiliar. Ahora son tres cuadrados en una sola fila —el ícono en una
+   moneda de metal y una palabra— y ocupan 14 % del alto en vez de 40 %.
+   Todo lo que se ahorra aquí lo gana el clip que corre detrás. */
+.pastillas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  margin-bottom:9px}
+.pastilla{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:6px;width:100%;aspect-ratio:1/1;text-align:center;
+  padding:8px 4px;border-radius:15px;border:1px solid var(--line);
   background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer;
   transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
+/* la medalla: el mismo cromado que la Pizarra y el reloj de asistencia.
+   No se llama .moneda porque esa clase ya es la del alta, y es fija. */
+.pastilla .medalla{width:46px;height:46px;border-radius:50%;flex:none;
+  display:grid;place-items:center;color:var(--acc);
+  background:radial-gradient(120% 120% at 32% 22%, #ffffff 0%, #eef4f6 42%, #cfdde1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -1.5px 3px rgba(60,78,88,.24),
+             0 0 0 1.5px rgba(60,78,88,.20), 0 2px 6px rgba(22,36,46,.16)}
 .pastilla .ic{width:25px;height:25px;flex:none;display:block;color:var(--acc)}
-.pastilla b{font-family:Petrona,Georgia,serif;font-size:14px;line-height:1.1}
-.pastilla small{font-family:"IBM Plex Mono",monospace;font-size:8.5px;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
-  margin-left:auto;white-space:nowrap}
-.pastilla:active{transform:scale(.99)}
+.pastilla b{font-family:Petrona,Georgia,serif;font-size:14.5px;line-height:1}
+.pastilla small{font-family:"IBM Plex Mono",monospace;font-size:7.5px;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);
+  white-space:nowrap;line-height:1;margin-top:-3px}
+.pastilla:active{transform:scale(.97)}
 @media (hover:hover){.pastilla:hover{border-color:var(--acc);
-  box-shadow:0 4px 14px rgba(13,110,120,.18)}}
+  box-shadow:0 4px 14px rgba(13,110,120,.18)}
+  .pastilla:hover .medalla{color:var(--acc)}}
 .tuto{display:flex;align-items:center;gap:9px;width:100%;text-align:left;
   padding:9px 11px;border-radius:12px;border:1px solid var(--line);
   background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer}
@@ -1659,25 +1835,25 @@ if(!document.querySelector('meta[name="viewport"]')){
    true al compilar la app instalable (que sí trae sw.js y manifest). */
 const PWA = /*__PWA__*/true;
 
-/* ══ maqueta del campo: A y B conviven ══════════════════════════════
-   "a" es la v0.55 que ya funciona y sigue siendo la de por defecto.
-   "b" es el campo partido en dos mitades iguales por la Pizarra, con
-   las camas del rival del mismo tamaño que las tuyas y la mano como
-   mazo desplegable. Se cambia en el Panel de guardia y se recuerda,
-   así se puede probar en paralelo sin tocar lo que ya está. */
+/* ══ maqueta del campo ══════════════════════════════════════════════
+   A y B convivieron mientras B estaba en pruebas. Desde la v0.57 el
+   autor se queda con B —el campo partido en dos mitades iguales por la
+   Pizarra, las camas del rival del mismo tamaño que las tuyas y la mano
+   como mazo desplegable— y A queda retirada.
+
+   maqueta() devuelve "b" siempre y a propósito: el interruptor del Panel
+   se fue, pero las ramas `if(esB())` siguen en pie por ahora. Podarlas es
+   un cambio grande y mecánico, y mezclarlo con los arreglos de esta
+   tanda sería pedir un error tonto. Va en PENDIENTES. Mientras tanto,
+   partidas guardadas y enlaces viejos entran en B aunque su
+   localStorage diga otra cosa. */
 const CLAVE_MAQ = "vt-maqueta";
-function maqueta(){
-  try{ return localStorage.getItem(CLAVE_MAQ)==="b" ? "b" : "a"; }
-  catch(e){ return "a"; }
-}
+function maqueta(){ return "b"; }
 const esB = ()=> maqueta()==="b";
 function aplicarMaqueta(){ document.body.dataset.maq = maqueta(); }
-function cambiarMaqueta(m){
-  try{ localStorage.setItem(CLAVE_MAQ, m==="b" ? "b" : "a"); }catch(e){}
-  aplicarMaqueta();
-  if(typeof UI==="object"){ UI.manoAbierta=false; UI.modal=null; UI.verRival=null; }
-  render();
-}
+// el interruptor se retiró con la maqueta A; queda la limpieza por si
+// alguna guardia guardada trae la marca vieja
+try{ localStorage.removeItem(CLAVE_MAQ); }catch(e){}
 if(PWA && "serviceWorker" in navigator){
   addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
@@ -1781,7 +1957,8 @@ function siguienteAvatar(){
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
   UI.avPos = 0;
-  if(!G.jug[i].ia) mostrarFranja("SELECCIONA TU PERSONAJE", 3400);
+  // la franja "SELECCIONA TU PERSONAJE" sobraba desde que la elección
+  // ocupa la pantalla entera y ya lleva su título: cruzaba por encima
   guardar(); render();
 }
 function resolverAvatar(elegido){
@@ -2697,7 +2874,10 @@ function revCarta(c){
   return `<div class="carta rev" style="border-left-color:${TCOL[c.tipo]||TCOL.COMODIN}">${cuerpoCarta(c)}</div>`;
 }
 function revProt(a){
-  return `<div class="prot rev"><div class="prot-cab">`+
+  return `<div class="prot rev">`+
+    (a.arte ? `<i class="p-arte"${a.tinte?` style="--tinte:${a.tinte}"`:""}>`+
+              `<img src="${a.arte}" alt=""></i>` : "")+
+    `<div class="prot-cab">`+
     `<span class="coste">${a.coste}</span><span class="prot-tipo">${esc(a.tipo)}</span></div>`+
     `<div class="prot-nom">${esc(a.nombre)}</div>`+
     `<div class="prot-txt">${esc(a.texto)}</div></div>`;
@@ -2834,6 +3014,27 @@ const el = (t,c,h)=>{ const e=document.createElement(t); if(c) e.className=c;
                       if(h!==undefined) e.innerHTML=h; return e; };
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 
+/* ── el parpadeo que quedaba ─────────────────────────────────────────
+   #app se reconstruye entero en cada render, así que toda animación
+   infinita que viva dentro vuelve al fotograma 0: el retrato pega un
+   respingo, el rayo del poder rebota y un brillo cruza la Pizarra. En
+   una partida medida eso pasaba 235 veces. Con un animation-delay
+   negativo igual al tiempo ya transcurrido, la animación entra por donde
+   iba y el re-render deja de verse. El elemento es nuevo cada vez, así
+   que el retardo hay que reponerlo cada vez: es una línea por elemento
+   y solo sobre los cuatro que laten. */
+const LATIDOS = [[".aro-av img, .aro-av .ini", 5200],
+                 [".poder-av.vivo", 2400],
+                 [".btn-pizarra", 6500],
+                 [".cz-uno.bajo", 1400]];
+function continuarAnimaciones(){
+  const t = performance.now();
+  LATIDOS.forEach(([sel, dur])=>{
+    const d = (-(t % dur)).toFixed(0) + "ms";
+    document.querySelectorAll(sel).forEach(e=>{ e.style.animationDelay = d; });
+  });
+}
+
 function render(){
   document.querySelectorAll(".fantasma").forEach(f=>{
     if(f !== arrastre.fantasma) f.remove();   // huérfanos de gestos muertos
@@ -2881,6 +3082,7 @@ function render(){
     if(!r) UI.verRival = null;
   }
   pintarCapa(); pintarTuto(); pintarPortada();
+  continuarAnimaciones();              // que el re-render no las devuelva al 0
   colaAltas();                         // la ceremonia del alta, si hay cola
   // el reparto se anima una sola vez — pero entrarFase puede renderizar dos
   // veces en la misma pasada síncrona (0→1 anidado), así que la limpieza va
@@ -2932,7 +3134,9 @@ function zonaJugador(j, propio){
     j.camas.forEach((c,i)=>tres.appendChild(vistaCama(c,i,j,propio)));
     z.appendChild(tres);
     if(j.protocolos.length) z.appendChild(protMios(j));
-    z.appendChild(el("div","aire"));
+    const aire = el("div","aire");
+    aire.appendChild(carteSalida());   // el cartel verde del pasillo
+    z.appendChild(aire);
     z.appendChild(tiraZona(j));
     return z;
   }
@@ -3232,6 +3436,18 @@ function botonFin(){
 }
 
 /* Tus Protocolos comprados: zona propia con su botón de jugar. */
+/* El Protocolo también tiene ilustración —A01 y A19 ya la traen— y no se
+   pintaba en ninguna parte: la carta se compraba y su imagen desaparecía.
+   Mismo trato que la carta de recurso: a sangre arriba y disolviéndose. */
+function arteProt(a){
+  const z = el("i","p-arte");
+  if(a.tinte) z.style.setProperty("--tinte", a.tinte);
+  const im = document.createElement("img");
+  im.src = a.arte; im.alt = "";
+  z.appendChild(im);
+  return z;
+}
+
 function protMios(j){
   const w = el("div");
   const rot = el("div","jugador-linea");
@@ -3242,6 +3458,7 @@ function protMios(j){
   g.style.marginTop = "0";
   j.protocolos.forEach((a,idx)=>{
     const c = el("div","prot");
+    if(a.arte) c.appendChild(arteProt(a));
     const cab = el("div","prot-cab");
     cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
     c.appendChild(cab);
@@ -3289,6 +3506,69 @@ function relojGuardia(){
     : `Ronda ${G.ronda} de ${RONDAS} · ${FASES[G.fase][1]}`);
   if(puede) b.onclick = ()=>{ UI.sel = null; UI.manoAbierta = false; entrarFase(2); };
   return b;
+}
+
+/* ══ el cartel de SALIDA ════════════════════════════════════════════
+   Hasta ahora no había forma de terminar una guardia: o llegabas a la
+   ronda 8 o cerrabas la pestaña. El cartel verde de emergencia —el que
+   cuelga en todos los pasillos de todos los hospitales— es la puerta.
+   Vive en el pasillo de tu mitad, colgado del techo como el de verdad,
+   y al tocarlo pregunta antes de nada: cerrar el turno y contar los
+   puntos, o irse sin contarlos. */
+const SVG_SALIDA =
+  '<svg viewBox="0 0 64 26" aria-hidden="true">'+
+    '<rect x="0" y="0" width="64" height="26" rx="2.5" fill="#1a7a44"/>'+
+    '<rect x="1" y="1" width="62" height="24" rx="2" fill="none" '+
+      'stroke="rgba(255,255,255,.28)" stroke-width=".8"/>'+
+    /* la puerta */
+    '<path d="M39.5 5.5h9.5v15h-9.5" fill="none" stroke="#fff" '+
+      'stroke-width="1.6" stroke-linejoin="round"/>'+
+    /* el hombrecito corriendo */
+    '<g fill="#fff">'+
+      '<circle cx="20.4" cy="6.6" r="2.3"/>'+
+      '<path d="M18.6 10.1c1.6-.9 3.4-.6 4.4.6l3.1 3.7 3.3 1.1-.8 2.3-4.2-1.4-1.6-1.9-.9 3.6 3.1 3.3-1.7 1.6-3.9-4.1c-.4-.5-.6-1.1-.4-1.7l.6-2.5-2 1.9-2.9 3.1-1.8-1.7 3.3-3.5z"/>'+
+    '</g>'+
+    /* la flecha hacia la puerta */
+    '<path d="M31.5 13h5.4m-2-2.2 2.2 2.2-2.2 2.2" fill="none" stroke="#fff" '+
+      'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'+
+  '</svg>';
+
+function carteSalida(){
+  const b = el("button","salida");
+  b.setAttribute("aria-label","Salida · terminar la guardia");
+  b.innerHTML = `<i class="sal-cadena"></i><i class="sal-cadena der"></i>`+
+                `<span class="sal-placa">${SVG_SALIDA}`+
+                `<span class="sal-txt">SALIDA</span></span>`;
+  b.onclick = ev=>{ ev.stopPropagation(); hojaSalida(); };
+  return b;
+}
+
+function hojaSalida(){
+  hoja("Salida", (m, cerrar)=>{
+    m.appendChild(el("p",null,
+      `Vas por la <b>ronda ${G.ronda} de ${RONDAS}</b>. Puedes cerrar la guardia `+
+      `aquí mismo y contar los puntos como están, o irte sin contarlos.`));
+    const fila = el("div","acciones");
+    const cerrarYa = el("button","btn pri","Cerrar la guardia y contar");
+    cerrarYa.onclick = ()=>{
+      anota("", `Se cierra la guardia en la ronda ${G.ronda}.`);
+      G.fin = true; G.finAnticipado = true;
+      UI.modal = null; guardar(); render();
+    };
+    fila.appendChild(cerrarYa);
+    const irse = el("button","btn","Irme sin contar");
+    irse.onclick = ()=>{
+      borrar(); G = null; UI.modal = null;
+      UI = {sel:null, selProt:null, modal:null, marcarDescartes:[],
+            nuevas:new Set(), vidaPrev:{}, okPrev:{}, reqPrev:{}, colocPrev:null,
+            foco:0, manoAbierta:false};
+      render();
+    };
+    fila.appendChild(irse);
+    const q = el("button","btn","Seguir en la guardia"); q.onclick = cerrar;
+    fila.appendChild(q);
+    m.appendChild(fila);
+  });
 }
 
 function bandaCentral(){
@@ -3348,6 +3628,7 @@ function hojaPizarra(){
     G.pizarra.forEach((a,idx)=>{
       const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
       const b = el("button","prot "+(puede?"puede":"no"));
+      if(a.arte) b.appendChild(arteProt(a));
       const cab = el("div","prot-cab");
       cab.appendChild(el("span","coste",`${a.coste}`));
       cab.appendChild(el("span","prot-tipo",esc(a.tipo)));
@@ -3423,11 +3704,17 @@ function vistaCama(c, i, duenio, propio){
       ic.title = esc(c.p.nombre);
       za.appendChild(ic);
     }
-    za.appendChild(el("div","disuelve"));
     za.appendChild(el("span","f-grav",
       c.p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(c.p.gravedad)));
     za.appendChild(el("span","f-faltan"+(total===0?" cero":""),
       total===0 ? "✓" : String(total)));
+    // el escudo se pone solo; que al menos se vea a quién cubre
+    if(c.escudo){
+      d.classList.add("escudado");
+      const sc = el("span","f-escudo","🛡️");
+      sc.title = "Protegido: nadie puede tocar sus recursos hasta tu próximo turno";
+      za.appendChild(sc);
+    }
     d.appendChild(za);
   } else {
     const raya = el("i","raya");
@@ -3448,26 +3735,36 @@ function vistaCama(c, i, duenio, propio){
   const cuerpoF = ficha ? el("div","cuerpo-f") : d;
   if(ficha) d.appendChild(cuerpoF);
 
+  // un corazón que se vacía + la cifra: se ve de un vistazo y deja sitio
+  // a los símbolos de recurso, que es lo que de verdad hay que contar
   const hp = el("div","corazones");
-  for(let k=0;k<c.vidaMax;k++)
-    hp.appendChild(el("i","cz", k<c.vida ? CZ_LLENO : CZ_VACIO));
-  hp.appendChild(el("span","num",String(c.vida)));
+  const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida / c.vidaMax)) : 0;
+  const uno = el("i","cz-uno"+(c.vida<=2 ? " bajo" : ""));
+  uno.style.setProperty("--llen", rr.toFixed(3));
+  uno.title = `${c.vida} de ${c.vidaMax} ❤️`;
+  hp.appendChild(uno);
+  hp.appendChild(el("span","vnum",`${c.vida}<small>/${c.vidaMax}</small>`));
   // el ✅ detiene el reloj: que se vea, no solo que sea verdad
   if(c.estable) hp.appendChild(el("span","cong",
     '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
   cuerpoF.appendChild(hp);
 
   if(ficha){
-    // los requerimientos, aplanados: una fila de fichas de color. Vacía =
-    // pide, llena = tiene, gris = de más. El desglose por tipo va en el zoom.
+    // los requerimientos: el símbolo del recurso, repetido una vez por
+    // unidad. Apagado = ya está puesto; a color = todavía falta.
     const fila = el("div","pips");
     TIPOS.forEach(t=>{
       const nn = Math.max(c.pide[t], c.tiene[t]);
+      if(!nn) return;
+      const g = el("span","gr");
+      g.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
       for(let k=0;k<nn;k++){
-        const pp = el("i","pip"+(k<c.tiene[t] ? (k<c.pide[t] ? " ll":" extra") : ""));
-        pp.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
-        fila.appendChild(pp);
+        const u = el("i","uni"+(k<c.tiene[t] ? (k<c.pide[t] ? " ya":" extra") : ""));
+        u.innerHTML = SVG[t] || SVG.COMODIN;
+        u.title = TNOM[t] || t;
+        g.appendChild(u);
       }
+      fila.appendChild(g);
     });
     cuerpoF.appendChild(fila);
   }
@@ -3509,7 +3806,7 @@ function vistaCama(c, i, duenio, propio){
   const sellos = el("div","sellos");
   if(c.estable) sellos.appendChild(el("span","sello ok","✅ estable · no se deteriora"));
   if(c.basura.length) sellos.appendChild(el("span","sello bas",`↯${c.basura.length} retiene alta`));
-  if(c.escudo) sellos.appendChild(el("span","sello esc","🛡️"));
+  if(c.escudo && !ficha) sellos.appendChild(el("span","sello esc","🛡️"));
   c.protege.forEach(p=>sellos.appendChild(el("span","sello pro",`🛡️ ${esc(p.split(" ")[0])}`)));
   if(sellos.childNodes.length) d.appendChild(sellos);
 
@@ -3522,6 +3819,11 @@ function vistaCama(c, i, duenio, propio){
       '<i class="precio"></i>'));
     d.onclick = soltar;
     d.__soltar = soltar;          // lo usa el arrastre
+  } else if(sel && activo && !propio && c.escudo && sel.warn){
+    // el escudo del rival bloquea en silencio; que se sepa por qué no se puede
+    const b = el("span","cama-btn sec","🛡️ protegido");
+    b.style.opacity = ".8";
+    d.appendChild(b);
   } else if(activo && propio && !sel && c.basura.length){
     // retirar basura ocupa una indicación: en vez de poner, retiras
     const b = el("button","cama-btn sec",'Des-escalar<i class="precio"></i>');
@@ -3560,7 +3862,6 @@ function verPacienteGrande(c){
       const im = document.createElement("img");
       im.src = c.p.arte; im.alt = "";
       ga.appendChild(im);
-      ga.appendChild(el("div","disuelve"));
       g.appendChild(ga);
       cuerpo = el("div","g-cuerpo");
       g.appendChild(cuerpo);
@@ -3595,9 +3896,29 @@ function verPacienteGrande(c){
       rq.appendChild(r);
     });
     cuerpo.appendChild(rq);
-    if(c.puestos.length)
-      cuerpo.appendChild(el("div","g-txt",
-        "Puesto: " + c.puestos.map(x=>esc(x.nombre)).join(", ") + "."));
+    // Lo que le pusiste NO desaparece: aquí está, carta por carta y con su
+    // ilustración. En la ficha de la cama solo cabe el símbolo apagado;
+    // el expediente del paciente guarda el original.
+    if(c.puestos.length){
+      cuerpo.appendChild(el("div","g-rot","Puesto en este paciente"));
+      const tira = el("div","puestas");
+      c.puestos.forEach(x=>{
+        const t = x.puestoTipo || x.tipo;
+        const p = el("div","puesta");
+        p.style.setProperty("--tc", TCOL[t] || TCOL.COMODIN);
+        p.innerHTML = (x.arte
+            ? `<i class="pu-arte"><img src="${x.arte}" alt=""></i>`
+            : `<i class="pu-ico">${SVG[t]||SVG.COMODIN}</i>`) +
+          `<span class="pu-nom">${esc(x.nombre)}</span>`;
+        tira.appendChild(p);
+      });
+      c.basura.forEach(x=>{
+        const p = el("div","puesta basura");
+        p.innerHTML = `<i class="pu-ico">↯</i><span class="pu-nom">${esc(x.nombre)}</span>`;
+        tira.appendChild(p);
+      });
+      cuerpo.appendChild(tira);
+    }
     if(c.basura.length)
       cuerpo.appendChild(el("div","g-warn",
         `↯ ${c.basura.length} basura clínica — retiene el alta hasta des-escalar.`));
@@ -3998,7 +4319,7 @@ function verAvatarGrande(j){
   c3.innerHTML =
     `<div class="av-giro">` +
       `<div class="av-cara frente"${tin}>` +
-        `<div class="zona">${img}<i class="disuelve"></i>` +
+        `<div class="zona">${img}` +
           `<div class="chips"><i class="chip">avatar</i>` +
           `<i class="chip hueco">${esc(a.frecuencia)}</i></div></div>` +
         `<div class="panel"><h3>${esc(a.nombre)}</h3>` +
@@ -4045,12 +4366,11 @@ function verCartaGrande(idx, jug){
   let cuerpo = g;
   if(c.arte){
     g.classList.add("conarte");
-    const ga = el("div","g-arte" + (c.texto || c.warn ? " aire" : ""));
+    const ga = el("div","g-arte");
     if(c.tinte) ga.style.setProperty("--tinte", c.tinte);
     const im = document.createElement("img");
     im.src = c.arte; im.alt = "";
     ga.appendChild(im);
-    ga.appendChild(el("div","disuelve"));
     g.appendChild(ga);
     cuerpo = el("div","g-cuerpo");
     g.appendChild(cuerpo);
@@ -4174,11 +4494,21 @@ addEventListener("deviceorientation", ev=>{
 });
 
 function cuerpoCarta(c){
-  let h = c.arte
+  // El sello de esquina: en el abanico las cartas se tapan unas a otras y
+  // de la mayoría solo asoma una franja de papel blanco —la mano se veía
+  // "invisible"—. El símbolo del recurso va en las DOS esquinas de arriba,
+  // como el índice de un naipe, así que sea cual sea el trozo que asoma,
+  // dice de qué es la carta.
+  const tc = TCOL[c.tipo] || TCOL.COMODIN;
+  let h = `<i class="esq ai" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`+
+          `<i class="esq bd" style="--tc:${tc}">${SVG[c.tipo]||SVG.COMODIN}</i>`;
+  h += c.arte
     ? `<i class="arte"${c.tinte ? ` style="--tinte:${c.tinte}"` : ""}>` +
-      `<img src="${c.arte}" alt=""><i class="disuelve"></i></i>`
+      `<img src="${c.arte}" alt=""></i>`
     : "";
-  h += `<div class="carta-cab">${ico(c.tipo)}`+
+  // el ícono ya lo dan los sellos de esquina: aquí queda solo la palabra,
+  // apartada a los lados para no meterse debajo de ellos
+  h += `<div class="carta-cab${c.arte ? "" : " libre"}">`+
        `<span class="carta-tipo">${TNOM[c.tipo]||c.tipo}</span></div>`+
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
@@ -4488,9 +4818,13 @@ function pintarRueda(pos, donde){
     let d = ((+c.dataset.i - pos) % n + n) % n;   // distancia circular
     if(d > n/2) d -= n;
     const th = d * 2*Math.PI/n;
-    const x = Math.sin(th) * 132;
+    // el radio se ajusta al ancho: en la pantalla completa las cartas son
+    // más grandes y con 132 px fijos las vecinas quedaban debajo del centro
+    const x = Math.sin(th) * Math.min(168, (cont.clientWidth||390)*0.40);
     const cerca = (Math.cos(th)+1)/2;             // 1 al frente, 0 atrás
-    c.style.transform = `translateX(${x}px) rotateY(${(-th*32).toFixed(1)}deg)`+
+    // translateY(-50%): la carta se centra vertical y crece con su
+    // contenido, en vez de estirarse hasta el borde de la rueda
+    c.style.transform = `translate(${x}px,-50%) rotateY(${(-th*32).toFixed(1)}deg)`+
                         ` scale(${(0.68+0.34*cerca).toFixed(3)})`;
     c.style.opacity = (0.2+0.8*cerca).toFixed(2);
     c.style.zIndex = String(Math.round(10+20*cerca));
@@ -4539,23 +4873,42 @@ function ruedaFin(){
   if(m) setTimeout(()=>{ rueda.hubo = false; }, 80);
 }
 
+/* Elegir personaje era una hoja de abajo con tres tarjetitas de 232 px y
+   el tablero asomando por detrás: la decisión que abre la partida se
+   tomaba de reojo. Ahora ocupa la pantalla entera. La ilustración manda
+   —arriba, a sangre— y debajo van el rol, el nombre y la habilidad al
+   tamaño en que se lee. La rueda es la misma: se desliza, no tiene tope
+   y las dos vecinas asoman por los costados para que se sepa que hay
+   más. Sin ilustración, el hueco lo llena la inicial sobre el tinte de
+   la casa: un retrato ausente, no un rectángulo gris. */
 function modalAvatar(){
   const p = G.pendiente;
   const n = p.ops.length;
-  const velo = el("div","velo");
-  const m = el("div","modal");
-  m.appendChild(el("div","tirador"));
-  m.appendChild(el("h2",null,`${esc(G.jug[p.jugador].nombre)}: elige tu personaje`));
-  m.appendChild(el("p",null,"Gira la rueda — no tiene tope — y toca al del centro para quedártelo."));
+  const cap = el("div","elige-av");
+  const cab = el("div","ea-cab");
+  cab.appendChild(el("div","ea-rot","Tu personaje"));
+  cab.appendChild(el("h2",null,`${esc(G.jug[p.jugador].nombre)}, elige con quién entras al turno`));
+  cap.appendChild(cab);
+
   const cont = el("div","rueda");
   p.ops.forEach((o,i)=>{
     const c = el("button","op av-carta");
     c.dataset.i = i;
-    c.innerHTML = (o.arte ? `<div class="av-arte" style="background-image:url('${o.arte}')"></div>` : "")+
-      `<div class="av-rol">${esc(o.frecuencia)}</div>`+
-      `<div class="av-nom">${esc(o.nombre)}</div>`+
-      `<div class="av-hab">${esc(o.habilidad)}</div>`+
-      `<div class="av-frase">“${esc(o.frase)}”</div>`;
+    const par = (o.habilidad||"").split(" — ");
+    const tit = par.length > 1 ? par.shift() : "";
+    const hab = par.join(" — ");
+    c.innerHTML =
+      `<div class="av-retrato"${o.tinte?` style="--tinte:${o.tinte}"`:""}>`+
+        (o.arte ? `<img src="${o.arte}" alt="">`
+                : `<span class="av-inicial">${esc((o.nombre||"?").replace(/^(El|La|Los|Las) /,"")[0])}</span>`)+
+        `<div class="av-rol">${esc(o.frecuencia)}</div>`+
+      `</div>`+
+      `<div class="av-ficha">`+
+        `<div class="av-nom">${esc(o.nombre)}</div>`+
+        (tit ? `<div class="av-habtit">${esc(tit)}</div>` : "")+
+        `<div class="av-hab">${esc(hab)}</div>`+
+        `<div class="av-frase">“${esc(o.frase)}”</div>`+
+      `</div>`;
     c.onclick = ()=>{
       if(rueda.hubo){ rueda.hubo = false; return; }
       const f = focoRueda(n);
@@ -4567,17 +4920,21 @@ function modalAvatar(){
     };
     cont.appendChild(c);
   });
-  m.appendChild(cont);
+  cap.appendChild(cont);
+
+  const pie2 = el("div","ea-pie");
   const pista = el("div","rueda-pista");
   p.ops.forEach(()=>pista.appendChild(el("i")));
-  m.appendChild(pista);
+  pie2.appendChild(pista);
+  pie2.appendChild(el("div","ea-pista","desliza para ver los otros"));
   const be = el("button","btn pri","Quedarme con este");
   be.onclick = ()=> resolverAvatar(p.ops[focoRueda(n)]);
-  m.appendChild(be);
-  velo.appendChild(m);
+  pie2.appendChild(be);
+  cap.appendChild(pie2);
+
   armarRueda(cont);
   pintarRueda(UI.avPos||0, cont);   // ya colocadas al nacer, sin parpadeo
-  return velo;
+  return cap;
 }
 
 function cortina(){
@@ -4637,22 +4994,25 @@ function abrirPanel(){
     });
     m.appendChild(g);
 
+    // El interruptor manual de escudos se retiró en v0.57: nadie sabía
+    // para qué era y el escudo ya lo pone la carta sola. Aquí queda el
+    // estado, de solo lectura, para saber quién está cubierto.
     const es = el("div","bloque");
-    es.appendChild(el("h3",null,"Escudos 🛡️ (se ponen a mano)"));
+    es.appendChild(el("h3",null,"Escudos 🛡️"));
     const fil = el("div"); fil.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
-    let hay = false;
+    let hay = false, cubiertos = 0;
     yo().camas.forEach(c=>{
       if(!c) return; hay = true;
-      const b = el("button","btn chico",(c.escudo?"🛡️ ":"")+c.p.nombre.split(" ")[0]);
-      if(c.escudo) b.classList.add("pri");
-      b.onclick = ()=>{ c.escudo=!c.escudo;
-        anota("a",`${c.escudo?"Escudo sobre":"Escudo fuera de"} ${c.p.nombre}.`);
-        guardar(); UI.modal=null; render(); abrirPanel(); };
-      fil.appendChild(b);
+      if(c.escudo) cubiertos++;
+      const t = el("span","marca"+(c.escudo?" al":""),
+        (c.escudo?"🛡️ ":"")+esc(c.p.nombre.split(" ")[0]));
+      fil.appendChild(t);
     });
     if(!hay) fil.appendChild(el("span","nota","No tienes pacientes en cama."));
     es.appendChild(fil);
-    es.appendChild(el("div","nota","<i>El Que Guarda Siempre Tiene</i> ya lo pone sola. Este interruptor queda para arbitrar a mano (habilidades de avatar, o si juegas con las cartas físicas al lado)."));
+    es.appendChild(el("div","nota", cubiertos
+      ? `Nadie puede tocar los recursos de ${cubiertos===1?"ese paciente":"esos pacientes"} hasta tu próximo turno.`
+      : "Los pone la carta sola —<i>El Que Guarda Siempre Tiene</i>— y duran hasta tu próximo turno. No hay nada que activar a mano."));
     m.appendChild(es);
 
     if(yo().avatar){
@@ -4661,18 +5021,6 @@ function abrirPanel(){
       av.appendChild(el("p",null,`<b>${esc(yo().avatar.nombre)}</b> · ${esc(yo().avatar.frecuencia)}<br>${esc(yo().avatar.habilidad)}`));
       m.appendChild(av);
     }
-
-    const mq = el("div","bloque");
-    mq.appendChild(el("h3",null,"Maqueta del campo (en pruebas)"));
-    const fm = el("div"); fm.style.cssText="display:flex;gap:6px;flex-wrap:wrap";
-    [["a","A · la de siempre"],["b","B · campo partido"]].forEach(([k,t])=>{
-      const b = el("button","btn chico"+(maqueta()===k?" pri":""), t);
-      b.onclick = ()=>{ UI.modal=null; cambiarMaqueta(k); abrirPanel(); };
-      fm.appendChild(b);
-    });
-    mq.appendChild(fm);
-    mq.appendChild(el("div","nota","<b>B</b> parte la pantalla en dos mitades iguales con la Pizarra de eje: las camas del rival quedan a la vista, del mismo tamaño que las tuyas, y se sabotea arrastrando hacia arriba. La mano es un mazo que se abre en abanico sobre tu zócalo. La partida es la misma — solo cambia cómo se ve, y puedes volver a <b>A</b> cuando quieras."));
-    m.appendChild(mq);
 
     const bl2 = el("div","bloque");
     bl2.appendChild(el("h3",null,`Bitácora · ${G.log.length}`));
@@ -4688,6 +5036,18 @@ function abrirPanel(){
     };
     bl2.appendChild(bc);
     m.appendChild(bl2);
+
+    // el cartel cuelga del pasillo, pero el pasillo se encoge en las
+    // pantallas cortas: la misma puerta, descolgada, vive también aquí
+    const sal = el("div","bloque bloque-salida");
+    sal.appendChild(el("h3",null,"Salida"));
+    const cs = carteSalida();
+    cs.classList.add("suelto");
+    cs.onclick = ()=>{ UI.modal = null; render(); hojaSalida(); };
+    sal.appendChild(cs);
+    sal.appendChild(el("div","nota","Cierra la guardia antes de la ronda "+RONDAS+
+      " y cuenta los puntos como están, o vete sin contarlos."));
+    m.appendChild(sal);
 
     const cb = el("button","btn pri","Cerrar"); cb.onclick = cerrar;
     m.appendChild(cb);
@@ -4758,7 +5118,8 @@ function alertaAccion(a){
    service worker pueda cachearlos por separado. Vacíos = sin portada, y
    la pantalla de inicio queda como estaba. */
 const PORTADA = {video:"portada/portada.mp4", cuadro:"portada/portada.jpg",
-                 dibujo:"portada/dibujo.svg", logo:"portada/logo.webp"};
+                 dibujo:"portada/dibujo.svg", logo:"portada/logo.webp",
+                 salida:"portada/salida.webp"};
 const CLAVE_SON = "vt-portada-sonido";
 
 function pintarPortada(){
@@ -4773,16 +5134,17 @@ function pintarPortada(){
   cont.hidden = false;
   if(cont.firstChild) return;          // ya está puesta: no la reinicies
 
-  // la portada dibujada manda: mientras exista arte/portada/dibujo.svg la
-  // pantalla de inicio es la escena vectorial y el video queda guardado
-  // (borrar ese archivo lo devuelve — el código del clip sigue intacto)
-  const fondo = PORTADA.dibujo || PORTADA.cuadro;
+  // v0.57: manda el CLIP. El vector de dibujo.svg fue el boceto que se
+  // mandó a dibujar y a animar; ahora que el video existe, el vector pasa
+  // a ser el respaldo de última hora —debajo del cuadro fijo— y solo se
+  // ve si el clip no está o el teléfono pide menos animación.
+  const fondo = PORTADA.cuadro || PORTADA.dibujo;
   if(fondo) cont.style.backgroundImage = `url("${fondo}")`;
   // si el teléfono pide menos animación, se queda el cuadro fijo y ya
   const quieto = window.matchMedia &&
                  matchMedia("(prefers-reduced-motion: reduce)").matches;
   let vid = null;
-  if(PORTADA.video && !quieto && !PORTADA.dibujo){
+  if(PORTADA.video && !quieto){
     vid = document.createElement("video");
     vid.poster = PORTADA.cuadro || "";
     vid.loop = true; vid.playsInline = true; vid.preload = "auto";
@@ -4846,16 +5208,18 @@ function pantallaInicio(){
   // casilla: la marcas y «Contra la IA» arranca con la guía. Quien ya jugó
   // no vuelve a leerla y el menú son tres fichas y nada más.
   const ops = el("div","pastillas");
-  const mk = (icono, tit, sub, fn)=>{
+  const mk = (icono, tit, sub, largo, fn)=>{
     const b = el("button","pastilla");
-    b.innerHTML = icono + `<b>${tit}</b><small>${sub}</small>`;
+    b.innerHTML = `<span class="medalla">${icono}</span>`+
+                  `<b>${tit}</b><small>${sub}</small>`;
+    b.setAttribute("aria-label", largo);
     b.onclick = fn; ops.appendChild(b);
   };
-  mk(SVG_MODO.ia, "Contra la IA", "1 jugador",
+  mk(SVG_MODO.ia, "IA", "1 jugador", "Jugar contra la IA, 1 jugador",
      ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], !!UI.conTuto));
-  mk(SVG_MODO.dos, "Dos jugadores", "1 teléfono",
+  mk(SVG_MODO.dos, "Dúo", "1 teléfono", "Dos jugadores en un teléfono",
      ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
-  mk(SVG_MODO.solo, "Solitario", "2 manos",
+  mk(SVG_MODO.solo, "Solo", "2 manos", "Solitario, las dos manos a la vista",
      ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
   s.appendChild(ops);
 
@@ -4906,13 +5270,29 @@ function bloqueInstalar(){
   return w;
 }
 
+/* El marcador final se contaba sobre el fondo liso de la mesa, que es
+   donde menos sentido tenía: la guardia termina cuando cruzas la puerta.
+   Ahora se cuenta en el pasillo de salida, al atardecer, con el cartel
+   verde encendido al fondo. El dibujo va detrás y fijo —no se desplaza
+   con la bitácora— y lleva su velo para que los números se lean. */
 function pantallaFinal(){
-  const w = el("div");
+  const w = el("div","final"+(PORTADA.salida?" con-salida":""));
+  if(PORTADA.salida){
+    const f = el("div","final-fondo");
+    f.style.backgroundImage = `url("${PORTADA.salida}")`;
+    w.appendChild(f);
+    w.appendChild(el("div","final-velo"));
+  }
   const s = el("div","portada");
   const orden = G.jug.map(j=>({j, p:puntos(j)})).sort((a,b)=>b.p-a.p);
   s.appendChild(el("h1",null,"Fin de la guardia"));
   s.appendChild(el("p",null,
-    `Ocho rondas. Gana <b>${esc(orden[0].j.nombre)}</b> con ${orden[0].p} puntos.`));
+    (G.finAnticipado
+      ? `Cerrada en la ronda ${G.ronda} de ${RONDAS}. `
+      : "Ocho rondas. ") +
+    `Gana <b>${esc(orden[0].j.nombre)}</b> con ${orden[0].p} puntos.`));
+  // deja respirar la puerta antes de las cifras
+  if(PORTADA.salida) s.appendChild(el("div","final-aire"));
   const g = el("div","marcador"); g.style.marginTop="14px";
   orden.forEach(({j,p},oi)=>{
     const t = el("div","mtile"+(oi===0?" gana":""));
@@ -4924,9 +5304,10 @@ function pantallaFinal(){
     g.appendChild(t);
   });
   s.appendChild(g);
-  const l = el("div","log"); l.style.marginTop="14px";
-  G.log.slice(-140).reverse().forEach(x=> l.appendChild(el("div",x.cls,esc(x.txt))));
-  s.appendChild(l);
+  // La bitácora se va del marcador: cien líneas de registro tapaban el
+  // pasillo y el que gana no quiere leer el turno otra vez. El botón se
+  // queda —sirve para mandar la partida— y el registro completo sigue
+  // entero en el Panel mientras la guardia esté abierta.
   const bc = el("button","btn chico","Copiar bitácora"); bc.style.marginTop="8px";
   bc.onclick = ()=>{ const txt=G.log.map(x=>`R${x.r} · ${x.txt}`).join("\n");
     if(navigator.clipboard) navigator.clipboard.writeText(txt); bc.textContent="Copiada ✓"; };
