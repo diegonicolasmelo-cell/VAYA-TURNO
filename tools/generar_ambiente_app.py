@@ -176,8 +176,13 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TABLERO = os.path.join(RAIZ, "cartas", "tablero")
 
 PAPEL = (223, 231, 234)   # --mesa: el papel del tablero
-LAVADO = 0.62             # cuánto se mezcla hacia el papel; más que la sala
-                          # porque estas bandas llevan cartas encima todo el rato
+# Cuánto se mezcla hacia el papel del tablero. OJO: la sala fotográfica usa
+# 0,45 porque venía de una foto con todo su contraste. Estas ilustraciones
+# NO: se pidieron ya en el tono del tablero —su piso mide (216,231,234) y el
+# papel es (223,231,234)— así que con 0,62 quedaban al 38 % de su contraste
+# y el tablero entero se veía tapado por una capa blanca. Con 0,20 se apagan
+# lo justo para que las cartas manden y el dibujo siga estando.
+LAVADO = 0.20
 ANCHO = 1000              # el tablero no pasa de 600 CSS px; sobra para retina
 
 # Cada banda: archivo, recorte en el original y proporción de destino.
@@ -206,12 +211,14 @@ def lavar(im):
 
 
 def alinear(im):
-    """Cuadra el PISO de cada banda con el papel del tablero. Las tres
-    ilustraciones salieron con tonos de fondo distintos y, puestas una
-    debajo de otra, se leían como tres paneles y no como una sala. Se
-    muestrea la esquina —que en las tres es piso— y se desplaza la imagen
-    entera hasta que ese piso es exactamente el papel. El contraste interno
-    de cada banda no se toca: solo se mueve el punto de partida."""
+    """RETIRADO del camino normal, y conviene saber por qué antes de volver
+    a usarlo. Nació para cuadrar el piso de las tres bandas entre sí, cuando
+    el lavado era de 0,62 y las diferencias de tono se notaban. Con el
+    lavado en 0,20 sobra: los tres pisos ya venían casi idénticos —(215,230,
+    237), (217,232,235) y (216,231,234)— y el desplazamiento de +7 en el
+    rojo que hacía falta para clavar el papel teñía TODO el dibujo de rosa.
+    Un desplazamiento plano por canal es demasiado brusco para una imagen de
+    tan poco contraste."""
     import numpy as np
     a = np.asarray(im).astype(int)
     piso = a[4, 4]
@@ -262,7 +269,7 @@ def ilustracion(nombre):
         return None
     im = Image.open(ruta).convert("RGB")
     im = recomponer_camas(im) if nombre == "camas" else im.crop(cfg["caja"])
-    im = alinear(lavar(encajar(im, cfg["destino"])))
+    im = lavar(encajar(im, cfg["destino"]))
     return im
 
 
