@@ -935,6 +935,25 @@ Dos columnas nuevas en `pacientes.csv`, editables desde el Taller:
   caso. Mientras esté vacía se usa la `frase`, así que la pantalla
   funciona hoy y mejora sola cuando se llene.
 
+### Las dos pantallas que esperan tienen reloj ✅ (v0.58)
+
+La admisión y la Entrega no se quedan esperando para siempre: **a los 10 s
+siguen solas**. La admisión entra con el paciente marcado —o con el
+primero, si no marcaste ninguno—, lo deja anotado en la bitácora y arranca
+el turno; la Entrega pasa al golpe siguiente, así que si dejas el teléfono
+la ceremonia se cuenta sola y el juego empieza igual.
+
+Dos decisiones que no pidió el autor pero que el reloj obliga a tomar:
+
+- **Va con barra a la vista**, en el filo de abajo. Una cuenta atrás
+  invisible que actúa por su cuenta es una trampa, no una comodidad.
+- **Marcar un paciente reinicia los 10 s** (`reiniciarRelojCapa`). Sin
+  eso, marcar en el segundo nueve te dejaba uno para confirmar.
+
+No lo llevan ni la elección de personaje ni la cortina del hotseat: las
+dos piden una decisión que no se puede poner por defecto sin robársela al
+jugador.
+
 ### Y la capa de pantallas pendientes ya no parpadea ✅ (v0.58)
 
 `pintarCapa()` vaciaba y rehacía `#capa` en **cada** render, y con ella

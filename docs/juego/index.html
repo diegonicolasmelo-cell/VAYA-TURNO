@@ -240,6 +240,18 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
 
 
+/* la barra del reloj de la capa: cruza el filo de abajo y se drena en los
+   10 s. Va por encima de todo lo de la capa, y con el velo también, para
+   que se vea igual sobre la admisión que sobre la Entrega. */
+.reloj-capa{position:fixed;left:0;right:0;z-index:95;height:3px;
+  bottom:env(safe-area-inset-bottom,0px);
+  background:rgba(22,36,46,.12);pointer-events:none}
+.reloj-capa i{display:block;height:100%;width:100%;transform-origin:left center;
+  background:var(--acc);animation:drenaReloj 10s linear forwards}
+@keyframes drenaReloj{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media (prefers-reduced-motion: reduce){
+  .reloj-capa i{animation-duration:10s}}
+
 /* ══ la Entrega de Turno ═════════════════════════════════════════════
    Ocupa la pantalla entera, como elegir personaje: es el prólogo, no un
    aviso. Vive en #capa, así que no la toca el re-render del tablero. */
@@ -5043,6 +5055,50 @@ function pintarTuto(){
    todas: la pantalla se monta UNA vez por estado y, mientras el estado
    sea el mismo, solo se retoca lo que cambió. La clave incluye el golpe
    de la Entrega, que sí quiere volver a entrar en cada paso. */
+/* ── el reloj de la capa ─────────────────────────────────────────────
+   La admisión y la Entrega no pueden quedarse esperando para siempre: a
+   los 10 s siguen solas. La admisión entra con el paciente que tengas
+   marcado —o con el primero, si no marcaste ninguno— y arranca el turno;
+   la Entrega pasa al golpe siguiente, así que si dejas el teléfono la
+   ceremonia se cuenta sola y el juego empieza igual.
+
+   Va con barra a la vista: una cuenta atrás invisible que actúa por su
+   cuenta es una trampa. Y elegir en la admisión reinicia el reloj, para
+   que marcar en el segundo nueve no te deje uno para confirmar. */
+const ESPERA = 10000;
+function pararRelojCapa(){
+  if(UI.relojCapa){ clearTimeout(UI.relojCapa); UI.relojCapa = null; }
+}
+function vencerCapa(){
+  const p = G && G.pendiente;
+  if(!p) return;
+  if(p.tipo === "admision"){
+    const i = (p.sel === null || p.sel === undefined) ? 0 : p.sel;
+    anota("", "Nadie decidió a tiempo: entra "+p.ops[i].nombre+".");
+    resolverAdmision(p.cama, p.ops, p.ops[i]);
+  } else if(p.tipo === "entrega"){
+    const g = golpesEntrega(G.jug[p.jugador]);
+    if((p.paso||0) >= g.length-1 || !conCeremonia()) cerrarEntrega();
+    else { p.paso = (p.paso||0) + 1; render(); }
+  }
+}
+function armarRelojCapa(p, capa){
+  pararRelojCapa();
+  if(!p || (p.tipo !== "admision" && p.tipo !== "entrega")) return;
+  const barra = el("div","reloj-capa");
+  barra.appendChild(el("i"));
+  capa.appendChild(barra);
+  UI.relojCapa = setTimeout(vencerCapa, ESPERA);
+}
+/* marcar un paciente devuelve los 10 s enteros */
+function reiniciarRelojCapa(){
+  if(!UI.relojCapa) return;
+  pararRelojCapa();
+  const b = document.querySelector("#capa .reloj-capa i");
+  if(b){ b.style.animation = "none"; void b.offsetWidth; b.style.animation = ""; }
+  UI.relojCapa = setTimeout(vencerCapa, ESPERA);
+}
+
 function clavePendiente(p){
   if(!p) return "";
   if(p.tipo === "avatar")   return "avatar:" + p.jugador;
@@ -5071,11 +5127,11 @@ function pintarCapa(){
     if(capa.firstChild !== UI.modal){
       capa.innerHTML = ""; capa.appendChild(UI.modal);
     }
-    delete capa.dataset.pend;
+    delete capa.dataset.pend; pararRelojCapa();
     return;
   }
   const p = G && G.pendiente;
-  if(!p){ capa.innerHTML = ""; delete capa.dataset.pend; return; }
+  if(!p){ capa.innerHTML = ""; delete capa.dataset.pend; pararRelojCapa(); return; }
   const k = clavePendiente(p);
   if(capa.dataset.pend === k && capa.firstChild){
     refrescarPendiente(p, capa);        // el mismo estado: solo retocar
@@ -5088,6 +5144,7 @@ function pintarCapa(){
   else if(p.tipo === "pasa")     capa.appendChild(cortina());
   else if(p.tipo === "admision") capa.appendChild(modalAdmision());
   // "descartar" no vive aquí: la cuadrícula está en el pie de la mano
+  armarRelojCapa(p, capa);
 }
 
 /* La rueda de personajes: los 3 giran sobre un eje vertical, SIN tope —
@@ -5512,13 +5569,14 @@ function modalAdmision(){
   const m = el("div","modal");
   m.appendChild(el("div","tirador"));
   m.appendChild(el("h2",null,esc(G.pendiente.titulo || "Admisión obligatoria")));
-  m.appendChild(el("p",null,"Elige a quién le das la cama. El otro vuelve al fondo de Urgencias."));
+  m.appendChild(el("p",null,"Elige a quién le das la cama. El otro vuelve al fondo "+
+    "de Urgencias. <b>Si no decides en 10 s entra el primero</b> y arranca el turno."));
   const cont = el("div","opciones");
   ops.forEach((o,ix)=>{
     const b = el("button","op"+(G.pendiente.sel===ix?" sel":""));
     const pide = TIPOS.filter(t=>o.pide[t]>0).map(t=>`${ico(t)}${o.pide[t]}`).join(" ");
     b.innerHTML = `<b>${esc(o.nombre)}</b><small>${esc(o.gravedad)} · ${o.vida} ❤️ · pide ${pide} · alta +${o.alta} / fallece ${o.fallece}</small>`;
-    b.onclick = ()=>{ G.pendiente.sel = ix; render(); };
+    b.onclick = ()=>{ G.pendiente.sel = ix; reiniciarRelojCapa(); render(); };
     cont.appendChild(b);
   });
   m.appendChild(cont);
