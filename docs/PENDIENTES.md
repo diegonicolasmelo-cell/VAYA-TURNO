@@ -935,6 +935,28 @@ Dos columnas nuevas en `pacientes.csv`, editables desde el Taller:
   caso. Mientras esté vacía se usa la `frase`, así que la pantalla
   funciona hoy y mejora sola cuando se llene.
 
+### Y la capa de pantallas pendientes ya no parpadea ✅ (v0.58)
+
+`pintarCapa()` vaciaba y rehacía `#capa` en **cada** render, y con ella
+volvían a arrancar las animaciones de entrada: el velo aparece, la hoja
+sube, las opciones entran en cascada. En la admisión eso se veía como un
+parpadeo cada vez que tocabas un paciente —tocar guarda la elección y
+llama a `render`, o sea que la pantalla entera volvía a nacer para cambiar
+una clase—. Es el mismo bicho que la rueda de avatares ya tenía parcheado
+a mano en 2026-08; ahora la regla es de todas.
+
+`clavePendiente(p)` firma el estado y la capa se monta **una vez por
+estado**; mientras la clave no cambie, `refrescarPendiente()` retoca lo
+que haga falta (hoy solo la selección de la admisión). La clave incluye el
+golpe de la Entrega, que sí quiere volver a entrar en cada paso.
+
+Medido: seis toques sobre las opciones de la admisión pasan de **24
+animaciones relanzadas a 0**, y la ceremonia sigue animando **una vez por
+golpe** aunque le fuerces dos renders en medio.
+
+Si mañana una pantalla pendiente gana estado interno, hay que sumarla a
+`refrescarPendiente()` — si no, se queda congelada en su primer dibujo.
+
 Trampa encontrada: `.pips`, `.gr` y `.uni` estaban scopeados a
 `.cama.pficha`, así que los símbolos de recurso salían como `<i>` sin
 tamaño en cualquier pantalla nueva. Si aparece otra vista que los use,

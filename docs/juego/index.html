@@ -5030,27 +5030,64 @@ function pintarTuto(){
   cont.appendChild(b);
 }
 
+/* ── la capa de pantallas pendientes ────────────────────────────────
+   Se vaciaba y se rehacía en CADA render, y con ella volvían a arrancar
+   las animaciones de entrada: el velo aparece, la hoja sube y las
+   opciones entran en cascada. En la admisión eso se veía como un
+   parpadeo cada vez que tocabas un paciente —tocar guarda la elección y
+   llama a render, o sea que la pantalla entera volvía a nacer para
+   cambiar una clase—. Medido antes: 74 entradas de `.op` y 72 de `.velo`
+   en tres rondas.
+
+   La rueda de avatares ya tenía su parche a mano; ahora la regla es de
+   todas: la pantalla se monta UNA vez por estado y, mientras el estado
+   sea el mismo, solo se retoca lo que cambió. La clave incluye el golpe
+   de la Entrega, que sí quiere volver a entrar en cada paso. */
+function clavePendiente(p){
+  if(!p) return "";
+  if(p.tipo === "avatar")   return "avatar:" + p.jugador;
+  if(p.tipo === "entrega")  return "entrega:" + p.jugador + ":" + (p.paso||0) +
+                                   ":" + (conCeremonia() ? "c" : "h");
+  if(p.tipo === "admision") return "admision:" + p.cama + ":" +
+                                   p.ops.map(o=>o.id).join(",");
+  if(p.tipo === "pasa")     return "pasa:" + G.turno;
+  return p.tipo;
+}
+
+/* Lo que sí cambia sin rehacer la pantalla. Hoy solo la admisión tiene
+   estado interno; si mañana otra lo tiene, se retoca aquí. */
+function refrescarPendiente(p, capa){
+  if(p.tipo !== "admision") return;
+  const sel = p.sel;
+  capa.querySelectorAll(".opciones .op").forEach((b,ix)=>
+    b.classList.toggle("sel", ix === sel));
+  const adm = capa.querySelector(".modal > .btn.pri");
+  if(adm) adm.disabled = (sel === null || sel === undefined);
+}
+
 function pintarCapa(){
   const capa = document.getElementById("capa");
-  // La rueda de avatares NO se reconstruye en cada render: rehacerla
-  // devolvía las 3 cartas a su posición cruda y volvían a acomodarse —
-  // ese era el tirón al elegir personaje (lo disparaba, entre otros, el
-  // temporizador de la franja SELECCIONA TU PERSONAJE a los 3,4 s).
-  if(!UI.modal && G && G.pendiente && G.pendiente.tipo==="avatar"){
-    if(capa.dataset.av === String(G.pendiente.jugador) &&
-       capa.querySelector(".rueda")) return;          // ya está montada
-    capa.innerHTML = "";
-    capa.dataset.av = String(G.pendiente.jugador);
-    capa.appendChild(modalAvatar());
+  if(UI.modal){
+    if(capa.firstChild !== UI.modal){
+      capa.innerHTML = ""; capa.appendChild(UI.modal);
+    }
+    delete capa.dataset.pend;
+    return;
+  }
+  const p = G && G.pendiente;
+  if(!p){ capa.innerHTML = ""; delete capa.dataset.pend; return; }
+  const k = clavePendiente(p);
+  if(capa.dataset.pend === k && capa.firstChild){
+    refrescarPendiente(p, capa);        // el mismo estado: solo retocar
     return;
   }
   capa.innerHTML = "";
-  delete capa.dataset.av;
-  if(UI.modal){ capa.appendChild(UI.modal); return; }
-  if(!G || !G.pendiente) return;
-  if(G.pendiente.tipo==="entrega"){ capa.appendChild(pantallaEntrega()); return; }
-  if(G.pendiente.tipo==="pasa"){ capa.appendChild(cortina()); return; }
-  if(G.pendiente.tipo==="admision"){ capa.appendChild(modalAdmision()); return; }
+  capa.dataset.pend = k;
+  if(p.tipo === "avatar")        capa.appendChild(modalAvatar());
+  else if(p.tipo === "entrega")  capa.appendChild(pantallaEntrega());
+  else if(p.tipo === "pasa")     capa.appendChild(cortina());
+  else if(p.tipo === "admision") capa.appendChild(modalAdmision());
+  // "descartar" no vive aquí: la cuadrícula está en el pie de la mano
 }
 
 /* La rueda de personajes: los 3 giran sobre un eje vertical, SIN tope —
