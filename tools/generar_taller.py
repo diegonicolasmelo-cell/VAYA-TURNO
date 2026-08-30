@@ -57,12 +57,14 @@ ESQUEMA = {
     "pacientes": {
         "titulo": "Pacientes", "archivo": "pacientes.csv", "icono": "🛏️",
         "campos": [
-            ("nombre", "txt", None), ("gravedad", "sel", ["I", "II", "III", "ROJO"]),
+            ("nombre", "txt", None), ("edad", "num", None),
+            ("gravedad", "sel", ["I", "II", "III", "ROJO"]),
             ("sistema", "sel", SIS[1:]), ("vida", "num", None),
             ("img", "num", None), ("far", "num", None),
             ("per", "num", None), ("proc", "num", None),
             ("puntos_alta", "num", None), ("puntos_fallece", "num", None),
-            ("frase", "area", None), ("copias", "num", None),
+            ("frase", "area", None), ("entrega", "area", None),
+            ("copias", "num", None),
         ],
     },
     "recursos": {

@@ -227,6 +227,151 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
    arriba, bajo el número de lo que falta; espejado en la mitad del rival */
 body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
 
+
+/* ══ la Entrega de Turno ═════════════════════════════════════════════
+   Ocupa la pantalla entera, como elegir personaje: es el prólogo, no un
+   aviso. Vive en #capa, así que no la toca el re-render del tablero. */
+.entrega{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  padding:calc(30px + env(safe-area-inset-top,0px)) 14px
+          calc(14px + env(safe-area-inset-bottom,0px));
+  background:radial-gradient(130% 100% at 50% 0%, #e6edf0 0%, var(--mesa) 52%, #ccd9d3 100%);
+  color:var(--ink);animation:aparecer .26s ease;cursor:pointer;
+  overflow-y:auto;-webkit-overflow-scrolling:touch}
+.entrega h2{font-family:Petrona,Georgia,serif;font-weight:700;margin:0}
+
+/* el golpe de apertura: el reloj de la unidad */
+.ent-abre{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.ent-reloj{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;
+  margin-bottom:20px;
+  background:radial-gradient(120% 120% at 32% 22%,#fff 0%,#eef4f6 42%,#cfdde1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -2px 4px rgba(60,78,88,.24),
+             0 0 0 2px rgba(60,78,88,.22), 0 6px 18px rgba(22,36,46,.22)}
+.ent-reloj svg{width:78px;height:78px;display:block}
+.ent-hora{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:700;
+  letter-spacing:.2em;color:var(--acc)}
+.ent-abre h2{font-size:27px;margin-top:6px;line-height:1.1}
+.ent-dice{font-family:Petrona,Georgia,serif;font-style:italic;font-size:15px;
+  color:var(--ink-2);margin:14px 18px 0;line-height:1.45;text-wrap:balance}
+.ent-quien{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:12px}
+
+/* el golpe de cama: la carta grande con su ventana enmarcada */
+.ent-cama{flex:1;display:flex;flex-direction:column;justify-content:center;
+  min-height:0}
+.ent-cab{display:flex;align-items:baseline;gap:8px;margin:0 3px 9px}
+.ent-n{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--acc);
+  padding:3px 8px;border-radius:6px}
+.ent-de{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-left:auto}
+.ent-ficha{background:var(--paper);border:1px solid var(--line);border-radius:13px;
+  box-shadow:0 10px 26px rgba(22,36,46,.16);overflow:hidden;
+  border-left:5px solid var(--sis,var(--ink-3))}
+.ent-ventana{position:relative;aspect-ratio:4/3;margin:7px 7px 0;
+  border:1px solid rgba(22,36,46,.2);border-radius:6px;overflow:hidden;
+  background:var(--tinte,#c6d3d8);display:grid;place-items:center}
+.ent-ventana img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block}
+.ent-ventana .sinarte{font-size:44px;opacity:.55;
+  filter:drop-shadow(0 2px 4px rgba(22,36,46,.2))}
+.ent-grav{position:absolute;top:5px;left:5px;z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  letter-spacing:.04em;color:#fff;background:var(--gravc,var(--line));
+  padding:2.5px 6px;border-radius:5px}
+.ent-cuerpo{padding:9px 11px 12px}
+.ent-cuerpo h3{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
+  line-height:1.08;margin:0}
+.ent-datos{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;margin:7px 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.ent-edad{color:var(--ink);background:var(--cerca);border:1px solid var(--line);
+  border-radius:99px;padding:2px 8px}
+.ent-vitales{display:flex;align-items:center;gap:6px;margin:11px 0 0;flex-wrap:wrap}
+.ent-vitales .cz-uno{width:19px;height:18px}
+.ent-vitales .vnum{font-family:"IBM Plex Mono",monospace;font-size:14px;
+  font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.ent-vitales .vnum small{font-size:9.5px;font-weight:600;color:var(--ink-3)}
+.ent-sep{width:1px;height:15px;background:var(--line);margin:0 3px;flex:none}
+.entrega .pips{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;margin:0}
+.entrega .gr{display:flex;gap:2px;flex:none}
+.entrega .uni{width:14px;height:14px;flex:none;color:var(--pc);display:block}
+.entrega .uni svg{width:100%;height:100%;display:block}
+.ent-voz{margin:12px 0 0;padding:10px 12px;border-radius:10px;
+  background:var(--cerca);border:1px solid var(--line-2);
+  border-left:3px solid var(--acc)}
+.ent-voz p{margin:0;font-family:Petrona,Georgia,serif;font-style:italic;
+  font-size:13.5px;line-height:1.45;color:var(--ink)}
+.ent-firma{display:block;margin-top:7px;font-family:"IBM Plex Mono",monospace;
+  font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3)}
+
+/* el golpe de la cama vacía: el único silencio de la pantalla */
+.ent-vacia{flex:1;display:flex;flex-direction:column;text-align:center}
+.ent-centro{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center}
+.ent-dib{width:150px;opacity:.5;margin-bottom:6px}
+.ent-dib svg{width:100%;height:auto;display:block}
+.ent-vacia h2{font-size:23px}
+.ent-por{font-family:Petrona,Georgia,serif;font-style:italic;font-size:15px;
+  color:var(--ink-2);margin:8px 0 0}
+
+/* el cierre */
+.ent-cierra{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.ent-cierra h2{font-size:26px;margin-bottom:4px}
+.ent-cierra p{color:var(--ink-2);font-size:14px;margin:0 20px}
+.ent-cierra .btn.pri{margin-top:22px;padding:13px 26px;width:auto;flex:none}
+
+/* el pie: en qué golpe vas, y saltar desde el primero */
+.ent-pie{flex:none;display:flex;align-items:center;gap:10px;padding-top:12px}
+.ent-puntos{display:flex;gap:5px}
+.ent-puntos i{width:6px;height:6px;border-radius:99px;background:var(--line);
+  transition:width .2s ease, background .2s ease}
+.ent-puntos i.on{background:var(--acc);width:17px}
+.ent-sigue{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.ent-saltar{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:9px;
+  font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  padding:6px 2px}
+
+/* ── la hoja: de la segunda guardia en adelante ─────────────────────── */
+.hoja-ent{cursor:default;padding-top:calc(34px + env(safe-area-inset-top,0px))}
+.hoja-ent h2{font-size:22px}
+.ent-sub{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:5px 0 13px}
+.hoja-ent .ent-voz{margin:0 0 13px}
+.ent-fila{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
+  padding:10px;border-radius:11px;background:var(--paper);
+  border:1px solid var(--line);border-left:4px solid var(--sis,var(--ink-3));
+  box-shadow:var(--sombra);margin-bottom:8px;cursor:pointer}
+.ent-mini{width:52px;height:39px;flex:none;border-radius:5px;overflow:hidden;
+  border:1px solid rgba(22,36,46,.2);background:var(--tinte,#c6d3d8);
+  display:grid;place-items:center;font-size:19px}
+.ent-mini img{width:100%;height:100%;object-fit:cover;display:block}
+.ent-tx{min-width:0;flex:1}
+.ent-tx b{font-family:Petrona,Georgia,serif;font-size:14.5px;font-weight:700;
+  display:block;line-height:1.1}
+.ent-e2{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);vertical-align:2px}
+.ent-l2{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px;margin-top:5px}
+.ent-cn{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  letter-spacing:.1em;color:#fff;background:var(--acc);padding:2px 5px;border-radius:4px}
+.ent-l2 .cz-uno.chico{width:15px;height:14px}
+.ent-l2 .pips{gap:2px 6px}
+.ent-l2 .uni{width:13px;height:13px}
+.ent-linea{display:block;margin-top:6px;font-family:Petrona,Georgia,serif;
+  font-style:italic;font-size:12.5px;line-height:1.35;color:var(--ink-2)}
+.ent-fila.libre{background:transparent;border-style:dashed;box-shadow:none;
+  border-left-color:var(--line);color:var(--ink-3);justify-content:center;
+  padding:15px 10px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:default}
+.ent-abrir{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;
+  margin:2px 0 0}
+.hoja-ent .btn.pri{margin-top:auto;width:100%;flex:none}
+
 /* el escudo no se activa: lo pone la carta. Solo hay que verlo */
 .cama.pficha .f-escudo{position:absolute;left:50%;top:50%;z-index:3;
   transform:translate(-50%,-50%);font-size:24px;
@@ -1980,7 +2125,7 @@ function nuevaPartida(modo, nombres, tuto){
    vuelven al fondo de la pila. */
 function siguienteAvatar(){
   const i = G.jug.findIndex(j=>!j.avatar);
-  if(i < 0){ G.pendiente = null; entrarFase(0); return; }
+  if(i < 0){ siguienteEntrega(); return; }   // y ahora te pasan la unidad
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
   UI.avPos = 0;
@@ -4889,6 +5034,7 @@ function pintarCapa(){
   delete capa.dataset.av;
   if(UI.modal){ capa.appendChild(UI.modal); return; }
   if(!G || !G.pendiente) return;
+  if(G.pendiente.tipo==="entrega"){ capa.appendChild(pantallaEntrega()); return; }
   if(G.pendiente.tipo==="pasa"){ capa.appendChild(cortina()); return; }
   if(G.pendiente.tipo==="admision"){ capa.appendChild(modalAdmision()); return; }
 }
@@ -5026,6 +5172,278 @@ function modalAvatar(){
   pintarRueda(UI.avPos||0, cont);   // ya colocadas al nacer, sin parpadeo
   return cap;
 }
+
+
+/* ══ LA ENTREGA DE TURNO (v0.58) ═════════════════════════════════════
+   La primera fase del juego ya se llamaba así y era la única que nunca
+   ocurría en pantalla: elegías personaje y de golpe había dos pacientes
+   en sus camas, sin que nadie te dijera quiénes eran. Ahora la colega
+   que sale te pasa la unidad, cama por cama.
+
+   Dos formas, y la diferencia es cuántas veces la has visto:
+
+   · LA CEREMONIA — la primera guardia de todas y siempre en «Primera
+     guardia». Un golpe por cama, la carta grande con su arte, y cierra
+     con la cama vacía, que es el único silencio de la pantalla y prepara
+     la admisión que llega enseguida. «Saltar» está desde el primer toque.
+   · LA HOJA — de ahí en adelante. Una pantalla, dos toques, y quien
+     quiera detalle toca una cama y se abre la ficha de siempre.
+
+   No toca ninguna regla: no eliges paciente, no cambia el reparto, no hay
+   nada que volver a simular. Es escenario.                              */
+const CLAVE_ENT = "vt-entrega-vista";
+function conCeremonia(){
+  if(G && G.tuto) return true;                 // el coach la muestra siempre
+  try{ return localStorage.getItem(CLAVE_ENT) !== "1"; }catch(e){ return true; }
+}
+function entregaVista(){ try{ localStorage.setItem(CLAVE_ENT,"1"); }catch(e){} }
+
+/* Encadena una entrega por jugador humano y, cuando no queda ninguna,
+   entra a la fase 0 de siempre. Se llama al terminar los avatares. */
+function siguienteEntrega(){
+  const i = G.jug.findIndex(j=>!j.ia && !j.entregado);
+  if(i < 0){ G.pendiente = null; entrarFase(0); return; }
+  G.pendiente = {tipo:"entrega", jugador:i, paso:0};
+  guardar(); render();
+}
+function cerrarEntrega(){
+  const p = G.pendiente;
+  if(p && p.tipo==="entrega") G.jug[p.jugador].entregado = true;
+  entregaVista();
+  siguienteEntrega();
+}
+
+/* Los golpes de la ceremonia salen de la unidad: uno por cama ocupada,
+   uno por la vacía si la hay, más la apertura y el cierre. */
+function golpesEntrega(j){
+  const g = [{t:"abre"}];
+  j.camas.forEach((c,i)=>{ if(c) g.push({t:"cama", c, n:i+1}); });
+  if(j.camas.some(c=>!c)) g.push({t:"vacia", n:j.camas.findIndex(c=>!c)+1});
+  g.push({t:"cierra"});
+  return g;
+}
+
+/* La línea con que te pasan al paciente. Si el autor escribió la suya en
+   `entrega`, esa manda; si no, sirve la frase de la carta, que es lo que
+   ya había. Sin ninguna de las dos, la ficha se queda con los datos. */
+function vozEntrega(p){
+  if(p.entrega) return esc(p.entrega);
+  return p.frase ? "“"+esc(p.frase)+"”" : "";
+}
+
+function fichaEntrega(c, n, total, idx){
+  const p = c.p;
+  const w = el("div","ent-cama");
+  const cab = el("div","ent-cab");
+  cab.appendChild(el("span","ent-n","Cama "+n));
+  if(total > 1) cab.appendChild(el("span","ent-de",`${idx} de ${total}`));
+  w.appendChild(cab);
+
+  const f = el("div","ent-ficha");
+  f.style.setProperty("--sis", SIS[p.sistema] ? SIS[p.sistema][1] : "var(--ink-3)");
+  f.style.setProperty("--gravc", GRAVC[p.gravedad] || "var(--line)");
+  const v = el("div","ent-ventana");
+  v.style.setProperty("--tinte", p.tinte || TINSIS[p.sistema] || "#b9c7cc");
+  if(p.arte){
+    const im = document.createElement("img");
+    im.src = p.arte; im.alt = ""; v.appendChild(im);
+  } else v.appendChild(el("span","sinarte",
+    (SIS[p.sistema] ? SIS[p.sistema][0] : "🛏️").split(" ")[0]));
+  v.appendChild(el("span","ent-grav",
+    p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(p.gravedad)));
+  f.appendChild(v);
+
+  const cu = el("div","ent-cuerpo");
+  cu.appendChild(el("h3",null,esc(p.nombre)));
+  const dat = el("div","ent-datos");
+  if(p.edad) dat.appendChild(el("span","ent-edad",esc(p.edad)+" años"));
+  if(SIS[p.sistema]){
+    const ss = el("span","ent-sis",SIS[p.sistema][0]);
+    ss.style.color = SIS[p.sistema][1];
+    dat.appendChild(ss);
+  }
+  dat.appendChild(el("span",null,`alta +${p.alta} · fallece ${p.fallece}`));
+  cu.appendChild(dat);
+
+  const vit = el("div","ent-vitales");
+  const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida/c.vidaMax)) : 0;
+  const uno = el("i","cz-uno");
+  uno.style.setProperty("--llen", rr.toFixed(3));
+  vit.appendChild(uno);
+  vit.appendChild(el("span","vnum",`${c.vida}<small>/${c.vidaMax}</small>`));
+  vit.appendChild(el("i","ent-sep"));
+  const fila = el("div","pips");
+  TIPOS.forEach(t=>{
+    if(!c.pide[t]) return;
+    const gr = el("span","gr");
+    gr.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
+    for(let k=0;k<c.pide[t];k++){
+      const u = el("i","uni"); u.innerHTML = SVG[t] || SVG.COMODIN;
+      u.title = TNOM[t] || t; gr.appendChild(u);
+    }
+    fila.appendChild(gr);
+  });
+  vit.appendChild(fila);
+  cu.appendChild(vit);
+
+  const voz = vozEntrega(p);
+  if(voz){
+    const q = el("div","ent-voz");
+    q.appendChild(el("p",null,voz));
+    q.appendChild(el("span","ent-firma","te lo entrega la turno de noche"));
+    cu.appendChild(q);
+  }
+  f.appendChild(cu);
+  w.appendChild(f);
+  return w;
+}
+
+function pantallaEntrega(){
+  const p = G.pendiente;
+  const j = G.jug[p.jugador];
+  return conCeremonia() ? ceremoniaEntrega(j, p) : hojaEntrega(j);
+}
+
+function ceremoniaEntrega(j, p){
+  const g = golpesEntrega(j);
+  p.paso = Math.max(0, Math.min(p.paso||0, g.length-1));
+  const b = g[p.paso];
+  const cap = el("div","entrega");
+  const avanza = ()=>{
+    if(p.paso >= g.length-1){ cerrarEntrega(); return; }
+    p.paso++; render();
+  };
+  cap.onclick = ev=>{
+    if(ev.target.closest("[data-saltar]")){ p.paso = g.length-1; render(); return; }
+    avanza();
+  };
+
+  if(b.t === "abre"){
+    const z = el("div","ent-abre");
+    z.appendChild(el("div","ent-reloj", SVG_RELOJ));
+    z.appendChild(el("div","ent-hora","07:45"));
+    z.appendChild(el("h2",null,"Entrega de Turno"));
+    const ocup = j.camas.filter(c=>c).length;
+    const libres = CAMAS - ocup;
+    z.appendChild(el("p","ent-dice",
+      `“Te dejo la unidad. ${ocup===1?"Una cama ocupada":ocup+" camas ocupadas"}`+
+      `${libres ? " y "+(libres===1?"la otra libre":libres+" libres") : ""}, `+
+      `pero no te confíes: Urgencias ya llamó dos veces.”`));
+    z.appendChild(el("div","ent-quien",
+      G.jug.length>2 || G.modo==="hotseat"
+        ? esc(j.nombre)+" · recibe la unidad" : "turno de noche · se va a su casa"));
+    cap.appendChild(z);
+  } else if(b.t === "cama"){
+    const camas = g.filter(x=>x.t==="cama");
+    cap.appendChild(fichaEntrega(b.c, b.n, camas.length, camas.indexOf(b)+1));
+  } else if(b.t === "vacia"){
+    const z = el("div","ent-vacia");
+    const c = el("div","ent-centro");
+    c.appendChild(el("div","ent-dib", SVG_CAMA_VACIA));
+    c.appendChild(el("h2",null,`Cama ${b.n} · vacía`));
+    c.appendChild(el("p","ent-por","Por ahora."));
+    z.appendChild(c);
+    cap.appendChild(z);
+  } else {
+    const z = el("div","ent-cierra");
+    z.appendChild(el("h2",null,"La unidad es tuya"));
+    z.appendChild(el("p",null,`${RONDAS} rondas. Que no se te muera nadie.`));
+    const btn = el("button","btn pri","Recibo el turno");
+    btn.onclick = ev=>{ ev.stopPropagation(); cerrarEntrega(); };
+    z.appendChild(btn);
+    cap.appendChild(z);
+  }
+
+  if(b.t !== "cierra"){
+    const pie = el("div","ent-pie");
+    const pts = el("div","ent-puntos");
+    g.slice(0,-1).forEach((_,k)=>pts.appendChild(el("i", k===p.paso ? "on" : "")));
+    pie.appendChild(pts);
+    pie.appendChild(el("span","ent-sigue","tocar para seguir"));
+    const sk = el("button","ent-saltar","saltar");
+    sk.setAttribute("data-saltar","");
+    pie.appendChild(sk);
+    cap.appendChild(pie);
+  }
+  return cap;
+}
+
+function hojaEntrega(j){
+  const cap = el("div","entrega hoja-ent");
+  cap.appendChild(el("h2",null,"Entrega de Turno"));
+  cap.appendChild(el("div","ent-sub","07:45 · recibes la unidad"));
+  const q = el("div","ent-voz");
+  const ocup = j.camas.filter(c=>c).length;
+  q.appendChild(el("p",null,
+    `“Te dejo la unidad. ${ocup===1?"Una cama ocupada":ocup+" camas ocupadas"}. `+
+    `Urgencias ya llamó dos veces.”`));
+  q.appendChild(el("span","ent-firma","turno de noche"));
+  cap.appendChild(q);
+
+  j.camas.forEach((c,i)=>{
+    if(!c){ cap.appendChild(el("div","ent-fila libre",`Cama ${i+1} · vacía`)); return; }
+    const f = el("button","ent-fila");
+    f.style.setProperty("--sis", SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)");
+    const mi = el("span","ent-mini");
+    mi.style.setProperty("--tinte", c.p.tinte || TINSIS[c.p.sistema] || "#b9c7cc");
+    if(c.p.arte){
+      const im = document.createElement("img");
+      im.src = c.p.arte; im.alt = ""; mi.appendChild(im);
+    } else mi.textContent = (SIS[c.p.sistema] ? SIS[c.p.sistema][0] : "🛏️").split(" ")[0];
+    f.appendChild(mi);
+    const tx = el("span","ent-tx");
+    tx.appendChild(el("b",null,esc(c.p.nombre)+
+      (c.p.edad ? ` <span class="ent-e2">${esc(c.p.edad)}</span>` : "")));
+    const l2 = el("span","ent-l2");
+    l2.appendChild(el("span","ent-cn","Cama "+(i+1)));
+    const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida/c.vidaMax)) : 0;
+    const uno = el("i","cz-uno chico");
+    uno.style.setProperty("--llen", rr.toFixed(3));
+    l2.appendChild(uno);
+    const fila = el("div","pips");
+    TIPOS.forEach(t=>{
+      if(!c.pide[t]) return;
+      const gr = el("span","gr");
+      gr.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
+      for(let k=0;k<c.pide[t];k++){
+        const u = el("i","uni"); u.innerHTML = SVG[t] || SVG.COMODIN; gr.appendChild(u);
+      }
+      fila.appendChild(gr);
+    });
+    l2.appendChild(fila);
+    tx.appendChild(l2);
+    // la línea de la colega también en la hoja: es la mitad de la gracia
+    const vz = vozEntrega(c.p);
+    if(vz) tx.appendChild(el("span","ent-linea", vz));
+    f.appendChild(tx);
+    f.onclick = ()=> verPacienteGrande(c);
+    cap.appendChild(f);
+  });
+  cap.appendChild(el("div","ent-abrir","toca una cama para verla entera"));
+  const btn = el("button","btn pri","Recibo el turno");
+  btn.onclick = cerrarEntrega;
+  cap.appendChild(btn);
+  return cap;
+}
+
+const SVG_RELOJ =
+  '<svg viewBox="0 0 100 100" fill="none" aria-hidden="true">'+
+  '<circle cx="50" cy="50" r="42" fill="#fff" stroke="#4c6675" stroke-width="3"/>'+
+  '<circle cx="50" cy="50" r="2.6" fill="#16242e"/>'+
+  '<path d="M50 50V26" stroke="#16242e" stroke-width="4" stroke-linecap="round"/>'+
+  '<path d="M50 50l17 10" stroke="#c0492f" stroke-width="3" stroke-linecap="round"/>'+
+  '<g stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round">'+
+  '<path d="M50 14v6M50 80v6M14 50h6M80 50h6"/></g></svg>';
+const SVG_CAMA_VACIA =
+  '<svg viewBox="0 0 120 92" fill="none" aria-hidden="true">'+
+  '<rect x="10" y="30" width="100" height="34" rx="7" fill="#fff" stroke="#87a0ad" stroke-width="2.4"/>'+
+  '<rect x="18" y="36" width="34" height="20" rx="5" fill="#eef4f6" stroke="#a8bcc4" stroke-width="1.8"/>'+
+  '<path d="M10 44h100" stroke="#c7d6db" stroke-width="1.6"/>'+
+  '<path d="M16 64v18M104 64v18" stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<circle cx="16" cy="85" r="4.5" fill="#fff" stroke="#87a0ad" stroke-width="2"/>'+
+  '<circle cx="104" cy="85" r="4.5" fill="#fff" stroke="#87a0ad" stroke-width="2"/>'+
+  '<path d="M6 22v18M114 22v18" stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<path d="M6 26h108" stroke="#a8bcc4" stroke-width="2" stroke-dasharray="5 5"/></svg>';
 
 function cortina(){
   const c = el("div","cortina");

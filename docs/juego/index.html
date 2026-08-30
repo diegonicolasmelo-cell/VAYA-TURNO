@@ -239,6 +239,151 @@ button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
    arriba, bajo el número de lo que falta; espejado en la mitad del rival */
 body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
 
+
+/* ══ la Entrega de Turno ═════════════════════════════════════════════
+   Ocupa la pantalla entera, como elegir personaje: es el prólogo, no un
+   aviso. Vive en #capa, así que no la toca el re-render del tablero. */
+.entrega{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  padding:calc(30px + env(safe-area-inset-top,0px)) 14px
+          calc(14px + env(safe-area-inset-bottom,0px));
+  background:radial-gradient(130% 100% at 50% 0%, #e6edf0 0%, var(--mesa) 52%, #ccd9d3 100%);
+  color:var(--ink);animation:aparecer .26s ease;cursor:pointer;
+  overflow-y:auto;-webkit-overflow-scrolling:touch}
+.entrega h2{font-family:Petrona,Georgia,serif;font-weight:700;margin:0}
+
+/* el golpe de apertura: el reloj de la unidad */
+.ent-abre{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.ent-reloj{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;
+  margin-bottom:20px;
+  background:radial-gradient(120% 120% at 32% 22%,#fff 0%,#eef4f6 42%,#cfdde1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -2px 4px rgba(60,78,88,.24),
+             0 0 0 2px rgba(60,78,88,.22), 0 6px 18px rgba(22,36,46,.22)}
+.ent-reloj svg{width:78px;height:78px;display:block}
+.ent-hora{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:700;
+  letter-spacing:.2em;color:var(--acc)}
+.ent-abre h2{font-size:27px;margin-top:6px;line-height:1.1}
+.ent-dice{font-family:Petrona,Georgia,serif;font-style:italic;font-size:15px;
+  color:var(--ink-2);margin:14px 18px 0;line-height:1.45;text-wrap:balance}
+.ent-quien{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:12px}
+
+/* el golpe de cama: la carta grande con su ventana enmarcada */
+.ent-cama{flex:1;display:flex;flex-direction:column;justify-content:center;
+  min-height:0}
+.ent-cab{display:flex;align-items:baseline;gap:8px;margin:0 3px 9px}
+.ent-n{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--acc);
+  padding:3px 8px;border-radius:6px}
+.ent-de{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-left:auto}
+.ent-ficha{background:var(--paper);border:1px solid var(--line);border-radius:13px;
+  box-shadow:0 10px 26px rgba(22,36,46,.16);overflow:hidden;
+  border-left:5px solid var(--sis,var(--ink-3))}
+.ent-ventana{position:relative;aspect-ratio:4/3;margin:7px 7px 0;
+  border:1px solid rgba(22,36,46,.2);border-radius:6px;overflow:hidden;
+  background:var(--tinte,#c6d3d8);display:grid;place-items:center}
+.ent-ventana img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block}
+.ent-ventana .sinarte{font-size:44px;opacity:.55;
+  filter:drop-shadow(0 2px 4px rgba(22,36,46,.2))}
+.ent-grav{position:absolute;top:5px;left:5px;z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  letter-spacing:.04em;color:#fff;background:var(--gravc,var(--line));
+  padding:2.5px 6px;border-radius:5px}
+.ent-cuerpo{padding:9px 11px 12px}
+.ent-cuerpo h3{font-family:Petrona,Georgia,serif;font-weight:700;font-size:19px;
+  line-height:1.08;margin:0}
+.ent-datos{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;margin:7px 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.ent-edad{color:var(--ink);background:var(--cerca);border:1px solid var(--line);
+  border-radius:99px;padding:2px 8px}
+.ent-vitales{display:flex;align-items:center;gap:6px;margin:11px 0 0;flex-wrap:wrap}
+.ent-vitales .cz-uno{width:19px;height:18px}
+.ent-vitales .vnum{font-family:"IBM Plex Mono",monospace;font-size:14px;
+  font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.ent-vitales .vnum small{font-size:9.5px;font-weight:600;color:var(--ink-3)}
+.ent-sep{width:1px;height:15px;background:var(--line);margin:0 3px;flex:none}
+.entrega .pips{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;margin:0}
+.entrega .gr{display:flex;gap:2px;flex:none}
+.entrega .uni{width:14px;height:14px;flex:none;color:var(--pc);display:block}
+.entrega .uni svg{width:100%;height:100%;display:block}
+.ent-voz{margin:12px 0 0;padding:10px 12px;border-radius:10px;
+  background:var(--cerca);border:1px solid var(--line-2);
+  border-left:3px solid var(--acc)}
+.ent-voz p{margin:0;font-family:Petrona,Georgia,serif;font-style:italic;
+  font-size:13.5px;line-height:1.45;color:var(--ink)}
+.ent-firma{display:block;margin-top:7px;font-family:"IBM Plex Mono",monospace;
+  font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3)}
+
+/* el golpe de la cama vacía: el único silencio de la pantalla */
+.ent-vacia{flex:1;display:flex;flex-direction:column;text-align:center}
+.ent-centro{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center}
+.ent-dib{width:150px;opacity:.5;margin-bottom:6px}
+.ent-dib svg{width:100%;height:auto;display:block}
+.ent-vacia h2{font-size:23px}
+.ent-por{font-family:Petrona,Georgia,serif;font-style:italic;font-size:15px;
+  color:var(--ink-2);margin:8px 0 0}
+
+/* el cierre */
+.ent-cierra{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.ent-cierra h2{font-size:26px;margin-bottom:4px}
+.ent-cierra p{color:var(--ink-2);font-size:14px;margin:0 20px}
+.ent-cierra .btn.pri{margin-top:22px;padding:13px 26px;width:auto;flex:none}
+
+/* el pie: en qué golpe vas, y saltar desde el primero */
+.ent-pie{flex:none;display:flex;align-items:center;gap:10px;padding-top:12px}
+.ent-puntos{display:flex;gap:5px}
+.ent-puntos i{width:6px;height:6px;border-radius:99px;background:var(--line);
+  transition:width .2s ease, background .2s ease}
+.ent-puntos i.on{background:var(--acc);width:17px}
+.ent-sigue{font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.ent-saltar{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:9px;
+  font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  padding:6px 2px}
+
+/* ── la hoja: de la segunda guardia en adelante ─────────────────────── */
+.hoja-ent{cursor:default;padding-top:calc(34px + env(safe-area-inset-top,0px))}
+.hoja-ent h2{font-size:22px}
+.ent-sub{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:5px 0 13px}
+.hoja-ent .ent-voz{margin:0 0 13px}
+.ent-fila{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
+  padding:10px;border-radius:11px;background:var(--paper);
+  border:1px solid var(--line);border-left:4px solid var(--sis,var(--ink-3));
+  box-shadow:var(--sombra);margin-bottom:8px;cursor:pointer}
+.ent-mini{width:52px;height:39px;flex:none;border-radius:5px;overflow:hidden;
+  border:1px solid rgba(22,36,46,.2);background:var(--tinte,#c6d3d8);
+  display:grid;place-items:center;font-size:19px}
+.ent-mini img{width:100%;height:100%;object-fit:cover;display:block}
+.ent-tx{min-width:0;flex:1}
+.ent-tx b{font-family:Petrona,Georgia,serif;font-size:14.5px;font-weight:700;
+  display:block;line-height:1.1}
+.ent-e2{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  color:var(--ink-3);vertical-align:2px}
+.ent-l2{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px;margin-top:5px}
+.ent-cn{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;
+  letter-spacing:.1em;color:#fff;background:var(--acc);padding:2px 5px;border-radius:4px}
+.ent-l2 .cz-uno.chico{width:15px;height:14px}
+.ent-l2 .pips{gap:2px 6px}
+.ent-l2 .uni{width:13px;height:13px}
+.ent-linea{display:block;margin-top:6px;font-family:Petrona,Georgia,serif;
+  font-style:italic;font-size:12.5px;line-height:1.35;color:var(--ink-2)}
+.ent-fila.libre{background:transparent;border-style:dashed;box-shadow:none;
+  border-left-color:var(--line);color:var(--ink-3);justify-content:center;
+  padding:15px 10px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:default}
+.ent-abrir{font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;
+  margin:2px 0 0}
+.hoja-ent .btn.pri{margin-top:auto;width:100%;flex:none}
+
 /* el escudo no se activa: lo pone la carta. Solo hay que verlo */
 .cama.pficha .f-escudo{position:absolute;left:50%;top:50%;z-index:3;
   transform:translate(-50%,-50%);font-size:24px;
@@ -1915,7 +2060,7 @@ function esIOS(){
          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
 
-const D = {"pacientes":[{"id":"P01","nombre":"Dolor Torácico Atípico","gravedad":"I","sistema":"CARD","vida":7,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":0,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Le duele cuando respira, cuando camina y cuando le hablan de la cuenta.","copias":1},{"id":"P02","nombre":"El del Frasco Completo","gravedad":"I","sistema":"METAB","vida":7,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Se lo tomó todo. Incluido el algodón.","copias":1,"arte":"arte/P02.webp","tinte":"#a3c79c"},{"id":"P03","nombre":"Abandono de Tratamiento","gravedad":"I","sistema":"CARD","vida":7,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Se sentía bien, así que dejó las pastillas. Hace ocho meses.","copias":1},{"id":"P04","nombre":"La Caída del Baño","gravedad":"I","sistema":"QUIR","vida":7,"pide":{"IMAGEN":2,"FARMACOS":0,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"'Me resbalé', dice. Nadie en la sala le cree.","copias":1,"arte":"arte/P04.webp","tinte":"#d29f44"},{"id":"P05","nombre":"Crisis de Pánico en Box 4","gravedad":"I","sistema":"NEURO","vida":7,"pide":{"IMAGEN":0,"FARMACOS":1,"PERSONAL":2,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Se está muriendo. Todos los martes.","copias":1},{"id":"P06","nombre":"Deshidratado de Verano","gravedad":"I","sistema":"METAB","vida":7,"pide":{"IMAGEN":0,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Insiste en que cuatro cervezas cuentan como líquido.","copias":1},{"id":"P07","nombre":"El Que Googleó Sus Síntomas","gravedad":"I","sistema":"NEURO","vida":7,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Trae impreso el diagnóstico. Y el tratamiento. Y el pronóstico.","copias":1},{"id":"P08","nombre":"Postoperado Que No Debería Estar Aquí","gravedad":"I","sistema":"QUIR","vida":7,"pide":{"IMAGEN":1,"FARMACOS":0,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"El cirujano dijo 'obsérvenlo un rato'. Van tres días.","copias":1},{"id":"P09","nombre":"Neumonía Adquirida en la Comunidad","gravedad":"II","sistema":"RESP","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Lleva un mes tosiendo. Vino hoy porque no lo dejaba dormir.","copias":1},{"id":"P10","nombre":"Cetoacidosis Diabética","gravedad":"II","sistema":"METAB","vida":6,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Se le acabó la insulina el jueves. Hoy es domingo.","copias":1},{"id":"P11","nombre":"ACV en Ventana","gravedad":"II","sistema":"NEURO","vida":6,"pide":{"IMAGEN":2,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Nadie sabe a qué hora empezó. Nadie.","copias":1,"arte":"arte/P11.webp","tinte":"#916ea5"},{"id":"P12","nombre":"Hemorragia Digestiva Alta","gravedad":"II","sistema":"QUIR","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Dice que es la primera vez. Es la sexta.","copias":1},{"id":"P13","nombre":"Insuficiencia Cardíaca Descompensada","gravedad":"II","sistema":"CARD","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Comió cazuela. Y sopa. Y jugo. Y postre.","copias":1},{"id":"P14","nombre":"Pielonefritis Complicada","gravedad":"II","sistema":"METAB","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Aguantó dos semanas por no faltar al trabajo.","copias":1},{"id":"P15","nombre":"Abdomen Agudo Sin Diagnóstico","gravedad":"II","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":5,"alta":3,"fallece":-2,"frase":"Cirugía dice que es de medicina. Medicina dice que es de cirugía.","copias":1},{"id":"P16","nombre":"EPOC Exacerbado","gravedad":"II","sistema":"RESP","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Trae su balón de oxígeno. Y su cajetilla.","copias":1},{"id":"P17","nombre":"Intoxicación Mixta","gravedad":"II","sistema":"METAB","vida":6,"pide":{"IMAGEN":0,"FARMACOS":3,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Nadie sabe qué tomó. Él tampoco.","copias":1},{"id":"P18","nombre":"Delirium del Adulto Mayor","gravedad":"II","sistema":"NEURO","vida":6,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":3,"PROCEDIMIENTOS":0},"total":5,"alta":3,"fallece":-2,"frase":"De día duerme. De noche dirige una orquesta.","copias":1},{"id":"P19","nombre":"Shock Séptico","gravedad":"III","sistema":"CARD","vida":6,"pide":{"IMAGEN":1,"FARMACOS":4,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"La hora dorada empezó hace cuatro horas.","copias":1},{"id":"P20","nombre":"Politraumatizado","gravedad":"III","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":3},"total":8,"alta":6,"fallece":-2,"frase":"Iba a 120. Sin cinturón. 'Por acá nunca hay control'.","copias":1},{"id":"P21","nombre":"Síndrome de Distrés Respiratorio","gravedad":"III","sistema":"RESP","vida":6,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"Los pulmones parecen vidrio esmerilado. Él parece tranquilo.","copias":1},{"id":"P22","nombre":"Status Epiléptico","gravedad":"III","sistema":"NEURO","vida":6,"pide":{"IMAGEN":1,"FARMACOS":4,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"Cuarta dosis. Sigue convulsionando.","copias":1},{"id":"P23","nombre":"Pancreatitis Grave","gravedad":"III","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":1},"total":8,"alta":6,"fallece":-2,"frase":"Fue un asado. Uno solo, insiste.","copias":1},{"id":"P24","nombre":"Tromboembolismo Pulmonar Masivo","gravedad":"III","sistema":"RESP","vida":6,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":4},"total":8,"alta":6,"fallece":-2,"frase":"Volvió de un vuelo de catorce horas y del baño no salió caminando.","copias":1},{"id":"P25","nombre":"Falla Multiorgánica","gravedad":"ROJO","sistema":"CARD","vida":5,"pide":{"IMAGEN":2,"FARMACOS":3,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":8,"fallece":-3,"frase":"Todo mal. Y en orden alfabético.","copias":1},{"id":"P26","nombre":"Trasplante en Lista Cero","gravedad":"ROJO","sistema":"QUIR","vida":5,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":2},"total":8,"alta":8,"fallece":-3,"frase":"Hay órgano. Hay avión. No hay pabellón.","copias":1}],"recursos":[{"id":"R01","nombre":"Antibiótico de Amplio Espectro","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cubre todo. Especialmente nuestra falta de diagnóstico.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R02","nombre":"Antibiótico de Amplio Espectro","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cubre todo. Especialmente nuestra falta de diagnóstico.","warn":true,"compNombre":"Resistencia Antibiótica","compTexto":"Pierde 1 ❤️. Estaba estable con lo que le dimos. El cultivo dijo otra cosa.","cirujano":false,"turno24":false,"copias":1},{"id":"R46","nombre":"Sedoanalgesia","tipo":"FARMACOS","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R47","nombre":"Sedoanalgesia","tipo":"FARMACOS","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'","warn":true,"compNombre":"Delirium en UCI","compTexto":"Pierde 1 ❤️. Justo cuando despertaba: se sacó la sonda, la vía y el ánimo del turno.","cirujano":false,"turno24":false,"copias":1},{"id":"R05","nombre":"Anticoagulación","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R06","nombre":"Anticoagulación","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","warn":true,"compNombre":"Sangrado","compTexto":"Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","cirujano":false,"turno24":false,"copias":1},{"id":"R07","nombre":"Hemoderivados","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Llegaron. Sin la ficha, pero llegaron.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2,"arte":"arte/R07.webp","tinte":"#5a9297"},{"id":"R08","nombre":"Noradrenalina","tipo":"FARMACOS","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"La presión sube. La del paciente y la tuya.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R09","nombre":"Noradrenalina","tipo":"FARMACOS","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"La presión sube. La del paciente y la tuya.","warn":true,"compNombre":"Taquicardia Ventricular","compTexto":"Pierde 1 ❤️. El monitor hace el dibujo que nadie quiere ver.","cirujano":false,"turno24":false,"copias":1},{"id":"R10","nombre":"Broncodilatador en Nebulización","tipo":"FARMACOS","sistema":"RESP","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sale más vapor que del baño turco. Algo tiene que estar llegando.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R13","nombre":"Insulina en Bomba","tipo":"FARMACOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cada dos horas un hemoglucotest. Cada dos horas.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R48","nombre":"Corticoides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sirven para todo. Suben el azúcar, el ánimo y la presión.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R49","nombre":"Corticoides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sirven para todo. Suben el azúcar, el ánimo y la presión.","warn":true,"compNombre":"Hiperglicemia","compTexto":"Pierde 1 ❤️. 380 de glicemia: ahora también es diabético. Búscale una insulina.","cirujano":false,"turno24":false,"copias":1},{"id":"R50","nombre":"Cristaloides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Agua con sal. La primera respuesta a casi todo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1,"arte":"arte/R50.webp","tinte":"#51868c"},{"id":"R51","nombre":"Cristaloides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Agua con sal. La primera respuesta a casi todo.","warn":true,"compNombre":"Sobrecarga de Volumen","compTexto":"Pierde 1 ❤️. Tres litros después, los pulmones opinan que fue mucho.","cirujano":false,"turno24":false,"copias":1},{"id":"R16","nombre":"Radiografía de Tórax","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Rotada, penetrada y en espiración. Se informa igual.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R17","nombre":"Radiografía de Tórax","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Rotada, penetrada y en espiración. Se informa igual.","warn":true,"compNombre":"Hallazgo Incidental","compTexto":"Pierde 1 ❤️. Apareció una sombra que nadie buscaba y todo se detiene hasta estudiarla.","cirujano":false,"turno24":false,"copias":1},{"id":"R18","nombre":"Ecografía a Pie de Cama","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Veo algo. No sé qué es, pero lo veo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R19","nombre":"Ecografía a Pie de Cama","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Veo algo. No sé qué es, pero lo veo.","warn":true,"compNombre":"Falso Positivo","compTexto":"Pierde 1 ❤️. La hizo el que estaba, no el que sabía: el equipo entero se fue a perseguir la sombra.","cirujano":false,"turno24":false,"copias":1},{"id":"R20","nombre":"TAC de Urgencia","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"PERSONAL","previene":"","texto":"","frase":"El traslado es más peligroso que la enfermedad. Vamos igual.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R21","nombre":"TAC de Urgencia","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"PERSONAL","previene":"","texto":"","frase":"El traslado es más peligroso que la enfermedad. Vamos igual.","warn":true,"compNombre":"Incidente en el Traslado","compTexto":"Pierde 1 ❤️. El ascensor, el pasillo, la bala de oxígeno al 15%. El viaje era la parte peligrosa.","cirujano":false,"turno24":false,"copias":1},{"id":"R22","nombre":"Angio-TAC","tipo":"IMAGEN","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Contraste, creatinina, y una fe enorme.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R52","nombre":"Angio-TAC","tipo":"IMAGEN","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Contraste, creatinina, y una fe enorme.","warn":true,"compNombre":"Nefropatía por Contraste","compTexto":"Pierde 1 ❤️. El contraste pasó. La creatinina también.","cirujano":false,"turno24":false,"copias":1},{"id":"R23","nombre":"Resonancia con Cupo","tipo":"IMAGEN","sistema":"NEURO","comodin":false,"restriccion":"TURNO","previene":"","texto":"","frase":"Existe. La han visto. Hay testigos.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R24","nombre":"Línea Arterial","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Al quinto intento salió. Nadie mencionará los cuatro anteriores.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R25","nombre":"Línea Arterial","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Al quinto intento salió. Nadie mencionará los cuatro anteriores.","warn":true,"compNombre":"Isquemia Distal","compTexto":"Pierde 1 ❤️. La mano quedó fría. Hubo que retirar la línea.","cirujano":false,"turno24":false,"copias":1},{"id":"R26","nombre":"Catéter Venoso Central","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Ecoguiado, estéril y con público.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R27","nombre":"Catéter Venoso Central","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Ecoguiado, estéril y con público.","warn":true,"compNombre":"Bacteriemia por Catéter","compTexto":"Pierde 1 ❤️. Dos hemocultivos positivos. El catéter lleva doce días.","cirujano":false,"turno24":false,"copias":1},{"id":"R30","nombre":"Ventilación Mecánica","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Modo controlado. El paciente y el ventilador aún negocian.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R31","nombre":"Ventilación Mecánica","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Modo controlado. El paciente y el ventilador aún negocian.","warn":true,"compNombre":"Neumonía Asociada a VM","compTexto":"Pierde 1 ❤️. Lleva ocho días intubado. Ya era esperable.","cirujano":false,"turno24":false,"copias":1},{"id":"R32","nombre":"Gases Arteriales","tipo":"PROCEDIMIENTOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"pH 7.09. Alguien diga algo inteligente.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R33","nombre":"Gases Arteriales","tipo":"PROCEDIMIENTOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"pH 7.09. Alguien diga algo inteligente.","warn":true,"compNombre":"Muestra Hemolizada","compTexto":"Pierde 1 ❤️. Se tomó bien, se rotuló bien, se agitó como coctelera: hay que repetirlo todo.","cirujano":false,"turno24":false,"copias":1},{"id":"R44","nombre":"Pleurostomía","tipo":"PROCEDIMIENTOS","sistema":"RESP","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.","warn":true,"compNombre":"Fuga Aérea Persistente","compTexto":"Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.","cirujano":false,"turno24":false,"copias":1},{"id":"R45","nombre":"Punción Lumbar","tipo":"PROCEDIMIENTOS","sistema":"NEURO","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R34","nombre":"Enfermera de UCI","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"Bacteriemia por Catéter","texto":"MANEJO ESTÉRIL 🛡️ — Mientras siga sobre este paciente, la Bacteriemia por Catéter no le ocurre.","frase":"Sabe más que tú. Te lo dirá con mucha educación.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R35","nombre":"Técnico en Enfermería","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"Neumonía Asociada a VM","texto":"POSICIÓN 30° Y ASEO DE CAVIDADES 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.","frase":"Sostiene la unidad entera. Y la camilla. Y al interno.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R36","nombre":"Personal de Turno Extra","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Aceptó el turno 24. Nadie le preguntó cómo venía del anterior.","warn":true,"compNombre":"El Turno Veinticuatro","compTexto":"Pierde 1 ❤️ y el jefe de esa unidad descarta 1 carta de su mano. Lleva 24 horas de pie: confundió dos bombas y el papeleo.","cirujano":false,"turno24":true,"copias":1},{"id":"R37","nombre":"Becado de Medicina","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"🛡️ PAPELEO AL DÍA — Si lo colocaste sobre un paciente TUYO, busca 1 Protocolo en el descarte de Protocolos y tómalo.","frase":"Quiere aprender. Hoy. Ahora. Contigo.","warn":true,"compNombre":"Aún Estoy Aprendiendo","compTexto":"Pierde 1 ❤️. Era su primera vez. Del procedimiento y del formulario.","cirujano":false,"turno24":false,"copias":1},{"id":"R38","nombre":"Gestor de Camas","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"No trae camas. Trae preguntas sobre las camas.","warn":true,"compNombre":"Presión de Camas","compTexto":"Pierde 1 ❤️. Necesitan la cama para ayer. Se adelantó todo.","cirujano":false,"turno24":false,"copias":1},{"id":"R39","nombre":"Kinesiólogo Respiratorio","tipo":"PERSONAL","sistema":"RESP","comodin":false,"restriccion":"","previene":"Delirium en UCI","texto":"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.","frase":"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R53","nombre":"Pabellón","tipo":"PERSONAL","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"🛡️ PABELLÓN DISPONIBLE — Si lo colocaste sobre un paciente TUYO, mueve gratis 1 recurso entre tus pacientes.","frase":"Hay pabellón. Hay equipo. Falta el anestesista.","warn":true,"compNombre":"Pabellón Suspendido","compTexto":"Pierde 1 ❤️. Se cayó la tabla quirúrgica. Queda para mañana, y mañana también hay tabla.","cirujano":false,"turno24":false,"copias":2},{"id":"R54","nombre":"Cirujano de Turno","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"🛡️ MANOS A LA OBRA — Cuenta como 2 recursos 🧑‍⚕️ sobre cualquier paciente.","frase":"Yo opero. El postoperatorio es problema de ustedes.","warn":true,"compNombre":"Oblito Quirúrgico","compTexto":"Pierde 1 ❤️. La compresa apareció en el control. El recuento decía que estaban todas.","cirujano":true,"turno24":false,"copias":1},{"id":"R42","nombre":"Médico General de Turno","tipo":"COMODIN","sistema":"","comodin":true,"restriccion":"","previene":"","texto":"","frase":"No es su especialidad, pero es el que está. Siempre es el que está.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R43","nombre":"Stock de Sala","tipo":"COMODIN","sistema":"","comodin":true,"restriccion":"","previene":"","texto":"","frase":"Lo que quedó en la gaveta. Sirve para algo. Para algo sirve.","warn":true,"compNombre":"La Gaveta Vacía","compTexto":"Pierde 1 ❤️. Era lo que quedaba. No era lo que servía.","cirujano":false,"turno24":false,"copias":1}],"acciones":[{"id":"A01","nombre":"Vacaciones","tipo":"ATAQUE","coste":2,"texto":"Elige un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival: vuelve a la mano de su dueño.","frase":"Quince días hábiles. Aprobados por RR.HH. justo hoy.","copias":1,"arte":"arte/A01.webp","tinte":"#e4a983"},{"id":"A02","nombre":"Cumpleaños del Residente","tipo":"ATAQUE","coste":3,"texto":"Cada rival elige uno de sus recursos en juego y te lo entrega. Colócalos sobre tus pacientes.","frase":"Trajo torta para todos. Ahora todos le deben algo.","copias":2},{"id":"A03","nombre":"Reunión Clínica","tipo":"APOYO","coste":2,"texto":"Redistribuye libremente hasta 3 recursos entre TUS pacientes.","frase":"Dos horas para decidir lo que ya sabías al minuto cuatro.","copias":2},{"id":"A04","nombre":"Interconsulta","tipo":"APOYO","coste":2,"texto":"Busca en la pila de descartes 1 carta de Recurso y ponla en tu mano.","frase":"Respondió al cuarto día: 'sugiero evaluar'.","copias":2},{"id":"A05","nombre":"Doblo Turno","tipo":"APOYO","coste":1,"texto":"Roba 3 cartas adicionales. En tu próximo turno robas solo 2.","frase":"Me quedo. Total, ya estoy acá.","copias":1},{"id":"A06","nombre":"Se Cayó el Sistema","tipo":"CAOS","coste":1,"texto":"Durante la próxima ronda completa, ningún jugador puede jugar cartas de Acción.","frase":"Estamos trabajando en ello. Lleva tres años el cartel.","copias":1},{"id":"A07","nombre":"¡Liceeeencia!","tipo":"ATAQUE","coste":2,"texto":"Intercambia tu carta de avatar con la de un rival hasta el final de tu próximo turno. Las habilidades 1×PARTIDA ya gastadas siguen gastadas.","frase":"Estrés laboral. Alguien tiene que cubrir el puesto. Ese alguien eres tú.","copias":2},{"id":"A08","nombre":"Llaman de Urgencias","tipo":"ATAQUE","coste":1,"texto":"Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Fin de Guardia.","frase":"Urgencias tiene doce esperando. Doce.","copias":1},{"id":"A09","nombre":"Auditoría","tipo":"ATAQUE","coste":2,"texto":"Mira la mano de un rival y descarta 1 carta de ella.","frase":"Vengo a acompañar el proceso, no a fiscalizar. (Miente.)","copias":2},{"id":"A10","nombre":"Rotación de Internos","tipo":"CAOS","coste":1,"texto":"Intercambia tu mano completa con la de un rival a tu elección.","frase":"Nadie sabe quién rota a dónde. Ellos tampoco.","copias":1},{"id":"A11","nombre":"¿Y Si Vamos por un Cafecito?","tipo":"RESPUESTA","coste":2,"texto":"🛡️ RESPUESTA — Juega fuera de turno. Anula una carta de Acción o una complicación ⚠️ que se acabe de resolver.","frase":"Nadie sabe quién lo hizo ni cuándo. Está listo y está caliente.","copias":2},{"id":"A12","nombre":"Protocolo Institucional","tipo":"APOYO","coste":1,"texto":"Copia el efecto de la última carta de Acción jugada en la partida, como si la jugaras tú.","frase":"Está en la intranet. En un PDF. En una carpeta. En algún lado.","copias":1},{"id":"A13","nombre":"Anda Rondando la Pelada","tipo":"EXTREMA","coste":1,"texto":"ÚNICA. Juégala solo si un rival tiene 2 o más ✝️. Lanza 2 monedas. Dos caras: elige un paciente de ese rival (aunque esté ✅) y dale el Alta Celestial de inmediato. Cualquier otro resultado: descarta toda tu mano.","frase":"Pasó preguntando por la cama 4. Dijo que volvía al rato.","copias":1},{"id":"A14","nombre":"Ojo Clínico","tipo":"APOYO","coste":1,"texto":"Mira las 3 primeras cartas del Mazo de Guardia. Devuélvelas en el orden que quieras o manda 1 al fondo.","frase":"Yo a este paciente lo veo raro. No sé por qué. Lo veo raro.","copias":2},{"id":"A15","nombre":"Receta en Blanco","tipo":"APOYO","coste":3,"texto":"Busca en el Mazo de Guardia 1 recurso a tu elección y ponlo en tu mano. Baraja el mazo.","frase":"La firmó apurado, sin mirar. Que Dios reparta suerte.","copias":2},{"id":"A16","nombre":"Simulación Clínica","tipo":"RESPUESTA","coste":2,"texto":"🛡️ RESPUESTA — Juega fuera de turno. Anula una complicación ⚠️ antes de que se resuelva: el recurso se queda puesto sobre el paciente y no pasa nada más.","frase":"Lo practicamos con el muñeco. El muñeco no se movía tanto.","copias":2},{"id":"A17","nombre":"Quiebre de Stock","tipo":"ATAQUE","coste":2,"texto":"En su próximo turno, tu rival no puede colocar recursos 💊 Fármacos.","frase":"Llega el jueves. Lleva tres jueves llegando.","copias":1},{"id":"A18","nombre":"Recorte Presupuestario","tipo":"ATAQUE","coste":2,"texto":"En su próximo turno, tu rival tiene solo 2 indicaciones en su Pase de Visita.","frase":"Hay que hacer más con menos. Otra vez menos.","copias":1},{"id":"A19","nombre":"El Que Guarda Siempre Tiene","tipo":"APOYO","coste":1,"texto":"Elige un paciente tuyo: hasta tu próximo turno, sus recursos no pueden ser robados ni descartados, y los rivales no pueden colocarle recursos.","frase":"La gaveta del fondo. La que solo ella sabe abrir.","copias":1,"arte":"arte/A19.webp","tinte":"#b4ccb4"},{"id":"A20","nombre":"Hay Que Repetirlo","tipo":"ATAQUE","coste":2,"texto":"Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.","frase":"Se tomó bien. Se rotuló bien. Se agitó como coctelera.","copias":1},{"id":"A21","nombre":"Encarnizamiento Terapéutico","tipo":"ATAQUE","coste":3,"texto":"Elige un paciente rival sin ✅: pierde 1 ❤️ (no puede bajar de 1 ❤️) y su dueño descarta 1 recurso ya colocado sobre él.","frase":"Tres ciclos. Costillas nuevas. Nadie preguntó si correspondía.","copias":1},{"id":"A22","nombre":"Alta Anticipada","tipo":"APOYO","coste":2,"texto":"Elige un paciente tuyo estabilizado ✅ en este mismo turno y sin basura clínica: dale el alta de inmediato, sin esperar tu próxima Entrega. El alta apurada vale 2 puntos menos.","frase":"—¿Y el control? —En el CESFAM. —¿Cuándo? —Sí.","copias":1}],"personajes":[{"id":"C01","nombre":"El Diostor","frecuencia":"1×RONDA","habilidad":"Cuando colocas una carta ⚠️, puedes descartar 2 cartas de tu mano para pasarle su complicación al jugador de tu derecha: la resuelve él sobre sus pacientes, como si la hubiera jugado. El recurso se queda igual sobre tu paciente.","frase":"¿Yo, equivocarme? Imposible. Debe ser un error del laboratorio.","arte":"arte/C01.webp","tinte":"#ffffff"},{"id":"C02","nombre":"El Médico Fantasma","frecuencia":"PASIVA","habilidad":"En la ronda 1 robas 1 carta menos (el fantasma aún no llega). Desde la ronda 4 en adelante, robas 1 carta adicional cada turno por el resto de la guardia.","frase":"Aló... sí, voy bajando. (Se da media vuelta en la residencia.)"},{"id":"C03","nombre":"Doctor Amor","frecuencia":"1×PARTIDA","habilidad":"SEDUCCIÓN DE PASILLO — Roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y añádelo a tu mano. Colocarlo después cuesta su indicación, como cualquier carta.","frase":"Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?"},{"id":"C04","nombre":"El Director del Hospital","frecuencia":"1×PARTIDA · PASIVA","habilidad":"PERDONAZO ADMINISTRATIVO (1×PARTIDA) — Anula y descarta un Sumario Administrativo, tuyo o de cualquier otro jugador. Puedes cobrar el favor. BUROCRACIA AMIGA (PASIVA) — Cerrar tus Sumarios te cuesta 1 carta en vez de 2.","frase":"Haré unas llamadas para que esto no aparezca en los indicadores de calidad."},{"id":"C05","nombre":"La Gestora de Camas","frecuencia":"1×PARTIDA","habilidad":"DERIVACIÓN — Devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido: no pones ✝️ ni restas sus puntos. Pero el papeleo es el mismo: toma un Sumario Administrativo, y esta guardia ya no puede cobrar ningún bonus de cierre.","frase":"No hay cama en UCI. Se va a Intermedio... o a pasillo."},{"id":"C06","nombre":"El Médico Esotérico","frecuencia":"2×PARTIDA","habilidad":"CONFÍA EN EL UNIVERSO — Descarta 1 carta de tu mano como ofrenda, luego revela la primera carta del Mazo de Guardia. Si es un recurso sin ⚠️: colócalo gratis sobre un paciente tuyo. Si trae ⚠️: colócalo gratis igual y resuelve su complicación.","frase":"Tus chakras están bloqueando la vía venosa. Cuarzo rosa y sahumerio, stat."},{"id":"C07","nombre":"La Enfermera de Noche","frecuencia":"1×PARTIDA","habilidad":"TURNO TRANQUILO — Descarta 3 cartas de tu mano y elige 1 paciente de tu unidad: en este Fin de Guardia, ese paciente no pierde ❤️.","frase":"Duerman tranquilos. Yo me quedo con las alarmas."},{"id":"C08","nombre":"El Jefe de Servicio","frecuencia":"1×PARTIDA","habilidad":"FOTO PARA LA MEMORIA — Cuando das tu primera alta ✅ de la guardia, roba 1 carta.","frase":"Excelente trabajo, equipo. Lo presento yo en la reunión."},{"id":"C09","nombre":"La de Abastecimiento","frecuencia":"PASIVA","habilidad":"BODEGA LLENA — Tus Canjes cuestan 1 recurso en vez de 2.","frase":"Firma acá, acá y acá. Y me devuelves el lápiz."},{"id":"C10","nombre":"El Dirigente Gremial","frecuencia":"PASIVA","habilidad":"ASAMBLEA EXTRAORDINARIA — Cada vez que una Acción de ATAQUE rival te elige a ti o a un paciente de tu unidad, roba 1 carta.","frase":"Compañeros, esto no se va a quedar así."},{"id":"C11","nombre":"El Subespecialista","frecuencia":"1×PARTIDA","habilidad":"SUGIERO EVALUAR — Gasta 1 indicación y deja 1 recurso de tu mano boca abajo sobre esta carta. Al inicio de tu próximo Pase de Visita colócalo gratis sobre un paciente tuyo y cuenta doble (si no doblaba ya).","frase":"Respondió al cuarto día. Pero qué respuesta."},{"id":"C12","nombre":"La Enfermera de IAAS","frecuencia":"PASIVA","habilidad":"VIGILANCIA EPIDEMIOLÓGICA — Cada 3 complicaciones ⚠️ que se resuelvan en tu unidad, roba 1 Protocolo gratis.","frase":"No es magia. Es una planilla Excel con 14 pestañas."},{"id":"C13","nombre":"El Residente Aplicado","frecuencia":"PASIVA","habilidad":"PACIENTE EMBLEMA — Si en un mismo turno colocas 3 recursos de tipos distintos sobre un mismo paciente, el 3º cuenta doble (si no doblaba ya).","frase":"Me lo estudié anoche. Entero. Dos veces."},{"id":"C14","nombre":"El Reanimador","frecuencia":"1×PARTIDA","habilidad":"MASAJE Y ADRENALINA — Cuando un paciente tuyo fuera a fallecer, no muere: queda con 1 ❤️ y pierde todos sus recursos colocados.","frase":"No se me va. Hoy no. Carguen a 200."},{"id":"C15","nombre":"El Dador de Altas","frecuencia":"1×PARTIDA","habilidad":"ALTA ADMINISTRATIVA — Descarta 2 cartas de tu mano: un paciente tuyo al que le falte exactamente 1 recurso completa sus requisitos (queda ✅ y consolida normal).","frase":"Se va hoy. La cama la necesito para las tres."},{"id":"C16","nombre":"El Radiólogo de Guardia","frecuencia":"PASIVA","habilidad":"OJO ENTRENADO — Tus recursos 🩻 Imagen con sistema cuentan doble en cualquier paciente tuyo, no solo en los de su sistema.","frase":"Interesante. Muy interesante. ¿Qué me dijiste que buscábamos?"},{"id":"C17","nombre":"El Multiuso","frecuencia":"PASIVA","habilidad":"EL QUE HACE DE TODO — Empiezas la guardia con 1 Comodín 🃏 adicional en la mano. Tus comodines no pueden ser robados ni descartados por rivales.","frase":"Yo cableo el monitor, destapo el baño y de paso tomo la presión.","arte":"arte/C17.webp","tinte":"#e3dfce"},{"id":"C18","nombre":"La de la Buena Muñeca","frecuencia":"PASIVA","habilidad":"AL PRIMER INTENTO — Al final de tu Entrega de Turno, puedes devolver 1 carta de tu mano al fondo del Mazo de Guardia: mira las 3 primeras cartas del mazo, quédate con 1 y devuelve el resto al fondo.","frase":"Vena difícil no existe. Existe poca fe."},{"id":"C19","nombre":"El Intensivista","frecuencia":"PASIVA","habilidad":"A MÍ NO ME ASUSTA — Tus pacientes de Gravedad III y Código ROJO entran a tu unidad con +1 ❤️.","frase":"Grave lo veo yo. Esto es un martes normal.","arte":"arte/C19.webp","tinte":"#859c8a"},{"id":"C20","nombre":"El Carroñero de Pasillo","frecuencia":"PASIVA","habilidad":"JUSTO PASABA POR AHÍ — Cada vez que un rival pone un ✝️, roba 1 carta al azar de su mano.","frase":"Lamento tu pérdida. ¿Vas a ocupar ese monitor?"},{"id":"C21","nombre":"El Precavido","frecuencia":"1×PARTIDA","habilidad":"POR SI ACASO — Busca en el Mazo de Protocolos una carta RESPUESTA 🛡️, muéstrala y tómala gratis. Baraja el mazo.","frase":"Yo esto lo vi venir en marzo. Está en mi correo."},{"id":"C22","nombre":"La Jefa de Unidad","frecuencia":"PASIVA","habilidad":"CUMPLIMIENTO DE METAS — Los recursos 🧑‍⚕️ de tu unidad no pueden ser descartados por cartas de rivales.","frase":"Mi gente no se toca. Las estadísticas tampoco."}]};
+const D = {"pacientes":[{"id":"P01","nombre":"Dolor Torácico Atípico","gravedad":"I","edad":"52","entrega":"","sistema":"CARD","vida":7,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":0,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Le duele cuando respira, cuando camina y cuando le hablan de la cuenta.","copias":1},{"id":"P02","nombre":"El del Frasco Completo","gravedad":"I","edad":"27","entrega":"","sistema":"METAB","vida":7,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Se lo tomó todo. Incluido el algodón.","copias":1,"arte":"arte/P02.webp","tinte":"#a3c79c"},{"id":"P03","nombre":"Abandono de Tratamiento","gravedad":"I","edad":"61","entrega":"","sistema":"CARD","vida":7,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Se sentía bien, así que dejó las pastillas. Hace ocho meses.","copias":1},{"id":"P04","nombre":"La Caída del Baño","gravedad":"I","edad":"78","entrega":"","sistema":"QUIR","vida":7,"pide":{"IMAGEN":2,"FARMACOS":0,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"'Me resbalé', dice. Nadie en la sala le cree.","copias":1,"arte":"arte/P04.webp","tinte":"#d29f44"},{"id":"P05","nombre":"Crisis de Pánico en Box 4","gravedad":"I","edad":"34","entrega":"","sistema":"NEURO","vida":7,"pide":{"IMAGEN":0,"FARMACOS":1,"PERSONAL":2,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Se está muriendo. Todos los martes.","copias":1},{"id":"P06","nombre":"Deshidratado de Verano","gravedad":"I","edad":"46","entrega":"","sistema":"METAB","vida":7,"pide":{"IMAGEN":0,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"Insiste en que cuatro cervezas cuentan como líquido.","copias":1},{"id":"P07","nombre":"El Que Googleó Sus Síntomas","gravedad":"I","edad":"39","entrega":"","sistema":"NEURO","vida":7,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":3,"alta":2,"fallece":-1,"frase":"Trae impreso el diagnóstico. Y el tratamiento. Y el pronóstico.","copias":1},{"id":"P08","nombre":"Postoperado Que No Debería Estar Aquí","gravedad":"I","edad":"58","entrega":"","sistema":"QUIR","vida":7,"pide":{"IMAGEN":1,"FARMACOS":0,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":3,"alta":2,"fallece":-1,"frase":"El cirujano dijo 'obsérvenlo un rato'. Van tres días.","copias":1},{"id":"P09","nombre":"Neumonía Adquirida en la Comunidad","gravedad":"II","edad":"67","entrega":"","sistema":"RESP","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Lleva un mes tosiendo. Vino hoy porque no lo dejaba dormir.","copias":1},{"id":"P10","nombre":"Cetoacidosis Diabética","gravedad":"II","edad":"23","entrega":"","sistema":"METAB","vida":6,"pide":{"IMAGEN":0,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Se le acabó la insulina el jueves. Hoy es domingo.","copias":1},{"id":"P11","nombre":"ACV en Ventana","gravedad":"II","edad":"71","entrega":"","sistema":"NEURO","vida":6,"pide":{"IMAGEN":2,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Nadie sabe a qué hora empezó. Nadie.","copias":1,"arte":"arte/P11.webp","tinte":"#916ea5"},{"id":"P12","nombre":"Hemorragia Digestiva Alta","gravedad":"II","edad":"54","entrega":"","sistema":"QUIR","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Dice que es la primera vez. Es la sexta.","copias":1},{"id":"P13","nombre":"Insuficiencia Cardíaca Descompensada","gravedad":"II","edad":"76","entrega":"","sistema":"CARD","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Comió cazuela. Y sopa. Y jugo. Y postre.","copias":1},{"id":"P14","nombre":"Pielonefritis Complicada","gravedad":"II","edad":"41","entrega":"","sistema":"METAB","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Aguantó dos semanas por no faltar al trabajo.","copias":1},{"id":"P15","nombre":"Abdomen Agudo Sin Diagnóstico","gravedad":"II","edad":"49","entrega":"","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":0},"total":5,"alta":3,"fallece":-2,"frase":"Cirugía dice que es de medicina. Medicina dice que es de cirugía.","copias":1},{"id":"P16","nombre":"EPOC Exacerbado","gravedad":"II","edad":"69","entrega":"","sistema":"RESP","vida":6,"pide":{"IMAGEN":1,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":2},"total":5,"alta":3,"fallece":-2,"frase":"Trae su balón de oxígeno. Y su cajetilla.","copias":1},{"id":"P17","nombre":"Intoxicación Mixta","gravedad":"II","edad":"31","entrega":"","sistema":"METAB","vida":6,"pide":{"IMAGEN":0,"FARMACOS":3,"PERSONAL":1,"PROCEDIMIENTOS":1},"total":5,"alta":3,"fallece":-2,"frase":"Nadie sabe qué tomó. Él tampoco.","copias":1},{"id":"P18","nombre":"Delirium del Adulto Mayor","gravedad":"II","edad":"84","entrega":"","sistema":"NEURO","vida":6,"pide":{"IMAGEN":1,"FARMACOS":1,"PERSONAL":3,"PROCEDIMIENTOS":0},"total":5,"alta":3,"fallece":-2,"frase":"De día duerme. De noche dirige una orquesta.","copias":1},{"id":"P19","nombre":"Shock Séptico","gravedad":"III","edad":"63","entrega":"","sistema":"CARD","vida":6,"pide":{"IMAGEN":1,"FARMACOS":4,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"La hora dorada empezó hace cuatro horas.","copias":1},{"id":"P20","nombre":"Politraumatizado","gravedad":"III","edad":"22","entrega":"","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":1,"PERSONAL":1,"PROCEDIMIENTOS":3},"total":8,"alta":6,"fallece":-2,"frase":"Iba a 120. Sin cinturón. 'Por acá nunca hay control'.","copias":1},{"id":"P21","nombre":"Síndrome de Distrés Respiratorio","gravedad":"III","edad":"57","entrega":"","sistema":"RESP","vida":6,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"Los pulmones parecen vidrio esmerilado. Él parece tranquilo.","copias":1},{"id":"P22","nombre":"Status Epiléptico","gravedad":"III","edad":"36","entrega":"","sistema":"NEURO","vida":6,"pide":{"IMAGEN":1,"FARMACOS":4,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":6,"fallece":-2,"frase":"Cuarta dosis. Sigue convulsionando.","copias":1},{"id":"P23","nombre":"Pancreatitis Grave","gravedad":"III","edad":"44","entrega":"","sistema":"QUIR","vida":6,"pide":{"IMAGEN":3,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":1},"total":8,"alta":6,"fallece":-2,"frase":"Fue un asado. Uno solo, insiste.","copias":1},{"id":"P24","nombre":"Tromboembolismo Pulmonar Masivo","gravedad":"III","edad":"59","entrega":"","sistema":"RESP","vida":6,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":0,"PROCEDIMIENTOS":4},"total":8,"alta":6,"fallece":-2,"frase":"Volvió de un vuelo de catorce horas y del baño no salió caminando.","copias":1},{"id":"P25","nombre":"Falla Multiorgánica","gravedad":"ROJO","edad":"72","entrega":"","sistema":"CARD","vida":5,"pide":{"IMAGEN":2,"FARMACOS":3,"PERSONAL":1,"PROCEDIMIENTOS":2},"total":8,"alta":8,"fallece":-3,"frase":"Todo mal. Y en orden alfabético.","copias":1},{"id":"P26","nombre":"Trasplante en Lista Cero","gravedad":"ROJO","edad":"45","entrega":"","sistema":"QUIR","vida":5,"pide":{"IMAGEN":2,"FARMACOS":2,"PERSONAL":2,"PROCEDIMIENTOS":2},"total":8,"alta":8,"fallece":-3,"frase":"Hay órgano. Hay avión. No hay pabellón.","copias":1}],"recursos":[{"id":"R01","nombre":"Antibiótico de Amplio Espectro","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cubre todo. Especialmente nuestra falta de diagnóstico.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R02","nombre":"Antibiótico de Amplio Espectro","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cubre todo. Especialmente nuestra falta de diagnóstico.","warn":true,"compNombre":"Resistencia Antibiótica","compTexto":"Pierde 1 ❤️. Estaba estable con lo que le dimos. El cultivo dijo otra cosa.","cirujano":false,"turno24":false,"copias":1},{"id":"R46","nombre":"Sedoanalgesia","tipo":"FARMACOS","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R47","nombre":"Sedoanalgesia","tipo":"FARMACOS","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'","warn":true,"compNombre":"Delirium en UCI","compTexto":"Pierde 1 ❤️. Justo cuando despertaba: se sacó la sonda, la vía y el ánimo del turno.","cirujano":false,"turno24":false,"copias":1},{"id":"R05","nombre":"Anticoagulación","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R06","nombre":"Anticoagulación","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","warn":true,"compNombre":"Sangrado","compTexto":"Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.","cirujano":false,"turno24":false,"copias":1},{"id":"R07","nombre":"Hemoderivados","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Llegaron. Sin la ficha, pero llegaron.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2,"arte":"arte/R07.webp","tinte":"#5a9297"},{"id":"R08","nombre":"Noradrenalina","tipo":"FARMACOS","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"La presión sube. La del paciente y la tuya.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R09","nombre":"Noradrenalina","tipo":"FARMACOS","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"La presión sube. La del paciente y la tuya.","warn":true,"compNombre":"Taquicardia Ventricular","compTexto":"Pierde 1 ❤️. El monitor hace el dibujo que nadie quiere ver.","cirujano":false,"turno24":false,"copias":1},{"id":"R10","nombre":"Broncodilatador en Nebulización","tipo":"FARMACOS","sistema":"RESP","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sale más vapor que del baño turco. Algo tiene que estar llegando.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R13","nombre":"Insulina en Bomba","tipo":"FARMACOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Cada dos horas un hemoglucotest. Cada dos horas.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R48","nombre":"Corticoides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sirven para todo. Suben el azúcar, el ánimo y la presión.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R49","nombre":"Corticoides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Sirven para todo. Suben el azúcar, el ánimo y la presión.","warn":true,"compNombre":"Hiperglicemia","compTexto":"Pierde 1 ❤️. 380 de glicemia: ahora también es diabético. Búscale una insulina.","cirujano":false,"turno24":false,"copias":1},{"id":"R50","nombre":"Cristaloides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Agua con sal. La primera respuesta a casi todo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1,"arte":"arte/R50.webp","tinte":"#51868c"},{"id":"R51","nombre":"Cristaloides","tipo":"FARMACOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Agua con sal. La primera respuesta a casi todo.","warn":true,"compNombre":"Sobrecarga de Volumen","compTexto":"Pierde 1 ❤️. Tres litros después, los pulmones opinan que fue mucho.","cirujano":false,"turno24":false,"copias":1},{"id":"R16","nombre":"Radiografía de Tórax","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Rotada, penetrada y en espiración. Se informa igual.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R17","nombre":"Radiografía de Tórax","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Rotada, penetrada y en espiración. Se informa igual.","warn":true,"compNombre":"Hallazgo Incidental","compTexto":"Pierde 1 ❤️. Apareció una sombra que nadie buscaba y todo se detiene hasta estudiarla.","cirujano":false,"turno24":false,"copias":1},{"id":"R18","nombre":"Ecografía a Pie de Cama","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Veo algo. No sé qué es, pero lo veo.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R19","nombre":"Ecografía a Pie de Cama","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Veo algo. No sé qué es, pero lo veo.","warn":true,"compNombre":"Falso Positivo","compTexto":"Pierde 1 ❤️. La hizo el que estaba, no el que sabía: el equipo entero se fue a perseguir la sombra.","cirujano":false,"turno24":false,"copias":1},{"id":"R20","nombre":"TAC de Urgencia","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"PERSONAL","previene":"","texto":"","frase":"El traslado es más peligroso que la enfermedad. Vamos igual.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R21","nombre":"TAC de Urgencia","tipo":"IMAGEN","sistema":"","comodin":false,"restriccion":"PERSONAL","previene":"","texto":"","frase":"El traslado es más peligroso que la enfermedad. Vamos igual.","warn":true,"compNombre":"Incidente en el Traslado","compTexto":"Pierde 1 ❤️. El ascensor, el pasillo, la bala de oxígeno al 15%. El viaje era la parte peligrosa.","cirujano":false,"turno24":false,"copias":1},{"id":"R22","nombre":"Angio-TAC","tipo":"IMAGEN","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Contraste, creatinina, y una fe enorme.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R52","nombre":"Angio-TAC","tipo":"IMAGEN","sistema":"CARD","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Contraste, creatinina, y una fe enorme.","warn":true,"compNombre":"Nefropatía por Contraste","compTexto":"Pierde 1 ❤️. El contraste pasó. La creatinina también.","cirujano":false,"turno24":false,"copias":1},{"id":"R23","nombre":"Resonancia con Cupo","tipo":"IMAGEN","sistema":"NEURO","comodin":false,"restriccion":"TURNO","previene":"","texto":"","frase":"Existe. La han visto. Hay testigos.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R24","nombre":"Línea Arterial","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Al quinto intento salió. Nadie mencionará los cuatro anteriores.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R25","nombre":"Línea Arterial","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Al quinto intento salió. Nadie mencionará los cuatro anteriores.","warn":true,"compNombre":"Isquemia Distal","compTexto":"Pierde 1 ❤️. La mano quedó fría. Hubo que retirar la línea.","cirujano":false,"turno24":false,"copias":1},{"id":"R26","nombre":"Catéter Venoso Central","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Ecoguiado, estéril y con público.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R27","nombre":"Catéter Venoso Central","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Ecoguiado, estéril y con público.","warn":true,"compNombre":"Bacteriemia por Catéter","compTexto":"Pierde 1 ❤️. Dos hemocultivos positivos. El catéter lleva doce días.","cirujano":false,"turno24":false,"copias":1},{"id":"R30","nombre":"Ventilación Mecánica","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Modo controlado. El paciente y el ventilador aún negocian.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R31","nombre":"Ventilación Mecánica","tipo":"PROCEDIMIENTOS","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Modo controlado. El paciente y el ventilador aún negocian.","warn":true,"compNombre":"Neumonía Asociada a VM","compTexto":"Pierde 1 ❤️. Lleva ocho días intubado. Ya era esperable.","cirujano":false,"turno24":false,"copias":1},{"id":"R32","nombre":"Gases Arteriales","tipo":"PROCEDIMIENTOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"pH 7.09. Alguien diga algo inteligente.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R33","nombre":"Gases Arteriales","tipo":"PROCEDIMIENTOS","sistema":"METAB","comodin":false,"restriccion":"","previene":"","texto":"","frase":"pH 7.09. Alguien diga algo inteligente.","warn":true,"compNombre":"Muestra Hemolizada","compTexto":"Pierde 1 ❤️. Se tomó bien, se rotuló bien, se agitó como coctelera: hay que repetirlo todo.","cirujano":false,"turno24":false,"copias":1},{"id":"R44","nombre":"Pleurostomía","tipo":"PROCEDIMIENTOS","sistema":"RESP","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.","warn":true,"compNombre":"Fuga Aérea Persistente","compTexto":"Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.","cirujano":false,"turno24":false,"copias":1},{"id":"R45","nombre":"Punción Lumbar","tipo":"PROCEDIMIENTOS","sistema":"NEURO","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":1},{"id":"R34","nombre":"Enfermera de UCI","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"Bacteriemia por Catéter","texto":"MANEJO ESTÉRIL 🛡️ — Mientras siga sobre este paciente, la Bacteriemia por Catéter no le ocurre.","frase":"Sabe más que tú. Te lo dirá con mucha educación.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":3},{"id":"R35","nombre":"Técnico en Enfermería","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"Neumonía Asociada a VM","texto":"POSICIÓN 30° Y ASEO DE CAVIDADES 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.","frase":"Sostiene la unidad entera. Y la camilla. Y al interno.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R36","nombre":"Personal de Turno Extra","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"Aceptó el turno 24. Nadie le preguntó cómo venía del anterior.","warn":true,"compNombre":"El Turno Veinticuatro","compTexto":"Pierde 1 ❤️ y el jefe de esa unidad descarta 1 carta de su mano. Lleva 24 horas de pie: confundió dos bombas y el papeleo.","cirujano":false,"turno24":true,"copias":1},{"id":"R37","nombre":"Becado de Medicina","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"🛡️ PAPELEO AL DÍA — Si lo colocaste sobre un paciente TUYO, busca 1 Protocolo en el descarte de Protocolos y tómalo.","frase":"Quiere aprender. Hoy. Ahora. Contigo.","warn":true,"compNombre":"Aún Estoy Aprendiendo","compTexto":"Pierde 1 ❤️. Era su primera vez. Del procedimiento y del formulario.","cirujano":false,"turno24":false,"copias":1},{"id":"R38","nombre":"Gestor de Camas","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"","frase":"No trae camas. Trae preguntas sobre las camas.","warn":true,"compNombre":"Presión de Camas","compTexto":"Pierde 1 ❤️. Necesitan la cama para ayer. Se adelantó todo.","cirujano":false,"turno24":false,"copias":1},{"id":"R39","nombre":"Kinesiólogo Respiratorio","tipo":"PERSONAL","sistema":"RESP","comodin":false,"restriccion":"","previene":"Delirium en UCI","texto":"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.","frase":"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R53","nombre":"Pabellón","tipo":"PERSONAL","sistema":"QUIR","comodin":false,"restriccion":"","previene":"","texto":"🛡️ PABELLÓN DISPONIBLE — Si lo colocaste sobre un paciente TUYO, mueve gratis 1 recurso entre tus pacientes.","frase":"Hay pabellón. Hay equipo. Falta el anestesista.","warn":true,"compNombre":"Pabellón Suspendido","compTexto":"Pierde 1 ❤️. Se cayó la tabla quirúrgica. Queda para mañana, y mañana también hay tabla.","cirujano":false,"turno24":false,"copias":2},{"id":"R54","nombre":"Cirujano de Turno","tipo":"PERSONAL","sistema":"","comodin":false,"restriccion":"","previene":"","texto":"🛡️ MANOS A LA OBRA — Cuenta como 2 recursos 🧑‍⚕️ sobre cualquier paciente.","frase":"Yo opero. El postoperatorio es problema de ustedes.","warn":true,"compNombre":"Oblito Quirúrgico","compTexto":"Pierde 1 ❤️. La compresa apareció en el control. El recuento decía que estaban todas.","cirujano":true,"turno24":false,"copias":1},{"id":"R42","nombre":"Médico General de Turno","tipo":"COMODIN","sistema":"","comodin":true,"restriccion":"","previene":"","texto":"","frase":"No es su especialidad, pero es el que está. Siempre es el que está.","warn":false,"compNombre":"","compTexto":"","cirujano":false,"turno24":false,"copias":2},{"id":"R43","nombre":"Stock de Sala","tipo":"COMODIN","sistema":"","comodin":true,"restriccion":"","previene":"","texto":"","frase":"Lo que quedó en la gaveta. Sirve para algo. Para algo sirve.","warn":true,"compNombre":"La Gaveta Vacía","compTexto":"Pierde 1 ❤️. Era lo que quedaba. No era lo que servía.","cirujano":false,"turno24":false,"copias":1}],"acciones":[{"id":"A01","nombre":"Vacaciones","tipo":"ATAQUE","coste":2,"texto":"Elige un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival: vuelve a la mano de su dueño.","frase":"Quince días hábiles. Aprobados por RR.HH. justo hoy.","copias":1,"arte":"arte/A01.webp","tinte":"#e4a983"},{"id":"A02","nombre":"Cumpleaños del Residente","tipo":"ATAQUE","coste":3,"texto":"Cada rival elige uno de sus recursos en juego y te lo entrega. Colócalos sobre tus pacientes.","frase":"Trajo torta para todos. Ahora todos le deben algo.","copias":2},{"id":"A03","nombre":"Reunión Clínica","tipo":"APOYO","coste":2,"texto":"Redistribuye libremente hasta 3 recursos entre TUS pacientes.","frase":"Dos horas para decidir lo que ya sabías al minuto cuatro.","copias":2},{"id":"A04","nombre":"Interconsulta","tipo":"APOYO","coste":2,"texto":"Busca en la pila de descartes 1 carta de Recurso y ponla en tu mano.","frase":"Respondió al cuarto día: 'sugiero evaluar'.","copias":2},{"id":"A05","nombre":"Doblo Turno","tipo":"APOYO","coste":1,"texto":"Roba 3 cartas adicionales. En tu próximo turno robas solo 2.","frase":"Me quedo. Total, ya estoy acá.","copias":1},{"id":"A06","nombre":"Se Cayó el Sistema","tipo":"CAOS","coste":1,"texto":"Durante la próxima ronda completa, ningún jugador puede jugar cartas de Acción.","frase":"Estamos trabajando en ello. Lleva tres años el cartel.","copias":1},{"id":"A07","nombre":"¡Liceeeencia!","tipo":"ATAQUE","coste":2,"texto":"Intercambia tu carta de avatar con la de un rival hasta el final de tu próximo turno. Las habilidades 1×PARTIDA ya gastadas siguen gastadas.","frase":"Estrés laboral. Alguien tiene que cubrir el puesto. Ese alguien eres tú.","copias":2},{"id":"A08","nombre":"Llaman de Urgencias","tipo":"ATAQUE","coste":1,"texto":"Un rival elige uno de sus pacientes. Ese paciente pierde 1 ❤️ adicional en su próximo Fin de Guardia.","frase":"Urgencias tiene doce esperando. Doce.","copias":1},{"id":"A09","nombre":"Auditoría","tipo":"ATAQUE","coste":2,"texto":"Mira la mano de un rival y descarta 1 carta de ella.","frase":"Vengo a acompañar el proceso, no a fiscalizar. (Miente.)","copias":2},{"id":"A10","nombre":"Rotación de Internos","tipo":"CAOS","coste":1,"texto":"Intercambia tu mano completa con la de un rival a tu elección.","frase":"Nadie sabe quién rota a dónde. Ellos tampoco.","copias":1},{"id":"A11","nombre":"¿Y Si Vamos por un Cafecito?","tipo":"RESPUESTA","coste":2,"texto":"🛡️ RESPUESTA — Juega fuera de turno. Anula una carta de Acción o una complicación ⚠️ que se acabe de resolver.","frase":"Nadie sabe quién lo hizo ni cuándo. Está listo y está caliente.","copias":2},{"id":"A12","nombre":"Protocolo Institucional","tipo":"APOYO","coste":1,"texto":"Copia el efecto de la última carta de Acción jugada en la partida, como si la jugaras tú.","frase":"Está en la intranet. En un PDF. En una carpeta. En algún lado.","copias":1},{"id":"A13","nombre":"Anda Rondando la Pelada","tipo":"EXTREMA","coste":1,"texto":"ÚNICA. Juégala solo si un rival tiene 2 o más ✝️. Lanza 2 monedas. Dos caras: elige un paciente de ese rival (aunque esté ✅) y dale el Alta Celestial de inmediato. Cualquier otro resultado: descarta toda tu mano.","frase":"Pasó preguntando por la cama 4. Dijo que volvía al rato.","copias":1},{"id":"A14","nombre":"Ojo Clínico","tipo":"APOYO","coste":1,"texto":"Mira las 3 primeras cartas del Mazo de Guardia. Devuélvelas en el orden que quieras o manda 1 al fondo.","frase":"Yo a este paciente lo veo raro. No sé por qué. Lo veo raro.","copias":2},{"id":"A15","nombre":"Receta en Blanco","tipo":"APOYO","coste":3,"texto":"Busca en el Mazo de Guardia 1 recurso a tu elección y ponlo en tu mano. Baraja el mazo.","frase":"La firmó apurado, sin mirar. Que Dios reparta suerte.","copias":2},{"id":"A16","nombre":"Simulación Clínica","tipo":"RESPUESTA","coste":2,"texto":"🛡️ RESPUESTA — Juega fuera de turno. Anula una complicación ⚠️ antes de que se resuelva: el recurso se queda puesto sobre el paciente y no pasa nada más.","frase":"Lo practicamos con el muñeco. El muñeco no se movía tanto.","copias":2},{"id":"A17","nombre":"Quiebre de Stock","tipo":"ATAQUE","coste":2,"texto":"En su próximo turno, tu rival no puede colocar recursos 💊 Fármacos.","frase":"Llega el jueves. Lleva tres jueves llegando.","copias":1},{"id":"A18","nombre":"Recorte Presupuestario","tipo":"ATAQUE","coste":2,"texto":"En su próximo turno, tu rival tiene solo 2 indicaciones en su Pase de Visita.","frase":"Hay que hacer más con menos. Otra vez menos.","copias":1},{"id":"A19","nombre":"El Que Guarda Siempre Tiene","tipo":"APOYO","coste":1,"texto":"Elige un paciente tuyo: hasta tu próximo turno, sus recursos no pueden ser robados ni descartados, y los rivales no pueden colocarle recursos.","frase":"La gaveta del fondo. La que solo ella sabe abrir.","copias":1,"arte":"arte/A19.webp","tinte":"#b4ccb4"},{"id":"A20","nombre":"Hay Que Repetirlo","tipo":"ATAQUE","coste":2,"texto":"Descarta un recurso 🩻 Imagen o 💉 Procedimientos de un paciente rival.","frase":"Se tomó bien. Se rotuló bien. Se agitó como coctelera.","copias":1},{"id":"A21","nombre":"Encarnizamiento Terapéutico","tipo":"ATAQUE","coste":3,"texto":"Elige un paciente rival sin ✅: pierde 1 ❤️ (no puede bajar de 1 ❤️) y su dueño descarta 1 recurso ya colocado sobre él.","frase":"Tres ciclos. Costillas nuevas. Nadie preguntó si correspondía.","copias":1},{"id":"A22","nombre":"Alta Anticipada","tipo":"APOYO","coste":2,"texto":"Elige un paciente tuyo estabilizado ✅ en este mismo turno y sin basura clínica: dale el alta de inmediato, sin esperar tu próxima Entrega. El alta apurada vale 2 puntos menos.","frase":"—¿Y el control? —En el CESFAM. —¿Cuándo? —Sí.","copias":1}],"personajes":[{"id":"C01","nombre":"El Diostor","frecuencia":"1×RONDA","habilidad":"Cuando colocas una carta ⚠️, puedes descartar 2 cartas de tu mano para pasarle su complicación al jugador de tu derecha: la resuelve él sobre sus pacientes, como si la hubiera jugado. El recurso se queda igual sobre tu paciente.","frase":"¿Yo, equivocarme? Imposible. Debe ser un error del laboratorio.","arte":"arte/C01.webp","tinte":"#ffffff"},{"id":"C02","nombre":"El Médico Fantasma","frecuencia":"PASIVA","habilidad":"En la ronda 1 robas 1 carta menos (el fantasma aún no llega). Desde la ronda 4 en adelante, robas 1 carta adicional cada turno por el resto de la guardia.","frase":"Aló... sí, voy bajando. (Se da media vuelta en la residencia.)"},{"id":"C03","nombre":"Doctor Amor","frecuencia":"1×PARTIDA","habilidad":"SEDUCCIÓN DE PASILLO — Roba un recurso 🧑‍⚕️ Personal colocado sobre un paciente rival y añádelo a tu mano. Colocarlo después cuesta su indicación, como cualquier carta.","frase":"Tus ojos brillan más que este laringoscopio. ¿Un café de máquina?"},{"id":"C04","nombre":"El Director del Hospital","frecuencia":"1×PARTIDA · PASIVA","habilidad":"PERDONAZO ADMINISTRATIVO (1×PARTIDA) — Anula y descarta un Sumario Administrativo, tuyo o de cualquier otro jugador. Puedes cobrar el favor. BUROCRACIA AMIGA (PASIVA) — Cerrar tus Sumarios te cuesta 1 carta en vez de 2.","frase":"Haré unas llamadas para que esto no aparezca en los indicadores de calidad."},{"id":"C05","nombre":"La Gestora de Camas","frecuencia":"1×PARTIDA","habilidad":"DERIVACIÓN — Devuelve un paciente tuyo al fondo del Mazo de Pacientes (sus recursos se descartan) y admite uno nuevo de inmediato. No cuenta como fallecido: no pones ✝️ ni restas sus puntos. Pero el papeleo es el mismo: toma un Sumario Administrativo, y esta guardia ya no puede cobrar ningún bonus de cierre.","frase":"No hay cama en UCI. Se va a Intermedio... o a pasillo."},{"id":"C06","nombre":"El Médico Esotérico","frecuencia":"2×PARTIDA","habilidad":"CONFÍA EN EL UNIVERSO — Descarta 1 carta de tu mano como ofrenda, luego revela la primera carta del Mazo de Guardia. Si es un recurso sin ⚠️: colócalo gratis sobre un paciente tuyo. Si trae ⚠️: colócalo gratis igual y resuelve su complicación.","frase":"Tus chakras están bloqueando la vía venosa. Cuarzo rosa y sahumerio, stat."},{"id":"C07","nombre":"La Enfermera de Noche","frecuencia":"1×PARTIDA","habilidad":"TURNO TRANQUILO — Descarta 3 cartas de tu mano y elige 1 paciente de tu unidad: en este Fin de Guardia, ese paciente no pierde ❤️.","frase":"Duerman tranquilos. Yo me quedo con las alarmas."},{"id":"C08","nombre":"El Jefe de Servicio","frecuencia":"1×PARTIDA","habilidad":"FOTO PARA LA MEMORIA — Cuando das tu primera alta ✅ de la guardia, roba 1 carta.","frase":"Excelente trabajo, equipo. Lo presento yo en la reunión."},{"id":"C09","nombre":"La de Abastecimiento","frecuencia":"PASIVA","habilidad":"BODEGA LLENA — Tus Canjes cuestan 1 recurso en vez de 2.","frase":"Firma acá, acá y acá. Y me devuelves el lápiz."},{"id":"C10","nombre":"El Dirigente Gremial","frecuencia":"PASIVA","habilidad":"ASAMBLEA EXTRAORDINARIA — Cada vez que una Acción de ATAQUE rival te elige a ti o a un paciente de tu unidad, roba 1 carta.","frase":"Compañeros, esto no se va a quedar así."},{"id":"C11","nombre":"El Subespecialista","frecuencia":"1×PARTIDA","habilidad":"SUGIERO EVALUAR — Gasta 1 indicación y deja 1 recurso de tu mano boca abajo sobre esta carta. Al inicio de tu próximo Pase de Visita colócalo gratis sobre un paciente tuyo y cuenta doble (si no doblaba ya).","frase":"Respondió al cuarto día. Pero qué respuesta."},{"id":"C12","nombre":"La Enfermera de IAAS","frecuencia":"PASIVA","habilidad":"VIGILANCIA EPIDEMIOLÓGICA — Cada 3 complicaciones ⚠️ que se resuelvan en tu unidad, roba 1 Protocolo gratis.","frase":"No es magia. Es una planilla Excel con 14 pestañas."},{"id":"C13","nombre":"El Residente Aplicado","frecuencia":"PASIVA","habilidad":"PACIENTE EMBLEMA — Si en un mismo turno colocas 3 recursos de tipos distintos sobre un mismo paciente, el 3º cuenta doble (si no doblaba ya).","frase":"Me lo estudié anoche. Entero. Dos veces."},{"id":"C14","nombre":"El Reanimador","frecuencia":"1×PARTIDA","habilidad":"MASAJE Y ADRENALINA — Cuando un paciente tuyo fuera a fallecer, no muere: queda con 1 ❤️ y pierde todos sus recursos colocados.","frase":"No se me va. Hoy no. Carguen a 200."},{"id":"C15","nombre":"El Dador de Altas","frecuencia":"1×PARTIDA","habilidad":"ALTA ADMINISTRATIVA — Descarta 2 cartas de tu mano: un paciente tuyo al que le falte exactamente 1 recurso completa sus requisitos (queda ✅ y consolida normal).","frase":"Se va hoy. La cama la necesito para las tres."},{"id":"C16","nombre":"El Radiólogo de Guardia","frecuencia":"PASIVA","habilidad":"OJO ENTRENADO — Tus recursos 🩻 Imagen con sistema cuentan doble en cualquier paciente tuyo, no solo en los de su sistema.","frase":"Interesante. Muy interesante. ¿Qué me dijiste que buscábamos?"},{"id":"C17","nombre":"El Multiuso","frecuencia":"PASIVA","habilidad":"EL QUE HACE DE TODO — Empiezas la guardia con 1 Comodín 🃏 adicional en la mano. Tus comodines no pueden ser robados ni descartados por rivales.","frase":"Yo cableo el monitor, destapo el baño y de paso tomo la presión.","arte":"arte/C17.webp","tinte":"#e3dfce"},{"id":"C18","nombre":"La de la Buena Muñeca","frecuencia":"PASIVA","habilidad":"AL PRIMER INTENTO — Al final de tu Entrega de Turno, puedes devolver 1 carta de tu mano al fondo del Mazo de Guardia: mira las 3 primeras cartas del mazo, quédate con 1 y devuelve el resto al fondo.","frase":"Vena difícil no existe. Existe poca fe."},{"id":"C19","nombre":"El Intensivista","frecuencia":"PASIVA","habilidad":"A MÍ NO ME ASUSTA — Tus pacientes de Gravedad III y Código ROJO entran a tu unidad con +1 ❤️.","frase":"Grave lo veo yo. Esto es un martes normal.","arte":"arte/C19.webp","tinte":"#859c8a"},{"id":"C20","nombre":"El Carroñero de Pasillo","frecuencia":"PASIVA","habilidad":"JUSTO PASABA POR AHÍ — Cada vez que un rival pone un ✝️, roba 1 carta al azar de su mano.","frase":"Lamento tu pérdida. ¿Vas a ocupar ese monitor?"},{"id":"C21","nombre":"El Precavido","frecuencia":"1×PARTIDA","habilidad":"POR SI ACASO — Busca en el Mazo de Protocolos una carta RESPUESTA 🛡️, muéstrala y tómala gratis. Baraja el mazo.","frase":"Yo esto lo vi venir en marzo. Está en mi correo."},{"id":"C22","nombre":"La Jefa de Unidad","frecuencia":"PASIVA","habilidad":"CUMPLIMIENTO DE METAS — Los recursos 🧑‍⚕️ de tu unidad no pueden ser descartados por cartas de rivales.","frase":"Mi gente no se toca. Las estadísticas tampoco."}]};
 
 /* ══ constantes de reglas (v0.30 · REGLAMENTO-v030.md) ══════════════ */
 const TIPOS = ["IMAGEN","FARMACOS","PERSONAL","PROCEDIMIENTOS"];
@@ -1994,7 +2139,7 @@ function nuevaPartida(modo, nombres, tuto){
    vuelven al fondo de la pila. */
 function siguienteAvatar(){
   const i = G.jug.findIndex(j=>!j.avatar);
-  if(i < 0){ G.pendiente = null; entrarFase(0); return; }
+  if(i < 0){ siguienteEntrega(); return; }   // y ahora te pasan la unidad
   G.pendiente = {tipo:"avatar", jugador:i,
                  ops: G.avatarPool.splice(-3, 3)};
   UI.avPos = 0;
@@ -4903,6 +5048,7 @@ function pintarCapa(){
   delete capa.dataset.av;
   if(UI.modal){ capa.appendChild(UI.modal); return; }
   if(!G || !G.pendiente) return;
+  if(G.pendiente.tipo==="entrega"){ capa.appendChild(pantallaEntrega()); return; }
   if(G.pendiente.tipo==="pasa"){ capa.appendChild(cortina()); return; }
   if(G.pendiente.tipo==="admision"){ capa.appendChild(modalAdmision()); return; }
 }
@@ -5040,6 +5186,278 @@ function modalAvatar(){
   pintarRueda(UI.avPos||0, cont);   // ya colocadas al nacer, sin parpadeo
   return cap;
 }
+
+
+/* ══ LA ENTREGA DE TURNO (v0.58) ═════════════════════════════════════
+   La primera fase del juego ya se llamaba así y era la única que nunca
+   ocurría en pantalla: elegías personaje y de golpe había dos pacientes
+   en sus camas, sin que nadie te dijera quiénes eran. Ahora la colega
+   que sale te pasa la unidad, cama por cama.
+
+   Dos formas, y la diferencia es cuántas veces la has visto:
+
+   · LA CEREMONIA — la primera guardia de todas y siempre en «Primera
+     guardia». Un golpe por cama, la carta grande con su arte, y cierra
+     con la cama vacía, que es el único silencio de la pantalla y prepara
+     la admisión que llega enseguida. «Saltar» está desde el primer toque.
+   · LA HOJA — de ahí en adelante. Una pantalla, dos toques, y quien
+     quiera detalle toca una cama y se abre la ficha de siempre.
+
+   No toca ninguna regla: no eliges paciente, no cambia el reparto, no hay
+   nada que volver a simular. Es escenario.                              */
+const CLAVE_ENT = "vt-entrega-vista";
+function conCeremonia(){
+  if(G && G.tuto) return true;                 // el coach la muestra siempre
+  try{ return localStorage.getItem(CLAVE_ENT) !== "1"; }catch(e){ return true; }
+}
+function entregaVista(){ try{ localStorage.setItem(CLAVE_ENT,"1"); }catch(e){} }
+
+/* Encadena una entrega por jugador humano y, cuando no queda ninguna,
+   entra a la fase 0 de siempre. Se llama al terminar los avatares. */
+function siguienteEntrega(){
+  const i = G.jug.findIndex(j=>!j.ia && !j.entregado);
+  if(i < 0){ G.pendiente = null; entrarFase(0); return; }
+  G.pendiente = {tipo:"entrega", jugador:i, paso:0};
+  guardar(); render();
+}
+function cerrarEntrega(){
+  const p = G.pendiente;
+  if(p && p.tipo==="entrega") G.jug[p.jugador].entregado = true;
+  entregaVista();
+  siguienteEntrega();
+}
+
+/* Los golpes de la ceremonia salen de la unidad: uno por cama ocupada,
+   uno por la vacía si la hay, más la apertura y el cierre. */
+function golpesEntrega(j){
+  const g = [{t:"abre"}];
+  j.camas.forEach((c,i)=>{ if(c) g.push({t:"cama", c, n:i+1}); });
+  if(j.camas.some(c=>!c)) g.push({t:"vacia", n:j.camas.findIndex(c=>!c)+1});
+  g.push({t:"cierra"});
+  return g;
+}
+
+/* La línea con que te pasan al paciente. Si el autor escribió la suya en
+   `entrega`, esa manda; si no, sirve la frase de la carta, que es lo que
+   ya había. Sin ninguna de las dos, la ficha se queda con los datos. */
+function vozEntrega(p){
+  if(p.entrega) return esc(p.entrega);
+  return p.frase ? "“"+esc(p.frase)+"”" : "";
+}
+
+function fichaEntrega(c, n, total, idx){
+  const p = c.p;
+  const w = el("div","ent-cama");
+  const cab = el("div","ent-cab");
+  cab.appendChild(el("span","ent-n","Cama "+n));
+  if(total > 1) cab.appendChild(el("span","ent-de",`${idx} de ${total}`));
+  w.appendChild(cab);
+
+  const f = el("div","ent-ficha");
+  f.style.setProperty("--sis", SIS[p.sistema] ? SIS[p.sistema][1] : "var(--ink-3)");
+  f.style.setProperty("--gravc", GRAVC[p.gravedad] || "var(--line)");
+  const v = el("div","ent-ventana");
+  v.style.setProperty("--tinte", p.tinte || TINSIS[p.sistema] || "#b9c7cc");
+  if(p.arte){
+    const im = document.createElement("img");
+    im.src = p.arte; im.alt = ""; v.appendChild(im);
+  } else v.appendChild(el("span","sinarte",
+    (SIS[p.sistema] ? SIS[p.sistema][0] : "🛏️").split(" ")[0]));
+  v.appendChild(el("span","ent-grav",
+    p.gravedad==="ROJO" ? "★ROJO" : "G·"+esc(p.gravedad)));
+  f.appendChild(v);
+
+  const cu = el("div","ent-cuerpo");
+  cu.appendChild(el("h3",null,esc(p.nombre)));
+  const dat = el("div","ent-datos");
+  if(p.edad) dat.appendChild(el("span","ent-edad",esc(p.edad)+" años"));
+  if(SIS[p.sistema]){
+    const ss = el("span","ent-sis",SIS[p.sistema][0]);
+    ss.style.color = SIS[p.sistema][1];
+    dat.appendChild(ss);
+  }
+  dat.appendChild(el("span",null,`alta +${p.alta} · fallece ${p.fallece}`));
+  cu.appendChild(dat);
+
+  const vit = el("div","ent-vitales");
+  const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida/c.vidaMax)) : 0;
+  const uno = el("i","cz-uno");
+  uno.style.setProperty("--llen", rr.toFixed(3));
+  vit.appendChild(uno);
+  vit.appendChild(el("span","vnum",`${c.vida}<small>/${c.vidaMax}</small>`));
+  vit.appendChild(el("i","ent-sep"));
+  const fila = el("div","pips");
+  TIPOS.forEach(t=>{
+    if(!c.pide[t]) return;
+    const gr = el("span","gr");
+    gr.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
+    for(let k=0;k<c.pide[t];k++){
+      const u = el("i","uni"); u.innerHTML = SVG[t] || SVG.COMODIN;
+      u.title = TNOM[t] || t; gr.appendChild(u);
+    }
+    fila.appendChild(gr);
+  });
+  vit.appendChild(fila);
+  cu.appendChild(vit);
+
+  const voz = vozEntrega(p);
+  if(voz){
+    const q = el("div","ent-voz");
+    q.appendChild(el("p",null,voz));
+    q.appendChild(el("span","ent-firma","te lo entrega la turno de noche"));
+    cu.appendChild(q);
+  }
+  f.appendChild(cu);
+  w.appendChild(f);
+  return w;
+}
+
+function pantallaEntrega(){
+  const p = G.pendiente;
+  const j = G.jug[p.jugador];
+  return conCeremonia() ? ceremoniaEntrega(j, p) : hojaEntrega(j);
+}
+
+function ceremoniaEntrega(j, p){
+  const g = golpesEntrega(j);
+  p.paso = Math.max(0, Math.min(p.paso||0, g.length-1));
+  const b = g[p.paso];
+  const cap = el("div","entrega");
+  const avanza = ()=>{
+    if(p.paso >= g.length-1){ cerrarEntrega(); return; }
+    p.paso++; render();
+  };
+  cap.onclick = ev=>{
+    if(ev.target.closest("[data-saltar]")){ p.paso = g.length-1; render(); return; }
+    avanza();
+  };
+
+  if(b.t === "abre"){
+    const z = el("div","ent-abre");
+    z.appendChild(el("div","ent-reloj", SVG_RELOJ));
+    z.appendChild(el("div","ent-hora","07:45"));
+    z.appendChild(el("h2",null,"Entrega de Turno"));
+    const ocup = j.camas.filter(c=>c).length;
+    const libres = CAMAS - ocup;
+    z.appendChild(el("p","ent-dice",
+      `“Te dejo la unidad. ${ocup===1?"Una cama ocupada":ocup+" camas ocupadas"}`+
+      `${libres ? " y "+(libres===1?"la otra libre":libres+" libres") : ""}, `+
+      `pero no te confíes: Urgencias ya llamó dos veces.”`));
+    z.appendChild(el("div","ent-quien",
+      G.jug.length>2 || G.modo==="hotseat"
+        ? esc(j.nombre)+" · recibe la unidad" : "turno de noche · se va a su casa"));
+    cap.appendChild(z);
+  } else if(b.t === "cama"){
+    const camas = g.filter(x=>x.t==="cama");
+    cap.appendChild(fichaEntrega(b.c, b.n, camas.length, camas.indexOf(b)+1));
+  } else if(b.t === "vacia"){
+    const z = el("div","ent-vacia");
+    const c = el("div","ent-centro");
+    c.appendChild(el("div","ent-dib", SVG_CAMA_VACIA));
+    c.appendChild(el("h2",null,`Cama ${b.n} · vacía`));
+    c.appendChild(el("p","ent-por","Por ahora."));
+    z.appendChild(c);
+    cap.appendChild(z);
+  } else {
+    const z = el("div","ent-cierra");
+    z.appendChild(el("h2",null,"La unidad es tuya"));
+    z.appendChild(el("p",null,`${RONDAS} rondas. Que no se te muera nadie.`));
+    const btn = el("button","btn pri","Recibo el turno");
+    btn.onclick = ev=>{ ev.stopPropagation(); cerrarEntrega(); };
+    z.appendChild(btn);
+    cap.appendChild(z);
+  }
+
+  if(b.t !== "cierra"){
+    const pie = el("div","ent-pie");
+    const pts = el("div","ent-puntos");
+    g.slice(0,-1).forEach((_,k)=>pts.appendChild(el("i", k===p.paso ? "on" : "")));
+    pie.appendChild(pts);
+    pie.appendChild(el("span","ent-sigue","tocar para seguir"));
+    const sk = el("button","ent-saltar","saltar");
+    sk.setAttribute("data-saltar","");
+    pie.appendChild(sk);
+    cap.appendChild(pie);
+  }
+  return cap;
+}
+
+function hojaEntrega(j){
+  const cap = el("div","entrega hoja-ent");
+  cap.appendChild(el("h2",null,"Entrega de Turno"));
+  cap.appendChild(el("div","ent-sub","07:45 · recibes la unidad"));
+  const q = el("div","ent-voz");
+  const ocup = j.camas.filter(c=>c).length;
+  q.appendChild(el("p",null,
+    `“Te dejo la unidad. ${ocup===1?"Una cama ocupada":ocup+" camas ocupadas"}. `+
+    `Urgencias ya llamó dos veces.”`));
+  q.appendChild(el("span","ent-firma","turno de noche"));
+  cap.appendChild(q);
+
+  j.camas.forEach((c,i)=>{
+    if(!c){ cap.appendChild(el("div","ent-fila libre",`Cama ${i+1} · vacía`)); return; }
+    const f = el("button","ent-fila");
+    f.style.setProperty("--sis", SIS[c.p.sistema] ? SIS[c.p.sistema][1] : "var(--ink-3)");
+    const mi = el("span","ent-mini");
+    mi.style.setProperty("--tinte", c.p.tinte || TINSIS[c.p.sistema] || "#b9c7cc");
+    if(c.p.arte){
+      const im = document.createElement("img");
+      im.src = c.p.arte; im.alt = ""; mi.appendChild(im);
+    } else mi.textContent = (SIS[c.p.sistema] ? SIS[c.p.sistema][0] : "🛏️").split(" ")[0];
+    f.appendChild(mi);
+    const tx = el("span","ent-tx");
+    tx.appendChild(el("b",null,esc(c.p.nombre)+
+      (c.p.edad ? ` <span class="ent-e2">${esc(c.p.edad)}</span>` : "")));
+    const l2 = el("span","ent-l2");
+    l2.appendChild(el("span","ent-cn","Cama "+(i+1)));
+    const rr = c.vidaMax ? Math.max(0, Math.min(1, c.vida/c.vidaMax)) : 0;
+    const uno = el("i","cz-uno chico");
+    uno.style.setProperty("--llen", rr.toFixed(3));
+    l2.appendChild(uno);
+    const fila = el("div","pips");
+    TIPOS.forEach(t=>{
+      if(!c.pide[t]) return;
+      const gr = el("span","gr");
+      gr.style.setProperty("--pc", TCOL[t] || "var(--ink-3)");
+      for(let k=0;k<c.pide[t];k++){
+        const u = el("i","uni"); u.innerHTML = SVG[t] || SVG.COMODIN; gr.appendChild(u);
+      }
+      fila.appendChild(gr);
+    });
+    l2.appendChild(fila);
+    tx.appendChild(l2);
+    // la línea de la colega también en la hoja: es la mitad de la gracia
+    const vz = vozEntrega(c.p);
+    if(vz) tx.appendChild(el("span","ent-linea", vz));
+    f.appendChild(tx);
+    f.onclick = ()=> verPacienteGrande(c);
+    cap.appendChild(f);
+  });
+  cap.appendChild(el("div","ent-abrir","toca una cama para verla entera"));
+  const btn = el("button","btn pri","Recibo el turno");
+  btn.onclick = cerrarEntrega;
+  cap.appendChild(btn);
+  return cap;
+}
+
+const SVG_RELOJ =
+  '<svg viewBox="0 0 100 100" fill="none" aria-hidden="true">'+
+  '<circle cx="50" cy="50" r="42" fill="#fff" stroke="#4c6675" stroke-width="3"/>'+
+  '<circle cx="50" cy="50" r="2.6" fill="#16242e"/>'+
+  '<path d="M50 50V26" stroke="#16242e" stroke-width="4" stroke-linecap="round"/>'+
+  '<path d="M50 50l17 10" stroke="#c0492f" stroke-width="3" stroke-linecap="round"/>'+
+  '<g stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round">'+
+  '<path d="M50 14v6M50 80v6M14 50h6M80 50h6"/></g></svg>';
+const SVG_CAMA_VACIA =
+  '<svg viewBox="0 0 120 92" fill="none" aria-hidden="true">'+
+  '<rect x="10" y="30" width="100" height="34" rx="7" fill="#fff" stroke="#87a0ad" stroke-width="2.4"/>'+
+  '<rect x="18" y="36" width="34" height="20" rx="5" fill="#eef4f6" stroke="#a8bcc4" stroke-width="1.8"/>'+
+  '<path d="M10 44h100" stroke="#c7d6db" stroke-width="1.6"/>'+
+  '<path d="M16 64v18M104 64v18" stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<circle cx="16" cy="85" r="4.5" fill="#fff" stroke="#87a0ad" stroke-width="2"/>'+
+  '<circle cx="104" cy="85" r="4.5" fill="#fff" stroke="#87a0ad" stroke-width="2"/>'+
+  '<path d="M6 22v18M114 22v18" stroke="#87a0ad" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<path d="M6 26h108" stroke="#a8bcc4" stroke-width="2" stroke-dasharray="5 5"/></svg>';
 
 function cortina(){
   const c = el("div","cortina");

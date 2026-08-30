@@ -906,6 +906,40 @@ restaurarlo lo devuelve.
 Regla para el futuro: **cualquier archivo nuevo que se sume a la caché
 tiene que entrar en `cacheados`**, o volvemos al mismo agujero.
 
+### La Entrega de Turno ✅ (v0.58)
+
+La primera fase del juego ya se llamaba así y era la única que nunca
+ocurría en pantalla: elegías personaje y de golpe había dos pacientes en
+sus camas. Ahora la colega que sale te pasa la unidad, cama por cama.
+
+Dos formas, y la diferencia es cuántas veces la has visto —bandera
+`vt-entrega-vista` en localStorage—:
+
+- **La ceremonia**, la primera guardia de todas y siempre con el coach:
+  apertura con el reloj, un golpe por cama con la carta grande, la cama
+  vacía («por ahora») y el cierre. «Saltar» desde el primer toque.
+- **La hoja**, de ahí en adelante: una pantalla, dos toques, y tocar una
+  cama abre la ficha de siempre.
+
+**No toca ninguna regla.** No se elige paciente, no cambia el reparto: el
+61 % de salvamento y el 8 % de guardias limpias siguen valiendo.
+
+Dos columnas nuevas en `pacientes.csv`, editables desde el Taller:
+
+- **`edad`** — llena con edades plausibles para las 26, deducidas de la
+  propia carta (la Caída del Baño tiene 78, el Politraumatizado que iba a
+  120 sin cinturón tiene 22). Son un marcador de trabajo: cámbialas.
+- **`entrega`** — ⬜ **vacía a propósito, la escribe el autor.** Es la
+  línea con que la colega te pasa el paciente, y es distinta de `frase`:
+  la frase es el chiste de la carta, la entrega es alguien contándote el
+  caso. Mientras esté vacía se usa la `frase`, así que la pantalla
+  funciona hoy y mejora sola cuando se llene.
+
+Trampa encontrada: `.pips`, `.gr` y `.uni` estaban scopeados a
+`.cama.pficha`, así que los símbolos de recurso salían como `<i>` sin
+tamaño en cualquier pantalla nueva. Si aparece otra vista que los use,
+hay que darles estilo propio o subir esas reglas.
+
 ### La basura clínica ya muerde ✅ (v0.57)
 
 Dos cosas, una de interfaz y una de reglas.

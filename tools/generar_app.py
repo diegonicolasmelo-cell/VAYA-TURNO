@@ -165,6 +165,11 @@ def datos(destino_arte=None):
         pide = {t: int(p[COL[t]]) for t in TIPOS}
         pacientes.append({
             "id": p["id"], "nombre": p["nombre"], "gravedad": p["gravedad"],
+            # v0.58 · la Entrega de Turno: la edad y la línea con que la
+            # colega que sale te pasa el paciente. Las dos pueden venir
+            # vacías — la pantalla se apaña con lo que haya.
+            "edad": (p.get("edad") or "").strip(),
+            "entrega": (p.get("entrega") or "").strip(),
             "sistema": p["sistema"], "vida": int(p["vida"]), "pide": pide,
             "total": sum(pide.values()),
             "alta": int(p["puntos_alta"]), "fallece": int(p["puntos_fallece"]),
