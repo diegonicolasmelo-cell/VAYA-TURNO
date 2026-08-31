@@ -32,6 +32,13 @@ para saber qué esquinas quedan bajo una insignia.
 - Los originales grandes viven en `cartas/arte-full/`; los que entran al
   juego, en `cartas/arte/<ID>.jpg` — el nombre es el id de la carta
   (`P02`, `R07`, `A19`, `C17`…).
+- **No hace falta acertar el tamaño al píxel.** El generador de imágenes
+  entrega 2400×1792, que es 4:3 con 0,45 % de sobra;
+  `tools/ingresar_arte.py` recorta esos diez píxeles de ancho, guarda el
+  original y deja la copia de juego en 1600×1200. Lo que importa es la
+  proporción horizontal, no el número exacto.
+- **Una carta repetida no necesita su propio archivo.** R32 y R33 son las
+  dos «Gases Arteriales»: con `R32.jpg` basta, la gemela hereda por nombre.
 
 ### Por qué 4:3 y no lo de antes
 
@@ -86,6 +93,13 @@ Traducido a lo que hay que dibujar: **la cabeza y la cara dentro del 75 %
 central del ancho, y el centro de la cara alrededor del 45 % desde
 arriba.** Un personaje descentrado sobrevive en la carta y se decapita en
 el círculo.
+
+Y una advertencia que salió de la primera tanda de arte 4:3: **una escena
+ancha se lee estupendo en la carta y se pierde en el círculo.** La Jefa de
+Unidad detrás de su mesón, con dos enfermeras al fondo y la pizarra de
+turnos, es una gran ilustración; en los 94 px del retrato del mesón su cara
+mide unos ocho píxeles. Si el personaje va a salir en el mesón, el plano
+tiene que estar más cerrado que el de una escena.
 
 Esto aplica a **avatares y personajes** (`C##`), que son los que salen en
 el mesón. Recursos, acciones y pacientes no pasan nunca por un círculo

@@ -786,6 +786,51 @@ Guardia" quedó documentado en `ARTE.md` §2 con su bloque de prompt.
 
 ---
 
+## 5c. El arte que entra por Drive (v0.58) 🔶
+
+La carpeta **«Vaya turno Claude»** del Drive del autor es ahora el buzón del
+arte. Diego deja ahí los archivos con el nombre del personaje o de la carta
+—«Enfermera de noche.jpg»— y `tools/ingresar_arte.py` los mete al juego con
+el nombre que la app necesita, que es el **id**.
+
+El guion hace dos copias: el original tal cual en `cartas/arte-full/<ID>.jpg`
+y la versión de juego en `cartas/arte/<ID>.jpg`, recortada al **4:3 exacto y
+1600×1200**. Con `--alto` se corre la ventana del recorte cuando la fuente
+no es 4:3 y hay que salvar la cabeza del personaje.
+
+**Primera tanda: 17 imágenes.** Dieciséis vinieron 2400×1792 —que es 4:3 con
+0,45 % de sobra, o sea diez píxeles de ancho de recorte y nada más— y una,
+«Becado», llegó todavía en la vertical vieja 1536×2752: conserva el 42 % con
+`--alto 0.20`, alcanza para la cabeza y los libros, pero conviene rehacerla.
+
+Ids colocados: **C03 C05 C07 C09 C11 C13 C17 C19 C21 C22 · A01 A11 A14 ·
+R20 R26 R30 R32.** Con la herencia por nombre (abajo) quedan 29 cartas
+ilustradas de 124.
+
+### Dos cosas que este lote dejó abiertas
+
+- **Dos mapeos son míos, no de Diego.** «Bodega» (mujer con tabla en una
+  bodega de insumos) la puse en **C09 La de Abastecimiento**, cuya habilidad
+  se llama literalmente BODEGA LLENA; la otra candidata era R43 Stock de
+  Sala. Y «El que guarda siempre tiene» (enfermera con el casillero surtido
+  mientras el resto corre) la puse en **C21 El Precavido**; la otra
+  candidata era otra vez R43. Si alguna está cambiada, es mover un archivo.
+- **El retrato redondo del mesón queda chico.** Estas ilustraciones son
+  escenas anchas, no retratos, y el círculo de 94 px se queda con la escena
+  entera: la cara de La Jefa de Unidad se lee, pero es diminuta. O el arte
+  de los personajes viene más cerrado, o el mesón deja de recortar en
+  círculo y muestra la escena. No es un error, es una decisión pendiente.
+
+### Herencia por nombre (arreglado de paso)
+
+`generar_app.py` ya no pide el archivo dos veces para una carta repetida.
+R32 y R33 son las dos «Gases Arteriales» —la misma carta, dos copias en el
+mazo— y antes había que dejar el mismo jpg con los dos nombres, pesándolo
+dos veces en el artefacto. Ahora, si una copia tiene arte, sus gemelas del
+mismo nombre lo heredan. Cubrió R21, R27, R31, R33 y R51 sin tocar nada.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

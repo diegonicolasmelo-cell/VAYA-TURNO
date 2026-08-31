@@ -209,6 +209,19 @@ def datos(destino_arte=None):
                 c["arte"] = arte[c["id"].upper()]
                 if c["id"].upper() in tintes:
                     c["tinte"] = tintes[c["id"].upper()]
+        # Hay cartas repetidas con ids distintos: R32 y R33 son las dos
+        # «Gases Arteriales», y son la misma carta dos veces en el mazo. No
+        # tiene sentido pedir el archivo dos veces ni pesarlo dos veces en el
+        # artefacto: si una copia tiene arte, sus gemelas lo heredan. La
+        # herencia es por nombre y dentro de la misma lista, que es donde el
+        # nombre identifica de verdad a la carta.
+        porta = {c["nombre"]: c for c in lista if c.get("arte")}
+        for c in lista:
+            gemela = porta.get(c.get("nombre"))
+            if gemela is not None and not c.get("arte"):
+                c["arte"] = gemela["arte"]
+                if gemela.get("tinte"):
+                    c["tinte"] = gemela["tinte"]
     if arte:
         usados = {c["id"].upper() for l in (pacientes, recursos, acciones,
                   personajes) for c in l if c.get("arte")}
