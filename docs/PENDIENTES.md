@@ -831,6 +831,74 @@ mismo nombre lo heredan. Cubrió R21, R27, R31, R33 y R51 sin tocar nada.
 
 ---
 
+## 5d. La Residencia · el tutorial por casos (v0.59) ✅
+
+El coach de la «Primera guardia» se monta encima de una partida de verdad,
+y una partida de verdad no enseña lo que quieres cuando quieres: puede que
+en ocho rondas no te toque nunca una ⚠ que sirva para sabotear, o que el
+único paciente a punto de cerrar sea del rival. Los diez pasos del coach
+terminaban explicando la interfaz y no las mecánicas.
+
+**La Residencia** es lo otro: seis unidades armadas a mano para que UNA
+mecánica ocurra, ahora, y se vea ocurrir. Dos o tres jugadas cada una.
+
+| # | Caso | Lo que enseña |
+|---|---|---|
+| 1 | Dar de alta | requisitos, sinergia ×2, cuándo se paga el alta |
+| 2 | La complicación que conviene | la ⚠ que cierra la cama, colocar nunca mata, el ✅ congela |
+| 3 | Comprar en la Pizarra | pagar con cartas, guardar y jugar un Protocolo (Alta Anticipada) |
+| 4 | Sabotear: el alta que no llega | la basura clínica retiene el alta y descongela el reloj |
+| 5 | Sabotear: el alta celestial | el mismo golpe en 1 ❤️: mata en el cierre, y abre Sumario |
+| 6 | Des-escalar | la respuesta, y lo que cuesta: una indicación por basura |
+
+La casilla «Primera guardia» de la portada se fue adentro, como séptima
+entrada: ahí se entiende que es el último escalón y no una cuarta
+modalidad compitiendo con las tres monedas.
+
+### Cómo está hecho
+
+Un caso es **datos**, no código: `montar(mío, rival)` arma las camas, la
+mano y la Pizarra; `pasos[]` dice qué se explica y qué hay que hacer.
+Añadir un caso son treinta líneas en `CASOS` y nada más.
+
+Tres decisiones que conviene no deshacer:
+
+- **Las metas se leen de `G` y de `UI`, nunca del DOM.** Un `querySelector`
+  se rompe en cuanto alguien renombra una clase, y entonces el paso no
+  avanza nunca y el caso queda muerto sin que nadie se entere.
+- **`guardar()` se salta los casos enteros.** Un caso es un banco de
+  pruebas: si se guardara, pisaría la guardia de verdad que el jugador
+  tenga a medias. Verificado en la prueba: la partida guardada sobrevive.
+- **El rival no improvisa.** `casoRival()` cierra su guardia y devuelve el
+  turno. La IA de verdad compraría en la Pizarra y te sabotearía de vuelta,
+  y el guion no sobreviviría dos turnos.
+
+### Lo que queda abierto
+
+- **La mano abierta tapa el tablero.** Se resolvió con `cierra:true` en los
+  pasos que necesitan verlo, pero el problema es general y no solo de los
+  casos: cuando te quedas sin indicaciones, la mano sigue desplegada y su
+  velo se come los toques. Candidato a recogerse sola.
+- **No hay condición de fracaso.** Si el jugador se va por otro camino y
+  deja el caso irresoluble, la burbuja sigue pidiendo lo mismo. Hay
+  «reiniciar» a mano, y con casos de dos jugadas alcanza; con casos más
+  largos habría que declarar `falla()`.
+- **Faltan mecánicas por cubrir**: el 🛡️ y las cartas RESPUESTA, el poder
+  del avatar, cerrar un Sumario, el descarte al límite de mano, y el
+  Canje. Son cinco casos más con el mismo molde.
+- **Dos ayudas que se solapan.** El coach clásico y los casos enseñan cosas
+  distintas hoy, pero si los casos llegan a cubrir la interfaz, el coach
+  sobra y son 60 líneas menos.
+
+### Y una trampa que volvió a morder
+
+`.sello` y `.num` ya existían —la etiqueta de la cama y el contador de los
+requisitos— y las reutilicé sin mirar: el 🩺 del cierre salió dentro de una
+píldora con borde y en mayúsculas. Es la tercera vez en el proyecto
+(`.moneda` fue la primera). **Antes de inventar una clase, `grep`.**
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

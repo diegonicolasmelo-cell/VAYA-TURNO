@@ -1998,6 +1998,83 @@ body.con-portada .pastilla,body.con-portada .tuto{background:rgba(255,255,255,.8
 @keyframes tutoGuino{0%,100%{opacity:1}50%{opacity:.45}}
 .tuto-burbuja .tuto-salta{margin-left:auto;background:none;border:none;
   font-size:10.5px;color:var(--ink-3);text-decoration:underline;padding:4px}
+
+/* ── LA RESIDENCIA: los casos clínicos ─────────────────────────────────
+   El coach de arriba acompaña una partida de verdad; esto es lo otro: una
+   unidad montada a mano para que una sola mecánica ocurra y se vea. La
+   burbuja es la misma —no hacen falta dos lenguajes de ayuda—, con una
+   línea más para la meta del caso. */
+.res{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+  background:var(--cerca);font:inherit;color:var(--ink);cursor:pointer}
+.res .medalla{width:34px;height:34px;border-radius:50%;flex:none;
+  display:grid;place-items:center;font-size:17px;line-height:1;
+  background:radial-gradient(120% 120% at 32% 22%, #ffffff 0%, #eef4f6 42%, #cfdde1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -1.5px 3px rgba(60,78,88,.24),
+             0 0 0 1.5px rgba(60,78,88,.20)}
+.res .tx{flex:1;font-size:11.5px;line-height:1.25;color:var(--ink-2)}
+.res .tx b{font-family:Petrona,Georgia,serif;font-size:13.5px;display:block;
+  color:var(--ink)}
+.res .cuenta{font-family:"IBM Plex Mono",monospace;font-size:9.5px;flex:none;
+  letter-spacing:.06em;color:var(--acc);font-weight:600}
+.res:active{transform:scale(.99)}
+body.con-portada .res{background:rgba(255,255,255,.82);
+  backdrop-filter:blur(9px) saturate(1.15);
+  -webkit-backdrop-filter:blur(9px) saturate(1.15);
+  border-color:rgba(60,78,88,.16);box-shadow:0 3px 12px rgba(22,36,46,.13)}
+
+/* la lista de casos: una pantalla propia, no una hoja — se entra a
+   estudiar, no se echa un vistazo */
+.casos{min-height:100%;padding:18px 14px 26px;background:var(--mesa);
+  display:flex;flex-direction:column;gap:10px}
+.casos .cab{display:flex;align-items:baseline;gap:9px}
+.casos h2{font-family:Petrona,Georgia,serif;font-size:23px;margin:0;
+  color:var(--ink)}
+.casos .prog{font-family:"IBM Plex Mono",monospace;font-size:10px;
+  letter-spacing:.07em;color:var(--ink-3);margin-left:auto}
+.casos .lead{font-size:12.5px;line-height:1.45;color:var(--ink-2);margin:0 0 4px}
+.caso-f{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;
+  padding:11px 12px;border-radius:13px;border:1px solid var(--line);
+  background:var(--paper);font:inherit;color:var(--ink);cursor:pointer;
+  box-shadow:var(--sombra);transition:border-color .12s ease,transform .12s ease}
+.caso-f:active{transform:scale(.99)}
+.caso-f.ok{border-color:var(--ok)}
+.caso-f .ord{width:26px;height:26px;border-radius:9px;flex:none;display:grid;
+  place-items:center;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  font-weight:600;background:var(--acc-soft);color:var(--acc)}
+.caso-f.ok .ord{background:var(--ok);color:#fff}
+.caso-f .cu{flex:1;min-width:0}
+.caso-f .cu b{font-family:Petrona,Georgia,serif;font-size:15px;display:block;
+  line-height:1.2}
+.caso-f .cu small{display:block;font-size:11.5px;line-height:1.35;
+  color:var(--ink-2);margin-top:2px}
+.caso-f .cu .ens{display:block;font-family:"IBM Plex Mono",monospace;
+  font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:5px}
+
+/* la meta del caso, dentro de la burbuja del coach */
+.tuto-burbuja .meta{display:flex;align-items:center;gap:6px;margin-top:8px;
+  padding:6px 9px;border-radius:9px;background:var(--acc-soft);
+  font-size:11.5px;line-height:1.3;color:var(--acc);font-weight:600}
+.tuto-burbuja .meta i{font-style:normal;flex:none}
+.tuto-burbuja .caso-links{margin-left:auto;display:flex;gap:10px;
+  align-items:center}
+.tuto-burbuja .caso-rec{background:none;border:none;
+  font-size:10.5px;color:var(--ink-3);text-decoration:underline;padding:4px}
+
+/* el cierre del caso */
+.caso-fin{position:fixed;inset:0;z-index:410;background:rgba(10,24,30,.72);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  pointer-events:auto;animation:aparecer .22s ease}
+.caso-fin .tarj{background:var(--paper);border-radius:17px;padding:20px 18px;
+  max-width:330px;width:100%;box-shadow:0 18px 44px rgba(6,18,24,.4);
+  text-align:center}
+.caso-fin .marca-fin{font-size:34px;line-height:1;margin-bottom:6px}
+.caso-fin h3{font-family:Petrona,Georgia,serif;font-size:21px;margin:0 0 8px}
+.caso-fin p{font-size:12.5px;line-height:1.5;color:var(--ink-2);margin:0 0 6px;
+  text-align:left}
+.caso-fin .acciones{padding:12px 0 0;display:flex;gap:8px}
 </style>
 
 <div id="portada" aria-hidden="true" hidden></div>
@@ -3091,6 +3168,7 @@ function revProt(a){
 function iaJuega(){
   const j = yo();
   if(G.fin || !j.ia || G.fase!==1) return;
+  if(G.caso){ casoRival(); return; }
   if(UI.fxViva){                       // primero termina la ceremonia del alta
     clearTimeout(UI.iaT);
     UI.iaT = setTimeout(iaJuega, 300);
@@ -3164,7 +3242,12 @@ function iaJuega(){
 }
 
 /* ══ persistencia ═══════════════════════════════════════════════════ */
-function guardar(){ try{ localStorage.setItem(CLAVE, JSON.stringify(G)); }catch(e){} }
+function guardar(){
+  // un caso clínico es un banco de pruebas, no una partida: si se guardara,
+  // pisaría la guardia de verdad que el jugador tenga a medias
+  if(G && G.caso) return;
+  try{ localStorage.setItem(CLAVE, JSON.stringify(G)); }catch(e){}
+}
 function cargar(){
   try{ const s=localStorage.getItem(CLAVE); if(!s) return false;
        const g=JSON.parse(s); if(!g||!g.jug) return false; G=g; return true; }
@@ -3254,8 +3337,9 @@ function render(){
   const app = document.getElementById("app");
   app.innerHTML = "";
   app.classList.remove("partida");
-  if(!G){ app.appendChild(pantallaInicio()); pintarCapa(); pintarTuto();
-         pintarPortada(); return; }
+  if(!G){ app.appendChild(UI.pantalla==="casos" ? pantallaCasos()
+                                                 : pantallaInicio());
+         pintarCapa(); pintarTuto(); pintarPortada(); return; }
   if(G.fin){ app.appendChild(pantallaFinal()); pintarCapa(); pintarTuto();
              pintarPortada(); return; }
   app.classList.add("partida");
@@ -4983,11 +5067,428 @@ const TUTO = [
   cuando:()=> G.ronda>=2 && miTurno(), fin:true},
 ];
 
+/* ══ LA RESIDENCIA · los casos clínicos ═══════════════════════════════
+   El coach de arriba se monta encima de una partida de verdad, y una
+   partida de verdad no enseña lo que quieres cuando quieres: puede que en
+   ocho rondas no te toque nunca una ⚠ que sirva para sabotear, o que el
+   único paciente a punto de cerrar sea del rival. Un caso es lo contrario:
+   la unidad viene armada a mano para que UNA cosa ocurra, ahora, y se vea
+   ocurrir. Dos o tres jugadas y se acabó.
+
+   Un caso es datos y nada más:
+     montar(mío, rival)   arma camas, mano y Pizarra sobre el G recién hecho
+     pasos[]              lo que se dice y lo que hay que hacer
+        meta()            cuando esto es cierto, el paso está cumplido y
+                          la burbuja avanza sola; sin meta, hay «Entendido»
+        sel               a qué elemento se le pone el anillo
+        haz               la línea de la meta, en imperativo
+     cierre[]             lo que se explica al resolverlo
+     rival(j)             qué hace el rival en su turno (por defecto, cerrar)
+
+   Las metas se leen del estado del juego, no del DOM: `UI.sel` y `G` son
+   la verdad, y una consulta a `querySelector` se rompe en cuanto alguien
+   cambia una clase.
+
+   Nada de esto se guarda. `guardar()` se salta los casos enteros, así que
+   la guardia real que tengas a medias sigue exactamente donde estaba. */
+const CLAVE_CASOS = "vt-casos-hechos";
+function casosHechos(){
+  try{ return new Set(JSON.parse(localStorage.getItem(CLAVE_CASOS) || "[]")); }
+  catch(e){ return new Set(); }
+}
+function marcarCaso(id){
+  const s = casosHechos(); s.add(id);
+  try{ localStorage.setItem(CLAVE_CASOS, JSON.stringify([...s])); }catch(e){}
+}
+
+/* — utilería para armar una unidad a mano — */
+const _mi  = ()=> G.jug[0];
+const _riv = ()=> G.jug[1];
+function _rec(id){ const r = D.recursos.find(x=>x.id===id); return r ? {...r, uid:uid()} : null; }
+function _acc(id){ const a = D.acciones.find(x=>x.id===id); return a ? {...a, uid:uid()} : null; }
+function _pac(id){ return D.pacientes.find(x=>x.id===id); }
+function _av(id){ return D.personajes.find(x=>x.id===id) || D.personajes[0]; }
+function _mano(j, ids){ ids.forEach(id=>{ const c = _rec(id) || _acc(id); if(c) j.mano.push(c); }); }
+
+/* Una cama ya servida. `tiene` va en unidades de requisito y no en cartas:
+   montarla con recursos de verdad obligaría a inventar diez cartas por
+   caso y ninguna se ve — lo que se ve en la ficha es el contador. El
+   precio es que esos recursos no se pueden robar ni mover, y en un caso
+   de tres jugadas eso no llega a notarse. */
+function _cama(pid, tiene, o){
+  o = o || {};
+  const c = nuevaCama(_pac(pid));
+  if(!c) return null;
+  Object.assign(c.tiene, tiene || {});
+  (o.basura || []).forEach(id=>{ const b = _rec(id); if(b) c.basura.push(b); });
+  revisar(c, o.desde != null ? o.desde : 1);
+  if(o.vida != null) c.vida = o.vida;      // después de revisar: manda el guion
+  return c;
+}
+/* ¿me quedó estable la cama n? La pregunta que más repiten las metas. */
+function _ok(j, n){ const c = j.camas[n]; return !!(c && c.estable); }
+
+const CASOS = [
+{
+ id:"alta", tit:"Dar de alta", ronda:3, avatar:"C13",
+ sub:"Tu paciente está a un recurso de cerrar. Ciérralo y cóbralo.",
+ ens:"requisitos · sinergia ×2 · cuándo se paga el alta",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P10", {FARMACOS:2, PERSONAL:1});
+   yo.camas[1] = _cama("P07", {FARMACOS:1});
+   _mano(yo, ["R32","R16","R01","R24"]);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Lo que pide la cama", sel:".zona.cerca .tres",
+   txt:"<b>Cetoacidosis Diabética</b> pide 💊💊 · 🧑‍⚕️ · 💉💉. Los símbolos llenos ya están puestos; los huecos, todavía no. Le faltan los dos 💉 de Procedimientos y nada más."},
+  {tit:"Elige la carta", sel:".mazo-mano",
+   txt:"Tus cartas viven al filo de abajo. Ábrelas y toca <b>Gases Arteriales</b>: es 💉 Procedimiento, y además es del sistema metabólico — igual que el paciente.",
+   meta:()=> !!(UI.sel && UI.sel.id==="R32"), haz:"abre tu mano y elige Gases Arteriales"},
+  {tit:"Suéltala en la cama", sel:".zona.cerca .tres",
+   txt:"Arrástrala sobre la Cetoacidosis, o toca la cama con la carta elegida.",
+   meta:()=> _ok(_mi(),0), haz:"colócala sobre la Cetoacidosis"},
+  {tit:"Valió por dos", sel:".zona.cerca .tres", cierra:true,
+   txt:"Cuando la carta y el paciente comparten sistema, el recurso <b>cuenta doble</b>. Un solo Gases Arteriales llenó los dos 💉, y la cama quedó ✅ con una sola indicación gastada. Esa es toda la economía del juego: buscar el par."},
+  {tit:"Pero el alta no es hoy", sel:"#btn-fin", cierra:true,
+   txt:"El ✅ no es el alta: es que ya no le falta nada. El alta se cobra en <b>tu próxima Entrega de Turno</b>, y hasta entonces el paciente sigue en la cama y te la ocupa. Cierra tu guardia.",
+   meta:()=> G.ronda>3 || G.turno!==0, haz:"toca Fin de Guardia"},
+  {tit:"Ahora sí", sel:".zona.cerca", cierra:true,
+   txt:"Juega el rival y el turno vuelve a ti. Al empezar tu Entrega, la Cetoacidosis se va sola y te deja sus puntos.",
+   meta:()=> _mi().altas.length>0, haz:"espera a que vuelva tu turno"},
+ ],
+ cierre:[
+  "Un alta vale <b>+2, +3, +6 u +8 puntos</b> según la gravedad del paciente, y la cama queda libre para admitir al siguiente.",
+  "El ✅ además <b>congela el reloj</b>: mientras esté puesto, ese paciente no pierde corazones al cierre de cada turno.",
+ ],
+},
+{
+ id:"warn", tit:"La complicación que conviene", ronda:3, avatar:"C19",
+ sub:"Dos corazones, una indicación y una carta con ⚠. Úsala igual.",
+ ens:"complicaciones · colocar nunca mata · el ✅ congela",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P16", {FARMACOS:2, IMAGEN:1}, {vida:2});
+   yo.camas[1] = _cama("P01", {FARMACOS:1});
+   _mano(yo, ["R44","R30","R16","R01"]);
+   yo.coloc = 1;
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Dos corazones", sel:".zona.cerca .tres",
+   txt:"Tu <b>EPOC Exacerbado</b> está en 2 ❤️ y le faltan los dos 💉. Y mira tu anillo: te queda <b>una sola indicación</b> este turno. Si no cierra hoy, al cierre pierde uno y mañana el otro."},
+  {tit:"Dos caminos y solo uno alcanza", sel:".mazo-mano",
+   txt:"<b>Ventilación Mecánica</b> es 💉 y viene limpia, pero aporta 1: te deja a medias y sin indicaciones. <b>Pleurostomía</b> es 💉 <i>respiratoria</i>, igual que el EPOC, así que aporta 2 y cierra la cama de una — pero trae ⚠ Fuga Aérea, y eso cuesta 1 ❤️ ahí mismo."},
+  {tit:"Juega la Pleurostomía", sel:".zona.cerca .tres",
+   txt:"Sí, va a bajar a 1 ❤️. Hazlo igual.",
+   meta:()=> _ok(_mi(),0), haz:"suéltala sobre el EPOC"},
+  {tit:"Uno de corazón, y a salvo", sel:".zona.cerca .tres", cierra:true,
+   txt:"La ⚠ se cobró su corazón, pero la cama quedó ✅ — y el ✅ <b>congela el reloj</b>. Sin ella el EPOC habría bajado a 1 al cierre de este turno y a 0 en el siguiente. La complicación le salvó la vida.<br><br>Y una regla que conviene tener grabada: <b>colocar nunca mata</b>. Una ⚠ jamás baja de 1 ❤️ — matar es siempre cosa del cierre de turno."},
+  {tit:"Ciérralo y compruébalo", sel:"#btn-fin", cierra:true,
+   txt:"Cierra tu guardia y mira lo que pasa con sus corazones.",
+   meta:()=> G.ronda>3 || G.turno!==0, haz:"toca Fin de Guardia"},
+ ],
+ cierre:[
+  "Sigue en 1 ❤️ y no bajó: <b>el ✅ lo protege</b>. En tu próxima Entrega se va de alta.",
+  "Regla general: la ⚠ es cara cuando no cierra nada, y barata cuando cierra la cama. Mira siempre si <b>completa</b> antes de descartarla por miedo.",
+ ],
+},
+{
+ id:"pizarra", tit:"Comprar en la Pizarra", ronda:3, avatar:"C13",
+ sub:"Estabiliza, compra Alta Anticipada y cobra el alta hoy mismo.",
+ ens:"la Pizarra · pagar con cartas · jugar un Protocolo",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P04", {IMAGEN:2});
+   yo.camas[1] = _cama("P02", {FARMACOS:1});
+   _mano(yo, ["R35","R16","R01","R24","R18"]);
+   G.pizarra = [_acc("A22"), _acc("A05"), _acc("A14")].filter(Boolean);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Primero, ciérralo", sel:".zona.cerca .tres",
+   txt:"<b>La Caída del Baño</b> ya tiene sus dos 🩻 y solo le falta un 🧑‍⚕️. Juega el <b>Técnico en Enfermería</b>.",
+   meta:()=> _ok(_mi(),0), haz:"estabiliza a La Caída del Baño"},
+  {tit:"La Pizarra de Turno", sel:"#btn-pizarra", cierra:true,
+   txt:"Tres Acciones boca arriba, para quien las pague. <b>Se pagan con cartas de tu mano</b>, no con indicaciones: comprar no te gasta el turno. Ábrela y toma <b>Alta Anticipada</b> — cuesta 2 cartas.",
+   meta:()=> _mi().protocolos.some(a=>a.id==="A22") || _mi().altas.length>0,
+   haz:"compra Alta Anticipada"},
+  {tit:"Y júgala", sel:".prot-mios", cierra:true,
+   txt:"Si la guardaste, está en <b>Tus Protocolos</b>, bajo tus camas. Juégala y elige a La Caída del Baño: se va hoy, sin esperar a tu Entrega. Cuesta 2 puntos de los suyos, y a cambio la cama queda libre un turno antes.",
+   meta:()=> _mi().altas.length>0, haz:"juega Alta Anticipada"},
+ ],
+ cierre:[
+  "Una compra y una Acción <b>por turno</b>, y las dos son gratis en indicaciones: la Pizarra es lo que haces con las cartas que no te sirven para tratar.",
+  "Alta Anticipada solo acepta un paciente estabilizado <b>en este mismo turno</b>. Por eso el orden importaba: primero cerrar, después comprar.",
+ ],
+},
+{
+ id:"basura", tit:"Sabotear: el alta que no llega", ronda:3, avatar:"C19",
+ sub:"El rival cobra mañana. Tírale basura clínica y no cobra nada.",
+ ens:"sabotaje · basura clínica · retener un alta",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P07", {FARMACOS:1, IMAGEN:1});
+   _mano(yo, ["R09","R16","R01","R24"]);
+   riv.camas[0] = _cama("P04", {IMAGEN:2, PERSONAL:1}, {desde:2, vida:5});
+   riv.camas[1] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Mira su unidad", sel:".zona.suya .tres",
+   txt:"El Dr. Silicio tiene <b>La Caída del Baño</b> en ✅ desde el turno pasado. En su próxima Entrega se la lleva de alta y se anota los puntos. A menos que hagas algo hoy."},
+  {tit:"Una ⚠ que no le sirve", sel:".mazo-mano",
+   txt:"Una carta con ⚠ se puede tirar sobre un paciente rival. Si <b>le sirve</b>, le estás ayudando. Si <b>no le sirve</b>, cae como <b>basura clínica</b>. Su Caída del Baño no pide ni un 💊, y tú tienes <b>Noradrenalina</b>, que es 💊 y trae ⚠.",
+   meta:()=> !!(UI.sel && UI.sel.id==="R09"), haz:"elige Noradrenalina"},
+  {tit:"Tírasela", sel:".zona.suya .tres",
+   txt:"Suéltala sobre su paciente. El botón dirá <b>Sabotear</b>: ahí sabes que va como basura y no como tratamiento.",
+   meta:()=>{ const c=_riv().camas[0]; return !!(c && c.basura.length); },
+   haz:"suéltala sobre La Caída del Baño"},
+  {tit:"Dos golpes de una", sel:".zona.suya .tres", cierra:true,
+   txt:"El ↯ que le quedó encima hace dos cosas a la vez. <b>Retiene el alta</b>: mientras esté ahí, el paciente no se va aunque esté ✅. Y <b>descongela el reloj</b>: el ✅ deja de protegerlo, así que pierde 1 ❤️ al cierre de cada turno. O gasta una indicación en des-escalar, o se le desangra."},
+  {tit:"Cierra y míralo", sel:"#btn-fin", cierra:true,
+   txt:"Cierra tu guardia y deja que juegue.",
+   meta:()=> G.ronda>3, haz:"toca Fin de Guardia"},
+ ],
+ cierre:[
+  "Su Entrega pasó y el alta <b>no se pagó</b>: la basura la retuvo. Y encima llegó al cierre con un corazón menos.",
+  "Una cama solo se puede sabotear <b>una vez por turno</b>, y un 🛡️ encima la vuelve intocable. El sabotaje se elige, no se reparte.",
+ ],
+},
+{
+ id:"celestial", tit:"Sabotear: el alta celestial", ronda:3, avatar:"C19",
+ sub:"El mismo golpe, sobre un paciente en 1 ❤️. Este no amanece.",
+ ens:"colocar nunca mata · matar es cosa del cierre · el Sumario",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P07", {FARMACOS:1, IMAGEN:1});
+   _mano(yo, ["R19","R16","R01","R24"]);
+   riv.camas[0] = _cama("P05", {FARMACOS:1, PERSONAL:2}, {desde:2, vida:1});
+   riv.camas[1] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Uno de corazón, y tan tranquilo", sel:".zona.suya .tres",
+   txt:"Su <b>Crisis de Pánico en Box 4</b> está en 1 ❤️ — y no se muere, porque está ✅ y el ✅ congela el reloj. Así puede quedarse ahí para siempre. Salvo que le quites el ✅."},
+  {tit:"Golpearlo no sirve", sel:".mazo-mano",
+   txt:"Podrías tirarle una ⚠ para quitarle el corazón que le queda, pero <b>colocar nunca mata</b>: el piso es 1 ❤️, siempre. Lo que sí funciona es dejarle <b>basura clínica</b> encima y devolverle el reloj. Tu <b>Ecografía a Pie de Cama</b> es 🩻 con ⚠, y su paciente no pide ni una 🩻.",
+   meta:()=> !!(UI.sel && UI.sel.id==="R19"), haz:"elige Ecografía a Pie de Cama"},
+  {tit:"Suéltasela", sel:".zona.suya .tres",
+   txt:"Fíjate en la bitácora: la ⚠ intentará quitarle su último corazón y no podrá. Lo que lo condena es el ↯.",
+   meta:()=>{ const c=_riv().camas[0]; return !!(c && c.basura.length); },
+   haz:"suéltala sobre la Crisis de Pánico"},
+  {tit:"Y ahora espera", sel:"#btn-fin", cierra:true,
+   txt:"Cierra tu guardia. En <b>su</b> cierre de turno el paciente ya no está congelado: pierde 1 ❤️ y no le queda ninguno.",
+   meta:()=> _riv().muertos.length>0, haz:"toca Fin de Guardia"},
+ ],
+ cierre:[
+  "✝️ <b>Alta celestial.</b> Un paciente que fallece resta puntos a su dueño y le abre un <b>Sumario 📋</b>, que le quita una carta del límite de mano hasta que lo cierre pagando dos cartas.",
+  "La lección es la de siempre en esta UCI: <b>no matas colocando, matas quitando el ✅</b> justo antes de un cierre.",
+ ],
+},
+{
+ id:"desescalar", tit:"Des-escalar", ronda:3, avatar:"C13",
+ sub:"Ahora te la tiraron a ti. Una indicación y salvas el alta.",
+ ens:"la respuesta a la basura · el coste de limpiar",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P09", {FARMACOS:2, IMAGEN:1, PERSONAL:1, PROCEDIMIENTOS:1},
+                       {desde:2, vida:3, basura:["R09"]});
+   yo.camas[1] = _cama("P01", {FARMACOS:1});
+   _mano(yo, ["R16","R01","R24","R18"]);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"El ↯ de anoche", sel:".zona.cerca .tres",
+   txt:"Tu <b>Neumonía</b> está ✅ y debería irse en tu próxima Entrega, pero tiene basura clínica encima: el alta está retenida y el paciente pierde 1 ❤️ en cada cierre. Va en 3."},
+  {tit:"Limpia la cama", sel:".zona.cerca .tres", cierra:true,
+   txt:"Toca la cama —sin ninguna carta elegida— y aparece <b>Des-escalar</b>. Retira la basura y <b>cuesta una indicación</b>, igual que colocar: limpiar es trabajo. También está dentro de la ficha grande del paciente.",
+   meta:()=>{ const c=_mi().camas[0]; return !!(c && !c.basura.length); },
+   haz:"des-escala la Neumonía"},
+  {tit:"Cierra tu guardia", sel:"#btn-fin", cierra:true,
+   txt:"Sin basura, el ✅ vuelve a congelar el reloj: la Neumonía no pierde nada al cierre.",
+   meta:()=> G.ronda>3 || G.turno!==0, haz:"toca Fin de Guardia"},
+  {tit:"Y se va", sel:".zona.cerca", cierra:true,
+   txt:"Vuelve tu turno, empieza tu Entrega y el alta se paga.",
+   meta:()=> _mi().altas.length>0, haz:"espera a que vuelva tu turno"},
+ ],
+ cierre:[
+  "Una indicación por cada basura: si te tiran dos, se te va medio turno en limpiar. Ese es el precio real del sabotaje, y por eso conviene <b>cerrar y cobrar rápido</b> en vez de acumular pacientes listos.",
+  "El 🛡️ de algunos recursos y de la Acción <i>El Que Guarda Siempre Tiene</i> impide el sabotaje antes de que ocurra. Sale más barato que limpiar.",
+ ],
+},
+];
+
+function casoActual(){ return (G && G.caso) ? CASOS.find(c=>c.id===G.caso.id) : null; }
+
+function montarCaso(caso){
+  const mk = (nombre, ia)=>({
+    nombre, ia, avatar:null, mano:[], camas:[null,null,null],
+    altas:[], muertos:[], sumarios:0, protocolos:[], coloc:INDICACIONES,
+    compraHecha:false, accionHecha:false, roboMod:0, sinFarmacos:false,
+    colocMod:0, habP:false, habT:false, pena:0, entregado:true});
+  G = { modo:"ia", ronda:caso.ronda || 3, turno:0, fase:1,
+        mazoP:[], mazoG:[], descG:[], mazoA:[], descA:[], pizarra:[],
+        sumariosLibres:6, log:[], fin:false, pendiente:null,
+        bloqueoAcciones:0, ultimaAccion:null, ultimaComp:null,
+        canjeAvatar:null, iniciado:true, caso:{id:caso.id, i:0} };
+  G.jug = [mk("Tú", false), mk("Dr. Silicio", true)];
+  G.jug[0].avatar = _av(caso.avatar || "C13");
+  G.jug[1].avatar = _av("C19");
+  // un fondo de mazo, para que el robo de la próxima Entrega reparta algo
+  ["R01","R16","R24","R35","R18","R30"].forEach(id=>{
+    const c = _rec(id); if(c) G.mazoG.push(c); });
+  caso.montar(G.jug[0], G.jug[1]);
+  UI.sel = null; UI.selProt = null; UI.modal = null; UI.verRival = null;
+  UI.manoAbierta = false; UI.marcarDescartes = []; UI.nuevas = new Set();
+  UI.vidaPrev = {}; UI.okPrev = {}; UI.reqPrev = {}; UI.colocPrev = null;
+  UI.foco = 0; UI.pantalla = null; UI.fxAltas = null; UI.fxViva = null;
+  UI.franja = null;
+  anota("r", `CASO · ${caso.tit}`);
+  render();
+}
+function salirCaso(){
+  G = null;
+  UI.pantalla = "casos"; UI.sel = null; UI.modal = null;
+  UI.manoAbierta = false; UI.fxAltas = null; UI.fxViva = null; UI.franja = null;
+  render();
+}
+function reiniciarCaso(){ const c = casoActual(); if(c) montarCaso(c); }
+
+/* El rival de un caso no improvisa. La IA de verdad haría jugadas que no
+   vienen al cuento —comprar en la Pizarra, sabotearte de vuelta— y
+   arruinaría el guion en dos turnos. Aquí cierra su guardia y te devuelve
+   el turno, que es justo lo que hace falta para ver un cierre de ronda. */
+function casoRival(){
+  const caso = casoActual();
+  if(caso && caso.rival){ caso.rival(yo()); return; }
+  entrarFase(2);
+}
+
+function pintarCaso(cont){
+  const caso = casoActual();
+  if(!caso) return;
+  const pasos = caso.pasos;
+  while(G.caso.i < pasos.length && pasos[G.caso.i].meta && pasos[G.caso.i].meta())
+    G.caso.i++;
+  if(G.caso.i >= pasos.length){ cont.appendChild(finCaso(caso)); return; }
+  if(UI.modal || UI.fxViva || G.pendiente) return;   // hojas y ceremonias mandan
+  const p = pasos[G.caso.i];
+  // Los pasos que explican lo que acaba de pasar necesitan ver el tablero, y
+  // la mano abierta lo tapa —y su velo se come los toques—. `cierra` la
+  // recoge. No se hace siempre: el paso que pide soltar una carta la
+  // necesita abierta.
+  if(p.cierra && UI.manoAbierta){
+    UI.manoAbierta = false; UI.sel = null;
+    setTimeout(render, 0);
+    return;
+  }
+  const obj = p.sel ? document.querySelector(p.sel) : null;
+  let arriba = true;
+  if(obj){
+    const r = obj.getBoundingClientRect();
+    if(r.width && r.height){
+      const an = el("div","tuto-anillo");
+      an.style.left = Math.max(2, r.left-5)+"px";
+      an.style.top = Math.max(2, r.top-5)+"px";
+      an.style.width = Math.min(innerWidth-8, r.width+10)+"px";
+      an.style.height = (r.height+10)+"px";
+      cont.appendChild(an);
+      arriba = r.top + r.height/2 > innerHeight/2;
+    }
+  }
+  const b = el("div","tuto-burbuja");
+  b.appendChild(el("div","paso",
+    `${esc(caso.tit)} · paso ${G.caso.i+1} de ${pasos.length}`));
+  b.appendChild(el("h3",null,esc(p.tit)));
+  b.appendChild(el("p",null,p.txt));
+  if(p.meta){
+    const m = el("div","meta");
+    m.innerHTML = `<i>▸</i><span>${esc(p.haz || "hazlo para seguir")}</span>`;
+    b.appendChild(m);
+  }
+  const pie2 = el("div","tuto-pie");
+  if(!p.meta){
+    const ok = el("button","btn pri","Entendido");
+    ok.onclick = ()=>{ G.caso.i++; render(); };
+    pie2.appendChild(ok);
+  }
+  const li = el("div","caso-links");
+  const re = el("button","caso-rec","reiniciar");
+  re.onclick = reiniciarCaso;
+  const sa = el("button","caso-rec","salir");
+  sa.onclick = salirCaso;
+  li.appendChild(re); li.appendChild(sa);
+  pie2.appendChild(li);
+  b.appendChild(pie2);
+  if(arriba) b.style.top = "70px"; else b.style.bottom = "16px";
+  cont.appendChild(b);
+}
+
+function finCaso(caso){
+  if(!G.caso.hecho){ G.caso.hecho = true; marcarCaso(caso.id); }
+  const w = el("div","caso-fin");
+  const t = el("div","tarj");
+  t.appendChild(el("div","marca-fin","🩺"));
+  t.appendChild(el("h3",null,"Caso resuelto"));
+  (caso.cierre || []).forEach(x=>t.appendChild(el("p",null,x)));
+  const f = el("div","acciones");
+  const v = el("button","btn","A la lista"); v.onclick = salirCaso;
+  f.appendChild(v);
+  const sig = CASOS[CASOS.indexOf(caso)+1];
+  if(sig){
+    const s = el("button","btn pri","Siguiente caso");
+    s.onclick = ()=>montarCaso(sig);
+    f.appendChild(s);
+  }
+  t.appendChild(f);
+  w.appendChild(t);
+  return w;
+}
+
+function pantallaCasos(){
+  const hechos = casosHechos();
+  const w = el("div","casos");
+  const cab = el("div","cab");
+  cab.appendChild(el("h2",null,"La Residencia"));
+  cab.appendChild(el("div","prog",
+    `${CASOS.filter(c=>hechos.has(c.id)).length} / ${CASOS.length}`));
+  w.appendChild(cab);
+  w.appendChild(el("p","lead",
+    "Seis casos armados a mano. En cada uno la unidad ya está montada para "+
+    "que ocurra una cosa y la veas ocurrir: dos o tres jugadas y se acabó. "+
+    "No tocan la guardia que tengas guardada."));
+  CASOS.forEach((c,i)=>{
+    const hecho = hechos.has(c.id);
+    const b = el("button","caso-f"+(hecho?" ok":""));
+    b.appendChild(el("div","ord", hecho ? "✓" : String(i+1)));
+    const cu = el("div","cu");
+    cu.innerHTML = `<b>${esc(c.tit)}</b><small>${esc(c.sub)}</small>`+
+                   `<span class="ens">${esc(c.ens)}</span>`;
+    b.appendChild(cu);
+    b.onclick = ()=>montarCaso(c);
+    w.appendChild(b);
+  });
+  // y al final, la guardia entera con el coach encima: lo que hasta ahora
+  // era la casilla «Primera guardia» de la portada. Aquí se entiende mejor
+  // qué es —el último escalón, no una modalidad— y la portada queda limpia.
+  const g = el("button","caso-f");
+  g.appendChild(el("div","ord","▶"));
+  const gc = el("div","cu");
+  gc.innerHTML = "<b>Tu primera guardia</b><small>Una partida entera contra "+
+    "la IA, con el coach señalando cada paso sobre el tablero de verdad."+
+    "</small><span class=\"ens\">las 8 rondas · sin guion</span>";
+  g.appendChild(gc);
+  g.onclick = ()=>{ UI.pantalla = null;
+                    nuevaPartida("ia",["Tú","Dr. Silicio"], true); };
+  w.appendChild(g);
+  const v = el("button","btn","Volver a la portada");
+  v.style.marginTop = "6px";
+  v.onclick = ()=>{ UI.pantalla = null; render(); };
+  w.appendChild(v);
+  return w;
+}
+
 function pintarTuto(){
   const cont = document.getElementById("tuto");
   if(!cont) return;
   cont.innerHTML = "";
-  if(!G || !G.tuto || G.fin) return;
+  if(!G || G.fin) return;
+  if(G.caso){ pintarCaso(cont); return; }
+  if(!G.tuto) return;
   let p = TUTO[G.tuto.i];
   while(p && p.listo && p.listo()){ G.tuto.i++; p = TUTO[G.tuto.i]; }
   if(!p){ G.tuto = null; guardar(); return; }
@@ -5728,7 +6229,8 @@ const CLAVE_SON = "vt-portada-sonido";
 function pintarPortada(){
   const cont = document.getElementById("portada");
   if(!cont) return;
-  const toca = !G && (PORTADA.dibujo || PORTADA.video || PORTADA.cuadro);
+  const toca = !G && !UI.pantalla &&
+               (PORTADA.dibujo || PORTADA.video || PORTADA.cuadro);
   document.body.classList.toggle("con-portada", !!toca);
   const viejo = document.querySelector(".son-portada");
   if(!toca){ cont.hidden = true; cont.innerHTML = "";
@@ -5819,20 +6321,28 @@ function pantallaInicio(){
     b.onclick = fn; ops.appendChild(b);
   };
   mk(SVG_MODO.ia, "IA", "1 jugador", "Jugar contra la IA, 1 jugador",
-     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"], !!UI.conTuto));
+     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"]));
   mk(SVG_MODO.dos, "Dúo", "1 teléfono", "Dos jugadores en un teléfono",
      ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
   mk(SVG_MODO.solo, "Solo", "2 manos", "Solitario, las dos manos a la vista",
      ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
   s.appendChild(ops);
 
-  const tu = el("button","tuto"+(UI.conTuto?" on":""));
-  tu.innerHTML = `<span class="marca">${UI.conTuto?"✓":""}</span>` +
-    `<span class="tx"><b>Primera guardia</b>` +
-    `La IA con el coach: te muestra cada paso.</span>`;
-  tu.setAttribute("aria-pressed", UI.conTuto ? "true" : "false");
-  tu.onclick = ()=>{ UI.conTuto = !UI.conTuto; render(); };
-  s.appendChild(tu);
+  // Antes aquí había una casilla «Primera guardia» que encendía el coach
+  // sobre la partida contra la IA. Se fue adentro de La Residencia, que es
+  // donde se entiende qué es: el último escalón de aprender, y no una
+  // cuarta modalidad compitiendo con las tres monedas.
+  const hechos = casosHechos();
+  const nh = CASOS.filter(c=>hechos.has(c.id)).length;
+  const re = el("button","res");
+  re.innerHTML = `<span class="medalla">🩺</span>`+
+    `<span class="tx"><b>La Residencia</b>`+
+    `${nh ? "Sigue donde ibas:" : "Aprende jugando:"} `+
+    `seis casos cortos, uno por mecánica.</span>`+
+    `<span class="cuenta">${nh}/${CASOS.length}</span>`;
+  re.setAttribute("aria-label", `La Residencia · ${nh} de ${CASOS.length} casos resueltos`);
+  re.onclick = ()=>{ UI.pantalla = "casos"; render(); };
+  s.appendChild(re);
 
   if(localStorage.getItem(CLAVE)){
     const b = el("button","btn pri","Retomar la guardia guardada");
@@ -5919,7 +6429,7 @@ function pantallaFinal(){
   b.onclick = ()=>{ borrar(); G=null;
     UI={sel:null,selProt:null,modal:null,marcarDescartes:[],
         nuevas:new Set(),vidaPrev:{},okPrev:{},reqPrev:{},colocPrev:null,foco:0,
-        manoAbierta:false};
+        manoAbierta:false,pantalla:null};
     render(); };
   s.appendChild(b);
   w.appendChild(s);
