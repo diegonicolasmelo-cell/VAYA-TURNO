@@ -5193,6 +5193,65 @@ const CASOS = [
  ],
 },
 {
+ id:"escudo", tit:"El escudo que previene", ronda:3, avatar:"C13",
+ sub:"Dos cartas y un orden. Al revés, pierdes un corazón.",
+ ens:"el 🛡️ de los recursos · el orden de las jugadas",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P08", {IMAGEN:1}, {vida:2});
+   yo.camas[1] = _cama("P02", {FARMACOS:1});
+   _mano(yo, ["R35","R31","R01","R16"]);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Lee la letra chica", sel:".mazo-mano",
+   txt:"Al <b>Postoperado</b> le faltan un 🧑‍⚕️ y un 💉, y está en 2 ❤️. En tu mano hay justo eso: <b>Técnico en Enfermería</b> (🧑‍⚕️) y <b>Ventilación Mecánica</b> (💉). Pero la Ventilación trae ⚠ <i>Neumonía Asociada a VM</i>… y el Técnico lleva un 🛡️ que dice, exactamente, <i>Neumonía Asociada a VM</i>."},
+  {tit:"Primero el Técnico", sel:".zona.cerca .tres",
+   txt:"El 🛡️ solo protege desde que está puesto. Coloca <b>primero</b> al Técnico en Enfermería.<br><br>Si sueltas la Ventilación antes, la complicación se cobra su corazón y ya no hay vuelta atrás: tendrías que reiniciar el caso.",
+   meta:()=>{ const c=_mi().camas[0]; return !!(c && c.protege.length); },
+   haz:"coloca el Técnico en Enfermería"},
+  {tit:"Ahora sí, la Ventilación", sel:".zona.cerca .tres",
+   txt:"Fíjate en el sello 🛡️ que le apareció a la cama. Suelta ahora la Ventilación Mecánica.",
+   meta:()=> _ok(_mi(),0), haz:"coloca la Ventilación Mecánica"},
+  {tit:"Cero corazones perdidos", sel:".zona.cerca .tres", cierra:true,
+   txt:"La ⚠ ni se resolvió: el 🛡️ la previno antes. El paciente cerró en 2 ❤️, los mismos con los que empezó, y ese corazón es lo que separa un alta de un ✝️ dos turnos después."},
+ ],
+ cierre:[
+  "Tres recursos llevan 🛡️ y cada uno previene <b>una</b> complicación con nombre y apellido: la <b>Enfermera de UCI</b> la Bacteriemia por Catéter, el <b>Técnico en Enfermería</b> la Neumonía Asociada a VM y el <b>Kinesiólogo Respiratorio</b> el Delirium en UCI.",
+  "El 🛡️ además hace intocable la cama: mientras esté, <b>nadie te puede sabotear ahí</b>.",
+  "Y lo que de verdad se aprende aquí es que en esta UCI <b>el orden es una jugada</b>. Las mismas dos cartas, al revés, cuestan un corazón.",
+ ],
+},
+{
+ id:"respuesta", tit:"La carta que anula la ⚠", ronda:3, avatar:"C19",
+ sub:"El mismo EPOC del caso 2. Hoy llevas el antídoto guardado.",
+ ens:"cartas RESPUESTA 🛡️ · la ventana para jugarlas",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P16", {FARMACOS:2, IMAGEN:1}, {vida:2});
+   yo.camas[1] = _cama("P01", {FARMACOS:1});
+   _mano(yo, ["R44","R16","R01"]);
+   const a = _acc("A16"); if(a) yo.protocolos.push(a);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"Otra vez el EPOC", sel:".prot-mios",
+   txt:"Dos corazones y los dos 💉 pendientes, igual que antes: solo la <b>Pleurostomía</b> los cierra, y trae su ⚠. La diferencia es que hoy tienes guardada una carta <b>RESPUESTA</b>: <b>Simulación Clínica</b>."},
+  {tit:"Juega la Pleurostomía", sel:".zona.cerca .tres",
+   txt:"Déjala caer y que la ⚠ se cobre su corazón. Es a propósito.",
+   meta:()=>{ const c=_mi().camas[0]; return !!(c && c.estable); },
+   haz:"suéltala sobre el EPOC"},
+  {tit:"Y devuélvele el corazón", sel:".prot-mios", cierra:true,
+   txt:"Ahí abajo, en <b>Tus Protocolos</b>, la Simulación Clínica dice ahora <b>Jugar ahora</b>: hay una ⚠ reciente que anular. Júgala y confirma.",
+   meta:()=>{ const c=_mi().camas[0]; return !!(c && c.vida>=2); },
+   haz:"juega Simulación Clínica"},
+  {tit:"Dos por el precio de una", sel:".zona.cerca .tres", cierra:true,
+   txt:"La cama quedó ✅ y el paciente conservó sus 2 ❤️: la carta con ⚠ te salió gratis. <b>El recurso se queda puesto</b> — lo que se borra es la complicación, no el tratamiento."},
+ ],
+ cierre:[
+  "Hay dos RESPUESTA en el mazo: <b>Simulación Clínica</b> y <b>¿Y Si Vamos por un Cafecito?</b>, y las dos hacen lo mismo — anular una ⚠ que acaba de caer sobre un paciente <b>tuyo</b>.",
+  "<b>La ventana es corta</b>: se anula la última complicación del turno en curso. Guardar una RESPUESTA es lo que te deja jugar cartas con ⚠ sin pensarlo dos veces.",
+ ],
+},
+{
  id:"pizarra", tit:"Comprar en la Pizarra", ronda:3, avatar:"C13",
  sub:"Estabiliza, compra Alta Anticipada y cobra el alta hoy mismo.",
  ens:"la Pizarra · pagar con cartas · jugar un Protocolo",
@@ -5310,6 +5369,62 @@ const CASOS = [
   "El 🛡️ de algunos recursos y de la Acción <i>El Que Guarda Siempre Tiene</i> impide el sabotaje antes de que ocurra. Sale más barato que limpiar.",
  ],
 },
+{
+ id:"sumario", tit:"El Sumario y el límite de mano", ronda:3, avatar:"C19",
+ sub:"Se te murió uno. Ahora te caben menos cartas. Ciérralo.",
+ ens:"el Sumario 📋 · el límite de mano · el descarte del cierre",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P07", {FARMACOS:1, IMAGEN:1});
+   yo.camas[1] = _cama("P02", {FARMACOS:2, PERSONAL:1}, {desde:2});
+   yo.sumarios = 1;
+   yo.muertos.push(_pac("P05"));
+   _mano(yo, ["R01","R16","R24","R18","R30","R35","R05","R10","R13"]);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"El papeleo del ✝️", sel:"#indic-caja",
+   txt:"Se te fue un paciente en la guardia pasada y quedó un <b>Sumario 📋</b> abierto: lo ves junto a tu retrato. Un Sumario <b>te quita una carta del límite de mano</b> — de 6 pasas a 5 — y tú llevas 9. Al cierre botarías cuatro."},
+  {tit:"Ciérralo", sel:".acciones",
+   txt:"Abajo aparece <b>Cerrar Sumario</b>: cuesta <b>2 cartas</b> y no gasta indicación. Ciérralo y recuperas el límite de 6.",
+   meta:()=> _mi().sumarios===0, haz:"toca Cerrar Sumario"},
+  {tit:"Cierra la guardia", sel:"#btn-fin", cierra:true,
+   txt:"Te quedan 7 cartas y el límite es 6. Cierra tu guardia y mira lo que pide.",
+   meta:()=> !!(G.pendiente && G.pendiente.tipo==="descartar"),
+   haz:"toca Fin de Guardia"},
+  {tit:"Y bota una", sel:".rejilla, .selector",
+   txt:"El cierre te obliga a bajar al límite. Marca la que menos te sirva y confirma. Esto pasa <b>todos los turnos</b>: robar 4 y colocar 3 significa que la mano crece sola, y el cierre la recorta.",
+   meta:()=> G.ronda>3 || G.turno!==0, haz:"marca una carta y descarta"},
+ ],
+ cierre:[
+  "Un Sumario cuesta <b>2 cartas</b> cerrarlo, y hay <b>6 en la partida</b>: cuando se acaban, un ✝️ ya no abre ninguno.",
+  "Dos Sumarios abiertos te dejan la mano en 4 y el juego se vuelve otro. Cerrarlos temprano es casi siempre mejor que una jugada bonita.",
+ ],
+},
+{
+ id:"avatar", tit:"El poder de tu personaje", ronda:3, avatar:"C15",
+ sub:"El ⚡ del retrato: qué es, cuándo se usa y qué hace la app.",
+ ens:"1×partida · 1×ronda · pasiva · lo que resuelves tú",
+ montar(yo, riv){
+   yo.camas[0] = _cama("P09", {FARMACOS:2, IMAGEN:1, PERSONAL:1});
+   yo.camas[1] = _cama("P01", {FARMACOS:1});
+   _mano(yo, ["R16","R01","R24","R18"]);
+   riv.camas[0] = _cama("P06", {FARMACOS:1});
+ },
+ pasos:[
+  {tit:"El rayo del retrato", sel:".poder-av",
+   txt:"Hoy eres <b>El Dador de Altas</b>. Junto a tu retrato, dentro del anillo de indicaciones, hay un <b>⚡</b>: ahí vive el poder de tu personaje. Ábrelo.",
+   meta:()=> !!UI.modal, haz:"toca el ⚡ de tu retrato"},
+  {tit:"Tres maneras de tener poder", sel:null, conHoja:true,
+   txt:"Arriba dice la <b>frecuencia</b>, que es lo único que hay que memorizar:<br><br>· <b>PASIVA</b> — aplica sola, siempre, no se gasta.<br>· <b>1×RONDA</b> — una vez cada ronda.<br>· <b>1×PARTIDA</b> — una sola vez en toda la guardia. La tuya es de estas: <i>«Descarta 2 cartas: un paciente al que le falte exactamente 1 recurso queda ✅ de inmediato»</i>. Tu Neumonía está justo así."},
+  {tit:"Úsalo", sel:null, conHoja:true,
+   txt:"Toca <b>⚡ Usar ahora</b>.<br><br>Y aquí viene lo importante, porque si no lo sabes vas a creer que la app está rota: <b>el ⚡ marca el poder como gastado y el efecto lo aplicas tú</b>. Las 22 habilidades son todavía texto —como eran las Acciones antes de que el árbitro las ejecutara—, así que descarta tus 2 cartas y da por estabilizado al paciente entre ustedes. Contra la IA, cuenta con honestidad.",
+   meta:()=> _mi().habP, haz:"toca ⚡ Usar ahora"},
+ ],
+ cierre:[
+  "El poder está <b>marcado como usado</b> y no volverá a estar disponible en esta guardia: eso sí lo lleva la app.",
+  "Lo que no lleva todavía es el <b>efecto</b>. Es la misma deuda que tenían las 22 Acciones hasta que el árbitro empezó a resolverlas — está anotada, y mientras tanto los avatares se juegan como en la mesa: leyendo la carta y aplicándola de palabra.",
+ ],
+},
 ];
 
 function casoActual(){ return (G && G.caso) ? CASOS.find(c=>c.id===G.caso.id) : null; }
@@ -5365,8 +5480,13 @@ function pintarCaso(cont){
   while(G.caso.i < pasos.length && pasos[G.caso.i].meta && pasos[G.caso.i].meta())
     G.caso.i++;
   if(G.caso.i >= pasos.length){ cont.appendChild(finCaso(caso)); return; }
-  if(UI.modal || UI.fxViva || G.pendiente) return;   // hojas y ceremonias mandan
+  // Las hojas y las ceremonias mandan… salvo el descarte del cierre, que es
+  // justo el momento que el caso del Sumario tiene que explicar. Ahí la
+  // burbuja se queda: no tapa la rejilla, que vive abajo.
+  if(UI.fxViva) return;
+  if(G.pendiente && G.pendiente.tipo!=="descartar") return;
   const p = pasos[G.caso.i];
+  if(UI.modal && !p.conHoja) return;
   // Los pasos que explican lo que acaba de pasar necesitan ver el tablero, y
   // la mano abierta lo tapa —y su velo se come los toques—. `cierra` la
   // recoge. No se hace siempre: el paso que pide soltar una carta la

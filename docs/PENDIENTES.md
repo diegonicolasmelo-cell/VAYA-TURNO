@@ -29,10 +29,9 @@ la IA o entre dos en un teléfono. Lleva el reloj, los ✅, la ventana de alta,
 las ⚠️, las 🛡️, la basura y los Sumarios; las Acciones se juegan solas desde
 la Pizarra; las habilidades de avatar se aplican a mano y quedan en la
 bitácora, que se copia al portapapeles para pegarla acá. Para quien juega
-por primera vez está **"📖 Primera guardia (tutorial)"** en la portada:
-partida guiada contra la IA con un coach de 10 pasos que señala cada
-elemento en pantalla (unidad, mano, indicaciones, Pizarra…), avanza solo
-cuando haces la acción y se puede saltar en cualquier momento.
+por primera vez está **La Residencia** en la portada (§5d): diez casos
+clínicos armados a mano, uno por mecánica, y al final la partida entera
+con el coach de 10 pasos que era la antigua "Primera guardia".
 
 **El holograma de la carta grande** (referencia: Pokémon TCG Pocket): al
 ver una carta en grande se inclina en 3D siguiendo el dedo, con una luz
@@ -839,17 +838,21 @@ en ocho rondas no te toque nunca una ⚠ que sirva para sabotear, o que el
 único paciente a punto de cerrar sea del rival. Los diez pasos del coach
 terminaban explicando la interfaz y no las mecánicas.
 
-**La Residencia** es lo otro: seis unidades armadas a mano para que UNA
+**La Residencia** es lo otro: diez unidades armadas a mano para que UNA
 mecánica ocurra, ahora, y se vea ocurrir. Dos o tres jugadas cada una.
 
 | # | Caso | Lo que enseña |
 |---|---|---|
 | 1 | Dar de alta | requisitos, sinergia ×2, cuándo se paga el alta |
 | 2 | La complicación que conviene | la ⚠ que cierra la cama, colocar nunca mata, el ✅ congela |
-| 3 | Comprar en la Pizarra | pagar con cartas, guardar y jugar un Protocolo (Alta Anticipada) |
-| 4 | Sabotear: el alta que no llega | la basura clínica retiene el alta y descongela el reloj |
-| 5 | Sabotear: el alta celestial | el mismo golpe en 1 ❤️: mata en el cierre, y abre Sumario |
-| 6 | Des-escalar | la respuesta, y lo que cuesta: una indicación por basura |
+| 3 | El escudo que previene | el 🛡️ de los recursos, y que el orden de dos cartas es una jugada |
+| 4 | La carta que anula la ⚠ | las RESPUESTA y su ventana (la última ⚠ del turno, sobre lo tuyo) |
+| 5 | Comprar en la Pizarra | pagar con cartas, guardar y jugar un Protocolo (Alta Anticipada) |
+| 6 | Sabotear: el alta que no llega | la basura clínica retiene el alta y descongela el reloj |
+| 7 | Sabotear: el alta celestial | el mismo golpe en 1 ❤️: mata en el cierre, y abre Sumario |
+| 8 | Des-escalar | la respuesta, y lo que cuesta: una indicación por basura |
+| 9 | El Sumario y el límite de mano | 📋 encoge la mano, cerrarlo cuesta 2, y el cierre te obliga a botar |
+| 10 | El poder de tu personaje | dónde vive el ⚡, las tres frecuencias, y qué resuelve la app |
 
 La casilla «Primera guardia» de la portada se fue adentro, como séptima
 entrada: ahí se entiende que es el último escalón y no una cuarta
@@ -883,9 +886,19 @@ Tres decisiones que conviene no deshacer:
   deja el caso irresoluble, la burbuja sigue pidiendo lo mismo. Hay
   «reiniciar» a mano, y con casos de dos jugadas alcanza; con casos más
   largos habría que declarar `falla()`.
-- **Faltan mecánicas por cubrir**: el 🛡️ y las cartas RESPUESTA, el poder
-  del avatar, cerrar un Sumario, el descarte al límite de mano, y el
-  Canje. Son cinco casos más con el mismo molde.
+- **El Canje no tiene caso porque no está en la app.** Es la única de las
+  mecánicas de la mesa que el árbitro digital no implementa —`grep canje`
+  solo encuentra `canjeAvatar`, que es otra cosa (el préstamo de avatar de
+  ¡Liceeeencia!)—. Un tutorial de algo que no ocurre sería enseñar una
+  mentira. O se implementa, o se dice en el reglamento que es de mesa.
+- **El caso 10 documenta una deuda en vez de enseñar una mecánica.** Las
+  22 habilidades de avatar siguen siendo texto: el ⚡ marca el poder como
+  gastado y el efecto lo aplica el jugador, igual que en la mesa. Está
+  dicho desde el principio (cabecera de este documento) y es deliberado,
+  pero un jugador nuevo lo lee como que la app está rota. El caso lo dice
+  con todas las letras. La salida definitiva es hacer con los avatares lo
+  que la v0.35 hizo con las 22 Acciones: darles un `ACC`-equivalente y que
+  el árbitro las resuelva.
 - **Dos ayudas que se solapan.** El coach clásico y los casos enseñan cosas
   distintas hoy, pero si los casos llegan a cubrir la interfaz, el coach
   sobra y son 60 líneas menos.
