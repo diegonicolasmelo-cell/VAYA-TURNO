@@ -1048,6 +1048,66 @@ salvamento en el filo.
 
 ---
 
+## 5g. El soporte vital ⏸ (v0.61) ✅
+
+El autor propuso que una carta valiera 2 según el estado del paciente —la
+Ventilación Mecánica ×2 sobre alguien en ≤2 ❤️—. Se midió y se descartó a
+favor de una versión distinta de la misma intuición.
+
+**Por qué no el ×2.** Medido: aplicándoselo a las catorce cartas de
+procedimientos y con umbral ≤3 ❤️, el salvamento solo sube de 67 % a 69 %.
+El bono llega tarde: una unidad extra sobre alguien en 2 ❤️ casi nunca
+alcanza a cerrar el requisito antes de que se acabe el reloj. Y tenía dos
+costos que no salen en la tabla: diluye el ×2 —la firma del juego es *el
+recurso correcto en el paciente correcto cuenta doble*, y una tercera
+fuente lo vuelve común— y premia justo **no** hacer triage, que es la tesis
+del juego. Débil y contra la tesis es la peor combinación: tienta a la
+jugada mala sin pagarla.
+
+**Lo que se hizo.** La carta compra **tiempo**, no requisitos: mientras la
+Ventilación Mecánica siga puesta, el paciente no se deteriora al Fin de
+Guardia. Es lo que hace intubar de verdad. No toca la economía del ×2, y
+estrena un verbo que no existía — hasta ahora **lo único que paraba el
+reloj era el ✅**.
+
+| | altas | ✝️/jug | salvamento | limpias | grado III |
+|---|---|---|---|---|---|
+| antes | 3,04 | 1,47 | 67 % | 3,0 % | 47 % |
+| VM ×2 con ≤2 ❤️ | 3,07 | 1,46 | 68 % | 2,9 % | — |
+| todos los 💉 ×2 con ≤3 ❤️ | 3,15 | 1,41 | 69 % | 3,5 % | — |
+| **VM para el reloj** (2 copias) | 3,07 | **1,38** | 69 % | **3,6 %** | **50 %** |
+
+Con **dos cartas** hace más que el ×2 con catorce.
+
+### Detalles que costaron
+
+- **`alFilo()` también había que tocarlo.** Es el que enciende el aura roja
+  de «se muere esta noche», y sin la excepción quedaba encendida sobre el
+  único paciente que no se muere.
+- **`extraDeterioro` se consume siempre**, esté o no conectado. Si se
+  quedaba dentro del `if`, un turno de *Llaman de Urgencias* se guardaba
+  para el siguiente por haber estado en ventilador.
+- **La insignia no cabía en la ficha.** Se puso primero como sello en la
+  fila de sellos y **se recortaba sin avisar**: la cama tiene alto fijo y
+  con ocho símbolos de recurso ya no queda sitio. Terminó junto al corazón,
+  como **⏸ EN VM**, reemplazando al `congelada` del ✅ cuando hay las dos —
+  porque el ventilador dice además que hay una carta que el rival puede
+  arrancar. Regla general para la ficha de cama: **si la información es
+  importante, no va en una fila que pueda quedar fuera del alto fijo.**
+
+### Lo que queda por revisar (el autor lo pidió explícitamente)
+
+- **Es permanente.** Se eligió así a sabiendas: la alternativa suave es que
+  pare el reloj un solo turno. Cambiarlo es una condición, no una columna.
+- **Corta también la sangría de la basura clínica**, así que es la mejor
+  defensa contra el sabotaje del §6.3. No estaba buscado.
+- **El bot no sabe planear mantenerlo puesto** ni desconectárselo al rival,
+  así que el número medido es un piso: en manos humanas debería rendir más.
+- **Solo la Ventilación Mecánica.** El Catéter Venoso Central era el otro
+  candidato y quedó fuera.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

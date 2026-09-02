@@ -478,6 +478,7 @@ body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
 .cong{display:inline-flex;align-items:center;gap:2px;font-size:7.5px;font-weight:700;
       letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-left:4px}
 .cong svg{width:7px;height:7px;flex:none}
+.cong.vm{color:var(--acc)}
 .num{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
      color:var(--ink-2);margin-left:4px;font-variant-numeric:tabular-nums}
 .reqs{display:flex;flex-direction:column;gap:2.5px}
@@ -841,6 +842,9 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .grande .puesta.basura{--tc:var(--basura)}
 .grande .puesta.basura .pu-ico{background:var(--basura);font-weight:700}
+.grande .g-sop{margin-top:10px;padding:9px 11px;border-radius:9px;
+  font-size:11.5px;line-height:1.4;color:var(--acc);
+  background:var(--acc-soft);border:1px solid var(--acc)}
 .grande .g-contra{margin-top:10px;padding:9px 11px;border-radius:9px;
   font-size:11.5px;line-height:1.4;color:var(--vida);
   background:rgba(192,73,47,.09);border:1px dashed var(--vida)}
@@ -1012,6 +1016,7 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
       border:1px solid currentColor;align-self:flex-start;white-space:nowrap}
 .etiq.w{color:var(--warn)} .etiq.s{color:var(--ok)}
 .etiq.x2{color:var(--acc)} .etiq.r{color:var(--quir)}
+.etiq.sop{color:var(--acc);font-weight:800}
 .carta-pie{margin-top:auto;font-size:8.5px;color:var(--ink-3);line-height:1.2;
   padding-right:15px}   /* el sello de abajo a la derecha */
 
@@ -2278,9 +2283,15 @@ function saldraDeAlta(c){
   // el alta se cobra en tu Entrega, y la basura clínica la retiene
   return !!(c && c.estable && !c.basura.length);
 }
+/* ¿hay soporte vital puesto? Mientras lo haya, el reloj de este paciente
+   está parado — y por eso hay que preguntarlo también aquí: sin esto el
+   aura roja de «se muere esta noche» seguiría encendida sobre alguien
+   conectado al ventilador, que es justo el que no se muere. */
+function conSoporte(c){ return !!(c && c.puestos.some(x=>x.soporte)); }
 function alFilo(c){
   if(!c) return false;
   if(c.estable && !c.basura.length) return false;   // congelado: no baja
+  if(conSoporte(c)) return false;                   // conectado: tampoco
   return c.vida - (1 + (c.extraDeterioro||0)) <= 0;
 }
 
@@ -3008,13 +3019,24 @@ function faseFin(){
     // para siempre: no se moría porque estaba ✅ y no se iba de alta
     // porque la basura la retiene. O sea que dejar la basura salía gratis.
     // Ahora muerde: o gastas la indicación en des-escalar, o se desangra.
-    if(!c.estable || c.basura.length){
+    // Y el soporte vital para el reloj por su cuenta: la Ventilación
+    // Mecánica no cura nada —los requisitos siguen igual de abiertos—
+    // pero mientras esté puesta el paciente no se deteriora. Es lo único
+    // que salva a alguien que no vas a alcanzar a completar, y también
+    // lo único que corta la sangría de la basura clínica. Se desconecta
+    // como cualquier 💉: con Hay Que Repetirlo.
+    const soporte = conSoporte(c);
+    if(soporte && (!c.estable || c.basura.length))
+      anota("", `${c.p.nombre} aguanta en ventilación mecánica.`);
+    if(!soporte && (!c.estable || c.basura.length)){
       c.vida -= 1 + (c.extraDeterioro||0);
-      c.extraDeterioro = 0;
       if(c.estable && c.basura.length && c.vida > 0)
         anota("m", `${c.p.nombre} está ✅ pero la basura clínica no lo deja `+
                    `descansar: −1 ❤️ (le quedan ${c.vida}).`);
     }
+    // se consume siempre: un turno de Llaman de Urgencias no se guarda
+    // para el siguiente por haber estado conectado
+    c.extraDeterioro = 0;
     if(c.vida<=0){
       j.muertos.push(c.p);
       anota("m", `✝️ ALTA CELESTIAL · ${c.p.nombre} (${c.p.fallece}) — ${j.nombre}`);
@@ -4093,8 +4115,15 @@ function vistaCama(c, i, duenio, propio){
   uno.title = `${c.vida} de ${c.vidaMax} ❤️`;
   hp.appendChild(uno);
   hp.appendChild(el("span","vnum",`${c.vida}<small>/${c.vidaMax}</small>`));
-  // el ✅ detiene el reloj: que se vea, no solo que sea verdad
-  if(c.estable) hp.appendChild(el("span","cong",
+  // El reloj parado se anuncia aquí, pegado al corazón, y con UNA sola
+  // insignia: si hay ventilador manda él, porque además dice que hay una
+  // carta encima que el rival puede arrancar. La ficha tiene alto fijo —
+  // una fila de sellos más abajo se recorta sin avisar.
+  const PAUSA = '<svg viewBox="0 0 16 16" fill="currentColor">'+
+    '<rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/>'+
+    '<rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> ';
+  if(conSoporte(c)) hp.appendChild(el("span","cong vm", PAUSA + "en VM"));
+  else if(c.estable) hp.appendChild(el("span","cong",
     '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.4" height="11" rx="1"/><rect x="9.1" y="2.5" width="3.4" height="11" rx="1"/></svg> congelada'));
   cuerpoF.appendChild(hp);
 
@@ -4295,6 +4324,12 @@ function verPacienteGrande(c){
       });
       cuerpo.appendChild(tira);
     }
+    if(conSoporte(c))
+      cuerpo.appendChild(el("div","g-sop",
+        `⏸ <b>En ventilación mecánica</b> — el reloj está parado: no `+
+        `pierde ❤️ al cierre de ningún turno mientras la carta siga `+
+        `puesta. No lo cura: sus requisitos siguen abiertos, y si se la `+
+        `retiran, el reloj vuelve a correr.`));
     if(c.p.contra)
       cuerpo.appendChild(el("div","g-contra",
         `⛔ <b>${esc(c.p.contra)}</b> — en este paciente está contraindicado. `+
@@ -4780,6 +4815,8 @@ function verCartaGrande(idx, jug){
   const et = el("div","g-etiqs");
   if(c.sistema && SIS[c.sistema])
     et.appendChild(el("span","etiq x2",`${SIS[c.sistema][0]} cuenta ×2`)).style.color = SIS[c.sistema][1];
+  if(c.soporte) et.appendChild(el("span","etiq sop",
+    "⏸ para el reloj mientras esté puesta"));
   if(c.dobleEn) et.appendChild(el("span","etiq x2",
     c.comodin ? `vale 2 como ${IC[c.dobleEn]||""} ${TNOM[c.dobleEn]||c.dobleEn}, 1 en el resto`
               : `cuenta como 2 ${IC[c.dobleEn]||""}`));
@@ -4913,6 +4950,7 @@ function cuerpoCarta(c){
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
     h += `<span class="etiq x2" style="color:${SIS[c.sistema][1]}">${SIS[c.sistema][0]} ×2</span>`;
+  if(c.soporte) h += `<span class="etiq sop">⏸ para el reloj</span>`;
   if(c.dobleEn) h += `<span class="etiq x2">×2 ${esc(TNOM[c.dobleEn]||c.dobleEn).toLowerCase()}</span>`;
   if(c.previene) h += `<span class="etiq s">🛡️ previene</span>`;
   if(c.restriccion==="PERSONAL") h += `<span class="etiq r">⚑ pide personal</span>`;

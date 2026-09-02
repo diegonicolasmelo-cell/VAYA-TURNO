@@ -163,6 +163,33 @@ sistema **cuenta doble**. Paciente completo (y sin bloqueo) → ficha **✅**:
 deja de deteriorarse. La regla de la ventana no cambia: **estabilizas en un
 turno, das de alta al siguiente.**
 
+### 4.2-bis El soporte vital ⏸ — la otra forma de parar el reloj
+
+La **Ventilación Mecánica** no cura: **para el reloj**. Mientras la carta
+siga puesta sobre un paciente, ese paciente **no pierde ❤️ en ningún Fin de
+Guardia** — ni por estar incompleto, ni por la basura clínica que le hayan
+tirado encima.
+
+Lo que **no** hace, y conviene tenerlo claro:
+
+- **No lo estabiliza.** Sus requisitos siguen igual de abiertos y el alta
+  sigue exigiendo el ✅. El ventilador te da tiempo, no te da el alta.
+- **No es permanente si te la quitan.** Es un 💉 como cualquier otro, así
+  que **Hay Que Repetirlo** (§Pizarra) puede descartarlo de un paciente
+  rival. Desconectar el ventilador al que agoniza es una jugada legal, y es
+  la que hay que temer.
+
+En la app el paciente muestra **⏸ EN VM** junto a su corazón, en lugar del
+`congelada` del ✅: los dos paran el reloj, pero solo uno se puede arrancar.
+
+*Medido sobre 4.000 partidas, con solo dos copias en el mazo: los
+fallecidos por jugador bajan de 1,47 a 1,38 —la mayor caída de todo lo que
+se probó— y los pacientes de gravedad III pasan del 47 % al 50 % de
+salvamento. Hace más con dos cartas que subir el aporte de las catorce de
+procedimientos.*
+
+---
+
 ### 4.3 Fin de Guardia
 
 1. Todo paciente tuyo **sin ✅ pierde 1 ❤️**.

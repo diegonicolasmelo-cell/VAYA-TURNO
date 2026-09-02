@@ -195,6 +195,11 @@ def datos(destino_arte=None):
             # casa —el Stock de Sala ×2 en 💊, el Médico General ×2 en 🧑‍⚕️—
             # y fuera de ella sigue siendo un relleno de 1.
             "dobleEn": (r.get("doble_en") or "").strip(),
+            # v0.61 · el soporte vital no cura: para el reloj. Mientras
+            # esta carta siga puesta, el paciente no se deteriora al Fin
+            # de Guardia. Es el segundo modo de congelar el reloj —el
+            # primero es el ✅— y el único que se puede desconectar.
+            "soporte": (r.get("soporte") or "").strip() == "si",
             "turno24": r["comp_nombre"] == "El Turno Veinticuatro",
             "copias": int(r["copias"]),
         })

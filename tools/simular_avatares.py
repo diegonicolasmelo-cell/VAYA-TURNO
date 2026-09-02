@@ -111,6 +111,7 @@ def cargar():
                             "comodin": r["comodin"] == "si",
                             "restriccion": r["restriccion"],
                             "doble_en": (r.get("doble_en") or "").strip(),
+                            "soporte": r.get("soporte", "") == "si",
                             "turno24": r.get("comp_nombre") == "El Turno Veinticuatro",
                             "warn": r["complicacion"] == "si",
                             "comp": comp if r["complicacion"] == "si" else None})
@@ -996,7 +997,9 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
             for i, c in enumerate(j.camas):
                 if c is None:
                     continue
-                if not c.estable and c is not velada:
+                # v0.61 · el soporte vital para el reloj mientras esté puesto
+                soporte = any(x[0].get("soporte") for x in c.puestos)
+                if not c.estable and c is not velada and not soporte:
                     c.vida -= 1 + c.extra          # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:

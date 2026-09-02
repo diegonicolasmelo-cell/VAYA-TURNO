@@ -102,6 +102,7 @@ def cargar():
                             "comodin": r["comodin"] == "si",
                             "restriccion": r["restriccion"],
                             "doble_en": (r.get("doble_en") or "").strip(),
+                            "soporte": r.get("soporte", "") == "si",
                             "turno24": r.get("comp_nombre") == "El Turno Veinticuatro",
                             "warn": r["complicacion"] == "si",
                             "comp": comp if r["complicacion"] == "si" else None})
@@ -748,7 +749,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                 # clínica lo vuelve a soltar. Medido: no mueve los números
                 # —el bot des-escala siempre en cuanto le estorba— pero el
                 # simulador tiene que jugar el mismo juego que la app.
-                if not c.estable or c.basura > 0:
+                # v0.61 · el soporte vital para el reloj: mientras la
+                # Ventilación Mecánica siga puesta, este paciente no se
+                # deteriora. No lo cura —los requisitos siguen abiertos—
+                # y se puede desconectar (Hay Que Repetirlo).
+                soporte = any(x[0].get("soporte") for x in c.puestos)
+                if (not c.estable or c.basura > 0) and not soporte:
                     c.vida -= 1 + c.extra      # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:
