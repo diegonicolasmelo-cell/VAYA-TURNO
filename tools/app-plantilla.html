@@ -501,9 +501,16 @@ body[data-maq="b"] .cama.suya .f-basura{top:auto;bottom:22px}
        padding:1.5px 4px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
 .sello.ok{color:var(--ok)} .sello.bas{color:var(--basura)}
 .sello.esc{color:var(--acc)} .sello.pro{color:var(--ok);border-style:dashed}
+/* el nombre del fármaco prohibido es largo y la ficha de la cama mide 93 px:
+   que se recorte con puntos suspensivos antes que desbordar. El nombre
+   entero está a un toque, en la ficha grande del paciente. */
+.sello.contra{color:var(--vida);border-style:dashed;max-width:100%;
+  min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:7.5px}
 .cama-btn{display:block;width:100%;margin-top:5px;padding:5px 4px;border-radius:6px;
           background:var(--acc);color:var(--acc-ink);font-size:10px;font-weight:700;
           text-align:center}
+/* la banda que dice que no: mismo sitio, color de sangre y sin invitación */
+.cama-btn.no-va{background:var(--vida);cursor:not-allowed}
 .cama-btn.sec{background:var(--cerca);color:var(--ink-2);border:1px solid var(--line)}
 
 /* ── tu papeleo ─────────────────────────────────────────────────────── */
@@ -834,6 +841,9 @@ body.arrastrando .pie .acciones{opacity:0;pointer-events:none;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .grande .puesta.basura{--tc:var(--basura)}
 .grande .puesta.basura .pu-ico{background:var(--basura);font-weight:700}
+.grande .g-contra{margin-top:10px;padding:9px 11px;border-radius:9px;
+  font-size:11.5px;line-height:1.4;color:var(--vida);
+  background:rgba(192,73,47,.09);border:1px dashed var(--vida)}
 .grande .g-warn{margin-top:10px;padding:9px 11px;border-radius:9px;
                 background:#fdf4e3;border:1px solid #e6d3a8;font-size:12.5px;
                 line-height:1.4;color:#6b4a09}
@@ -2288,6 +2298,12 @@ function aporte(carta, cama, tipoElegido){
 }
 /* ¿esta carta sirve al paciente? (define tratamiento vs basura) */
 function leSirve(carta, cama){
+  // LA CONTRAINDICACIÓN (v0.60). Antes un paciente pedía «2 💊» y cualquier
+  // 💊 valía: la categoría decidía y el fármaco daba igual. Ahora uno de los
+  // 💊 que aceptaría es justo el que lo mataría, y la carta lo dice. Va
+  // antes que todo lo demás —incluida la sinergia de sistema— porque una
+  // contraindicación no la salva que el sistema coincida.
+  if(cama.p.contra && carta.nombre === cama.p.contra) return false;
   if(carta.comodin) return TIPOS.some(t=>falta(cama,t)>0);
   if(carta.sistema && carta.sistema===cama.p.sistema && falta(cama,carta.tipo)>0) return true;
   return TIPOS.includes(carta.tipo) && falta(cama,carta.tipo)>0;
@@ -4122,6 +4138,8 @@ function vistaCama(c, i, duenio, propio){
   if(c.basura.length) sellos.appendChild(el("span","sello bas",`↯${c.basura.length} retiene alta`));
   if(c.escudo && !ficha) sellos.appendChild(el("span","sello esc","🛡️"));
   c.protege.forEach(p=>sellos.appendChild(el("span","sello pro",`🛡️ ${esc(p.split(" ")[0])}`)));
+  if(c.p.contra) sellos.appendChild(el("span","sello contra",
+    `⛔ ${esc(c.p.contra)}`));
   if(sellos.childNodes.length) d.appendChild(sellos);
 
   if(objetivo){
@@ -4133,6 +4151,11 @@ function vistaCama(c, i, duenio, propio){
       '<i class="precio"></i>'));
     d.onclick = soltar;
     d.__soltar = soltar;          // lo usa el arrastre
+  } else if(sel && activo && propio && c.p.contra && sel.nombre === c.p.contra){
+    // sin esto la regla sería invisible: la carta simplemente no se podría
+    // soltar y el jugador no sabría por qué
+    const b = el("span","cama-btn no-va","⛔ Contraindicado");
+    ponBanda(d, b);
   } else if(sel && activo && !propio && c.escudo && sel.warn){
     // el escudo del rival bloquea en silencio; que se sepa por qué no se puede
     const b = el("span","cama-btn sec","🛡️ protegido");
@@ -4233,6 +4256,11 @@ function verPacienteGrande(c){
       });
       cuerpo.appendChild(tira);
     }
+    if(c.p.contra)
+      cuerpo.appendChild(el("div","g-contra",
+        `⛔ <b>${esc(c.p.contra)}</b> — en este paciente está contraindicado. `+
+        `Cuenta como recurso de su tipo para cualquier otro, pero a él no se `+
+        `le puede poner.`));
     if(c.basura.length)
       cuerpo.appendChild(el("div","g-warn",
         `↯ ${c.basura.length} basura clínica — retiene el alta, y mientras esté `+

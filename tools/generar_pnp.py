@@ -102,6 +102,8 @@ body{margin:0;background:#e9eef2;font-family:"Helvetica Neue",Arial,sans-serif;c
 .sis{display:inline-block;font-size:2.2mm;font-weight:700;letter-spacing:.06em;
      color:#fff;border-radius:1mm;padding:.4mm 1.2mm;margin-top:1mm}
 .restr{font-size:2.4mm;font-weight:700;line-height:1.25;color:#8a6a2f;margin-top:1mm}
+.contra{font-size:2.4mm;font-weight:700;line-height:1.25;color:#c0492f;
+        margin-top:.8mm}
 .sinergia{font-size:2.4mm;line-height:1.25;margin-top:1mm}
 .arte{flex:1;min-height:0;margin:1.5mm 0;border:.25mm dashed #dde4ea;border-radius:1mm;
       display:flex;align-items:center;justify-content:center;
@@ -128,12 +130,16 @@ def carta_paciente(p):
         for t, c in (("IMAGEN", "img"), ("FARMACOS", "far"),
                      ("PERSONAL", "per"), ("PROCEDIMIENTOS", "proc"))
     )
+    # v0.60 · la contraindicación. Va pegada a «Requiere» porque es parte del
+    # requisito: dice cuál de los recursos que pide NO le sirve.
+    contra = (f'<div class="contra">⛔ Nada de {E(p["contra"])}</div>'
+              if p.get("contra", "").strip() else "")
     return f"""<div class="carta {cls}">
   <div class="cab"><div><div class="nombre">{E(p['nombre'])}</div>
     <div class="tipo">{E(etiqueta)}</div>{sis}</div>
     <div class="vida">❤️{p['vida']}</div></div>
   <div class="banda"></div>
-  <div class="tipo">Requiere</div><div class="req">{req}</div>
+  <div class="tipo">Requiere</div><div class="req">{req}</div>{contra}
   <div class="arte">ilustración</div>
   <div class="pie"><div class="pts"><span>Alta +{p['puntos_alta']}</span>
     <span>Fallece {p['puntos_fallece']}</span></div>

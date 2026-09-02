@@ -107,6 +107,37 @@ Tienes **3 indicaciones** y un menú. Cada línea cuesta 1 indicación:
 | **Sabotear** | Coloca un recurso **⚠️** sobre un paciente **rival** (§6.2) |
 | **Des-escalar** | Retira 1 **basura clínica** de un paciente tuyo y descártala |
 
+#### La contraindicación ⛔
+
+Un paciente pide **cantidades por categoría** —«2 💊»—, y durante mucho
+tiempo cualquier 💊 servía: la categoría decidía y el fármaco daba igual.
+Nueve pacientes traen ahora impresa una línea más:
+
+> ⛔ **Nada de Anticoagulación** — Hemorragia Digestiva Alta
+
+Ese recurso **es del tipo que el paciente pide** —si no, la regla no se
+notaría— y aun así **no se le puede poner**. La Anticoagulación sigue
+siendo un 💊 perfectamente bueno para cualquier otro paciente; en el que
+está sangrando, no.
+
+Tres cosas que conviene tener claras:
+
+- **No es una complicación.** No cuesta corazones ni hay que resolver nada:
+  simplemente esa carta no entra en esa cama. Si la eliges, la cama te
+  responde **⛔ Contraindicado** en vez de **Tratar**.
+- **La sinergia no la salva.** Aunque la carta sea del mismo sistema
+  clínico que el paciente, sigue prohibida. La contraindicación se lee
+  antes que todo lo demás.
+- **Sí cambia lo que el rival puede hacerte.** La copia **⚠️** de un
+  recurso contraindicado deja de "servirle" a ese paciente, así que si un
+  rival te la tira encima ya no cuenta como tratamiento: cae como **basura
+  clínica** (§6.3). La hemorragia y la anticoagulación se llevan mal
+  también cuando la trae el vecino.
+
+*Medido sobre 4.000 partidas: el balance no se mueve (3,08 → 3,07 altas por
+jugador, 68 % de salvamento en los dos casos). La regla no está para
+apretar la economía, sino para que «pide 2 💊» diga por fin **cuáles**.*
+
 **Cerrar un Sumario NO gasta indicación:** en cualquier momento de tu Pase
 de Visita, descarta **2 cartas** de tu mano y cierra 1 Sumario (nunca el
 mismo turno en que llegó). *Se midió con indicación: nadie cerraba ninguno

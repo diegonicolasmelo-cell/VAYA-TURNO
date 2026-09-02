@@ -77,6 +77,11 @@ def cargar():
     for p in leer("cartas", "pacientes.csv"):
         ficha = {
             "nombre": p["nombre"], "gravedad": p["gravedad"],
+            # v0.60 · el recurso que este paciente NO acepta aunque sea del
+            # tipo que pide. Medido: no mueve el balance (3,08 → 3,07 altas)
+            # porque el bot siempre tiene otra carta; su valor es que el
+            # humano sí alarga la mano hacia el fármaco equivocado.
+            "contra": (p.get("contra") or "").strip(),
             "vida": int(p["vida"]), "sistema": p["sistema"],
             "pide": {t: int(p[COL[t]]) for t in TIPOS},
             "alta": int(p["puntos_alta"]), "fallece": int(p["puntos_fallece"]),
@@ -181,6 +186,8 @@ def elegir_carta(mano, cama):
         if c["clase"] != "recurso":
             return False
         if c.get("restriccion") == "PERSONAL" and cama.tiene["PERSONAL"] == 0:
+            return False
+        if cama.f.get("contra") and c["nombre"] == cama.f["contra"]:
             return False
         return True
 
@@ -736,7 +743,11 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
             for i, c in enumerate(j.camas):
                 if c is None:
                     continue
-                if not c.estable:
+                # la app desde v0.58: el ✅ congela el reloj, PERO la basura
+                # clínica lo vuelve a soltar. Medido: no mueve los números
+                # —el bot des-escala siempre en cuanto le estorba— pero el
+                # simulador tiene que jugar el mismo juego que la app.
+                if not c.estable or c.basura > 0:
                     c.vida -= 1 + c.extra      # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:

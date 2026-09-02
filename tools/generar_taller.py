@@ -53,6 +53,25 @@ def cargar_arte():
 # Esquema de edición: por mazo, qué columnas y con qué control se editan.
 # num = campo numérico · sel = desplegable · txt = línea · area = párrafo
 SIS = ["", "RESP", "CARD", "NEURO", "METAB", "QUIR"]
+
+
+def nombres_recursos():
+    """Los nombres de recurso, para el desplegable de la contraindicación.
+
+    Va como lista cerrada y no como texto libre a propósito: la regla es una
+    comparación exacta de nombre, así que una tilde de más la desactiva en
+    silencio y nadie se entera hasta que alguien juega la anticoagulación
+    sobre la hemorragia y la app se la acepta."""
+    vistos = []
+    try:
+        with open(os.path.join(RAIZ, "cartas", "v030", "recursos.csv"),
+                  encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if r["nombre"] not in vistos:
+                    vistos.append(r["nombre"])
+    except OSError:
+        return [""]
+    return [""] + sorted(vistos)
 ESQUEMA = {
     "pacientes": {
         "titulo": "Pacientes", "archivo": "pacientes.csv", "icono": "🛏️",
@@ -63,6 +82,7 @@ ESQUEMA = {
             ("img", "num", None), ("far", "num", None),
             ("per", "num", None), ("proc", "num", None),
             ("puntos_alta", "num", None), ("puntos_fallece", "num", None),
+            ("contra", "sel", nombres_recursos()),
             ("frase", "area", None), ("entrega", "area", None),
             ("copias", "num", None),
         ],

@@ -912,6 +912,83 @@ píldora con borde y en mayúsculas. Es la tercera vez en el proyecto
 
 ---
 
+## 5e. La contraindicación ⛔ (v0.60) ✅
+
+Salió de mirar *Critical Care: The Game* (Swamy y Chan, 2020→) y darse
+cuenta de que lo interesante no era su mecánica sino un hueco en la
+nuestra, que el autor formuló así: **«pide 2 tto, pero no dice cuál»**.
+
+Un paciente pedía cantidades por categoría y cualquier carta de esa
+categoría servía. La decisión clínica se agotaba en el tipo. Ahora nueve
+pacientes traen impreso **un recurso de un tipo que sí piden y que en
+ellos está prohibido**:
+
+| Paciente | ⛔ | Por qué |
+|---|---|---|
+| P12 Hemorragia Digestiva Alta | Anticoagulación | pide 2💊 y ese 💊 lo desangra |
+| P11 ACV en Ventana | Anticoagulación | no antes del TAC |
+| P13 Insuficiencia Cardíaca Desc. | Cristaloides | sobrecarga de volumen |
+| P21 SDRA | Cristaloides | estrategia restrictiva |
+| P16 EPOC Exacerbado | Sedoanalgesia | deprime el respiratorio |
+| P18 Delirium del Adulto Mayor | Sedoanalgesia | lo empeora |
+| P17 Intoxicación Mixta | Sedoanalgesia | encima de lo que ya tomó |
+| P10 Cetoacidosis Diabética | Corticoides | le sube la glicemia |
+| P07 El Que Googleó Sus Síntomas | TAC de Urgencia | cada imagen le encuentra algo |
+
+**La condición de diseño es que el recurso sea de un tipo que el paciente
+pide.** Si no, la regla es invisible: la carta ya no se podía jugar ahí por
+tipo, y nadie se entera de que existe una contraindicación.
+`tools/ingresar_arte.py` no valida esto, pero el script que llenó la
+columna sí lo comprobó carta por carta, y conviene repetir la comprobación
+si se añaden más.
+
+### Medido
+
+4.000 partidas, antes y después: **3,08 → 3,07 altas por jugador · 68 % →
+68 % de salvamento · 8,9 → 8,8 puntos**. No mueve el balance.
+
+Eso es a la vez la buena y la mala noticia, y hay que decirlo entero: **si
+al bot no le cuesta nada, es porque el bot nunca alarga la mano hacia el
+fármaco equivocado.** Con 4 cartas robadas y 3 indicaciones casi siempre
+hay otra jugada. El valor de la regla es dramático y didáctico —el humano
+sí comete el error, y la carta se lo dice— no económico. No se vendió como
+ajuste de equilibrio y no debe usarse como tal.
+
+### Lo que sí cambió sin buscarlo
+
+La copia **⚠️** de un recurso contraindicado deja de "servirle" a ese
+paciente. Así que si un rival te tira la Anticoagulación ⚠️ sobre la
+hemorragia, ya no cuenta como tratamiento: cae como **basura clínica**. El
+sabotaje no se amplió (sigue exigiendo carta ⚠️), pero ganó nueve objetivos
+donde antes ayudaba al enemigo.
+
+### Descartado en la misma sesión
+
+- **El paciente que llega sucio** (con basura clínica puesta desde la
+  admisión, como las fichas de daño de Critical Care). Medido con 5 de 26:
+  altas 3,08 → **2,90**, salvamento 68 % → 65 % (bien, se despega del
+  techo) pero «no se me fue nadie» 2,6 % → **1,8 %**, y esa métrica ya
+  estaba por debajo de su objetivo de 5-15 %. Es viable, pero **hay que
+  pagarlo**: +1 punto de alta a esos cinco, o un requisito menos. Sin
+  compensar, empeora justo el número peor calibrado.
+- **La economía de horas** (terapias que cuestan 3/6/9/12 h del turno, como
+  en Critical Care). Elegante y descartada: mete aritmética en cada turno,
+  que es exactamente de lo que murió la Era 2 (§SINTESIS 1).
+- **Reglas propias por paciente.** Eso es la Era 1, muerta porque «cada
+  carta necesitaba conocimiento médico para jugarse». La contraindicación
+  es la versión sana del mismo impulso: **un símbolo, sin regla que leer**.
+
+### De paso: el simulador jugaba otro juego
+
+`simular_v030.py` tenía el Fin de Guardia de antes de la v0.58 —`si no está
+estable, −1 ❤️`— sin la regla de que la basura clínica descongela el ✅.
+Alineado y re-medido: **números idénticos**, porque el bot des-escala
+siempre en cuanto le estorba. O sea que la regla no cambió el juego óptimo,
+solo cerró un exploit que el juego óptimo no usaba. La calibración sigue
+siendo válida, y ahora el simulador y la app juegan lo mismo.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

@@ -170,6 +170,10 @@ def datos(destino_arte=None):
             # vacías — la pantalla se apaña con lo que haya.
             "edad": (p.get("edad") or "").strip(),
             "entrega": (p.get("entrega") or "").strip(),
+            # v0.60 · la contraindicación: el recurso que este paciente
+            # aceptaría por tipo y que, en él, está prohibido. Es el que
+            # convierte «pide 2 💊» en una decisión clínica: dice cuál NO.
+            "contra": (p.get("contra") or "").strip(),
             "sistema": p["sistema"], "vida": int(p["vida"]), "pide": pide,
             "total": sum(pide.values()),
             "alta": int(p["puntos_alta"]), "fallece": int(p["puntos_fallece"]),
