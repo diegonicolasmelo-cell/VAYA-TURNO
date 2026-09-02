@@ -101,7 +101,7 @@ def cargar():
                             "sistema": r["sistema"],
                             "comodin": r["comodin"] == "si",
                             "restriccion": r["restriccion"],
-                            "cirujano": r["id"] == "R54",
+                            "doble_en": (r.get("doble_en") or "").strip(),
                             "turno24": r.get("comp_nombre") == "El Turno Veinticuatro",
                             "warn": r["complicacion"] == "si",
                             "comp": comp if r["complicacion"] == "si" else None})
@@ -200,8 +200,9 @@ def elegir_carta(mano, cama):
              and falta.get(c["tipo"], 0) > 0]
     if cands:
         return orden(cands)[0]
-    cands = [(c, 2, "PERSONAL") for c in mano
-             if jugable(c) and c.get("cirujano") and falta.get("PERSONAL", 0) > 0]
+    cands = [(c, 2, c["doble_en"]) for c in mano
+             if jugable(c) and c.get("doble_en")
+             and falta.get(c["doble_en"], 0) > 0]
     if cands:
         return orden(cands)[0]
     cands = [(c, 1, c["tipo"]) for c in mano

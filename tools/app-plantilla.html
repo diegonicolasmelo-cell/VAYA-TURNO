@@ -2290,10 +2290,17 @@ function revisar(c, ronda){
   else if(!completo && c.estable){ c.estable=false; c.estableDesde=null; }
 }
 
-/* aporte de una carta sobre una cama: 2 si sinergia o Cirujano, si no 1 */
+/* Cuánto aporta una carta sobre una cama. Dos caminos al ×2 y nunca se
+   suman —el tope es 2— porque la gracia del juego es que el recurso
+   correcto valga el doble, no que existan cartas de cuatro:
+
+   · SINERGIA: la carta es del sistema clínico del paciente.
+   · CASA PROPIA: la carta vale doble en un tipo concreto. Es lo que hace
+     que un comodín sea una decisión y no un relleno: el Stock de Sala
+     puesto como 💊 vale 2, y puesto como cualquier otra cosa, 1. */
 function aporte(carta, cama, tipoElegido){
   if(carta.sistema && carta.sistema===cama.p.sistema) return 2;
-  if(carta.cirujano && (tipoElegido||carta.tipo)==="PERSONAL") return 2;
+  if(carta.dobleEn && (tipoElegido||carta.tipo)===carta.dobleEn) return 2;
   return 1;
 }
 /* ¿esta carta sirve al paciente? (define tratamiento vs basura) */
@@ -2318,13 +2325,25 @@ function puedeSabotear(carta, cama){
   return carta.warn && cama && !cama.atacada && !cama.escudo;
 }
 
+/* ¿Qué huecos podría tapar este comodín en esta cama? Con dos o más, la
+   elección es del jugador y no de la app: hasta ahora el Médico General se
+   iba solo al hueco más grande, que muchas veces es el peor sitio —el que
+   ibas a llenar con la carta de sistema que vale doble—. */
+function tiposComodin(carta, cama){
+  if(!carta || !carta.comodin || !cama) return [];
+  return TIPOS.filter(t=>falta(cama,t)>0);
+}
+
 /* ══ colocar ════════════════════════════════════════════════════════ */
-function colocar(carta, cama, duenio, esSabotaje){
+function colocar(carta, cama, duenio, esSabotaje, tipoElegido){
   const j = yo();
   j.mano.splice(j.mano.indexOf(carta),1);
   let tipo = carta.tipo;
   if(carta.comodin){
-    tipo = TIPOS.filter(t=>falta(cama,t)>0)
+    // Con `tipoElegido` manda el jugador (lo pregunta soltarComodin). Sin
+    // él —la IA, o un solo hueco posible— se rellena el que más falta, que
+    // es lo que hacía siempre.
+    tipo = tipoElegido || TIPOS.filter(t=>falta(cama,t)>0)
                 .sort((a,b)=>falta(cama,b)-falta(cama,a))[0] || "FARMACOS";
   }
   const sirve = leSirve(carta, cama);
@@ -4143,7 +4162,27 @@ function vistaCama(c, i, duenio, propio){
   if(sellos.childNodes.length) d.appendChild(sellos);
 
   if(objetivo){
-    const soltar = ()=>{ volarIndic(d);
+    const soltar = ()=>{
+      const ops = propio ? tiposComodin(sel, c) : [];
+      // la casa propia primero: es donde la carta vale 2, y es la que la IA
+      // toma cuando elige sola (elegirUno se queda con la primera)
+      if(sel && sel.dobleEn) ops.sort((x,y)=>(y===sel.dobleEn)-(x===sel.dobleEn));
+      if(ops.length > 1){
+        const carta = sel, cama = c, dn = duenio;
+        UI.sel = null;
+        elegirUno(`${carta.nombre}`,
+          `Vale por <b>un</b> recurso del tipo que elijas. `+
+          `A ${esc(cama.p.nombre)} le falta:`,
+          ops.map(t=>({val:t,
+            txt:`${IC[t]||""} ${TNOM[t]||t}`+
+                (carta.dobleEn===t ? " · vale 2" : ""),
+            sub:`le faltan ${falta(cama,t)} · esta carta cubre `+
+                (carta.dobleEn===t ? "2" : "1")})),
+          t=>{ volarIndic(d); colocar(carta, cama, dn, false, t);
+               guardar(); render(); });
+        return;
+      }
+      volarIndic(d);
       colocar(sel, c, duenio, !propio);
       UI.sel=null; guardar(); render(); };   // la mano se queda abierta
     ponBanda(d, el("span","cama-btn",
@@ -4741,7 +4780,9 @@ function verCartaGrande(idx, jug){
   const et = el("div","g-etiqs");
   if(c.sistema && SIS[c.sistema])
     et.appendChild(el("span","etiq x2",`${SIS[c.sistema][0]} cuenta ×2`)).style.color = SIS[c.sistema][1];
-  if(c.cirujano) et.appendChild(el("span","etiq x2","cuenta como 2 🧑‍⚕️"));
+  if(c.dobleEn) et.appendChild(el("span","etiq x2",
+    c.comodin ? `vale 2 como ${IC[c.dobleEn]||""} ${TNOM[c.dobleEn]||c.dobleEn}, 1 en el resto`
+              : `cuenta como 2 ${IC[c.dobleEn]||""}`));
   if(c.previene) et.appendChild(el("span","etiq s",`🛡️ previene ${esc(c.previene)}`));
   if(c.restriccion==="PERSONAL") et.appendChild(el("span","etiq r","⚑ pide 🧑‍⚕️ ya puesto"));
   if(c.restriccion==="TURNO") et.appendChild(el("span","etiq r","⚑ cierra tu Pase de Visita"));
@@ -4872,7 +4913,7 @@ function cuerpoCarta(c){
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
     h += `<span class="etiq x2" style="color:${SIS[c.sistema][1]}">${SIS[c.sistema][0]} ×2</span>`;
-  if(c.cirujano) h += `<span class="etiq x2">×2 personal</span>`;
+  if(c.dobleEn) h += `<span class="etiq x2">×2 ${esc(TNOM[c.dobleEn]||c.dobleEn).toLowerCase()}</span>`;
   if(c.previene) h += `<span class="etiq s">🛡️ previene</span>`;
   if(c.restriccion==="PERSONAL") h += `<span class="etiq r">⚑ pide personal</span>`;
   if(c.restriccion==="TURNO") h += `<span class="etiq r">⚑ cierra turno</span>`;

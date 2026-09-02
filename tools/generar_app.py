@@ -189,8 +189,12 @@ def datos(destino_arte=None):
             "texto": r["texto"], "frase": r["frase"],
             "warn": r["complicacion"] == "si",
             "compNombre": r["comp_nombre"], "compTexto": r["comp_texto"],
-            # dos excepciones con regla propia, marcadas por id/nombre
-            "cirujano": r["id"] == "R54",
+            # v0.60 · el tipo en el que esta carta vale por DOS. Antes era
+            # un id cableado (R54, el Cirujano); ahora es una columna, y con
+            # ella los comodines dejan de valer 1 en todo: cada uno tiene su
+            # casa —el Stock de Sala ×2 en 💊, el Médico General ×2 en 🧑‍⚕️—
+            # y fuera de ella sigue siendo un relleno de 1.
+            "dobleEn": (r.get("doble_en") or "").strip(),
             "turno24": r["comp_nombre"] == "El Turno Veinticuatro",
             "copias": int(r["copias"]),
         })

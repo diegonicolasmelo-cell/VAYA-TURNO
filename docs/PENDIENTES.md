@@ -989,6 +989,65 @@ siendo válida, y ahora el simulador y la app juegan lo mismo.
 
 ---
 
+## 5f. El comodín con casa propia (v0.60) ✅
+
+El comodín valía 1 en cualquier cosa y **la app elegía el hueco por ti**:
+`colocar()` lo mandaba solo al tipo con el agujero más grande, que muchas
+veces es el peor sitio —justo el que ibas a llenar con la carta de sistema
+que vale doble—. Dos cambios, y el comodín pasa de trámite a decisión:
+
+1. **Ahora pregunta.** Si hay más de un hueco posible, se abre la hoja de
+   elección con los cuatro tipos, cuánto le falta de cada uno y cuánto
+   cubre la carta. Con un solo hueco no molesta. La IA sigue eligiendo
+   sola: `elegirUno` se queda con la primera opción, y la lista viene
+   ordenada con la casa propia delante.
+2. **Tiene casa propia.** El **Stock de Sala** vale 2 puesto como 💊 y 1 en
+   cualquier otro sitio; el **Médico General de Turno**, 2 como 🧑‍⚕️.
+
+### La columna que reemplazó a un id cableado
+
+`aporte()` tenía escrito a mano `if(carta.cirujano && … === "PERSONAL")`, y
+`cirujano` era literalmente `r["id"] == "R54"` en tres archivos distintos.
+Ahora es una columna, **`doble_en`**, y el Cirujano de Turno es un caso más
+de la regla general. No queda ni un rastro del id en el código.
+
+**El tope sigue siendo 2 y las fuentes no se suman.** Hay dos caminos al
+×2 —sinergia de sistema y casa propia— y una carta que cumpla los dos sigue
+valiendo 2. La gracia del juego es que el recurso correcto valga el doble,
+no que existan cartas de cuatro.
+
+### Medido
+
+| variante | altas | salvamento | puntaje | «no se me fue nadie» |
+|---|---|---|---|---|
+| antes (comodín = 1 en todo) | 3,07 | 68 % | 8,8 | 2,5 % |
+| **casa propia** (lo que se hizo) | 3,04 | 67 % | 8,6 | **3,0 %** |
+| + un comodín por tipo, sin ⚠ | 3,16 | **69 %** | 9,3 | 3,2 % |
+| + un comodín por tipo, con ⚠ | 3,15 | 68 % | 9,0 | 2,4 % |
+
+La casa propia sale gratis y **sube la única métrica que estaba bajo
+objetivo** (partidas limpias, 2,5 → 3,0 %, objetivo 5-15 %).
+
+### Los dos comodines que faltan, si se quieren
+
+La idea del autor era **uno por tipo**. Faltan el de 🩻 y el de 💉, y están
+medidos arriba pero **no están en el mazo**: dos naipes más de pura
+flexibilidad empujan el salvamento a 69 %, al filo del techo de la banda.
+Se probaron con complicación ⚠ y vuelve a 68 %, pero entonces las partidas
+limpias caen a 2,4 %. Las filas exactas que se midieron, por si se agregan:
+
+```
+R55,Rayos Portátil,COMODIN,🃏,,si,IMAGEN,,no,…,1,
+    "Sube a la cama, dispara y se va. Nadie sabe quién la maneja."
+R56,Carro de Procedimientos,COMODIN,🃏,,si,PROCEDIMIENTOS,,no,…,1,
+    "Tiene de todo. Ordenado por nadie."
+```
+
+Decisión pendiente, y es de contenido: son dos ilustraciones más y un
+salvamento en el filo.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

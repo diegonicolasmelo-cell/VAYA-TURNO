@@ -156,8 +156,20 @@ def carta_recurso(r):
         sinergia = (f'<div class="sinergia"><b>Cuenta doble</b> sobre un '
                     f'paciente {nom_s}.</div>')
     if r["comodin"] == "si":
+        # v0.60 · el comodín ya no vale 1 en todo: tiene casa propia. Puesto
+        # como su tipo cuenta 2; como cualquier otro, 1. Así elegir el hueco
+        # es una decisión y no un trámite.
+        casa = r.get("doble_en", "").strip()
         sinergia = ('<div class="sinergia"><b>Comodín.</b> Cuenta como '
                     '1 recurso del tipo que elijas.</div>')
+        if casa:
+            sinergia = (f'<div class="sinergia"><b>Comodín.</b> Vale '
+                        f'<b>2</b> como {SIM[casa]} {NOM[casa]}, o '
+                        f'<b>1</b> del tipo que elijas.</div>')
+    elif r.get("doble_en", "").strip():
+        casa = r["doble_en"].strip()
+        sinergia += (f'<div class="sinergia"><b>Cuenta doble</b> como '
+                     f'{SIM[casa]} {NOM[casa]}.</div>')
     restr = (f'<div class="restr">⚑ {RESTRIC[r["restriccion"]]}</div>'
              if r["restriccion"] else "")
     efecto = (f'<div class="cuerpo">{E(r["texto"])}</div>'

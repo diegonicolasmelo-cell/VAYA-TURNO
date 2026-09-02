@@ -93,6 +93,8 @@ ESQUEMA = {
             ("nombre", "txt", None),
             ("tipo", "sel", ["IMAGEN", "FARMACOS", "PERSONAL", "PROCEDIMIENTOS", "COMODIN"]),
             ("sistema", "sel", SIS), ("comodin", "sel", ["no", "si"]),
+            ("doble_en", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL",
+                                 "PROCEDIMIENTOS"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
             ("comp_objetivo", "sel", ["", "ESTE", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
