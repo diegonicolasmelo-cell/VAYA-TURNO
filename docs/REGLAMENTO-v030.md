@@ -165,28 +165,40 @@ turno, das de alta al siguiente.**
 
 ### 4.2-bis El soporte vital ⏸ — la otra forma de parar el reloj
 
-La **Ventilación Mecánica** no cura: **para el reloj**. Mientras la carta
-siga puesta sobre un paciente, ese paciente **no pierde ❤️ en ningún Fin de
-Guardia** — ni por estar incompleto, ni por la basura clínica que le hayan
-tirado encima.
+La **Ventilación Mecánica** no cura y no salva: **aguanta una noche**.
+Colócala sobre un paciente y ese paciente **no pierde ❤️ en el próximo Fin
+de Guardia** — ni por estar incompleto, ni por la basura clínica que le
+hayan tirado encima. Con eso el ventilador **queda gastado**: al cierre
+siguiente el reloj vuelve a correr.
+
+Un ventilado igual se muere. Solo que no esta noche, y esa noche es la que
+tienes para completarlo.
 
 Lo que **no** hace, y conviene tenerlo claro:
 
 - **No lo estabiliza.** Sus requisitos siguen igual de abiertos y el alta
-  sigue exigiendo el ✅. El ventilador te da tiempo, no te da el alta.
-- **No es permanente si te la quitan.** Es un 💉 como cualquier otro, así
-  que **Hay Que Repetirlo** (§Pizarra) puede descartarlo de un paciente
-  rival. Desconectar el ventilador al que agoniza es una jugada legal, y es
-  la que hay que temer.
+  sigue exigiendo el ✅. El ventilador te da un turno, no te da el alta.
+- **No se gasta en vano.** Si ese cierre el paciente no iba a perder nada
+  —porque está ✅ y sin basura—, el aguante **sigue cargado** para cuando
+  haga falta.
+- **Se puede recargar.** Colocarle otra Ventilación Mecánica vuelve a
+  conectarlo. En el mazo hay dos.
+- **Y se puede desconectar.** Es un 💉 como cualquier otro, así que **Hay
+  Que Repetirlo** (§Pizarra) puede descartarlo de un paciente rival — y si
+  el aguante estaba sin usar, se pierde. Desconectar el ventilador al que
+  agoniza es una jugada legal, y es la que hay que temer.
 
-En la app el paciente muestra **⏸ EN VM** junto a su corazón, en lugar del
-`congelada` del ✅: los dos paran el reloj, pero solo uno se puede arrancar.
+En la app el paciente muestra **⏸ EN VM** junto a su corazón mientras el
+aguante siga cargado, en lugar del `congelada` del ✅. La insignia
+desaparece en cuanto se consume: si no está, el ventilador ya dio lo que
+tenía.
 
 *Medido sobre 4.000 partidas, con solo dos copias en el mazo: los
-fallecidos por jugador bajan de 1,47 a 1,38 —la mayor caída de todo lo que
-se probó— y los pacientes de gravedad III pasan del 47 % al 50 % de
-salvamento. Hace más con dos cartas que subir el aporte de las catorce de
-procedimientos.*
+fallecidos por jugador bajan de 1,47 a 1,42 y las partidas sin ningún ✝️
+suben de 3,0 % a 3,4 %, dejando el salvamento en 68 % —mitad de la banda—.
+La versión permanente que se probó antes llegaba a 1,38 y 69 %: el doble de
+fuerza y el salvamento pegado al techo. Un turno es media medicina, que es
+justo lo que es un ventilador.*
 
 ---
 

@@ -2264,7 +2264,8 @@ function nuevaCama(p){
   return { p, uid:uid(), vida:p.vida, vidaMax:p.vida,
            pide:{...p.pide}, tiene:{IMAGEN:0,FARMACOS:0,PERSONAL:0,PROCEDIMIENTOS:0},
            puestos:[], basura:[], protege:[], estable:false, estableDesde:null,
-           atacada:false, escudo:false, extraDeterioro:0 };
+           atacada:false, escudo:false, extraDeterioro:0,
+           soporteVivo:false };
 }
 
 function robar(j){
@@ -2301,7 +2302,13 @@ function saldraDeAlta(c){
    está parado — y por eso hay que preguntarlo también aquí: sin esto el
    aura roja de «se muere esta noche» seguiría encendida sobre alguien
    conectado al ventilador, que es justo el que no se muere. */
-function conSoporte(c){ return !!(c && c.puestos.some(x=>x.soporte)); }
+/* ¿le queda al paciente su turno de soporte? La Ventilación Mecánica no
+   congela para siempre: aguanta UN Fin de Guardia y se gasta. Un
+   ventilado igual se muere — solo que no esta noche. Por eso la carga
+   vive en la cama (`soporteVivo`) y no en la carta: la carta se queda
+   puesta como 💉 aunque el aguante ya se haya consumido, y volver a
+   colocar una Ventilación Mecánica la recarga. */
+function conSoporte(c){ return !!(c && c.soporteVivo); }
 function alFilo(c){
   if(!c) return false;
   if(c.estable && !c.basura.length) return false;   // congelado: no baja
@@ -2384,6 +2391,7 @@ function colocar(carta, cama, duenio, esSabotaje, tipoElegido){
     carta.puestoTipo = tipo; carta.puestoAp = ap;
     cama.puestos.push(carta);
     if(carta.previene) cama.protege.push(carta.previene);
+    if(carta.soporte) cama.soporteVivo = true;      // queda conectado
     const doble = ap===2 ? " ×2" : "";
     anota("", esSabotaje
       ? `${j.nombre} le pone ${carta.nombre} a ${cama.p.nombre} (${duenio.nombre}) — le sirve${doble}.`
@@ -2436,6 +2444,8 @@ function quitarRecurso(cama, idx){
   const t = x.puestoTipo || x.tipo, ap = x.puestoAp || 1;
   if(TIPOS.includes(t)) cama.tiene[t] = Math.max(0, cama.tiene[t]-ap);
   if(x.previene){ const k = cama.protege.indexOf(x.previene); if(k>=0) cama.protege.splice(k,1); }
+  // desconectarlo apaga el aguante aunque no se hubiera gastado
+  if(x.soporte && !cama.puestos.some(y=>y.soporte)) cama.soporteVivo = false;
   revisar(cama, G.ronda);
   return x;
 }
@@ -2448,6 +2458,7 @@ function ponerRecurso(cama, x){
   if(TIPOS.includes(t)) cama.tiene[t] += ap;
   cama.puestos.push(x);
   if(x.previene) cama.protege.push(x.previene);
+  if(x.soporte) cama.soporteVivo = true;
   revisar(cama, G.ronda);
 }
 
@@ -3039,9 +3050,14 @@ function faseFin(){
     // que salva a alguien que no vas a alcanzar a completar, y también
     // lo único que corta la sangría de la basura clínica. Se desconecta
     // como cualquier 💉: con Hay Que Repetirlo.
+    // El aguante solo se gasta cuando de verdad salva: si el paciente no
+    // iba a perder nada igual, la Ventilación Mecánica sigue cargada.
     const soporte = conSoporte(c);
-    if(soporte && (!c.estable || c.basura.length))
-      anota("", `${c.p.nombre} aguanta en ventilación mecánica.`);
+    if(soporte && (!c.estable || c.basura.length)){
+      c.soporteVivo = false;
+      anota("m", `${c.p.nombre} aguanta la noche en ventilación mecánica `+
+                 `— pero el ventilador ya dio lo que tenía.`);
+    }
     if(!soporte && (!c.estable || c.basura.length)){
       c.vida -= 1 + (c.extraDeterioro||0);
       if(c.estable && c.basura.length && c.vida > 0)
@@ -4340,10 +4356,11 @@ function verPacienteGrande(c){
     }
     if(conSoporte(c))
       cuerpo.appendChild(el("div","g-sop",
-        `⏸ <b>En ventilación mecánica</b> — el reloj está parado: no `+
-        `pierde ❤️ al cierre de ningún turno mientras la carta siga `+
-        `puesta. No lo cura: sus requisitos siguen abiertos, y si se la `+
-        `retiran, el reloj vuelve a correr.`));
+        `⏸ <b>En ventilación mecánica</b> — aguanta <b>este</b> Fin de `+
+        `Guardia sin perder ❤️, y con eso el ventilador queda gastado. `+
+        `No lo cura: sus requisitos siguen abiertos. Volver a colocarle `+
+        `una Ventilación Mecánica lo reconecta; que se la retiren, lo `+
+        `desconecta antes de tiempo.`));
     if(c.p.contra)
       cuerpo.appendChild(el("div","g-contra",
         `⛔ <b>${esc(c.p.contra)}</b> — en este paciente está contraindicado. `+
@@ -4830,7 +4847,7 @@ function verCartaGrande(idx, jug){
   if(c.sistema && SIS[c.sistema])
     et.appendChild(el("span","etiq x2",`${SIS[c.sistema][0]} cuenta ×2`)).style.color = SIS[c.sistema][1];
   if(c.soporte) et.appendChild(el("span","etiq sop",
-    "⏸ para el reloj mientras esté puesta"));
+    "⏸ aguanta un Fin de Guardia"));
   if(c.dobleEn) et.appendChild(el("span","etiq x2",
     c.comodin ? `vale 2 como ${IC[c.dobleEn]||""} ${TNOM[c.dobleEn]||c.dobleEn}, 1 en el resto`
               : `cuenta como 2 ${IC[c.dobleEn]||""}`));
@@ -4964,7 +4981,7 @@ function cuerpoCarta(c){
        `<div class="carta-nom">${esc(c.nombre)}</div>`;
   if(c.sistema && SIS[c.sistema])
     h += `<span class="etiq x2" style="color:${SIS[c.sistema][1]}">${SIS[c.sistema][0]} ×2</span>`;
-  if(c.soporte) h += `<span class="etiq sop">⏸ para el reloj</span>`;
+  if(c.soporte) h += `<span class="etiq sop">⏸ aguanta 1 turno</span>`;
   if(c.dobleEn) h += `<span class="etiq x2">×2 ${esc(TNOM[c.dobleEn]||c.dobleEn).toLowerCase()}</span>`;
   if(c.previene) h += `<span class="etiq s">🛡️ previene</span>`;
   if(c.restriccion==="PERSONAL") h += `<span class="etiq r">⚑ pide personal</span>`;

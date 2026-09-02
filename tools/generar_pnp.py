@@ -171,9 +171,9 @@ def carta_recurso(r):
         sinergia += (f'<div class="sinergia"><b>Cuenta doble</b> como '
                      f'{SIM[casa]} {NOM[casa]}.</div>')
     if r.get("soporte", "").strip() == "si":
-        sinergia += ('<div class="sinergia"><b>Soporte vital.</b> Mientras'
-                     ' siga puesta, este paciente <b>no pierde ❤️</b> en el'
-                     ' Fin de Guardia. No lo cura.</div>')
+        sinergia += ('<div class="sinergia"><b>Soporte vital.</b> Aguanta'
+                     ' <b>un</b> Fin de Guardia: ese cierre no pierde ❤️,'
+                     ' y el ventilador queda gastado. No lo cura.</div>')
     restr = (f'<div class="restr">⚑ {RESTRIC[r["restriccion"]]}</div>'
              if r["restriccion"] else "")
     efecto = (f'<div class="cuerpo">{E(r["texto"])}</div>'

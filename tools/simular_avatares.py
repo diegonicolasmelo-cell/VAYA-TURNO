@@ -128,6 +128,7 @@ class Cama:
         self.estable_desde = None
         self.protege = set()
         self.basura = 0            # recursos rivales que no pide (v0.30)
+        self.soporte_vivo = False  # v0.61: la VM aguanta UN Fin de Guardia
         self.atacada = False       # máx. 1 sabotaje por ronda
         self.puestos = []          # [(carta, tipo, aporte)] — para poder retirar
         self.escudo = False        # A19: cama cerrada al saqueo
@@ -328,6 +329,8 @@ def poner_puesto(cama, carta, ronda):
     cama.puestos.append((carta, tipo, ap))
     if carta.get("previene"):
         cama.protege.add(carta["previene"])
+    if carta.get("soporte"):
+        cama.soporte_vivo = True
     cama.revisar(ronda)
 
 
@@ -997,10 +1000,12 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
             for i, c in enumerate(j.camas):
                 if c is None:
                     continue
-                # v0.61 · el soporte vital para el reloj mientras esté puesto
-                soporte = any(x[0].get("soporte") for x in c.puestos)
-                if not c.estable and c is not velada and not soporte:
-                    c.vida -= 1 + c.extra          # A08 Llaman de Urgencias
+                # v0.61 · la VM aguanta UN Fin de Guardia y se gasta
+                if not c.estable and c is not velada:
+                    if c.soporte_vivo:
+                        c.soporte_vivo = False
+                    else:
+                        c.vida -= 1 + c.extra      # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:
                     # C14 El Reanimador: lo salva una vez, sin sus recursos

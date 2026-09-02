@@ -119,6 +119,7 @@ class Cama:
         self.estable_desde = None
         self.protege = set()
         self.basura = 0            # recursos rivales que no pide (v0.30)
+        self.soporte_vivo = False  # v0.61: la VM aguanta UN Fin de Guardia
         self.atacada = False       # máx. 1 sabotaje por ronda
         self.puestos = []          # [(carta, tipo, aporte)] — para retirar
         self.escudo = False        # A19: cama cerrada al saqueo
@@ -291,6 +292,8 @@ def quitar_puesto(cama, k):
         cama.tiene[tipo] = max(0, cama.tiene[tipo] - ap)
     if carta.get("previene"):
         cama.protege.discard(carta["previene"])
+    if carta.get("soporte") and not any(x[0].get("soporte") for x in cama.puestos):
+        cama.soporte_vivo = False          # desconectado antes de tiempo
     return carta
 
 
@@ -305,6 +308,8 @@ def poner_puesto(cama, carta, ronda):
     cama.puestos.append((carta, tipo, ap))
     if carta.get("previene"):
         cama.protege.add(carta["previene"])
+    if carta.get("soporte"):
+        cama.soporte_vivo = True
     cama.revisar(ronda)
 
 
@@ -692,6 +697,8 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                     cama.puestos.append((carta, tipo, aporte))
                     if carta.get("previene"):
                         cama.protege.add(carta["previene"])
+                    if carta.get("soporte"):
+                        cama.soporte_vivo = True
                     if carta.get("warn"):
                         resolver_warn(j, carta, cama)   # propio: sin piso
                         ctx["ult_comp"] = cama
@@ -749,13 +756,16 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                 # clínica lo vuelve a soltar. Medido: no mueve los números
                 # —el bot des-escala siempre en cuanto le estorba— pero el
                 # simulador tiene que jugar el mismo juego que la app.
-                # v0.61 · el soporte vital para el reloj: mientras la
-                # Ventilación Mecánica siga puesta, este paciente no se
-                # deteriora. No lo cura —los requisitos siguen abiertos—
-                # y se puede desconectar (Hay Que Repetirlo).
-                soporte = any(x[0].get("soporte") for x in c.puestos)
-                if (not c.estable or c.basura > 0) and not soporte:
-                    c.vida -= 1 + c.extra      # A08 Llaman de Urgencias
+                # v0.61 · el soporte vital aguanta UN Fin de Guardia y se
+                # gasta: un ventilado igual se muere, solo que no esta
+                # noche. El aguante solo se consume cuando de verdad
+                # salva; si el paciente no iba a perder nada, sigue
+                # cargado.
+                if not c.estable or c.basura > 0:
+                    if c.soporte_vivo:
+                        c.soporte_vivo = False
+                    else:
+                        c.vida -= 1 + c.extra  # A08 Llaman de Urgencias
                 c.extra = 0
                 if c.vida <= 0:
                     j.muertos.append(c.f)

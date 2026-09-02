@@ -1064,18 +1064,23 @@ fuente lo vuelve común— y premia justo **no** hacer triage, que es la tesis
 del juego. Débil y contra la tesis es la peor combinación: tienta a la
 jugada mala sin pagarla.
 
-**Lo que se hizo.** La carta compra **tiempo**, no requisitos: mientras la
-Ventilación Mecánica siga puesta, el paciente no se deteriora al Fin de
-Guardia. Es lo que hace intubar de verdad. No toca la economía del ×2, y
-estrena un verbo que no existía — hasta ahora **lo único que paraba el
-reloj era el ✅**.
+**Lo que se hizo.** La carta compra **tiempo**, no requisitos: aguanta
+**un** Fin de Guardia y se gasta. No toca la economía del ×2, y estrena un
+verbo que no existía — hasta ahora **lo único que paraba el reloj era el
+✅**, y el ✅ no se puede arrancar.
+
+Se construyó primero permanente y el autor la corrigió a un turno con el
+argumento correcto: *«un ventilado igual puede fallecer, lo sostiene un
+turno»*. Los números le dieron la razón — permanente dejaba el salvamento
+en 69 %, pegado al techo de la banda.
 
 | | altas | ✝️/jug | salvamento | limpias | grado III |
 |---|---|---|---|---|---|
 | antes | 3,04 | 1,47 | 67 % | 3,0 % | 47 % |
 | VM ×2 con ≤2 ❤️ | 3,07 | 1,46 | 68 % | 2,9 % | — |
 | todos los 💉 ×2 con ≤3 ❤️ | 3,15 | 1,41 | 69 % | 3,5 % | — |
-| **VM para el reloj** (2 copias) | 3,07 | **1,38** | 69 % | **3,6 %** | **50 %** |
+| VM para el reloj, permanente | 3,07 | 1,38 | 69 % | 3,6 % | 50 % |
+| **VM aguanta 1 turno** (lo que quedó) | 3,07 | **1,42** | 68 % | **3,4 %** | 48 % |
 
 Con **dos cartas** hace más que el ×2 con catorce.
 
@@ -1097,8 +1102,10 @@ Con **dos cartas** hace más que el ×2 con catorce.
 
 ### Lo que queda por revisar (el autor lo pidió explícitamente)
 
-- **Es permanente.** Se eligió así a sabiendas: la alternativa suave es que
-  pare el reloj un solo turno. Cambiarlo es una condición, no una columna.
+- **Dura un turno**, y el aguante vive en la cama (`soporteVivo`) y no en
+  la carta: la carta se queda puesta como 💉 aunque el aguante se haya
+  consumido, colocar otra Ventilación Mecánica recarga, y que te la quiten
+  desconecta. Solo se consume cuando de verdad salva.
 - **Corta también la sangría de la basura clínica**, así que es la mejor
   defensa contra el sabotaje del §6.3. No estaba buscado.
 - **El bot no sabe planear mantenerlo puesto** ni desconectárselo al rival,
