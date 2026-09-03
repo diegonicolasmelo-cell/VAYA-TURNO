@@ -1115,6 +1115,70 @@ Con **dos cartas** hace más que el ×2 con catorce.
 
 ---
 
+## 5h. Las habilidades del personal 🧑‍⚕️ (v0.62) ✅
+
+El §5b de abajo decía que la columna `texto` de los recursos estaba vacía
+en las 43 cartas y recomendaba llenar «5-8 como mucho». **Estaba
+desactualizado**: al ir a mirar había ya **seis** recursos con texto, y las
+seis eran 🧑‍⚕️. Nadie lo escribió como doctrina, pero el mazo ya estaba
+construido así. Ahora está dicho:
+
+> **Los recursos no hacen nada; las personas sí.**
+
+Es la regla que justifica la excepción. Un recurso con texto es una carta
+que hay que leer *cada vez* que alguien la juega, y los recursos son la
+carta más frecuente del juego. Restringir el texto a las 🧑‍⚕️ acota el
+coste de mesa a una familia que el jugador puede tener en la cabeza.
+
+### Los cinco verbos
+
+| | Verbo | Qué hace | Cartas |
+|---|---|---|---|
+| 🛡️ | PREVIENE | anula una ⚠ con nombre mientras esté puesto | R34, R35, R39 |
+| ×2 | VALE DOBLE | cuenta 2 en su tipo | R54 |
+| 🔎 | BUSCA | descarta 2 y saca 1 recurso del Mazo de Guardia | **R38 (nuevo)** |
+| ↔ | MUEVE | reubica 1 recurso entre tus camas, gratis | **R53** |
+| 🔁 | RECUPERA | rescata 1 Protocolo del descarte | **R37** |
+
+Los tres últimos se disparan **al colocar la carta sobre un paciente
+tuyo**, como tratamiento —nunca como sabotaje ni como basura— y **no
+gastan indicación aparte**: la indicación es la de colocar.
+
+**MUEVE y RECUPERA ya estaban escritas en el CSV desde antes y la app no
+las ejecutaba**, igual que las 22 habilidades de avatar (§5d, caso 10).
+Ahora corren.
+
+### Medido
+
+4.000 partidas: **3,07 → 3,06 altas · 68 % → 68 % de salvamento · 8,9 →
+8,9 puntos**, y las partidas sin ningún ✝️ suben de 3,4 % a 3,7 %.
+
+La búsqueda sale gratis y la razón es la buena: *descarta 2 para sacar 1*
+es **negativo en cartas**. Pagas dos por una y el coste compra exactamente
+la precisión. Es una mejora de **calidad**, no de poder — cambias cantidad
+por certeza, que es lo que uno quiere de una habilidad.
+
+Aviso de honestidad sobre ese número: el simulador **solo modela 🔎
+BUSCA**. Mover un recurso y reciclar un Protocolo son jugadas de tempo que
+este bot no sabe valorar, y fingirlas habría medido ruido.
+
+### Lo que pidió el autor para más adelante
+
+**El Kinesiólogo Respiratorio busca y arma la Ventilación Mecánica.** Su
+argumento, textual: *«es muy propio de nuestro quehacer; vamos a intubar a
+alguien y el kine busca y arma el VM»*. Yo objeté que el kine y el
+ventilador son el mismo territorio clínico — **la objeción era mala**: que
+sean el mismo territorio es justamente el motivo. Queda pendiente por dos
+razones que sí son razones:
+
+1. El Kine ya tiene 🛡️ (previene el Delirium), así que sería **la segunda
+   habilidad en la misma carta** — el primer caso del mazo.
+2. Crea un motor respiratorio fuerte: Kine (sinergia RESP, ×2 en
+   pacientes respiratorios) + VM (⏸ soporte vital). Hay que medirlo antes,
+   no después.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

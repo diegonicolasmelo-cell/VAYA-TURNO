@@ -202,6 +202,39 @@ justo lo que es un ventilador.*
 
 ---
 
+### 4.2-ter Las habilidades del personal 🧑‍⚕️
+
+Regla que conviene decir en voz alta antes de la primera partida:
+
+> **Los recursos no hacen nada; las personas sí.**
+
+Las 🩻, las 💊 y las 💉 son puro ícono: se colocan y ya. **Las 🧑‍⚕️ son las
+únicas cartas de recurso con texto**, y son cinco verbos:
+
+| | Verbo | Qué hace |
+|---|---|---|
+| 🛡️ | **PREVIENE** | mientras siga puesta, esa ⚠ con nombre no le ocurre |
+| ×2 | **VALE DOBLE** | cuenta como 2 recursos de su tipo |
+| 🔎 | **BUSCA** | descarta 2 de tu mano y saca 1 recurso del Mazo de Guardia |
+| ↔ | **MUEVE** | pasa 1 recurso de una cama tuya a otra, gratis |
+| 🔁 | **RECUPERA** | rescata 1 Protocolo del descarte y lo guardas |
+
+Los tres últimos se disparan **al colocar la carta sobre un paciente
+tuyo** —como tratamiento, nunca como sabotaje— y **no gastan una indicación
+aparte**: la indicación es la de colocarla.
+
+Quién lleva qué: **Enfermera de UCI**, **Técnico en Enfermería** y
+**Kinesiólogo Respiratorio** previenen; el **Cirujano de Turno** vale
+doble; el **Gestor de Camas** busca —*«no trae camas, trae preguntas sobre
+las camas»*, y por una vez trae algo—; el **Pabellón** mueve; y el
+**Becado de Medicina** recupera.
+
+*La búsqueda no descuadra la economía y la razón vale la pena entenderla:
+descartar 2 para sacar 1 es negativo en cartas. Pagas dos por una, y lo que
+compras no es poder sino **certeza** — dejar de depender del robo.*
+
+---
+
 ### 4.3 Fin de Guardia
 
 1. Todo paciente tuyo **sin ✅ pierde 1 ❤️**.

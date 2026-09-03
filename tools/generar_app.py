@@ -200,6 +200,13 @@ def datos(destino_arte=None):
             # de Guardia. Es el segundo modo de congelar el reloj —el
             # primero es el ✅— y el único que se puede desconectar.
             "soporte": (r.get("soporte") or "").strip() == "si",
+            # v0.62 · la habilidad de las 🧑‍⚕️. Los recursos son puro ícono
+            # a propósito —son la carta más jugada y cada texto se lee
+            # cada vez—; las personas son la excepción, y no es
+            # arbitraria: de las 67 cartas de recurso las únicas con
+            # texto son las 🧑‍⚕️. Los recursos no hacen nada; las
+            # personas sí.
+            "hab": (r.get("hab") or "").strip(),
             "turno24": r["comp_nombre"] == "El Turno Veinticuatro",
             "copias": int(r["copias"]),
         })

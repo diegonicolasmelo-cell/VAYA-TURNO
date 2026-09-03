@@ -103,6 +103,7 @@ def cargar():
                             "restriccion": r["restriccion"],
                             "doble_en": (r.get("doble_en") or "").strip(),
                             "soporte": r.get("soporte", "") == "si",
+                            "hab": r.get("hab", "").strip(),
                             "turno24": r.get("comp_nombre") == "El Turno Veinticuatro",
                             "warn": r["complicacion"] == "si",
                             "comp": comp if r["complicacion"] == "si" else None})
@@ -699,6 +700,29 @@ def jugar(pacientes, guardia, n_jug, camas_c, rondas, rng, robo=4, mano_max=6):
                         cama.protege.add(carta["previene"])
                     if carta.get("soporte"):
                         cama.soporte_vivo = True
+                    # v0.62 · 🔎 BUSCA (Gestor de Camas): descarta 2 y saca
+                    # del mazo el recurso que más le sirve a la unidad. Las
+                    # otras dos habilidades del personal —↔ MUEVE y
+                    # 🔁 RECUPERA— no están modeladas: mover un recurso y
+                    # reciclar un Protocolo son jugadas de tempo que este
+                    # bot no sabe valorar, y fingirlas mediría ruido.
+                    if carta.get("hab") == "BUSCA" and len(j.mano) >= 2:
+                        for _ in range(2):
+                            descarte.append(j.mano.pop(rng.randrange(len(j.mano))))
+                        mejor, mejor_v = None, 0
+                        for k, cand in enumerate(ctx["mazo"]):
+                            if cand.get("clase") != "recurso":
+                                continue
+                            for cc in j.camas:
+                                if not cc or cc.estable:
+                                    continue
+                                if cc.falta().get(cand.get("tipo"), 0) > 0:
+                                    v = 2 if (cand.get("sistema") and
+                                              cand["sistema"] == cc.f["sistema"]) else 1
+                                    if v > mejor_v:
+                                        mejor, mejor_v = k, v
+                        if mejor is not None:
+                            j.mano.append(ctx["mazo"].pop(mejor))
                     if carta.get("warn"):
                         resolver_warn(j, carta, cama)   # propio: sin piso
                         ctx["ult_comp"] = cama

@@ -1,45 +1,45 @@
-id,nombre,tipo,simbolo,sistema,comodin,doble_en,restriccion,complicacion,texto,soporte,previene,comp_nombre,comp_objetivo,comp_vida,comp_pide,comp_descarta,comp_texto,copias,frase
-R01,Antibiótico de Amplio Espectro,FARMACOS,💊,,no,,,no,,,,,,,,,,2,Cubre todo. Especialmente nuestra falta de diagnóstico.
-R02,Antibiótico de Amplio Espectro,FARMACOS,💊,,no,,,si,,,,Resistencia Antibiótica,ESTABLE,-1,,,Pierde 1 ❤️. Estaba estable con lo que le dimos. El cultivo dijo otra cosa.,1,Cubre todo. Especialmente nuestra falta de diagnóstico.
-R46,Sedoanalgesia,FARMACOS,💊,QUIR,no,,,no,,,,,,0,,,,2,Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'
-R47,Sedoanalgesia,FARMACOS,💊,QUIR,no,,,si,,,,Delirium en UCI,ESTE,-1,,,"Pierde 1 ❤️. Justo cuando despertaba: se sacó la sonda, la vía y el ánimo del turno.",1,Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'
-R05,Anticoagulación,FARMACOS,💊,,no,,,no,,,,,,,,,,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
-R06,Anticoagulación,FARMACOS,💊,,no,,,si,,,,Sangrado,MEJOR,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
-R07,Hemoderivados,FARMACOS,💊,,no,,,no,,,,,,,,,,2,"Llegaron. Sin la ficha, pero llegaron."
-R08,Noradrenalina,FARMACOS,💊,CARD,no,,,no,,,,,,,,,,2,La presión sube. La del paciente y la tuya.
-R09,Noradrenalina,FARMACOS,💊,CARD,no,,,si,,,,Taquicardia Ventricular,MEJOR,-1,,,Pierde 1 ❤️. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
-R10,Broncodilatador en Nebulización,FARMACOS,💊,RESP,no,,,no,,,,,,,,,,2,Sale más vapor que del baño turco. Algo tiene que estar llegando.
-R13,Insulina en Bomba,FARMACOS,💊,METAB,no,,,no,,,,,,,,,,2,Cada dos horas un hemoglucotest. Cada dos horas.
-R48,Corticoides,FARMACOS,💊,,no,,,no,,,,,,0,,,,1,"Sirven para todo. Suben el azúcar, el ánimo y la presión."
-R49,Corticoides,FARMACOS,💊,,no,,,si,,,,Hiperglicemia,ESTE,-1,,,Pierde 1 ❤️. 380 de glicemia: ahora también es diabético. Búscale una insulina.,1,"Sirven para todo. Suben el azúcar, el ánimo y la presión."
-R50,Cristaloides,FARMACOS,💊,,no,,,no,,,,,,0,,,,1,Agua con sal. La primera respuesta a casi todo.
-R51,Cristaloides,FARMACOS,💊,,no,,,si,,,,Sobrecarga de Volumen,ESTE,-1,,,"Pierde 1 ❤️. Tres litros después, los pulmones opinan que fue mucho.",1,Agua con sal. La primera respuesta a casi todo.
-R16,Radiografía de Tórax,IMAGEN,🩻,,no,,,no,,,,,,,,,,3,"Rotada, penetrada y en espiración. Se informa igual."
-R17,Radiografía de Tórax,IMAGEN,🩻,,no,,,si,,,,Hallazgo Incidental,ESTABLE,-1,,,Pierde 1 ❤️. Apareció una sombra que nadie buscaba y todo se detiene hasta estudiarla.,1,"Rotada, penetrada y en espiración. Se informa igual."
-R18,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,,no,,,,,,,,,,3,"Veo algo. No sé qué es, pero lo veo."
-R19,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,,si,,,,Falso Positivo,MEJOR,-1,,,"Pierde 1 ❤️. La hizo el que estaba, no el que sabía: el equipo entero se fue a perseguir la sombra.",1,"Veo algo. No sé qué es, pero lo veo."
-R20,TAC de Urgencia,IMAGEN,🩻,,no,,PERSONAL,no,,,,,,,,,,2,El traslado es más peligroso que la enfermedad. Vamos igual.
-R21,TAC de Urgencia,IMAGEN,🩻,,no,,PERSONAL,si,,,,Incidente en el Traslado,ESTE,-1,,,"Pierde 1 ❤️. El ascensor, el pasillo, la bala de oxígeno al 15%. El viaje era la parte peligrosa.",1,El traslado es más peligroso que la enfermedad. Vamos igual.
-R22,Angio-TAC,IMAGEN,🩻,CARD,no,,,no,,,,,,,,,,2,"Contraste, creatinina, y una fe enorme."
-R52,Angio-TAC,IMAGEN,🩻,CARD,no,,,si,,,,Nefropatía por Contraste,ESTE,-1,,,Pierde 1 ❤️. El contraste pasó. La creatinina también.,1,"Contraste, creatinina, y una fe enorme."
-R23,Resonancia con Cupo,IMAGEN,🩻,NEURO,no,,TURNO,no,,,,,,,,,,1,Existe. La han visto. Hay testigos.
-R24,Línea Arterial,PROCEDIMIENTOS,💉,,no,,,no,,,,,,,,,,2,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
-R25,Línea Arterial,PROCEDIMIENTOS,💉,,no,,,si,,,,Isquemia Distal,ELIGES,-1,,,Pierde 1 ❤️. La mano quedó fría. Hubo que retirar la línea.,1,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
-R26,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,,no,,,,,,,,,,3,"Ecoguiado, estéril y con público."
-R27,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,,si,,,,Bacteriemia por Catéter,ESTE,-1,,,Pierde 1 ❤️. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
-R30,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,,no,,si,,,,,,,,3,Modo controlado. El paciente y el ventilador aún negocian.
-R31,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,,si,,si,,Neumonía Asociada a VM,ESTE,-1,,,Pierde 1 ❤️. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
-R32,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,,no,,,,,,,,,,1,pH 7.09. Alguien diga algo inteligente.
-R33,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,,si,,,,Muestra Hemolizada,ELIGES,-1,,,"Pierde 1 ❤️. Se tomó bien, se rotuló bien, se agitó como coctelera: hay que repetirlo todo.",1,pH 7.09. Alguien diga algo inteligente.
-R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,,si,,,,Fuga Aérea Persistente,ESTE,-1,,,Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.,1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
-R45,Punción Lumbar,PROCEDIMIENTOS,💉,NEURO,no,,,no,,,,,,,,,,1,Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.
-R34,Enfermera de UCI,PERSONAL,🧑‍⚕️,,no,,,no,"MANEJO ESTÉRIL 🛡️ — Mientras siga sobre este paciente, la Bacteriemia por Catéter no le ocurre.",,Bacteriemia por Catéter,,,,,,,3,Sabe más que tú. Te lo dirá con mucha educación.
-R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,,no,"POSICIÓN 30° Y ASEO DE CAVIDADES 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.",,Neumonía Asociada a VM,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.
-R36,Personal de Turno Extra,PERSONAL,🧑‍⚕️,,no,,,si,,,,El Turno Veinticuatro,ESTE,-1,,,Pierde 1 ❤️ y el jefe de esa unidad descarta 1 carta de su mano. Lleva 24 horas de pie: confundió dos bombas y el papeleo.,1,Aceptó el turno 24. Nadie le preguntó cómo venía del anterior.
-R37,Becado de Medicina,PERSONAL,🧑‍⚕️,,no,,,si,"🛡️ PAPELEO AL DÍA — Si lo colocaste sobre un paciente TUYO, busca 1 Protocolo en el descarte de Protocolos y tómalo.",,,Aún Estoy Aprendiendo,ESTE,-1,,,Pierde 1 ❤️. Era su primera vez. Del procedimiento y del formulario.,1,Quiere aprender. Hoy. Ahora. Contigo.
-R38,Gestor de Camas,PERSONAL,🧑‍⚕️,,no,,,si,,,,Presión de Camas,MEJOR,-1,,,Pierde 1 ❤️. Necesitan la cama para ayer. Se adelantó todo.,1,No trae camas. Trae preguntas sobre las camas.
-R39,Kinesiólogo Respiratorio,PERSONAL,🧑‍⚕️,RESP,no,,,no,"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.",,Delirium en UCI,,,,,,,2,"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde."
-R53,Pabellón,PERSONAL,🧑‍⚕️,QUIR,no,,,si,"🛡️ PABELLÓN DISPONIBLE — Si lo colocaste sobre un paciente TUYO, mueve gratis 1 recurso entre tus pacientes.",,,Pabellón Suspendido,ESTE,-1,,,"Pierde 1 ❤️. Se cayó la tabla quirúrgica. Queda para mañana, y mañana también hay tabla.",2,Hay pabellón. Hay equipo. Falta el anestesista.
-R54,Cirujano de Turno,PERSONAL,🧑‍⚕️,,no,PERSONAL,,si,🛡️ MANOS A LA OBRA — Cuenta como 2 recursos 🧑‍⚕️ sobre cualquier paciente.,,,Oblito Quirúrgico,ESTE,-1,,,Pierde 1 ❤️. La compresa apareció en el control. El recuento decía que estaban todas.,1,Yo opero. El postoperatorio es problema de ustedes.
-R42,Médico General de Turno,COMODIN,🃏,,si,PERSONAL,,no,,,,,,,,,,2,"No es su especialidad, pero es el que está. Siempre es el que está."
-R43,Stock de Sala,COMODIN,🃏,,si,FARMACOS,,si,,,,La Gaveta Vacía,ESTE,-1,,,Pierde 1 ❤️. Era lo que quedaba. No era lo que servía.,1,Lo que quedó en la gaveta. Sirve para algo. Para algo sirve.
+id,nombre,tipo,simbolo,sistema,comodin,doble_en,restriccion,complicacion,hab,texto,soporte,previene,comp_nombre,comp_objetivo,comp_vida,comp_pide,comp_descarta,comp_texto,copias,frase
+R01,Antibiótico de Amplio Espectro,FARMACOS,💊,,no,,,no,,,,,,,,,,,2,Cubre todo. Especialmente nuestra falta de diagnóstico.
+R02,Antibiótico de Amplio Espectro,FARMACOS,💊,,no,,,si,,,,,Resistencia Antibiótica,ESTABLE,-1,,,Pierde 1 ❤️. Estaba estable con lo que le dimos. El cultivo dijo otra cosa.,1,Cubre todo. Especialmente nuestra falta de diagnóstico.
+R46,Sedoanalgesia,FARMACOS,💊,QUIR,no,,,no,,,,,,,0,,,,2,Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'
+R47,Sedoanalgesia,FARMACOS,💊,QUIR,no,,,si,,,,,Delirium en UCI,ESTE,-1,,,"Pierde 1 ❤️. Justo cuando despertaba: se sacó la sonda, la vía y el ánimo del turno.",1,Duerme él. Duerme la unidad. No duermes tú. '¿Del uno al diez?' 'Quince.'
+R05,Anticoagulación,FARMACOS,💊,,no,,,no,,,,,,,,,,,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
+R06,Anticoagulación,FARMACOS,💊,,no,,,si,,,,,Sangrado,MEJOR,-1,,,Pierde 1 ❤️. Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.,1,Si sangra fue mucho. Si coagula fue poco. Nunca fue justo.
+R07,Hemoderivados,FARMACOS,💊,,no,,,no,,,,,,,,,,,2,"Llegaron. Sin la ficha, pero llegaron."
+R08,Noradrenalina,FARMACOS,💊,CARD,no,,,no,,,,,,,,,,,2,La presión sube. La del paciente y la tuya.
+R09,Noradrenalina,FARMACOS,💊,CARD,no,,,si,,,,,Taquicardia Ventricular,MEJOR,-1,,,Pierde 1 ❤️. El monitor hace el dibujo que nadie quiere ver.,1,La presión sube. La del paciente y la tuya.
+R10,Broncodilatador en Nebulización,FARMACOS,💊,RESP,no,,,no,,,,,,,,,,,2,Sale más vapor que del baño turco. Algo tiene que estar llegando.
+R13,Insulina en Bomba,FARMACOS,💊,METAB,no,,,no,,,,,,,,,,,2,Cada dos horas un hemoglucotest. Cada dos horas.
+R48,Corticoides,FARMACOS,💊,,no,,,no,,,,,,,0,,,,1,"Sirven para todo. Suben el azúcar, el ánimo y la presión."
+R49,Corticoides,FARMACOS,💊,,no,,,si,,,,,Hiperglicemia,ESTE,-1,,,Pierde 1 ❤️. 380 de glicemia: ahora también es diabético. Búscale una insulina.,1,"Sirven para todo. Suben el azúcar, el ánimo y la presión."
+R50,Cristaloides,FARMACOS,💊,,no,,,no,,,,,,,0,,,,1,Agua con sal. La primera respuesta a casi todo.
+R51,Cristaloides,FARMACOS,💊,,no,,,si,,,,,Sobrecarga de Volumen,ESTE,-1,,,"Pierde 1 ❤️. Tres litros después, los pulmones opinan que fue mucho.",1,Agua con sal. La primera respuesta a casi todo.
+R16,Radiografía de Tórax,IMAGEN,🩻,,no,,,no,,,,,,,,,,,3,"Rotada, penetrada y en espiración. Se informa igual."
+R17,Radiografía de Tórax,IMAGEN,🩻,,no,,,si,,,,,Hallazgo Incidental,ESTABLE,-1,,,Pierde 1 ❤️. Apareció una sombra que nadie buscaba y todo se detiene hasta estudiarla.,1,"Rotada, penetrada y en espiración. Se informa igual."
+R18,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,,no,,,,,,,,,,,3,"Veo algo. No sé qué es, pero lo veo."
+R19,Ecografía a Pie de Cama,IMAGEN,🩻,,no,,,si,,,,,Falso Positivo,MEJOR,-1,,,"Pierde 1 ❤️. La hizo el que estaba, no el que sabía: el equipo entero se fue a perseguir la sombra.",1,"Veo algo. No sé qué es, pero lo veo."
+R20,TAC de Urgencia,IMAGEN,🩻,,no,,PERSONAL,no,,,,,,,,,,,2,El traslado es más peligroso que la enfermedad. Vamos igual.
+R21,TAC de Urgencia,IMAGEN,🩻,,no,,PERSONAL,si,,,,,Incidente en el Traslado,ESTE,-1,,,"Pierde 1 ❤️. El ascensor, el pasillo, la bala de oxígeno al 15%. El viaje era la parte peligrosa.",1,El traslado es más peligroso que la enfermedad. Vamos igual.
+R22,Angio-TAC,IMAGEN,🩻,CARD,no,,,no,,,,,,,,,,,2,"Contraste, creatinina, y una fe enorme."
+R52,Angio-TAC,IMAGEN,🩻,CARD,no,,,si,,,,,Nefropatía por Contraste,ESTE,-1,,,Pierde 1 ❤️. El contraste pasó. La creatinina también.,1,"Contraste, creatinina, y una fe enorme."
+R23,Resonancia con Cupo,IMAGEN,🩻,NEURO,no,,TURNO,no,,,,,,,,,,,1,Existe. La han visto. Hay testigos.
+R24,Línea Arterial,PROCEDIMIENTOS,💉,,no,,,no,,,,,,,,,,,2,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
+R25,Línea Arterial,PROCEDIMIENTOS,💉,,no,,,si,,,,,Isquemia Distal,ELIGES,-1,,,Pierde 1 ❤️. La mano quedó fría. Hubo que retirar la línea.,1,Al quinto intento salió. Nadie mencionará los cuatro anteriores.
+R26,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,,no,,,,,,,,,,,3,"Ecoguiado, estéril y con público."
+R27,Catéter Venoso Central,PROCEDIMIENTOS,💉,,no,,,si,,,,,Bacteriemia por Catéter,ESTE,-1,,,Pierde 1 ❤️. Dos hemocultivos positivos. El catéter lleva doce días.,1,"Ecoguiado, estéril y con público."
+R30,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,,no,,,si,,,,,,,,3,Modo controlado. El paciente y el ventilador aún negocian.
+R31,Ventilación Mecánica,PROCEDIMIENTOS,💉,,no,,,si,,,si,,Neumonía Asociada a VM,ESTE,-1,,,Pierde 1 ❤️. Lleva ocho días intubado. Ya era esperable.,1,Modo controlado. El paciente y el ventilador aún negocian.
+R32,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,,no,,,,,,,,,,,1,pH 7.09. Alguien diga algo inteligente.
+R33,Gases Arteriales,PROCEDIMIENTOS,💉,METAB,no,,,si,,,,,Muestra Hemolizada,ELIGES,-1,,,"Pierde 1 ❤️. Se tomó bien, se rotuló bien, se agitó como coctelera: hay que repetirlo todo.",1,pH 7.09. Alguien diga algo inteligente.
+R44,Pleurostomía,PROCEDIMIENTOS,💉,RESP,no,,,si,,,,,Fuga Aérea Persistente,ESTE,-1,,,Pierde 1 ❤️. El tubo burbujea y no para. El pulmón no termina de cerrar.,1,Entre la cuarta y la quinta costilla. Por el borde superior. Por favor.
+R45,Punción Lumbar,PROCEDIMIENTOS,💉,NEURO,no,,,no,,,,,,,,,,,1,Quédese quietito. Va a sentir un pinchazo... y una cefalea de tres días.
+R34,Enfermera de UCI,PERSONAL,🧑‍⚕️,,no,,,no,,"MANEJO ESTÉRIL 🛡️ — Mientras siga sobre este paciente, la Bacteriemia por Catéter no le ocurre.",,Bacteriemia por Catéter,,,,,,,3,Sabe más que tú. Te lo dirá con mucha educación.
+R35,Técnico en Enfermería,PERSONAL,🧑‍⚕️,,no,,,no,,"POSICIÓN 30° Y ASEO DE CAVIDADES 🛡️ — Mientras siga sobre este paciente, la Neumonía Asociada a VM no le ocurre.",,Neumonía Asociada a VM,,,,,,,2,Sostiene la unidad entera. Y la camilla. Y al interno.
+R36,Personal de Turno Extra,PERSONAL,🧑‍⚕️,,no,,,si,,,,,El Turno Veinticuatro,ESTE,-1,,,Pierde 1 ❤️ y el jefe de esa unidad descarta 1 carta de su mano. Lleva 24 horas de pie: confundió dos bombas y el papeleo.,1,Aceptó el turno 24. Nadie le preguntó cómo venía del anterior.
+R37,Becado de Medicina,PERSONAL,🧑‍⚕️,,no,,,si,RECUPERA,🔁 PAPELEO AL DÍA — Al colocarlo sobre un paciente TUYO: busca 1 Protocolo en el descarte de Protocolos y guárdalo.,,,Aún Estoy Aprendiendo,ESTE,-1,,,Pierde 1 ❤️. Era su primera vez. Del procedimiento y del formulario.,1,Quiere aprender. Hoy. Ahora. Contigo.
+R38,Gestor de Camas,PERSONAL,🧑‍⚕️,,no,,,si,BUSCA,🔎 CONSIGO LO QUE SEA — Al colocarlo sobre un paciente TUYO: descarta 2 cartas de tu mano y busca 1 recurso en el Mazo de Guardia. Se baraja.,,,Presión de Camas,MEJOR,-1,,,Pierde 1 ❤️. Necesitan la cama para ayer. Se adelantó todo.,1,No trae camas. Trae preguntas sobre las camas.
+R39,Kinesiólogo Respiratorio,PERSONAL,🧑‍⚕️,RESP,no,,,no,,"MOVILIZACIÓN PRECOZ 🛡️ — Mientras siga sobre este paciente, el Delirium en UCI no le ocurre.",,Delirium en UCI,,,,,,,2,"Vino, aspiró, movilizó y se fue. Nadie sabe a dónde."
+R53,Pabellón,PERSONAL,🧑‍⚕️,QUIR,no,,,si,MUEVE,↔ PABELLÓN DISPONIBLE — Al colocarlo sobre un paciente TUYO: mueve gratis 1 recurso de una de tus camas a otra.,,,Pabellón Suspendido,ESTE,-1,,,"Pierde 1 ❤️. Se cayó la tabla quirúrgica. Queda para mañana, y mañana también hay tabla.",2,Hay pabellón. Hay equipo. Falta el anestesista.
+R54,Cirujano de Turno,PERSONAL,🧑‍⚕️,,no,PERSONAL,,si,,🛡️ MANOS A LA OBRA — Cuenta como 2 recursos 🧑‍⚕️ sobre cualquier paciente.,,,Oblito Quirúrgico,ESTE,-1,,,Pierde 1 ❤️. La compresa apareció en el control. El recuento decía que estaban todas.,1,Yo opero. El postoperatorio es problema de ustedes.
+R42,Médico General de Turno,COMODIN,🃏,,si,PERSONAL,,no,,,,,,,,,,,2,"No es su especialidad, pero es el que está. Siempre es el que está."
+R43,Stock de Sala,COMODIN,🃏,,si,FARMACOS,,si,,,,,La Gaveta Vacía,ESTE,-1,,,Pierde 1 ❤️. Era lo que quedaba. No era lo que servía.,1,Lo que quedó en la gaveta. Sirve para algo. Para algo sirve.

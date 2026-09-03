@@ -96,6 +96,7 @@ ESQUEMA = {
             ("doble_en", "sel", ["", "IMAGEN", "FARMACOS", "PERSONAL",
                                  "PROCEDIMIENTOS"]),
             ("soporte", "sel", ["", "si"]),
+            ("hab", "sel", ["", "BUSCA", "MUEVE", "RECUPERA"]),
             ("restriccion", "sel", ["", "PERSONAL", "TURNO"]),
             ("complicacion", "sel", ["no", "si"]),
             ("comp_objetivo", "sel", ["", "ESTE", "MAS_GRAVE", "MEJOR", "MAS_TRATADO",
