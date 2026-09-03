@@ -1181,24 +1181,29 @@ razones que sí son razones:
 
 ## 5i. Entrar a turno · la cortina de arranque (v0.63) ✅
 
-Cinco segundos entre tocar la moneda y estar dentro de la unidad. Tres
-golpes de mano y un remate:
+**Ocho segundos** entre tocar la moneda y elegir personaje. Tres golpes de
+mano y nada más:
 
 | | Golpe | Rótulo | Dura |
 |---|---|---|---|
-| 1 | mano marcando la tarjeta en el reloj control | *Marcando tarjeta.* | 1,3 s |
-| 2 | manos bajo el chorro | *Veinte segundos. Cuéntalos.* | 1,3 s |
-| 3 | mano en el pulsador de la puerta | *Adentro.* | 1,1 s |
-| 4 | con quién te toca hoy, con su cara y su frase | | 1,4 s |
+| 1 | mano marcando la tarjeta en el reloj control | *Marcando tarjeta.* | 2,5 s |
+| 2 | mano en el pulsador de la puerta | *Adentro.* | 2,3 s |
+| 3 | manos bajo el chorro | *Veinte segundos. Cuéntalos.* | 3,2 s |
+
+**El lavado va al final**, corregido por el autor y con razón clínica: la
+higiene es en el punto de atención. Se marca tarjeta, se entra a la unidad,
+y recién ahí uno se lava las manos antes de tocar al primer paciente.
+
+**No hay cuarto golpe.** Hubo uno —el retrato de «hoy te toca con»— y se
+sacó: la pantalla que viene ya está llena de caras, así que poner una antes
+era decir dos veces lo mismo, y encima presentaba a un personaje que
+todavía no estaba repartido.
 
 **No esconde ninguna carga.** La partida se arma en un milisegundo; esto es
 una cortina de ficción. Por eso **se salta tocando la pantalla** y por eso
 **no lleva barra de progreso** —una barra falsa sería mentirle al jugador—:
 lleva tres puntos, que dicen cuánto falta sin fingir que miden algo. Con
 `prefers-reduced-motion` no aparece.
-
-El remate solo tiene sentido contra la IA: en Dúo y Solitario no hay a
-quién presentar, así que ahí dice «Unidad lista · tres camas y ocho horas».
 
 ### El hueco para la ilustración
 
