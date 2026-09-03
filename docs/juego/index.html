@@ -2102,6 +2102,78 @@ body.con-portada .res{background:rgba(255,255,255,.82);
 .caso-fin p{font-size:12.5px;line-height:1.5;color:var(--ink-2);margin:0 0 6px;
   text-align:left}
 .caso-fin .acciones{padding:12px 0 0;display:flex;gap:8px}
+/* ── ENTRAR A TURNO: la cortina de arranque ────────────────────────────
+   Cinco segundos entre tocar la moneda y estar dentro. No esconde ninguna
+   carga —la partida se arma al instante— y por eso se puede saltar tocando
+   la pantalla: es una cortina de ficción, no una barra de progreso, y una
+   barra de progreso falsa sería mentirle al jugador.
+
+   Todo son MANOS. Tres golpes de ~1,3 s —marcar tarjeta, lavarse, ponerse
+   los guantes— y el remate: con quién te toca hoy. El dibujo está a
+   propósito en la misma línea de los íconos del juego (trazo de 2, sin
+   relleno) para que un día se pueda cambiar por la ilustración sin que
+   nada más se mueva. */
+.entrada{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0;
+  background:radial-gradient(120% 90% at 50% 35%, #163842 0%, #0b1e25 70%);
+  color:#eaf3f5;cursor:pointer;animation:aparecer .2s ease}
+.entrada .marco{width:min(64vw,244px);aspect-ratio:1/1;position:relative;
+  display:grid;place-items:center}
+.entrada .marco svg,.entrada .marco img{position:absolute;width:100%;height:100%;
+  fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+  opacity:0;transform:scale(.94);transition:opacity .22s ease, transform .22s ease}
+.entrada .marco svg.on,.entrada .marco img.on{opacity:1;transform:scale(1)}
+.entrada .marco img{object-fit:contain}
+.entrada .rot{font-family:"IBM Plex Mono",monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:#7fb6bf;
+  margin-top:26px;min-height:1.2em;text-align:center}
+.entrada .sub{font-family:Petrona,Georgia,serif;font-size:15px;color:#cfe4e8;
+  margin-top:6px;min-height:1.4em;text-align:center;padding:0 24px}
+/* los tres puntos del progreso: dicen cuánto falta sin fingir un cálculo */
+.entrada .pasos{display:flex;gap:7px;margin-top:22px}
+.entrada .pasos i{width:6px;height:6px;border-radius:50%;background:#31555e;
+  transition:background .25s ease, transform .25s ease}
+.entrada .pasos i.on{background:var(--acc, #0d6e78);transform:scale(1.35)}
+.entrada .saltar{position:fixed;bottom:26px;left:0;right:0;text-align:center;
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:#5c8791}
+
+/* el remate: el retrato de con quién te toca */
+.entrada .rival{display:flex;flex-direction:column;align-items:center;gap:10px}
+.entrada .rival .aro{width:96px;height:96px;border-radius:50%;overflow:hidden;
+  border:2px solid var(--acc, #0d6e78);background:#0e2830;display:grid;
+  place-items:center;animation:subir .34s cubic-bezier(.2,.9,.3,1)}
+.entrada .rival .aro img{width:100%;height:100%;object-fit:cover}
+.entrada .rival .nom{font-family:Petrona,Georgia,serif;font-size:20px}
+
+@media (prefers-reduced-motion: no-preference){
+  /* la tarjeta entra en la ranura */
+  .entrada .mano-reloj .tarjeta{animation:fichar 1.3s ease-in-out}
+  @keyframes fichar{0%{transform:translate(9px,7px)}
+                    45%{transform:translate(0,0)}100%{transform:translate(0,0)}}
+  .entrada .mano-reloj .luz{animation:luzOk .65s steps(1) .55s 2 both}
+  @keyframes luzOk{0%{opacity:.25}50%{opacity:1}100%{opacity:.25}}
+  /* las manos se frotan */
+  .entrada .lavado .mano-a{animation:frota .42s ease-in-out infinite alternate;
+    transform-origin:50% 70%}
+  .entrada .lavado .mano-b{animation:frota .42s ease-in-out infinite alternate-reverse;
+    transform-origin:50% 70%}
+  @keyframes frota{from{transform:translateX(-2.5px) rotate(-3deg)}
+                   to{transform:translateX(2.5px) rotate(3deg)}}
+  .entrada .lavado .gota{animation:cae 1s linear infinite}
+  .entrada .lavado .gota:nth-of-type(2){animation-delay:.33s}
+  .entrada .lavado .gota:nth-of-type(3){animation-delay:.66s}
+  @keyframes cae{0%{opacity:0;transform:translateY(0)}
+                 25%{opacity:1}100%{opacity:0;transform:translateY(13px)}}
+  /* la mano sube al pulsador y la puerta contesta */
+  .entrada .puerta .empuja{animation:empuja .5s cubic-bezier(.3,.8,.4,1) both}
+  @keyframes empuja{from{transform:translateY(10px)}to{transform:translateY(0)}}
+  .entrada .puerta .boton{animation:pulsa .5s ease .35s both}
+  @keyframes pulsa{0%{opacity:.55}40%{opacity:1}100%{opacity:1}}
+  .entrada .puerta .aire{animation:aparecer .45s ease .55s both}
+}
+
 </style>
 
 <div id="portada" aria-hidden="true" hidden></div>
@@ -6685,6 +6757,155 @@ function pintarPortada(){
 }
 
 /* ══ pantallas ══════════════════════════════════════════════════════ */
+/* ══ ENTRAR A TURNO ═══════════════════════════════════════════════════
+   La cortina entre tocar la moneda y estar dentro de la unidad. Cinco
+   segundos, tres golpes y un remate — y todos los golpes son MANOS, que
+   es lo único que ves de ti mismo cuando llegas a un turno.
+
+     1,3 s  marcas tarjeta en el reloj control
+     1,3 s  lavado clínico (el cartel dice 20 segundos; duran 1,3)
+     1,0 s  te calzas los guantes
+     1,4 s  con quién te toca hoy
+
+   No esconde ninguna carga: la partida se arma en un milisegundo. Es una
+   cortina de ficción, y por eso **se salta tocando la pantalla** y por eso
+   no lleva barra de progreso —una barra falsa sería mentir—: lleva tres
+   puntos, que dicen cuánto falta sin fingir que miden algo.
+
+   El dibujo va en la misma línea que los íconos del juego (trazo de 2, sin
+   relleno, viewBox 100×100) a propósito: el día que haya ilustración se
+   cambia el SVG por una imagen y no se mueve nada más. */
+/* Las ilustraciones de los tres golpes, si existen. Las inyecta
+   generar_app.py desde arte/entrada/{reloj,lavado,puerta}.webp y se pueden
+   reemplazar de a una: el golpe que tenga imagen la usa, el que no, sigue
+   con su ícono de línea. */
+const ENTRADA_ARTE = {};
+
+const ENTRADA_GOLPES = [
+ {clase:"mano-reloj", rot:"Reloj control", sub:"Marcando tarjeta.", ms:1300, svg:`
+   <svg viewBox="0 0 100 100" aria-hidden="true">
+     <rect x="20" y="14" width="60" height="42" rx="6"/>
+     <circle cx="38" cy="31" r="9"/><path d="M38 26v5l3 2"/>
+     <circle class="luz" cx="66" cy="26" r="3.2" fill="currentColor" stroke="none"/>
+     <path d="M56 38h16"/>
+     <path d="M32 56h36"/>
+     <g class="tarjeta"><rect x="40" y="50" width="22" height="13" rx="2"/>
+       <path d="M44 56h8"/></g>
+     <path d="M36 92V74c0-3 4-3 4 0v-6c0-3.4 4.5-3.4 4.5 0v-3c0-3.4 4.5-3.4 4.5 0v3
+              c0-3 4-3 4 0v4c3 0 5 2 5 5v9"/>
+   </svg>`},
+ {clase:"lavado", rot:"Lavado clínico", sub:"Veinte segundos. Cuéntalos.", ms:1300, svg:`
+   <svg viewBox="0 0 100 100" aria-hidden="true">
+     <path d="M30 16h22a8 8 0 0 1 8 8v6"/><path d="M28 12v8"/>
+     <circle class="gota" cx="60" cy="34" r="2.2" fill="currentColor" stroke="none"/>
+     <circle class="gota" cx="55" cy="34" r="1.8" fill="currentColor" stroke="none"/>
+     <circle class="gota" cx="65" cy="34" r="1.8" fill="currentColor" stroke="none"/>
+     <g class="mano-a">
+       <path d="M28 88V66c0-3.2 4.4-3.2 4.4 0v-7c0-3.6 4.6-3.6 4.6 0v-3.4
+                c0-3.6 4.6-3.6 4.6 0V59c0-3.2 4.4-3.2 4.4 0v6c3.4 0 5.6 2.3 5.6 5.6V88"/>
+     </g>
+     <g class="mano-b">
+       <path d="M72 88V66c0-3.2-4.4-3.2-4.4 0v-7c0-3.6-4.6-3.6-4.6 0v-3.4
+                c0-3.6-4.6-3.6-4.6 0V59c0-3.2-4.4-3.2-4.4 0v6c-3.4 0-5.6 2.3-5.6 5.6V88"/>
+     </g>
+     <circle cx="36" cy="50" r="2" opacity=".5"/><circle cx="64" cy="46" r="2.6" opacity=".4"/>
+     <circle cx="50" cy="42" r="1.6" opacity=".55"/>
+   </svg>`},
+ {clase:"puerta", rot:"Puerta de la unidad", sub:"Adentro.", ms:1100, svg:`
+   <svg viewBox="0 0 100 100" aria-hidden="true">
+     <circle class="boton" cx="50" cy="32" r="19"/>
+     <path class="boton" d="M42 41V26h11a5 5 0 0 1 5 5v10"/>
+     <circle class="boton" cx="53" cy="33" r="1.6" fill="currentColor" stroke="none"/>
+     <path class="aire" d="M74 22c4.4 6 4.4 14 0 20" opacity=".5"/>
+     <path class="aire" d="M81 26c2.8 4 2.8 8 0 12" opacity=".3"/>
+     <g class="empuja">
+       <path d="M36 96V72c0-3.2 4.4-3.2 4.4 0v-7c0-3.6 4.6-3.6 4.6 0v-3.4
+                c0-3.6 4.6-3.6 4.6 0V65c0-3.2 4.4-3.2 4.4 0v6c3.4 0 5.6 2.3 5.6 5.6V96"/>
+     </g>
+   </svg>`},
+];
+
+/* Contra la IA hay rival y tiene cara; en Dúo y Solitario no hay a quién
+   presentar, así que el remate es la unidad y no una persona. */
+function entradaRemate(modo){
+  if(modo !== "ia") return null;
+  const pool = D.personajes || [];
+  return pool[Math.floor(Math.random()*pool.length)] || null;
+}
+
+function entrarATurno(modo, luego){
+  // sin la marca del turno anterior encima
+  document.querySelectorAll(".entrada").forEach(n=>n.remove());
+  const quieto = window.matchMedia &&
+                 matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(quieto){ luego(); return; }          // quien pidió menos animación, entra ya
+
+  const w = el("div","entrada");
+  w.setAttribute("role","status");
+  w.setAttribute("aria-label","Entrando a turno");
+  const marco = el("div","marco");
+  ENTRADA_GOLPES.forEach(g=>{
+    if(ENTRADA_ARTE[g.clase]){
+      const im = document.createElement("img");
+      im.src = ENTRADA_ARTE[g.clase]; im.alt = "";
+      marco.appendChild(im);
+    } else {
+      const d = el("div", null);
+      d.innerHTML = g.svg;
+      marco.appendChild(d.firstElementChild);
+    }
+  });
+  w.appendChild(marco);
+  const rot = el("div","rot"), sub = el("div","sub");
+  w.appendChild(rot); w.appendChild(sub);
+  const pasos = el("div","pasos");
+  ENTRADA_GOLPES.forEach(()=>pasos.appendChild(el("i")));
+  w.appendChild(pasos);
+  w.appendChild(el("div","saltar","toca para saltar"));
+  document.body.appendChild(w);
+
+  let t = null, cerrado = false;
+  const cerrar = ()=>{
+    if(cerrado) return; cerrado = true;
+    clearTimeout(t); w.remove(); luego();
+  };
+  w.onclick = cerrar;
+
+  const piezas = [...marco.children];
+  const golpe = i=>{
+    if(cerrado) return;
+    if(i >= ENTRADA_GOLPES.length){ remate(); return; }
+    const g = ENTRADA_GOLPES[i];
+    piezas.forEach((s,k)=>s.classList.toggle("on", k===i));
+    marco.className = "marco " + g.clase;
+    rot.textContent = g.rot; sub.textContent = g.sub;
+    [...pasos.children].forEach((p,k)=>p.classList.toggle("on", k<=i));
+    t = setTimeout(()=>golpe(i+1), g.ms);
+  };
+  const remate = ()=>{
+    const r = entradaRemate(modo);
+    marco.innerHTML = ""; marco.className = "marco";
+    if(r){
+      const caja = el("div","rival");
+      const aro = el("div","aro");
+      if(r.arte){ const im = document.createElement("img");
+                  im.src = r.arte; im.alt = ""; aro.appendChild(im); }
+      else aro.appendChild(el("span","nom", esc((r.nombre||"?")[0])));
+      caja.appendChild(aro);
+      caja.appendChild(el("div","nom", esc(r.nombre)));
+      marco.appendChild(caja);
+      rot.textContent = "Hoy te toca con";
+      sub.textContent = r.frase ? "“"+r.frase+"”" : "";
+    } else {
+      rot.textContent = "Unidad lista";
+      sub.textContent = "Tres camas y ocho horas.";
+    }
+    [...pasos.children].forEach(p=>p.classList.add("on"));
+    t = setTimeout(cerrar, 1400);
+  };
+  golpe(0);
+}
+
 function pantallaInicio(){
   const w = el("div","inicio");
   const h = el("div","portada");
@@ -6718,11 +6939,11 @@ function pantallaInicio(){
     b.onclick = fn; ops.appendChild(b);
   };
   mk(SVG_MODO.ia, "IA", "1 jugador", "Jugar contra la IA, 1 jugador",
-     ()=>nuevaPartida("ia",["Tú","Dr. Silicio"]));
+     ()=>entrarATurno("ia", ()=>nuevaPartida("ia",["Tú","Dr. Silicio"])));
   mk(SVG_MODO.dos, "Dúo", "1 teléfono", "Dos jugadores en un teléfono",
-     ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"]));
+     ()=>entrarATurno("hotseat", ()=>nuevaPartida("hotseat",["Jugador 1","Jugador 2"])));
   mk(SVG_MODO.solo, "Solo", "2 manos", "Solitario, las dos manos a la vista",
-     ()=>nuevaPartida("abierto",["Mano A","Mano B"]));
+     ()=>entrarATurno("abierto", ()=>nuevaPartida("abierto",["Mano A","Mano B"])));
   s.appendChild(ops);
 
   // Antes aquí había una casilla «Primera guardia» que encendía el coach

@@ -159,6 +159,36 @@ def cargar_portada(destino=None):
     return out
 
 
+def cargar_entrada(destino=None):
+    """arte/entrada/{reloj,lavado,puerta}.(webp|png|jpg) → los tres golpes de
+    la cortina de arranque.
+
+    Mientras no existan, la app dibuja los íconos de línea que trae dentro.
+    En cuanto aparece un archivo con el nombre del golpe, ese golpe pasa a
+    ser la ilustración y los otros siguen siendo íconos: se puede reemplazar
+    de a uno. Mismo trato que la portada — data-URI en el artefacto, archivo
+    aparte en la PWA."""
+    carpeta = os.path.join(RAIZ, "arte", "entrada")
+    out = {}
+    for clave in ("reloj", "lavado", "puerta"):
+        for ext, mime in ((".webp", "image/webp"), (".png", "image/png"),
+                          (".jpg", "image/jpeg")):
+            ruta = os.path.join(carpeta, clave + ext)
+            if not os.path.isfile(ruta):
+                continue
+            crudo = open(ruta, "rb").read()
+            if destino:
+                os.makedirs(destino, exist_ok=True)
+                with open(os.path.join(destino, clave + ext), "wb") as f:
+                    f.write(crudo)
+                out[clave] = "entrada/" + clave + ext
+            else:
+                out[clave] = ("data:" + mime + ";base64,"
+                              + base64.b64encode(crudo).decode())
+            break
+    return out
+
+
 def datos(destino_arte=None):
     pacientes = []
     for p in leer("cartas", "pacientes.csv"):
@@ -252,7 +282,7 @@ def datos(destino_arte=None):
             "acciones": acciones, "personajes": personajes}
 
 
-def armar(d, pwa=False, css_local=None, portada=None):
+def armar(d, pwa=False, css_local=None, portada=None, entrada=None):
     """Mete los datos en la plantilla. En modo PWA además la envuelve en un
     documento completo: la plantilla es un fragmento (el artefacto le pone
     la cabecera), pero un archivo servido por Pages necesita la suya."""
@@ -271,6 +301,10 @@ def armar(d, pwa=False, css_local=None, portada=None):
         if hueco not in html:
             raise SystemExit("La plantilla no tiene el marcador " + hueco)
         html = html.replace(hueco, json.dumps((portada or {}).get(clave, "")), 1)
+    hueco = "/*__ENTRADA__*/{}"
+    if hueco not in html:
+        raise SystemExit("La plantilla no tiene el marcador " + hueco)
+    html = html.replace(hueco, json.dumps(entrada or {}, ensure_ascii=False), 1)
     if not pwa:
         return html
     html = html.replace("/*__PWA__*/false", "/*__PWA__*/true", 1)
@@ -412,8 +446,9 @@ def construir_pwa():
     d = datos(destino_arte=os.path.join(SALIDA_PWA, "arte"))
     tipos = tipografias_pwa.preparar(os.path.join(SALIDA_PWA, "tipos"))
     portada = cargar_portada(destino=os.path.join(SALIDA_PWA, "portada"))
+    entrada = cargar_entrada(destino=os.path.join(SALIDA_PWA, "entrada"))
     html = armar(d, pwa=True, css_local="tipos/tipos.css" if tipos else None,
-                 portada=portada)
+                 portada=portada, entrada=entrada)
     man = manifiesto()
     iconos_pwa.generar(os.path.join(SALIDA_PWA, "iconos"))
 
@@ -466,7 +501,7 @@ def main():
         d = construir_pwa()
     else:
         d = datos()
-        html = armar(d, portada=cargar_portada())
+        html = armar(d, portada=cargar_portada(), entrada=cargar_entrada())
         os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
         with open(SALIDA, "w", encoding="utf-8") as f:
             f.write(html)

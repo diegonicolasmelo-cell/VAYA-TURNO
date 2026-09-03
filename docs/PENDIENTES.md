@@ -1179,6 +1179,52 @@ razones que sí son razones:
 
 ---
 
+## 5i. Entrar a turno · la cortina de arranque (v0.63) ✅
+
+Cinco segundos entre tocar la moneda y estar dentro de la unidad. Tres
+golpes de mano y un remate:
+
+| | Golpe | Rótulo | Dura |
+|---|---|---|---|
+| 1 | mano marcando la tarjeta en el reloj control | *Marcando tarjeta.* | 1,3 s |
+| 2 | manos bajo el chorro | *Veinte segundos. Cuéntalos.* | 1,3 s |
+| 3 | mano en el pulsador de la puerta | *Adentro.* | 1,1 s |
+| 4 | con quién te toca hoy, con su cara y su frase | | 1,4 s |
+
+**No esconde ninguna carga.** La partida se arma en un milisegundo; esto es
+una cortina de ficción. Por eso **se salta tocando la pantalla** y por eso
+**no lleva barra de progreso** —una barra falsa sería mentirle al jugador—:
+lleva tres puntos, que dicen cuánto falta sin fingir que miden algo. Con
+`prefers-reduced-motion` no aparece.
+
+El remate solo tiene sentido contra la IA: en Dúo y Solitario no hay a
+quién presentar, así que ahí dice «Unidad lista · tres camas y ocho horas».
+
+### El hueco para la ilustración
+
+Los tres golpes son **íconos de línea provisionales**, dibujados en el
+mismo trazo que el resto de la app. `arte/entrada/{reloj,lavado,puerta}.webp`
+los reemplaza **de a uno**: el golpe que tenga archivo usa la imagen, el
+que no, sigue con su ícono. Cuadrado 1:1, fondo transparente, 800×800
+basta. Está documentado en `arte/entrada/LEEME.md` y verificado metiendo
+una imagen de prueba: el marco pasó de `svg svg svg` a `svg IMG svg`.
+
+### Dos cosas que costaron
+
+- **El tercer golpe se dibujó dos veces.** El primero era un guante y no se
+  leía —sin dedos separados podía ser un calcetín—. El segundo era la mano
+  empujando la hoja de la puerta, y salió peor: giré la mano con
+  `rotate(-90)` cuando lo que manda los dedos a la derecha es `rotate(90)`,
+  y encima la puerta se la comía. Terminó siendo el pulsador, que además es
+  lo que uno toca de verdad para entrar a una UCI, y que **reusa la
+  composición del primer golpe** —objeto arriba, mano vertical abajo—, que
+  es la que ya se sabía que funcionaba.
+- **Un ícono hay que mirarlo, no describirlo.** Los tres se juzgaron
+  capturando los cuatro cuadros y mirándolos; los dos primeros pasaron a la
+  primera y el tercero no, y eso no se sabe leyendo el `path`.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43
