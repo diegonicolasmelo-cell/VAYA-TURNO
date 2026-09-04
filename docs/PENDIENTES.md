@@ -1318,9 +1318,14 @@ Cómo está hecho:
   difiere y no lleva `G.dia`, el parte no se pisa, y el soak de 5 partidas
   sigue 5/5 limpio.
 
-**Queda para después** (anotado también en `IDEAS-MODOS.md`): la racha
-(cuántos días seguidos firmaste), un historial de partes, y que el texto
-compartido lleve una fila de emojis por ronda al estilo Wordle.
+**La racha ya está dentro**: firmar en fechas seguidas la sube (🔥N en la
+ficha de la portada y «🔥 N guardias seguidas» en el texto compartido); un
+día sin jugar la corta de vuelta a 1. Verificado con partes falsos de ayer
+(4→5) y de hace tres días (→1).
+
+**Queda para después** (anotado también en `IDEAS-MODOS.md`): un historial
+de partes, y que el texto compartido lleve una fila de emojis por ronda al
+estilo Wordle.
 
 ---
 

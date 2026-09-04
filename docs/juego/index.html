@@ -7005,7 +7005,9 @@ function pantallaInicio(){
       ? `Tu parte de hoy ya está firmado: ${parte.pts} pts · ${parte.altas} altas.`
       : `La misma baraja para todo el mundo. Firma el parte de hoy.`)+
     `</span>`+
-    `<span class="cuenta">${parte ? "✓" : "HOY"}</span>`;
+    `<span class="cuenta">${parte
+      ? (parte.racha > 1 ? `🔥${parte.racha}` : "✓")
+      : "HOY"}</span>`;
   gd.setAttribute("aria-label", "La Guardia del Día · reto diario contra la IA con baraja compartida");
   gd.onclick = ()=>entrarATurno(()=>nuevaPartida("ia",["Tú","Dr. Silicio"],false,fechaDia()));
   s.appendChild(gd);
@@ -7062,15 +7064,22 @@ function parteDelDia(){
     return p && p.fecha === fechaDia() ? p : null;
   }catch(e){ return null; }
 }
+/* La racha: cuántas fechas SEGUIDAS llevan parte firmado. Se actualiza al
+   firmar; un día sin jugar la corta de vuelta a 1. */
+function diasEntre(a, b){
+  return Math.round((Date.parse(b+"T00:00Z") - Date.parse(a+"T00:00Z")) / 864e5);
+}
 function firmarParte(){
   const mio = G.jug.find(j=>!j.ia) || G.jug[0];
   const ia  = G.jug.find(j=>j.ia);
   try{
     const previo = JSON.parse(localStorage.getItem("vt-dia") || "null");
     if(previo && previo.fecha === G.dia) return previo;
+    const seguida = previo && diasEntre(previo.fecha, G.dia) === 1;
     const p = { fecha:G.dia, pts:puntos(mio), altas:mio.altas.length,
                 muertos:mio.muertos.length,
-                rival: ia ? ia.nombre : null, ptsRival: ia ? puntos(ia) : null };
+                rival: ia ? ia.nombre : null, ptsRival: ia ? puntos(ia) : null,
+                racha: seguida ? (previo.racha || 1) + 1 : 1 };
     localStorage.setItem("vt-dia", JSON.stringify(p));
     return p;
   }catch(e){ return null; }
@@ -7082,8 +7091,9 @@ function textoParte(p){
     : p.pts < p.ptsRival ? `\n😮‍💨 Me ganó ${p.rival} (${p.ptsRival})`
     : `\n🤝 Empate con ${p.rival} (${p.ptsRival})`;
   return `¡VAYA TURNO! · Guardia del ${d}-${m}-${a}\n`+
-         `🛏️ ${p.altas} alta${p.altas===1?"":"s"} · ✝️ ${p.muertos} · ${p.pts} pts${vs}\n`+
-         `https://diegonicolasmelo-cell.github.io/VAYA-TURNO/juego/`;
+         `🛏️ ${p.altas} alta${p.altas===1?"":"s"} · ✝️ ${p.muertos} · ${p.pts} pts${vs}`+
+         (p.racha > 1 ? `\n🔥 ${p.racha} guardias seguidas` : "")+
+         `\nhttps://diegonicolasmelo-cell.github.io/VAYA-TURNO/juego/`;
 }
 
 function pantallaFinal(){

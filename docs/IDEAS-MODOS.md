@@ -16,16 +16,16 @@ medirlo. Si un modo cambia reglas (no solo el reparto), primero pasa por
 
 ## Los que se pagan solos (poco código, mucho juego)
 
-### 1. La racha del parte diario 🔥
+### 1. La racha del parte diario 🔥 — ✅ hecha (v0.65)
 
-No es un modo nuevo: es terminar el que acaba de nacer. Guardar los partes
-firmados (hoy solo vive el del día), mostrar **cuántos días seguidos**
-llevas firmando, y que el texto compartido lleve la racha. Es la mecánica
-que hace volver mañana — Wordle no es un buen juego de palabras, es una
-buena racha.
+No era un modo nuevo: era terminar el que acaba de nacer. Firmar en
+fechas seguidas sube la racha (🔥N en la portada, «🔥 N guardias
+seguidas» en el texto compartido); un día sin jugar la corta. Es la
+mecánica que hace volver mañana — Wordle no es un buen juego de palabras,
+es una buena racha.
 
-- **Cuesta:** un historial en localStorage y dos líneas en la portada.
-- **Rinde:** retención diaria. Es la continuación natural de §5k.
+- **Queda de ella:** el historial de partes y la fila de emojis por ronda
+  en el texto, estilo Wordle.
 
 ### 2. El Turno Eterno (guardia infinita) ♾️
 
