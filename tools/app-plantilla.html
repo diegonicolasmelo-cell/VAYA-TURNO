@@ -2606,7 +2606,9 @@ function colocar(carta, cama, duenio, esSabotaje, tipoElegido){
 
   if(carta.warn) complicar(carta, cama, duenio);
   revisar(cama, G.ronda);
-  G.descG.push(carta);
+  // La carta ya vive en la cama (puestos o basura): NO va además al
+  // descarte. Duplicarla ahí hacía que, al rebarajar el mazo agotado,
+  // volviera a circular una copia de algo que sigue puesto.
 
   j.coloc--;
   if(carta.restriccion==="TURNO"){ j.coloc = 0; anota("", "La Resonancia con Cupo cierra el Pase de Visita."); }
@@ -3094,6 +3096,15 @@ function compAnulable(){
 function anularComplicacion(nombre, ok, no){
   const t = compAnulable();
   if(!t){ no(); return; }
+  // La IA no abre hojas (mismo trato que elegirUno): si llegó hasta aquí
+  // es porque quiere anular, así que anula y listo. Sin esto la hoja
+  // quedaba huérfana en la pantalla del humano, esperando un dedo ajeno.
+  if(yo().ia){
+    t.cama.vida = Math.min(t.cama.vidaMax, t.cama.vida + 1);
+    G.ultimaComp = null;
+    anota("a",`${nombre}: se anula ${t.u.nombre} en ${t.u.paciente}.`);
+    ok(); return;
+  }
   hoja(nombre, (m, cerrar)=>{
     m.appendChild(el("p",
       `Anula <b>${esc(t.u.nombre)}</b> sobre <b>${esc(t.u.paciente)}</b>: recupera el ❤️ `+
@@ -3458,8 +3469,11 @@ function revProt(a){
 }
 
 function iaJuega(){
+  // Llega por setTimeout: la partida pudo morir (Nueva guardia, borrar)
+  // entre que se armó el reloj y que sonó.
+  if(!G || G.fin) return;
   const j = yo();
-  if(G.fin || !j.ia || G.fase!==1) return;
+  if(!j.ia || G.fase!==1) return;
   if(G.caso){ casoRival(); return; }
   if(UI.fxViva){                       // primero termina la ceremonia del alta
     clearTimeout(UI.iaT);
@@ -6073,6 +6087,11 @@ function refrescarPendiente(p, capa){
 
 function pintarCapa(){
   const capa = document.getElementById("capa");
+  // Las hojas son de la partida: si la partida terminó o ya no existe, la
+  // hoja muere con ella. Sin esto, abrir la ficha de un paciente mientras
+  // la IA juega la última ronda dejaba la hoja viva ENCIMA del marcador
+  // final —o de la portada— comiéndose los toques.
+  if(UI.modal && (!G || G.fin)) UI.modal = null;
   if(UI.modal){
     if(capa.firstChild !== UI.modal){
       capa.innerHTML = ""; capa.appendChild(UI.modal);
