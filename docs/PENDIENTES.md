@@ -1285,6 +1285,45 @@ clips entran también al artefacto o solo a la PWA.
 
 ---
 
+## 5k. La Guardia del Día 🗓️ (v0.65) ✅
+
+El reto diario: una partida contra la IA cuya baraja **la siembra la
+fecha**. Todo el que juegue el 4 de septiembre recibe los mismos pacientes
+de partida, la misma mano, la misma pizarra y la misma terna de avatares;
+lo único distinto es cómo la juega. Entra por su propia ficha en la
+portada, bajo La Residencia.
+
+Cómo está hecho:
+
+- Todo el azar del juego pasa por `AZAR` (por defecto `Math.random`).
+  `nuevaPartida(modo, nombres, tuto, dia)` con `dia` = `"2026-09-04"`
+  siembra un mulberry32 con el hash de la fecha **solo durante el reparto
+  inicial** (los cuatro barajados); después `AZAR` vuelve a ser
+  `Math.random`, así que el rebarajeo del descarte y la moneda de la
+  Pelada siguen siendo azar de verdad — para entonces las partidas ya
+  divergieron y no afecta la equidad del arranque.
+- **El parte del día se firma una sola vez**: el primer resultado de cada
+  fecha queda en `localStorage['vt-dia']` y no se pisa aunque repitas
+  (la baraja es la misma: repetir con lo aprendido sería trampa). La
+  portada muestra el parte firmado; la pantalla final gana el botón
+  **«Compartir el parte del día»** (navigator.share o portapapeles):
+
+      ¡VAYA TURNO! · Guardia del 04-09-2026
+      🛏️ 2 altas · ✝️ 0 · 9 pts
+      🏆 Le gané a Dr. Silicio (2)
+      https://diegonicolasmelo-cell.github.io/VAYA-TURNO/juego/
+
+- Verificado con Playwright (`dia.py`): dos arranques de la misma fecha
+  dan huella idéntica (pacientes, manos, pizarra, terna), el modo normal
+  difiere y no lleva `G.dia`, el parte no se pisa, y el soak de 5 partidas
+  sigue 5/5 limpio.
+
+**Queda para después** (anotado también en `IDEAS-MODOS.md`): la racha
+(cuántos días seguidos firmaste), un historial de partes, y que el texto
+compartido lleve una fila de emojis por ronda al estilo Wordle.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43
