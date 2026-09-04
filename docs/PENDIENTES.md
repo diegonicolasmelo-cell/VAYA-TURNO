@@ -1230,6 +1230,61 @@ una imagen de prueba: el marco pasó de `svg svg svg` a `svg IMG svg`.
 
 ---
 
+## 5j. Personajes con movimiento (v0.64) 🔶
+
+### Lo que ya se hizo, gratis y sin salir de la app
+
+- **La carta del frente respira.** Paneo lentísimo de 11 s sobre la
+  ilustración del personaje enfocado en la rueda de selección: escala
+  1,015 → 1,075 con un desplazamiento de dos puntos. Va **sobre la imagen y
+  nunca sobre la carta**, porque el `transform` de la carta lo reescribe
+  `pintarRueda` en cada arrastre y las dos se pelearían.
+- **Solo el del frente.** Si se movieran las tres, la pantalla temblaría
+  entera y ninguna diría «esta es». La clase `.foco` la pone `pintarRueda`.
+- **El retrato redondo del mesón ya se movía** desde antes: `av-respira`,
+  escala 1 → 1,02 cada 5,2 s, y está en `LATIDOS` para que el re-render no
+  la reinicie. Medido: 1,1 % de píxeles en 1,3 s. Es sutil a propósito — a
+  94 px cualquier cosa más grande se lee como tembleque.
+
+Medido en el navegador: la carta enfocada cambia **21,6 % de píxeles en
+2,4 s**, la vecina con arte tiene `animation-name: none`.
+
+### Animación de verdad (Google Flow u otro): el análisis
+
+Un personaje que parpadea o mueve la bata **no se puede hacer con CSS**:
+hace falta un clip por avatar. Lo que decide si vale la pena es el **peso**,
+no la herramienta.
+
+- **El artefacto de un archivo tiene tope duro de 16 MB** y va en ~6,2 MB.
+  22 avatares × un bucle de 2 s a 720×540 VP9 ≈ 180 KB cada uno = **~4 MB**.
+  Cabe, pero se come casi toda la holgura que queda para las 115
+  ilustraciones de carta que todavía faltan.
+- **La PWA no tiene tope**: los archivos van sueltos y el service worker los
+  cachea uno a uno. Ahí sí caben sin discusión.
+- **El círculo de 94 px no lo vale.** Un parpadeo a ese tamaño mide dos
+  píxeles. Serían 22 clips para animar una miniatura que nadie puede ver: el
+  CSS que ya está es la respuesta correcta ahí.
+- **Donde sí vale** es la pantalla de selección (244 px, y es el momento en
+  que uno está mirando una cara) y, si acaso, el zoom de la carta.
+
+**Receta si se generan:** un clip por avatar, **2-3 s en bucle perfecto**
+—que termine donde empieza—, sutil (respiración, un parpadeo, la tela, el
+fondo vivo) y **sin movimiento de cámara**, que de eso ya se encarga el CSS.
+**4:3 a 800×600**, mismo encuadre que el arte fijo para que el cambio no se
+note. **WebM/VP9, sin audio, ≤150 KB.** Nombre = id de la carta
+(`C03.webm`).
+
+**Ojo con el formato:** el navegador de pruebas de este entorno **no tiene
+H.264**, solo VP9/Opus. Un MP4 lo reproduce cualquier teléfono, pero yo no
+podría verificarlo aquí. Mejor WebM, o MP4 y lo transcodifico.
+
+**Pendiente de decisión:** montar el hueco `cartas/arte-vivo/<ID>.webm` con
+el mismo patrón que `arte/entrada/` —si el clip existe, la carta de
+selección lo reproduce; si no, imagen fija con el paneo— y decidir si los
+clips entran también al artefacto o solo a la PWA.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43
