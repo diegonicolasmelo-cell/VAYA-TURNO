@@ -2310,7 +2310,8 @@ function nuevaPartida(modo, nombres, tuto, dia){
     avatar: null, mano:[], camas:[null,null,null],
     altas:[], muertos:[], sumarios:0,
     protocolos:[], coloc:INDICACIONES, compraHecha:false, accionHecha:false,
-    roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false, pena:0
+    roboMod:0, sinFarmacos:false, colocMod:0, habP:false, habT:false, pena:0,
+    habUsos:0, guardadaC11:null, warnsVistas:0, sinCierre:false
   }));
   jug.forEach(j=>{ if(j.ia) j.avatar = avat.pop(); });
   G = { modo, dia: dia || null, ronda:1, turno:0, fase:0,
@@ -2324,6 +2325,7 @@ function nuevaPartida(modo, nombres, tuto, dia){
   G.informe = G.mazoP.length ? G.mazoP[G.mazoP.length-1] : null;
   for(let i=0;i<3;i++){ const a=G.mazoA.pop(); if(a) G.pizarra.push(a); }
   jug.forEach(j=>{ for(let i=0;i<ROBO;i++) robar(j); });
+  jug.forEach(j=>{ if(j.avatar) regaloInicialAvatar(j); });   // C17 de la IA
   anota("r", `RONDA 1 · empieza ${jug[0].nombre}`);
   G.avatarPool = avat;
   G.iniciado = true;
@@ -2349,6 +2351,7 @@ function resolverAvatar(elegido){
   G.jug[p.jugador].avatar = elegido;
   G.avatarPool.unshift(...p.ops.filter(o=>o!==elegido));
   anota("", `${G.jug[p.jugador].nombre} será ${elegido.nombre}.`);
+  regaloInicialAvatar(G.jug[p.jugador]);       // C17: su comodín de partida
   siguienteAvatar();
 }
 
@@ -2480,29 +2483,31 @@ const HAB = {
 BUSCA:{
   puede:()=> G.mazoG.length > 0 && yo().mano.length >= 2,
   jugar(j, cama){
-    pagarCartas(2, "Gestor de Camas",
-      "Descarta 2 cartas de tu mano y te trae el recurso que le pidas.", ()=>{
-      const orden = G.mazoG.slice().sort((a,b)=>
-        (a.tipo+a.nombre).localeCompare(b.tipo+b.nombre));
-      elegirUno("¿Qué le pides?", "Del Mazo de Guardia, a tu mano.",
-        objCartas(orden), s=>{
+    // Primero se elige, DESPUÉS se paga: antes era al revés, y cancelar la
+    // elección te dejaba con 2 cartas menos y las manos vacías.
+    const orden = G.mazoG.slice().sort((a,b)=>
+      (a.tipo+a.nombre).localeCompare(b.tipo+b.nombre));
+    elegirUno("¿Qué le pides?", "Del Mazo de Guardia, a tu mano. Cuesta 2 cartas.",
+      objCartas(orden), s=>{
+        pagarCartas(2, "Gestor de Camas",
+          `Marca las 2 cartas que descartas por ${esc(s.carta.nombre)}.`, ()=>{
           const k = G.mazoG.indexOf(s.carta); if(k>=0) G.mazoG.splice(k,1);
           j.mano.push(s.carta); UI.nuevas.add(s.carta.uid);
           G.mazoG = baraja(G.mazoG);
           anota("a",`${j.nombre} consigue ${s.carta.nombre} por el Gestor de Camas.`);
           aviso("ok",`🔎 A la mano: ${esc(s.carta.nombre)}`);
           guardar(); render();
-        }, ()=>{ guardar(); render(); },
-        ops=>{                                   // la IA: la que más le sirve
-          let mejor = null, val = 0;
-          ops.forEach(o=>{
-            const c = o.val.carta;
-            j.camas.forEach(x=>{ if(x && puedeColocarPropia(c,x)){
-              const v = aporte(c, x); if(v > val){ val = v; mejor = o.val; } }});
-          });
-          return mejor || ops[0].val;
         });
-    });
+      }, ()=>{ guardar(); render(); },
+      ops=>{                                   // la IA: la que más le sirve
+        let mejor = null, val = 0;
+        ops.forEach(o=>{
+          const c = o.val.carta;
+          j.camas.forEach(x=>{ if(x && puedeColocarPropia(c,x)){
+            const v = aporte(c, x); if(v > val){ val = v; mejor = o.val; } }});
+        });
+        return mejor || ops[0].val;
+      });
   }},
 
 /* ↔ MUEVE · el Pabellón. Un solo recurso, de una cama tuya a otra, gratis.
@@ -2615,7 +2620,24 @@ function colocar(carta, cama, duenio, esSabotaje, tipoElegido){
     cama.basura.push(carta);
     anota("m", `${j.nombre} tira ${carta.nombre} sobre ${cama.p.nombre} (${duenio.nombre}): basura clínica.`);
   } else {
-    const ap = aporte(carta, cama, tipo);
+    let ap = aporte(carta, cama, tipo);
+    // C16 Ojo Entrenado: sus 🩻 con sistema valen doble en cualquier
+    // paciente SUYO, no solo en los de su sistema
+    if(ap===1 && !esSabotaje && duenio===j && tieneAv(j,"C16") &&
+       carta.tipo==="IMAGEN" && carta.sistema){
+      ap = 2; anota("", `Ojo Entrenado: ${carta.nombre} cuenta doble.`);
+    }
+    // C13 Paciente Emblema: el 3º tipo distinto del turno sobre el mismo
+    // paciente cuenta doble (si no doblaba ya)
+    if(!esSabotaje && duenio===j && tieneAv(j,"C13")){
+      j._c13 = j._c13 || {};
+      const pt = j._c13[cama.uid] = j._c13[cama.uid] || [];
+      pt.push(tipo);
+      if(ap===1 && pt.length===3 && new Set(pt).size===3){
+        ap = 2; anota("a", `Paciente Emblema: ${carta.nombre} es el tercer tipo distinto — cuenta doble.`);
+        if(!j.ia) aviso("ok",`🏅 Paciente Emblema: ${esc(carta.nombre)} ×2`);
+      }
+    }
     cama.tiene[tipo] += ap;
     // se guarda QUÉ aportó: sin esto no se puede retirar ni mover un recurso
     // ya colocado (Vacaciones, Reunión Clínica, Hay Que Repetirlo…)
@@ -2631,7 +2653,26 @@ function colocar(carta, cama, duenio, esSabotaje, tipoElegido){
   }
   if(esSabotaje) cama.atacada = true;
 
-  if(carta.warn) complicar(carta, cama, duenio);
+  if(carta.warn){
+    const antes = cama.vida;
+    complicar(carta, cama, duenio);
+    // C12 Vigilancia Epidemiológica: cada 3 ⚠️ en tu unidad, un Protocolo
+    // gratis. Cuentan las que caen en TU unidad — las pongas tú o el rival.
+    if(tieneAv(duenio,"C12")){
+      duenio.warnsVistas = (duenio.warnsVistas||0) + 1;
+      if(duenio.warnsVistas % 3 === 0 && G.mazoA.length){
+        const pa = G.mazoA.pop(); duenio.protocolos.push(pa);
+        anota("a",`Vigilancia Epidemiológica: van ${duenio.warnsVistas} ⚠️ — ${duenio.nombre} suma ${pa.nombre} gratis.`);
+        if(!duenio.ia) aviso("ok",`🦠 3 ⚠️ vigiladas: ${esc(pa.nombre)} gratis`);
+      }
+    }
+    // C01 El Diostor: tu ⚠️ sobre tu paciente puede pagarla el rival
+    if(!esSabotaje && duenio===j && cama.vida<antes && tieneAv(j,"C01") &&
+       !j.habT && j.mano.length>=2 &&
+       otros().some(r=>r.camas.some(c=>c && !c.escudo))){
+      ofrecerDiostor(j, carta, cama);
+    }
+  }
   revisar(cama, G.ronda);
   // La carta ya vive en la cama (puestos o basura): NO va además al
   // descarte. Duplicarla ahí hacía que, al rebarajar el mazo agotado,
@@ -2721,7 +2762,11 @@ function objRecursosRivales(f){
   const out = [];
   otros().forEach(r=>r.camas.forEach(c=>{
     if(!c || c.escudo) return;
-    c.puestos.forEach((x,i)=>{ if(!f || f(x))
+    c.puestos.forEach((x,i)=>{
+      // C22 La Jefa de Unidad: su 🧑‍⚕️ no se toca; C17: sus 🃏 tampoco
+      if((x.puestoTipo||x.tipo)==="PERSONAL" && tieneAv(r,"C22")) return;
+      if(x.comodin && tieneAv(r,"C17")) return;
+      if(!f || f(x))
       out.push({txt:`${ico(x.tipo)} ${esc(x.nombre)}`,
                 sub:`sobre ${esc(c.p.nombre)} · ${esc(r.nombre)}`,
                 val:{cama:c, idx:i, carta:x, duenio:r}, orden:faltanTotal(c)}); });
@@ -2902,8 +2947,12 @@ A09:{ // Auditoría — mira una mano y descarta 1
   jugar(j, ok, no){
     elegirUno("Auditoría","¿A quién le revisas la mano?",
       objRivales().filter(o=>o.val.mano.length), r=>{
-        elegirUno(`Mano de ${r.nombre}`,"Elige la carta que se descarta.",
-          objCartas(r.mano), s=>{
+        // C17 El Multiuso: sus comodines no se pueden descartar
+        const revisables = tieneAv(r,"C17") ? r.mano.filter(c=>!c.comodin) : r.mano;
+        elegirUno(`Mano de ${r.nombre}`,
+          "Elige la carta que se descarta." +
+          (revisables.length<r.mano.length ? " (Sus comodines están protegidos.)" : ""),
+          objCartas(revisables), s=>{
             const k = r.mano.indexOf(s.carta); if(k>=0) r.mano.splice(k,1);
             G.descG.push(s.carta);
             anota("a",`Auditoría: ${r.nombre} descarta ${s.carta.nombre}.`);
@@ -2954,6 +3003,7 @@ A13:{ // Anda Rondando la Pelada — ÚNICA, dos monedas
     elegirUno("💀 Dos caras","Vino preguntando por una cama. Elige cuál.", ops, s=>{
       const r = s.duenio, i = r.camas.indexOf(s.cama);
       r.muertos.push(s.cama.p);
+      alPonerCruz(r);                   // C20 también carroñea a la Pelada
       s.cama.puestos.concat(s.cama.basura).forEach(x=>G.descG.push(x));
       r.camas[i] = null;
       if(G.sumariosLibres>0){ r.sumarios++; G.sumariosLibres--; }
@@ -3065,6 +3115,7 @@ A22:{ // Alta Anticipada
       objCamasPropias(c=>c.estable && c.estableDesde===G.ronda && !c.basura.length), c=>{
         const i = j.camas.indexOf(c);
         j.altas.push(c.p); j.pena = (j.pena||0) + 2;
+        alDarAlta(j);                   // C08 también cuenta el alta apurada
         c.puestos.forEach(x=>G.descG.push(x));
         j.camas[i] = null;
         anota("a",`ALTA ANTICIPADA · ${c.p.nombre} (+${c.p.alta} −2) — ${j.nombre}`);
@@ -3078,6 +3129,413 @@ A22:{ // Alta Anticipada
       });
   }},
 };
+
+/* ══ LAS HABILIDADES DE AVATAR (v0.66) ══════════════════════════════
+   Hasta hoy las 22 eran texto: el ⚡ marcaba el poder como gastado y el
+   efecto lo aplicaba el jugador a mano — o sea, contra la IA no lo
+   aplicaba nadie. Ahora el árbitro las ejecuta, con la misma semántica
+   que ya validó tools/simular_avatares.py (rebalance §4q).
+
+   Tres familias:
+   · ACTIVAS (tabla AV) — el ⚡ pide objetivos con elegirUno/pagarCartas.
+     Regla de oro: SE PAGA AL FINAL. Cancelar a medio camino no gasta
+     nada — ni cartas ni el poder.
+   · AUTOMÁTICAS (C08, C14) — se disparan solas cuando toca; el ⚡ solo
+     informa.
+   · PASIVAS — enganchadas donde viven sus reglas (robo, admisión,
+     aporte, muertes, complicaciones, Pizarra, Sumarios).            */
+
+const tieneAv = (j, id) => !!(j && j.avatar && j.avatar.id === id);
+const duenioDe = cama => G.jug.find(x=>x.camas.includes(cama));
+
+function marcarPoder(j){
+  const f = (j.avatar && j.avatar.frecuencia) || "";
+  if(/2×/.test(f)) j.habUsos = (j.habUsos||0) + 1;
+  else if(/PARTIDA/.test(f)) j.habP = true;
+  else j.habT = true;
+}
+function poderGastado(j){
+  const f = (j.avatar && j.avatar.frecuencia) || "";
+  if(/2×/.test(f)) return (j.habUsos||0) >= 2;
+  return /PARTIDA/.test(f) ? !!j.habP : !!j.habT;
+}
+/* C04 Burocracia Amiga: al Director cerrar Sumarios le cuesta 1 */
+function costoSumario(j){ return tieneAv(j,"C04") ? 1 : 2; }
+
+/* C20 El Carroñero de Pasillo: cada ✝️ ajeno le paga una carta al azar */
+function alPonerCruz(victima){
+  G.jug.forEach(r=>{
+    if(r===victima || !tieneAv(r,"C20") || !victima.mano.length) return;
+    const cand = victima.mano.filter(c=>!(tieneAv(victima,"C17") && c.comodin));
+    if(!cand.length) return;
+    const c = cand[Math.floor(Math.random()*cand.length)];
+    victima.mano.splice(victima.mano.indexOf(c),1);
+    r.mano.push(c); if(!r.ia) UI.nuevas.add(c.uid);
+    anota("a",`Justo Pasaba por Ahí: ${r.nombre} le carroñea una carta a ${victima.nombre}.`);
+  });
+}
+/* C08 Foto para la Memoria: la primera alta ✅ trae 1 carta */
+function alDarAlta(j){
+  if(tieneAv(j,"C08") && !j.habP){
+    j.habP = true; robar(j);
+    anota("a",`Foto para la Memoria: primera alta de ${j.nombre} — roba 1.`);
+    if(!j.ia) aviso("ok","📸 Foto para la Memoria: robas 1 carta");
+  }
+}
+/* C17 El Multiuso: parte con un comodín extra en la mano */
+function regaloInicialAvatar(j){
+  if(!tieneAv(j,"C17")) return;
+  const k = G.mazoG.findIndex(c=>c.comodin);
+  if(k<0) return;
+  const c = G.mazoG.splice(k,1)[0];
+  j.mano.push(c); if(!j.ia) UI.nuevas.add(c.uid);
+  anota("", `El Multiuso: ${j.nombre} parte con un comodín extra.`);
+}
+/* C19 El Intensivista: los graves entran con +1 ❤️ */
+function entraConAvatar(j, cama){
+  if(cama && tieneAv(j,"C19") &&
+     (cama.p.gravedad==="III" || cama.p.gravedad==="ROJO")){
+    cama.vida++; cama.vidaMax++;
+    anota("", `A Mí No Me Asusta: ${cama.p.nombre} entra con +1 ❤️.`);
+  }
+}
+/* colocación sin costo (C06 y C11): el espejo de colocar() sin mano,
+   sin indicación y sin habilidades de turno */
+function colocarGratis(carta, cama, j, apForzado){
+  let tipo = carta.tipo;
+  if(carta.comodin) tipo = TIPOS.filter(t=>falta(cama,t)>0)
+      .sort((a,b)=>falta(cama,b)-falta(cama,a))[0] || "FARMACOS";
+  const ap = apForzado || aporte(carta, cama, tipo);
+  cama.tiene[tipo] += ap;
+  carta.puestoTipo = tipo; carta.puestoAp = ap;
+  cama.puestos.push(carta);
+  if(carta.previene) cama.protege.push(carta.previene);
+  if(carta.soporte) cama.soporteVivo = true;
+  if(carta.warn) complicar(carta, cama, j);
+  revisar(cama, G.ronda);
+  return ap;
+}
+
+/* C01 El Diostor — reactiva: acaba de caer TU ⚠️ y puedes pagar 2 para
+   que la sufra un rival. La IA decide sola; al humano se le ofrece en
+   una hoja diferida (colocar aún no terminó y su llamador va a pintar). */
+function ofrecerDiostor(j, carta, cama){
+  const aplicar = victima=>{
+    cama.vida = Math.min(cama.vidaMax, cama.vida + 1);
+    const nom = carta.compNombre;
+    if(nom && victima.protege.includes(nom)){
+      anota("a",`El Diostor desvía ${nom}… pero ${victima.p.nombre} estaba protegido.`);
+    } else {
+      victima.vida = Math.max(1, victima.vida - 1);
+      const rd = duenioDe(victima);
+      anota("m",`El Diostor desvía ${nom||"la complicación"}: la sufre ${victima.p.nombre}${rd?` (${rd.nombre})`:""}.`);
+    }
+    revisar(cama, G.ronda); revisar(victima, G.ronda);
+    j.habT = true;
+  };
+  if(j.ia){
+    if(j.mano.length < 2) return;
+    j.mano.sort((a,b)=>(a.comodin?1:0)-(b.comodin?1:0) ||
+                       (a.sistema?1:0)-(b.sistema?1:0));
+    G.descG.push(j.mano.shift()); G.descG.push(j.mano.shift());
+    const vict = otros().flatMap(r=>r.camas).filter(c=>c && !c.escudo)
+                        .sort((a,b)=>b.vida-a.vida)[0];
+    if(vict) aplicar(vict);
+    return;
+  }
+  setTimeout(()=>{
+    if(!G || G.fin || j!==yo() || j.habT || j.mano.length<2) return;
+    hoja("El Diostor", (m, cerrar)=>{
+      m.appendChild(el("p",null,
+        `La ⚠️ de <b>${esc(carta.nombre)}</b> le quitó 1 ❤️ a <b>${esc(cama.p.nombre)}</b>. `+
+        `Elige un paciente rival que la sufra por él y descarta 2 cartas: el tuyo recupera su ❤️. (1×RONDA)`));
+      const fila = el("div","acciones"); fila.style.padding="0";
+      const noB = el("button","btn","Que la sufra el mío");
+      noB.onclick = cerrar;
+      const siB = el("button","btn pri","⚡ Pasársela al rival");
+      siB.onclick = ()=>{
+        UI.modal = null;
+        elegirUno("¿Quién la sufre?", "El ❤️ vuelve a tu paciente cuando pagues.",
+          objCamasRivales(), v=>{
+            pagarCartas(2, "El peaje divino", "Marca las 2 cartas que descartas.", ()=>{
+              aplicar(v); guardar(); render();
+            });
+          }, ()=>{ guardar(); render(); });
+      };
+      fila.appendChild(noB); fila.appendChild(siB); m.appendChild(fila);
+    });
+  }, 0);
+}
+
+const AV = {
+C03:{ // Doctor Amor · Seducción de Pasillo
+  puede:()=> objRecursosRivales(x=>(x.puestoTipo||x.tipo)==="PERSONAL").length>0,
+  ayuda:"No hay ningún 🧑‍⚕️ colocado en camas rivales que se deje seducir.",
+  jugar(j, ok, no){
+    elegirUno("Seducción de Pasillo",
+      "Roba un 🧑‍⚕️ Personal colocado sobre un paciente rival: va a tu mano.",
+      objRecursosRivales(x=>(x.puestoTipo||x.tipo)==="PERSONAL"), s=>{
+        quitarRecurso(s.cama, s.idx);
+        j.mano.push(s.carta); if(!j.ia) UI.nuevas.add(s.carta.uid);
+        anota("a",`Seducción de Pasillo: ${s.carta.nombre} abandona a ${s.cama.p.nombre} y se va con ${j.nombre}.`);
+        aviso("ok",`💘 ${esc(s.carta.nombre)} a tu mano`);
+        ok();
+      }, no);
+  }},
+C04:{ // El Director · Perdonazo Administrativo
+  puede:()=> G.jug.some(x=>x.sumarios>0),
+  ayuda:"No hay ningún Sumario abierto que perdonar.",
+  jugar(j, ok, no){
+    elegirUno("Perdonazo Administrativo",
+      "Anula y descarta un Sumario abierto, tuyo o del rival.",
+      G.jug.filter(x=>x.sumarios>0).map(x=>({txt:esc(x.nombre),
+        sub:`${x.sumarios} Sumario${x.sumarios>1?"s":""} abierto${x.sumarios>1?"s":""}`, val:x})),
+      x=>{
+        x.sumarios--; G.sumariosLibres++;
+        anota("a",`Perdonazo Administrativo: se esfuma un Sumario de ${x.nombre}.`);
+        aviso("ok",`📋 Sumario perdonado a ${esc(x.nombre)}`);
+        ok();
+      }, no, ops=>{ const mio = ops.find(o=>o.val===j); return (mio||ops[0]).val; });
+  }},
+C05:{ // La Gestora de Camas · Derivación
+  puede:()=> G.mazoP.length>0 && yo().camas.some(c=>c),
+  ayuda:"No queda nadie en el Mazo de Pacientes para admitir.",
+  jugar(j, ok, no){
+    elegirUno("Derivación",
+      "Vuelve al fondo del Mazo (sus recursos se descartan) y admites uno nuevo YA. "+
+      "No es ✝️ — pero pagas un Sumario y renuncias a los bonus de cierre.",
+      objCamasPropias(), cama=>{
+        const i = j.camas.indexOf(cama);
+        cama.puestos.concat(cama.basura).forEach(x=>G.descG.push(x));
+        G.mazoP.unshift(cama.p);
+        const nuevo = G.mazoP.pop();
+        j.camas[i] = nuevaCama(nuevo);
+        entraConAvatar(j, j.camas[i]);
+        G.informe = G.mazoP.length ? G.mazoP[G.mazoP.length-1] : null;
+        if(G.sumariosLibres>0){ j.sumarios++; G.sumariosLibres--; }
+        j.sinCierre = true;
+        anota("a",`Derivación: ${cama.p.nombre} se traslada y llega ${nuevo.nombre}. ${j.nombre} carga con el Sumario.`);
+        aviso("warn",`🛏️ Entra ${esc(nuevo.nombre)} · Sumario +1 · sin bonus de cierre`);
+        ok();
+      }, no, ops=>{
+        const x = ops.map(o=>o.val).find(c=>!c.estable && faltanTotal(c) > c.vida*2.1);
+        return x || null;
+      });
+  }},
+C06:{ // El Médico Esotérico · Confía en el Universo
+  puede:()=> yo().mano.length>=1 && (G.mazoG.length>0 || G.descG.length>0),
+  ayuda:"Necesitas una carta de ofrenda y que quede mazo.",
+  jugar(j, ok, no){
+    elegirUno("Confía en el Universo",
+      "Elige la ofrenda: se descarta, y la primera carta del Mazo se coloca "+
+      "gratis sobre un paciente tuyo — con su ⚠️ si la trae.",
+      objCartas(j.mano), s=>{
+        const of = s.carta;
+        j.mano.splice(j.mano.indexOf(of),1); G.descG.push(of);
+        if(!G.mazoG.length){ G.mazoG = baraja(G.descG); G.descG = []; }
+        const rev = G.mazoG.pop();
+        if(!rev){ anota("a","Confía en el Universo: el mazo estaba vacío."); ok(); return; }
+        const fin = cama=>{
+          if(!cama){
+            G.descG.push(rev);
+            anota("a",`Confía en el Universo: sale ${rev.nombre} y no hay dónde ponerlo — al descarte.`);
+            aviso("warn",`🔮 ${esc(rev.nombre)} — el universo no proveyó`);
+            ok(); return;
+          }
+          const ap = colocarGratis(rev, cama, j);
+          anota("a",`Confía en el Universo: ${rev.nombre} cae gratis sobre ${cama.p.nombre}${ap===2?" ×2":""}${rev.warn?" — con su ⚠️":""}.`);
+          aviso("ok",`🔮 ${esc(rev.nombre)} → ${esc(cama.p.nombre)}`);
+          ok();
+        };
+        const camas = objCamasPropias(c=>puedeColocarPropia(rev,c));
+        if(!camas.length){ fin(null); return; }
+        if(camas.length===1){ fin(camas[0].val); return; }
+        elegirUno(`Sale ${rev.nombre} — ¿sobre quién?`,
+          rev.warn ? `Trae ⚠️ ${esc(rev.compNombre)}: se resuelve donde caiga.` : null,
+          camas, fin, ()=>fin(camas[0].val));
+      }, no, ops=>{
+        const peor = j.mano.slice().sort((a,b)=>
+          (a.comodin?1:0)-(b.comodin?1:0) || (a.sistema?1:0)-(b.sistema?1:0))[0];
+        const o = ops.find(x=>x.val.carta===peor);
+        return o ? o.val : ops[0].val;
+      });
+  }},
+C07:{ // La Enfermera de Noche · Turno Tranquilo
+  puede:()=> yo().mano.length>=3 && yo().camas.some(c=>c),
+  ayuda:"Cuesta 3 cartas y necesitas un paciente en tu unidad.",
+  jugar(j, ok, no){
+    elegirUno("Turno Tranquilo",
+      "Ese paciente no pierde ❤️ en tu próximo Fin de Guardia. Cuesta 3 cartas.",
+      objCamasPropias(), cama=>{
+        pagarCartas(3, "Turno Tranquilo", "Marca las 3 cartas que descartas.", ()=>{
+          cama.tregua = true;
+          anota("a",`Turno Tranquilo: la Enfermera de Noche vela a ${cama.p.nombre}.`);
+          aviso("ok",`🌙 ${esc(cama.p.nombre)} pasa la noche tranquilo`);
+          ok();
+        });
+      }, no, ops=>{
+        const x = ops.map(o=>o.val).filter(c=>!c.estable && !conSoporte(c))
+                     .sort((a,b)=>a.vida-b.vida)[0];
+        return x || null;
+      });
+  }},
+C11:{ // El Subespecialista · Sugiero Evaluar
+  puede:()=> G.fase===1 && yo().coloc>0 && yo().mano.length>0 && !yo().guardadaC11,
+  ayuda:"Cuesta 1 indicación y una carta de tu mano libre.",
+  jugar(j, ok, no){
+    elegirUno("Sugiero Evaluar",
+      "Cuesta 1 indicación. La carta espera boca abajo y al inicio de tu "+
+      "próximo Pase de Visita entra gratis y cuenta doble.",
+      objCartas(j.mano), s=>{
+        const c = s.carta;
+        j.mano.splice(j.mano.indexOf(c),1);
+        j.guardadaC11 = c; j.coloc--;
+        anota("a",`Sugiero Evaluar: ${j.nombre} deja una carta en evaluación.`);
+        aviso("ok",`📝 ${esc(c.nombre)} entra gratis ×2 el próximo turno`);
+        ok();
+      }, no, ops=>{
+        const util = j.mano.find(c=>j.camas.some(x=>x && puedeColocarPropia(c,x)));
+        const o = util && ops.find(x=>x.val.carta===util);
+        return o ? o.val : null;
+      });
+  }},
+C15:{ // El Dador de Altas · Alta Administrativa
+  puede:()=> yo().mano.length>=2 &&
+             yo().camas.some(c=>c && !c.estable && faltanTotal(c)===1),
+  ayuda:"Necesitas 2 cartas y un paciente al que le falte exactamente 1 recurso.",
+  jugar(j, ok, no){
+    elegirUno("Alta Administrativa",
+      "Un paciente al que le falte exactamente 1 recurso completa sus requisitos. Cuesta 2 cartas.",
+      objCamasPropias(c=>!c.estable && faltanTotal(c)===1), cama=>{
+        pagarCartas(2, "Alta Administrativa", "Marca las 2 cartas que descartas.", ()=>{
+          const t = TIPOS.find(k=>falta(cama,k)>0);
+          if(t) cama.tiene[t] += 1;
+          revisar(cama, G.ronda);
+          anota("a",`Alta Administrativa: ${cama.p.nombre} completa sus requisitos con puro papeleo.`);
+          aviso("ok",`📄 ${esc(cama.p.nombre)} queda ✅`);
+          ok();
+        });
+      }, no);
+  }},
+C21:{ // El Precavido · Por Si Acaso
+  puede:()=> G.mazoA.some(a=>a.id==="A11"||a.id==="A16"),
+  ayuda:"No queda ninguna RESPUESTA 🛡️ en el Mazo de Protocolos.",
+  jugar(j, ok, no){
+    const resp = G.mazoA.filter(a=>a.id==="A11"||a.id==="A16");
+    const vistos = {};
+    const unicos = resp.filter(a=>!vistos[a.id] && (vistos[a.id]=1));
+    elegirUno("Por Si Acaso",
+      "Del Mazo de Protocolos, gratis y a tu reserva. Después se baraja.",
+      unicos.map(a=>({txt:esc(a.nombre), sub:esc(a.texto||"").slice(0,80), val:a})),
+      a=>{
+        const k = G.mazoA.indexOf(a); if(k>=0) G.mazoA.splice(k,1);
+        j.protocolos.push(a);
+        G.mazoA = baraja(G.mazoA);
+        anota("a",`Por Si Acaso: ${j.nombre} guarda ${a.nombre}.`);
+        aviso("ok",`🛡️ ${esc(a.nombre)} a tus Protocolos`);
+        ok();
+      }, no);
+  }},
+};
+
+/* Las automáticas y la reactiva: el ⚡ no las lanza, solo cuenta cómo van */
+const AV_AUTO = {
+  C01:"Se ofrece sola cuando colocas una carta ⚠️ y pierde ❤️ un paciente tuyo.",
+  C08:"Se dispara sola con tu primera alta ✅.",
+  C14:"Se dispara sola cuando un paciente tuyo fuera a fallecer.",
+};
+
+/* C18 La de la Buena Muñeca y C11: lo que pasa entre el robo y el Pase */
+function entregaAvatar(j){
+  // C11: lo guardado entra gratis y cuenta doble
+  if(tieneAv(j,"C11") && j.guardadaC11){
+    const c = j.guardadaC11; j.guardadaC11 = null;
+    const camas = objCamasPropias(x=>puedeColocarPropia(c,x));
+    const poner = cama=>{
+      colocarGratis(c, cama, j, 2);
+      anota("a",`Sugiero Evaluar: ${c.nombre} entra gratis sobre ${cama.p.nombre} y cuenta ×2.`);
+      if(!j.ia) aviso("ok",`📝 ${esc(c.nombre)} → ${esc(cama.p.nombre)} ×2`);
+      guardar(); render();
+    };
+    if(!camas.length){
+      j.mano.push(c); if(!j.ia) UI.nuevas.add(c.uid);
+      anota("a",`Sugiero Evaluar: ya nadie necesita ${c.nombre} — vuelve a la mano.`);
+    } else if(j.ia || camas.length===1){
+      poner(camas[0].val);
+    } else {
+      setTimeout(()=>{ if(!G || G.fin || j!==yo()) return;
+        elegirUno(`${c.nombre} sale de evaluación`, "Entra gratis y cuenta doble. ¿Sobre quién?",
+          objCamasPropias(x=>puedeColocarPropia(c,x)), poner,
+          ()=>poner(camas[0].val));
+      }, 0);
+    }
+    return;
+  }
+  // C18: devuelve 1 carta al fondo, mira 3 y se queda con 1
+  if(!tieneAv(j,"C18") || !j.mano.length || !G.mazoG.length) return;
+  const mirar = devuelta=>{
+    j.mano.splice(j.mano.indexOf(devuelta),1);
+    G.mazoG.unshift(devuelta);
+    const vistas = [];
+    for(let k=0;k<3 && G.mazoG.length;k++) vistas.push(G.mazoG.pop());
+    const quedarse = elegida=>{
+      vistas.filter(x=>x!==elegida).forEach(x=>G.mazoG.unshift(x));
+      j.mano.push(elegida); if(!j.ia) UI.nuevas.add(elegida.uid);
+      anota("a",`Al Primer Intento: ${j.nombre} cambia una carta por ${elegida.nombre}.`);
+      if(!j.ia) aviso("ok",`🧤 A la mano: ${esc(elegida.nombre)}`);
+      guardar(); render();
+    };
+    if(j.ia){
+      const mejor = vistas.slice().sort((a,b)=>
+        (b.comodin?1:0)-(a.comodin?1:0) || (b.sistema?1:0)-(a.sistema?1:0) ||
+        (a.warn?1:0)-(b.warn?1:0))[0];
+      quedarse(mejor); return;
+    }
+    elegirUno("Las 3 primeras del mazo", "Quédate con 1; el resto vuelve al fondo.",
+      objCartas(vistas), s=>quedarse(s.carta), ()=>quedarse(vistas[0]));
+  };
+  if(j.ia){
+    const inutil = j.mano.find(c=>!c.warn && !c.comodin && !c.previene && !c.dobleEn &&
+      !j.camas.some(x=>x && falta(x, c.tipo)>0));
+    if(inutil) mirar(inutil);
+    return;
+  }
+  setTimeout(()=>{
+    if(!G || G.fin || j!==yo() || G.fase!==1) return;
+    hoja("La de la Buena Muñeca", (m, cerrar)=>{
+      m.appendChild(el("p",null,
+        "Puedes devolver <b>1 carta</b> de tu mano al fondo del mazo: miras las "+
+        "3 primeras y te quedas con 1."));
+      const fila = el("div","acciones"); fila.style.padding="0";
+      const noB = el("button","btn","Ahora no"); noB.onclick = cerrar;
+      const siB = el("button","btn pri","🧤 Cambiar una");
+      siB.onclick = ()=>{ UI.modal = null;
+        elegirUno("¿Cuál devuelves al fondo?", null, objCartas(j.mano),
+          s=>mirar(s.carta), ()=>{ guardar(); render(); }); };
+      fila.appendChild(noB); fila.appendChild(siB); m.appendChild(fila);
+    });
+  }, 0);
+}
+
+/* la IA usa su poder activo: una vez por turno lo evalúa con el mismo
+   criterio del simulador; elegirUno y pagarCartas deciden solos por ella */
+function iaUsaAvatar(j){
+  if(!j.avatar || poderGastado(j)) return false;
+  const id = j.avatar.id, e = AV[id];
+  if(!e || !e.puede()) return false;
+  const quiere =
+    (id==="C03" && j.camas.some(c=>c && falta(c,"PERSONAL")>0)) ||
+    (id==="C04" && j.sumarios>0) ||
+    (id==="C05" && j.camas.some(c=>c && !c.estable && faltanTotal(c) > c.vida*2.1)) ||
+    (id==="C06" && j.mano.length>=3 && j.camas.some(c=>c && faltanTotal(c)>0)) ||
+    (id==="C11" && j.mano.length>5 && j.coloc>0) ||
+    (id==="C15" && j.mano.length>=4) ||
+    (id==="C21");
+  if(!quiere) return false;
+  let jugo = false;
+  e.jugar(j, ()=>{ jugo = true; marcarPoder(j); }, ()=>{});
+  return jugo;
+}
 
 /* ══ la IA usa la Pizarra ═══════════════════════════════════════════
    Heurística portada del simulador y afinada con 4.000 partidas: la
@@ -3105,7 +3563,9 @@ function iaComprar(j){
   const {a, i} = ops[0];
   j.mano.sort((c1,c2)=>(c1.comodin?1:0)-(c2.comodin?1:0) ||
                        (c1.sistema?1:0)-(c2.sistema?1:0));
-  for(let k=0;k<+a.coste;k++){ const c=j.mano.shift(); if(c) G.descG.push(c); }
+  // C09 Bodega Llena: a La de Abastecimiento le fían 1 carta del precio
+  const pago = Math.max(0, +a.coste - (tieneAv(j,"C09") ? 1 : 0));
+  for(let k=0;k<pago;k++){ const c=j.mano.shift(); if(c) G.descG.push(c); }
   G.pizarra.splice(i,1);
   const nueva = G.mazoA.pop(); if(nueva) G.pizarra.push(nueva);
   j.protocolos.push(a); j.compraHecha = true;
@@ -3160,6 +3620,9 @@ function puedeJugarAccion(a){
   const m = ACC[a.id];
   return m ? m.puede() : false;
 }
+/* las Acciones de ATAQUE que despiertan la Asamblea del Dirigente (C10) */
+const ACC_ATAQUES = {A01:1,A02:1,A07:1,A08:1,A09:1,A13:1,A17:1,A18:1,A20:1,A21:1};
+
 function jugarAccion(a, alGastar){
   const j = yo();
   const m = ACC[a.id];
@@ -3168,6 +3631,16 @@ function jugarAccion(a, alGastar){
     j.accionHecha = true;
     G.ultimaAccion = a.id;
     G.descA.push(a);
+    // C10 Asamblea Extraordinaria: el atacado roba 1 por el atrevimiento
+    if(ACC_ATAQUES[a.id]){
+      G.jug.forEach(r=>{
+        if(r!==j && tieneAv(r,"C10")){
+          robar(r);
+          anota("a",`Asamblea Extraordinaria: ${r.nombre} roba 1 por el ataque.`);
+          if(!r.ia) aviso("ok","✊ Asamblea Extraordinaria: robas 1 carta");
+        }
+      });
+    }
     alGastar();
     guardar(); render();
   }, ()=>{ render(); });                 // cancelada: sigue guardada
@@ -3189,7 +3662,9 @@ function entrarFase(f){
   }
   if(f===0){ faseEntrega(); }
   if(f===1){ j.coloc = INDICACIONES - (j.colocMod||0); j.colocMod = 0;
-             j._pi = false; j._compraVista = false; }
+             j._pi = false; j._compraVista = false; j._avVisto = false;
+             j._c13 = {};
+             entregaAvatar(j); }   // C11 coloca lo guardado; C18 ofrece cambiar
   if(f===2){ faseFin(); }
   guardar(); render();
   if(j.ia && !G.fin && !G.pendiente){
@@ -3219,6 +3694,7 @@ function faseEntrega(){
         return;
       }
       j.altas.push(c.p);
+      alDarAlta(j);                     // C08: la primera alta trae 1 carta
       c.puestos.forEach(x=>G.descG.push(x));
       anota("a", `ALTA · ${c.p.nombre} (+${c.p.alta}) — ${j.nombre}`);
       (UI.fxAltas = UI.fxAltas || []).push({
@@ -3263,6 +3739,7 @@ function pedirAdmision(){
 function resolverAdmision(i, ops, elegido){
   const j = yo();
   j.camas[i] = nuevaCama(elegido);
+  entraConAvatar(j, j.camas[i]);               // C19: los graves, con +1 ❤️
   ops.filter(o=>o!==elegido).forEach(o=>G.mazoP.unshift(o));
   G.informe = G.mazoP.length ? G.mazoP[G.mazoP.length-1] : null;
   anota("", `${j.nombre} admite a ${elegido.nombre} (${elegido.gravedad}).`);
@@ -3271,7 +3748,14 @@ function resolverAdmision(i, ops, elegido){
 }
 function hacerRobo(){
   const j = yo();
-  const n = Math.max(0, ROBO + (j.roboMod||0)); j.roboMod = 0;
+  let n = Math.max(0, ROBO + (j.roboMod||0)); j.roboMod = 0;
+  // C02 El Médico Fantasma: en la ronda 1 aún no llega; desde la 4 rinde
+  if(tieneAv(j,"C02")){
+    if(G.ronda===1){ n = Math.max(0, n-1);
+      anota("", "El Médico Fantasma aún no llega: roba 1 menos."); }
+    else if(G.ronda>=4){ n++;
+      anota("", "El Médico Fantasma por fin aparece: roba 1 extra."); }
+  }
   for(let i=0;i<n;i++) robar(j);
   anota("", `${j.nombre} roba ${n}.`);
   G.pendiente = null;
@@ -3280,8 +3764,27 @@ function hacerRobo(){
 
 function faseFin(){
   const j = yo();
+  // C07 · la IA gasta su Turno Tranquilo justo cuando salva de verdad
+  if(j.ia && tieneAv(j,"C07") && !j.habP && j.mano.length>=3 &&
+     j.camas.some(c=>c && !c.estable && !conSoporte(c) && c.vida<=1)){
+    j.mano.sort((a,b)=>(a.comodin?1:0)-(b.comodin?1:0) ||
+                       (a.sistema?1:0)-(b.sistema?1:0));
+    for(let k=0;k<3;k++) G.descG.push(j.mano.shift());
+    const velado = j.camas.filter(c=>c && !c.estable && !conSoporte(c))
+                          .sort((a,b)=>a.vida-b.vida)[0];
+    velado.tregua = true; j.habP = true;
+    anota("a",`Turno Tranquilo: la Enfermera de Noche vela a ${velado.p.nombre}.`);
+  }
   j.camas.forEach((c,i)=>{
     if(!c) return;
+    // C07 Turno Tranquilo: esta noche este paciente no pierde ❤️ — y por
+    // lo mismo el ventilador no gasta su aguante
+    if(c.tregua){
+      c.tregua = false; c.extraDeterioro = 0;
+      if(!c.estable || c.basura.length)
+        anota("a",`🌙 ${c.p.nombre} pasa la noche velado — no pierde ❤️.`);
+      return;
+    }
     // El ✅ congela el reloj, PERO la basura clínica lo vuelve a soltar.
     // Sin esto un paciente estabilizado con basura encima quedaba inmune
     // para siempre: no se moría porque estaba ✅ y no se iba de alta
@@ -3311,7 +3814,17 @@ function faseFin(){
     // para el siguiente por haber estado conectado
     c.extraDeterioro = 0;
     if(c.vida<=0){
+      // C14 Masaje y Adrenalina: no muere — 1 ❤️ y pierde lo colocado
+      if(tieneAv(j,"C14") && !j.habP){
+        j.habP = true;
+        c.vida = 1;
+        while(c.puestos.length) G.descG.push(quitarRecurso(c, 0));
+        anota("a",`⚡ Masaje y Adrenalina: El Reanimador trae de vuelta a ${c.p.nombre} — 1 ❤️ y sin recursos.`);
+        if(!j.ia) aviso("ok",`💓 ${esc(c.p.nombre)} vuelve con 1 ❤️`);
+        return;
+      }
       j.muertos.push(c.p);
+      alPonerCruz(j);                   // C20: el Carroñero cobra su carta
       anota("m", `✝️ ALTA CELESTIAL · ${c.p.nombre} (${c.p.fallece}) — ${j.nombre}`);
       (UI.fxAltas = UI.fxAltas || []).push({
         tipo:"celestial", nombre:c.p.nombre, pts:c.p.fallece, jug:j.nombre,
@@ -3351,6 +3864,7 @@ function puntos(j){
   let p = j.altas.reduce((s,c)=>s+c.alta,0) + j.muertos.reduce((s,c)=>s+c.fallece,0);
   p -= j.pena || 0;                                     // altas apuradas (A22)
   p -= j.camas.filter(c=>c===null).length;              // camas vacías al final
+  if(j.sinCierre) return p;         // C05: la Gestora renunció a los logros
   if(!j.muertos.length) p += 3;
   else if(j.muertos.every(c=>c.gravedad==="III"||c.gravedad==="ROJO")) p += 1;
   return p;
@@ -3523,6 +4037,15 @@ function iaJuega(){
       if(jugo){ revelarIA(revProt(a), `${esc(j.nombre)} juega <b>${esc(a.nombre)}</b>`, iaJuega); return; }
     }
   }
+  // 1.5 usar el poder de su avatar (elegirUno/pagarCartas deciden por ella)
+  if(!j._avVisto){
+    j._avVisto = true;
+    if(iaUsaAvatar(j)){
+      guardar();
+      revelarIA(null, `⚡ ${esc(j.nombre)} usa <b>${esc(j.avatar.nombre)}</b>`, iaJuega);
+      return;
+    }
+  }
   // 2. comprar de la Pizarra
   if(!j._compraVista){
     j._compraVista = true;
@@ -3562,12 +4085,13 @@ function iaJuega(){
     }
     j.coloc = 0;               // no le queda nada que colocar
   }
-  // 4. cerrar Sumarios, de a uno
-  if(j.sumarios > 0 && j.mano.length >= 2){
-    G.descG.push(j.mano.pop()); G.descG.push(j.mano.pop());
+  // 4. cerrar Sumarios, de a uno (C04: al Director le cuestan 1)
+  const pagaS = costoSumario(j);
+  if(j.sumarios > 0 && j.mano.length >= pagaS){
+    for(let k=0;k<pagaS;k++) G.descG.push(j.mano.pop());
     j.sumarios--; G.sumariosLibres++;
     anota("a", `${j.nombre} cierra un Sumario.`); guardar(); render();
-    revelarIA(null, `📋 ${esc(j.nombre)} cierra un Sumario (paga 2 cartas)`, iaJuega);
+    revelarIA(null, `📋 ${esc(j.nombre)} cierra un Sumario (paga ${pagaS} carta${pagaS>1?"s":""})`, iaJuega);
     return;
   }
   // 5. fin de su guardia
@@ -3974,11 +4498,12 @@ function tiraZona(j){
   }
 
   if(a){
-    const freq = a.frecuencia || "";
-    const act1 = /1×/.test(freq);
-    const gast = act1 && (/PARTIDA/.test(freq) ? j.habP : j.habT);
+    const act1 = !!AV[a.id] || AV_AUTO[a.id];
+    const gast = act1 && poderGastado(j);
+    const usable = !!AV[a.id] && !gast && j===yo() && !j.ia &&
+                   G.fase===1 && !G.pendiente;
     const pod = el("button","poder-av" +
-      (act1 && !gast && j===yo() ? " vivo" : "") + (gast ? " gastado" : ""));
+      (usable ? " vivo" : "") + (gast ? " gastado" : ""));
     pod.innerHTML = gast ? "✓" : "⚡";
     pod.setAttribute("aria-label","Poder de " + a.nombre);
     pod.onclick = ()=> hojaPoder(j);
@@ -4012,20 +4537,31 @@ function hojaPoder(j){
   const a = j.avatar;
   hoja(a.nombre, (m, cerrar)=>{
     const freq = a.frecuencia || "";
-    const act1 = /1×/.test(freq);
-    const gast = act1 && (/PARTIDA/.test(freq) ? j.habP : j.habT);
+    const entry = AV[a.id];
+    const auto = AV_AUTO[a.id];
+    const act1 = !!entry || !!auto;
+    const gast = act1 && poderGastado(j);
     m.appendChild(el("p",null,
       `<b>${esc(freq)}</b>${act1 ? "" : " · pasiva: aplica sola, no se gasta"}` +
       `${gast ? " · <b>ya usada</b>" : ""}<br>${esc(a.habilidad)}`));
+    if(auto && !gast)
+      m.appendChild(el("p",null,`<i>${esc(auto)}</i>`));
     const fila = el("div","acciones"); fila.style.padding = "12px 0 0";
-    if(act1 && !gast && j===yo() && !j.ia){
+    if(entry && !gast && j===yo() && !j.ia && G.fase===1 && !G.pendiente){
+      const puede = entry.puede();
       const ub = el("button","btn pri","⚡ Usar ahora");
+      ub.disabled = !puede;
       ub.onclick = ()=>{
-        if(/PARTIDA/.test(freq)) j.habP = true; else j.habT = true;
-        anota("a",`${j.nombre} usa ${a.nombre}: aplica el efecto a mano.`);
-        guardar(); UI.modal = null; render();
+        UI.modal = null;
+        // el poder se gasta SOLO si el efecto se aplicó: cancelar a medio
+        // camino no cuesta nada — ni cartas ni el ⚡
+        entry.jugar(j,
+          ()=>{ marcarPoder(j); guardar(); render(); },
+          ()=>{ guardar(); render(); });
       };
       fila.appendChild(ub);
+      if(!puede && entry.ayuda)
+        m.appendChild(el("p",null,`<i>${esc(entry.ayuda)}</i>`));
     }
     const vb = el("button","btn","Ver la carta");
     vb.onclick = ()=>{ UI.modal = null; verAvatarGrande(j); };
@@ -4220,8 +4756,9 @@ function bandaCentral(){
 
   // v0.38: la Pizarra sale del centro a un cajón — el tablero respira y
   // los pacientes quedan cara a cara, como pidió el autor (estilo Pocket)
+  const dcto = tieneAv(j,"C09") ? 1 : 0;    // C09 Bodega Llena
   const alguna = G.fase===1 && !j.ia && !j.compraHecha &&
-                 G.pizarra.some(a=>j.mano.length >= +a.coste);
+                 G.pizarra.some(a=>j.mano.length >= Math.max(0,+a.coste-dcto));
   const bp = el("button","btn-pizarra"+(alguna?" puede":""));
   bp.id = "btn-pizarra";
   const gemas = G.pizarra.map(a=>`<span class="coste">${a.coste}</span>`).join("");
@@ -4255,7 +4792,8 @@ function hojaPizarra(){
       : "Toma 1 pagando su coste en cartas de tu mano. No gasta indicación."));
     const p = el("div","pizarra");
     G.pizarra.forEach((a,idx)=>{
-      const puede = G.fase===1 && !j.ia && !j.compraHecha && j.mano.length >= +a.coste;
+      const puede = G.fase===1 && !j.ia && !j.compraHecha &&
+                    j.mano.length >= Math.max(0, +a.coste - (tieneAv(j,"C09")?1:0));
       const b = el("button","prot "+(puede?"puede":"no"));
       if(a.arte) b.appendChild(arteProt(a));
       const cab = el("div","prot-cab");
@@ -5395,10 +5933,11 @@ function barraAcciones(){
   if(G.fase===1){
     if(j.sumarios>0)
       add("Cerrar Sumario","",()=>{
-        G.descG.push(j.mano.pop()); G.descG.push(j.mano.pop());
+        const paga = costoSumario(j);           // C04: al Director, 1
+        for(let k=0;k<paga;k++) G.descG.push(j.mano.pop());
         j.sumarios--; G.sumariosLibres++;
         anota("a",`${j.nombre} cierra un Sumario.`); guardar(); render();
-      }, j.mano.length<2);
+      }, j.mano.length<costoSumario(j));
     if(UI.sel) add("Cancelar","",()=>{ UI.sel=null; render(); });
     // Fin de Guardia ya no vive aquí: es el botón redondo de la esquina
   }
@@ -5801,12 +6340,12 @@ const CASOS = [
   {tit:"Tres maneras de tener poder", sel:null, conHoja:true,
    txt:"Arriba dice la <b>frecuencia</b>, que es lo único que hay que memorizar:<br><br>· <b>PASIVA</b> — aplica sola, siempre, no se gasta.<br>· <b>1×RONDA</b> — una vez cada ronda.<br>· <b>1×PARTIDA</b> — una sola vez en toda la guardia. La tuya es de estas: <i>«Descarta 2 cartas: un paciente al que le falte exactamente 1 recurso queda ✅ de inmediato»</i>. Tu Neumonía está justo así."},
   {tit:"Úsalo", sel:null, conHoja:true,
-   txt:"Toca <b>⚡ Usar ahora</b>.<br><br>Y aquí viene lo importante, porque si no lo sabes vas a creer que la app está rota: <b>el ⚡ marca el poder como gastado y el efecto lo aplicas tú</b>. Las 22 habilidades son todavía texto —como eran las Acciones antes de que el árbitro las ejecutara—, así que descarta tus 2 cartas y da por estabilizado al paciente entre ustedes. Contra la IA, cuenta con honestidad.",
-   meta:()=> _mi().habP, haz:"toca ⚡ Usar ahora"},
+   txt:"Toca <b>⚡ Usar ahora</b> y sigue los pasos: eliges al paciente al que le falta 1 recurso, marcas las 2 cartas que descartas… y la app hace el resto. <b>El poder se gasta solo cuando el efecto se aplica</b>: si cancelas a medio camino, no pierdes ni las cartas ni el ⚡.",
+   meta:()=> _mi().habP, haz:"usa el poder hasta el final"},
  ],
  cierre:[
-  "El poder está <b>marcado como usado</b> y no volverá a estar disponible en esta guardia: eso sí lo lleva la app.",
-  "Lo que no lleva todavía es el <b>efecto</b>. Es la misma deuda que tenían las 22 Acciones hasta que el árbitro empezó a resolverlas — está anotada, y mientras tanto los avatares se juegan como en la mesa: leyendo la carta y aplicándola de palabra.",
+  "Tu paciente quedó <b>✅ por puro papeleo</b> y el poder quedó marcado como usado: no vuelve en esta guardia.",
+  "Las 22 habilidades <b>las ejecuta la app</b>: las activas piden sus objetivos con el ⚡, las pasivas aplican solas (robos, admisiones, protecciones), y las automáticas —como El Reanimador— saltan solas cuando toca. La frecuencia de arriba te dice cuál es cuál.",
  ],
 },
 ];
@@ -6671,10 +7210,17 @@ function abrirPanel(){
 }
 
 function abrirCompra(idx){
-  const j = yo(); const a = G.pizarra[idx]; const coste = +a.coste;
+  const j = yo(); const a = G.pizarra[idx];
+  // C09 Bodega Llena: 1 carta de descuento
+  const coste = Math.max(0, +a.coste - (tieneAv(j,"C09") ? 1 : 0));
   const marcados = [];
   hoja(`Tomar · ${a.nombre}`, (m, cerrar)=>{
-    m.appendChild(el("p",null,`Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano. Marca cuáles descartas. No gasta indicación.`));
+    m.appendChild(el("p",null,
+      coste===0
+        ? `Con la Bodega Llena te sale <b>gratis</b>. No gasta indicación.`
+        : `Cuesta <b>${coste}</b> carta${coste>1?"s":""} de tu mano`+
+          `${tieneAv(j,"C09")?" (1 menos por la Bodega Llena)":""}. `+
+          `Marca cuáles descartas. No gasta indicación.`));
     const cont = el("div","opciones");
     let confirmar;
     j.mano.forEach(c=>{
@@ -6691,7 +7237,7 @@ function abrirCompra(idx){
     m.appendChild(cont);
     const fila = el("div","acciones"); fila.style.padding="0";
     const can = el("button","btn","Cancelar"); can.onclick = cerrar;
-    confirmar = el("button","btn pri","Tomar"); confirmar.disabled = true;
+    confirmar = el("button","btn pri","Tomar"); confirmar.disabled = coste>0;
     confirmar.onclick = ()=>{
       marcados.forEach(u=>{ const i=j.mano.findIndex(c=>c.uid===u);
                             if(i>=0) G.descG.push(j.mano.splice(i,1)[0]); });

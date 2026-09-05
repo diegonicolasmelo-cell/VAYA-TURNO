@@ -1329,6 +1329,50 @@ estilo Wordle.
 
 ---
 
+## 5m. Las 22 habilidades de avatar EJECUTAN ⚡ (v0.66) ✅
+
+La deuda grande del juego: desde siempre el ⚡ marcaba el poder como
+gastado **y el efecto lo aplicaba el jugador de palabra** — contra la IA,
+nadie. El autor lo dijo sin rodeos: «descarta dos y pasa algo… terminaba
+descartando y no pasando nada». Ahora el árbitro ejecuta las 22, con la
+semántica que ya validó `tools/simular_avatares.py` (rebalance §4q).
+
+**Las tres familias y dónde viven:**
+
+- **Activas (tabla `AV`)** — C03 Doctor Amor, C04 Perdonazo, C05
+  Derivación, C06 Esotérico (2×), C07 Enfermera de Noche, C11
+  Subespecialista, C15 Dador de Altas, C21 Precavido. El ⚡ pide objetivos
+  con `elegirUno`/`pagarCartas`. **Regla de oro: se paga al final** —
+  cancelar a medio camino no gasta ni cartas ni el poder. (La misma regla
+  se le aplicó de vuelta al Gestor de Camas 🔎, que pagaba primero.)
+- **Automáticas** — C08 Foto para la Memoria (primera alta → roba 1), C14
+  Masaje y Adrenalina (muerte propia → 1 ❤️ y pierde lo puesto), y la
+  reactiva C01 El Diostor (cae tu ⚠️ → hoja para pasársela al rival por
+  2 cartas; 1×RONDA). El ⚡ solo informa.
+- **Pasivas** — C02 robo (−1 en R1, +1 desde R4), C09 descuento en la
+  Pizarra, C10 roba al ser atacado, C12 cada 3 ⚠️ un Protocolo, C13 el
+  3º tipo distinto dobla, C16 🩻 con sistema doblan en cualquiera, C17
+  comodín inicial + intocables, C18 cambia 1 por la mejor de 3 tras el
+  robo, C19 graves con +1 ❤️, C20 carroñea los ✝️ ajenos, C22 su 🧑‍⚕️ no
+  se saquea, C04 cierra Sumarios por 1.
+
+**La IA también las usa**: `iaUsaAvatar` evalúa el poder una vez por
+turno con el criterio del simulador, y `elegirUno`/`pagarCartas` deciden
+solos por ella. La Enfermera de Noche de la IA gasta su tregua justo en
+el Fin de Guardia que salva.
+
+**Verificado:** suite `av.py` — 24 chequeos, uno por habilidad (y dos
+para C02/C05), todos contra el motor real. Los 10 casos de La Residencia
+pasan (el caso 10 ahora ejecuta el C15 de verdad, con sus textos
+actualizados) y el soak de 5 partidas sigue 5/5 limpio con las
+invariantes de conservación intactas.
+
+**Nota de mapeo:** C09 habla de «Canjes» (mecánica de mesa que la app no
+tiene); igual que el simulador, se lee como descuento en la Pizarra. El
+detalle está en REGLAMENTO-v030 §8.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43

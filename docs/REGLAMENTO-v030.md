@@ -348,14 +348,22 @@ altas de III/ROJO.
 
 ## 8. Los avatares en esta rama
 
-Los 22 personajes se usan igual. Tres habilidades nombran mecánicas que
-esta rama reemplazó — léelas así:
+**Desde v0.66 la app ejecuta las 22 habilidades** — ya no son texto que
+se aplica de palabra. Las activas piden sus objetivos con el ⚡ del
+retrato (y el poder se gasta **solo si el efecto se aplicó**: cancelar a
+medio camino no cuesta ni cartas ni el ⚡); las pasivas aplican solas
+donde viven sus reglas; las automáticas —la Foto del Jefe de Servicio, el
+Masaje del Reanimador— saltan solas cuando toca, y El Diostor se ofrece
+solo cuando cae la ⚠️. La IA también usa las suyas. En la mesa se juegan
+leyendo la carta, como siempre.
+
+Tres habilidades nombran mecánicas que esta rama reemplazó — léelas así:
 
 | Avatar | Decía | En v0.30 se lee |
 |---|---|---|
-| **La de Abastecimiento** (C09) | tus Canjes cuestan 1 recurso en vez de 2 | tus compras en la Pizarra cuestan **1 carta menos** (mínimo 1) |
-| **La Enfermera de IAAS** (C12) | cada 3 ⚠️ resueltas en tu unidad, roba 1 Protocolo | igual, pero cuentan las ⚠️ resueltas **sobre tus pacientes** (propias o sabotaje recibido) — toma gratis la carta más barata de la Pizarra |
-| **El Diostor** (C01) | pásale la complicación al de la derecha | al **tratar** con una ⚠️ propia, puedes resolver su −1 ❤️ sobre un paciente del jugador de tu derecha (piso 1 ❤️) |
+| **La de Abastecimiento** (C09) | tus Canjes cuestan 1 recurso en vez de 2 | tus compras en la Pizarra cuestan **1 carta menos** (una Acción de coste 1 sale gratis — así lo midió el simulador) |
+| **La Enfermera de IAAS** (C12) | cada 3 ⚠️ resueltas en tu unidad, roba 1 Protocolo | igual, pero cuentan las ⚠️ resueltas **sobre tus pacientes** (propias o sabotaje recibido) — en la app toma la primera del Mazo de Protocolos |
+| **El Diostor** (C01) | pásale la complicación al de la derecha | al **tratar** con una ⚠️ propia, puedes descartar 2 y resolver su −1 ❤️ sobre un paciente rival (piso 1 ❤️); tu paciente recupera el suyo |
 
 ---
 
