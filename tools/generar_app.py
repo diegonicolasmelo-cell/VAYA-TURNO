@@ -189,6 +189,36 @@ def cargar_entrada(destino=None):
     return out
 
 
+def cargar_sonido(destino=None):
+    """sonido/ambiente.(mp3|ogg|m4a|wav) → el ambiente de la unidad.
+
+    El sonido de fondo de la UCI: ventilación mecánica, monitores, la
+    unidad respirando. DEBE ser una grabación real con licencia libre
+    (CC0 o dominio público) — el detalle de dónde sacarla y cómo dejarla
+    está en sonido/LEEME.md. Mientras el archivo no exista, la app no
+    ofrece el interruptor y no suena nada: el silencio es el estado
+    honesto, no un sonido inventado. Mismo trato que la portada:
+    data-URI en el artefacto, archivo aparte cacheado en la PWA."""
+    carpeta = os.path.join(RAIZ, "sonido")
+    out = {}
+    for ext, mime in ((".mp3", "audio/mpeg"), (".ogg", "audio/ogg"),
+                      (".m4a", "audio/mp4"), (".wav", "audio/wav")):
+        ruta = os.path.join(carpeta, "ambiente" + ext)
+        if not os.path.isfile(ruta):
+            continue
+        crudo = open(ruta, "rb").read()
+        if destino:
+            os.makedirs(destino, exist_ok=True)
+            with open(os.path.join(destino, "ambiente" + ext), "wb") as f:
+                f.write(crudo)
+            out["ambiente"] = "sonido/ambiente" + ext
+        else:
+            out["ambiente"] = ("data:" + mime + ";base64,"
+                               + base64.b64encode(crudo).decode())
+        break
+    return out
+
+
 def datos(destino_arte=None):
     pacientes = []
     for p in leer("cartas", "pacientes.csv"):
@@ -282,7 +312,8 @@ def datos(destino_arte=None):
             "acciones": acciones, "personajes": personajes}
 
 
-def armar(d, pwa=False, css_local=None, portada=None, entrada=None):
+def armar(d, pwa=False, css_local=None, portada=None, entrada=None,
+          sonido=None):
     """Mete los datos en la plantilla. En modo PWA además la envuelve en un
     documento completo: la plantilla es un fragmento (el artefacto le pone
     la cabecera), pero un archivo servido por Pages necesita la suya."""
@@ -305,6 +336,10 @@ def armar(d, pwa=False, css_local=None, portada=None, entrada=None):
     if hueco not in html:
         raise SystemExit("La plantilla no tiene el marcador " + hueco)
     html = html.replace(hueco, json.dumps(entrada or {}, ensure_ascii=False), 1)
+    hueco = "/*__SONIDO__*/{}"
+    if hueco not in html:
+        raise SystemExit("La plantilla no tiene el marcador " + hueco)
+    html = html.replace(hueco, json.dumps(sonido or {}, ensure_ascii=False), 1)
     if not pwa:
         return html
     html = html.replace("/*__PWA__*/false", "/*__PWA__*/true", 1)
@@ -447,8 +482,9 @@ def construir_pwa():
     tipos = tipografias_pwa.preparar(os.path.join(SALIDA_PWA, "tipos"))
     portada = cargar_portada(destino=os.path.join(SALIDA_PWA, "portada"))
     entrada = cargar_entrada(destino=os.path.join(SALIDA_PWA, "entrada"))
+    sonido = cargar_sonido(destino=os.path.join(SALIDA_PWA, "sonido"))
     html = armar(d, pwa=True, css_local="tipos/tipos.css" if tipos else None,
-                 portada=portada, entrada=entrada)
+                 portada=portada, entrada=entrada, sonido=sonido)
     man = manifiesto()
     iconos_pwa.generar(os.path.join(SALIDA_PWA, "iconos"))
 
@@ -456,6 +492,10 @@ def construir_pwa():
     # el fondo de la portada va con el arte: caché primero, y si falla la
     # descarga la app igual instala y la portada queda en el cuadro fijo
     urls += [u for u in portada.values() if u]
+    # la cortina y el ambiente también: sin esto la app instalada los
+    # pediría a la red y sin internet se quedaría muda y sin dibujos
+    urls += [u for u in entrada.values() if u]
+    urls += [u for u in sonido.values() if u]
     # La versión de la caché sale del CONTENIDO de todo lo que se cachea.
     # Antes solo los íconos contaban por su contenido y el resto por su
     # nombre, y eso dejaba un agujero real: reemplazar portada.mp4 por otro
@@ -501,7 +541,8 @@ def main():
         d = construir_pwa()
     else:
         d = datos()
-        html = armar(d, portada=cargar_portada(), entrada=cargar_entrada())
+        html = armar(d, portada=cargar_portada(), entrada=cargar_entrada(),
+                     sonido=cargar_sonido())
         os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
         with open(SALIDA, "w", encoding="utf-8") as f:
             f.write(html)

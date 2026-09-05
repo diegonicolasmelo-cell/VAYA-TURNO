@@ -4205,6 +4205,7 @@ function render(){
   document.querySelectorAll(".fantasma").forEach(f=>{
     if(f !== arrastre.fantasma) f.remove();   // huérfanos de gestos muertos
   });
+  sonarAmbiente();     // arranca o pausa el ambiente según haya guardia
   const app = document.getElementById("app");
   app.innerHTML = "";
   app.classList.remove("partida");
@@ -7163,6 +7164,21 @@ function abrirPanel(){
     });
     m.appendChild(g);
 
+    // el ambiente de la unidad: solo aparece si el archivo existe
+    if(SONIDO.ambiente){
+      const ba = el("button","btn chico");
+      ba.style.marginTop = "10px";
+      const pinta = ()=>{ ba.textContent = ambienteQuiere()
+        ? "🫁 Sonido de la unidad: encendido"
+        : "🔇 Sonido de la unidad: apagado"; };
+      pinta();
+      ba.onclick = ()=>{
+        try{ localStorage.setItem(CLAVE_AMB, ambienteQuiere() ? "0" : "1"); }catch(e){}
+        sonarAmbiente(); pinta();
+      };
+      m.appendChild(ba);
+    }
+
     // El interruptor manual de escudos se retiró en v0.57: nadie sabía
     // para qué era y el escudo ya lo pone la carta sola. Aquí queda el
     // estado, de solo lectura, para saber quién está cubierto.
@@ -7297,6 +7313,43 @@ const PORTADA = {video:"portada/portada.mp4", cuadro:"portada/portada.jpg",
                  dibujo:"portada/dibujo.svg", logo:"portada/logo.webp",
                  salida:"portada/salida.webp"};
 const CLAVE_SON = "vt-portada-sonido";
+
+/* ══ EL AMBIENTE DE LA UNIDAD ═════════════════════════════════════════
+   sonido/ambiente.(mp3|ogg|m4a|wav) → una grabación REAL de UCI en bucle
+   (ventilación mecánica, monitores) que suena bajito mientras hay guardia
+   abierta. Sin archivo no hay interruptor ni sonido: no se inventa un
+   ambiente sintético. El detalle de dónde sacar la grabación —con
+   licencia libre— vive en sonido/LEEME.md. */
+const SONIDO = {};
+const CLAVE_AMB = "vt-ambiente";
+let ambAudio = null, ambCargando = false;
+function ambienteQuiere(){
+  try{ return localStorage.getItem(CLAVE_AMB) === "1"; }catch(e){ return false; }
+}
+function sonarAmbiente(){
+  if(!SONIDO.ambiente) return;
+  const debe = ambienteQuiere() && G && !G.fin;
+  if(debe && !ambAudio && !ambCargando){
+    ambCargando = true;
+    // mismo truco que el video de portada: un data: URI largo va mejor
+    // como blob; una ruta de la PWA pasa tal cual
+    const listo = SONIDO.ambiente.startsWith("data:")
+      ? fetch(SONIDO.ambiente).then(r=>r.blob()).then(b=>URL.createObjectURL(b))
+      : Promise.resolve(SONIDO.ambiente);
+    listo.then(u=>{
+      ambAudio = new Audio(u);
+      ambAudio.loop = true; ambAudio.volume = 0.35;
+      ambCargando = false;
+      sonarAmbiente();
+    }).catch(()=>{ ambCargando = false; });
+    return;
+  }
+  if(!ambAudio) return;
+  if(debe){ if(ambAudio.paused) ambAudio.play().catch(()=>{}); }
+  else if(!ambAudio.paused) ambAudio.pause();
+}
+/* el navegador solo deja sonar tras un toque: cada toque re-intenta */
+document.addEventListener("pointerdown", ()=>sonarAmbiente(), {passive:true});
 
 function pintarPortada(){
   const cont = document.getElementById("portada");

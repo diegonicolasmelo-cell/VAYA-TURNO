@@ -1373,6 +1373,39 @@ detalle está en REGLAMENTO-v030 §8.
 
 ---
 
+## 5n. El sonido de la unidad 🫁 (v0.66) 🔶 — ranura lista, falta la grabación
+
+El autor pidió un **ambiente real de UCI** (ventilación mecánica,
+monitores) de fondo durante la guardia — «no crear un sonido nuevo, sino
+sacar de algún lado un sonido real». La tubería quedó completa y
+verificada; lo único que falta es el archivo.
+
+**Lo que ya funciona** (probado con un WAV temporal que no se comiteó):
+
+- `sonido/ambiente.(mp3|ogg|m4a|wav)` → `generar_app.py` lo incrusta
+  (data-URI en el artefacto, archivo cacheado por el service worker en
+  la PWA — y de paso se arregló que la cortina de `entrada/` tampoco
+  entraba a esa caché).
+- En la app: bucle a volumen 0,35 mientras hay guardia abierta, pausa
+  sola en portada y marcador final, interruptor «🫁 Sonido de la unidad»
+  en el Panel (apagado por defecto, recordado en `vt-ambiente`), y solo
+  aparece si el archivo existe. Cada toque re-intenta el arranque, que
+  es lo que piden los navegadores.
+- `tools/ingresar_sonido.py` copia el archivo con el nombre que toca.
+
+**Por qué no vino la grabación**: la red del sandbox solo alcanza GitHub
+y los registros de paquetes — freesound, archive.org, Wikimedia y los
+bancos de sonido están bloqueados; se revisaron dos colecciones CC0
+alojadas en GitHub y eran efectos sintéticos de juego, no una UCI real.
+`sonido/LEEME.md` deja el manual de dos minutos: dónde buscar (freesound
+con filtro CC0, bigsoundbank, Commons), qué buscar al oído (ciclo de
+máquina claro, sin voces, sin alarmas), formato (30-90 s, <1 MB, que
+cierre en bucle) y la tabla de créditos para anotar fuente y licencia.
+El archivo puede llegar por la carpeta de Drive «Vaya turno Claude»,
+como el arte.
+
+---
+
 ## 5b. Texto de efecto en los Recursos 🔶 (columna abierta, sin usar)
 
 `recursos.csv` tiene desde v0.13 una columna **`texto`**, vacía en las 43
